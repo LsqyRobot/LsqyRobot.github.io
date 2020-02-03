@@ -173,7 +173,57 @@
 <p>部分Latex命令简介</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\&quot;           产生重音号</span><br><span class="line">#　　　　　　　在用户自定义命令或环境时被用作变量替换符</span><br><span class="line">\|           产生　||</span><br><span class="line">~            产生单词间的正常空格，但是禁止在这里换行</span><br></pre></td></tr></table></figure>
 <p>感觉写的好少啊，不过最近实在太忙，无心顾及这些。。。。</p>
-<p><strong>未完待续</strong></p>
+<h3 id="之前写过的东西"><a href="#之前写过的东西" class="headerlink" title="之前写过的东西"></a>之前写过的东西</h3><p>记得那是前年夏天了，是啊，不知不觉间都过去好久了，那个时候帮嘉婷用latex作的流程图，今天无意间发现了，好吧，那就把代码附录在这，供给以后作图时来参考。代码并不复杂，就是有点费时了。</p>
+<p><code>`</code> Latex<br>    % 流程图定义基本形状<br>    \tikzstyle{startstop} = [rectangle, rounded corners, minimum width = 2cm, minimum height=1cm,text centered, draw = black, fill = red!40]<br>    \tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill = blue!40]<br>    \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill = yellow!50]<br>    \tikzstyle{decision} = [diamond, aspect = 2, text centered, draw=black, fill = green!30]<br>    % 箭头形式<br>    \tikzstyle{arrow} = [-&gt;,&gt;=stealth]</p>
+<pre><code>\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=1.5cm]
+%定义流程图具体形状
+\node (start) [startstop] {start};
+\node (pro1) [process,  xshift=2cm, right of =start, align=center ] {Choose the \\ initial parameter};                  % left of=start
+\node (pro2) [process, below of =pro1, yshift=-0.2cm,align=center] {Generate random \\ initial population};
+\node (pro3) [process, left of=pro2, xshift= -2cm,align=center] {Calculate the \\ cost of each \\ raindrop};
+\node (pro4) [process, below of=pro3, yshift= -0.2cm,align=center] {Determine the\\ intensity of flow};
+\node (pro5) [process, right of=pro4, xshift= 3cm,align=center] {Flow streams\\ to the rivers};
+\node (pro6) [process, right of=pro5, xshift= 2cm,align=center] {Folw river \\ to the sea};
+\node (dec1) [decision, above of=pro6, yshift= 1cm,align=center] {Have a  lower\\ function  value than\\ corresponding river?};
+\node (dec2) [decision, right of=dec1, xshift= 5cm,align=center] {Have a lower\\ function value than\\ sea?};
+%\node (pro7) [process, right of=dec1, xshift= 3cm] {PROCESS 7};
+\node (pro8) [process, above of=dec1, yshift= 2cm,align=center] {Exchange the position\\ of the stream with \\ the corresponding river };
+\node (pro7) [process, below of=dec2, yshift= -2cm,align=center] {Exchange the position \\ of the river \\ with the sea};
+\node (dec3) [decision, below of=pro7, yshift= -1cm,align=center] {Is the evaporation\\ condition satisfied?};
+\node (pro9) [process, left of=dec3, xshift= -3.5cm,align=center] {Create clouds \\ and then  start\\ raining process};
+\node (pro10) [process, left of=pro9, xshift= -2cm,align=center] {Decrease the value \\ of the $d_{max}$};
+\node (dec4) [decision, left of=pro10, xshift= -3cm,align=center] {Is the  convergence\\ criteria satisfied?};
+\node (end) [startstop, below of=dec4,yshift= -3cm] {end};
+
+
+
+%连接具体形状
+\draw [arrow](start) -- (pro1);
+\draw [arrow](pro1) -- (pro2);
+\draw [arrow](pro2) -- (pro3);
+\draw [arrow](pro3) -- (pro4);
+\draw [arrow](pro4) -- (pro5);
+\draw [arrow](pro5) -- (pro6);
+\draw [arrow](pro6) -- (dec1);
+\draw [arrow](dec1) -- node[anchor=west] {YES} (pro8);
+\draw [arrow](dec1) -- node[anchor=north] {NO} (dec2);
+\draw [arrow](pro8) -|(dec2);
+\draw [arrow](dec2) -- node[anchor=west] {YES} (pro7);
+\draw [arrow](pro7) -- (dec3);
+\draw [arrow](dec2) -- ($(dec2.east) + (0.1,0)$) node[anchor=south] {NO} |- (dec3);
+\draw [arrow](dec3) -- node[anchor=north] {YES}(pro9);
+\draw [arrow](pro9) -- (pro10);
+\draw [arrow](pro10) -- (dec4);
+\draw [arrow](dec3) -- ($(dec3.south) + (0,-1)$)node[anchor=north] {NO}-|(pro10);
+\draw [arrow](dec4) -- ($(dec4.north)+(0,0.4) $)node[anchor=east] {NO}-|(pro5);
+\draw [arrow](dec4) -- node[anchor=west] {YES} (end);
+
+\end{tikzpicture}
+\caption{\label{fig: } 示例图}
+\end{figure}
+</code></pre><p><strong>未完待续</strong></p>
 
             </div>
 

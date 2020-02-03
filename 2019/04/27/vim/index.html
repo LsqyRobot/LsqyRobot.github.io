@@ -161,9 +161,8 @@
 <p>12, :write !wc  统计字数;J 命令则用来把当前行和下一行连接在一起.”yas” 命令拷贝一个句子.</p>
 <p>13, 宏的录制，在Normal模式下先按q,录制的符号可以在[a-z]中选择(假设这里选择了a)，就像标记m那样，一系列胡乱操作后，在Normal模式下按q停止，想重复录制的内容，按下@a就行,喜欢重复的又不想连续按@a的可以输入.来重复上一过程.</p>
 <p>14, 在当前行正好处于窗口顶部或底部时，有时我会滚动一下屏幕，以便看到更多的上下文.用 zz (用<strong>智障</strong>记忆，很快的…)命令可以重绘屏幕，并把当前行显示在窗口正中，这样就能够阅读当前行之上及之下的半屏内容.</p>
-<p>15, :Sex  水平分割一个窗口，浏览文件系统； :Vex  垂直分割一个窗口，浏览文件系统；(安装了插件后，就没用过这个功能了)</p>
-<p>16, m{a-z}: 标记光标所在位置，局部标记，只用于当前文件.m{A-Z}: 标记光标所在位置，全局标记.标记之后，退出Vim， 重新启动，标记仍然有效.:marks 显示所有标记.</p>
-<p>:delmarks!  删除当前缓冲区的所有标记.</p>
+<p>15, :Sex  水平分割一个窗口，浏览文件系统； :Vex  垂直分割一个窗口，浏览文件系统；(安装了插件后，就没用过这个功能了),有必要补充一句，如果在mac中，感觉分割窗口并不是必须的，如果屏幕比较小，看起来挺难受的，ctrl+N, 这样就另开了一个命令行，然后通过触摸板，用手势即可切换，长时间的编辑，有的时候受不了那种强度，所以换换口味也挺好。</p>
+<p>16, m{a-z}: 标记光标所在位置，局部标记，只用于当前文件.m{A-Z}: 标记光标所在位置，全局标记.标记之后，退出Vim， 重新启动，标记仍然有效.:marks 显示所有标记.  :delmarks!  删除当前缓冲区的所有标记.</p>
 <p>17, <code>&quot;: 移动到上次离开的地方.</code>.(‘’): 移动到最后改动的地方.</p>
 <p>18, %: 不仅能移动到匹配的(),{}或[]上，而且能在#if，#else， #endif之间跳跃.</p>
 <p>19, :r !date 在光标处插入当前日期与时间.同理，:r !command可以将其它shell命令的输出插入当前文档.</p>
@@ -172,7 +171,8 @@
 <p>22, 自动缩进的一种简洁形式gg=G.</p>
 <p>23, Vim 有一套功能非常强大的命令,可以完成所有功能。但有些东西外部命令能够完成得更好或者更快。命令 “!{motion}{program}” 用一个外部程序对一个文本块进行过滤。换句话说,它用一个文本块作为输入,执行一个由{program}指定的外部命令,然后用该程序的输出替代选中的文本块.</p>
 <p>24, 在插入模式，当我们按下<ctrl> + R键，再加上相应的寄存器的名字，就可以插入寄存器中的内容了。 无名寄存器用(“)来标识，如果没指定的话，复制(y)，剪切(x,s,d,c和他们的大写)，粘贴(p)命令都会将内容存放到这个寄存器里面，或是从这个寄存器里面来读取内容。查看寄存器:reg，　这个用起来会非常方便，就像把一些自己会用到的内容放在一个寄存器中，想调出来”” + 寄存器名字　＋操作”即可。</ctrl></p>
-<p>25, 如果厌倦了使用ESC,&lt;c-[&gt;,<c-c>来切换，不妨更改一下映射关系，自己是这么做的： :imap oo <esc></esc></c-c></p>
+<p>25, 如果厌倦了使用ESC,&lt;c-[&gt;,<c-c>来切换，不妨更改一下映射关系，自己是这么做的： :imap oo <esc>, 买了HHKB后，这个语句就从配置文件中消失了。。。。。还有，HHKB真香,不过适用的群体真的很小众，如果是用来打游戏，还是别了，会让你失望的。</esc></c-c></p>
+<p>26, &gt;&gt; 当前行增加缩进 &lt;&lt; 当前行减少缩进, 个人比较喜欢在可视模式中使用这个。</p>
 <h4 id="编写库脚本"><a href="#编写库脚本" class="headerlink" title="编写库脚本"></a>编写库脚本</h4><p>有些功能会在多个地方调用。如果这已经不是一两行的代码,你可能会希望把这些代码放进脚本,然后被许多其它脚本使用。我们把这种脚本称为库脚本。 可以手动载入库脚本,只要你不要重复调用它就行了。用 |exists()| 函数可以判断。</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> !exists(<span class="string">'*MyLibFunction'</span>)</span><br><span class="line"><span class="keyword">runtime</span> library/mylibscript.<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"><span class="keyword">call</span> MyLibFunction(arg)</span><br></pre></td></tr></table></figure>
 <p>这里你需要知道 MyLibFunction() 在脚本 “library/mylibscript.vim” 里定义,该脚本 在 ’runtimepath’ 的某个目录里。 为了稍稍简化,Vim 提供了自动载入机制。如下所示：</p>
