@@ -77,7 +77,7 @@
 	            <a href="#s1">分类</a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/web/">web</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </li></ul>
 	        </li>
 	        
@@ -130,20 +130,24 @@
 
 
         <div id="main">
-            <div class="post_page_title_img" style="height: 25rem;background-image: url(https://github.com/LsqyRobot/LsqyRobot.github.io/blob/master/images/JiJie201909062.jpg?raw=true);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
+            <div class="post_page_title_img" style="height: 25rem;background-image: url(/images/JiJie201909062.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>Latex</h2></a>
             </div>
             <div class="typo" style="padding: 3rem;">
                  <p id="div-border-left-red"> 善张网者引其纲,不一一摄万目而后得。 </p>
 
 
-<p>如果不想折腾，可以去这个网站去下载些书籍的模板<a href="https://www.latextemplates.com/cat/books" target="_blank" rel="noopener">1</a>，<a href="https://www.overleaf.com/gallery/tagged/book" target="_blank" rel="noopener">2</a></p>
-<p>这主要是方便自己以后看的，所以也没有好好的整理，等到积累到一定程度的时候，再好好的整理一下。</p>
+<p>如果不想折腾，可以去这个网站去下载些书籍的模板<a href="https://www.latextemplates.com/cat/books" target="_blank" rel="noopener">1</a>，<a href="https://www.overleaf.com/gallery/tagged/book" target="_blank" rel="noopener">2</a>, 实践是学习这个工具的最好方法。</p>
+<p>这主要是方便自己以后看的，所以也没有好好的整理，等到积累到一定程度的时候，再好好的整理一下。 现在纠结一个问题，要不要好好学习下tikz的，学习好了自然对于美化样式有极大的帮助，但是似乎又偏离了自己的初衷–尽量的节省时间。</p>
 <p>1, 利用 \hfill 容易使单行文本左对齐、右对齐或居中对齐。</p>
 <p>2, \dotfill,\hrulefill 分别用点线和实线填充空白。</p>
 <p>3, 段落首行缩进的距离由长度\parindent决定，对于中文, 命令 \setlength{\parindent}{2em}可使每段首行缩进两个汉字的距离, 若使首行不缩进，可在开始放上命令 \noindent. 但是每一节的第一段的首行并不会缩进，可在第一段的开始放上命令 \usepackage{indentfirst}即可</p>
 <p>4, 按照输人的文本原样输出， 可以使用verbatim环境.</p>
 <p>5, \input 命令可以把整体划分为各个单元，这样在写大型的文章，比如毕业论文的时候就非常的有用了。 </p>
+<p>6, \let指令的作用相当于给现有的指令起一个别名以避免的死循环, 可以用在一个单元或章节重新计数用。</p>
+<p>7, LaTex内部有一批计数器，储存当前的章节号，它们的名称就是相应的章节，如果想改变章节计数器的初始值，可用如下形式的命令</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">setcounter</span><span class="string">&#123;章节计数器的名称&#125;</span><span class="string">&#123;数&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>这个命令应放在章节命令之前，新的章节的序号值是这个初始值加 1</p>
 <h3 id="自定义模版过程"><a href="#自定义模版过程" class="headerlink" title="自定义模版过程"></a>自定义模版过程</h3><p>先写一个最简单的不需要定义模板的样纸，让后一步步的调错，可以说是一种不断的试错中学习。具体内容如下。假设这个文件名字叫做lsqyTest.tex.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\documentclass&#123;article&#125;</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">Hello World!</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
 <p>如果配置好了的话，直接编译(pdflatex,xelatex,lualatex)就行。 当然，期刊的模板内部自定义当然不用我们去修改了，在给定的期刊的模板的tex文件中塞内容就可以，这并没有什么困难的地方。下面考虑自己定义的类文件lsqy.cls，在此先把定义lsqy.cls文件的过程记录在此，并进行说明。</p>
@@ -174,56 +178,36 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\&quot;           产生重音号</span><br><span class="line">#　　　　　　　在用户自定义命令或环境时被用作变量替换符</span><br><span class="line">\|           产生　||</span><br><span class="line">~            产生单词间的正常空格，但是禁止在这里换行</span><br></pre></td></tr></table></figure>
 <p>感觉写的好少啊，不过最近实在太忙，无心顾及这些。。。。</p>
 <h3 id="之前写过的东西"><a href="#之前写过的东西" class="headerlink" title="之前写过的东西"></a>之前写过的东西</h3><p>记得那是前年夏天了，是啊，不知不觉间都过去好久了，那个时候帮嘉婷用latex作的流程图，今天无意间发现了，好吧，那就把代码附录在这，供给以后作图时来参考。代码并不复杂，就是有点费时了。</p>
-<p><code>`</code> Latex<br>    % 流程图定义基本形状<br>    \tikzstyle{startstop} = [rectangle, rounded corners, minimum width = 2cm, minimum height=1cm,text centered, draw = black, fill = red!40]<br>    \tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill = blue!40]<br>    \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill = yellow!50]<br>    \tikzstyle{decision} = [diamond, aspect = 2, text centered, draw=black, fill = green!30]<br>    % 箭头形式<br>    \tikzstyle{arrow} = [-&gt;,&gt;=stealth]</p>
-<pre><code>\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[node distance=1.5cm]
-%定义流程图具体形状
-\node (start) [startstop] {start};
-\node (pro1) [process,  xshift=2cm, right of =start, align=center ] {Choose the \\ initial parameter};                  % left of=start
-\node (pro2) [process, below of =pro1, yshift=-0.2cm,align=center] {Generate random \\ initial population};
-\node (pro3) [process, left of=pro2, xshift= -2cm,align=center] {Calculate the \\ cost of each \\ raindrop};
-\node (pro4) [process, below of=pro3, yshift= -0.2cm,align=center] {Determine the\\ intensity of flow};
-\node (pro5) [process, right of=pro4, xshift= 3cm,align=center] {Flow streams\\ to the rivers};
-\node (pro6) [process, right of=pro5, xshift= 2cm,align=center] {Folw river \\ to the sea};
-\node (dec1) [decision, above of=pro6, yshift= 1cm,align=center] {Have a  lower\\ function  value than\\ corresponding river?};
-\node (dec2) [decision, right of=dec1, xshift= 5cm,align=center] {Have a lower\\ function value than\\ sea?};
-%\node (pro7) [process, right of=dec1, xshift= 3cm] {PROCESS 7};
-\node (pro8) [process, above of=dec1, yshift= 2cm,align=center] {Exchange the position\\ of the stream with \\ the corresponding river };
-\node (pro7) [process, below of=dec2, yshift= -2cm,align=center] {Exchange the position \\ of the river \\ with the sea};
-\node (dec3) [decision, below of=pro7, yshift= -1cm,align=center] {Is the evaporation\\ condition satisfied?};
-\node (pro9) [process, left of=dec3, xshift= -3.5cm,align=center] {Create clouds \\ and then  start\\ raining process};
-\node (pro10) [process, left of=pro9, xshift= -2cm,align=center] {Decrease the value \\ of the $d_{max}$};
-\node (dec4) [decision, left of=pro10, xshift= -3cm,align=center] {Is the  convergence\\ criteria satisfied?};
-\node (end) [startstop, below of=dec4,yshift= -3cm] {end};
-
-
-
-%连接具体形状
-\draw [arrow](start) -- (pro1);
-\draw [arrow](pro1) -- (pro2);
-\draw [arrow](pro2) -- (pro3);
-\draw [arrow](pro3) -- (pro4);
-\draw [arrow](pro4) -- (pro5);
-\draw [arrow](pro5) -- (pro6);
-\draw [arrow](pro6) -- (dec1);
-\draw [arrow](dec1) -- node[anchor=west] {YES} (pro8);
-\draw [arrow](dec1) -- node[anchor=north] {NO} (dec2);
-\draw [arrow](pro8) -|(dec2);
-\draw [arrow](dec2) -- node[anchor=west] {YES} (pro7);
-\draw [arrow](pro7) -- (dec3);
-\draw [arrow](dec2) -- ($(dec2.east) + (0.1,0)$) node[anchor=south] {NO} |- (dec3);
-\draw [arrow](dec3) -- node[anchor=north] {YES}(pro9);
-\draw [arrow](pro9) -- (pro10);
-\draw [arrow](pro10) -- (dec4);
-\draw [arrow](dec3) -- ($(dec3.south) + (0,-1)$)node[anchor=north] {NO}-|(pro10);
-\draw [arrow](dec4) -- ($(dec4.north)+(0,0.4) $)node[anchor=east] {NO}-|(pro5);
-\draw [arrow](dec4) -- node[anchor=west] {YES} (end);
-
-\end{tikzpicture}
-\caption{\label{fig: } 示例图}
-\end{figure}
-</code></pre><p><strong>未完待续</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">% 流程图定义基本形状</span><br><span class="line">\tikzstyle&#123;startstop&#125; = [rectangle, rounded corners, minimum width = 2cm, minimum height=1cm,text centered, draw = black, fill = red!40]</span><br><span class="line">\tikzstyle&#123;io&#125; = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill = blue!40]</span><br><span class="line">\tikzstyle&#123;process&#125; = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill = yellow!50]</span><br><span class="line">\tikzstyle&#123;decision&#125; = [diamond, aspect = 2, text centered, draw=black, fill = green!30]</span><br><span class="line">% 箭头形式</span><br><span class="line">\tikzstyle&#123;arrow&#125; = [-&gt;,&gt;=stealth]</span><br><span class="line"></span><br><span class="line">\begin&#123;figure&#125;[htbp]</span><br><span class="line">\centering</span><br><span class="line">\begin&#123;tikzpicture&#125;[node distance=1.5cm]</span><br><span class="line">%定义流程图具体形状</span><br><span class="line">\node (start) [startstop] &#123;start&#125;;</span><br><span class="line">\node (pro1) [process,  xshift=2cm, right of =start, align=center ] &#123;Choose the \\ initial parameter&#125;;                  % left of=start</span><br><span class="line">\node (pro2) [process, below of =pro1, yshift=-0.2cm,align=center] &#123;Generate random \\ initial population&#125;;</span><br><span class="line">\node (pro3) [process, left of=pro2, xshift= -2cm,align=center] &#123;Calculate the \\ cost of each \\ raindrop&#125;;</span><br><span class="line">\node (pro4) [process, below of=pro3, yshift= -0.2cm,align=center] &#123;Determine the\\ intensity of flow&#125;;</span><br><span class="line">\node (pro5) [process, right of=pro4, xshift= 3cm,align=center] &#123;Flow streams\\ to the rivers&#125;;</span><br><span class="line">\node (pro6) [process, right of=pro5, xshift= 2cm,align=center] &#123;Folw river \\ to the sea&#125;;</span><br><span class="line">\node (dec1) [decision, above of=pro6, yshift= 1cm,align=center] &#123;Have a  lower\\ function  value than\\ corresponding river?&#125;;</span><br><span class="line">\node (dec2) [decision, right of=dec1, xshift= 5cm,align=center] &#123;Have a lower\\ function value than\\ sea?&#125;;</span><br><span class="line">%\node (pro7) [process, right of=dec1, xshift= 3cm] &#123;PROCESS 7&#125;;</span><br><span class="line">\node (pro8) [process, above of=dec1, yshift= 2cm,align=center] &#123;Exchange the position\\ of the stream with \\ the corresponding river &#125;;</span><br><span class="line">\node (pro7) [process, below of=dec2, yshift= -2cm,align=center] &#123;Exchange the position \\ of the river \\ with the sea&#125;;</span><br><span class="line">\node (dec3) [decision, below of=pro7, yshift= -1cm,align=center] &#123;Is the evaporation\\ condition satisfied?&#125;;</span><br><span class="line">\node (pro9) [process, left of=dec3, xshift= -3.5cm,align=center] &#123;Create clouds \\ and then  start\\ raining process&#125;;</span><br><span class="line">\node (pro10) [process, left of=pro9, xshift= -2cm,align=center] &#123;Decrease the value \\ of the $d_&#123;max&#125;$&#125;;</span><br><span class="line">\node (dec4) [decision, left of=pro10, xshift= -3cm,align=center] &#123;Is the  convergence\\ criteria satisfied?&#125;;</span><br><span class="line">\node (end) [startstop, below of=dec4,yshift= -3cm] &#123;end&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">%连接具体形状</span><br><span class="line">\draw [arrow](start) -- (pro1);</span><br><span class="line">\draw [arrow](pro1) -- (pro2);</span><br><span class="line">\draw [arrow](pro2) -- (pro3);</span><br><span class="line">\draw [arrow](pro3) -- (pro4);</span><br><span class="line">\draw [arrow](pro4) -- (pro5);</span><br><span class="line">\draw [arrow](pro5) -- (pro6);</span><br><span class="line">\draw [arrow](pro6) -- (dec1);</span><br><span class="line">\draw [arrow](dec1) -- node[anchor=west] &#123;YES&#125; (pro8);</span><br><span class="line">\draw [arrow](dec1) -- node[anchor=north] &#123;NO&#125; (dec2);</span><br><span class="line">\draw [arrow](pro8) -|(dec2);</span><br><span class="line">\draw [arrow](dec2) -- node[anchor=west] &#123;YES&#125; (pro7);</span><br><span class="line">\draw [arrow](pro7) -- (dec3);</span><br><span class="line">\draw [arrow](dec2) -- ($(dec2.east) + (0.1,0)$) node[anchor=south] &#123;NO&#125; |- (dec3);</span><br><span class="line">\draw [arrow](dec3) -- node[anchor=north] &#123;YES&#125;(pro9);</span><br><span class="line">\draw [arrow](pro9) -- (pro10);</span><br><span class="line">\draw [arrow](pro10) -- (dec4);</span><br><span class="line">\draw [arrow](dec3) -- ($(dec3.south) + (0,-1)$)node[anchor=north] &#123;NO&#125;-|(pro10);</span><br><span class="line">\draw [arrow](dec4) -- ($(dec4.north)+(0,0.4) $)node[anchor=east] &#123;NO&#125;-|(pro5);</span><br><span class="line">\draw [arrow](dec4) -- node[anchor=west] &#123;YES&#125; (end);</span><br><span class="line"></span><br><span class="line">\end&#123;tikzpicture&#125;</span><br><span class="line">\caption&#123;\label&#123;fig: &#125; 示例图&#125;</span><br><span class="line">\end&#123;figure&#125;</span><br></pre></td></tr></table></figure>
+<p>需求：在tabular表格环境中，不同区域想设定一些背景颜色来更好突出重点信息。</p>
+<p>宏包：\usepackage{colortbl}<br>环境：tabular<br>命令：\rowcolor{颜色}、\columncolor{颜色}、\cellcolor{颜色}<br>含义：一整行颜色设定、一整列颜色设定、最小单元颜色设定</p>
+<p>\rowcolor：用在每一行的最开头；将整行设定为同一背景色；<br>\columncolor：只能用在tabular环境开头”居中参数设定区”内；整列颜色设定；<br>\cellcolor：每个单元前；表格最小单元的颜色设定；</p>
+<p>优先级：单元 &gt; 行设定 &gt; 列设定<br>含义：列设定最先设定，行设定次之，单元最后；但是单元设定可替换行、列设定，行设定可以替换列设定。可以想象，替换方式的存在可以满足各种形式、区域的颜色搭配。</p>
+<p>在定义页眉页脚时遇到了些困难，现在记录一些笔记(&lt;&lt; &gt;&gt;)。</p>
+<p> 在一个页面上排放文本的区域分成 4 部分：页眉（Header）、页芯（Body）、页脚（footer）和边注（Margin Notes)2, 在它们的外部是页边空白区域，各部分的尺寸以及相互之间的距离参见下一页的图形。该图形显示的是在 A4 纸上排版 article 类文章时的页面布局，对于 book 类或 report 类的页面，除了各部分的尺寸与 article 类有所不同外，边注区的位置还与奇偶页码有关，使得装订成书后边注总是在外侧控制页面版式的命令通常放在导言区，命令格式为 </p>
+ <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">pagestyle</span><span class="string">&#123;板式&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>其中版式有如下几种(默认下的)</p>
+<p>plain 这是默认的页面版式，即当导言区没有\pagestyle时，相当于在导言区放上了命令\pagestyle{plain｝。排版输出时页面的页眉区是空的，页码居中放在页脚区。</p>
+<p>empty 页面的页眉和页脚都是空的，并且不显示页码。</p>
+<p>headings 页眉由页码和页眉标题组成，对于 book 类和 report 类，页眉标题含有章和节的标题，对于 article 类，只有节标题，这些标题是从当前页自动提取的，但每一章的第一页不显示页眉</p>
+<p>页码的编号可以用阿拉伯数字、罗马数字或拉丁字母，指定页码样式的命令是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">pagenumbering</span><span class="string">&#123;数字形式&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>系统内部有一个页码计数器，记录当前页的页码。每生成一页，计数器就自动加 1, 这个新值就是新页的页码。如果想使起始页码不从 1 开始，或者使当前页从新的值开始计数，可使用如下命令重置计数器的值：</p>
+<p>在 book 类，命令</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\frontmatter</span></span><br></pre></td></tr></table></figure>
+<p>把页码切换成罗马数字格式，并且不再对章进行自动编号，这个命令通常放在前言和目录前面。命令</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\mainmatter</span></span><br></pre></td></tr></table></figure>
+<p>把页码切换成阿拉伯数字，并对章进行自动编号，这个命令通常放在正文主体前面命令</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\backmatter</span></span><br></pre></td></tr></table></figure>
+<p>通常放在参考文献和索引前面，它不再对章进行自动编号，但不改变页码数字格式，不重设页码计数器。</p>
+<h3 id="自定义页眉与页脚"><a href="#自定义页眉与页脚" class="headerlink" title="自定义页眉与页脚"></a>自定义页眉与页脚</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;fancyhdr&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">pagestyle</span><span class="string">&#123;fancy&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>这个宏包把页面分为奇数页（Odd page）和偶数页（Even page）。把页眉和页脚都分成三个区域，分别称为左区（Left field）、中区（Center field）和右区（Right field），这三个区域之间没有分界线，放在左区的内容对齐在页眉（脚）的左边界，放在右区的内容对齐在页眉（脚）的右边界，中区的内容则在页眉（脚）的整个区域里居中放置，各区中的内容不可过长，以避免发生重叠现象。 设置页眉（header）和页脚（footer）的命令分别是</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\fancyhead</span></span><br><span class="line"><span class="string">\fancyfoot</span></span><br></pre></td></tr></table></figure>
+<p>命令</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\headrulewidth</span></span><br><span class="line"><span class="string">\footrulewidth</span></span><br></pre></td></tr></table></figure>
+<p>分别表示页眉和页脚与正文之间装饰性分隔线的粗细，默认值分别是 0.4pt 和0pt 改变其值需要使用\renewcommand。命令而不是\setlength 命令 </p>
+<p>在单独成页的 chapter 这一页。会自动应用 plain 风格。因此如果希望改变章首页的样式，则应该定义 plain 样式(这句话是重点，如果发现改动不了单独成页的那栏，可以好好考虑这一句话。</p>
+<p><strong>未完待续</strong></p>
 
             </div>
 
