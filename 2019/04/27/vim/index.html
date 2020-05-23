@@ -124,7 +124,8 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>vim</h2></a>
             </div>
             <div class="typo" style="padding: 3rem;">
-                <p><span id="inline-red"> 编辑器之神–vim </span></p>
+                <p id="div-border-left-green"> 编辑器之神</p>
+
 <p>花时间找易用的工具，不如花时间掌握强大的工具. 收集了一些自己经常使用的一些指令，这个工具强大之处在于自定义，BE WATER． 不一定是程序员才用VIM，如此高效的工具是值得去学的. 笔记大多来自于《VIM中文手册》(3000多页….), 感谢那些无私奉献的人！里面仅仅摘抄了部分内容.　这个工具用到随心所欲(自己才入门)还是得花一段时间的，如果仅仅是为了能够实现一些其他IDE的功能进而安装大量的插件，而忽略了VIM本身，那我劝你还是直接用其他IDE吧。 或许又有人说了，现成的工具那么好用，为啥还要学这么变态的工具(嗯，一开始是这么认为的). 人生苦短， 少折腾嘛。 有的时候自己也在怀疑自己，是不是有病？可能就是喜欢单纯的折腾吧，毋庸置疑的是，这个工具确实可以帮到自己提升效率，就像屠龙刀一样。 好吧， 闲话扯的太多， 干货一点都没.   这个是通过简单的指令构造出来的复杂, 好比计算机，就用了0，1,可谓大道至简。</p>
 <p>推荐一个视频<a href="https://www.youtube.com/watch?v=wlR5gYd6um0" target="_blank" rel="noopener">Mastering the Vim Language</a>,从视频里可以学到很多东西.</p>
 <h3 id="vim基本操作"><a href="#vim基本操作" class="headerlink" title="vim基本操作"></a>vim基本操作</h3><ul>
@@ -164,6 +165,7 @@
 <p>25, 如果厌倦了使用ESC,&lt;c-[&gt;,<c-c>来切换，不妨更改一下映射关系，自己是这么做的： :imap oo <esc>, 买了HHKB后，这个语句就从配置文件中消失了。。。。。还有，HHKB真香,不过适用的群体真的很小众，如果是用来打游戏，还是别了，会让你失望的。</esc></c-c></p>
 <p>26, &gt;&gt; 当前行增加缩进 &lt;&lt; 当前行减少缩进, 个人比较喜欢在可视模式中使用这个。</p>
 <p>27, set ts=4  (注：ts是tabstop的缩写，设TAB宽4个空格) set expandtab</p>
+<p>28, 高级别的补全插件–YouCompleteMe</p>
 <h4 id="编写库脚本"><a href="#编写库脚本" class="headerlink" title="编写库脚本"></a>编写库脚本</h4><p>有些功能会在多个地方调用。如果这已经不是一两行的代码,你可能会希望把这些代码放进脚本,然后被许多其它脚本使用。我们把这种脚本称为库脚本。 可以手动载入库脚本,只要你不要重复调用它就行了。用 |exists()| 函数可以判断。</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> !exists(<span class="string">'*MyLibFunction'</span>)</span><br><span class="line"><span class="keyword">runtime</span> library/mylibscript.<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"><span class="keyword">call</span> MyLibFunction(arg)</span><br></pre></td></tr></table></figure>
 <p>这里你需要知道 MyLibFunction() 在脚本 “library/mylibscript.vim” 里定义,该脚本 在 ’runtimepath’ 的某个目录里。 为了稍稍简化,Vim 提供了自动载入机制。如下所示：</p>
