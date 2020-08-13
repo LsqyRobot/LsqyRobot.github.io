@@ -35,8 +35,6 @@
     </style>
 
 			    
-  
-
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery.scrollex.min.js"></script>
@@ -79,7 +77,7 @@
 	            <a href="#s1">分类</a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </li></ul>
 	        </li>
 	        
@@ -101,6 +99,15 @@
 	        
 			</li>
 
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/">喜欢的句子</a>
+	        
+			</li>
 
 
 
@@ -215,7 +222,35 @@
 <p>创建功能包</p>
 </blockquote>
 <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">catkin_create_pkg &lt;package_name&gt; <span class="string">[depend1]</span> <span class="string">[depend2]</span> <span class="string">[depend3]</span></span><br></pre></td></tr></table></figure>
-<h3 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h3><p>(1) 可以通过rqt_graph来更好的理解在launch文件中所做的事情</p>
+<h4 id="话题编程"><a href="#话题编程" class="headerlink" title="话题编程"></a>话题编程</h4><blockquote>
+<p>编译代码的方式</p>
+</blockquote>
+<ul>
+<li>(1)  设置需要编译的代码和生成的可执行文件；</li>
+<li>(2)  设置链接库；</li>
+<li>(3)  设置依赖。<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">add_executable(<span class="name">talker</span> src/talker.cpp)</span><br><span class="line">target_link_libraries(<span class="name">talker</span> $&#123;catkin_LIBRARIES&#125;)</span><br><span class="line"># add_dependencies(<span class="name">talker</span> $&#123;PROJECT_NAME&#125;_generate_messages_cpp)</span><br><span class="line">add_executable(<span class="name">listener</span> src/listener.cpp)</span><br><span class="line">target_link_libraries(<span class="name">listener</span> $&#123;catkin_LIBRARIES&#125;)</span><br><span class="line"># add_dependencies(<span class="name">talker</span> $&#123;PROJECT_NAME&#125;_generate_messages_cpp)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="自定义话题消息"><a href="#自定义话题消息" class="headerlink" title="自定义话题消息"></a>自定义话题消息</h5><blockquote>
+<p>定义 msg 文件；</p>
+<p>在 package.xml中添加功能包依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>message_runtime<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 CMakeLists.txt添加編译选项       </p>
+</blockquote>
+<ul>
+<li>(1)  find_package( …… message_generation)</li>
+<li>(2) catkin_package(CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs message_runtime)</li>
+<li>(3) add_message_files(FILES Person.msg) generate_messages(DEPENDENCIES std_msgs)</li>
+</ul>
+<h5 id="服务程流程"><a href="#服务程流程" class="headerlink" title="服务程流程"></a>服务程流程</h5><ul>
+<li>(1)  创建服务器</li>
+<li>(2)  创建客户端</li>
+<li>(3)  添加编译选项</li>
+<li>(4)  运行可执行程序</li>
+</ul>
+<h3 id="零散的点"><a href="#零散的点" class="headerlink" title="零散的点"></a>零散的点</h3><p>(1) 可以通过rqt_graph来更好的理解在launch文件中所做的事情</p>
 
             </div>
 

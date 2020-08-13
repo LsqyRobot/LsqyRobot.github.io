@@ -35,8 +35,6 @@
     </style>
 
 			    
-  
-
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery.scrollex.min.js"></script>
@@ -79,7 +77,7 @@
 	            <a href="#s1">分类</a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </li></ul>
 	        </li>
 	        
@@ -101,6 +99,15 @@
 	        
 			</li>
 
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/">喜欢的句子</a>
+	        
+			</li>
 
 
 
@@ -165,12 +172,12 @@
 <p>25, 如果厌倦了使用ESC,<c-[>,<c-c>来切换，不妨更改一下映射关系，自己是这么做的： :imap oo <esc>, 买了HHKB后，这个语句就从配置文件中消失了。。。。。还有，HHKB真香,不过适用的群体真的很小众，如果是用来打游戏，还是别了，会让你失望的。</esc></c-c></c-[></p>
 <p>26, &gt;&gt; 当前行增加缩进 &lt;&lt; 当前行减少缩进, 个人比较喜欢在可视模式中使用这个。</p>
 <p>27, set ts=4  (注：ts是tabstop的缩写，设TAB宽4个空格) set expandtab</p>
-<p>28, 高级别的补全插件—YouCompleteMe</p>
+<p>28, 高级别的补全插件—YouCompleteMe(在自己电脑里编译N次都没成功)</p>
 <h4 id="编写库脚本"><a href="#编写库脚本" class="headerlink" title="编写库脚本"></a>编写库脚本</h4><p>有些功能会在多个地方调用。如果这已经不是一两行的代码,你可能会希望把这些代码放进脚本,然后被许多其它脚本使用。我们把这种脚本称为库脚本。 可以手动载入库脚本,只要你不要重复调用它就行了。用 |exists()| 函数可以判断。</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> !exists(<span class="string">'*MyLibFunction'</span>)</span><br><span class="line"><span class="keyword">runtime</span> library/mylibscript.<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"><span class="keyword">call</span> MyLibFunction(arg)</span><br></pre></td></tr></table></figure>
 <p>这里你需要知道 MyLibFunction() 在脚本 “library/mylibscript.vim” 里定义,该脚本 在 ’runtimepath’ 的某个目录里。 为了稍稍简化,Vim 提供了自动载入机制。如下所示：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> mylib#myfunction(arg)</span><br></pre></td></tr></table></figure>
-<p>下面的内容源自于书籍hackingvim(从书中学到了不少技巧).<br>在Vim中, 与高亮相关的技术是匹配(matching).匹配通过下面这个命令完成:</p>
+<p>下面的内容源自于书籍HACKINGVIM<br>在Vim中, 与高亮相关的技术是匹配(matching).匹配通过下面这个命令完成:</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:<span class="keyword">match</span> Group /pattern/</span><br></pre></td></tr></table></figure>
 <p>比如超过一行内的11个字符以后的字符被标记为错误</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:<span class="keyword">match</span> ErrorMsg /\%&gt;<span class="number">11</span>v.\+/</span><br></pre></td></tr></table></figure>
@@ -184,11 +191,10 @@
 <p>比如写个编程模板(tex,等等都是可以自定义的)<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iabbr forx for(x=0;x&lt;100;x++)&#123;&lt;cr&gt;&lt;cr&gt;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在许多程序与操作系统中, 用户只能利用一个剪贴板来完成文本的剪切与复制. 在 Vim 中不会出现这种情况,因为用户可以访问多达 9 种不同的剪贴板, 更准确来说, 应该是 9 种不的寄存器类型.</p>
 <p>有些寄存器类型的工作领域有所重叠, 但还有一些则拥有自己独特的目的. 用户可以在多种不同的命令或操 作中 (比如复制, 删除, 粘贴) 使用寄存器. 寄存器的名字都以双引号 “ 开始, 比如 “x, 所以, 现在让我们来看一下 如何使用一个寄存器. 假设我们现在要用的寄存器是 “x 为了把某段文本复制到寄存器中, 可以用命令 y 来完成, 不过这次有所不同, 在复制之前, 我们先告诉 Vim 被 复制文本的存放位置: “xy (用 “xyy 可以复制一整行) 对于用来剪切文本的命令 x 也是一样的: “xx 对于删除文本的命令 d 则是: “xd 现在, 用户已经在寄存器 “x 中存放了一段文本, 并且想要把这段文本粘贴到正式文本中, 可以用命令 P (粘贴 在光标位置之前) 或 p (粘贴在光标位置之后), 但在粘贴之前, 我们要先指定寄存器: “xP 或 “xp 如果用户忘记自己使用了哪些寄存器, 可以执行命令: :registers.更多的内容可以通过网络搜索获得，这里就不加赘述了.</p>
-<h4 id="部分技巧-tex"><a href="#部分技巧-tex" class="headerlink" title="部分技巧(tex)"></a>部分技巧(tex)</h4><p>这里不知道为什么渲染不出来….罢了….</p>
+<p>由于一些笔记是在latex里面记录的，这里就直接使用latex中的语法列出表格</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;table&#125; </span><br><span class="line">    \begin&#123;tabular&#125;&#123;llll&#125; </span><br><span class="line">        \hline</span><br><span class="line">目的                     &amp;   操作                   &amp;重复              &amp;    回退   \\  \hline</span><br><span class="line">做出一个修改             &amp;  &#123;edit&#125;                  &amp;      .           &amp;   u       \\</span><br><span class="line">在行内查找下一指定字符   &amp;  f&#123;char&#125;/t&#123;char&#125;         &amp;   ;              &amp;    ,      \\</span><br><span class="line">在行内查找上一指定字符   &amp;  F&#123;char&#125;/T&#123;char&#125;         &amp;   ;              &amp;    ,      \\</span><br><span class="line">在文档中查找下一处匹配项 &amp;  /pattern&lt;CR&gt;            &amp;    n             &amp;    N      \\</span><br><span class="line">在文档中查找上一处匹配项 &amp;  ?pattern&lt;CR&gt;            &amp;    n             &amp;    N      \\</span><br><span class="line">执行替换                 &amp;   :s/target/replacement  &amp;   \&amp;             &amp;    u      \\</span><br><span class="line">执行一系列修改           &amp;   qx&#123;changes&#125;q           &amp;   @x             &amp;    u      \\    \hline</span><br><span class="line">    \end&#123;tabular&#125;</span><br><span class="line">    \caption&#123;someThing&#125; </span><br><span class="line">\end&#123;table&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;table&#125;</span><br><span class="line">    \begin&#123;tabular&#125;&#123;ll&#125;</span><br><span class="line">        \hline</span><br><span class="line">命令   &amp;            用途                                         \\  \hline</span><br><span class="line">c      &amp;           修改                                          \\</span><br><span class="line">d      &amp;           删除                                          \\</span><br><span class="line">y      &amp;           复制到寄存器                                  \\</span><br><span class="line">g~     &amp;            反转大小写                                   \\</span><br><span class="line">gu     &amp;            转换为小写                                   \\</span><br><span class="line">gU     &amp;            转换为大写                                   \\</span><br><span class="line">&gt;      &amp;            增加缩进                                     \\</span><br><span class="line">&lt;      &amp;            减小缩进                                     \\</span><br><span class="line">=      &amp;            自动缩进                                     \\</span><br><span class="line">!      &amp;            使用外部程序过滤&#123;motion&#125;所跨越的行           \\  \hline</span><br><span class="line">\end&#123;tabular&#125;</span><br><span class="line">\caption&#123;vim 的操作符命令&#125;</span><br><span class="line">\end&#123;table&#125;</span><br></pre></td></tr></table></figure>
 <p>当然，不要一昧的追求插件，适可而止。原生的vim已经非常强大了。</p>
-<p><strong>未完待续</strong></p>
 
             </div>
 
