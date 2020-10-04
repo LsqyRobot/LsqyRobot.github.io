@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html>
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="bookmark" type="image/x-icon" href="/img/favicon.ico">
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/css/timeLine.css">
+    <link rel="stylesheet" href="/css/lsqy_main.css">
+    <link rel="stylesheet" href="/css/dropdownMenu.css">
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot">
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css">
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url(https://source.unsplash.com/random/1600x900) center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	    
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/dytitle.js"></script>
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+    <script type="text/javascript" src="/js/fireworks.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+</head>
+		
+
+
+<link rel="stylesheet" href="/css/prism_coy.css">
+<link rel="stylesheet" href="/css/typo.css">
+<body class="is-loading">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrapper" class="fade-in">
+        <header id="header">
+    <a href="/" class="logo">dots</a>
+</header>
+
+        <nav id="nav" class="special">
+            <ul class="menu links">
+			<!-- Homepage  主页  --> 
+			<li>
+	            <a href="/" rel="nofollow">H</a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                    </li></ul>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/">历</a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/">友</a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/">句</a>
+	        
+			</li>
+
+
+
+
+
+
+
+
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main">
+            <div class="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/storybook-2647359_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>运动控制系统简介</h2></a>
+            </div>
+
+            <div class="typo" style="padding: 3rem;">
+                <!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#运动控制">运动控制</a><ul>
+<li><a href="#电机控制与运动控制">电机控制与运动控制</a></li>
+<li><a href="#伺服电机的构成">伺服电机的构成</a></li>
+<li><a href="#运动控制系统的典型构成">运动控制系统的典型构成</a></li>
+</ul>
+</li>
+<li><a href="#位置控制">位置控制</a><ul>
+<li><a href="#周期同步位置模式-csp">周期同步位置模式 <strong>(CSP)</strong></a></li>
+<li><a href="#轮廓位置模式-profifile-position-mode">轮廓位置模式 <strong>(Profifile Position Mode)</strong></a></li>
+<li><a href="#位置模式-position-mode">位置模式 <strong>(Position Mode)</strong></a></li>
+</ul>
+</li>
+<li><a href="#伺服系统相关概念">伺服系统相关概念</a></li>
+<li><a href="#参考">参考</a></li>
+</ul>
+<!-- vim-markdown-toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在做伺服电机方面工作，接触到的一些基础的知识，感觉还是非常值得去了解这些内容的，因此将自己从网络上，以及一些手册里的内容，放到这里。</p>
+<h1 id="运动控制"><a href="#运动控制" class="headerlink" title="运动控制"></a>运动控制</h1><p><strong>运动控制</strong>主要分两个方向，一个是运动控制，通常用于机械领域；另一个就是过程控制，通常使用于化工领域。而运动控制指的是一种起源于早期的伺服系统，基于电动机的控制，以实现物体对角位移、转矩、转速等等物理量改变的控制。</p>
+<h2 id="电机控制与运动控制"><a href="#电机控制与运动控制" class="headerlink" title="电机控制与运动控制"></a>电机控制与运动控制</h2><p><strong>电机控制</strong>(这里指伺服电机）主要关注的是控制单个电机的转距、速度、位置中的一个或多个参数达到给定值。而<strong>运动控制</strong>主要关注点在于协调多个电机，完成指定的运动（合成轨迹、合成速度），比较着重轨迹规划、速度规划、运动学转换。</p>
+<p><strong>运动控制</strong>往往是针对产品而言的，包含机械、软件、电气等模块，例如机器人、无人机、运动平台等等，是对机械运动部件的位置、速度等进行实时的控制管理，使其按照预期的运动轨迹和规定的运动参数进行运动的一种控制。</p>
+<p>两者有部分内容是重合的：位置环/速度环/转距环可以在电机的驱动器中实现，也可以在运动控制器中实现.</p>
+<h2 id="伺服电机的构成"><a href="#伺服电机的构成" class="headerlink" title="伺服电机的构成"></a>伺服电机的构成</h2><p>伺服电机的装置由下列三者构成:</p>
+<p>1,发出动作指令的”指示装置”（控制器，Controller）,</p>
+<p>2,依照指示装置的指示讯号与回馈讯号下等指令使电机动作的”控制装置”（伺服放大器），</p>
+<p>3,以及将由伺服放大器而来的电力供给驱动控制对象和侦测其状态的”驱动、感测装置”。</p>
+<h2 id="运动控制系统的典型构成"><a href="#运动控制系统的典型构成" class="headerlink" title="运动控制系统的典型构成"></a>运动控制系统的典型构成</h2><p>1， 开环系统（电机：步进电机；驱动器：脉冲分配，电流放大）</p>
+<p>2，半闭环系统（电机：直流伺服电机、交流伺服电机；驱动器：电流放大，位置反馈控制）</p>
+<p>3，半闭环系统（直流伺服电机、交流伺服电机；驱动器：速度反馈控制，电流放大；运动控制器：运动规划，速度指令，位置反馈取自电机轴）</p>
+<p>4， 全闭环系统（驱动器：速度反馈控制，电流放大；运动控制器：运动规划，速度指令，位置反馈取自负载）</p>
+<p>全闭环伺服系统可以消除机械传动带来的误差，而半闭环系统只能补偿部分误差，因此，半闭环伺服系统的精度比全闭环伺服系统的精度要低一些。由于采用了位置检测装置，所以全闭环系统的位置精度在其他因素确定了之后，主要取决于检测装置的分辨率和精度。</p>
+<p>注意半闭环系统2与3的区别。驱动器如果工作在位置模式，运动控制器就只做位置轨迹的规划（Trajectory generator），每个通信周期发送目标位置到驱动器。驱动器接收到设定位置后，与当前位置比较，并依据控制器-驱动器通信周期与驱动器位置环周期进行线性或者非线性插值，将插值作为每个位置环周期的“设定位置”。</p>
+<p>假设驱动器位置环周期是125us，控制器和驱动器通信周期为 2ms，当前位置为 0，目标位置为 1mm，那么接下来 16 个周期驱动器位置环的“设定位置”就依次为：0.0625mm，0.125mm， 0.1875mm， 0.25mm，……1mm. 如果没有插值，那么接下来驱动器的第 1 个周期的设定位置就是 1mm，驱动器在第 125us时，位置为 1mm，在 2-16 个周期，设定位置维持不变，相当于电机停止，直到第 2ms，接收到新的“给定位置”。由于间隔仅为 2ms，电机并不会真的停止，而是表现为顿挫感，转动不流畅。</p>
+<p>驱动器如果工作在速度模式，那么控制器就不仅做位置曲线的规划，还要完成位置环的调节。此时NC周期与位置环周期相等，不必插值。伺服驱动器的位置环被忽略，其速度环直接接受上层给出的“设定速度。</p>
+<h1 id="位置控制"><a href="#位置控制" class="headerlink" title="位置控制"></a>位置控制</h1><p>位置控制主要有三种模式：周期同步位置模式 (CSP)，轮廓位置模式 (PPM)，位置模式 (PM)。</p>
+<h2 id="周期同步位置模式-CSP"><a href="#周期同步位置模式-CSP" class="headerlink" title="周期同步位置模式 (CSP)"></a>周期同步位置模式 <strong>(CSP)</strong></h2><p>周期同步位置模式 (Cyclic synchronous position mode) ，与轮廓位置模式 (Profifile Position Mode) 不同，其轨迹发生器位于控制器端，而非驱动器内。在该模式下，控制器只需要周期性的下发目标位置即可（与位置插补模式的原理相类似），而且可以设置附加的速度前馈 (Velocity offffset) 或转矩前馈 (Torque offffset)，即轮廓位置模式的 Trajectory Generator 在驱动器内，周期同步位置模式的 Trajectory Generator 在控制器内，而位置模式（Position Mode）、电子手轮模式（Master Encoder Mode）、脉冲/方向模式（Step Direction Mode）则不需要轨迹生成器。</p>
+<h2 id="轮廓位置模式-Profifile-Position-Mode"><a href="#轮廓位置模式-Profifile-Position-Mode" class="headerlink" title="轮廓位置模式 (Profifile Position Mode)"></a>轮廓位置模式 <strong>(Profifile Position Mode)</strong></h2><p>轮廓位置模式下，驱动器接收主站发送来的目标位置指令，在驱动器内部根据速度、加速度规划参数设置进行轨迹规划。例如：应用程序要求伺服轴以设定的速度、加速度运动到某个目标位置，驱动器接到这个指令后，在内部的轨迹生成器中计算出每个 NC 周期（比如：1ms）伺服轴应该到达的位置，然后发送给位置环去执行。</p>
+<h2 id="位置模式-Position-Mode"><a href="#位置模式-Position-Mode" class="headerlink" title="位置模式 (Position Mode)"></a>位置模式 <strong>(Position Mode)</strong></h2><p>位置需求值可直接设定。位置模式允许无轮廓线定位，即目标位置被立即设置为位置控制环的一个新的设定值。位置模式是一种有用的操作模式，在这种情况下，轴作为一个隶属轴，由没有大跳跃的渐进式位置设定值所控制。因此，不需要路径生成器。累进设定值的例子是模拟设定值电压。不产生路径的特殊工作模式是主编码器模式，从轴跟随来自外部编码器的信号脉冲 (例如主轴) 或步进方向模式，步进电机驱动的每个脉冲指令对应一个小的旋转角度。另外的操作模式允许运行运动控制器而不接收在线命令。相反，使用模拟电压信号或信号脉冲作为命令值。这些传入的信号被转换成设定值，直接馈入相应的控制回路而没有一个轮廓或轨迹被产生。</p>
+<h1 id="伺服系统相关概念"><a href="#伺服系统相关概念" class="headerlink" title="伺服系统相关概念"></a>伺服系统相关概念</h1><p>伺服系统通常由三个反馈系统构成，由外到内分别是位置环、速度环和电流环。调整时，内环的响应性要高于外环的响应性，如果不遵守该原则，则会使系统响应性变差或产生振动。<strong>电流环调节器参数仅与电机参数有关</strong>，相同电机的电流环参数确定后，如果负载改变，只需调整速度环调节器参数和位置环调节器参数即可，电流环调节器参数不用再做调整。如下所示为应用在机器人上的三环控制简图(非驱控一体)</p>
+<div align="center"> <img src="/img/postImg/threeLoopControl.svg" width="100%" height="40%"> </div>
+
+
+<p>在交流伺服控制系统中，交流伺服电机运行状态的优劣取决于位置环、速度环和电流环三环控制器设计的好坏。交流伺服控制系统有两种，一种是位置伺服控制系统，包括电流控制器、速度控制器和位置控制器；另一种是速度伺服控制系统，只包括电流控制器和速度控制器。因此选取合适的参数，能够在一定程度上提高系统的快速性、稳定性、准确性。</p>
+<p>在电流控制器、速度控制器和位置控制器中，电流控制器是最关键、重要的环节，因为不管是速度还是位置控制，最后都要转化成对交流电机电流的控制。速度环的作用是保证速度指令与交流电机的实际转速相同，从而消除负载转矩扰动等因素对交流电机的影响，通过交流电机的实际转速和输入的速度指令相比较，速度控制器利用其差值直接产生指令控制电流，并与电流指令共同作用，控制交流电机匀速、加速、减速旋转，从而达到交流电机实际转速与控制指令保持一致。位置环的作用是生成交流电机的速度指令，并能够使交流电机准确的跟踪、定位。交流电机的实际位置与设定的目标位置相比较，位置控制器利用其偏差生成交流电机的速度指令。当交流电机启动后，在距离目标位置较大的区域，位置控制器产生最大速度指令，从而使交流电机加速运动后以最大速度恒速运行，在距离较小的区域，位置控制器生成逐次减小的速度控制指令，从而使交流电机减速运动，直至到目标位置后静止。</p>
+<p>在清能德创的伺服驱动说明书上，有提到过，电流环调节器参数仅与电机参数有关，因此在调整三环控制的时候，仅需要考虑速度环和运动环即可。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>1，<a href="https://home.cnblogs.com/u/21207-iHome/" target="_blank" rel="noopener">XXX已失联</a></p>
+<p>2，<a href="https://www.zhihu.com/people/gk-auto" target="_blank" rel="noopener">gk-auto</a></p>
+<p>3， CoolDrive R 系列伺服驱动器用户说明书</p>
+<p>4, <a href="https://zh.wikipedia.org/wiki/%E4%BC%BA%E6%9C%8D%E9%A6%AC%E9%81%94" target="_blank" rel="noopener">伺服马达—维基百科</a></p>
+
+            </div>
+
+<div align="center"> 
+<li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" alt="知识共享许可协议"></div>
+
+
+        </div>
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+
+
+</html>
