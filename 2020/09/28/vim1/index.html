@@ -10,6 +10,7 @@
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM">
     <link rel="stylesheet" href="/css/timeLine.css">
     <link rel="stylesheet" href="/css/lsqy_main.css">
     <link rel="stylesheet" href="/css/dropdownMenu.css">
@@ -44,10 +45,8 @@
     <script src="/js/dytitle.js"></script>
     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
-    <script type="text/javascript" src="/js/fireworks.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-
-
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+    <script src="/js/codeBlockFuction.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 		
@@ -65,16 +64,16 @@
             <ul class="menu links">
 			<!-- Homepage  主页  --> 
 			<li>
-	            <a href="/" rel="nofollow">H</a>
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
 	        </li>
 
 			<!-- categories_name  分类   --> 
 	        
 	        <li class="active">
-	            <a href="#s1">类</a>
+	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </li></ul>
 	        </li>
 	        
@@ -83,7 +82,7 @@
 	        <!-- about 关于我   --> 
 			<li>
 	        
-	            <a href="/about/">历</a>
+	            <a href="/about/"><img src="/img/about.png"></a>
 	        
 			</li>
 
@@ -92,7 +91,7 @@
 	        <!-- about 关于我的朋友   --> 
 			<li>
 	        
-	            <a href="/friend/">友</a>
+	            <a href="/friend/"><img src="/img/friend.png"></a>
 	        
 			</li>
 
@@ -102,7 +101,7 @@
 	        <!-- about 关于格言   --> 
 			<li>
 	        
-	            <a href="/quote/">句</a>
+	            <a href="/quote/"><img src="/img/quote.png"></a>
 	        
 			</li>
 
@@ -129,7 +128,24 @@
             </div>
 
             <div class="typo" style="padding: 3rem;">
-                <h6 id><a href="#" class="headerlink" title="#"></a>#</h6><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前记的笔记已经在日常生活中大量的使用了，但是还是有很多技巧值得自己去探索，虽然下面的笔记中会经常用到，鉴于笔记的完整性，还是记录下来。这里的笔记很多源自于《vim实用技巧》</p>
+                <!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#理解-vim-寄存器">理解 vim 寄存器</a><ul>
+<li><a href="#复制专用寄存器">复制专用寄存器（”)</a></li>
+<li><a href="#有名寄存器a-z">有名寄存器（”a-“z)</a></li>
+<li><a href="#系统剪贴板与选择专用寄存器">系统剪贴板(“+)与选择专用寄存器(“*)</a></li>
+<li><a href="#表达式寄存器">表达式寄存器(“=)</a></li>
+</ul>
+</li>
+<li><a href="#宏">宏</a><ul>
+<li><a href="#宏的读取与执行">宏的读取与执行</a></li>
+<li><a href="#为不同类型定制样式">为不同类型定制样式</a></li>
+</ul>
+</li>
+</ul>
+<!-- vim-markdown-toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前记的笔记已经在日常生活中大量的使用了，但是还是有很多技巧值得自己去探索，虽然下面的笔记中会经常用到，鉴于笔记的完整性，还是记录下来。这里的笔记很多源自于《vim实用技巧》</p>
 <h1 id="理解-vim-寄存器"><a href="#理解-vim-寄存器" class="headerlink" title="理解 vim 寄存器"></a>理解 vim 寄存器</h1><p>在以前的笔记中只提到一点点，这里多做一些说明。 vim 不使用单一的剪贴板进行剪切、复制与粘贴操作，而是为这些操作提供了多组寄存器。当使用删除、复制与粘贴命令时，可以明确指定某一个进行操作.  vim 的删除、复制与粘贴命令都会用到众多寄存器中的某一个。可以通过给命令加”{register} 前缀的方式指定要用的寄存器。若不指明，vim 将缺省使用无名寄存器。</p>
 <p>看一些引用寄存器的例子，如果想把当前单词复制到寄存器 a 中，可执行”ayiw”，或者，可以用”bdd”，把当前整行文本剪切至寄存器 b 中。在此之后，既可以输入”ap” 粘贴来自寄存器 a 的单词，也可使用”bp”命令粘贴来自寄存器 b 的一整行文本，两者互不干扰.</p>
 <h2 id="复制专用寄存器（”"><a href="#复制专用寄存器（”" class="headerlink" title="复制专用寄存器（”)"></a>复制专用寄存器（”)</h2><p>当使用 y{motion}命令时，要复制的文本不仅会被拷贝到无名寄存器中，而且也被拷贝到了复制专用寄存器中，后者可用数字 0 加以引用。 复制专用寄存器，顾名思义，仅当使用 y{motion}命令时才会被赋值。换句话讲，使用 x、s、c{ motion}以及 d motion}命令均不会覆盖该寄存器。如果复制了些文本，可以确信该文本会一直保存于寄存器 0 中，直到复制其他文本时才会被覆盖。复制专用寄存器是稳定的，而无名寄存器是易变的.</p>
@@ -140,7 +156,7 @@
 <p>在录制命令序列的过程中难免会出错，不过用不着推翻重来，因为可以很方便地在原有宏的结尾附加新的命令。如果要对宏进行较大的修改，可以先将宏粘贴到一个文档里，对该命令序列进行编辑，然后再将其复制回寄存器。 </p>
 <h2 id="宏的读取与执行"><a href="#宏的读取与执行" class="headerlink" title="宏的读取与执行"></a>宏的读取与执行</h2><p>宏允许把一段修改序列录制下来，用于之后的重复操作。 q 键既是“录制”按钮，也是“停止”按钮。为了录制按键操作，一开始需要按 q{register｝，从而指定一个用于保存宏的寄存器。当状态栏中出现“记录中”时，表示录制已经开始。此后，执行的每一条命令都将被宏捕获，直到再次按下 q 键停下为止。<br>可以用@{register}命令执行指定寄存器的内容，也可以用 @@ 来重复最近调用过的宏。</p>
 <h2 id="为不同类型定制样式"><a href="#为不同类型定制样式" class="headerlink" title="为不同类型定制样式"></a>为不同类型定制样式</h2><p>vim 有很多的选项可以让我们来定制自己习惯的行为，完整的列表可以参考 :h option-list。可以通过在vimrc中通过:set命令来改变它们。 不同的语言或者是文档，由于类型不同，排版会有所差异。比如，对Ruby文件采用两个空格的缩进，而对JavaScript文件采用4列宽度的制表符。可以将下面的代码放到配置文件vimrc中：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if has(&quot;autocmd&quot;)</span><br><span class="line">        filetype on</span><br><span class="line">        autocmd FileType ruby setlocal ts=2 sts=2 sw=2 et</span><br><span class="line">        autocmd FileType javascript setlocal ts=4 ts=4 sts=4 sw=4 noet</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if has(&quot;autocmd&quot;)</span><br><span class="line">        filetype on</span><br><span class="line">        autocmd FileType ruby setlocal ts=2 sts=2 sw=2 et</span><br><span class="line">        autocmd FileType javascript setlocal ts=4 ts=4 sts=4 sw=4 noet</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
 
             </div>
 
