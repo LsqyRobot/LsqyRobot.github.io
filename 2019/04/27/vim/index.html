@@ -73,7 +73,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Interest/">Interest</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </li></ul>
 	        </li>
 	        
@@ -123,7 +123,7 @@
 
 
         <div id="main">
-            <div class="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/book-5280551_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
+            <div class="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/vim0/book-5280551_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>vim 学习笔记(一)</h2></a>
             </div>
 
@@ -158,7 +158,7 @@
 <h2 id="修改配色方案"><a href="#修改配色方案" class="headerlink" title="修改配色方案"></a>修改配色方案</h2><p>在默认情况下，Vim 的窗口颜色与打开它的控制台相同不仅难看，而且还很苍白。。。。为了把配色方案修改成某个系统中已有的方案，只需要执行</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">colorscheme mycolors</span></span><br></pre></td></tr></table></figure>
 <p>在这个命令中，mycolors 是系统中已安装的某个配色方案的名字,自己选择的是经典的molokai主题。</p>
-<p><img src="/img/postImg/my_colorScheme.png" width="70%" height="50%"></p>
+<p><img src="/img/postImg/vim0/my_colorScheme.png" width="70%" height="50%"></p>
 <p>除了前景色与背景色，配色方案还会影响代码高亮，错误标记，以及文件中的其他可视化标记。根据自己的需求，去选择适合自己的主题，要不就自己配。。。。</p>
 <h3 id="用彩色标记某列后面的文字"><a href="#用彩色标记某列后面的文字" class="headerlink" title="用彩色标记某列后面的文字"></a>用彩色标记某列后面的文字</h3><p>第一次见到这种做法的时候，是在油管的一个vim讲座里出现的，正巧在《vim 7.2》这本书看到了，举得例子都很棒，就全抄下来吧。。。。</p>
 <p>当你在一行内写出的字符数超过某个上限时，只需要下面这个命令就可以给出提示</p>
@@ -251,7 +251,9 @@
 
 
 <h1 id="搜集的技巧"><a href="#搜集的技巧" class="headerlink" title="搜集的技巧"></a>搜集的技巧</h1><p>1.gd 快速跳转到当前光标所在变量或者函数名的定义处. gD: 跳转到全局变量的定义处，从当前文件开头开始搜索； 类似的还有gf，来打开被包含的文件.</p>
-<p>2.% g /word/d 删除所有含有word的单词所在行. 相反的可以:% ｖ/abc/d，也就是删除没有word这个字母所在行.</p>
+<ol>
+<li><code>:g /word/d</code> 删除所有含有word的单词所在行. 相反的可以<code>:ｖ/abc/d</code>，也就是删除没有word这个字母所在行, 删除空行可以用 <code>:g /^\s*$/d</code>, 其中^表示开头，\s 表示空格， * 代表匹配任意字符，$ 代表末尾。</li>
+</ol>
 <p>3.autocmd可以用这个命令实现对不同的文件格式应用不同的配置; 可以在新建文件时自动添加上版权声明等等. 这些命令一般定义在 ~/.vimrc 这样的配置文件里面.</p>
 <p>4.在打开一个文件编辑后才知道登录的用户对该文件没有写权，不能存盘, 可以执行vim file :w /tmp/1，先临时存到/tmp/1 中， 然后进行后续的操作.</p>
 <p>5.按v键进入选择模式，然后移动光标选择你要的文本，按u转小写，按U转大写,把光标移动到 { 处.按%光标会自动跳到与之成对的 } 上面.反之也可以.把函数体折叠起来：把光标移动到函数开始的 { 处， 然后（normal mode）输入zf来创建函数折叠；在已经折叠的加号位置输入zc 来打开折叠的函数.当要把打开的函数再折叠就输入zx关闭（第二次折叠）shift+v块选以后，输入zf——实现块折叠. [z 到当前打开的折叠的开始处。 zj 向下移动。到达下一个折疊的开始处。关闭的折疊也被计入. 删除折叠可以用zd或zD，一个用于删除光标下的折叠，另外一个是用于删除嵌套用的。</p>
@@ -295,7 +297,24 @@
 
 
         </div>
-    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 
 
