@@ -73,7 +73,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Interest/">Interest</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </li></ul>
 	        </li>
 	        
@@ -123,14 +123,20 @@
 
 
         <div id="main">
-            <div class="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/vim1/dreams-2904682_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
+            <div class="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>vim 学习笔记(二)</h2></a>
             </div>
 
             <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+                <ul>
+<li>linux</li>
+<li>tools<br>thumbnail: “/img/postImg/vim1/dreams-2904682_1280.jpg”<br>categories: Linux</li>
+</ul>
+<hr>
+<!-- vim-markdown-toc GFM -->
 <ul>
 <li><a href="#前言">前言</a></li>
+<li><a href="#powershell下使用vim">PowerShell下使用vim</a></li>
 <li><a href="#理解-vim-寄存器">理解 vim 寄存器</a><ul>
 <li><a href="#复制专用寄存器">复制专用寄存器（”)</a></li>
 <li><a href="#有名寄存器a-z">有名寄存器（”a-“z)</a></li>
@@ -151,11 +157,26 @@
 </ul>
 </li>
 <li><a href="#代码块快速格式化">代码块快速格式化</a></li>
-<li><a href="#技巧">技巧</a></li>
+<li><a href="#部分插件介绍">部分插件介绍</a></li>
+<li><a href="#技巧">技巧</a><ul>
+<li><a href="#手动载入插件">手动载入插件</a></li>
+</ul>
+</li>
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前记的笔记已经在日常生活中大量的使用了，但是还是有很多技巧值得自己去探索，虽然下面的笔记中会经常用到，鉴于笔记的完整性，还是记录下来。这里的笔记很多源自于《vim实用技巧》</p>
+<h1 id="PowerShell下使用vim"><a href="#PowerShell下使用vim" class="headerlink" title="PowerShell下使用vim"></a>PowerShell下使用vim</h1><p>第一步，以管理员的方式打开<code>powershell</code>。</p>
+<p>第二步，输入 <code>Set-ExecutionPolicy RemoteSigned</code>, 选择<code>Y</code>。</p>
+<p><img src="./img/postImg/vim/powershell_Set.png" style="zoom:60%;"></p>
+<p>第三步，输入命令</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line"><span class="built_in">new</span>-<span class="keyword">item</span> -path $profile -itemtype <span class="built_in">file</span> -force</span><br></pre></td></tr></table></figure>
+<p>创建配置文件。先切换到给出的地址，然后用记事本编辑（复制地址的时候，可以先选择，然后Contrl+ins)</p>
+<figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">cd C:<span class="symbol">\U</span>sers<span class="symbol">\y</span>ourComputerName<span class="symbol">\D</span>ocuments<span class="symbol">\w</span>indowsPowerShell</span><br><span class="line">notepad .<span class="symbol">\M</span>icrosoft.PowerShell_profile.psl</span><br></pre></td></tr></table></figure>
+<p><img src="./img/postImg/vim/usingNotepadOpenPSLFile.png" style="zoom:60%;"></p>
+<p>第四步，在打开的文本中输入如下内容</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">set-alias</span> <span class="string">vim </span><span class="string">"D:\Vim\vim82\vim.exe"</span> <span class="comment"># 此处为vim的安装路径</span></span><br><span class="line"></span><br><span class="line"><span class="string">Function </span><span class="string">Edit-Profile</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line">    <span class="string">vim </span>$<span class="string">profile</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"> </span><br><span class="line"><span class="string">Function </span><span class="string">Edit-Vimrc</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line">    <span class="string">vim </span>$<span class="string">HOME\</span><span class="string">_vimrc</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>添加结束后，重启powershell即可。也只有windows可以这么折腾人了。</p>
 <h1 id="理解-vim-寄存器"><a href="#理解-vim-寄存器" class="headerlink" title="理解 vim 寄存器"></a>理解 vim 寄存器</h1><p>在以前的笔记中只提到一点点，这里多做一些说明。 vim 不使用单一的剪贴板进行剪切、复制与粘贴操作，而是为这些操作提供了多组寄存器。当使用删除、复制与粘贴命令时，可以明确指定某一个进行操作.  vim 的删除、复制与粘贴命令都会用到众多寄存器中的某一个。可以通过给命令加”{register} 前缀的方式指定要用的寄存器。若不指明，vim 将缺省使用无名寄存器。</p>
 <p>看一些引用寄存器的例子，如果想把当前单词复制到寄存器 a 中，可执行”ayiw”，或者，可以用”bdd”，把当前整行文本剪切至寄存器 b 中。在此之后，既可以输入”ap” 粘贴来自寄存器 a 的单词，也可使用”bp”命令粘贴来自寄存器 b 的一整行文本，两者互不干扰.</p>
 <h2 id="复制专用寄存器（”"><a href="#复制专用寄存器（”" class="headerlink" title="复制专用寄存器（”)"></a>复制专用寄存器（”)</h2><p>当使用 y{motion}命令时，要复制的文本不仅会被拷贝到无名寄存器中，而且也被拷贝到了复制专用寄存器中，后者可用数字 0 加以引用。 复制专用寄存器，顾名思义，仅当使用 y{motion}命令时才会被赋值。换句话讲，使用 x、s、c{ motion}以及 d motion}命令均不会覆盖该寄存器。如果复制了些文本，可以确信该文本会一直保存于寄存器 0 中，直到复制其他文本时才会被覆盖。复制专用寄存器是稳定的，而无名寄存器是易变的.</p>
@@ -187,15 +208,21 @@
 <h2 id="Indentexpr"><a href="#Indentexpr" class="headerlink" title="Indentexpr"></a>Indentexpr</h2><p>Indentexpr 是最灵活的缩进选项, 但同时也是最复杂的. 使用 indentexpr 时, 它会对一个表达式求值, 然后计算出一行的缩进. 因此, 用户写出的表达式必须能被 Vim求值。这里就不举例了。。。。</p>
 <h1 id="代码块快速格式化"><a href="#代码块快速格式化" class="headerlink" title="代码块快速格式化"></a>代码块快速格式化</h1><p>缩进选项设置完毕后, 用户可能想根据新设置的选项更新一下代码的格式. 为了更新代码, 只需要告诉 Vim 重新缩进第一行到最后一行, 具体的命令是:<br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">1G</span>=G</span><br></pre></td></tr></table></figure></p>
 <p>如果把命令拆开来看, 各个部分的意思是:<br>1G: 跳到文件的第一行 (也可以使用 gg),=: 根据格式化的配置对文本加以缩进,G: 跳到文件的最后一行 (缩进的结束位置)</p>
-<h1 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h1><p><strong>* 向下查找当前光标所在单词或字符串</strong><br>g<em> 查找则不限制whole word。 区别：比如在if这个单词上按</em>键则查找单词if，按g*键则查找if。</p>
-<p><strong># 向上查找当前光标所在单词或字符串</strong><br>g# 查找则不限制whole word。 区别：比如在if这个单词上按#键则查找单词if，按g#键则查找if。</p>
-<p><strong>删掉偶数行</strong><br>:g/^/+1 d 或 %norm jdd</p>
+<h1 id="部分插件介绍"><a href="#部分插件介绍" class="headerlink" title="部分插件介绍"></a>部分插件介绍</h1><p><code>auto-pairs</code>:自动补全括号和引号等, <code>Plugin &#39;jiangmiao/auto-pairs&#39;</code></p>
+<p><code>vim-gitgutter</code>:支持Git 的高亮,<code>airblade/vim-gitgutter</code></p>
+<h1 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h1><p><strong>向下查找当前光标所在单词或字符串</strong><br>g* 查找则不限制whole word。 区别：比如在if这个单词上按*键则查找单词if，按g*键则查找if。</p>
+<p><strong>向上查找当前光标所在单词或字符串</strong><br>g# 查找则不限制whole word。 区别：比如在if这个单词上按#键则查找单词if，按g#键则查找if。</p>
+<p><strong>删掉偶数行</strong><br><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="symbol">:g/^/+</span><span class="number">1</span> d 或 %norm jdd</span><br></pre></td></tr></table></figure></p>
 <p><strong>C-o (fast out, fast in)</strong><br>在insert模式下，用C-o后可以执行一个normal命令，然后立即返回insert模式，省去了用ESC的麻烦。</p>
 <p><strong>特殊的“寄存器”：”=”</strong><br>在插入模式或命令模式中，键入“Ctrl-R=”，Vim 会提示你输入一个表达式，普通的整数运算在此完全有效。</p>
 <p><strong>Make 和 grep</strong><br>Make 和grep 应当算是 Unix 世界里无人不晓的基本工具了吧。很自然的，Vim 对它们有着特殊的支持。该支持主要通过访问一个特殊的快速修订窗口（quickfix window）来实现。直接在 Vim 的命令模式里输入相应的 make 或 grep 命令（如“:grep foo *.c”）即可将命令的执行结果放入该窗口，同时根据返回的结果跳转到第一个错误（make 的情况；在使用 grep 时是匹配成功之处）。以下是常用的“快速修订”命令：</p>
 <p>:cn（显示下一个错误）<br>:cp（显示上一个错误）<br>:cl（列出所有的错误及其编号）<br>:cc（跳转到指定编号的错误）<br>:copen（打开快速修订窗口，在其中显示所有错误，可在错误上双击鼠标或按回车键跳转至该错误</p>
 <p><strong> 快捷键 </strong><br>CTRL-A          插入最近插入的文本<br>CTRL-H  删除光标前的字符<br>CTRL-W          删除光标前的单词<br>CTRL-U          删除光标所有输入的字符</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] Vim 7.2</p>
+<p><strong> 跳回上次修改过的地方 </strong><br>很简单的一种方法就是先撤销，再反撤销：u<c-r></c-r></p>
+<p><strong> 跳转文件 </strong><br>在使用 df 后跳转回来，可用<c-o>跳转回原文件。</c-o></p>
+<h2 id="手动载入插件"><a href="#手动载入插件" class="headerlink" title="手动载入插件"></a>手动载入插件</h2><p><code>filetype</code> 提供一种方便的机制来定义不同文件类型的配置。 也可以不用这种机制，手动载入对应文件的配置，例如：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="comment">" 创建或读取 *.plt 文件时执行 plt.vim</span></span><br><span class="line"><span class="keyword">au</span> BufNewFile,BufRead *.plt  <span class="keyword">source</span> ~/.<span class="keyword">vim</span>/after/ftplugin/plt.<span class="keyword">vim</span>`</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] Vim 7.2<br>[2] Practice Vim<br>[3] <a href="https://harttle.land/2015/07/17/vim-advanced.html" target="_blank" rel="noopener">感受Vim的强大：进阶技巧</a></p>
 
             </div>
 
@@ -204,7 +231,24 @@
 
 
         </div>
-    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 
 

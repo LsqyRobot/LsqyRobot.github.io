@@ -73,7 +73,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Interest/">Interest</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </li></ul>
 	        </li>
 	        
@@ -142,7 +142,6 @@
 <li><a href="#运行">运行</a></li>
 <li><a href="#列出镜像">列出镜像</a><ul>
 <li><a href="#列出部分镜像">列出部分镜像</a></li>
-<li><a href="#以特定格式显示">以特定格式显示</a></li>
 </ul>
 </li>
 </ul>
@@ -178,10 +177,6 @@
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker images ubuntu</span></span><br></pre></td></tr></table></figure>
 <p>列出特定的某个镜像，也就是说指定仓库名和标签</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">docker</span> <span class="selector-tag">images</span> <span class="selector-tag">ubuntu</span><span class="selector-pseudo">:16.04</span></span><br></pre></td></tr></table></figure>
-<h3 id="以特定格式显示"><a href="#以特定格式显示" class="headerlink" title="以特定格式显示"></a>以特定格式显示</h3><p>默认情况下， docker images 会输出一个完整的表格，但是我们并非所有时候都 会需要这些内容。比如，刚才删除虚悬镜像的时候，我们需要利用 docker images 把所有的虚悬镜像的 ID 列出来，然后才可以交给 docker rmi 命令作 为参数来删除指定的这些镜像，这个时候就用到了 -q 参数。</p>
-<p>与—filter 配合 -q 产生出指定范围的 ID 列表，然后送给另一个 docker 命令作为参数，从而针对这组实体成批的进行某种操作的做法在 Docker 命令行使用过程中非常常见。另外一些时候，可能只是对表格的结构不满意，希望自己组织列；或者不希望有标题，这样方便其它程序解析结果等，这就用到了 Go 的模板语法。</p>
-<p>比如，下面的命令会直接列出镜像结果，并且只包含镜像ID和仓库名：</p>
-<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml">docker images --format "</span><span class="template-variable">&#123;&#123;.ID&#125;&#125;</span><span class="xml">: </span><span class="template-variable">&#123;&#123;.Repository&#125;&#125;</span><span class="xml">"</span></span><br></pre></td></tr></table></figure>
 <h1 id="利用-commit-理解镜像构成"><a href="#利用-commit-理解镜像构成" class="headerlink" title="利用 commit 理解镜像构成"></a>利用 commit 理解镜像构成</h1><p>镜像是容器的基础，每次执行 <code>docker run</code> 的时候都会指定哪个镜像作为容器运 行的基础。在之前的例子中，我们所使用的都是来自于 Docker Hub 的镜像。直接使用这些镜像是可以满足一定的需求，而当这些镜像无法直接满足需求时，我们就需要定制这些镜像。镜像是多层存储，每一层是在前一层的基础上进行的修改；而容器同样也是多层存储，是在以镜像为基础层，在其基础上加一层作为容器运行时的存储层。</p>
 <p>定制一个 Web 服务器为例子，来讲解镜像是如何构建的。</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">run</span> <span class="comment">--name webserver -d -p 80:80 nginx</span></span><br></pre></td></tr></table></figure>

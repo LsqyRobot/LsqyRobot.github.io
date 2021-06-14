@@ -73,7 +73,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Interest/">Interest</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </li></ul>
 	        </li>
 	        
@@ -185,7 +185,7 @@
 
 <p>在交流伺服控制系统中，交流伺服电机运行状态的优劣取决于位置环、速度环和电流环三环控制器设计的好坏。交流伺服控制系统有两种，一种是位置伺服控制系统，包括电流控制器、速度控制器和位置控制器；另一种是速度伺服控制系统，只包括电流控制器和速度控制器。因此选取合适的参数，能够在一定程度上提高系统的快速性、稳定性、准确性。</p>
 <p>在电流控制器、速度控制器和位置控制器中，电流控制器是最关键、重要的环节，因为不管是速度还是位置控制，最后都要转化成对交流电机电流的控制。速度环的作用是保证速度指令与交流电机的实际转速相同，从而消除负载转矩扰动等因素对交流电机的影响，通过交流电机的实际转速和输入的速度指令相比较，速度控制器利用其差值直接产生指令控制电流，并与电流指令共同作用，控制交流电机匀速、加速、减速旋转，从而达到交流电机实际转速与控制指令保持一致。位置环的作用是生成交流电机的速度指令，并能够使交流电机准确的跟踪、定位。交流电机的实际位置与设定的目标位置相比较，位置控制器利用其偏差生成交流电机的速度指令。当交流电机启动后，在距离目标位置较大的区域，位置控制器产生最大速度指令，从而使交流电机加速运动后以最大速度恒速运行，在距离较小的区域，位置控制器生成逐次减小的速度控制指令，从而使交流电机减速运动，直至到目标位置后静止。</p>
-<p>在清能德创的伺服驱动说明书上，有提到过，电流环调节器参数仅与电机参数有关，因此在调整三环控制的时候，仅需要考虑速度环和运动环即可。</p>
+<p>在清能德创的伺服驱动说明书上，有提到过，电流环调节器参数仅与电机参数有关，因此在调整三环控制的时候，仅需要考虑速度环和运动环即可, 实际上还是需要有经验的人去调整电流环参数的。</p>
 <h2 id="交流伺服系统的组成"><a href="#交流伺服系统的组成" class="headerlink" title="交流伺服系统的组成"></a>交流伺服系统的组成</h2><p>交流伺服系统是以交流伺服电动机为控制对象的自动控制系统， 它主要由伺服控制器、伺服驱动器和伺服电动机组成。交流伺服系统 主要有3种控制模式，分别是位置控制模式、速度控制模式和转矩控制模式。在不同的模式下，系统工作原理略有不同。交流伺服系统的控制模式可通过设置伺服驱动器的参数来改变。</p>
 <h3 id="工作在位置控制模式时的系统组成及说明"><a href="#工作在位置控制模式时的系统组成及说明" class="headerlink" title="工作在位置控制模式时的系统组成及说明"></a>工作在位置控制模式时的系统组成及说明</h3><p>当交流伺服系统工作在位置控制模式时，能精确控制伺服电动机的转数，因此可以精确控制执行部件的移动距离，即可对执行部件进行运动定位控制。</p>
 <p>伺服控制器发出控制信号和脉冲信号给伺服驱动器，伺服驱动器输出U、V、W三相电源电压给伺服电动机，驱动电动机工作，与电动机同轴旋转的编码器会将电动机的旋转信息反馈给伺服驱动器，如电动机每旋转一周编码器会产生一定数量的脉冲送给驱动器。伺服控制器输出的脉冲信号用来确定伺服电动机的转数，在驱动器中，该脉冲信号与编码器送来的脉冲信号进行比较，若两者相等，表明电动机旋转的转数已达到要求，电动机驱动的执行部件已移动到指定的位置。控制器发出的脉冲个数越多，电动机会旋转更多的转数。</p>
@@ -193,15 +193,37 @@
 <p>伺服驱动器输出U、V、W三相电源电压给伺服电动机，驱动电动机工作，编码器会将伺服电动机的旋转信息反馈给伺服驱动器。电动机旋转速度越快，编码器反馈给伺服驱动器的脉冲频率就越高。操作伺服驱动器的有关输入开关，可以控制伺服电动机的启动、停止和旋转方向等。调节伺服驱动器的有关输入电位器，可以调节电动机的转速。</p>
 <h3 id="工作在转矩控制模式时的系统组成及说明"><a href="#工作在转矩控制模式时的系统组成及说明" class="headerlink" title="工作在转矩控制模式时的系统组成及说明"></a>工作在转矩控制模式时的系统组成及说明</h3><p>当交流伺服系统工作在转矩控制模式时，伺服驱动器无需输入脉冲信号也可正常工作，故可取消伺服控制器，通过操作伺服驱动器的输入电位器，可以调节伺服电动机的输出转矩（又称扭矩，即转力）。</p>
 <h2 id="伺服电动机与编码器"><a href="#伺服电动机与编码器" class="headerlink" title="伺服电动机与编码器"></a>伺服电动机与编码器</h2><p>交流伺服系统的控制对象是伺服电动机，编码器通常安装在伺服电动机的转轴上，用来检测同服电动机的转速、转向和位置等信息。</p>
+<h3 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a>编码器</h3><p>编码器旋转一周产生的脉冲个数称为分辨率。</p>
+<h4 id="增量编码器"><a href="#增量编码器" class="headerlink" title="增量编码器"></a>增量编码器</h4><p>增量编码器的特点是每旋转一定的角度或移动一定的距离会产生一个脉冲，即输出脉冲随位移增加而不断增多。坑的是不能掉电保存，有段时间用这个编码器增加了不少自己的工作量。。。。。</p>
+<h4 id="绝对值编码器"><a href="#绝对值编码器" class="headerlink" title="绝对值编码器"></a>绝对值编码器</h4><p>增量编码器通过输出脉冲的频率反映电动机的转速，通过A、B相脉冲的相位关系反映电动机的转向，故检测电动机转速和转向非常方便。绝对值编码器可以解决增量编码器测位时存在的问题，它可分为 单圈绝对值编码器和多圈绝对值编码器。</p>
+<p>单圈绝对值编码器只能对一个圆周进行定位，超过一个圆周定位 就会发生重复，而多圈绝对值编码器可以对多个圆周进行定位。</p>
 <h2 id="伺服驱动器的结构与原理"><a href="#伺服驱动器的结构与原理" class="headerlink" title="伺服驱动器的结构与原理"></a>伺服驱动器的结构与原理</h2><p>伺服驱动器又称伺服放大器，是交流伺服系统的核心设备。伺服驱动器的品牌很多，常见的有三菱、安川、松下和三洋等。 伺服驱动器的功能是将工频(50Hz或60Hz)交流电源转换成幅度和频率均可变的交流电源提供给伺服电动机。当伺服驱动器工作在速度控制模式时，通过控制输出电源的频率来对电动机进行调速;当工作在转矩控制模式时，通过控制输出电源的幅度来对电动机进行转矩控制;当工作在位置控制模式时，根据输入脉冲来决定输出电源的通断时间。</p>
 <p>上位机通过发送脉冲到伺服驱动器，来实现控制。在这种方式下，用脉冲频率来控制速度，用脉冲个数来控制位置。同样，伺服驱动器也会发送脉冲数，来告诉上位机，伺服电机的位置和速度。比如，我们约定伺服电机10000个脉冲旋转一圈，那么，当上位机发送10000个脉冲，伺服电机旋转一圈，实现位置控制。如果上位机在一分钟内发完这10000个脉冲，那么伺服电机的速度就是1r/min,如果实在一秒钟内发完，那么伺服电机的速度就是1r/s，也就是60r/min。</p>
 <p>低端PLC，数控系统，以及各种单片机系统一般都是采用这种模式，简单易行，成本低廉。很显然，当伺服轴数增加，这种控制方式的缺点就会显现出来，上位机硬件成本会增加，配线会很复杂，而且现场EMC不好的话，脉冲极易丢失。所以，这种模式一般是在四轴以下，所以，大部分PLC的脉冲控制轴数都在两轴或是三轴，极少部分PLC可以实现四轴。</p>
+<p>不想介绍伺服驱动器的主电路，因为这个和自己读研的方向就差不多。。。。。问题是那会就懒得学，哈哈哈。。。。</p>
+<h2 id="电子齿轮比设计"><a href="#电子齿轮比设计" class="headerlink" title="电子齿轮比设计"></a>电子齿轮比设计</h2><p>在实际应用中， 电动机与其他机械传动装置连接时， 电动机每转动一圈， 将转换为相应的位移， 带动负载运动。 位置指令通常是由上位机产生的， 是具有一定频率和个数的脉冲。 当指令脉冲当量和位置反馈脉冲当量不一致时， 采用电子齿轮的方法来进行调节是必需的， 它的好处可以用一个例子说明。</p>
+<p>如图 <strong>插入在线latex生成图片</strong> 所示， 位置环中没有电子齿轮设计时， 要将工件移动 10mm， 上位机要做如下处理：</p>
+<div align="center"> <img src="/img/postImg/motionControl/电子齿轮比.png" width="100%" height="40%"> </div>
+
+
+<p>① 电动机转 1 圈为 6mm， 移动 10mm 需要 1. 6666 圈；</p>
+<p>② 转动 1 圈需要 10000 个脉冲， 转动 1. 6666 圈， 一共需要 16666 个脉冲；</p>
+<p>③ 发出 16666 个指令脉冲。</p>
+<p>上位机在每次送出指令脉冲之前， 都要进行上述 “变换”， 受限于机械结构， 并且相应地增加了运算量。位置环中使用电子齿轮设计， 事先根据机械条件， 设定好电子齿轮比分子和分母的值， 参数一旦设定好， 只要机械条件不变， 就无需再次修改。 由于电子齿轮功能的存在， 上位机不用再进行 “变换” 指令， 彻底与机械结构脱离关系。 具体方法是：</p>
+<p>① 首先确定机械要移动 1μm， 需要多少个脉冲， 由转 1 圈移动 6mm 计算出转动 10 / 6 个脉冲可以移动 1μm；</p>
+<p>② 接下来设定电子齿轮比， 电子齿轮分子为 10， 分母为 6；</p>
+<p>③ 最后在上位机选定脉冲当量为 1， 即 1 个脉冲代表移动 1μm， 这样要移动 10mm， 上 位机按指令单位计算出要发送 10000 个脉冲。</p>
+<p>这样， 上位机不再需要额外计算， 只要把插补器送出的值折算成脉冲当量值后发出脉冲即可。根据上例， 可以定义出电子齿轮比。 假定相对于每一脉冲信号的机械运动部件的位移单位为 a 微米， 即脉冲当量为 a(a 一般为 1 或者 10、 100、 1000 等。), 在该机械结构下， 电动机转动 1 圈 （有 P 个反馈脉冲） 需要移动 x 微米， 则电子齿轮比 K 为:</p>
+<p><img src="https://latex.codecogs.com/gif.latex?K = \frac{A}{B} =\frac{aP}{x}"></p>
+<p>实际应用中， K 一般取值范围为 0. 01 ～ 100， 如果根据 a、 P、 x 计算出的 K 超出了这个范围， 伺服单元不能正常动作， 这时需要变更机械构成， 或者变动指令单位 a。</p>
+<p>电子齿轮是位置环中的一个特殊功能， 它通常放在位置环的给定通道入口处， 齿轮比值 K 的变化实际上只是调节了位置指令脉冲频率， 从而改变了电动机的转速。 因此改变齿轮比 值不会影响位置环的性能。</p>
 <h2 id="通讯方式"><a href="#通讯方式" class="headerlink" title="通讯方式"></a>通讯方式</h2><p>通讯方式就是专门为解决脉冲方式的不足而产生的，已经成为一种发展趋势，他把脉冲数和脉冲频率通过通讯的方式，发送给伺服驱动器，这种方式不但可以传递伺服电机的位置信息，还能传递各种状态信息，比如伺服电机的电流，扭矩以及伺服驱动器的故障代码等等，很显然，当轴数多的时候，这种方式的优势不言而喻。</p>
 <p>由于运动控制的特殊性，所以不同的厂家都推出自己的运动控制总线，既有开放的，也有封闭的，比如CANopen，以及在此基础上开发的CANmotion和CANlink，MECHATROLINK-II，CCLink等等。随着工业以太网技术的发展，基于以太网的运动控制总线也应运而生，比如<strong>EtherCAT</strong>,ProfinetNet，MECHATROLINK-III等等。还有基于光纤的SERCOS，SSCNETⅢ/H等等。虽然通讯的形式繁多，但他们解决的一般都是实时性问题，因为对于运动控制来说，实时性是非常重要的。从应用开发的角度来说，脉冲和通讯是没有区别的，只是信号传递的形式发生了变化。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>1，<a href="https://home.cnblogs.com/u/21207-iHome/" target="_blank" rel="noopener">XXX已失联</a></p>
 <p>2，<a href="https://www.zhihu.com/people/gk-auto" target="_blank" rel="noopener">gk-auto</a></p>
 <p>3， CoolDrive R 系列伺服驱动器用户说明书</p>
 <p>4, <a href="https://zh.wikipedia.org/wiki/%E4%BC%BA%E6%9C%8D%E9%A6%AC%E9%81%94" target="_blank" rel="noopener">伺服马达—维基百科</a></p>
+<p>5, 《交流伺服系统设计指南》——孙与等著</p>
 
             </div>
 
