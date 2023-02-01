@@ -144,8 +144,25 @@
             </div>
 
             <div class="typo" style="padding: 3rem;">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前在做一些精度相关测试的时候，总会对机器人标定那部分很感兴趣，同时也很费解，怎么才能够根据激光跟踪仪，就获取了机器人的杆长、零点以及工具参数了呢，还涉及了一些评价的标准，总之就是很有趣。目前在做机器人的快速标定这块，有些困惑的地方就去学习了一下，里面涉及到的技巧还是非常有趣的。对于机器人的标定这块，如果对于理论知识有所了解，那么上手就非常快了，不了解的话，只能一边开发，一边去学习，头都大了。这里很多的内容都来自于《机器人手册》（Handbook of Robotics)。下面就对原文进行一定的翻译加上自己对机器人标定的一丢丢理解。</p>
-<p>这里先占个坑， 等有时间再补全。</p>
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前在做一些精度相关测试的时候，总会对机器人标定那部分很感兴趣，同时也很费解，怎么才能够根据激光跟踪仪，就获取了机器人的杆长、零点以及工具参数了呢，还涉及了一些评价的标准，总之就是很有趣。目前在做机器人的快速标定这块，有些困惑的地方就去学习了一下，里面涉及到的技巧还是非常有趣的。对于机器人的标定这块，如果对于理论知识有所了解，那么上手就非常快了，不了解的话，只能一边开发，一边去学习，头都大了。这里很多的内容都来自于《机器人手册》（Handbook of Robotics)。但在说明工业机器人标定之前， 还是非常有必要再说明一下DH建模这块基础且重要的内容，对于DH改进的方法一般有两种， 一种是前置坐标系， 另外一种是引入绕Y轴的旋转角$\beta$（标准DH建模下，在相邻轴平行时辨识会存在问题）， 这里仅谈论标准的DH建模方式（后置坐标系）。不同于理论教材那样枯燥乏味，尽量利用已有的工具如Mathematica, Matlab, python等等，把一些原理性的东西用公式，图像等表示出来。</p>
+<h1 id="DH建模"><a href="#DH建模" class="headerlink" title="DH建模"></a>DH建模</h1><p>Denavit-Hartenberg (D-H）模型描述了对机器人连杆和关节进行建模的一种非常简单的方法，可用于任何机器人构型，而与机器人的结构顺序和复杂程度无关。</p>
+<p>机器人一般由一系列关节和连杆按任意的顺序连接而成。这些关节可能是滑动（线性）的或旋转（转动）的，它们可能处在不同的平面，旋转轴之间可能存在偏差。连杆也可以是任意长度的（包括零），它可能被扭曲或弯曲，也可能位于任意的平面上。所以任何一组关节和连杆都可以构成机器人。</p>
+<p>为此，需要给每个关节指定一个参考坐标系，然后<code>确定从一个关节到下一个关节</code>（一个坐标系到下一个坐标系）进行变换的步骤。如果将从基座到第 1 关节，再从第 1 关节到第 2 关节直至到最后一个关节的所有变换结合起来，就得到了机器人的总变换矩阵。下面将根据 D-H 表示法确定一个一般步骤来为每个关节指定参考坐标系，然后确定如何实现任意两个相邻坐标系之间的变换，最后写出机器人的总变换矩阵。</p>
+<p>如下图所示表示了 3 个关节，每个关节都可能是旋转的、滑动的或两者都是。指定第 1 个关节为关节 n，第 2 个关节为关节 n+1, 第 3 个关节为关节 n+2。在这些关节的前后可能还有其他关节。连杆也是如此表示，连杆 n 位于关节 n 与 n+1 之间，连杆 n+1 位于关节 n+1 与 n+2 之间。</p>
+<p><img src="/img/postImg/robot_calibration/STD_DH.png" width="50%" height="30%"></p>
+<p>变换过程分步骤如下图所示</p>
+<p><img src="/img/postImg/robot_calibration/STD_DH_STEP.png" width="70%" height="50%"></p>
+<p>为了用 D-H 法对机器人建模，所要做的第一件事是为每个关节指定一个本地的参考坐标系。因此，对于每个关节，都必须指定一个 z 轴和 x 轴，通常并不需要指定 y 轴，因为Y 轴总是垂直于 x 轴和z轴的。此外，D-H 表示法根本就不需要用 y 轴。以下是给每个关节指定本地参考坐标系的步骤：</p>
+<p>1, 所有关节，无一例外地都用 z 轴表示。如果关节是旋转的，那么 z 轴位于按右手规则旋转的方向。如果关节是滑动的，那么 z 轴为沿直线运动的方向。在每种情况下，关节 n 处的 z 轴（以及该关节的本地参考坐标系）的编号为 n-1。例如，表示绕关节 n+1 运动的 z 轴是 $z_n$。这些简单规则可使我们很快地指定所有关节的 z 轴。对于旋转关节，绕 z 轴的旋转角 $\theta$ 是关节变量。对于滑动关节，沿 z 轴的连杆长度 d 是关节变量。</p>
+<p>2, 通常关节不一定平行或相交。因此，z轴也许是斜线，但总有一条距离最短的公垂线, 它正交于任意两条斜线。通常在公垂线方向上定义本地参考坐标的 x 轴。所以如果 <script type="math/tex">a_n</script>，表示 $z_{n-1}$ 与 $z_n$之间的公垂线，则定义 $x_n$ 的方向为沿 $a_n$ 的方向. </p>
+<p>同样，如果<script type="math/tex">z_n</script>与 <script type="math/tex">z_{n+1}</script> 之间的公垂线为 <script type="math/tex">a_{n+1}</script>, 则 <script type="math/tex">x_{n+1}</script> 的方向将沿 <script type="math/tex">a_{n+1}</script> 的方向。注意相邻关节之间的公垂线不一定相交或共线，因此两个相邻坐标系原点的位置也可能不在同个位置。根据上面的介绍，并考虑下面例外的特殊情况，就可以为所有的关节定义坐标系。</p>
+<p>两个相邻坐标系之间的变换<script type="math/tex">^nT_{n+1}</script>（称为 $A_{n+1}$) 是 4 个运动变换矩阵的乘积。由于所有的变换都是相对于当前的坐标系进行的（即它们都是相对于当前本地坐标系的坐标轴来测量与执行的），因此所有的变换矩阵都是右乘的（可以这么理解， <code>相对于动坐标系（新坐标系，或者以叫以自身为参考系）右乘。相对于静坐标系（变化过程中参考的坐标系始终不变）左乘</code>）。从而得到结果如下：</p>
+<script type="math/tex; mode=display">
+A = Rot(z,\theta)Trans(0,0,d)Trans(a,0,0)Rot(x,\alpha)</script><p>如下图所示为乘积后的结果</p>
+<p><img src="/img/postImg/robot_calibration/transA_linkTransform.png" width="70%" height="50%"></p>
+<p>Mahtematica 代码如下（直接粘贴复制在Mathematica中即可）</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">rotTheta</span> = RotationTransform[\[Theta], &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;];</span><br><span class="line"><span class="attribute">transD</span> = TranslationTransform[&#123;<span class="number">0</span>, <span class="number">0</span>, d&#125;];</span><br><span class="line"><span class="attribute">transA</span> = TranslationTransform[&#123;a, <span class="number">0</span>, <span class="number">0</span>&#125;];</span><br><span class="line"><span class="attribute">rotAlpha</span> = RotationTransform[\[Alpha], &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;];</span><br><span class="line"><span class="attribute">MatrixForm</span> /@ TransformationMatrix /@ &#123;rotTheta, transD, transA, rotAlpha&#125;</span><br><span class="line"><span class="attribute">rotTheta</span>.transD.transA.rotAlpha</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] 机器人学导论，分析，控制及应用</p>
 
             </div>
 
