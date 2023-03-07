@@ -201,7 +201,8 @@
 <p>下面介绍重要的函数<br>1, <code>Robobt.plot</code></p>
 <figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">Graphical display <span class="keyword">and</span> animation</span><br><span class="line"></span><br><span class="line">R.plot(q, <span class="keyword">options</span>) displays a graphical animation <span class="keyword">of</span> a robot based <span class="keyword">on</span> the kinematic model.</span><br><span class="line">A stick figure polyline joins the origins <span class="keyword">of</span> the link coordinate frames. </span><br><span class="line">The robot <span class="keyword">is</span> displayed at the joint angle q (<span class="number">1</span>xN), <span class="keyword">or</span> <span class="keyword">if</span> a matrix (MxN) it <span class="keyword">is</span> animated <span class="keyword">as</span> </span><br><span class="line">the robot moves along the M-<span class="type">point</span> trajectory.</span><br><span class="line"></span><br><span class="line"><span class="keyword">Options</span></span><br><span class="line"><span class="string">&#x27;workspace&#x27;</span>, W Size <span class="keyword">of</span> robot <span class="number">3</span>D workspace, W = [xmn, xmx ymn ymx zmn zmx]</span><br><span class="line"><span class="string">&#x27;floorlevel&#x27;</span>, L	Z-coordinate <span class="keyword">of</span> floor (<span class="keyword">default</span> <span class="number">-1</span>)</span><br><span class="line"><span class="string">&#x27;delay&#x27;</span>, D Delay betwen frames <span class="keyword">for</span> animation (s)</span><br><span class="line"><span class="string">&#x27;fps&#x27;</span>, fps Number <span class="keyword">of</span> frames per second <span class="keyword">for</span> display, inverse <span class="keyword">of</span> <span class="string">&#x27;delay&#x27;</span> <span class="keyword">option</span></span><br><span class="line"><span class="string">&#x27;[no]loop&#x27;</span> <span class="keyword">Loop</span> <span class="keyword">over</span> the trajectory forever</span><br><span class="line"><span class="string">&#x27;[no]raise&#x27;</span> Autoraise the figure</span><br><span class="line"><span class="string">&#x27;movie&#x27;</span>, M Save frames <span class="keyword">as</span> files <span class="keyword">in</span> the folder M</span><br><span class="line"><span class="string">&#x27;trail&#x27;</span>, L Draw a <span class="type">line</span> recording the tip <span class="type">path</span>, <span class="keyword">with</span> <span class="type">line</span> style L</span><br><span class="line"><span class="string">&#x27;scale&#x27;</span>, S Annotation scale factor</span><br><span class="line"><span class="string">&#x27;zoom&#x27;</span>, Z Reduce size <span class="keyword">of</span> auto-computed workspace <span class="keyword">by</span> Z, makes robot look bigger</span><br><span class="line"><span class="string">&#x27;ortho&#x27;</span>	Orthographic <span class="keyword">view</span></span><br><span class="line"><span class="string">&#x27;perspective&#x27;</span> Perspective <span class="keyword">view</span> (<span class="keyword">default</span>)</span><br><span class="line"><span class="string">&#x27;view&#x27;</span>, V Specify <span class="keyword">view</span> V=<span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;top&#x27;</span> <span class="keyword">or</span> [az el] <span class="keyword">for</span> side elevations, </span><br><span class="line">plan <span class="keyword">view</span>, <span class="keyword">or</span> general <span class="keyword">view</span> <span class="keyword">by</span> azimuth <span class="keyword">and</span> elevation angle.</span><br><span class="line"><span class="string">&#x27;top&#x27;</span> <span class="keyword">View</span> <span class="keyword">from</span> the top.</span><br><span class="line"><span class="string">&#x27;[no]shading&#x27;</span> <span class="keyword">Enable</span> Gouraud shading (<span class="keyword">default</span> <span class="keyword">true</span>)</span><br><span class="line"><span class="string">&#x27;lightpos&#x27;</span>, L Position <span class="keyword">of</span> the light source (<span class="keyword">default</span> [<span class="number">0</span> <span class="number">0</span> <span class="number">20</span>])</span><br><span class="line"><span class="string">&#x27;[no]name&#x27;</span> Display the robot<span class="string">&#x27;s name</span></span><br><span class="line"><span class="string">&#x27;</span>[<span class="keyword">no</span>]wrist<span class="string">&#x27; Enable display of wrist coordinate frame</span></span><br><span class="line"><span class="string">&#x27;</span>xyz<span class="string">&#x27; Wrist axis label is XYZ</span></span><br><span class="line"><span class="string">&#x27;</span>noa<span class="string">&#x27; Wrist axis label is NOA</span></span><br><span class="line"><span class="string">&#x27;</span>[<span class="keyword">no</span>]arrow<span class="string">&#x27; Display wrist frame with 3D arrows</span></span><br><span class="line"><span class="string">&#x27;</span>[<span class="keyword">no</span>]tiles<span class="string">&#x27; Enable tiled floor (default true)</span></span><br><span class="line"><span class="string">&#x27;</span>tilesiz<span class="string">e&#x27;, S Side length of square tiles on the floor (default 0.2)</span></span><br><span class="line"><span class="string">&#x27;</span>tile1color<span class="string">&#x27;, C	Color of even tiles [r g b] (default [0.5 1 0.5] light green)</span></span><br><span class="line"><span class="string">&#x27;</span>tile2color<span class="string">&#x27;, C	Color of odd tiles [r g b] (default [1 1 1] white)</span></span><br><span class="line"><span class="string">&#x27;</span>[<span class="keyword">no</span>]shadow<span class="string">&#x27; Enable display of shadow (default true)</span></span><br><span class="line"><span class="string">&#x27;</span>shadowcolor<span class="string">&#x27;, C Colorspec of shadow, [r g b]</span></span><br><span class="line"><span class="string">&#x27;</span>shadowwidth<span class="string">&#x27;, W Width of shadow line (default 6)</span></span><br><span class="line"><span class="string">&#x27;</span>[<span class="keyword">no</span>]jaxes<span class="string">&#x27; Enable display of joint axes (default false)</span></span><br><span class="line"><span class="string">&#x27;</span>[<span class="keyword">no</span>]jvec<span class="string">&#x27; Enable display of joint axis vectors (default false)</span></span><br><span class="line"><span class="string">&#x27;</span>[<span class="keyword">no</span>]joints<span class="string">&#x27; Enable display of joints</span></span><br><span class="line"><span class="string">&#x27;</span>jointcolor<span class="string">&#x27;, C	Colorspec for joint cylinders (default [0.7 0 0])</span></span><br><span class="line"><span class="string">&#x27;</span>jointdiam<span class="string">&#x27;, D Diameter of joint cylinder in scale units (default 5)</span></span><br><span class="line"><span class="string">&#x27;</span>linkcolor<span class="string">&#x27;, C Colorspec of links (default &#x27;</span>b<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">&#x27;</span>[<span class="keyword">no</span>]bas<span class="string">e&#x27; Enable display of base &#x27;</span>pedestal<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#x27;</span>basecolor<span class="string">&#x27;, C Color of base (default &#x27;</span>k<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">&#x27;</span>basewidth<span class="string">&#x27;, W Width of base (default 3)</span></span><br></pre></td></tr></table></figure>
 <p>根据这些选项能够自定义绘图连杆的颜色，地板颜色，轴的局部坐标系等信息了。 </p>
-<p>2, <code>SerialLink.rne</code><br><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">Inverse dynamics</span><br><span class="line"></span><br><span class="line">tau = R.rne(q, qd, qdd) <span class="keyword">is</span> <span class="keyword">the</span> joint torque required <span class="keyword">for</span> <span class="keyword">the</span> robot R <span class="keyword">to</span> achieve <span class="keyword">the</span> specified </span><br><span class="line">joint position q (<span class="number">1</span>xN), velocity qd (<span class="number">1</span>xN) <span class="keyword">and</span> acceleration qdd (<span class="number">1</span>xN), <span class="keyword">where</span> N <span class="keyword">is</span> <span class="keyword">the</span> <span class="built_in">number</span> <span class="keyword">of</span> robot joints.</span><br><span class="line"></span><br><span class="line">tau = R.rne(q, qd, qdd, grav) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> overriding <span class="keyword">the</span> gravitational acceleration vector (<span class="number">3</span>x1) <span class="keyword">in</span> <span class="keyword">the</span> robot object R.</span><br><span class="line"></span><br><span class="line">tau = R.rne(q, qd, qdd, grav, fext) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> specifying a wrench acting <span class="keyword">on</span> <span class="keyword">the</span> <span class="keyword">end</span> <span class="keyword">of</span> <span class="keyword">the</span> manipulator </span><br><span class="line">which <span class="keyword">is</span> a <span class="number">6</span>-vector [Fx Fy Fz Mx My Mz].</span><br><span class="line"></span><br><span class="line">tau = R.rne(x) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">where</span> x=[q,qd,qdd] (<span class="number">1</span>x3N).</span><br><span class="line"></span><br><span class="line">tau = R.rne(x, grav) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> overriding <span class="keyword">the</span> gravitational acceleration vector <span class="keyword">in</span> <span class="keyword">the</span> robot object R.</span><br><span class="line"></span><br><span class="line">tau = R.rne(x, grav, fext) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> specifying a wrench acting <span class="keyword">on</span> <span class="keyword">the</span> <span class="keyword">end</span> <span class="keyword">of</span> <span class="keyword">the</span> manipulator </span><br><span class="line">which <span class="keyword">is</span> a <span class="number">6</span>-vector [Fx Fy Fz Mx My Mz].</span><br><span class="line"></span><br><span class="line">[tau,wbase] = R.rne(x, grav, fext) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> <span class="keyword">the</span> extra output <span class="keyword">is</span> <span class="keyword">the</span> wrench <span class="keyword">on</span> <span class="keyword">the</span> base.</span><br></pre></td></tr></table></figure></p>
+<p>2, <code>SerialLink.rne</code></p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">Inverse dynamics</span><br><span class="line"></span><br><span class="line">tau = R.rne(q, qd, qdd) <span class="keyword">is</span> <span class="keyword">the</span> joint torque required <span class="keyword">for</span> <span class="keyword">the</span> robot R <span class="keyword">to</span> achieve <span class="keyword">the</span> specified </span><br><span class="line">joint position q (<span class="number">1</span>xN), velocity qd (<span class="number">1</span>xN) <span class="keyword">and</span> acceleration qdd (<span class="number">1</span>xN), <span class="keyword">where</span> N <span class="keyword">is</span> <span class="keyword">the</span> <span class="built_in">number</span> <span class="keyword">of</span> robot joints.</span><br><span class="line"></span><br><span class="line">tau = R.rne(q, qd, qdd, grav) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> overriding <span class="keyword">the</span> gravitational acceleration vector (<span class="number">3</span>x1) <span class="keyword">in</span> <span class="keyword">the</span> robot object R.</span><br><span class="line"></span><br><span class="line">tau = R.rne(q, qd, qdd, grav, fext) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> specifying a wrench acting <span class="keyword">on</span> <span class="keyword">the</span> <span class="keyword">end</span> <span class="keyword">of</span> <span class="keyword">the</span> manipulator </span><br><span class="line">which <span class="keyword">is</span> a <span class="number">6</span>-vector [Fx Fy Fz Mx My Mz].</span><br><span class="line"></span><br><span class="line">tau = R.rne(x) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">where</span> x=[q,qd,qdd] (<span class="number">1</span>x3N).</span><br><span class="line"></span><br><span class="line">tau = R.rne(x, grav) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> overriding <span class="keyword">the</span> gravitational acceleration vector <span class="keyword">in</span> <span class="keyword">the</span> robot object R.</span><br><span class="line"></span><br><span class="line">tau = R.rne(x, grav, fext) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> specifying a wrench acting <span class="keyword">on</span> <span class="keyword">the</span> <span class="keyword">end</span> <span class="keyword">of</span> <span class="keyword">the</span> manipulator </span><br><span class="line">which <span class="keyword">is</span> a <span class="number">6</span>-vector [Fx Fy Fz Mx My Mz].</span><br><span class="line"></span><br><span class="line">[tau,wbase] = R.rne(x, grav, fext) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> <span class="keyword">the</span> extra output <span class="keyword">is</span> <span class="keyword">the</span> wrench <span class="keyword">on</span> <span class="keyword">the</span> base.</span><br></pre></td></tr></table></figure>
 <p>有几种办法可以得到其正运动学的齐次变换矩阵, 在此之前先说两个方法里的函数 <code>R.A</code>,<code>R.fkine</code> 其中A表示的是连杆之间的变换，fkine给出的是最后变换的4*4矩阵，其输入参数有两个，一个是连杆的编号，另外一个是关节角度（可以是符号）。例如</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">mdl_ur5</span>;</span><br><span class="line"><span class="attribute">ur5</span>.A(<span class="number">1</span>,<span class="number">1</span>)  %当theta1 = <span class="number">1</span>时的变换矩阵，也就是基座到坐标系<span class="number">1</span>的齐次变换矩阵</span><br><span class="line"><span class="attribute">ur5</span>.A(<span class="number">2</span>,[rand,<span class="number">1</span>]) %当theta2 = <span class="number">1</span>时的变换矩阵，从坐标系<span class="number">1</span>到坐标系<span class="number">2</span>的齐次变换矩阵,此时与theta1没有什么关系</span><br><span class="line"><span class="attribute">ur5</span>.A(<span class="number">1</span>:<span class="number">2</span>,[<span class="number">1</span>,<span class="number">1</span>]) %从基座到坐标系<span class="number">2</span>的齐次变换矩阵</span><br><span class="line"><span class="attribute">ur5</span>.A(<span class="number">1</span>:<span class="number">6</span>,ones(<span class="number">1</span>,<span class="number">6</span>)) %从基座到末端的变换矩阵</span><br></pre></td></tr></table></figure>
 <p>验证结果如下</p>
@@ -212,14 +213,13 @@
 <p><img src="/img/postImg/rtb/qing.gif" width="80%" height="80%"></p>
 <h1 id="理论部分"><a href="#理论部分" class="headerlink" title="理论部分"></a>理论部分</h1><p>主要还是对标准的DH方法建立的模型进行阐述，因为在进行动力学代码编写的时候，感受到了那块的不易理解。顺便吐槽下国内的一些教材，当时在写递推Newton-Euler法建立的动力学的模型时，参考了国内两本教材(一本用的标准的DH，另外一本用的改进的)看得我当时就哭晕了过去.就不能标准下吗。。。。。好处就是对理论有了更好的理解(并不意味着可以很好的表述出来),当然，建立动力学模型的方法有很多，可以参考刘延柱老师的《多体系统动力学》</p>
 <p>串联机械臂的链路是由连杆组成，这些连杆由关节（运动副）连接起来。一般用R表示转动副，P表示移动副。这里的运动副在维基百科下的定义为</p>
-<details>
-<summary>
+<p><details></p>
+<p><summary>
 展开
-</summary>
-<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">运动副是两个机械构件之间通过直接接触而组成的可动连接。两个构件上参与接触而构成运动副的点、线、面等元素被称为运动副元素。</span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">1,</span> 两构件在未构成运动副之前，在空间中有<span class="number">6</span>个相对自由度，构成运动副后，它们之间的相对运动将受到约束，约束数最少为<span class="number">1</span>，最多为<span class="number">5</span>。</span><br><span class="line">常根据引入约束的数目将运动副分类，把引入一个约束的运动副成为一级副，以此类推引入两个约束的运动副称为二级副，还有三级，四级，五级副。</span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">2,</span> 按照运动副的接触形式分类。面和面接触的运动副在接触部分的压强较低，被称为低副，</span><br><span class="line">而通过点或线接触构成的运动副称为高副，高副比低副容易磨损。</span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">3,</span> 按照相对运动的形式分类。构成运动副的两个构件之间的相对运动若是平面运动则为平面运动副，若为空间运动则称为空间运动副，</span><br><span class="line">两个构件之间的相对运动为转动的运动副被称为转动副或回转副，也称铰链。相对运动为移动的运动副称为移动副；</span><br><span class="line">相对运动为螺旋运动的运动副称为螺旋副；相对运动为球面运动的运动副称为球面副。</span><br></pre></td></tr></table></figure>
-</details>
-
-
+</summary><br>```<br>运动副是两个机械构件之间通过直接接触而组成的可动连接。两个构件上参与接触而构成运动副的点、线、面等元素被称为运动副元素。</p>
+<p>1, 两构件在未构成运动副之前，在空间中有6个相对自由度，构成运动副后，它们之间的相对运动将受到约束，约束数最少为1，最多为5。<br>常根据引入约束的数目将运动副分类，把引入一个约束的运动副成为一级副，以此类推引入两个约束的运动副称为二级副，还有三级，四级，五级副。</p>
+<p>2, 按照运动副的接触形式分类。面和面接触的运动副在接触部分的压强较低，被称为低副，<br>而通过点或线接触构成的运动副称为高副，高副比低副容易磨损。</p>
+<p>3, 按照相对运动的形式分类。构成运动副的两个构件之间的相对运动若是平面运动则为平面运动副，若为空间运动则称为空间运动副，<br>两个构件之间的相对运动为转动的运动副被称为转动副或回转副，也称铰链。相对运动为移动的运动副称为移动副；<br>相对运动为螺旋运动的运动副称为螺旋副；相对运动为球面运动的运动副称为球面副。</p>
 <h2 id="标准DH与改进DH的不同"><a href="#标准DH与改进DH的不同" class="headerlink" title="标准DH与改进DH的不同"></a>标准DH与改进DH的不同</h2><h3 id="从变换公式来观察"><a href="#从变换公式来观察" class="headerlink" title="从变换公式来观察"></a>从变换公式来观察</h3><p>连杆变换是由基本旋转和平移变换所组成, 标准的DH参数的变换法则如下(后置)</p>
 <p><img src="https://latex.codecogs.com/png.latex?T(\theta) =   \underbrace{T_{Rz}(\theta_1) T_{z}(d_1) T_{x}(a_1) T_{Rx}(\alpha_1)  }_{DH_1} \cdot \underbrace{T_{Rz}(\theta_2) T_{z}(d_2) T_{x}(a_2) T_{Rx}(\alpha_2)  }_{DH_2} \cdots "/><br>改进的DH参数的变换法则如下(前置)</p>
 <p><img src="https://latex.codecogs.com/png.latex?T(\theta) =  \underbrace{T_{Rz}(\theta_1) T_{z}(d_1)}_{base}\cdot \underbrace{ T_{x}(a_1) T_{Rx}(\alpha_1)  T_{Rz}(\theta_2) T_{z}(d_2) }_{MDH_1} \cdot \underbrace{T_{x}(a_2) T_{Rx}(\alpha_2) } _{MDH_2}\cdots "/></p>
@@ -265,18 +265,17 @@
 
 
 
-<h1 id="微分运动和广义速度"><a href="#微分运动和广义速度" class="headerlink" title="微分运动和广义速度"></a>微分运动和广义速度</h1><p>刚体或坐标系的微分运动包含微分移动矢量$d$和微分转动矢量$\delta$。前者由沿三个坐标轴的微分移动组成，后者由绕三坐标轴的微分转动组成，即</p>
-<script type="math/tex; mode=display">
-d = d_xi+d_yj + d_zk \qquad 或 \qquad d = \left[ d_x, d_y, d_z \right]^T</script><script type="math/tex; mode=display">
-\delta = \delta_x i + \delta_y j + \delta_z k \qquad 或 \qquad \delta = \left[\delta_x, \delta_y, \delta_z\right]^T</script><p>将两者合并为6维列矢量$D$, 称为刚体或坐标系的微分运动矢量：</p>
-<script type="math/tex; mode=display">
-D = \left[
+<h1 id="微分运动和广义速度"><a href="#微分运动和广义速度" class="headerlink" title="微分运动和广义速度"></a>微分运动和广义速度</h1><p>刚体或坐标系的微分运动包含微分移动矢量d和微分转动矢量<img src="https://latex.codecogs.com/png.latex?\delta"/>。前者由沿三个坐标轴的微分移动组成，后者由绕三坐标轴的微分转动组成，即</p>
+<p><img src="https://latex.codecogs.com/png.latex?d = d_xi+d_yj + d_zk \qquad OR \qquad d = \left[ d_x, d_y, d_z \right]^T"/></p>
+<p><img src="https://latex.codecogs.com/png.latex?\delta = \delta_x i + \delta_y j + \delta_z k \qquad OR \qquad \delta = \left[\delta_x, \delta_y, \delta_z\right]^T"/></p>
+<p>将两者合并为6维列矢量 <img src="https://latex.codecogs.com/png.latex?D"/> , 称为刚体或坐标系的微分运动矢量：</p>
+<p><img src="https://latex.codecogs.com/png.latex?D = \left[
 \begin{array}{c}
 d \\ \delta
 \end{array}
-\right]</script><p>相应的，刚体或坐标系的广义速度$V$是由线速度$v$和角速度$\omega$组成的6维列矢量：</p>
-<script type="math/tex; mode=display">
-V = \left[
+\right]"/></p>
+<p>相应的，刚体或坐标系的广义速度V是由线速度v和角速度<img src="https://latex.codecogs.com/png.latex?\omega"/> 组成的6维列矢量：</p>
+<p><img src="https://latex.codecogs.com/png.latex?V = \left[
 \begin{array}{c}
 v \\ \omega
 \end{array}
@@ -284,9 +283,9 @@ v \\ \omega
 \begin{array}{c}
 d \\ \delta
 \end{array}
-\right]</script><p>微分运动矢量 $D$ 和广义速度 $V$ 也是相对于某坐标系而言的。在不同的坐标系中表示是不同的。若相对基坐标系（或参考系）的微分运动为 $D$ ($d$ 和 $\delta $），则相对坐标系 {T},</p>
-<script type="math/tex; mode=display">
-T = \left[
+\right]"/></p>
+<p>微分运动矢量 D 和广义速度 V 也是相对于某坐标系而言的。在不同的坐标系中表示是不同的。若相对基坐标系（或参考系）的微分运动为 D (d 和 <img src="https://latex.codecogs.com/png.latex?   \delta  "/> ），则相对坐标系 {T},</p>
+<p><img src="https://latex.codecogs.com/png.latex?T = \left[
 \begin{array}{cccc}
 n_x& o_x& a_x& p_x \\
 n_y& o_y& a_y& p_y \\
@@ -305,19 +304,20 @@ n & o & a & p\\
 R & p \\
 0 & 1
 \end{array}
-\right]</script><p>的微分运动 $^TD$ ($^Td$ 和 $^T\delta$) 为</p>
-<script type="math/tex; mode=display">
-\begin{cases}
+\right]"/></p>
+<p>的微分运动 <img src="https://latex.codecogs.com/png.latex? ^TD "/> (<img src="https://latex.codecogs.com/png.latex?   ^Td  "/>  和 <img src="https://latex.codecogs.com/png.latex?  ^T\delta   "/> ) 为</p>
+<p><img src="https://latex.codecogs.com/png.latex?\begin{cases}
 ^Td_x = d \cdot n + (\delta \times p) \cdot n = n \cdot ( (\delta \times p) + d) \\
 ^Td_y = d \cdot o + (\delta \times p) \cdot o = o \cdot ( (\delta \times p) + d) \\
 ^Td_z = d \cdot a + (\delta \times p) \cdot a = a \cdot ( (\delta \times p) + d)
-\end{cases}</script><script type="math/tex; mode=display">
-\begin{cases}
+\end{cases}"/></p>
+<p><img src="https://latex.codecogs.com/png.latex?\begin{cases}
 ^T\delta_x = n \cdot \delta  \\
 ^T\delta_y = o \cdot \delta  \\
 ^T\delta_z = a \cdot \delta 
-\end{cases}</script><p>合并上式， 可以得到 $^TD$ 与 $D$ 的关系为</p>
-<script type="math/tex; mode=display">
+\end{cases}"/></p>
+<p>合并上式， 可以得到 <img src="https://latex.codecogs.com/png.latex?^TD"/> 与 D 的关系为</p>
+<p><img src="https://latex.codecogs.com/png.latex?    
 \left[
 \begin{array}{c}
 ^Td_x \\
@@ -338,8 +338,10 @@ a_x & a_y & a_z & (p \times a)_x & (p \times a)_y  & (p \times a)_z  \\
 0 & 0 & 0 & o_x & o_y & o_z \\
 0 & 0 & 0 & a_x & a_y & a_z \\
 \end{array}
-\right]</script><p>上式可简写为</p>
-<script type="math/tex; mode=display">
+\right]
+"/> </p>
+<p>上式可简写为</p>
+<p><img src="https://latex.codecogs.com/png.latex?    
 \left[
 \begin{array}{c}
 ^Td \\
@@ -357,21 +359,25 @@ R^T & -R^TS(p) \\
 d \\
 \delta 
 \end{array}
-\right]</script><p>对于任何 3 维矢量 $p= [p_x, p_y, p_z]$。其反对称矩阵 S (p）定义为</p>
-<script type="math/tex; mode=display">
+\right]
+"/> </p>
+<p>对于任何 3 维矢量 <img src="https://latex.codecogs.com/png.latex?     p= [p_x, p_y, p_z]"/> 。其反对称矩阵 S (p）定义为</p>
+<p><img src="https://latex.codecogs.com/png.latex?    
 S(p) = \left[
 \begin{array}{ccc}
 0 & -p_z & p_y \\
 p_z & 0 & -p_x \\
 -p_y & p_x & 0 
 \end{array}
-\right]</script><p>它具有以下性质：</p>
-<p>(1) $S(p) \omega = p \times \omega$, $S(p) \delta = p \times \delta$</p>
-<p>(2) $\omega^T S(p) = -(p \times \omega)^T, \delta^T S(p) = - (p \times \delta)^T$</p>
-<p>(3) </p>
-<script type="math/tex; mode=display">
--R^TS(p) = \left[ \begin{array}{ccc} (p\times n)_x &  (p\times n)_y & (p\times n)_z \\(p\times o)_x &  (p\times o)_y & (p\times o)_z \\(p\times a)_x &  (p\times a)_y & (p\times a)_z \end{array}\right]</script><p>相应地，广义速度 $V$ 的坐标变换为</p>
-<script type="math/tex; mode=display">
+\right]
+"/> </p>
+<p>它具有以下性质：</p>
+<p>(1) <img src="https://latex.codecogs.com/png.latex?     S(p) \omega = p \times \omega, S(p) \delta = p \times \delta"/> </p>
+<p>(2) <img src="https://latex.codecogs.com/png.latex?    \omega^T S(p) = -(p \times \omega)^T, \delta^T S(p) = - (p \times \delta)^T"/> </p>
+<p>(3) <img src="https://latex.codecogs.com/png.latex?    -R^TS(p) = \left[ \begin{array}{ccc} (p\times n)_x &  (p\times n)_y & (p\times n)_z \\(p\times o)_x &  (p\times o)_y & (p\times o)_z \\(p\times a)_x &  (p\times a)_y & (p\times a)_z \end{array}\right]
+"/> </p>
+<p>相应地，广义速度 V 的坐标变换为</p>
+<p><img src="https://latex.codecogs.com/png.latex?     
 \left[
 \begin{array}{c}
 ^Tv \\
@@ -390,8 +396,10 @@ R^T &-R^TS(p) \\
 v \\
 \omega 
 \end{array}
-\right]</script><p>任意两坐标系{A}和{B}之间广义速度的坐标变换为</p>
-<script type="math/tex; mode=display">
+\right]
+"/> </p>
+<p>任意两坐标系{A}和{B}之间广义速度的坐标变换为</p>
+<p><img src="https://latex.codecogs.com/png.latex?    
 \left[
 \begin{array}{c}
 ^Bv \\
@@ -410,12 +418,16 @@ v \\
 ^Av \\
 ^A\omega 
 \end{array}
-\right]</script><h1 id="雅可比矩阵的构造法"><a href="#雅可比矩阵的构造法" class="headerlink" title="雅可比矩阵的构造法"></a>雅可比矩阵的构造法</h1><p>雅可比矩阵$J(q)$既可当成是从关节空间向操作空间的速度传递的线性关系，也可看成是微分运动转换的线性关系，即</p>
-<script type="math/tex; mode=display">
+\right]
+"/> </p>
+<h1 id="雅可比矩阵的构造法"><a href="#雅可比矩阵的构造法" class="headerlink" title="雅可比矩阵的构造法"></a>雅可比矩阵的构造法</h1><p>雅可比矩阵J(q)既可当成是从关节空间向操作空间的速度传递的线性关系，也可看成是微分运动转换的线性关系，即</p>
+<p><img src="https://latex.codecogs.com/png.latex?    
 \begin{cases}
 V = J(q) \dot(q)\\
 D = J(q) dq
-\end{cases}</script><p>对于 $n$ 个关节的机器人，其雅可比$J(q)$是 $6\times n$ 阶矩阵。其中前 3 行代表对手爪线速度 v 的传递比；后 3 行代表对手爪的角速度$\omega$的传递比。另一方面，每一列代表相应的关节速度$\dot{q}$, 对于手爪线速度和角速度的传递比。因此，可将雅可比 $J(q)$分块，即</p>
+\end{cases}
+ "/> </p>
+<p>对于 n 个关节的机器人，其雅可比J(q)是 <img src="https://latex.codecogs.com/png.latex?    6\times n"/>  阶矩阵。其中前 3 行代表对手爪线速度 v 的传递比；后 3 行代表对手爪的角速度$\omega$的传递比。另一方面，每一列代表相应的关节速度$\dot{q}$, 对于手爪线速度和角速度的传递比。因此，可将雅可比 $J(q)$分块，即</p>
 <h1 id="力雅可比"><a href="#力雅可比" class="headerlink" title="力雅可比"></a>力雅可比</h1><p>机器人与外界环境相互作用时， 在接触的地方要产生力 $f$ 和力矩 $n$, 统称为末端广义（操作）力矢量， 记为：</p>
 <script type="math/tex; mode=display">
 f = \left[ 
