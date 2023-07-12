@@ -15,9 +15,6 @@
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
-    
-    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-	 
     <noscript>
         <link rel="stylesheet" href="/css/noscript.css" />
     </noscript>
@@ -26,7 +23,7 @@
           content: ' ';
           position: fixed;
           top: 0;
-          background: url(https://source.unsplash.com/random/1600x900) center 0 no-repeat;
+          background: url(https://api.dujin.org/bing/1366.php) center 0 no-repeat;
           right: 0;
           bottom: 0;
           left: 0;
@@ -34,11 +31,7 @@
         }
     </style>
 
-	    
-  
-
-
-    <script src="/js/jquery.min.js"></script>
+	    <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery.scrollex.min.js"></script>
     <script src="/js/jquery.scrolly.min.js"></script>
     <script src="/js/skel.min.js"></script>
@@ -79,7 +72,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </ul>
 	        </li>
 	        
@@ -213,15 +206,13 @@
 <p><img src="/img/postImg/rtb/qing.gif" width="80%" height="80%"></p>
 <h1 id="理论部分"><a href="#理论部分" class="headerlink" title="理论部分"></a>理论部分</h1><p>主要还是对标准的DH方法建立的模型进行阐述，因为在进行动力学代码编写的时候，感受到了那块的不易理解。顺便吐槽下国内的一些教材，当时在写递推Newton-Euler法建立的动力学的模型时，参考了国内两本教材(一本用的标准的DH，另外一本用的改进的)看得我当时就哭晕了过去.就不能标准下吗。。。。。好处就是对理论有了更好的理解(并不意味着可以很好的表述出来),当然，建立动力学模型的方法有很多，可以参考刘延柱老师的《多体系统动力学》</p>
 <p>串联机械臂的链路是由连杆组成，这些连杆由关节（运动副）连接起来。一般用R表示转动副，P表示移动副。这里的运动副在维基百科下的定义为</p>
-<p><details></p>
-<p><summary>
-展开
-</summary><br>```<br>运动副是两个机械构件之间通过直接接触而组成的可动连接。两个构件上参与接触而构成运动副的点、线、面等元素被称为运动副元素。</p>
+<p>运动副是两个机械构件之间通过直接接触而组成的可动连接。两个构件上参与接触而构成运动副的点、线、面等元素被称为运动副元素。</p>
 <p>1, 两构件在未构成运动副之前，在空间中有6个相对自由度，构成运动副后，它们之间的相对运动将受到约束，约束数最少为1，最多为5。<br>常根据引入约束的数目将运动副分类，把引入一个约束的运动副成为一级副，以此类推引入两个约束的运动副称为二级副，还有三级，四级，五级副。</p>
 <p>2, 按照运动副的接触形式分类。面和面接触的运动副在接触部分的压强较低，被称为低副，<br>而通过点或线接触构成的运动副称为高副，高副比低副容易磨损。</p>
 <p>3, 按照相对运动的形式分类。构成运动副的两个构件之间的相对运动若是平面运动则为平面运动副，若为空间运动则称为空间运动副，<br>两个构件之间的相对运动为转动的运动副被称为转动副或回转副，也称铰链。相对运动为移动的运动副称为移动副；<br>相对运动为螺旋运动的运动副称为螺旋副；相对运动为球面运动的运动副称为球面副。</p>
 <h2 id="标准DH与改进DH的不同"><a href="#标准DH与改进DH的不同" class="headerlink" title="标准DH与改进DH的不同"></a>标准DH与改进DH的不同</h2><h3 id="从变换公式来观察"><a href="#从变换公式来观察" class="headerlink" title="从变换公式来观察"></a>从变换公式来观察</h3><p>连杆变换是由基本旋转和平移变换所组成, 标准的DH参数的变换法则如下(后置)</p>
-<p><img src="https://latex.codecogs.com/png.latex?T(\theta) =   \underbrace{T_{Rz}(\theta_1) T_{z}(d_1) T_{x}(a_1) T_{Rx}(\alpha_1)  }_{DH_1} \cdot \underbrace{T_{Rz}(\theta_2) T_{z}(d_2) T_{x}(a_2) T_{Rx}(\alpha_2)  }_{DH_2} \cdots "/><br>改进的DH参数的变换法则如下(前置)</p>
+<p><img src="https://latex.codecogs.com/png.latex?T(\theta) =   \underbrace{T_{Rz}(\theta_1) T_{z}(d_1) T_{x}(a_1) T_{Rx}(\alpha_1)  }_{DH_1} \cdot \underbrace{T_{Rz}(\theta_2) T_{z}(d_2) T_{x}(a_2) T_{Rx}(\alpha_2)  }_{DH_2} \cdots "/> </p>
+<p>改进的DH参数的变换法则如下(前置)</p>
 <p><img src="https://latex.codecogs.com/png.latex?T(\theta) =  \underbrace{T_{Rz}(\theta_1) T_{z}(d_1)}_{base}\cdot \underbrace{ T_{x}(a_1) T_{Rx}(\alpha_1)  T_{Rz}(\theta_2) T_{z}(d_2) }_{MDH_1} \cdot \underbrace{T_{x}(a_2) T_{Rx}(\alpha_2) } _{MDH_2}\cdots "/></p>
 <h2 id="从图中来观察"><a href="#从图中来观察" class="headerlink" title="从图中来观察"></a>从图中来观察</h2><p>标准的DH</p>
 <div align="center"> <img src="/img/postImg/rtb/classic_dh_parameters.png" width="30%" height="40%"> </div>
@@ -427,20 +418,24 @@ V = J(q) \dot(q)\\
 D = J(q) dq
 \end{cases}
  "/> </p>
-<p>对于 n 个关节的机器人，其雅可比J(q)是 <img src="https://latex.codecogs.com/png.latex?    6\times n"/>  阶矩阵。其中前 3 行代表对手爪线速度 v 的传递比；后 3 行代表对手爪的角速度$\omega$的传递比。另一方面，每一列代表相应的关节速度$\dot{q}$, 对于手爪线速度和角速度的传递比。因此，可将雅可比 $J(q)$分块，即</p>
-<h1 id="力雅可比"><a href="#力雅可比" class="headerlink" title="力雅可比"></a>力雅可比</h1><p>机器人与外界环境相互作用时， 在接触的地方要产生力 $f$ 和力矩 $n$, 统称为末端广义（操作）力矢量， 记为：</p>
-<script type="math/tex; mode=display">
+<p>对于 n 个关节的机器人，其雅可比J(q)是 <img src="https://latex.codecogs.com/png.latex?    6\times n"/>  阶矩阵。其中前 3 行代表对手爪线速度 v 的传递比；后 3 行代表对手爪的角速度 <img src="https://latex.codecogs.com/png.latex?\omega"/> 的传递比。另一方面，每一列代表相应的关节速度 <img src="https://latex.codecogs.com/png.latex?\dot{q}"/> , 对于手爪线速度和角速度的传递比;</p>
+<h1 id="力雅可比"><a href="#力雅可比" class="headerlink" title="力雅可比"></a>力雅可比</h1><p>机器人与外界环境相互作用时， 在接触的地方要产生力 f 和力矩 n, 统称为末端广义（操作）力矢量， 记为：</p>
+<p><img src="https://latex.codecogs.com/png.latex?
 f = \left[ 
 \begin{array}{c}
 f \\n
 \end{array}
-\right]</script><p>例如， 操作臂提取重物时承受的外界作用力和力矩。在静止状态下，广义操作力矢量$F$应与各关节的驱动力（或力矩）相平衡。$n$ 个关节的驱动力组成的$n$ 维矢量</p>
-<script type="math/tex; mode=display">
-\tau = \left[ \tau_1, \tau_2, \cdots, \tau_n \right]^T</script><p>称为关节力矢量。 利用虚功原理， 可以得到关节力矢量$\tau$与相应的广义操作力矢量$F$之间的关系。令各关节的虚位移为$\delta q_i$, 末端执行器相应的虚位移为$D$。所谓的虚位移，是满足机械系统几何约束的无限小位移。各关节所作的虚功只和$W = \tau^T\delta q = \tau_1\delta q_1 + \tau_2\delta q_2 + \cdots + \tau_n\delta q_n$与末端执行器所作的虚功$W=F^TD=f^Td + n^T\delta$ 应该相等（总的虚功为零），即</p>
-<script type="math/tex; mode=display">
-\tau^T\delta q = F^TD = F^T(J(q)\delta q)</script><p>不难得到</p>
-<script type="math/tex; mode=display">
-\tau = J^T(q) F</script><p>式中， $J^T(q)$ 称为操作臂的力雅可比， 它表示在静态平衡状态下， 操作力向关节力映射的线性关系。</p>
+\right]
+"/></p>
+<p>例如， 操作臂提取重物时承受的外界作用力和力矩。在静止状态下，广义操作力矢量F应与各关节的驱动力（或力矩）相平衡。n 个关节的驱动力组成的n维矢量</p>
+<p><img src="https://latex.codecogs.com/png.latex?
+\tau = \left[ \tau_1, \tau_2, \cdots, \tau_n \right]^T
+"/></p>
+<p>称为关节力矢量。 利用虚功原理， 可以得到关节力矢量<img src="https://latex.codecogs.com/png.latex?\tau"/> 与相应的广义操作力矢量F之间的关系。令各关节的虚位移为 <img src="https://latex.codecogs.com/png.latex?\delta q_i"/> , 末端执行器相应的虚位移为D。所谓的虚位移，是满足机械系统几何约束的无限小位移。各关节所作的虚功只和 <img src="https://latex.codecogs.com/png.latex?W = \tau^T\delta q = \tau_1\delta q_1 + \tau_2\delta q_2 + \cdots + \tau_n\delta q_n"/> 与末端执行器所作的虚功 <img src="https://latex.codecogs.com/png.latex?W=F^TD=f^Td + n^T\delta"/> 应该相等（总的虚功为零），即</p>
+<p><img src="https://latex.codecogs.com/png.latex?  \tau^T\delta q = F^TD = F^T(J(q)\delta q) "/></p>
+<p>不难得到</p>
+<p><img src="https://latex.codecogs.com/png.latex?  \tau = J^T(q) F "/></p>
+<p>式中，<img src="https://latex.codecogs.com/png.latex? J^T(q)"/> 称为操作臂的力雅可比， 它表示在静态平衡状态下， 操作力向关节力映射的线性关系。</p>
 <h1 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h1><p>1, 工具箱使用的关节坐标都是行向量.</p>
 <p>2, 判别给的是标准DH还是改进DH，可从给的参数栏的下标入手，如果有相同的下标，则是标准，否则，为改进的DH参数。</p>
 <p>3, 想同时展示多个机器人，比如两个机器人，需要创建一个机器人的复本，其基座处在不同的位置，这样就可以同时展示两个机器人了。</p>

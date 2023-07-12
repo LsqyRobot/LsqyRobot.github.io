@@ -15,9 +15,6 @@
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
-    
-    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-	 
     <noscript>
         <link rel="stylesheet" href="/css/noscript.css" />
     </noscript>
@@ -26,7 +23,7 @@
           content: ' ';
           position: fixed;
           top: 0;
-          background: url(https://source.unsplash.com/random/1600x900) center 0 no-repeat;
+          background: url(https://api.dujin.org/bing/1366.php) center 0 no-repeat;
           right: 0;
           bottom: 0;
           left: 0;
@@ -34,11 +31,7 @@
         }
     </style>
 
-	    
-  
-
-
-    <script src="/js/jquery.min.js"></script>
+	    <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery.scrollex.min.js"></script>
     <script src="/js/jquery.scrolly.min.js"></script>
     <script src="/js/skel.min.js"></script>
@@ -79,7 +72,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </ul>
 	        </li>
 	        
@@ -163,6 +156,17 @@
 <p><img src="/img/postImg/robot_calibration/transA_linkTransform.png" width="70%" height="50%"></p>
 <p>Mahtematica 代码如下（直接粘贴复制在Mathematica中即可）</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">rotTheta</span> = RotationTransform[\[Theta], &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;];</span><br><span class="line"><span class="attribute">transD</span> = TranslationTransform[&#123;<span class="number">0</span>, <span class="number">0</span>, d&#125;];</span><br><span class="line"><span class="attribute">transA</span> = TranslationTransform[&#123;a, <span class="number">0</span>, <span class="number">0</span>&#125;];</span><br><span class="line"><span class="attribute">rotAlpha</span> = RotationTransform[\[Alpha], &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;];</span><br><span class="line"><span class="attribute">MatrixForm</span> /@ TransformationMatrix /@ &#123;rotTheta, transD, transA, rotAlpha&#125;</span><br><span class="line"><span class="attribute">rotTheta</span>.transD.transA.rotAlpha</span><br></pre></td></tr></table></figure>
+<h1 id="单关节动力学模型"><a href="#单关节动力学模型" class="headerlink" title="单关节动力学模型"></a>单关节动力学模型</h1><p>单个关节的刚体动力学建模过程包括以下步骤：</p>
+<ol>
+<li>定义坐标系和参考系：选择一个参考坐标系和一个基坐标系，确定关节的旋转轴和旋转方向。</li>
+<li>定义刚体：确定刚体的质量、重心和惯量矩阵。</li>
+<li>计算外力和外力矩：包括重力和其他作用在刚体上的力和力矩。</li>
+<li>计算动力学方程：利用牛顿-欧拉公式，求解刚体的运动方程和旋转方程（单个关节比较简单，其实可以直接得到其解析形势下的动力学了）。</li>
+<li>数值求解：将求得的动力学方程进行数值积分，得到刚体的位置、速度和加速度。</li>
+</ol>
+<p>以下是一个简单的单关节机械臂的Python仿真代码示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pythonCopy code</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.integrate <span class="keyword">import</span> solve_ivp</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义常数</span></span><br><span class="line">m = <span class="number">1.0</span>        <span class="comment"># 质量</span></span><br><span class="line">L = <span class="number">1.0</span>        <span class="comment"># 长度</span></span><br><span class="line">g = <span class="number">9.81</span>       <span class="comment"># 重力加速度</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dynamics</span>(<span class="params">t, y</span>):</span><br><span class="line">    theta, omega = y</span><br><span class="line">    alpha = -(g/L)*np.sin(theta)</span><br><span class="line">    <span class="keyword">return</span> [omega, alpha]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义初始状态和时间点</span></span><br><span class="line">y0 = [np.pi/<span class="number">4</span>, <span class="number">0</span>]</span><br><span class="line">t_span = [<span class="number">0</span>, <span class="number">10</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 求解运动方程</span></span><br><span class="line">sol = solve_ivp(dynamics, t_span, y0)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制结果</span></span><br><span class="line">plt.plot(sol.t, sol.y[<span class="number">0</span>])</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Time [s]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Angle [rad]&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>这段代码定义了一个单关节机械臂的动力学模型，并使用Scipy库的solve_ivp函数求解运动方程。最后，绘制了机械臂的运动角度随时间的变化曲线。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] 机器人学导论，分析，控制及应用</p>
 
             </div>
