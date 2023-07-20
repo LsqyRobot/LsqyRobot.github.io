@@ -137,7 +137,14 @@
             </div>
 
             <div class="typo" style="padding: 3rem;">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>了解常微分方程的数值求解，有利于进行数值仿真。这部分是自己读研时候，自学《数值分析》与在进行机器人的动力学仿真时经常接触到的一项内容,简单的来说，对机器人进行动力学仿真的时候（不考虑柔性等），是求解常微分方程<strong>组</strong>(ODES)的过程(对于二阶乃至于高阶问题，都可以化成一阶来求解），有很多有趣的东西在里面。正好今天在<a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/matlab/math/solve-stiff-odes.html">MATLAB官网</a>上看到了一些当年了解过的东西，想简要的对数值积分这部分内容做一点初步的介绍。</p>
+                <!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#刚性问题">刚性问题</a></li>
+<li><a href="#解算刚性-ode">解算刚性 ODE</a></li>
+</ul>
+<!-- vim-markdown-toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>了解常微分方程的数值求解，有利于进行数值仿真。这部分是自己读研时候，自学《数值分析》与在进行机器人的动力学仿真时经常接触到的一项内容,简单的来说，对机器人进行动力学仿真的时候（不考虑柔性等），是求解常微分方程<strong>组</strong>(ODES)的过程(对于二阶乃至于高阶问题，都可以化成一阶来求解），有很多有趣的东西在里面。正好今天在<a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/matlab/math/solve-stiff-odes.html">MATLAB官网</a>上看到了一些当年了解过的东西，想简要的对数值积分这部分内容做一点初步的介绍。</p>
 <h1 id="刚性问题"><a href="#刚性问题" class="headerlink" title="刚性问题"></a>刚性问题</h1><p>对于一些 ODE 问题，求解器采用的步长被强制缩小为与积分区间相比过小的级别，甚至在解曲线平滑的区域亦如此。这些步长可能过小，以至于遍历很短的时间区间都可能需要数百万次计算。这可能导致求解器积分失败，即使积分成功也需要花费很长时间。导致 ODE 求解器出现此行为的方程称为<em>刚性</em>方程。刚性 ODE 造成的问题是，显式求解器（例如 <code>ode45</code>）获取解的速度慢得令人无法忍受。这是将 <code>ode45</code> 与 <code>ode23</code> 和 <code>ode113</code> 一同归类为<em>非刚性求解器</em>的原因所在。专用于刚性 ODE 的求解器称为<em>刚性求解器</em>，它们通常在每一步中完成更多的计算工作。这样做的好处是，它们能够采用大得多的步长，并且与非刚性求解器相比提高了数值稳定性。</p>
 <h1 id="解算刚性-ODE"><a href="#解算刚性-ODE" class="headerlink" title="解算刚性 ODE"></a>解算刚性 ODE</h1><p>MATLAB拥有四个专用于刚性 ODE 的求解器，分别是：ode15s、ode23s、ode23t、ode23tb，对于大多数刚性问题，<code>ode15s</code> 的性能最佳。但如果问题允许较宽松的误差容限，则 <code>ode23s</code>、<code>ode23t</code> 和 <code>ode23tb</code> 可能更加高效。在对机器人进行动力学等数值仿真的时候，大多数情况下会选择ode45或者是ode15s, 视问题的复杂度来看。数值仿真可以理解为自己写程序，得到数值解。</p>
 
