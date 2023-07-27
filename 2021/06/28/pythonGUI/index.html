@@ -72,7 +72,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </ul>
 	        </li>
 	        
@@ -110,8 +110,6 @@
 	        <!-- tag --> 
 			<li>
 	        
-	            <a href="/tag/" ><img src="/img/tag.png"></a>
-	        
 			</li>
 
 
@@ -140,24 +138,24 @@
                 <!-- vim-markdown-toc GFM -->
 <ul>
 <li><a href="#前言">前言</a></li>
-<li><a href="#traits为-python-添加类型">Traits——为 Python 添加类型</a><ul>
-<li><a href="#trait-属性的功能"><strong>Trait</strong> <strong>属性的功能</strong></a></li>
+<li><a href="#为python-添加类型">为Python 添加类型</a><ul>
+<li><a href="#属性的功能">属性的功能</a></li>
 </ul>
 </li>
-<li><a href="#traitsui轻松制作用户界面">TraitsUI——轻松制作用户界面</a><ul>
-<li><a href="#用-view-定义界面">用 <code>View</code> 定义界面</a></li>
+<li><a href="#轻松制作用户界面">轻松制作用户界面</a><ul>
+<li><a href="#定义界面">定义界面</a></li>
 </ul>
 </li>
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>近来写的python脚本比较多，以自己的随意的性格，那些代码迟早会被自己弄丢的，或者是隔了一段时间，都不知道自己写的是啥了，所以打算写个交互式的界面，帮助自己整理那些代码。顺带学习学习python中GUI的编写，有过MATLAB编写GUI的基础，希望上手能快一些。学习到的内容源自于书籍[1], 书很不错，值得去学习，这里就摘抄一部分自己认为重要的内容。</p>
-<h1 id="Traits——为-Python-添加类型"><a href="#Traits——为-Python-添加类型" class="headerlink" title="Traits——为 Python 添加类型"></a>Traits——为 Python 添加类型</h1><h2 id="Trait-属性的功能"><a href="#Trait-属性的功能" class="headerlink" title="Trait 属性的功能"></a><strong>Trait</strong> <strong>属性的功能</strong></h2><p>Traits 库为对象的属性增加了类型定义的功能，此外还提供了如下的额外功能(自己感觉还是比较重要的地方)：</p>
+<h1 id="为Python-添加类型"><a href="#为Python-添加类型" class="headerlink" title="为Python 添加类型"></a>为Python 添加类型</h1><h2 id="属性的功能"><a href="#属性的功能" class="headerlink" title="属性的功能"></a>属性的功能</h2><p>Traits 库为对象的属性增加了类型定义的功能，此外还提供了如下的额外功能(自己感觉还是比较重要的地方)：</p>
 <figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">初始化：每个 <span class="keyword">Trait</span> 属性都有自己的默认值。</span><br><span class="line">验证：<span class="keyword">Trait</span> 属性都有明确的类型定义，只有满足定义的值才能赋给属性。</span><br><span class="line">代理：<span class="keyword">Trait</span> 属性值可以代理给其他对象的属性。</span><br><span class="line">监听：<span class="keyword">Trait</span> 属性值发生变化时，可以运行事先指定的函数。</span><br><span class="line">可视化：拥有 <span class="keyword">Trait</span> 属性的对象可以很方便地生成编辑 <span class="keyword">Trait</span> 属性的界面。</span><br></pre></td></tr></table></figure>
 <p>下面的例子展示了 Trait 属性的上述功能(看的中国慕课里讲的也就是这个例子，一模一样)。</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="symbol">Parent</span> ( <span class="symbol">HasTraits</span> ): </span><br><span class="line"> # 初始化: <span class="symbol">last_name</span> 被初始化为&#x27;<span class="symbol">Zhang</span>&#x27; </span><br><span class="line"> <span class="symbol">last_name</span> = <span class="symbol">Str</span>( &#x27;<span class="symbol">Zhang</span>&#x27; ) </span><br><span class="line"><span class="symbol">class</span> <span class="symbol">Child</span> ( <span class="symbol">HasTraits</span> ): </span><br><span class="line">     <span class="symbol">age</span> = <span class="symbol">Int</span> </span><br><span class="line">     # 验证: <span class="symbol">father</span> 属性的值必须是 <span class="symbol">Parent</span> 类的实例</span><br><span class="line">     <span class="symbol">father</span> = <span class="symbol">Instance</span>( <span class="symbol">Parent</span> ) </span><br><span class="line">     # 代理： 将 <span class="symbol">Child</span> 对象的 <span class="symbol">last_name</span> 属性代理给其 <span class="symbol">father</span> 属性的 <span class="symbol">last_name</span> </span><br><span class="line">     <span class="symbol">last_name</span> = <span class="symbol">Delegate</span>( &#x27;<span class="symbol">father</span>&#x27; ) </span><br><span class="line"> # 监听: 当 <span class="symbol">age</span> 属性的值被修改时，下面的函数将被运行</span><br><span class="line">	 <span class="symbol">def</span> <span class="symbol">_age_changed</span> ( <span class="symbol">self, <span class="symbol">old</span>, <span class="symbol">new</span></span> ): </span><br><span class="line">	 	<span class="symbol">print</span> &#x27;<span class="symbol">Age</span> <span class="symbol">changed</span> <span class="symbol">from</span> %<span class="symbol">s</span> <span class="symbol">to</span> %<span class="symbol">s</span> &#x27; % ( <span class="symbol">old, <span class="symbol">new</span></span> )</span><br></pre></td></tr></table></figure>
 <p>当派生类中定义了<strong>init</strong>()时，在其中必须调用其父类的<strong>init</strong>()方法，否则 Trait 属性的一些功能将无效。</p>
-<h1 id="TraitsUI——轻松制作用户界面"><a href="#TraitsUI——轻松制作用户界面" class="headerlink" title="TraitsUI——轻松制作用户界面"></a>TraitsUI——轻松制作用户界面</h1><p>希望快速实现一个够用的界面，让用户能够交互式地处理数据，而又不希望在界面制作上花费过多的精力。以 Traits 库为基础、以 MVC 模式为设计思想的 TraitsUI 库就是实现这一理想的最佳方案。</p>
+<h1 id="轻松制作用户界面"><a href="#轻松制作用户界面" class="headerlink" title="轻松制作用户界面"></a>轻松制作用户界面</h1><p>希望快速实现一个够用的界面，让用户能够交互式地处理数据，而又不希望在界面制作上花费过多的精力。以 Traits 库为基础、以 MVC 模式为设计思想的 TraitsUI 库就是实现这一理想的最佳方案。</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">MVC 的英文全称为 Model-View-Controller，它的目的是实现一种动态的程序设计，简化程序的修改和扩展工作，并且使程序的各个部分能够充分地被重复利用。</span><br><span class="line"><span class="function"><span class="title">Model</span><span class="params">(模型)</span></span>：程序中存储数据以及对数据进行处理的部分。</span><br><span class="line"><span class="function"><span class="title">View</span><span class="params">(视图)</span></span>：程序的界面部分，实现数据的显示。</span><br><span class="line"><span class="function"><span class="title">Controller</span><span class="params">(控制器)</span></span>：起到视图和模型之间的组织作用，控制程序的流程，例如将界面的</span><br><span class="line">操作转换为对模型的处理。</span><br></pre></td></tr></table></figure>
 <p>这里运行书中给的第一个例子就报了很多错了，是自己没有安装相关的包导致的，可以通过pip 或者conda安装，这里采用pip的方式安装所需的包</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">pip3 <span class="keyword">install</span> traits</span><br><span class="line">pip <span class="keyword">install</span> traitsui</span><br></pre></td></tr></table></figure>
@@ -166,7 +164,7 @@
 <p>即可出现书中给出的交互式界面了。</p>
 <p><img src="/img/postImg/python0/pythonGUIeg1.png" alt=""></p>
 <p>没有写一行与界面相关的代码，就能得到一个已经够实用的界面，应该还是很令人满意的。如果想手工控制界面的设计和布局，就需要添加自己的代码了。</p>
-<h2 id="用-View-定义界面"><a href="#用-View-定义界面" class="headerlink" title="用 View 定义界面"></a>用 <code>View</code> 定义界面</h2><p>HasTraits 的派生类用 Trait 属性保存数据，它相当于 MVC 模式中的模型(Model)。当没有指定界面的显示方式时，Traits 库会自动创建一个默认的界面。可以通过视图(View)对象为模型设计更加实用的界面。当然，用书中给的例子，也是通不过编译的，改成如下形式即可。</p>
+<h2 id="定义界面"><a href="#定义界面" class="headerlink" title="定义界面"></a>定义界面</h2><p>HasTraits 的派生类用 Trait 属性保存数据，它相当于 MVC 模式中的模型(Model)。当没有指定界面的显示方式时，Traits 库会自动创建一个默认的界面。可以通过视图(View)对象为模型设计更加实用的界面。当然，用书中给的例子，也是通不过编译的，改成如下形式即可。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> traits.api <span class="keyword">import</span> HasTraits, Str, Int</span><br><span class="line"><span class="keyword">from</span> traitsui.api <span class="keyword">import</span> View,Item</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span>(<span class="title class_ inherited__">HasTraits</span>):</span><br><span class="line"> name = Str</span><br><span class="line"> department = Str</span><br><span class="line"> salary = Int</span><br><span class="line"> bonus = Int</span><br><span class="line"></span><br><span class="line"> view = View(</span><br><span class="line">  Item(<span class="string">&#x27;department&#x27;</span>, label=<span class="string">u&quot;部门&quot;</span>, tooltip=<span class="string">u&quot;在哪个部门干活&quot;</span>),</span><br><span class="line">  Item(<span class="string">&#x27;name&#x27;</span>, label=<span class="string">u&quot;姓名&quot;</span>),</span><br><span class="line">  Item(<span class="string">&#x27;salary&#x27;</span>, label=<span class="string">u&quot;工资&quot;</span>),</span><br><span class="line">  Item(<span class="string">&#x27;bonus&#x27;</span>, label=<span class="string">u&quot;奖金&quot;</span>),</span><br><span class="line">  title=<span class="string">u&quot;员工资料&quot;</span>, width=<span class="number">250</span>, height=<span class="number">150</span>, resizable=<span class="literal">True</span></span><br><span class="line"> )</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">  p = Employee()</span><br><span class="line">  p.configure_traits()</span><br></pre></td></tr></table></figure>
 <p><img src="/img/postImg/python0/pythonGUIeg2.png" alt=""></p>
 <p>界面相关的内容都位于 TraitsUI 库中，这里从中载入 View 和 Item。View 是描述界面的视图类，Item 是描述界面中的控件和模型对象的 Trait 属性之间关系的类。除了 Item 之外，TraitsUI 模块还定义了 Item 的几个派生类：Label、Heading 和 Spring。它们只用于辅助界面布局，因此不需要和模型对象的 Trait 属性关联。</p>

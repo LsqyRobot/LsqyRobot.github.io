@@ -72,7 +72,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </ul>
 	        </li>
 	        
@@ -109,8 +109,6 @@
 
 	        <!-- tag --> 
 			<li>
-	        
-	            <a href="/tag/" ><img src="/img/tag.png"></a>
 	        
 			</li>
 
@@ -187,7 +185,7 @@
 <p>如果初始化成功，执行了git init命令的目录下就会生成 .git 目录。这个 <code>.git</code> 目录里存储着管理当前目录内容所需的仓库数据。 在 Git 中，将这个目录的内容称为“附属于该仓库的工作树”。 文件的编辑等操作在工作树中进行，然后记录到仓库中，以此管理文件的历史快照。如果想将文件恢复到原先的状态，可以从仓库中调取之前的快照，在工作树中打开。</p>
 <h2 id="查看仓库的状态"><a href="#查看仓库的状态" class="headerlink" title="查看仓库的状态"></a>查看仓库的状态</h2><p><code>git status</code> 命令用于显示 Git 仓库的状态。</p>
 <h2 id="向暂存区中添加文件"><a href="#向暂存区中添加文件" class="headerlink" title="向暂存区中添加文件"></a>向暂存区中添加文件</h2><figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">add</span></span><br></pre></td></tr></table></figure>
-<p>如果只是用 Git 仓库的工作树创建了文件，那么该文件并不会被记<br>入 Git 仓库的版本管理对象当中。因此我们用 git status命令查看 README.md 文件时，它会显示在 Untracked files 里。要想让文件成为 Git 仓库的管理对象，就需要用<code>git add</code>命令将其 加入暂存区（Stage 或者 Index）中。暂存区是提交之前的一个临时区域。如果提交有错误，想强制提交的话，可用如下指令</p>
+<p>如果只是用 Git 仓库的工作树创建了文件，那么该文件并不会被记<br>入 Git 仓库的版本管理对象当中。因此我们用 git status命令查看 README.md 文件时，它会显示在 Untracked files 里。要想让文件成为 Git 仓库的管理对象，就需要用<code>git add</code>命令将其 加入暂存区(Stage 或者 Index)中。暂存区是提交之前的一个临时区域。如果提交有错误，想强制提交的话，可用如下指令</p>
 <figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">git add</span> <span class="literal">--</span><span class="comment">ignore</span><span class="literal">-</span><span class="comment">errors</span> <span class="literal">--</span><span class="comment">force</span> <span class="string">.</span></span><br></pre></td></tr></table></figure>
 <h2 id="保存仓库的历史记录"><a href="#保存仓库的历史记录" class="headerlink" title="保存仓库的历史记录"></a>保存仓库的历史记录</h2><figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git commit</span></span><br></pre></td></tr></table></figure>
 <p><code>git commit</code> 命令可以将当前暂存区中的文件实际保存到仓库的历 史记录中。通过这些记录，就可以在工作树中复原文件。</p>
@@ -199,7 +197,7 @@
 <p>第一行：用一行文字简述提交的更改内容 </p>
 <p>第二行：空行</p>
 <p>第三行以后：记述更改的原因和详细内容</p>
-<p>只要按照上面的格式输入，今后便可以通过确认日志的命令或工具看到这些记录。在以 # 标为注释的 <code>Changes to be committed</code>（要提交的更改）栏中，可以查看本次提交中包含的文件。将提交信息按格式 记述完毕后，请保存并关闭编辑器，以 #（井号）标为注释的行不必删除。随后，刚才记述的提交信息就会被提交。</p>
+<p>只要按照上面的格式输入，今后便可以通过确认日志的命令或工具看到这些记录。在以 # 标为注释的 <code>Changes to be committed</code>(要提交的更改)栏中，可以查看本次提交中包含的文件。将提交信息按格式 记述完毕后，请保存并关闭编辑器，以 #(井号)标为注释的行不必删除。随后，刚才记述的提交信息就会被提交。</p>
 <h3 id="中止提交"><a href="#中止提交" class="headerlink" title="中止提交"></a>中止提交</h3><p>如果在编辑器启动后想中止提交，请将提交信息留空并直接关闭编辑器，随后提交就会被中止。</p>
 <h2 id="查看提交日志"><a href="#查看提交日志" class="headerlink" title="查看提交日志"></a>查看提交日志</h2><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
 <p>git log命令可以查看以往仓库中提交的日志。包括可以查看什么人在什么时候进行了提交或合并，以及操作前后有怎样的差别。</p>
@@ -217,7 +215,7 @@
 <p>切换分支<br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git</span> checkout 分支名</span><br></pre></td></tr></table></figure></p>
 <p>切换回上一个分支</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git</span> checkout -</span><br></pre></td></tr></table></figure>
-<h3 id="新建分支并切换"><a href="#新建分支并切换" class="headerlink" title="新建分支并切换"></a>新建分支并切换</h3><p>想要新建一个分支并同时切换到那个分支上，可使用如下命令（如创建dev并切换):</p>
+<h3 id="新建分支并切换"><a href="#新建分支并切换" class="headerlink" title="新建分支并切换"></a>新建分支并切换</h3><p>想要新建一个分支并同时切换到那个分支上，可使用如下命令(如创建dev并切换):</p>
 <figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> dev</span><br></pre></td></tr></table></figure>
 <h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><p>假设 A 已经实现完毕，想要将它合并到主干分支 master 中。首先切换到 master 分支。</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git checkout <span class="literal">master</span></span><br></pre></td></tr></table></figure>

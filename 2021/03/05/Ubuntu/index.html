@@ -72,7 +72,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </ul>
 	        </li>
 	        
@@ -110,8 +110,6 @@
 	        <!-- tag --> 
 			<li>
 	        
-	            <a href="/tag/" ><img src="/img/tag.png"></a>
-	        
 			</li>
 
 
@@ -143,11 +141,12 @@
 <li><a href="#关掉sudo的密码">关掉sudo的密码</a></li>
 <li><a href="#oh-my-zsh">Oh-My-Zsh</a></li>
 <li><a href="#ros-的安装">ROS 的安装</a></li>
+<li><a href="#关闭ubuntu开机时输入密码">关闭Ubuntu开机时输入密码</a></li>
 </ul>
 <!-- vim-markdown-toc -->
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>简要的记录配置 <code>Ubuntu</code> 与 <code>ROS</code> 的过程，感觉在Docker 里面运行 ROS 还是不舒服的，因此在自己的windows电脑里安装了 VirtualBox(主要是开源免费)， 进而安装了 Ubuntu 2020版本的。几年之前把实验室那台电脑配置的好好的，但是很多东西都忘记了，感觉还是有记录的必要性的。</p>
 <p>下面的内容是参考了 <a target="_blank" rel="noopener" href="https://yangbingdong.com/2017/ubuntu-todo-after-install/">yangbingdong</a>的博客进行配置的。</p>
-<h1 id="关掉sudo的密码"><a href="#关掉sudo的密码" class="headerlink" title="关掉sudo的密码"></a>关掉sudo的密码</h1><p>先修改默认编辑器为vim（默认为nano）:</p>
+<h1 id="关掉sudo的密码"><a href="#关掉sudo的密码" class="headerlink" title="关掉sudo的密码"></a>关掉sudo的密码</h1><p>先修改默认编辑器为vim(默认为nano):</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sudo <span class="keyword">update</span><span class="operator">-</span>alternatives <span class="comment">--config editor</span></span><br></pre></td></tr></table></figure>
 <p>输入vim对应的序号回车即可。</p>
 <p>打开 <code>visudo</code> </p>
@@ -171,12 +170,20 @@
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">sudo sh -c &#x27;<span class="keyword">echo</span> <span class="string">&quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot;</span> &gt; <span class="string">/etc/apt/sources.list.d/ros-latest.list</span>&#x27;</span><br></pre></td></tr></table></figure>
 <p>和密钥</p>
 <figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"><span class="string">sudo</span> <span class="string">apt-key</span> <span class="string">adv</span> <span class="built_in">--keyserver</span> <span class="string">&#x27;hkp://keyserver.ubuntu.com:80&#x27;</span> <span class="built_in">--recv-key</span> <span class="string">C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span></span><br></pre></td></tr></table></figure>
-<p>添加结束后，刷新下 <code>sudo apt-get update</code>, 安装即可(我这里都安装了）</p>
+<p>添加结束后，刷新下 <code>sudo apt-get update</code>, 安装即可(我这里都安装了)</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> ros-noetic-desktop-full</span><br></pre></td></tr></table></figure>
 <p>如果不想每次打开命令行都 <code>souce /opt/ros/noetic/setup.bash</code>, 可以将此内容加到bash或zsh中，看自己用的shell了，自己的是zsh,所以直接加进去即可</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;souce /opt/ros/noetic/setup.bash&quot;</span> &gt;&gt; ~/.zshrc</span><br></pre></td></tr></table></figure>
 <p>这样每次打开一个命令行的时候，都会运行。</p>
-<p><strong> 待有时间会记录自己学习ros的过程(因为现在在学习ADAMS等软件中) </strong></p>
+<h1 id="关闭Ubuntu开机时输入密码"><a href="#关闭Ubuntu开机时输入密码" class="headerlink" title="关闭Ubuntu开机时输入密码"></a>关闭Ubuntu开机时输入密码</h1><p>主要是每次登陆虚拟机都要输入开机密码，比较烦， 有个简单的办法可以关闭， 在设置里找到下图所示的位置， 点击自动登陆即可</p>
+<div align="center"> <img src="/img/postImg/ubuntu/automaticLogin.png" width="100%" height="40%"> </div>
+
+
+
+
+
+
+
 
             </div>
 

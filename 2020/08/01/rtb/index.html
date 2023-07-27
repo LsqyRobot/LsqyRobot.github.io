@@ -72,7 +72,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/ros/">ros</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
 	                    </ul>
 	        </li>
 	        
@@ -109,8 +109,6 @@
 
 	        <!-- tag --> 
 			<li>
-	        
-	            <a href="/tag/" ><img src="/img/tag.png"></a>
 	        
 			</li>
 
@@ -193,7 +191,7 @@
 <p>根据这些选项能够自定义绘图连杆的颜色，地板颜色，轴的局部坐标系等信息了。 </p>
 <p>2, <code>SerialLink.rne</code></p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">Inverse dynamics</span><br><span class="line"></span><br><span class="line">tau = R.rne(q, qd, qdd) <span class="keyword">is</span> <span class="keyword">the</span> joint torque required <span class="keyword">for</span> <span class="keyword">the</span> robot R <span class="keyword">to</span> achieve <span class="keyword">the</span> specified </span><br><span class="line">joint position q (<span class="number">1</span>xN), velocity qd (<span class="number">1</span>xN) <span class="keyword">and</span> acceleration qdd (<span class="number">1</span>xN), <span class="keyword">where</span> N <span class="keyword">is</span> <span class="keyword">the</span> <span class="built_in">number</span> <span class="keyword">of</span> robot joints.</span><br><span class="line"></span><br><span class="line">tau = R.rne(q, qd, qdd, grav) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> overriding <span class="keyword">the</span> gravitational acceleration vector (<span class="number">3</span>x1) <span class="keyword">in</span> <span class="keyword">the</span> robot object R.</span><br><span class="line"></span><br><span class="line">tau = R.rne(q, qd, qdd, grav, fext) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> specifying a wrench acting <span class="keyword">on</span> <span class="keyword">the</span> <span class="keyword">end</span> <span class="keyword">of</span> <span class="keyword">the</span> manipulator </span><br><span class="line">which <span class="keyword">is</span> a <span class="number">6</span>-vector [Fx Fy Fz Mx My Mz].</span><br><span class="line"></span><br><span class="line">tau = R.rne(x) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">where</span> x=[q,qd,qdd] (<span class="number">1</span>x3N).</span><br><span class="line"></span><br><span class="line">tau = R.rne(x, grav) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> overriding <span class="keyword">the</span> gravitational acceleration vector <span class="keyword">in</span> <span class="keyword">the</span> robot object R.</span><br><span class="line"></span><br><span class="line">tau = R.rne(x, grav, fext) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> specifying a wrench acting <span class="keyword">on</span> <span class="keyword">the</span> <span class="keyword">end</span> <span class="keyword">of</span> <span class="keyword">the</span> manipulator </span><br><span class="line">which <span class="keyword">is</span> a <span class="number">6</span>-vector [Fx Fy Fz Mx My Mz].</span><br><span class="line"></span><br><span class="line">[tau,wbase] = R.rne(x, grav, fext) <span class="keyword">as</span> <span class="keyword">above</span> <span class="keyword">but</span> <span class="keyword">the</span> extra output <span class="keyword">is</span> <span class="keyword">the</span> wrench <span class="keyword">on</span> <span class="keyword">the</span> base.</span><br></pre></td></tr></table></figure>
-<p>有几种办法可以得到其正运动学的齐次变换矩阵, 在此之前先说两个方法里的函数 <code>R.A</code>,<code>R.fkine</code> 其中A表示的是连杆之间的变换，fkine给出的是最后变换的4*4矩阵，其输入参数有两个，一个是连杆的编号，另外一个是关节角度（可以是符号）。例如</p>
+<p>有几种办法可以得到其正运动学的齐次变换矩阵, 在此之前先说两个方法里的函数 <code>R.A</code>,<code>R.fkine</code> 其中A表示的是连杆之间的变换，fkine给出的是最后变换的4*4矩阵，其输入参数有两个，一个是连杆的编号，另外一个是关节角度(可以是符号)。例如</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">mdl_ur5</span>;</span><br><span class="line"><span class="attribute">ur5</span>.A(<span class="number">1</span>,<span class="number">1</span>)  %当theta1 = <span class="number">1</span>时的变换矩阵，也就是基座到坐标系<span class="number">1</span>的齐次变换矩阵</span><br><span class="line"><span class="attribute">ur5</span>.A(<span class="number">2</span>,[rand,<span class="number">1</span>]) %当theta2 = <span class="number">1</span>时的变换矩阵，从坐标系<span class="number">1</span>到坐标系<span class="number">2</span>的齐次变换矩阵,此时与theta1没有什么关系</span><br><span class="line"><span class="attribute">ur5</span>.A(<span class="number">1</span>:<span class="number">2</span>,[<span class="number">1</span>,<span class="number">1</span>]) %从基座到坐标系<span class="number">2</span>的齐次变换矩阵</span><br><span class="line"><span class="attribute">ur5</span>.A(<span class="number">1</span>:<span class="number">6</span>,ones(<span class="number">1</span>,<span class="number">6</span>)) %从基座到末端的变换矩阵</span><br></pre></td></tr></table></figure>
 <p>验证结果如下</p>
 <p> <img src="/img/postImg/rtb/test_fkine.png" width="60%" height="50%"> </p>
@@ -202,7 +200,7 @@
 <p>效果如下</p>
 <p><img src="/img/postImg/rtb/qing.gif" width="80%" height="80%"></p>
 <h1 id="理论部分"><a href="#理论部分" class="headerlink" title="理论部分"></a>理论部分</h1><p>主要还是对标准的DH方法建立的模型进行阐述，因为在进行动力学代码编写的时候，感受到了那块的不易理解。顺便吐槽下国内的一些教材，当时在写递推Newton-Euler法建立的动力学的模型时，参考了国内两本教材(一本用的标准的DH，另外一本用的改进的)看得我当时就哭晕了过去.就不能标准下吗。。。。。好处就是对理论有了更好的理解(并不意味着可以很好的表述出来),当然，建立动力学模型的方法有很多，可以参考刘延柱老师的《多体系统动力学》</p>
-<p>串联机械臂的链路是由连杆组成，这些连杆由关节（运动副）连接起来。一般用R表示转动副，P表示移动副。这里的运动副在维基百科下的定义为</p>
+<p>串联机械臂的链路是由连杆组成，这些连杆由关节(运动副)连接起来。一般用R表示转动副，P表示移动副。这里的运动副在维基百科下的定义为</p>
 <p>运动副是两个机械构件之间通过直接接触而组成的可动连接。两个构件上参与接触而构成运动副的点、线、面等元素被称为运动副元素。</p>
 <p>1, 两构件在未构成运动副之前，在空间中有6个相对自由度，构成运动副后，它们之间的相对运动将受到约束，约束数最少为1，最多为5。<br>常根据引入约束的数目将运动副分类，把引入一个约束的运动副成为一级副，以此类推引入两个约束的运动副称为二级副，还有三级，四级，五级副。</p>
 <p>2, 按照运动副的接触形式分类。面和面接触的运动副在接触部分的压强较低，被称为低副，<br>而通过点或线接触构成的运动副称为高副，高副比低副容易磨损。</p>
@@ -272,7 +270,7 @@ v \\ \omega
 d \\ \delta
 \end{array}
 \right]"/></p>
-<p>微分运动矢量 D 和广义速度 V 也是相对于某坐标系而言的。在不同的坐标系中表示是不同的。若相对基坐标系（或参考系）的微分运动为 D (d 和 <img src="https://latex.codecogs.com/png.latex?   \delta  "/> ），则相对坐标系 {T},</p>
+<p>微分运动矢量 D 和广义速度 V 也是相对于某坐标系而言的。在不同的坐标系中表示是不同的。若相对基坐标系(或参考系)的微分运动为 D (d 和 <img src="https://latex.codecogs.com/png.latex?   \delta  "/> )，则相对坐标系 {T},</p>
 <p><img src="https://latex.codecogs.com/png.latex?T = \left[
 \begin{array}{cccc}
 n_x& o_x& a_x& p_x \\
@@ -342,7 +340,7 @@ d \\
 \delta 
 \end{array}
 \right] "/> </p>
-<p>对于任何 3 维矢量 <img src="https://latex.codecogs.com/png.latex?     p= [p_x, p_y, p_z]"/> 。其反对称矩阵 S (p）定义为</p>
+<p>对于任何 3 维矢量 <img src="https://latex.codecogs.com/png.latex?     p= [p_x, p_y, p_z]"/> 。其反对称矩阵 S (p)定义为</p>
 <p><img src="https://latex.codecogs.com/png.latex?    
 S(p) = \left[
 \begin{array}{ccc}
@@ -400,17 +398,17 @@ D = J(q) dq
 \end{cases}
  "/> </p>
 <p>对于 n 个关节的机器人，其雅可比J(q)是 <img src="https://latex.codecogs.com/png.latex?    6\times n"/>  阶矩阵。其中前 3 行代表对手爪线速度 v 的传递比；后 3 行代表对手爪的角速度 <img src="https://latex.codecogs.com/png.latex?\omega"/> 的传递比。另一方面，每一列代表相应的关节速度 <img src="https://latex.codecogs.com/png.latex?\dot{q}"/> , 对于手爪线速度和角速度的传递比;</p>
-<h1 id="力雅可比"><a href="#力雅可比" class="headerlink" title="力雅可比"></a>力雅可比</h1><p>机器人与外界环境相互作用时， 在接触的地方要产生力 f 和力矩 n, 统称为末端广义（操作）力矢量， 记为：</p>
+<h1 id="力雅可比"><a href="#力雅可比" class="headerlink" title="力雅可比"></a>力雅可比</h1><p>机器人与外界环境相互作用时， 在接触的地方要产生力 f 和力矩 n, 统称为末端广义(操作)力矢量， 记为：</p>
 <p><img src="https://latex.codecogs.com/png.latex?
 f = \left[ 
 \begin{array}{c}
 f \\n
 \end{array}
 \right]"/></p>
-<p>例如， 操作臂提取重物时承受的外界作用力和力矩。在静止状态下，广义操作力矢量F应与各关节的驱动力（或力矩）相平衡。n 个关节的驱动力组成的n维矢量</p>
+<p>例如， 操作臂提取重物时承受的外界作用力和力矩。在静止状态下，广义操作力矢量F应与各关节的驱动力(或力矩)相平衡。n 个关节的驱动力组成的n维矢量</p>
 <p><img src="https://latex.codecogs.com/png.latex?
 \tau = \left[ \tau_1, \tau_2, \cdots, \tau_n \right]^T"/></p>
-<p>称为关节力矢量。 利用虚功原理， 可以得到关节力矢量<img src="https://latex.codecogs.com/png.latex?\tau"/> 与相应的广义操作力矢量F之间的关系。令各关节的虚位移为 <img src="https://latex.codecogs.com/png.latex?\delta q_i"/> , 末端执行器相应的虚位移为D。所谓的虚位移，是满足机械系统几何约束的无限小位移。各关节所作的虚功只和 <img src="https://latex.codecogs.com/png.latex?W = \tau^T\delta q = \tau_1\delta q_1 + \tau_2\delta q_2 + \cdots + \tau_n\delta q_n"/> 与末端执行器所作的虚功 <img src="https://latex.codecogs.com/png.latex?W=F^TD=f^Td + n^T\delta"/> 应该相等（总的虚功为零），即</p>
+<p>称为关节力矢量。 利用虚功原理， 可以得到关节力矢量<img src="https://latex.codecogs.com/png.latex?\tau"/> 与相应的广义操作力矢量F之间的关系。令各关节的虚位移为 <img src="https://latex.codecogs.com/png.latex?\delta q_i"/> , 末端执行器相应的虚位移为D。所谓的虚位移，是满足机械系统几何约束的无限小位移。各关节所作的虚功只和 <img src="https://latex.codecogs.com/png.latex?W = \tau^T\delta q = \tau_1\delta q_1 + \tau_2\delta q_2 + \cdots + \tau_n\delta q_n"/> 与末端执行器所作的虚功 <img src="https://latex.codecogs.com/png.latex?W=F^TD=f^Td + n^T\delta"/> 应该相等(总的虚功为零)，即</p>
 <p><img src="https://latex.codecogs.com/png.latex?  \tau^T\delta q = F^TD = F^T(J(q)\delta q) "/></p>
 <p>不难得到</p>
 <p><img src="https://latex.codecogs.com/png.latex?  \tau = J^T(q) F "/></p>
