@@ -157,10 +157,8 @@
 </ul>
 </li>
 <li><a href="#分支的操作">分支的操作</a><ul>
-<li><a href="#分支查看与切换">分支查看与切换</a><ul>
+<li><a href="#分支查看与切换">分支查看与切换</a></li>
 <li><a href="#新建分支并切换">新建分支并切换</a></li>
-</ul>
-</li>
 <li><a href="#合并分支">合并分支</a></li>
 <li><a href="#图表形式查看分支">图表形式查看分支</a></li>
 </ul>
@@ -178,6 +176,23 @@
 <li><a href="#乱码解决办法">乱码解决办法</a></li>
 <li><a href="#常用指令的具体介绍">常用指令的具体介绍</a><ul>
 <li><a href="#git-diff">git diff</a></li>
+<li><a href="#git-tag">git tag</a><ul>
+<li><a href="#创建标签">创建标签</a></li>
+<li><a href="#创建一个带有注释的标签">创建一个带有注释的标签</a></li>
+<li><a href="#查看标签">查看标签</a></li>
+<li><a href="#查看特定标签的详细信息">查看特定标签的详细信息</a></li>
+<li><a href="#推送标签到远程仓库">推送标签到远程仓库</a></li>
+<li><a href="#删除标签">删除标签</a><ul>
+<li><a href="#删除本地标签">删除本地标签</a></li>
+<li><a href="#删除远程标签">删除远程标签</a></li>
+</ul>
+</li>
+<li><a href="#切换到标签对应的提交">切换到标签对应的提交</a></li>
+<li><a href="#检出标签的特定文件版本">检出标签的特定文件版本</a></li>
+<li><a href="#在标签上创建新分支">在标签上创建新分支</a></li>
+<li><a href="#对以前提交的信息打标签">对以前提交的信息打标签</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#遇到的问题">遇到的问题</a><ul>
@@ -223,7 +238,7 @@
 <p>切换分支<br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git</span> checkout 分支名</span><br></pre></td></tr></table></figure></p>
 <p>切换回上一个分支</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git</span> checkout -</span><br></pre></td></tr></table></figure>
-<h3 id="新建分支并切换"><a href="#新建分支并切换" class="headerlink" title="新建分支并切换"></a>新建分支并切换</h3><p>想要新建一个分支并同时切换到那个分支上,可使用如下命令(如创建dev并切换):</p>
+<h2 id="新建分支并切换"><a href="#新建分支并切换" class="headerlink" title="新建分支并切换"></a>新建分支并切换</h2><p>想要新建一个分支并同时切换到那个分支上,可使用如下命令(如创建dev并切换):</p>
 <figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> dev</span><br></pre></td></tr></table></figure>
 <h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><p>假设 A 已经实现完毕,想要将它合并到主干分支 master 中。首先切换到 master 分支。</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git checkout <span class="literal">master</span></span><br></pre></td></tr></table></figure>
@@ -253,6 +268,32 @@
 <p>1）基本操作</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git diff branch1 branch2 --stat <span class="regexp">//</span>--stat参数,显示两分支简单diff信息</span><br><span class="line">git diff branch1 branch2 <span class="regexp">//</span>显示两分支详细的diff信息</span><br><span class="line">git diff branch1 branch2 path <span class="regexp">//</span>显示两分支指定路径下文件的详细diff信息</span><br><span class="line">git diff branch1 branch2 file_name(带路径) <span class="regexp">//</span>显示两分支指定文件的详细diff信息</span><br></pre></td></tr></table></figure>
 <p>注：这里的分支可以是本地的,也可以是远程的（git diff branch1 origin/branch2）</p>
+<h2 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h2><p>Git 标签（Tag）是用于在代码库中标记某个特定提交（commit）的方式。标签通常用于标识发布版本或重要的里程碑，以便于追踪和管理代码库的发展历史。下面详细介绍了 Git 中标签的常用操作：</p>
+<h3 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h3><p>创建一个轻量级标签：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span> <span class="title">tag_name</span></span><br></pre></td></tr></table></figure>
+<h3 id="创建一个带有注释的标签"><a href="#创建一个带有注释的标签" class="headerlink" title="创建一个带有注释的标签"></a>创建一个带有注释的标签</h3><p>个人最喜欢的方式创建标签：<br><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span> <span class="title">-a</span> tag_name -m <span class="string">&quot;Tag message&quot;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="查看标签"><a href="#查看标签" class="headerlink" title="查看标签"></a>查看标签</h3><p>查看所有标签：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看特定标签的详细信息"><a href="#查看特定标签的详细信息" class="headerlink" title="查看特定标签的详细信息"></a>查看特定标签的详细信息</h3><figure class="highlight dart"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">show</span> tag_name</span><br></pre></td></tr></table></figure>
+<h3 id="推送标签到远程仓库"><a href="#推送标签到远程仓库" class="headerlink" title="推送标签到远程仓库"></a>推送标签到远程仓库</h3><p>推送单个标签：</p>
+<figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> tag_name</span><br></pre></td></tr></table></figure>
+<p>推送所有标签：</p>
+<figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> --tags</span><br></pre></td></tr></table></figure>
+<h3 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h3><h4 id="删除本地标签"><a href="#删除本地标签" class="headerlink" title="删除本地标签"></a>删除本地标签</h4><p>删除一个本地标签：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span> <span class="title">-d</span> tag_name</span><br></pre></td></tr></table></figure>
+<h4 id="删除远程标签"><a href="#删除远程标签" class="headerlink" title="删除远程标签"></a>删除远程标签</h4><p>首先删除本地标签：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span> <span class="title">-d</span> tag_name</span><br></pre></td></tr></table></figure>
+<p>然后删除远程标签：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">git push origin <span class="symbol">:refs/tags/tag_name</span></span><br></pre></td></tr></table></figure>
+<h3 id="切换到标签对应的提交"><a href="#切换到标签对应的提交" class="headerlink" title="切换到标签对应的提交"></a>切换到标签对应的提交</h3><p>创建一个新分支并切换到标签对应的提交：</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">git checkout -b <span class="keyword">new</span><span class="type">_branch_name</span> tag_name</span><br></pre></td></tr></table></figure>
+<h3 id="检出标签的特定文件版本"><a href="#检出标签的特定文件版本" class="headerlink" title="检出标签的特定文件版本"></a>检出标签的特定文件版本</h3><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">git checkout tag_name <span class="comment">-- file_path</span></span><br></pre></td></tr></table></figure>
+<h3 id="在标签上创建新分支"><a href="#在标签上创建新分支" class="headerlink" title="在标签上创建新分支"></a>在标签上创建新分支</h3><figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">git checkout -b <span class="keyword">new</span><span class="type">_branch_name</span> tag_name</span><br></pre></td></tr></table></figure>
+<p>列出与标签相关的提交：</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">log</span> <span class="keyword">tag_name</span>^..<span class="keyword">tag_name</span></span><br></pre></td></tr></table></figure>
+<h3 id="对以前提交的信息打标签"><a href="#对以前提交的信息打标签" class="headerlink" title="对以前提交的信息打标签"></a>对以前提交的信息打标签</h3><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">--pretty=oneline</span></span><br></pre></td></tr></table></figure>
+<p>上面这条命令显示了全部的commit id信息，简短点的commit 信息，看下面的命令:</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">--pretty=oneline --abbrev-commit</span></span><br></pre></td></tr></table></figure>
 <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h2 id="无法推送"><a href="#无法推送" class="headerlink" title="无法推送"></a>无法推送</h2><p> 已明确账号密码输入无误,在 <code>git bash</code> 里面无法推送自己的代码,其报错如下：</p>
 <figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">Logon failed, use ctrl+c <span class="keyword">to</span> cancel basic credential prompt.</span><br><span class="line">remote: Support <span class="keyword">for</span> <span class="keyword">password</span> authentication was removed <span class="keyword">on</span> August <span class="number">13</span>, <span class="number">2021.</span> Please use a personal <span class="keyword">access</span> token <span class="keyword">instead</span>.</span><br></pre></td></tr></table></figure>
 <p>有一种可能,由于git 升级,执行 <code>git update-git-for-windows</code>, 更新后推送报了一个新的错误</p>
@@ -273,6 +314,7 @@
 <p>[3] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/yanzige/p/9810333.html">GIT使用log命令显示中文乱码</a></p>
 <p>[4] <a target="_blank" rel="noopener" href="https://pythonjishu.com/egsjerugrbprzdt/">Python 技术站</a></p>
 <p>[5] <a target="_blank" rel="noopener" href="https://blog.csdn.net/liuxiao723846/article/details/109689069">git diff</a></p>
+<p>[6] chatGPT 的回答</p>
 
             </div>
 

@@ -156,6 +156,10 @@
 <li><a href="#函数的传入参数">函数的传入参数</a></li>
 </ul>
 </li>
+<li><a href="#常用库或函数使用说明">常用库或函数使用说明</a><ul>
+<li><a href="#pugixml">pugixml</a></li>
+</ul>
+</li>
 <li><a href="#知识点">知识点</a></li>
 <li><a href="#参考">参考</a></li>
 </ul>
@@ -247,6 +251,14 @@
 <p>谨记一句话,但凡使用了迭代器的循环体,都不要向迭代器所属的容器添加元素</p>
 <p>C++初始化类成员的,它们是按照声 明的顺序初始化的,而不是按照出现在初始化列表中的顺序。 </p>
 <h2 id="函数的传入参数"><a href="#函数的传入参数" class="headerlink" title="函数的传入参数"></a>函数的传入参数</h2><p>要修改变量的值,需要使用变量类型的指针作为参数或者变量的引用。如果变量是一般类型的变量,例如int,则需要使用int 类型的指针类型int * 作为参数或者int的引用类型int&amp;。但是如果变量类型是指针类型,例如char*,那么需要使用该类型的指针,即指向指针的指针类型 char**,或者该类型的引用类型char*&amp;。</p>
+<h1 id="常用库或函数使用说明"><a href="#常用库或函数使用说明" class="headerlink" title="常用库或函数使用说明"></a>常用库或函数使用说明</h1><h2 id="pugixml"><a href="#pugixml" class="headerlink" title="pugixml"></a>pugixml</h2><p>pugixml 是一个用于解析和操作 XML 文档的 C++ 库，它被设计为轻量级、高性能且易于使用。pugixml 提供了简单而强大的 API，使得处理 XML 数据变得简单而高效。以下是关于 pugixml 的介绍和使用方法：</p>
+<p><strong>特点和优势：</strong></p>
+<p>轻量级： pugixml 是一个轻量级的库，不需要大量的内存开销，因此适用于嵌入式系统和资源受限的环境。<br>高性能： pugixml 在解析和处理 XML 数据时具有很高的性能，它使用了一些优化策略，如内存池，来提高效率。<br>易于使用： pugixml 提供了简洁明了的 API，使得读取、写入和操作 XML 数据变得非常容易。<br>安装和集成：</p>
+<p>pugixml 不需要额外的安装过程，它是一个头文件库（header-only library），你只需要将 pugixml 的头文件包含在你的项目中即可开始使用。</p>
+<p><strong>使用示例</strong></p>
+<p>以下是一个简单的 pugixml 使用示例，展示了如何解析一个 XML 文档并访问其中的元素和属性：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pugixml.hpp&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    pugi::xml_document doc;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 加载 XML 文件</span></span><br><span class="line">    pugi::xml_parse_result result = doc.<span class="built_in">load_file</span>(<span class="string">&quot;example.xml&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!result) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;XML parsing error: &quot;</span> &lt;&lt; result.<span class="built_in">description</span>() &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 访问根节点</span></span><br><span class="line">    pugi::xml_node root = doc.<span class="built_in">child</span>(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Root node name: &quot;</span> &lt;&lt; root.<span class="built_in">name</span>() &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历子节点</span></span><br><span class="line">    <span class="keyword">for</span> (pugi::xml_node child : root.<span class="built_in">children</span>()) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Child node name: &quot;</span> &lt;&lt; child.<span class="built_in">name</span>() &lt;&lt; std::endl;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 访问节点属性</span></span><br><span class="line">        <span class="keyword">for</span> (pugi::xml_attribute attr : child.<span class="built_in">attributes</span>()) &#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;Attribute name: &quot;</span> &lt;&lt; attr.<span class="built_in">name</span>() &lt;&lt; <span class="string">&quot;, value: &quot;</span> &lt;&lt; attr.<span class="built_in">value</span>() &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述示例首先加载了一个名为 example.xml 的 XML 文件，然后访问了根节点和其子节点，以及子节点的属性。</p>
 <h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><p>1, 如果文件名用<span id = "inline-blue"> 尖括号括 </span>起来,  表明这个文件是一个工程或标准头文件查找过程会<span id = "inline-blue"> 检查预定义的 </span>目录;如果文件名用一对<span id = "inline-blue"> 引号括 </span>起来则表明该文件是用户提供的头文件查找该文件时将从<span id = "inline-blue"> 当前文件目 </span>录开始.</p>
 <p>2, C++ 程序可以定义为对象的集合, 这些对象通过调用彼此的方法进行交互.</p>
 <p>3, 块注释符是不可以嵌套使用的.</p>
