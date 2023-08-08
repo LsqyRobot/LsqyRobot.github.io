@@ -43,11 +43,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 6.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -152,6 +148,8 @@
 <li><a href="#雅可比矩阵的构造法">雅可比矩阵的构造法</a></li>
 <li><a href="#力雅可比">力雅可比</a></li>
 <li><a href="#技巧">技巧</a></li>
+<li><a href="#参考">参考</a></li>
+<li><a href="#注意">注意</a></li>
 </ul>
 <!-- vim-markdown-toc -->
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>机器人学工具箱(rtb)是一个快速验证自己想法的一个matlab工具箱,简单点说,如果要求解一个复杂的方程组,通过各种算法求出来后,如何知道所求的解不是错误的呢,当然,最简单的办法,带入到原方程即可,这是所求出来的答案必要非充分的条件。类似的,如果可以运用好这个工具,无疑可以快速验证自己的想法,而不必拘泥于具体的细节,同时里面的代码都是开源的,就是说可以阅读里面代码的实现过程,通过阅读优秀的代码来提升自己的编程能力。CSDN上的关于这个工具箱的使用的内容有些让人失望,所以还是自己记录下学习的过程吧。这个并不是一个教程,只是用来激发对此工具箱感兴趣的小伙伴们。</p>
@@ -206,9 +204,11 @@
 <p>2, 按照运动副的接触形式分类。面和面接触的运动副在接触部分的压强较低,被称为低副,<br>而通过点或线接触构成的运动副称为高副,高副比低副容易磨损。</p>
 <p>3, 按照相对运动的形式分类。构成运动副的两个构件之间的相对运动若是平面运动则为平面运动副,若为空间运动则称为空间运动副,<br>两个构件之间的相对运动为转动的运动副被称为转动副或回转副,也称铰链。相对运动为移动的运动副称为移动副；<br>相对运动为螺旋运动的运动副称为螺旋副；相对运动为球面运动的运动副称为球面副。</p>
 <h2 id="标准DH与改进DH的不同"><a href="#标准DH与改进DH的不同" class="headerlink" title="标准DH与改进DH的不同"></a>标准DH与改进DH的不同</h2><h3 id="从变换公式来观察"><a href="#从变换公式来观察" class="headerlink" title="从变换公式来观察"></a>从变换公式来观察</h3><p>连杆变换是由基本旋转和平移变换所组成, 标准的DH参数的变换法则如下(后置)</p>
-<p><img src="https://latex.codecogs.com/png.latex?T(\theta) =   \underbrace{T_{Rz}(\theta_1) T_{z}(d_1) T_{x}(a_1) T_{Rx}(\alpha_1)  }_{DH_1} \cdot \underbrace{T_{Rz}(\theta_2) T_{z}(d_2) T_{x}(a_2) T_{Rx}(\alpha_2)  }_{DH_2} \cdots "/> </p>
+<div align="center"> <img src="/img/postImg/rtb/DH_Transform/std_transform.png" width="30%" height="30%"> </div>
+
 <p>改进的DH参数的变换法则如下(前置)</p>
-<p><img src="https://latex.codecogs.com/png.latex?T(\theta) =  \underbrace{T_{Rz}(\theta_1) T_{z}(d_1)}_{base}\cdot \underbrace{ T_{x}(a_1) T_{Rx}(\alpha_1)  T_{Rz}(\theta_2) T_{z}(d_2) }_{MDH_1} \cdot \underbrace{T_{x}(a_2) T_{Rx}(\alpha_2) } _{MDH_2}\cdots "/></p>
+<div align="center"> <img src="/img/postImg/rtb/DH_Transform/mdh_transform.png" width="30%" height="30%"> </div>
+
 <h2 id="从图中来观察"><a href="#从图中来观察" class="headerlink" title="从图中来观察"></a>从图中来观察</h2><p>标准的DH</p>
 <div align="center"> <img src="/img/postImg/rtb/classic_dh_parameters.png" width="30%" height="40%"> </div>
 
@@ -218,7 +218,7 @@
 
 
 
-<p>从图中可以看出,标准 DH 是将连的坐标系固定在连杆的后端,即坐标系<img src="https://latex.codecogs.com/png.latex?  O_{i-1} "/> 与关节i对齐,而改进的 DH 则是将连杆坐标系固定在连杆的前端,也即坐标系 <img src="https://latex.codecogs.com/png.latex?  O_{i-1} "/> 与关节i-1 对齐。为了凸显其中的不同,可以参考下面的表格:</p>
+<p>从图中可以看出,标准 DH 是将连的坐标系固定在连杆的后端,即坐标系 <img src="/img/postImg/mathSym/O_i_minus_1.png" width="2%" height="2%"> 与关节i对齐,而改进的 DH 则是将连杆坐标系固定在连杆的前端,也即坐标系 <img src="/img/postImg/mathSym/O_i_minus_1.png" width="2%" height="2%">  与关节i-1 对齐。为了凸显其中的不同,可以参考下面的表格:</p>
 <div align="center">
 <table id="hor-zebra" summary="Employee Pay Sheet">     
  <thead>                                             
@@ -238,10 +238,11 @@
  </tr>                                           
  <tr>                                            
  <td> 
- 相关节坐标系之间的参数变化顺序为： <img src="https://latex.codecogs.com/png.latex?\theta,d,a,\alpha "/>
+ 相关节坐标系之间的参数变化顺序为： <img src="/img/postImg/rtb/DH_Transform/std变换.png" width="10%" height="10%"> 
+
  </td>                
  <td>
- 相关节坐标系之间的参数变化顺序为: <img src="https://latex.codecogs.com/png.latex?\alpha,d,a,\theta"/>
+ 相关节坐标系之间的参数变化顺序为:  <img src="/img/postImg/rtb/DH_Transform/mdh变换.png" width="10%" height="10%"> 
 </td>                               
  </tr>                                           
  </tbody>                                            
@@ -251,76 +252,39 @@
 
 
 
-<h1 id="微分运动和广义速度"><a href="#微分运动和广义速度" class="headerlink" title="微分运动和广义速度"></a>微分运动和广义速度</h1><p>刚体或坐标系的微分运动包含微分移动矢量d和微分转动矢量<img src="https://latex.codecogs.com/png.latex?\delta"/>。前者由沿三个坐标轴的微分移动组成,后者由绕三坐标轴的微分转动组成,即</p>
-<p><img src="https://latex.codecogs.com/png.latex?d = d_xi+d_yj + d_zk \qquad OR \qquad d = \left[ d_x, d_y, d_z \right]^T"/></p>
-<p><img src="https://latex.codecogs.com/png.latex?\delta = \delta_x i + \delta_y j + \delta_z k \qquad OR \qquad \delta = \left[\delta_x, \delta_y, \delta_z\right]^T"/></p>
-<p>将两者合并为6维列矢量 <img src="https://latex.codecogs.com/png.latex?D"/> , 称为刚体或坐标系的微分运动矢量：</p>
-<p><img src="https://latex.codecogs.com/png.latex?D = \left[
-\begin{array}{c}
-d \\ \delta
-\end{array}
-\right]"/></p>
-<p>相应的,刚体或坐标系的广义速度V是由线速度v和角速度<img src="https://latex.codecogs.com/png.latex?\omega"/> 组成的6维列矢量：</p>
-<p><img src="https://latex.codecogs.com/png.latex?V = \left[
-\begin{array}{c}
-v \\ \omega
-\end{array}
-\right] = \lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \left[
-\begin{array}{c}
-d \\ \delta
-\end{array}
-\right]"/></p>
-<p>微分运动矢量 D 和广义速度 V 也是相对于某坐标系而言的。在不同的坐标系中表示是不同的。若相对基坐标系(或参考系)的微分运动为 D (d 和 <img src="https://latex.codecogs.com/png.latex?   \delta  "/> ),则相对坐标系 {T},</p>
-<p><img src="https://latex.codecogs.com/png.latex?T = \left[
-\begin{array}{cccc}
-n_x& o_x& a_x& p_x \\
-n_y& o_y& a_y& p_y \\
-n_z& o_z& a_z& p_z \\
-0 & 0 & 0 &1\\
-\end{array}
-\right] = \left[
-\begin{array}{cccc}
-n & o & a & p\\
-0 & 0 & 0 & 1\\
-\end{array}
-\right] = \left[
-\begin{array}{cc}
-R & p \\
-0 & 1
-\end{array}
-\right]"/><br>的微分运动 <img src="https://latex.codecogs.com/png.latex? ^TD "/> (<img src="https://latex.codecogs.com/png.latex?   ^Td  "/>  和 <img src="https://latex.codecogs.com/png.latex?  ^T\delta   "/> ) 为</p>
-<p><img src="https://latex.codecogs.com/png.latex?\begin{cases}
-^Td_x = d \cdot n + (\delta \times p) \cdot n = n \cdot ( (\delta \times p) + d) \\
-^Td_y = d \cdot o + (\delta \times p) \cdot o = o \cdot ( (\delta \times p) + d) \\
-^Td_z = d \cdot a + (\delta \times p) \cdot a = a \cdot ( (\delta \times p) + d)
-\end{cases}"/></p>
+<h1 id="微分运动和广义速度"><a href="#微分运动和广义速度" class="headerlink" title="微分运动和广义速度"></a>微分运动和广义速度</h1><p>刚体或坐标系的微分运动包含微分移动矢量d和微分转动矢量<img src="/img/postImg/mathSym/delta.png" width="1%" height="1%">。前者由沿三个坐标轴的微分移动组成,后者由绕三坐标轴的微分转动组成,即</p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/微分移动.png" width="30%" height="30%"> </div>
+
+<div align="center"> <img src="/img/postImg/rtb/微分运动/微分转动.png" width="30%" height="30%"> </div>
+
+
+
+<p>将两者合并为6维列矢量 D , 称为刚体或坐标系的微分运动矢量：</p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/微分运动矢量.png" width="5%" height="5%"> </div>
+
+<p>相应的,刚体或坐标系的广义速度V是由线速度v和角速度 <img src="/img/postImg/mathSym/omega.png" width="1%" height="1%"> 组成的6维列矢量：</p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/六维列矢量.png" width="30%" height="30%"> </div>
+
+
+
+<p>微分运动矢量 D 和广义速度 V 也是相对于某坐标系而言的。在不同的坐标系中表示是不同的。若相对基坐标系(或参考系)的微分运动为 D (d 和 <img src="/img/postImg/mathSym/delta.png" width="1%" height="1%">), 则相对坐标系 {T},</p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/T的齐次坐标表示.png" width="30%" height="30%"> </div>
+
+
+<p>的微分运动 <img src="/img/postImg/rtb/微分运动/TD.png" width="10%" height="10%"></p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/TD的微分运动.png" width="30%" height="30%"> </div>
+
+
+
 <p><img src="https://latex.codecogs.com/png.latex?\begin{cases}
 ^T\delta_x = n \cdot \delta  \\
 ^T\delta_y = o \cdot \delta  \\
 ^T\delta_z = a \cdot \delta 
 \end{cases}"/></p>
 <p>合并上式, 可以得到 <img src="https://latex.codecogs.com/png.latex?^TD"/> 与 D 的关系为</p>
-<p><img src="https://latex.codecogs.com/png.latex?    
-\left[
-\begin{array}{c}
-^Td_x \\
-^Td_y \\
-^Td_z \\
-^T\delta_x \\
-^T\delta_y \\
-^T\delta_z 
-\end{array}
-\right]
-= \left[
-\begin{array}{cccccc}
-n_x & n_y & n_z & (p \times n)_x & (p \times n)_y  & (p \times n)_z  \\
-o_x & o_y & o_z & (p \times o)_x & (p \times o)_y  & (p \times o)_z  \\
-a_x & a_y & a_z & (p \times a)_x & (p \times a)_y  & (p \times a)_z  \\
-0 & 0 & 0 & n_x & n_y & n_z \\
-0 & 0 & 0 & o_x & o_y & o_z \\
-0 & 0 & 0 & a_x & a_y & a_z \\
-\end{array}
-\right]"/> </p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/TD与T的关系.png" width="30%" height="30%"> </div>
+
+
 <p>上式可简写为</p>
 <p><img src="https://latex.codecogs.com/png.latex?    
 \left[
@@ -373,54 +337,37 @@ v \\
 \end{array}
 \right]"/> </p>
 <p>任意两坐标系{A}和{B}之间广义速度的坐标变换为</p>
-<p><img src="https://latex.codecogs.com/png.latex?    
-\left[\begin{array}{c}
-^Bv \\
-^B\omega
-\end{array}
-\right] = \left[
-\begin{array}{cc}
-{^B_A}R &-{^B_A}RS(^Ap_{BA}) \\
-0 & {^B_A}R
-\end{array}
-\right]
-\left[
-\begin{array}{c}
-^Av \\
-^A\omega 
-\end{array}
-\right]"/> </p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/任意两坐标系的广义速度变换公式.png" width="30%" height="30%"> </div>
+
+
 <h1 id="雅可比矩阵的构造法"><a href="#雅可比矩阵的构造法" class="headerlink" title="雅可比矩阵的构造法"></a>雅可比矩阵的构造法</h1><p>雅可比矩阵J(q)既可当成是从关节空间向操作空间的速度传递的线性关系,也可看成是微分运动转换的线性关系,即</p>
-<p><img src="https://latex.codecogs.com/png.latex?    
-\begin{cases}
-V = J(q) \dot(q)\\
-D = J(q) dq
-\end{cases}
- "/> </p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/雅可比矩阵与关节空间向操作空间的速度传递关系.png" width="30%" height="30%"> </div>
+
 <p>对于 n 个关节的机器人,其雅可比J(q)是 <img src="https://latex.codecogs.com/png.latex?    6\times n"/>  阶矩阵。其中前 3 行代表对手爪线速度 v 的传递比；后 3 行代表对手爪的角速度 <img src="https://latex.codecogs.com/png.latex?\omega"/> 的传递比。另一方面,每一列代表相应的关节速度 <img src="https://latex.codecogs.com/png.latex?\dot{q}"/> , 对于手爪线速度和角速度的传递比;</p>
 <h1 id="力雅可比"><a href="#力雅可比" class="headerlink" title="力雅可比"></a>力雅可比</h1><p>机器人与外界环境相互作用时, 在接触的地方要产生力 f 和力矩 n, 统称为末端广义(操作)力矢量, 记为：</p>
-<p><img src="https://latex.codecogs.com/png.latex?
-f = \left[ 
-\begin{array}{c}
-f \\n
-\end{array}
-\right]"/></p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/广义操作力矢量.png" width="30%" height="30%"> </div>
+
+
 <p>例如, 操作臂提取重物时承受的外界作用力和力矩。在静止状态下,广义操作力矢量F应与各关节的驱动力(或力矩)相平衡。n 个关节的驱动力组成的n维矢量</p>
-<p><img src="https://latex.codecogs.com/png.latex?
-\tau = \left[ \tau_1, \tau_2, \cdots, \tau_n \right]^T"/></p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/N维驱动矢量.png" width="30%" height="30%"> </div>
+
 <p>称为关节力矢量。 利用虚功原理, 可以得到关节力矢量<img src="https://latex.codecogs.com/png.latex?\tau"/> 与相应的广义操作力矢量F之间的关系。令各关节的虚位移为 <img src="https://latex.codecogs.com/png.latex?\delta q_i"/> , 末端执行器相应的虚位移为D。所谓的虚位移,是满足机械系统几何约束的无限小位移。各关节所作的虚功只和 <img src="https://latex.codecogs.com/png.latex?W = \tau^T\delta q = \tau_1\delta q_1 + \tau_2\delta q_2 + \cdots + \tau_n\delta q_n"/> 与末端执行器所作的虚功 <img src="https://latex.codecogs.com/png.latex?W=F^TD=f^Td + n^T\delta"/> 应该相等(总的虚功为零),即</p>
-<p><img src="https://latex.codecogs.com/png.latex?  \tau^T\delta q = F^TD = F^T(J(q)\delta q) "/></p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/虚功定理.png" width="30%" height="30%"> </div>
+
 <p>不难得到</p>
-<p><img src="https://latex.codecogs.com/png.latex?  \tau = J^T(q) F "/></p>
+<div align="center"> <img src="/img/postImg/rtb/微分运动/操作力与关节力的线性映射.png" width="30%" height="30%"> </div>
+
+
+
 <p>式中,<img src="https://latex.codecogs.com/png.latex? J^T(q)"/> 称为操作臂的力雅可比, 它表示在静态平衡状态下, 操作力向关节力映射的线性关系。</p>
 <h1 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h1><p>1, 工具箱使用的关节坐标都是行向量.</p>
 <p>2, 判别给的是标准DH还是改进DH,可从给的参数栏的下标入手,如果有相同的下标,则是标准,否则,为改进的DH参数。</p>
 <p>3, 想同时展示多个机器人,比如两个机器人,需要创建一个机器人的复本,其基座处在不同的位置,这样就可以同时展示两个机器人了。</p>
-<p>参考</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://petercorke.com/rvc/home/">Robotics, Vision and Control Fundamental algorithms in MATLAB: Second Edition》Peter</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a target="_blank" rel="noopener" href="https://petercorke.com/rvc/home/">Robotics, Vision and Control Fundamental algorithms in MATLAB: Second Edition》Peter</a></p>
 <p>[2] <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%BF%90%E5%8A%A8%E5%89%AF">运动副—维基百科</a></p>
 <p>[3] <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35551200/article/details/97030782">matlab中Link函数与SeriaLink函数学习笔记 —红烧肉不好吃</a></p>
 <p>[4] 机器人技术基础 — 熊有伦</p>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>由于latex.codecogs.com挂了，里面的公式目前都无法显示，正在处理中。。。。。。</p>
 
             </div>
 

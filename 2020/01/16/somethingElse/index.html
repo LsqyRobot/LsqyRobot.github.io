@@ -43,11 +43,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 6.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -143,8 +139,8 @@
 <li><a href="#tikz">tikz</a></li>
 </ul>
 </li>
-<li><a href="#windows-软件推荐">windows 软件推荐</a><pre><code>  * [windows 彻底卸载禁用 hyper-v](#windows-彻底卸载禁用-hyper-v)
-</code></pre><ul>
+<li><a href="#windows-软件推荐">windows 软件推荐</a><ul>
+<li><a href="#禁用-hyper-v">禁用 hyper-v</a></li>
 <li><a href="#macos">macos</a><ul>
 <li><a href="#数学软件推荐">数学软件推荐</a></li>
 <li><a href="#hexo-上的一点小技巧">Hexo 上的一点小技巧</a></li>
@@ -158,7 +154,7 @@
 <li><a href="#typora">typora</a></li>
 </ul>
 </li>
-<li><a href="#unable-to-acquire-the-dpkg-frontend-lock-varlibdpkglock-frontend-is-another-process-using-it">Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), is another process using it?</a><ul>
+<li><a href="#dpkg-frontend-lock">dpkg frontend lock</a><ul>
 <li><a href="#了解一下">了解一下</a></li>
 </ul>
 </li>
@@ -170,8 +166,8 @@
 <figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line"><span class="built_in">scale</span> x*y</span><br></pre></td></tr></table></figure>
 <h2 id="tikz"><a href="#tikz" class="headerlink" title="tikz"></a>tikz</h2><p>这个其实不是个软件,是tex里的绘图,可以绘制出非常好看的图,当然,需要知道的东西太多了,严格的来说并不易使用,入坑需谨慎。<br>学了一段时间后发现还是有一些作用的,配合着网站<a target="_blank" rel="noopener" href="https://www.mathcha.io/,就可以实现快速绘制图形的功能了。">https://www.mathcha.io/,就可以实现快速绘制图形的功能了。</a></p>
 <h1 id="windows-软件推荐"><a href="#windows-软件推荐" class="headerlink" title="windows 软件推荐"></a>windows 软件推荐</h1><p>1, Everything (搜索文件工具)<br>2, snipaste (贴图 + 截屏)<br>3, autohotkey (自定义快捷键,有编程底子的很快就能上手,用惯了vim的,可以用别人的配置,参考<code>https://www.kaifa99.com/GitHub/article_104420</code>)<br>4, focusky (相对简单的ppt制作软件,且花里胡哨)<br>5, Typora (好用的markdown编辑器)<br>6, Anaconda (开源包管理器)<br>7, winedt (latex编辑器)<br>8, texlive (miktex有时真的不给力,还不如安装texlive可以解决一些不必要的麻烦)<br>9, Evernote (印象笔记,可以方便的管理自己的笔记)<br>10, visio (可以绘制出好看到变态的软件)<br>11, vscode (开箱即用的编辑器,<del>相对于vim</del>,对新手非常友好,不过代价就是让人变懒了,类似的还有sublime,atom等等非常优秀的编辑器,<del>不好意思,我用vim</del>)<br>12, Mendeley (目前为止发现最适合自己的文献管理工具,目前为止放了近一千本书籍进去(chi hui)了,而且在windows可以同步,不必担心这些书籍找不到,可以说,使用好这个工具,可以有效的构建自己的知识体系。)<br>13, Teamviewer (非常好用的远程控制工具)<br>14, IDM (下载东西比较快速,在吾爱破解论坛里有不少破解的方法,自行搜索吧)</p>
-<h3 id="windows-彻底卸载禁用-hyper-v"><a href="#windows-彻底卸载禁用-hyper-v" class="headerlink" title="windows 彻底卸载禁用 hyper-v"></a>windows 彻底卸载禁用 hyper-v</h3><p>在安装虚拟机等等会与这个冲突,所以记录一下。在 <code>Ctrl+R</code> 快捷键后输入 cmd, 然后在命令提示框内输入</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">bcdedit /<span class="keyword">copy</span> &#123;<span class="keyword">current</span>&#125; /d “Windows10 <span class="keyword">no</span> Hyper-V</span><br></pre></td></tr></table></figure>
+<h2 id="禁用-hyper-v"><a href="#禁用-hyper-v" class="headerlink" title="禁用 hyper-v"></a>禁用 hyper-v</h2><p>在安装虚拟机等等会与这个冲突,所以记录一下。在 <code>Ctrl+R</code> 快捷键后输入 cmd, 然后在命令提示框内输入</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">bcdedit <span class="regexp">/copy &#123;current&#125; /</span>d <span class="string">&quot;Windows10 no Hyper-V</span></span><br></pre></td></tr></table></figure>
 <p>将输出的结果, 比如为 {123l}(里面都是十六进制的,还有就是1与l在里面看出不来), 参考如下指令写入即可</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">bcdedit</span> /set &#123;<span class="number">123</span>l&#125; hypervisorlaunchtype <span class="literal">OFF</span></span><br></pre></td></tr></table></figure>
 <p>然后重启电脑即可。</p>
@@ -460,7 +456,9 @@
 <p><code>MacOs</code>: ⌃⌘I</p>
 <p><code>Windows</code>: Ctrl+Shift+I</p>
 <p><code>Linux</code>:Ctrl+Shift+I</p>
-<h1 id="Unable-to-acquire-the-dpkg-frontend-lock-var-lib-dpkg-lock-frontend-is-another-process-using-it"><a href="#Unable-to-acquire-the-dpkg-frontend-lock-var-lib-dpkg-lock-frontend-is-another-process-using-it" class="headerlink" title="Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), is another process using it?"></a>Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), is another process using it?</h1><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo rm <span class="regexp">/var/</span>lib<span class="regexp">/dpkg/</span>lock-frontend</span><br><span class="line">sudo dpkg --configure -a</span><br></pre></td></tr></table></figure>
+<h1 id="dpkg-frontend-lock"><a href="#dpkg-frontend-lock" class="headerlink" title="dpkg frontend lock"></a>dpkg frontend lock</h1><p>常见报错了。。。。</p>
+<p>Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), is another process using it?</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo rm <span class="regexp">/var/</span>lib<span class="regexp">/dpkg/</span>lock-frontend</span><br><span class="line">sudo dpkg --configure -a</span><br></pre></td></tr></table></figure>
 <h2 id="了解一下"><a href="#了解一下" class="headerlink" title="了解一下"></a>了解一下</h2><p>1, 导出数值数据最好采用CSV格式,尽量不用xlsx格式,因为存储同样的内容,xlsx格式比csv占用磁盘空间更大,处理起来更慢。</p>
 <p>2,设置开机自启动,只需生成一个“快捷方式”,然后将此快捷方式放置到程序自启动文件夹之下即可,一般都在这儿：</p>
 <figure class="highlight moonscript"><table><tr><td class="code"><pre><span class="line"><span class="name">C</span>:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp</span><br></pre></td></tr></table></figure>

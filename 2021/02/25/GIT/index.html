@@ -43,11 +43,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 6.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -175,6 +171,12 @@
 </li>
 <li><a href="#乱码解决办法">乱码解决办法</a></li>
 <li><a href="#常用指令的具体介绍">常用指令的具体介绍</a><ul>
+<li><a href="#git-clean">git clean</a><ul>
+<li><a href="#删除-untracked-files">删除 untracked files</a></li>
+<li><a href="#删除-untracked-文件和目录">删除 untracked 文件和目录</a></li>
+<li><a href="#连-gitignore-的-untracked-文件和目录也一起删掉">连 gitignore 的 untracked 文件和目录也一起删掉</a></li>
+</ul>
+</li>
 <li><a href="#git-diff">git diff</a></li>
 <li><a href="#git-tag">git tag</a><ul>
 <li><a href="#创建标签">创建标签</a></li>
@@ -263,7 +265,13 @@
 
 <p>然后在命令窗口中输入如下设置命令即可</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--global i18n.commitencoding utf-8</span><br><span class="line">git<span class="built_in"> config </span>--global i18n.logoutputencoding utf-8</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">LESSCHARSET</span>=utf-8</span><br></pre></td></tr></table></figure>
-<h1 id="常用指令的具体介绍"><a href="#常用指令的具体介绍" class="headerlink" title="常用指令的具体介绍"></a>常用指令的具体介绍</h1><h2 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h2><p>git diff 命令可以对比两个版本的差异,具体来说包括：</p>
+<h1 id="常用指令的具体介绍"><a href="#常用指令的具体介绍" class="headerlink" title="常用指令的具体介绍"></a>常用指令的具体介绍</h1><h2 id="git-clean"><a href="#git-clean" class="headerlink" title="git clean"></a>git clean</h2><p>要取消已经track过的文件的修改，可以使用git checkout xxx，但是如果要取消 untracked 文件的修改，除了手动删除，还可以用 git clean 命令实现</p>
+<h3 id="删除-untracked-files"><a href="#删除-untracked-files" class="headerlink" title="删除 untracked files"></a>删除 untracked files</h3><figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git clean -f</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除-untracked-文件和目录"><a href="#删除-untracked-文件和目录" class="headerlink" title="删除 untracked 文件和目录"></a>删除 untracked 文件和目录</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git clean -<span class="built_in">df</span></span><br></pre></td></tr></table></figure>
+<h3 id="连-gitignore-的-untracked-文件和目录也一起删掉"><a href="#连-gitignore-的-untracked-文件和目录也一起删掉" class="headerlink" title="连 gitignore 的 untracked 文件和目录也一起删掉"></a>连 gitignore 的 untracked 文件和目录也一起删掉</h3><figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git clean -xdf</span></span><br></pre></td></tr></table></figure>
+<p>建议加上-n参数来看看会删掉哪些文件，防止重要文件被误删。</p>
+<figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clean</span> -nf</span><br><span class="line">git <span class="built_in">clean</span> -ndf</span><br><span class="line">git <span class="built_in">clean</span> -nxdf</span><br></pre></td></tr></table></figure>
+<h2 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h2><p>git diff 命令可以对比两个版本的差异,具体来说包括：</p>
 <p>1, 本地工作区和暂存区的diff信息：git diff 或者 git diff file<br>2, 暂存区和版本库的diff信息（使用git add 将工作区修改保存到了暂存区后）：git diff —cached<br>3, 版本库中不同commit、分支的diff信息（使用git commit 将暂存区修改提交到了版本库）：git diff commit1 commit2 或 git diff branch1 branch2<br>4, 技巧：一般将要对比的分支/commitID名字放到第二个参数,这样对比起来比较直观。</p>
 <p>1）基本操作</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git diff branch1 branch2 --stat <span class="regexp">//</span>--stat参数,显示两分支简单diff信息</span><br><span class="line">git diff branch1 branch2 <span class="regexp">//</span>显示两分支详细的diff信息</span><br><span class="line">git diff branch1 branch2 path <span class="regexp">//</span>显示两分支指定路径下文件的详细diff信息</span><br><span class="line">git diff branch1 branch2 file_name(带路径) <span class="regexp">//</span>显示两分支指定文件的详细diff信息</span><br></pre></td></tr></table></figure>
