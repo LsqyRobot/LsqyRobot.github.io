@@ -138,6 +138,13 @@
 <li><a href="#信息命令">信息命令</a></li>
 <li><a href="#ros-catkin">ROS catkin</a></li>
 <li><a href="#功能包命令">功能包命令</a></li>
+<li><a href="#rosnode">rosnode</a></li>
+<li><a href="#rostopic"><strong>rostopic</strong></a></li>
+<li><a href="#rosservice"><strong>rosservice</strong></a></li>
+<li><a href="#rosparam"><strong>rosparam</strong></a></li>
+<li><a href="#rosmsg"><strong>rosmsg</strong></a></li>
+<li><a href="#rossrv"><strong>rossrv</strong></a></li>
+<li><a href="#rosbag"><strong>rosbag</strong></a></li>
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
@@ -229,7 +236,8 @@
 </tbody>
 </table>
 </div>
-<h1 id="信息命令"><a href="#信息命令" class="headerlink" title="信息命令"></a>信息命令</h1><div class="table-container">
+<h1 id="信息命令"><a href="#信息命令" class="headerlink" title="信息命令"></a>信息命令</h1><p>ROS信息命令用于识别话题、服务、节点和参数等信息。尤其是rostopic、 rosservice、rosnode和rosparam经常被使用，并且rosbag是ROS的主要特征之一，它具有记录数据和回放功能，务必要掌握。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -391,6 +399,277 @@
 <td>☆☆☆     &emsp;</td>
 <td>ros+make            &emsp;</td>
 <td>构建 ROS功能包（用于旧的rosbuild系统）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="rosnode"><a href="#rosnode" class="headerlink" title="rosnode"></a>rosnode</h1><p>关于ROS节点信息相关指令，列表如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令                         &emsp;</th>
+<th>详细说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rosnode list                 &emsp;</td>
+<td>查看活动的节点列表</td>
+</tr>
+<tr>
+<td>rosnode ping [节点名称]      &emsp;</td>
+<td>与指定的节点进行连接测试</td>
+</tr>
+<tr>
+<td>rosnode info [节点名称]      &emsp;</td>
+<td>查看指定节点的信息</td>
+</tr>
+<tr>
+<td>rosnode machine [PC名称或IP] &emsp;</td>
+<td>查看该PC中运行的节点列表</td>
+</tr>
+<tr>
+<td>rosnode kill [节点名称]      &emsp;</td>
+<td>停止指定节点的运行</td>
+</tr>
+<tr>
+<td>rosnode cleanup              &emsp;</td>
+<td>删除失连节点的注册信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="rostopic"><a href="#rostopic" class="headerlink" title="rostopic"></a><strong>rostopic</strong></h1><p>关于ROS话题相关指令，列表如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令                                      &emsp;</th>
+<th>详细说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rostopic list                             &emsp;</td>
+<td>显示活动的话题目录</td>
+</tr>
+<tr>
+<td>rostopic echo [话题名称]                  &emsp;</td>
+<td>实时显示指定话题的消息内容</td>
+</tr>
+<tr>
+<td>rostopic find [类型名称]                  &emsp;</td>
+<td>显示使用指定类型的消息的话题</td>
+</tr>
+<tr>
+<td>rostopic type [话题名称]                  &emsp;</td>
+<td>显示指定话题的消息类型</td>
+</tr>
+<tr>
+<td>rostopic bw [话题名称]                    &emsp;</td>
+<td>显示指定话题的消息带宽（bandwidth）</td>
+</tr>
+<tr>
+<td>rostopic hz [话题名称]                    &emsp;</td>
+<td>显示指定话题的消息数据发布周期</td>
+</tr>
+<tr>
+<td>rostopic info [话题名称]                  &emsp;</td>
+<td>显示指定话题的信息</td>
+</tr>
+<tr>
+<td>rostopic pub [话题名称] [消息类型] [参数] &emsp;</td>
+<td>用指定的话题名称发布消息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="rosservice"><a href="#rosservice" class="headerlink" title="rosservice"></a><strong>rosservice</strong></h1><p>关于ROS服务相关指令，列表如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令                              &emsp;</th>
+<th>详细说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rosservice list                   &emsp;</td>
+<td>显示活动的服务信息</td>
+</tr>
+<tr>
+<td>rosservice info [服务名称]        &emsp;</td>
+<td>显示指定服务的信息</td>
+</tr>
+<tr>
+<td>rosservice find [服务类型]        &emsp;</td>
+<td>查找指定服务类型的服务</td>
+</tr>
+<tr>
+<td>rosservice uri [服务名称]         &emsp;</td>
+<td>显示ROSRPC URI服务</td>
+</tr>
+<tr>
+<td>rosservice args [服务名称]        &emsp;</td>
+<td>显示服务参数</td>
+</tr>
+<tr>
+<td>rosservice call [服务名称] [参数] &emsp;</td>
+<td>用输入的参数请求服务</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="rosparam"><a href="#rosparam" class="headerlink" title="rosparam"></a><strong>rosparam</strong></h1><p>关于ROS参数相关指令，列表如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令                       &emsp;</th>
+<th>详细说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rosparam list              &emsp;</td>
+<td>查看参数列表</td>
+</tr>
+<tr>
+<td>rosparam get [参数名称]    &emsp;</td>
+<td>获取参数值</td>
+</tr>
+<tr>
+<td>rosparam set [参数名称]    &emsp;</td>
+<td>设置参数值</td>
+</tr>
+<tr>
+<td>rosparam dump [文件名称]   &emsp;</td>
+<td>将参数保存到指定文件</td>
+</tr>
+<tr>
+<td>rosparam load [文件名称]   &emsp;</td>
+<td>获取保存在指定文件中的参数</td>
+</tr>
+<tr>
+<td>rosparam delete [参数名称] &emsp;</td>
+<td>删除参数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="rosmsg"><a href="#rosmsg" class="headerlink" title="rosmsg"></a><strong>rosmsg</strong></h1><p>关于ROS消息信息相关指令，列表如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令                        &emsp;</th>
+<th>详细说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rosmsg list                 &emsp;</td>
+<td>显示所有消息</td>
+</tr>
+<tr>
+<td>rosmsg show [消息名称]      &emsp;</td>
+<td>显示指定消息</td>
+</tr>
+<tr>
+<td>rosmsg md5 [消息名称]       &emsp;</td>
+<td>显示md5sum</td>
+</tr>
+<tr>
+<td>rosmsg package [功能包名称] &emsp;</td>
+<td>显示用于指定功能包的所有消息</td>
+</tr>
+<tr>
+<td>rosmsg packages             &emsp;</td>
+<td>显示使用消息的所有功能包</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="rossrv"><a href="#rossrv" class="headerlink" title="rossrv"></a><strong>rossrv</strong></h1><p>关于ROS服务信息相关指令，列表如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令                        &emsp;</th>
+<th>详细说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rossrv list                 &emsp;</td>
+<td>显示所有服务</td>
+</tr>
+<tr>
+<td>rossrv show [服务名称]      &emsp;</td>
+<td>显示指定的服务信息</td>
+</tr>
+<tr>
+<td>rossrv md5 [服务名称]       &emsp;</td>
+<td>显示md5sum</td>
+</tr>
+<tr>
+<td>rossrv package [功能包名称] &emsp;</td>
+<td>显示指定的功能包中用到的所有服务</td>
+</tr>
+<tr>
+<td>rossrv packages             &emsp;</td>
+<td>显示使用服务的所有功能包</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="rosbag"><a href="#rosbag" class="headerlink" title="rosbag"></a><strong>rosbag</strong></h1><p>rosbag是一个实现生成、播放和压缩等功能的程序，它具有以下几种功能。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令                                          &emsp;</th>
+<th>详细说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rosbag record [选项] [话题名称]                &emsp;</td>
+<td>将指定话题的消息记录到bag文件</td>
+</tr>
+<tr>
+<td>rosbag info [文件名称]                         &emsp;</td>
+<td>查看bag文件的信息</td>
+</tr>
+<tr>
+<td>rosbag play [文件名称]                         &emsp;</td>
+<td>回放指定的bag文件</td>
+</tr>
+<tr>
+<td>rosbag compress [文件名称]                     &emsp;</td>
+<td>压缩指定的bag文件</td>
+</tr>
+<tr>
+<td>rosbag decompress [文件名称]                   &emsp;</td>
+<td>解压指定的bag文件</td>
+</tr>
+<tr>
+<td>rosbag filter [输入文件] [输出文件] [选项]     &emsp;</td>
+<td>生成一个删除了指定内容的新的bag文件</td>
+</tr>
+<tr>
+<td>rosbag reindex bag [文件名称]                  &emsp;</td>
+<td>刷新索引</td>
+</tr>
+<tr>
+<td>rosbag check bag [文件名称]                    &emsp;</td>
+<td>检查指定的bag文件是否能在当前系统中回放</td>
+</tr>
+<tr>
+<td>rosbag fix [输入文件] [输出文件] [选项]        &emsp;</td>
+<td>将由于版本不同而无法回放的bag文件修改成可以回放的文件</td>
 </tr>
 </tbody>
 </table>
