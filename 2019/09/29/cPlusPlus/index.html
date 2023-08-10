@@ -68,7 +68,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Algorithm/">Algorithm</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/Control/">Control</a></li><li><a class="category-link" href="/categories/Git/">Git</a></li><li><a class="category-link" href="/categories/Life/">Life</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/Matlab/">Matlab</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/VS/">VS</a></li><li><a class="category-link" href="/categories/Work/">Work</a></li><li><a class="category-link" href="/categories/latex/">latex</a></li><li><a class="category-link" href="/categories/life/">life</a></li><li><a class="category-link" href="/categories/math/">math</a></li><li><a class="category-link" href="/categories/rtb/">rtb</a></li><li><a class="category-link" href="/categories/tools/">tools</a></li><li><a class="category-link" href="/categories/work/">work</a>
+	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MATH/">MATH</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/ROBOT/">ROBOT</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/RTB/">RTB</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/WORK/">WORK</a>
 	                    </ul>
 	        </li>
 	        
@@ -126,7 +126,7 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/cpp0/ship-1366926_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/cpp0/logo/ship-1366926_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >C++学习笔记(一)</h2></a>
             </div>
 
@@ -140,6 +140,8 @@
 <li><a href="#hpp与h区别">.hpp与.h区别</a></li>
 <li><a href="#类与对象">类与对象</a><ul>
 <li><a href="#成员访问控制">成员访问控制</a><ul>
+<li><a href="#示例">示例</a></li>
+<li><a href="#注意事项">注意事项</a></li>
 <li><a href="#关于类的注意事项">关于类的注意事项</a></li>
 </ul>
 </li>
@@ -195,7 +197,45 @@
 <p>2, 类定义一般放在程序文件开头, 或者放到头文件中被程序文件包含, 此时这个定义是全局的。在全局作用域内, 该定义处处可见, 因此同一作用域内的所有函数都可以使用它。</p>
 <h2 id="成员访问控制"><a href="#成员访问控制" class="headerlink" title="成员访问控制"></a>成员访问控制</h2><p>对类的成员进行访问,来自两个访问源： 类成员和类用户。类成员指的是类本身的成员函数,类用户指的是类外部的使用者,包括全局函数,另一个类的成员函数等。 无论数据成员还是函数成员,类的每个成员都有访问控制属性,由一下三个访问标号说明: public, private, protected.  类成员和类用户都可以访问公有成员,任何一个来自类外部的类用户都必须通过公有成员来访问。显然,public实现了类的外部接口。</p>
 <p>只有类成员可以访问私有成员,类用户的访问是不允许的。显然,private实现了私有成员的隐蔽。</p>
-<p>保护成员用protected标号说明,在不考虑继承的情况下,protected的性质和private的性质一致,但保护成员可以被派生类的类成员访问。</p>
+<p>保护成员用protected标号说明,在不考虑继承的情况下,protected的性质和private的性质一致,但保护成员可以被派生类的类成员访问。总的来说可以参考如下表中所示</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>访问     &emsp;</th>
+<th>public &emsp;</th>
+<th>protected &emsp;</th>
+<th>private</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同一个类 &emsp;</td>
+<td>yes    &emsp;</td>
+<td>yes       &emsp;</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>派生类   &emsp;</td>
+<td>yes    &emsp;</td>
+<td>yes       &emsp;</td>
+<td>no</td>
+</tr>
+<tr>
+<td>外部的类 &emsp;</td>
+<td>yes    &emsp;</td>
+<td>no        &emsp;</td>
+<td>no</td>
+</tr>
+<tr>
+<td>友元类   &emsp;</td>
+<td>yes    &emsp;</td>
+<td>yes       &emsp;</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>另外需要说明:</p>
 <p>1) 数据成员一般声明为 private,以实现信息的隐蔽.</p>
 <p>2) 成员函数一般声明为 public,以提供外界使用的接口.</p>
@@ -203,7 +243,9 @@
 <p>4) 创建一个类类型的对象时,编译器会自动使用一个构造函数来初始化该对象,构造函数是一个特殊的、与类同名的成员函数,用于初始化每个数据成员来设置初始值。</p>
 <p>5) 构造函数一般使用一个构造函数初始化列表,来初始化对象的数据成员.</p>
 <p>6) 在类内部,声明成员函数是必需的,而定义成员函数则可选,可以在类外定义。在类内部定义的函数默认为 inline 函数.</p>
-<p>下面需要注意的源自于林锐的《高质量C++/C编程指南》</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>可用下面代码辅助理解</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 公有接口</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PublicFunction</span>()</span> &#123;</span><br><span class="line">        <span class="comment">// 可以在类外部调用</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="comment">// 保护接口</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">ProtectedFunction</span>()</span> &#123;</span><br><span class="line">        <span class="comment">// 在派生类中可以调用，但在类外部无法直接访问</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 私有接口</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PrivateFunction</span>()</span> &#123;</span><br><span class="line">        <span class="comment">// 只能在类的内部调用，类外部无法直接访问</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>下面需要注意的源自于林锐的《高质量C++/C编程指南》</p>
 <p>1, <strong>在多重循环中,如果有可能,应当将最长的循环放在最内层,最短的循环放在最外层,来提高程序运行效率。</strong></p>
 <p>2,  <strong>如果循环体内存在逻辑判断,并且循环次数很大,宜将逻辑判断移到循环体的外面.</strong></p>
 <p>3, <strong>Switch 是多分支选择语句,而 if  语句只有两个分支可供选择。虽然可以用嵌套的 if 语句来实现多分支选择,但那样的程序冗长难读。这是 switch 语句存在的理由。</strong></p>
