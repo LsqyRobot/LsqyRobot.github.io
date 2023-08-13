@@ -68,7 +68,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MATH/">MATH</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/ROBOT/">ROBOT</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/RTB/">RTB</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/WORK/">WORK</a>
+	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MATH/">MATH</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/ROBOT/">ROBOT</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/RTB/">RTB</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/WORK/">WORK</a>
 	                    </ul>
 	        </li>
 	        
@@ -253,6 +253,9 @@
 <p>这条件命令会把你工作目录中所有未提交的内容清空。</p>
 <h2 id="修复已提交文件中的错误"><a href="#修复已提交文件中的错误" class="headerlink" title="修复已提交文件中的错误"></a>修复已提交文件中的错误</h2><p>1, 创建一个新的提交(commit),在新的提交里撤消老的提交所作的修改。</p>
 <p>2, 也可以去修改你的老提交(old commit)。但是如果你已经把代码发布了,那么千万别这么做；Git 不会处理项目的历史会改变的情况,如果一个分支的历史被改变了那以后就不能正常的合并。</p>
+<h3 id="没有-add（没有添加到暂存区）"><a href="#没有-add（没有添加到暂存区）" class="headerlink" title="没有 add（没有添加到暂存区）"></a>没有 add（没有添加到暂存区）</h3><p>撤销全部文件修改：</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">git checkout <span class="comment">-- .</span></span><br></pre></td></tr></table></figure>
+<p>这个是我在犯傻后用<code>argdo %s /old/new/g</code>，发现修改的东西太多了，发现的一个有用的功能；</p>
 <h3 id="创建新提交来修复错误"><a href="#创建新提交来修复错误" class="headerlink" title="创建新提交来修复错误"></a>创建新提交来修复错误</h3><p>创建一个新的,撤消(revert)了前期修改的提交(commit)是很容易的；只要把出错的提交(commit)的名字(reference)做为参数传给命令：git revert就可以了；</p>
 <figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">revert</span> HEAD</span><br></pre></td></tr></table></figure>
 <p>撤消“上上次”(next-to-last)的提交：</p>
