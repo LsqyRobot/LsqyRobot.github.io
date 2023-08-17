@@ -68,7 +68,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MATH/">MATH</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/ROBOT/">ROBOT</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/RTB/">RTB</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/WORK/">WORK</a>
+	                        <a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MATH/">MATH</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/ROBOT/">ROBOT</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/RTB/">RTB</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/WORK/">WORK</a>
 	                    </ul>
 	        </li>
 	        
@@ -163,6 +163,7 @@
 <li><a href="#回溯历史版本">回溯历史版本</a></li>
 <li><a href="#修复未提交文件中的错误重置">修复未提交文件中的错误(重置)</a></li>
 <li><a href="#修复已提交文件中的错误">修复已提交文件中的错误</a><ul>
+<li><a href="#没有-add没有添加到暂存区">没有 add（没有添加到暂存区）</a></li>
 <li><a href="#创建新提交来修复错误">创建新提交来修复错误</a></li>
 <li><a href="#修改提交来修复错误">修改提交来修复错误</a></li>
 </ul>
@@ -202,6 +203,7 @@
 <li><a href="#提交中文字符乱码问题">提交中文字符乱码问题</a></li>
 </ul>
 </li>
+<li><a href="#fatal-lf-would-be-replace-by-crlf">fatal: LF would be replace by CRLF</a></li>
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
@@ -320,6 +322,9 @@
 <figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">config</span> <span class="comment">--global core.quotepath false</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global i18n.commitencoding UTF-8</span></span><br></pre></td></tr></table></figure>
 <p>3, 将文件字符集设置为UTF-8,可以保证中文字符在git提交后不会乱码。</p>
 <figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">config</span> <span class="comment">--global core.autocrlf true</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global core.safecrlf true</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global core.quotepath false</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global i18n.commitencoding UTF-8</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global i18n.logoutputencoding UTF-8</span></span><br></pre></td></tr></table></figure>
+<h1 id="fatal-LF-would-be-replace-by-CRLF"><a href="#fatal-LF-would-be-replace-by-CRLF" class="headerlink" title="fatal: LF would be replace by CRLF"></a>fatal: LF would be replace by CRLF</h1><p>这个问题会导致往仓库推的时候推不上去，解决办法如下，在shell中输入如下指令</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">git config --local core.<span class="built_in">auto</span>crlf <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>可根据自己的需要，将<code>local</code>替换成<code>global</code>;</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]《GitHub 入门》</p>
 <p>[2] <a target="_blank" rel="noopener" href="https://www.web3.xin/code/3055.html">web3</a></p>
 <p>[3] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/yanzige/p/9810333.html">GIT使用log命令显示中文乱码</a></p>
