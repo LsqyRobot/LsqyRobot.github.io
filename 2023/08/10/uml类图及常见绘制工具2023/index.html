@@ -103,8 +103,10 @@
 
 
 
-	        <!-- tag --> 
+	        <!-- tag 被我用于其他事情了--> 
 			<li>
+	        
+	            <a href="/tag/" ><img src="/img/tag.png"></a>
 	        
 			</li>
 
@@ -136,6 +138,7 @@
 <li><a href="#uml-类图介绍">UML 类图介绍</a></li>
 <li><a href="#使用-doxygen-从源代码生成-uml-类图">使用 Doxygen 从源代码生成 UML 类图</a></li>
 <li><a href="#mermaid绘制流程图的语法">Mermaid绘制流程图的语法</a></li>
+<li><a href="#命令行生成">命令行生成</a></li>
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
@@ -158,6 +161,10 @@
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">graph <span class="selector-tag">TD</span>;</span><br><span class="line">    <span class="selector-tag">A</span>((开始)) --&gt; <span class="selector-tag">B</span><span class="selector-attr">[处理A]</span>;</span><br><span class="line">    <span class="selector-tag">B</span> --&gt; C<span class="selector-attr">[处理B]</span>;</span><br><span class="line">    <span class="selector-tag">B</span> --&gt; D<span class="selector-attr">[处理C]</span>;</span><br><span class="line">    C --&gt; E<span class="selector-attr">[处理D]</span>;</span><br><span class="line">    D --&gt; E;</span><br><span class="line">    E --&gt; F((结束));</span><br></pre></td></tr></table></figure>
 <p>在上面的示例中，我们定义了几个节点，例如(开始)、[处理A]、{ }、((结束))等，并用箭头—&gt;表示连接关系。</p>
 <p>注意，Mermaid语法不区分大小写，并且注释以%%开头。</p>
+<h1 id="命令行生成"><a href="#命令行生成" class="headerlink" title="命令行生成"></a>命令行生成</h1><p>非常可惜的是官网在生成图片的时候特别慢，有的时候试了十几次，没错，是十几次，都没有生成出来PNG图片，一开始以为是自己网络问题导致的，后面发现，无论网络好不好<br>都生成不了，推荐使用命令行的方式来生成，首先配置好命令行下所需的环境</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> install -g @mermaid-js/mermaid-cli</span><br></pre></td></tr></table></figure>
+<p>然后创建文件后缀名为<code>.mmd</code>, 采用如下命令行即可生成PNG图片</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">mmdc -<span class="selector-tag">i</span> test<span class="selector-class">.mmd</span> -o blue<span class="selector-class">.png</span> -t forest -<span class="selector-tag">b</span> transparent</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. chatGPT 的回答</p>
 
             </div>

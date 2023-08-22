@@ -103,8 +103,10 @@
 
 
 
-	        <!-- tag --> 
+	        <!-- tag 被我用于其他事情了--> 
 			<li>
+	        
+	            <a href="/tag/" ><img src="/img/tag.png"></a>
 	        
 			</li>
 
@@ -164,6 +166,10 @@
 <li><a href="#recompile-函数">re.compile 函数</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#其他">其他</a><ul>
+<li><a href="#动态生成变量名">动态生成变量名</a></li>
 </ul>
 </li>
 <li><a href="#小技巧">小技巧</a></li>
@@ -241,6 +247,11 @@ S(p) = \sum_{i=1}^M[y_i - f(x_i,p)]^2</script><p>这种算法被称为最小二�
 <p>re模块的函数可以分为三个大类：模式匹配、替换以及拆分。当然,它们之间是相辅相成的。一个 regex描述了需要在文本中定位的一个模式,它可以用于许多目的。</p>
 <h3 id="re-compile-函数"><a href="#re-compile-函数" class="headerlink" title="re.compile 函数"></a>re.compile 函数</h3><p>compile 函数用于编译正则表达式,生成一个正则表达式( Pattern )对象,供 match() 和 search() 这两个函数使用。语法格式为：</p>
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">re.compile(pattern[, flags])</span><br><span class="line">pattern : 一个字符串形式的正则表达式</span><br><span class="line">flags : 可选,表示匹配模式,比如忽略大小写,多行模式等,具体参数为：</span><br><span class="line">re.I 忽略大小写</span><br><span class="line">re.L 表示特殊字符集 <span class="string">\w,</span> <span class="string">\W,</span> <span class="string">\b,</span> <span class="string">\B,</span> <span class="string">\s,</span> <span class="string">\S</span> 依赖于当前环境</span><br><span class="line">re.M 多行模式</span><br><span class="line">re.S 即为 . 并且包括换行符在内的任意字符(. 不包括换行符)</span><br><span class="line">re.U 表示特殊字符集 <span class="string">\w,</span> <span class="string">\W,</span> <span class="string">\b,</span> <span class="string">\B,</span> <span class="string">\d,</span> <span class="string">\D,</span> <span class="string">\s,</span> <span class="string">\S</span> 依赖于 Unicode 字符属性数据库</span><br><span class="line">re.X 为了增加可读性,忽略空格和 <span class="comment"># 后面的注释</span></span><br></pre></td></tr></table></figure>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="动态生成变量名"><a href="#动态生成变量名" class="headerlink" title="动态生成变量名"></a>动态生成变量名</h2><p>在我的收藏夹吃灰了好久，收藏的具体原因给忘了，应该不怎么常用</p>
+<p>如果你想生成v1,v2…v100这一百个变量，使用其他静态编译语言只能在代码中手动写出这100个变量名，但是在python中可以使用循环方便地动态生成。 python中有一个函数locals()，定义是：</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="built_in">locals</span>(...)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">locals</span>() -&gt; dictionary</span><br></pre></td></tr></table></figure>
+<p>即返回当前作用域的所有变量, 所以可以用这个函数来创建变量</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">    name=<span class="string">&#x27;v&#x27;</span>+<span class="built_in">str</span>(i)</span><br><span class="line">    <span class="built_in">locals</span>()<span class="selector-attr">[<span class="string">&#x27;v&#x27;</span>+str(i)]</span>=<span class="selector-tag">i</span></span><br><span class="line"></span><br><span class="line">print v1,v2,v3</span><br></pre></td></tr></table></figure>
 <h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><p>1, 在使用np.array的时候,默认是以科学计数法来显示的,在写机器人代码的时候与示教器上的数值进行核对时,会有些费事,使其正常显示可以设置为</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">np.set_printoptions(<span class="attribute">suppress</span>=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 <p>2, 保存高清图像,指定 <code>dpi</code> 与设置bbox_inches=‘tight’,这里dpi越大,越清晰,当然,导出的时间也越慢。</p>
@@ -248,6 +259,7 @@ S(p) = \sum_{i=1}^M[y_i - f(x_i,p)]^2</script><p>这种算法被称为最小二�
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] 《python 科学计算》—— 张若愚等著</p>
 <p>[2] 《利用 Python 进行数据分析》——Mckinney Wes</p>
 <p>[3] <a target="_blank" rel="noopener" href="https://blog.csdn.net/hju22">龟的小号</a></p>
+<p>[4] (Python 动态生成变量名)(<a target="_blank" rel="noopener" href="https://blog.csdn.net/Baoli1008/article/details/47980779">https://blog.csdn.net/Baoli1008/article/details/47980779</a>)</p>
 
             </div>
 
