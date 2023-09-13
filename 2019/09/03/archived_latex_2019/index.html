@@ -159,7 +159,7 @@
 <h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><p>1,利用 \hfill 容易使单行文本左对齐、右对齐或居中对齐。</p>
 <p>2,\dotfill,\hrulefill 分别用点线和实线填充空白。</p>
 <p>3,段落首行缩进的距离由长度\parindent决定,对于中文, 命令 \setlength{\parindent}{2em}可使每段首行缩进两个汉字的距离, 若使首行不缩进,可在开始放上命令 \noindent. 但是每一节的第一段的首行并不会缩进,可在第一段的开始放上命令 \usepackage{indentfirst}即可</p>
-<p>4,按照输人的文本原样输出, 可以使用verbatim环境.</p>
+<p>4,按照输入的文本原样输出, 可以使用verbatim环境.</p>
 <p>5,\input 命令可以把整体划分为各个单元,这样在写比较长的的文章,比如毕业论文的时候就非常的有用了,而且结构清晰,方便自己理清写作思路,也方便自己将一些收集出来的资料进行分类,所以还是挺有用处的。 </p>
 <p>6,\let指令的作用相当于给现有的指令起一个别名以避免的死循环, 可以用在一个单元或章节重新计数用。</p>
 <p>7,LaTex内部有一批计数器,储存当前的章节号,它们的名称就是相应的章节,如果想改变章节计数器的初始值,可用如下形式的命令</p>
@@ -197,21 +197,9 @@
 <h2 id="指定页眉内容"><a href="#指定页眉内容" class="headerlink" title="指定页眉内容"></a>指定页眉内容</h2><p>对于页面版式myheadings,可用下面的命令来指定页眉标题内容：</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\markright</span><span class="template-variable">&#123;rightMark&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\markboth</span><span class="template-variable">&#123;leftMark&#125;</span><span class="template-variable">&#123;rightMark&#125;</span></span><br></pre></td></tr></table></figure>
 <h2 id="给封面加图片"><a href="#给封面加图片" class="headerlink" title="给封面加图片"></a>给封面加图片</h2><p>具体的图片大小格式,就自己调整吧。。。。首先在\begin{document}前写下</p>
-<details>
-<summary>
-展开
-</summary>
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\usepackage&#123;eso-pic&#125;</span></span><br><span class="line"><span class="string">\newcommand\BackgroundPic&#123;</span></span><br><span class="line"><span class="string">\put(0,</span> <span class="number">0</span>)&#123;</span><br><span class="line"><span class="string">\parbox[t]&#123;\textwidth&#125;&#123;</span></span><br><span class="line"><span class="string">\includegraphics[scale=1,keepaspectratio]&#123;Logo.jpg&#125;</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
 <p>如果想给图片加一点文字,可以这么操作</p>
-<details>
-<summary>
-展开
-</summary>
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\usepackage&#123;overpic&#125;</span>  %% 用于给图片添加文字的</span><br><span class="line"><span class="string">\usepackage&#123;eso-pic&#125;</span>  %% 用于给封面添加图片的</span><br><span class="line"><span class="string">\newcommand\BackgroundPic&#123;</span></span><br><span class="line"><span class="string">\put(0,</span> <span class="number">0</span>)&#123;</span><br><span class="line"><span class="string">\parbox[t]&#123;\textwidth&#125;&#123;</span></span><br><span class="line"><span class="string">\begin&#123;overpic&#125;[scale=1,</span> keepaspectratio]&#123;Logo.jpg&#125;</span><br><span class="line">    <span class="string">\put(60,5)&#123;</span> <span class="string">\color&#123;orange&#125;&#123;\bf</span> yorQuote&#125;&#125;</span><br><span class="line"><span class="string">\end&#123;overpic&#125;</span></span><br><span class="line">%<span class="string">\includegraphics[scale=1,keepaspectratio]&#123;eftLogo.jpg&#125;%</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
 <p>注：这里面的\put是起摆放位置的作用 然后在\begin{document}后写上</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\AddToShipoutPicture\*</span><span class="template-variable">&#123;\setlength&#123;\unitlength&#125;</span><span class="template-variable">&#123;1cm&#125;</span><span class="language-xml">\BackgroundPic&#125;</span></span><br></pre></td></tr></table></figure>
 <h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><p>LaTex的表格写起来还是有些费劲的,个人一般先去<a target="_blank" rel="noopener" href="https://www.tablesgenerator.com/">https://www.tablesgenerator.com/</a>自动生成表格,然后再手动调整下,要不就太费时了。下面就详细的说明下表格的语法,对照着网站,自然就一目了然,不需要举例。内容摘选了包太雷的《LaTex Notes》,也是早期接触到LaTex看的书了。</p>
