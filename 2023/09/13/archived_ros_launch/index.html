@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="/css/lsqy_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/dytitle.js"></script>
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+    <script src="/js/codeBlockFuction.js"></script>
+
+<meta name="generator" content="Hexo 7.0.0-rc2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+		
+
+
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<body class="is-loading">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrapper" class="fade-in">
+        <header id="header">
+    <a href="/" class="logo">dots</a>
+</header>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1"><img src="/img/folder.png"></a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a>
+	                    </ul>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/ros/logo/castle-7347375_1280_used.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >ROS launch</h2></a>
+            </div>
+
+            <div class="typo" style="padding: 3rem;">
+                <!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#xml">XML</a><ul>
+<li><a href="#计算次序">计算次序</a></li>
+<li><a href="#替代参数substitution-args">替代参数(Substitution args)</a></li>
+<li><a href="#if和unless属性">If和unless属性</a></li>
+</ul>
+</li>
+<li><a href="#launch文件案例">launch文件案例</a><ul>
+<li><a href="#简单案例">简单案例</a></li>
+<li><a href="#重映射机制">重映射机制</a></li>
+<li><a href="#复杂案例">复杂案例</a></li>
+<li><a href="#参数服务器">参数服务器</a></li>
+</ul>
+</li>
+<li><a href="#参考">参考</a></li>
+</ul>
+<!-- vim-markdown-toc -->
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>如果<code>rosrun</code>是执行一个节点的命令，那么<code>roslaunch</code>是运行多个节点的概念。该命令允许运行多个确定的节点。其他功能还包括一些专为执行具有诸多选项的节点的ROS命令，比如包括更改功能包参数或节点名称、配置节点命名空间、设置<code>ROS\_ROOT</code>和<code>ROS\_PACKAGE\_PATH</code>以及更改环境变量等。</p>
+<p>roslaunch使用*.launch文件来设置可执行节点，它基于可扩展标记语言（XML），并提供XML标记形式的多种选项。像许多ROS包会有相应的启动配置，通过运行下面的指令来进行启动</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">roslaunch package_name <span class="built_in">file</span>.<span class="built_in">launch</span></span><br></pre></td></tr></table></figure>
+<h1 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h1><h2 id="计算次序"><a href="#计算次序" class="headerlink" title="计算次序"></a>计算次序</h2><p>roslaunch与XML文件单一传递。include是按照深度优先遍历的顺序处理。标签tag进行串行处理并且最后的设置有效。因此，若一个参数被多次设置，最后指定的值将被使用。 比较推荐的是使用<code>$(arg)/&lt;arg&gt;</code>设置来进行重写行为。</p>
+<h2 id="替代参数-Substitution-args"><a href="#替代参数-Substitution-args" class="headerlink" title="替代参数(Substitution args)"></a>替代参数(Substitution args)</h2><p>launch文件支持替代参数，roslaunch将在启动节点之前对其进行解析。当前支持的替代参数有：</p>
+<p>1) $(env ENVIRONMENT_VARIABLE)：用环境变量替换变量的值。如果未设置环境变量，则启动将失败。此值不能被<env>标记覆盖。</p>
+<p>2) $(optenv ENVIRONMENT_VARIABLE)：如果设置了环境变量的值，则替换该值。若提供default_value，则在未设置环境变量的情况下使用default_value。若未提供default_value，则将使用空字符串。default_value可以是多个单词，并用空格分隔。</p>
+<p>例如：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(optenv NUM_CPUS 1)</span>&quot;</span> /&gt;</span><br><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(optenv CONFIG_PATH /home/marvin/ros_workspace)</span>&quot;</span> /&gt;</span><br><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(optenv VARIABLE ros rocks)</span>&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>NUM_CPUS的default_value为1；VARIABLE的default_value为ros和rocks。</p>
+<p>3) <code>$(find pkg)</code>: 指定相对于软件包的路径。</p>
+<p>例如：查找rospy子目录下的manifest.xml文件。</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="constructor">$(<span class="params">find</span> <span class="params">rospy</span>)</span>/manifest.xml</span><br></pre></td></tr></table></figure>
+<p>4) <code>$(anon name)</code>：根据名称生成匿名id，id不能重名。例如：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;node <span class="attribute">name</span>=<span class="string">&quot;<span class="variable">$(anon foo)</span>&quot;</span> <span class="attribute">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;talker.py&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>5) $(eval <expression>)：用于计算任意复杂的python表达式。例如：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;circumference&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(eval 2.* 3.1415 * arg(&#x27;radius&#x27;)</span>)&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+<p>6) <code>$(dirname)</code>：返回启动文件所在目录的绝对路径。例如：</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">&lt;<span class="keyword">include</span> <span class="keyword">file</span>=<span class="string">&quot;$(dirname)/other.launch&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>file指向当前launch文件所在目录下的other.launch文件。</p>
+<p>7) <code>$(arg foo)</code>: 计算由<arg>标签指定的值，在声明arg的同一启动文件中必须有对应的<arg>标签。例如</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(arg my_foo)</span>&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>将指定 my_foo 到 foo 参数, 另外一个例子：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;node <span class="attribute">name</span>=<span class="string">&quot;add_two_ints_server&quot;</span> <span class="attribute">pkg</span>=<span class="string">&quot;beginner_tutorials&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;add_two_ints_server&quot;</span> /&gt;</span><br><span class="line"></span><br><span class="line">&lt;node <span class="attribute">name</span>=<span class="string">&quot;add_two_ints_client&quot;</span> <span class="attribute">pkg</span>=<span class="string">&quot;beginner_tutorials&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;add_two_ints_client&quot;</span> <span class="attribute">args</span>=<span class="string">&quot;<span class="variable">$(arg a)</span> <span class="variable">$(arg b)</span>&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>将会从 <add\_tow\_ints> 例子中启动server和client,作为参数值a和传递。产生的启动项目能用如下语句调用：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">roslaunch beginner tutorials launch_file<span class="selector-class">.launch</span> <span class="selector-tag">a</span>:=<span class="number">1</span> <span class="selector-tag">b</span>:=<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<h2 id="If和unless属性"><a href="#If和unless属性" class="headerlink" title="If和unless属性"></a>If和unless属性</h2><p>所有标签都支持if和unless属性，这些属性基于值的评估包含或不包含在标签内。 “ 1”和“ true”被视为真实值。 “ 0”和“ false”被视为错误值。 其他值将出错。</p>
+<p><code>if=value (optional)</code>：如果value评估为true，则包含标记及其内容。<br><code>unless=value (optional)</code>：如果value的值为false，则包含标记及其内容。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">group</span> <span class="attr">if</span>=<span class="string">&quot;$(arg foo)&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 此处的代码仅当foo为true时才被读取 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">group</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 满足unless条件时不会设置此参数 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attr">value</span>=<span class="string">&quot;bar&quot;</span> <span class="attr">unless</span>=<span class="string">&quot;$(arg foo)&quot;</span> /&gt;</span> </span><br></pre></td></tr></table></figure>
+<h1 id="launch文件案例"><a href="#launch文件案例" class="headerlink" title="launch文件案例"></a>launch文件案例</h1><h2 id="简单案例"><a href="#简单案例" class="headerlink" title="简单案例"></a>简单案例</h2><p>以下案例具备最基本的启动文件配置。它启动一个单独的“talker”节点，该节点是“rospy_tutorials”软件包的一部分。 该节点将使用当前配置的ROS环境（即ROS_ROOT等）在本地计算机上启动。</p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;launch&gt;</span><br><span class="line">  &lt;node name<span class="operator">=</span><span class="string">&quot;talker&quot;</span> pkg<span class="operator">=</span><span class="string">&quot;rospy_tutorials&quot;</span> type<span class="operator">=</span><span class="string">&quot;talker&quot;</span> /&gt;</span><br><span class="line">&lt;/launch&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="重映射机制"><a href="#重映射机制" class="headerlink" title="重映射机制"></a>重映射机制</h2><p> ROS提供一种重映射的机制，简单来说就是取别名，类似于C++中的别名机制，不需要修改别人功能包的接口，只需要将接口名称重映射一下，取个别名。launch文件中的<remap>标签可以帮我们实现这个重映射的功能。 比如turtlebot的键盘控制节点，发布的速度控制指令话题可能是/turtlebot/cmd_vel，但是我们自己的机器人订阅的速度控制话题是/cmd_vel，这个时候使用<code>remap</code>就可以轻松解决问题，将/turtlebot /cmd_vel重映射为/cmd_vel，机器人就可以接收到速度控制指令了：</p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;remap from<span class="operator">=</span><span class="string">&quot;/turtlebot/cmd_vel&quot;</span>to<span class="operator">=</span><span class="string">&quot;/cmd_vel&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+<p>重映射机制在ROS中的使用非常广泛，也非常重要，方法不止这一种，也可以在终端rosrun命令中实现重映射;</p>
+<h2 id="复杂案例"><a href="#复杂案例" class="headerlink" title="复杂案例"></a>复杂案例</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- local machine already has a definition by default.</span></span><br><span class="line"><span class="comment">       This tag overrides the default definition with</span></span><br><span class="line"><span class="comment">       specific ROS_ROOT and ROS_PACKAGE_PATH values --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">machine</span> <span class="attr">name</span>=<span class="string">&quot;local_alt&quot;</span> <span class="attr">address</span>=<span class="string">&quot;localhost&quot;</span> <span class="attr">default</span>=<span class="string">&quot;true&quot;</span> <span class="attr">ros-root</span>=<span class="string">&quot;/user/ros/&quot;</span> <span class="attr">ros-package-path</span>=<span class="string">&quot;/user/ros/ros-pkg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- a basic listener node --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;listener-1&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- pass args to the listener node --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;listener-2&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">args</span>=<span class="string">&quot;-foo arg2&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- a respawn-able listener node --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;listener-3&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- start listener node in the &#x27;wg1&#x27; namespace --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">ns</span>=<span class="string">&quot;wg1&quot;</span> <span class="attr">name</span>=<span class="string">&quot;listener-wg1&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- start a group of nodes in the &#x27;wg2&#x27; namespace --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">group</span> <span class="attr">ns</span>=<span class="string">&quot;wg2&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- remap applies to all future statements in this scope. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;chatter&quot;</span> <span class="attr">to</span>=<span class="string">&quot;hello&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">name</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">args</span>=<span class="string">&quot;--test&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;talker&quot;</span> <span class="attr">name</span>=<span class="string">&quot;talker&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- set a private parameter for the node --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;talker_1_param&quot;</span> <span class="attr">value</span>=<span class="string">&quot;a value&quot;</span> /&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- nodes can have their own remap args --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;chatter&quot;</span> <span class="attr">to</span>=<span class="string">&quot;hello-1&quot;</span>/&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- you can set environment variables for a node --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">env</span> <span class="attr">name</span>=<span class="string">&quot;ENV_EXAMPLE&quot;</span> <span class="attr">value</span>=<span class="string">&quot;some value&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">group</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="参数服务器"><a href="#参数服务器" class="headerlink" title="参数服务器"></a>参数服务器</h2><p>可以在参数服务器上设置参数，这些参数将在启动任何节点之前存储在参数服务器上。如果值是明确的，则可以省略type属性。支持的类型为str，int，double，bool。例子如下</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;somestring1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;bar&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- force to string instead of integer --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;somestring2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;10&quot;</span> <span class="attr">type</span>=<span class="string">&quot;str&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;someinteger1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span> <span class="attr">type</span>=<span class="string">&quot;int&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;someinteger2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;somefloat1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3.14159&quot;</span> <span class="attr">type</span>=<span class="string">&quot;double&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;somefloat2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3.0&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- you can set parameters in child namespaces --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;wg/childparam&quot;</span> <span class="attr">value</span>=<span class="string">&quot;a child namespace parameter&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- upload the contents of a file to the server --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;configfile&quot;</span> <span class="attr">textfile</span>=<span class="string">&quot;$(find roslaunch)/example.xml&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- upload the contents of a file as base64 binary to the server --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;binaryfile&quot;</span> <span class="attr">binfile</span>=<span class="string">&quot;$(find roslaunch)/example.xml&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. 《ROS机器人编程—从基本概念到机器人应用程序编程实战》</p>
+<p>[2]. <a target="_blank" rel="noopener" href="https://www.guyuehome.com/34772">ROS入门（二）：launch文件解析</a></p>
+<p>[3]. <a target="_blank" rel="noopener" href="https://www.guyuehome.com/2195">ROS探索总结（五十六）—— launch文件</a></p>
+
+            </div>
+
+<div align="center"> 
+<li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" alt="知识共享许可协议"></div>
+
+
+        </div>
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+
+
+</html>

@@ -42,7 +42,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<meta name="generator" content="Hexo 6.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 7.0.0-rc2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -67,7 +67,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOT/">ROBOT</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/RTB/">RTB</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a>
+	                        <a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a>
 	                    </ul>
 	        </li>
 	        
@@ -100,21 +100,19 @@
 			</li>
 
 
-
-
-	        <!-- tag 被我用于其他事情了--> 
+	        <!-- about 关于搜索栏   --> 
 			<li>
-	        
-	            <a href="/tag/" ><img src="/img/tag.png"></a>
 	        
 			</li>
 
 
 
-
-
-
-
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
 
 
 
@@ -147,6 +145,7 @@
 </ul>
 </li>
 <li><a href="#ros-rosdep-update更新失败简单解决">ROS rosdep update更新失败（简单解决）</a></li>
+<li><a href="#mac-m2芯片上安装ros">MAC M2芯片上安装ROS</a></li>
 </ul>
 <!-- vim-markdown-toc -->
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>希望把一些自己学到的东西串联起来,所以学这个工具,可能要学习很长的时间,但是并不畏惧。很多内容源自于维基百科以及相关的书籍,比如《ROS机器人编程》等。</p>
@@ -228,6 +227,22 @@
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install net-tools</span><br></pre></td></tr></table></figure>
 <p>这个主要是为了一些配置所用；</p>
 <h1 id="ROS-rosdep-update更新失败（简单解决）"><a href="#ROS-rosdep-update更新失败（简单解决）" class="headerlink" title="ROS rosdep update更新失败（简单解决）"></a>ROS rosdep update更新失败（简单解决）</h1><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">sudo pip <span class="keyword">install</span> rosdepc</span><br></pre></td></tr></table></figure>
+<h1 id="MAC-M2芯片上安装ROS"><a href="#MAC-M2芯片上安装ROS" class="headerlink" title="MAC M2芯片上安装ROS"></a>MAC M2芯片上安装ROS</h1><p>有的时候发现自己的虚拟机网络被墙，导致很多仿真无法进行下去，于是乎，就想办法不用虚拟机，因为自己虚拟机是ARM 64系统下的，翻墙实在不易，干脆就直接在自己电脑里面安装ROS了，运气好的是，在CSDN上就有人实现了这点，我就直接抄了，原文可见<a target="_blank" rel="noopener" href="https://blog.csdn.net/jyw0401/article/details/130839211">macOS在miniconda下配置安装ROS1</a>, 下面就属于搬运内容了</p>
+<p>1, 安装<a target="_blank" rel="noopener" href="https://docs.conda.io/projects/miniconda/en/latest/">miniconda</a>, 如果自己安装了anaconda的话，在bashrc或者zshrc中给注释掉相关内容即可，没必要卸载掉, 找到如图所示的内容，安装即可</p>
+<p><img src="/img/postImg/ros/install_on_mac/miniConda.png" alt=""></p>
+<p>2, 创建新的环境</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">conda</span> create -n ROS  #如果下载的环境为<span class="number">3</span>.<span class="number">8</span>版本conda,则不写指定python版本</span><br></pre></td></tr></table></figure>
+<p>3, 配置虚拟环境<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment">#激活境ROS</span></span><br><span class="line">conda activate ROS</span><br><span class="line"><span class="comment">#配置当前环境</span></span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">add</span> channels conda-forge</span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">add</span> channels robostack</span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">set</span> channel_priority strict</span><br></pre></td></tr></table></figure></p>
+<p>4, 安装ROS noetic</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装noetic版本</span></span><br><span class="line">conda <span class="keyword">install</span> ros-noetic-desktop-full</span><br></pre></td></tr></table></figure>
+<p>5, 安装附加工具<br><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">conda <span class="keyword">install </span>compilers cmake pkg-<span class="built_in">config</span> make ninja catkin_tools</span><br></pre></td></tr></table></figure></p>
+<p>6, 重新加载ROS环境<br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">conda <span class="built_in">deactivate</span></span><br><span class="line">conda <span class="built_in">activate</span> ROS</span><br></pre></td></tr></table></figure></p>
+<p>7, ROS 初始化<br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">rosdep <span class="keyword">init</span></span><br><span class="line">rosdep update</span><br></pre></td></tr></table></figure></p>
+<p>接下来就可以创建工作空间来验证安装是否OK了</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">mkdir -p ~<span class="regexp">/catkin_ws/</span>src</span><br><span class="line">cd  ~<span class="regexp">/catkin_ws/</span>src</span><br><span class="line">catkin_init_workspace</span><br><span class="line">cd ~<span class="regexp">/catkin_ws/</span></span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
+<p>得到的结果如图所示</p>
+<p><img src="/img/postImg/ros/install_on_mac/catkin_make_OK.png" alt=""></p>
+<p>这就已经表明安装成功了</p>
 
             </div>
 
