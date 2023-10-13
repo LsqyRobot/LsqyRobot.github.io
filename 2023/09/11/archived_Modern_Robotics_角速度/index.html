@@ -130,7 +130,16 @@
             </div>
 
             <div class="typo" style="padding: 3rem;">
-                <p>在了解角速度这块的时候，有必要了解一些基础的知识；</p>
+                <!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#反对称矩阵">反对称矩阵</a></li>
+<li><a href="#角速度表示">角速度表示</a></li>
+<li><a href="#空间角速度">空间角速度</a></li>
+<li><a href="#空间旋转轴的表示方法">空间旋转轴的表示方法</a></li>
+<li><a href="#物体角速度的解释">物体角速度的解释</a></li>
+</ul>
+<!-- vim-markdown-toc -->
+<p>在了解角速度这块的时候，有必要了解一些基础的知识；</p>
 <h1 id="反对称矩阵"><a href="#反对称矩阵" class="headerlink" title="反对称矩阵"></a>反对称矩阵</h1><div align="center"> <img src="/img/postImg/robotics/角速度相关/反对称矩阵的矩阵表示.png" width="10%" height="10%"> </div>
 
 
@@ -140,11 +149,11 @@
 <p><img src="/img/postImg/robotics/角速度相关/so定义.png" style="zoom:7%;" /></p>
 <p>其中反对称矩阵so(3)称为SO(3)群的李代数，SO表示特殊正交（special orthogonal）的意思, 特殊在detR=+1,用于表示空间中的旋转矩阵，其SO的定义如下</p>
 <p><img src="/img/postImg/robotics/角速度相关/特殊正交群的SO定义.png" style="zoom:15%;" /></p>
-<p>R可以表示空间中的旋转，那如果想知道空间旋转的角速度，是不是直接求导就行了？和他提出的疑问是一样的</p>
+<h1 id="角速度表示"><a href="#角速度表示" class="headerlink" title="角速度表示"></a>角速度表示</h1><p>R可以表示空间中的旋转，那如果想知道空间旋转的角速度，是不是直接求导就行了？和他提出的疑问是一样的</p>
 <p><img src="/img/postImg/robotics/角速度相关/是否能以R的求导来表示空间的角速度呢.png" style="zoom:45%;" /></p>
 <p>当然不能直接求导，因为矩阵里面有9个变量，只希望用三个变量来表示角速度，我们知道，角速度可以通过一个旋转轴和对应的旋转速度来表示</p>
 <p><img src="/img/postImg/robotics/角速度相关/角速度的表示方法.png" alt=""></p>
-<p>这里假设了旋转轴为<img src="/img/postImg/mathSym/omega_s.png" width="1%" height="1%"> , 是一个相对于惯性坐标系，也可以称之为静止坐标系，为了单位的统一，这里可以假设旋转轴为单位旋转向量，其中单位向量的识别符为在上面加个帽子，即<img src="/img/postImg/mathSym/hat_omega_s.png" width="1%" height="1%"> ，用单位旋转轴乘以其速率，即可得到角速度向量<img src="/img/postImg/mathSym/omega_s.png" width="1%" height="1%"> ,即</p>
+<h1 id="空间角速度"><a href="#空间角速度" class="headerlink" title="空间角速度"></a>空间角速度</h1><p>这里假设了旋转轴为<img src="/img/postImg/mathSym/omega_s.png" width="1%" height="1%"> , 是一个相对于惯性坐标系，也可以称之为静止坐标系，为了单位的统一，这里可以假设旋转轴为单位旋转向量，其中单位向量的识别符为在上面加个帽子，即<img src="/img/postImg/mathSym/hat_omega_s.png" width="1%" height="1%"> ，用单位旋转轴乘以其速率，即可得到角速度向量<img src="/img/postImg/mathSym/omega_s.png" width="1%" height="1%"> ,即</p>
 <p><img src="/img/postImg/robotics/角速度相关/空间角速度.png" style="zoom:3%;" /></p>
 <p><img src="/img/postImg/robotics/角速度相关/角速度向量w_s.png" alt=""></p>
 <p>这样坐标系{b}在绕这个轴旋转时，其x轴方向将相对于s坐标系画一个圆，</p>
@@ -153,7 +162,7 @@
 <p><img src="/img/postImg/robotics/角速度相关/物体坐标系的速度.png" style="zoom:5%;" /></p>
 <p>利用括号运算符（表示叉乘）， 通过上式，就可以直接得到如下关系式了（比直接看机器人操作的数学导论更容易理解，那书中就直接定义了，也没给出解释，搞得有点懵）</p>
 <p><img src="/img/postImg/robotics/角速度相关/空间速度与旋转矩阵之间的关系.png" style="zoom:10%;" /></p>
-<p>相对于s坐标系的旋转矩阵一般可以省略下标，通过以上推导，就不难得到第一个重要的公式，即</p>
+<h1 id="空间旋转轴的表示方法"><a href="#空间旋转轴的表示方法" class="headerlink" title="空间旋转轴的表示方法"></a>空间旋转轴的表示方法</h1><p>相对于s坐标系的旋转矩阵一般可以省略下标，通过以上推导，就不难得到第一个重要的公式，即</p>
 <p><img src="/img/postImg/robotics/角速度相关/重要公式1，空间旋转轴的表示方法.png" style="zoom:10%;" /></p>
 <p>当然，这里给出的角速度是相对于空间坐标系的，当然可以相对于物体坐标系，通过下标对消规则，<img src="/img/postImg/mathSym/omega_b.png" width="1%" height="1%"> 可以表示为</p>
 <p><img src="/img/postImg/robotics/角速度相关/omega_b.png" style="zoom:10%;" /></p>
@@ -161,6 +170,7 @@
 <p><img src="/img/postImg/robotics/角速度相关/关于反对称矩阵的一个重要定理.png" style="zoom:5%;" /></p>
 <p>这样不难推导出第二个重要公式，即</p>
 <p><img src="/img/postImg/robotics/角速度相关/第二个重要公式.png" style="zoom:15%;" /></p>
+<h1 id="物体角速度的解释"><a href="#物体角速度的解释" class="headerlink" title="物体角速度的解释"></a>物体角速度的解释</h1><p>值得注意的是：wb并不是相对动坐标系的角速度；确切地说，wb表示的是相对静坐标系{b}的角速度，{b}只是与运动刚体随动坐标系瞬时重合。</p>
 
             </div>
 
