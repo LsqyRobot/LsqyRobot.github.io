@@ -149,7 +149,7 @@
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>如果<code>rosrun</code>是执行一个节点的命令，那么<code>roslaunch</code>是运行多个节点的概念。该命令允许运行多个确定的节点。其他功能还包括一些专为执行具有诸多选项的节点的ROS命令，比如包括更改功能包参数或节点名称、配置节点命名空间、设置<code>ROS\_ROOT</code>和<code>ROS\_PACKAGE\_PATH</code>以及更改环境变量等。</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>如果<code>rosrun</code>是执行一个节点的命令，那么<code>roslaunch</code>是运行多个节点的概念。该命令允许运行多个确定的节点。其他功能还包括一些专为执行具有诸多选项的节点的ROS命令，比如包括更改功能包参数或节点名称、配置节点命名空间、设置<code>ROS_ROOT</code>和<code>ROS_PACKAGE_PATH</code>以及更改环境变量等。</p>
 <p>roslaunch使用*.launch文件来设置可执行节点，它基于可扩展标记语言（XML），并提供XML标记形式的多种选项。像许多ROS包会有相应的启动配置，通过运行下面的指令来进行启动</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">roslaunch package_name <span class="built_in">file</span>.<span class="built_in">launch</span></span><br></pre></td></tr></table></figure>
 <h1 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h1><h2 id="计算次序"><a href="#计算次序" class="headerlink" title="计算次序"></a>计算次序</h2><p>roslaunch与XML文件单一传递。include是按照深度优先遍历的顺序处理。标签tag进行串行处理并且最后的设置有效。因此，若一个参数被多次设置，最后指定的值将被使用。 比较推荐的是使用<code>$(arg)/&lt;arg&gt;</code>设置来进行重写行为。</p>

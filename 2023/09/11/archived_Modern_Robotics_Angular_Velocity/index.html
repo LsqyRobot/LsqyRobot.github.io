@@ -137,6 +137,8 @@
 <li><a href="#空间角速度">空间角速度</a></li>
 <li><a href="#空间旋转轴的表示方法">空间旋转轴的表示方法</a></li>
 <li><a href="#物体角速度的解释">物体角速度的解释</a></li>
+<li><a href="#更容易理解的推导">更容易理解的推导</a></li>
+<li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
 <p>在了解角速度这块的时候，有必要了解一些基础的知识；</p>
@@ -170,7 +172,20 @@
 <p><img src="/img/postImg/robotics/角速度相关/关于反对称矩阵的一个重要定理.png" style="zoom:5%;" /></p>
 <p>这样不难推导出第二个重要公式，即</p>
 <p><img src="/img/postImg/robotics/角速度相关/第二个重要公式.png" style="zoom:15%;" /></p>
-<h1 id="物体角速度的解释"><a href="#物体角速度的解释" class="headerlink" title="物体角速度的解释"></a>物体角速度的解释</h1><p>值得注意的是：wb并不是相对动坐标系的角速度；确切地说，wb表示的是相对静坐标系{b}的角速度，{b}只是与运动刚体随动坐标系瞬时重合。</p>
+<h1 id="物体角速度的解释"><a href="#物体角速度的解释" class="headerlink" title="物体角速度的解释"></a>物体角速度的解释</h1><p>值得注意的是：<img src="/img/postImg/mathSym/omega_b.png" width="1.7%" height="1.7%">并不是相对动坐标系的角速度；确切地说，<img src="/img/postImg/mathSym/omega_b.png" width="1.7%" height="1.7%"> 表示的是相对静坐标系{b}的角速度，{b}只是与运动刚体随动坐标系瞬时重合。另外还需要注意一点，这里无论对  <img src="/img/postImg/mathSym/dot_R.png" width="1%" height="1%"> 左乘还是右乘 <img src="/img/postImg/mathSym/R_T.png" width="1%" height="1%"> 都会得到有关角速度的一个反对称矩阵，只是相对的坐标系不同。</p>
+<h1 id="更容易理解的推导"><a href="#更容易理解的推导" class="headerlink" title="更容易理解的推导"></a>更容易理解的推导</h1><p>根据坐标变换公式：</p>
+<p><img src="/img/postImg/robotics/角速度相关/只考虑旋转的坐标变换公式.png" style="zoom:100%;" /></p>
+<p>对上式左右同时求导:</p>
+<p><img src="/img/postImg/robotics/角速度相关/只考虑旋转的坐标变换公式同时两边求导.png" style="zoom:100%;" /></p>
+<p>因为 p是附着在刚体上的, 所以p相对于刚体坐标系下的速度为0，故有</p>
+<p><img src="/img/postImg/robotics/角速度相关/角速度的推导结束.png" style="zoom:100%;" /></p>
+<p>可以看出 <img src="/img/postImg/mathSym/dot_R.png" width="1%" height="1%"><img src="/img/postImg/mathSym/R_1.png" width="1.7%" height="1.7%"> 将点的位置变成了点的线速度。又有角速度和线速度的公式:</p>
+<p><img src="/img/postImg/robotics/角速度相关/角速度与线速度的公式.png" style="zoom:100%;" /></p>
+<p>所以有空间角速度</p>
+<p><img src="/img/postImg/robotics/角速度相关/空间角速度表达式.png" style="zoom:100%;" /></p>
+<p>对于自己而言，这种方式推导出的结果，记忆效果最佳；</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] 现代机器人学</p>
+<p>[2] 机器人学笔记——中科院软件所</p>
 
             </div>
 

@@ -197,6 +197,11 @@
 </li>
 </ul>
 </li>
+<li><a href="#代码冲突检测">代码冲突检测</a><ul>
+<li><a href="#检查是否存在冲突">检查是否存在冲突</a></li>
+<li><a href="#查看冲突文件">查看冲突文件</a></li>
+</ul>
+</li>
 <li><a href="#遇到的问题">遇到的问题</a><ul>
 <li><a href="#无法推送">无法推送</a></li>
 <li><a href="#提交中文字符乱码问题">提交中文字符乱码问题</a></li>
@@ -306,6 +311,13 @@
 <h3 id="对以前提交的信息打标签"><a href="#对以前提交的信息打标签" class="headerlink" title="对以前提交的信息打标签"></a>对以前提交的信息打标签</h3><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">--pretty=oneline</span></span><br></pre></td></tr></table></figure>
 <p>上面这条命令显示了全部的commit id信息，简短点的commit 信息，看下面的命令:</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">--pretty=oneline --abbrev-commit</span></span><br></pre></td></tr></table></figure>
+<h1 id="代码冲突检测"><a href="#代码冲突检测" class="headerlink" title="代码冲突检测"></a>代码冲突检测</h1><p>在多人同时修改同一个文件或者同一个代码库时，就可能出现冲突。如果有人在本地已经修改了某个文件并提交了，但另一个人在远程也修改了这个文件并提交了，这时候就会出现冲突。</p>
+<h2 id="检查是否存在冲突"><a href="#检查是否存在冲突" class="headerlink" title="检查是否存在冲突"></a>检查是否存在冲突</h2><p>通过以下命令检查当前文件是否存在冲突：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git status</span></span><br></pre></td></tr></table></figure>
+<p>如果出现类似如下输出，则说明当前文件存在冲突：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">On branch <span class="keyword">master</span></span><br><span class="line"><span class="title">You</span> have unmerged paths.</span><br><span class="line">(fix conflicts run <span class="string">&quot;git commit&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="查看冲突文件"><a href="#查看冲突文件" class="headerlink" title="查看冲突文件"></a>查看冲突文件</h2><p>在检查出存在冲突后，我们需要查看具体哪些文件存在冲突，可以通过以下命令查看：</p>
+<figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">git diff</span> <span class="literal">--</span><span class="comment">name</span><span class="literal">-</span><span class="comment">only</span> <span class="literal">--</span><span class="comment">diff</span><span class="literal">-</span><span class="comment">filter=U</span></span><br></pre></td></tr></table></figure>
 <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h2 id="无法推送"><a href="#无法推送" class="headerlink" title="无法推送"></a>无法推送</h2><p> 已明确账号密码输入无误,在 <code>git bash</code> 里面无法推送自己的代码,其报错如下：</p>
 <figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">Logon failed, use ctrl+c <span class="keyword">to</span> cancel basic credential prompt.</span><br><span class="line">remote: Support <span class="keyword">for</span> <span class="keyword">password</span> authentication was removed <span class="keyword">on</span> August <span class="number">13</span>, <span class="number">2021.</span> Please use a personal <span class="keyword">access</span> token <span class="keyword">instead</span>.</span><br></pre></td></tr></table></figure>
 <p>有一种可能,由于git 升级,执行 <code>git update-git-for-windows</code>, 更新后推送报了一个新的错误</p>
