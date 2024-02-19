@@ -136,7 +136,7 @@
 <li><a href="#命令行批量处理照片">命令行批量处理照片</a><ul>
 <li><a href="#配置环境">配置环境</a><ul>
 <li><a href="#imagemagick">imagemagick</a></li>
-<li><a href="#jpegoptim">jpegoptim</a></li>
+<li><a href="#jpegoptim--optipng">jpegoptim &amp; optipng</a></li>
 </ul>
 </li>
 </ul>
@@ -152,9 +152,11 @@
 <figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">convert -<span class="built_in">resize</span> <span class="number">1024</span>x800 <span class="symbol">$img</span> <span class="symbol">$img</span>-resized;</span><br></pre></td></tr></table></figure>
 <p>指定宽度，高度自适应</p>
 <figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">convert -<span class="built_in">resize</span> <span class="number">1024</span>x <span class="symbol">$img</span> <span class="symbol">$img</span>-resized;</span><br></pre></td></tr></table></figure>
-<h3 id="jpegoptim"><a href="#jpegoptim" class="headerlink" title="jpegoptim"></a>jpegoptim</h3><p>优化图片质量，减小图片所占硬盘空间，使用示例：</p>
+<h3 id="jpegoptim-amp-optipng"><a href="#jpegoptim-amp-optipng" class="headerlink" title="jpegoptim &amp; optipng"></a>jpegoptim &amp; optipng</h3><p>jpegoptim 是针对jpg或者jpeg格式的图片进行压缩，optipng是针对png格式的图片进行压缩的，以jpegoptim为例</p>
 <p>优化图片所占硬盘空间 (直接修改原图)</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">jpegoptim <span class="attribute">--size</span>=400 <span class="variable">$img</span></span><br></pre></td></tr></table></figure>
+<p>批量处理可参考如下shell指令</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span> your_path -name <span class="string">&quot;*.jpg&quot;</span> | xargs jpegoptim</span><br></pre></td></tr></table></figure>
 
             </div>
 
