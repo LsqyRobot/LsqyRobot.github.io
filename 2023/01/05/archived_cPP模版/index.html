@@ -42,7 +42,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0-rc2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 7.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -125,7 +125,7 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/cpp0/logo/ship-1366926_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/18_CPP/logo/ship-1366926_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >C++模版</h2></a>
             </div>
 
@@ -150,11 +150,11 @@
 <figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">minimum</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; lhs, <span class="type">const</span> <span class="type">int</span>&amp; rhs)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> lhs &lt; rhs ? lhs : rhs;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="类型参数"><a href="#类型参数" class="headerlink" title="类型参数"></a>类型参数</h1><p>在上面的 <code>minimum</code> 模板中,请注意,在将类型参数 T 用于函数调用参数(在这些参数中会添加 const 和引用限定符)之前,不会以任何方式对其进行限定。</p>
 <p>类型参数的数量没有实际限制。 以逗号分隔多个参数：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U, <span class="keyword">typename</span> V&gt; <span class="keyword">class</span> <span class="title class_">Foo</span>&#123;&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">template &lt;typename T, typename U, typename V&gt; <span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;&#125;;</span><br></pre></td></tr></table></figure>
 <p>在此上下文中,关键字 class 等效于 typename。 可以将前面的示例表示为：</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">template &lt;<span class="keyword">class</span> <span class="symbol">T, <span class="symbol">class</span></span> <span class="symbol">U, <span class="symbol">class</span></span> <span class="symbol">V</span>&gt; <span class="symbol">class</span> <span class="symbol">Foo</span>&#123;&#125;;</span><br></pre></td></tr></table></figure>
 <p>可以使用省略号运算符 (…) 定义采用任意数量的零个或多个类型参数的模板：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Arguments&gt; <span class="keyword">class</span> <span class="title class_">vtclass</span>;</span><br><span class="line"></span><br><span class="line">vtclass&lt; &gt; vtinstance1;</span><br><span class="line">vtclass&lt;<span class="type">int</span>&gt; vtinstance2;</span><br><span class="line">vtclass&lt;<span class="type">float</span>, <span class="type">bool</span>&gt; vtinstance3;</span><br></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">template&lt;typename... Arguments&gt; <span class="class"><span class="keyword">class</span> <span class="title">vtclass</span></span>;</span><br><span class="line"></span><br><span class="line">vtclass&lt; &gt; vtinstance1;</span><br><span class="line">vtclass&lt;<span class="keyword">int</span>&gt; vtinstance2;</span><br><span class="line">vtclass&lt;float, bool&gt; vtinstance3;</span><br></pre></td></tr></table></figure>
 <p>任何内置类型或用户定义的类型都可以用作类型参数。 例如,可以使用标准库中的 std::vector 来存储类型 int、double、std::string、MyClass、const、MyClass*、MyClass&amp; 等的变量。 使用模板时的主要限制是类型参数必须支持应用于类型参数的任何操作。 例如,如果我们使用 MyClass 调用 minimum,如以下示例所示：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    std::wstring description;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    MyClass mc1 &#123;<span class="number">1</span>, <span class="string">L&quot;hello&quot;</span>&#125;;</span><br><span class="line">    MyClass mc2 &#123;<span class="number">2</span>, <span class="string">L&quot;goodbye&quot;</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> result = <span class="built_in">minimum</span>(mc1, mc2); <span class="comment">// Error! C2678</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/cpp/cpp/templates-cpp?view=msvc-170">模板(C++)</a></p>

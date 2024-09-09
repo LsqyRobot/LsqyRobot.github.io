@@ -42,7 +42,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0-rc2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 7.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -125,7 +125,7 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/ros/logo/abstract-1264071_1280_used.png);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/1_ros/logo/abstract-1264071_1280_used.png);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Moveit 初次接触</h2></a>
             </div>
 
@@ -156,35 +156,35 @@
 <p>进入ROS工程的存放地址, 并下载源码</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> ~<span class="string">/catkin_ws/src</span></span><br><span class="line">git clone https:<span class="string">//github.com/myyerrol/learning_moveit.git</span></span><br><span class="line"><span class="keyword">cd</span> <span class="string">..</span></span><br><span class="line">rosdep install -y <span class="params">--from-paths</span> src <span class="params">--ignore-src</span> <span class="params">--rosdistro</span> noetic  <span class="comment"># 这个可能因为墙的原因无法正常执行</span></span><br><span class="line"><span class="keyword">cd</span> ~<span class="string">/catkin_ws/src/learning_moveit</span></span><br><span class="line"><span class="string">./setup.sh</span></span><br></pre></td></tr></table></figure>
 <p>需要注意的是，此项目是基于kinetic建立的，因此需要将原项目中的kinetic全部替换成noetic, 这个比较简单，可以通过vim来查询含有这个关键词的位置，直接替换即可，参考指令如下</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim ~<span class="regexp">/catkin_ws/</span>src/</span><br><span class="line">:vimgrep <span class="regexp">/kinetic/</span>noetic/gj **</span><br></pre></td></tr></table></figure>
+<figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">vim ~<span class="regexp">/catkin_ws/src</span><span class="regexp">/</span></span><br><span class="line"><span class="regexp">:vimgrep /kinetic</span><span class="regexp">/noetic/gj</span> **</span><br></pre></td></tr></table></figure>
 <p>找到后替换即可，但是到编译的时候会报错，报错信息如下</p>
 <figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line"><span class="keyword">error: </span>static assertion failed: YOU_PREFORMED_AN_INVALID_TRANSFORMATION_CONVERSION</span><br></pre></td></tr></table></figure>
 <p>这个是因为Eigen库更新时API的迁移问题，类似的采用vim查找关键词<code>Affine3d</code>, 替换成<code>Isometry3d</code>即可，如下图所示，为查找出来的两个地方</p>
-<p><img src="/img/postImg/ros/moveit/learning_move_it.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/moveit/learning_move_it.png" alt=""></p>
 <p>接下来进行编译</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
 <p>编译成功，结果如下所示</p>
-<p><img src="/img/postImg/ros/moveit/learning_moveit_OK.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/moveit/learning_moveit_OK.png" alt=""></p>
 <p>接下来根据作者的给出的操作进行，不过最后没法显示出机器人，结果如下</p>
-<p><img src="/img/postImg/ros/moveit/panda_bringup_gazebo_bug.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/moveit/panda_bringup_gazebo_bug.png" alt=""></p>
 <p>毕竟是五年前的东西，可以采用比较新的版本去搞，所以就没接着研究下去了，感觉是一个很好的开始，花了我半天的时间才编译通过，有一点小小的惊喜，哈哈哈~</p>
 <h1 id="moveit-tutorials"><a href="#moveit-tutorials" class="headerlink" title="moveit tutorials"></a>moveit tutorials</h1><p>这部分则是 <a target="_blank" rel="noopener" href="https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html#install-ros-and-catkin">moveit 官网</a>给出来的教程了，通过他们的教程，可以真实的创建一些机器人，把目前跑通了的给记录下来(Ubuntu 系统中), 这里假设之前已进行好相关的配置，比如在zshrc中加入了<code>source ~/catkin_ws/devel/setup.zsh</code>等等, 官方界面如下所示</p>
-<p><img src="/img/postImg/ros/moveit/moveit官网示例.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/moveit/moveit官网示例.png" alt=""></p>
 <h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="相关依赖安装"><a href="#相关依赖安装" class="headerlink" title="相关依赖安装"></a>相关依赖安装</h3><p>由于自己已经安装好了 noetic 和 moveit, 所以只需要安装下面的即可</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> python3-catkin-tools</span><br></pre></td></tr></table></figure>
-<h3 id="示例代码下载"><a href="#示例代码下载" class="headerlink" title="示例代码下载"></a>示例代码下载</h3><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">cd ~<span class="regexp">/catkin_ws/</span>src/</span><br><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/ros-planning/m</span>oveit_tutorials.git -b master</span><br><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/ros-planning/</span>panda_moveit_config.git -b noetic-devel</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install python3-catkin-tools</span><br></pre></td></tr></table></figure>
+<h3 id="示例代码下载"><a href="#示例代码下载" class="headerlink" title="示例代码下载"></a>示例代码下载</h3><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">cd ~/catkin_ws/src/</span><br><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/ros-planning/moveit_tutorials.git -b <span class="keyword">master</span></span><br><span class="line"><span class="title">git</span> <span class="keyword">clone</span> <span class="title">https</span>://github.com/ros-planning/panda_moveit_config.git -b noetic-devel</span><br></pre></td></tr></table></figure>
 <h3 id="构建cakin-工作空间"><a href="#构建cakin-工作空间" class="headerlink" title="构建cakin 工作空间"></a>构建cakin 工作空间</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> ~<span class="string">/catkin_ws/src</span></span><br><span class="line">rosdep install -y <span class="params">--from-paths</span> . <span class="params">--ignore-src</span> <span class="params">--rosdistro</span> noetic</span><br><span class="line">sudo sh -c &#x27;<span class="keyword">echo</span> <span class="string">&quot;deb http://packages.ros.org/ros-testing/ubuntu $(lsb_release -sc) main&quot;</span> &gt; <span class="string">/etc/apt/sources.list.d/ros-latest.list</span>&#x27;</span><br><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
 <h2 id="在-RViz-中运行"><a href="#在-RViz-中运行" class="headerlink" title="在 RViz 中运行"></a>在 RViz 中运行</h2><h3 id="开启示例"><a href="#开启示例" class="headerlink" title="开启示例"></a>开启示例</h3><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">roslaunch panda_moveit_config demo.<span class="built_in">launch</span> rviz_tutorial:=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>可以看到一个空的界面，如下所示</p>
-<p><img src="/img/postImg/ros/moveit/empty_moveit.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/moveit/empty_moveit.png" alt=""></p>
 <p>添加运动规划插件</p>
-<p><img src="/img/postImg/ros/moveit/Add_moveit.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/moveit/Add_moveit.png" alt=""></p>
 <p>然后选中运动规划的插件</p>
-<p><img src="/img/postImg/ros/moveit/add_motion_planning.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/moveit/add_motion_planning.png" alt=""></p>
 <p>确定后得到的结果如图所示</p>
-<p><img src="/img/postImg/ros/moveit/add_motion_planning_after.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/moveit/add_motion_planning_after.png" alt=""></p>
 <p>现在可以手动拖动末端，进行相关的规划了，如下所示</p>
-<p><img src="/img/postImg/ros/moveit/move_it_初次拖动.gif" alt=""></p>
+<p><img src="/img/postImg/1_ros/moveit/move_it_初次拖动.gif" alt=""></p>
 <p>界面中还提供了很多丰富的选项，这里就不一一列举了，建议去官网浏览一遍；</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a target="_blank" rel="noopener" href="https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html#install-ros-and-catkin">moveit 官方教程</a></p>
 

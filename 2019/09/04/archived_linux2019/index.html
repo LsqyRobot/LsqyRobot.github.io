@@ -42,7 +42,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0-rc2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 7.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -125,7 +125,7 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/linux0/landscape-4258253_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/10_Linux/landscape-4258253_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >linux 初探</h2></a>
             </div>
 
@@ -145,11 +145,11 @@
 <p>另外值得推荐的工具就是<a target="_blank" rel="noopener" href="https://github.com/soimort/you-get">you-get</a> 了, 要学习很多视频,很多视频是值得收藏与学习的,用you-get可以从命令行中下载自己想要的视频,是不是很过瘾呢,感兴趣的自己搜一下吧,如果想下载其他的alias这个工具也是不错的。 突然又想到了个事,文件的权限问题,有时不要乱给文件赋予高级权限(比如随手sudo chmod +777 给一个文件,早晚得吃亏),万一那个文件是间谍咋整。。。。。</p>
 <p>偶尔会去调试别人发布在github中的python程序(好奇心的驱使),安装需要依赖的包的时候以及管理python环境时anconda是个非常不错的选择。主要是方便管理环境,貌似在Windows里面不只是要把bin文件目录添加到环境变量中,还有其他的东西要添加,比较折腾. 还有比如you-get这类工具是对python的环境是有依赖的,所以了解ananconda还是能节省些时间,总不想在配置环境的时候就耽误很多时间吧。 </p>
 <h1 id="远程ssh"><a href="#远程ssh" class="headerlink" title="远程ssh"></a>远程ssh</h1><p>ssh用起来是非常方便的,下面搬运<a target="_blank" rel="noopener" href="https://yangbingdong.com/2017/note-of-linux-command/">yangbingdong</a>博客里的内容。安装ssh</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install ssh</span><br><span class="line">sudo apt install openssh-server</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ssh</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure>
 <p>查看启动成功: <code>ps -e|grep ssh</code>, 如果看到<code>sshd</code>那代表成功了, 如果没有, 执行:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo/etc/init.d/ssh start</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span>/etc/init.d/ssh start</span><br></pre></td></tr></table></figure>
 <p>ssh的配置文件位于<code>/etc/ssh/sshd_config</code>, 修改后需要重启ssh:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/ssh resart</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /etc/init.d/ssh resart</span><br></pre></td></tr></table></figure>
 <p>生成SSH密钥和公钥,在这里说明一点为什么要生成密钥和公钥(用自己的看法),如果经常远程操作一台电脑的话,每次都要输入密码,这个就比较费事,如果将这个公钥写入~/.ssh/authorized_keys中,就可以免密码登入了。生成SSH密钥和公钥可用如下指令</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;your_email@youremail.com&quot;</span></span><br></pre></td></tr></table></figure>
 <p>默认的<code>RSA</code>长度是2048位, 如果非常注重安全, 那么可以指定4096位的长度,剩下的基本一路Enter.</p>
@@ -197,11 +197,11 @@
 
 <p>当然使用kill的一种好的方法就是配合着 ps 与grep, 通过查找特定进程来将程序关闭。</p>
 <p>一般在Linux中绘制流程图会使用<a href="plantuml.com">plantUML</a>, 当然 ,还是为了提高些效率 ,记不得之前在哪写过关于这方面的东西了, 先不管了, 如果嫌弃自带的分辨率太低的话, 可以使用如下方式更改其分辨率的大小, 比如</p>
-<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line"><span class="built_in">scale</span> x*y</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">scale</span> <span class="attribute">x</span>*<span class="attribute">y</span></span><br></pre></td></tr></table></figure>
 <p>入手了MBP后,仍旧想使用自己的老年机(没错,快上大学的时候买的), 于是就想办法怎么去格式化启动盘,下面给出一种方式,在命令行下复制如下代码( 使用diskutil后发现自己的启动盘名称为disk2,其中U盘分了两个区,要不也不会有这段内容了, disk2前面就是格式化完成后的名字了), 话说这个还走了不少弯路。。。。</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo gpt <span class="built_in">remove</span> -i 1 disk2</span><br></pre></td></tr></table></figure>
 <p>这样的话,就可以把EFI分区给合并了。 然后再对其格式化后,输入如下的指令</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo dd <span class="keyword">if</span>=<span class="regexp">/Users/</span>lsqyRobot<span class="regexp">/Downloads/</span>archlinux-<span class="number">2020.01</span>.<span class="number">01</span>-x86_64.iso of=<span class="regexp">/dev/</span>disk2 bs=<span class="number">1</span>m</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo dd <span class="attribute">if</span>=/Users/lsqyRobot/Downloads/archlinux-2020.01.01-x86_64.iso <span class="attribute">of</span>=/dev/disk2 <span class="attribute">bs</span>=1m</span><br></pre></td></tr></table></figure>
 <p>其中 if 后面跟的是文件的下载路径,后面的就是挂载的u盘了,bs代表着写入的时间。 至于为什么这样做,肯定是有原因的,这个就是为老年机安装了linux mint后,又突发奇想,用了那么久的linux mint 自然想换换口味,就选择arch linux吧,至于分区挂载什么的,之前安装破解一些软件的时候就很熟了,所以想必对自己也不是什么难事。</p>
 <h1 id="SHELL-脚本编程"><a href="#SHELL-脚本编程" class="headerlink" title="SHELL 脚本编程"></a>SHELL 脚本编程</h1><p>许多程序要求对shell脚本中的命令施加一些逻辑流程控制。有一类命令会根据条件使脚本跳过某些命令。这样的命令通常称为结构化命令(structured command)。 </p>
 <h2 id="if-then-语句"><a href="#if-then-语句" class="headerlink" title="if-then 语句"></a>if-then 语句</h2><p>最基本的结构化命令就是if-then语句。if-then语句有如下格式。</p>

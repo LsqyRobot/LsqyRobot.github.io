@@ -42,7 +42,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0-rc2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 7.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -125,7 +125,7 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/matlab0/logo/wind-turbine-5163993_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/11_Matlab/logo/wind-turbine-5163993_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >matlab 浅记</h2></a>
             </div>
 
@@ -144,8 +144,8 @@
 <!-- vim-markdown-toc -->
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己在学习这个工具的时候是由点及面的,而不是从头到尾按照顺序进行学习,这样的话不知道自己的需求是什么,学习起来就显得非常的乏味,这样就感受不到工具所带来的简便性所带来的乐趣。 仅仅收藏一些自己感觉有用的技巧以及遇到的错误及其解决方法,因为matlab能做的事太多了,网络上教程又那么多,不想画蛇添足, 另外吐槽的一点就是关于matlab的中文书籍(有不少),书中错误挺多,像是半成品,匆忙完成,虽说是工具吧,但是体现了认真负责的态度,而不是简单的堆砌文字,算了自己也没资格去评论。 这个写的太晚了,但是对于未来几十年,这恰恰不晚。另外matlab的程序,百分之95的代码都可以octave中运行的,而且octave是免费开源的,可以避免不必要的版权纠纷,尤其是在公司里上班,可以带来不必要的麻烦, 因此在本文最后会有一部分octave配置方面的内容。 另外个人感觉最重要的就是学会使用 <span id = "inline-green">help</span>和搜索技巧, 不光是matlab, 其他编程语言也是如此。</p>
 <p>matlab有大量的资源在文件交换那,如果是想搜中文的话,进入matlab中文论坛去文件交换那搜索下载就好,或者是搜索 File Exchange 关键字也可以找到文件交换的入口。</p>
-<p><img src="/img/postImg/matlab0/fileExchange.png" width="70%" height="50%"></p>
-<p><img src="/img/postImg/matlab0/C_fileExchange.png" width="68%" height="50%"></p>
+<p><img src="/img/postImg/11_Matlab/fileExchange.png" width="70%" height="50%"></p>
+<p><img src="/img/postImg/11_Matlab/C_fileExchange.png" width="68%" height="50%"></p>
 <h1 id="命名方式"><a href="#命名方式" class="headerlink" title="命名方式"></a>命名方式</h1><p>因为命名方式对于程序而言是非常重要的,自己对此感触颇深,以前写出的代码,以为只有天知道我知道,如今工作了再看那些代码,只有鬼知道。</p>
 <p>1,变量名应该能够反映该变量的含义或用途,以小写字母开头,采用大小写混用模式或下画线分割模式, 如：areYouOk,are_you_ok等。</p>
 <p>2,临时变量的变量名尽量短小。</p>
@@ -168,9 +168,9 @@
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">n = nargin 返回所在函数的输入参数个数。</span><br><span class="line">N= nargin(<span class="function"><span class="keyword">fun</span>) 返回函数<span class="keyword">fun</span>定义的输入参数个数;如果定义的输入参数个数不确定,返回-1。</span></span><br></pre></td></tr></table></figure>
 <p>这样在输入参数不够或者多的时候抛出异常。</p>
 <p>varargin 和 varargout 传送或返回不定数目的参数。有一些函数,输入的参数或返回到调用函数的参数个数不确定,这就需要用到varargin 和 varargout 函数。比如</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> out = my<span class="constructor">Fun(<span class="params">varargin</span>)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">out</span> = myFun(varargin)</span><br></pre></td></tr></table></figure>
 <p>如果在函数声明行将 varargin 作为最后一个输入参数,则函数在调用时可接受任意个变量。函数 myFun 接受任意个输入参数,组成一个单元数组,varargin 为单元数组名。该单元数组第 i 个单元就是从 varargin 位置算起的第 i 个输人参数。类似的,比如定义</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> out = my<span class="constructor">Fun(<span class="params">a</span>,<span class="params">varargin</span>)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">out</span> = myFun(a,varargin)</span><br></pre></td></tr></table></figure>
 <p>当调用格式为myFun(a,b,c)时,varargin 是长度为 2 的单元数组,并且 varargin{1} = b, varargin{2} = c。</p>
 <h1 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h1><p>0, 从自己学习的角度来说,最重要的就是学会使用help, 从自带的例子就可以学到很多,网上的一些说明和教程也不见得是对的,从自带的帮助里面也可以学习到一些编程技巧等等。</p>
 <p>1,set(0,’RecursionLimit’,N) 修改最大递归限制,这个是自己寻找合适的参数时,有时需要跑很久才能找到自己需要的参数,限制就是递归到５００次就停止了,这样修改可以使得留下更多的时间冲一杯咖啡再回来看看结果有没有出来。 (忘记说一件事了,如果把N改的很大,内存溢出别来打我),当然另外一种极端的方法就是设置类似于控制里面的思路,设置误差函数,误差也就是你期待的值减去实际的值,当满足所给精度要求后,退出循环(简单的实现就是利用while循环),输出相关参数,这个对于给定输入并给出特定输出的时候比较适用(类似于函数关系)。这个可以应用于离线仿真的寻找比较好的参数的时候使用,这样就无须手动调整了。</p>
@@ -184,14 +184,14 @@
 <p>9,学会使用try,catch函数,一来可以避免程序因为错误或其他缘故而中止,二来可以很好的简化代码量。</p>
 <p>10,在matlab中尽量避免使用for循环,有如下的替代方法,(1)优先考虑用向量化的运算来代替循环操作。(2)在必须使用多重循环时,循环次数少的放在外层,循环次数多的放在内层。</p>
 <p>11, 逻辑数组和标量用.*, 这样会使得效率提升的非常快,下面举个栗子。</p>
-<p><img src="/img/postImg/matlab0/eg1_matlab.png" width="70%" height="40%"></p>
+<p><img src="/img/postImg/11_Matlab/eg1_matlab.png" width="70%" height="40%"></p>
 <h1 id="octave配置"><a href="#octave配置" class="headerlink" title="octave配置"></a>octave配置</h1><p>从matlab转到octave其实就花了几天的时间,因为长期在命令行下工作,所以在命令行下玩octave当然不在话下。 如果你喜欢交互式的,那目测玩这个会有点费劲的,毕竟是开源的,没有matlab调试什么什么的那么方便了。</p>
 <p>自己octave配置文件内容(.octaverc), 前提是这些包要安装上,不然就报错了,退出的话别直接ctrl+z了,不然后台还是在运行,在命令行中exit就行。</p>
 <p>如果通过ctrl+z退出了,其后台依旧在运行,如果通过top指令查看进程并结束掉octave那个进程,可以使用如下方式 ‘ps aus|grep octave-cli’, 会想为什么会是这个指令呢？是不是有好奇心去探索下,哈哈～。</p>
 <p>这里是自己配置文件里的内容,就像vim或者shell一样,换任何台linux/macos系统电脑,只需把之前的配置文件复制到新的电脑中即可,这样可以大大的简化繁琐的配置,这个是受用终身的。所以这里又一次的啰嗦了下。(最好把配置文件放在github或其他非常容易获取到的地方,放心,这个配置文件别人获取了也没什么用,属于私人订制)</p>
 <details>
   <summary>展开</summary>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">setenv</span><span class="params">(<span class="string">&quot;GNUTERM&quot;</span>,<span class="string">&quot;qt&quot;</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">graphics_toolkit</span><span class="params">(<span class="string">&quot;gnuplot&quot;</span>)</span></span></span><br><span class="line">pkg load image</span><br><span class="line">pkg load symbolic</span><br><span class="line"><span class="function"><span class="title">graphics_toolkit</span><span class="params">(<span class="string">&quot;gnuplot&quot;</span>)</span></span></span><br><span class="line">edit mode sync</span><br><span class="line">edit home .</span><br><span class="line"><span class="function"><span class="title">EDITOR</span><span class="params">(<span class="string">&#x27;vim &gt; /dev/tty 2&gt;&amp;1 &lt; /dev/tty %s&#x27;</span>)</span></span></span><br><span class="line">dbstop <span class="keyword">if</span> error</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">setenv</span><span class="params">(<span class="string">&quot;GNUTERM&quot;</span>,<span class="string">&quot;qt&quot;</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">graphics_toolkit</span><span class="params">(<span class="string">&quot;gnuplot&quot;</span>)</span></span></span><br><span class="line">pkg load <span class="selector-tag">image</span></span><br><span class="line">pkg load symbolic</span><br><span class="line"><span class="function"><span class="title">graphics_toolkit</span><span class="params">(<span class="string">&quot;gnuplot&quot;</span>)</span></span></span><br><span class="line">edit mode sync</span><br><span class="line">edit home .</span><br><span class="line"><span class="function"><span class="title">EDITOR</span><span class="params">(<span class="string">&#x27;vim &gt; /dev/tty 2&gt;&amp;1 &lt; /dev/tty %s&#x27;</span>)</span></span></span><br><span class="line">dbstop <span class="keyword">if</span> error</span><br></pre></td></tr></table></figure>
 </details>
 
 

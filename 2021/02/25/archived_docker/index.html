@@ -42,7 +42,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0-rc2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 7.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -125,7 +125,7 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/docker/docker.png);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/5_docker/docker.png);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >docker</h2></a>
             </div>
 
@@ -164,7 +164,7 @@
 <h1 id="安装Ubuntu-和-Debian"><a href="#安装Ubuntu-和-Debian" class="headerlink" title="安装Ubuntu 和 Debian"></a>安装Ubuntu 和 Debian</h1><p>官方为了简化安装流程,提供了一套安装脚本,Ubuntu 和 Debian 系统可 以使用这套脚本安装：</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">curl -sSL https://<span class="built_in">get</span>.docker.<span class="keyword">com</span>/ | <span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
 <p>由于墙的原因,可能会存在安装不上的原因,可使用阿里云来进行安装</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">curl -sSL http:<span class="regexp">//</span>acs-public-mirror.oss-cn-hangzhou.aliyuncs.com<span class="regexp">/ docker-engine/i</span>nternet | sh -</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-<span class="keyword">cn</span>-hangzhou.aliyuncs.<span class="keyword">com</span>/ docker-engine/internet | <span class="keyword">sh</span> -</span><br></pre></td></tr></table></figure>
 <h1 id="使用-Docker-镜像"><a href="#使用-Docker-镜像" class="headerlink" title="使用 Docker 镜像"></a>使用 Docker 镜像</h1><p>Docker 运行容器前需要本地存在对应的镜像,如果镜像不存在本地,Docker 会从 镜像仓库下载(默认是 Docker Hub 公共注册服务器中的仓库)。</p>
 <p>从 Docker Registry 获取镜像的命令是 <code>docker pull</code> 。其命令格式为：</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">docker pull [选项] [Docker Registry地址]<span class="tag">&lt;<span class="name">仓库名</span>&gt;</span>:<span class="tag">&lt;<span class="name">标签</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -203,7 +203,7 @@
 <h1 id="使用-Dockerfile-定制镜像"><a href="#使用-Dockerfile-定制镜像" class="headerlink" title="使用 Dockerfile 定制镜像"></a>使用 Dockerfile 定制镜像</h1><p>从  <code>docker commit</code> 的学习可以了解到,镜像的定制实际上就是定制每一层所添加的配置、文件。如果我们可以把每一层修改、安装、构建、操作 的命令都写入一个脚本,用这个脚本来构建、定制镜像,那么之前提及的无法重复的问题、镜像构建透明性的问题、体积的问题就都会解决。这个脚本就是 Dockerfile。Dockerfile 是一个文本文件,其内包含了一条条的指令(Instruction),每一条指令构建一层,因此每一条指令的内容,就是描述该层应当如何构建。以 nginx 镜像为例,使用 Dockerfile 来定制。 在一个空白目录中,建立一个文本文件,并命名为 Dockerfile ：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> mynginx</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> mynginx</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">touch</span> Dockerfile</span></span><br></pre></td></tr></table></figure>
 <p>其内容为：</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx RUN echo <span class="string">&#x27;&lt;h1&gt;Hello, Docker!&lt;/h1&gt;&#x27;</span> &gt; <span class="regexp">/usr/</span>share<span class="regexp">/nginx/</span>html/index .html</span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx <span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&#x27;&lt;h1&gt;Hello, Docker!&lt;/h1&gt;&#x27;</span> &gt; /usr/share/nginx/html/index .html</span></span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]  <a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html">Docker 入门教程——阮一峰</a></p>
 <p>[2] 《docker 从入门到实践》—杨宝华等</p>
 

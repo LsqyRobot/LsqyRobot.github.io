@@ -42,7 +42,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0-rc2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 7.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -125,7 +125,7 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/motionControl/storybook-2647359_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/28_motionControl/storybook-2647359_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >运动控制系统简介</h2></a>
             </div>
 
@@ -190,7 +190,7 @@
 <h2 id="轮廓位置模式-PPM"><a href="#轮廓位置模式-PPM" class="headerlink" title="轮廓位置模式 (PPM)"></a>轮廓位置模式 (PPM)</h2><p>轮廓位置模式下,驱动器接收主站发送来的目标位置指令,在驱动器内部根据速度、加速度规划参数设置进行轨迹规划。例如：应用程序要求伺服轴以设定的速度、加速度运动到某个目标位置,驱动器接到这个指令后,在内部的轨迹生成器中计算出每个 NC 周期(比如：1ms)伺服轴应该到达的位置,然后发送给位置环去执行。</p>
 <h2 id="位置模式-PM"><a href="#位置模式-PM" class="headerlink" title="位置模式(PM)"></a>位置模式(PM)</h2><p>位置需求值可直接设定。位置模式允许无轮廓线定位,即目标位置被立即设置为位置控制环的一个新的设定值。位置模式是一种有用的操作模式,在这种情况下,轴作为一个隶属轴,由没有大跳跃的渐进式位置设定值所控制。因此,不需要路径生成器。累进设定值的例子是模拟设定值电压。不产生路径的特殊工作模式是主编码器模式,从轴跟随来自外部编码器的信号脉冲 (例如主轴) 或步进方向模式,步进电机驱动的每个脉冲指令对应一个小的旋转角度。另外的操作模式允许运行运动控制器而不接收在线命令。相反,使用模拟电压信号或信号脉冲作为命令值。这些传入的信号被转换成设定值,直接馈入相应的控制回路而没有一个轮廓或轨迹被产生。</p>
 <h1 id="伺服系统相关概念"><a href="#伺服系统相关概念" class="headerlink" title="伺服系统相关概念"></a>伺服系统相关概念</h1><p>伺服系统通常由三个反馈系统构成,由外到内分别是位置环、速度环和电流环。调整时,内环的响应性要高于外环的响应性,如果不遵守该原则,则会使系统响应性变差或产生振动。<strong>电流环调节器参数仅与电机参数有关</strong>,相同电机的电流环参数确定后,如果负载改变,只需调整速度环调节器参数和位置环调节器参数即可,电流环调节器参数不用再做调整。如下所示为应用在机器人上的三环控制简图(非驱控一体)</p>
-<div align="center"> <img src="/img/postImg/motionControl/threeLoopControl.svg" width="100%" height="40%"> </div>
+<div align="center"> <img src="/img/postImg/28_motionControl/threeLoopControl.svg" width="100%" height="40%"> </div>
 
 
 <p>在交流伺服控制系统中,交流伺服电机运行状态的优劣取决于位置环、速度环和电流环三环控制器设计的好坏。交流伺服控制系统有两种,一种是位置伺服控制系统,包括电流控制器、速度控制器和位置控制器；另一种是速度伺服控制系统,只包括电流控制器和速度控制器。因此选取合适的参数,能够在一定程度上提高系统的快速性、稳定性、准确性。</p>
@@ -213,7 +213,7 @@
 <p>不想介绍伺服驱动器的主电路,因为这个和自己读研的方向就差不多。。。。。问题是那会就懒得学,哈哈哈。。。。</p>
 <h2 id="电子齿轮比设计"><a href="#电子齿轮比设计" class="headerlink" title="电子齿轮比设计"></a>电子齿轮比设计</h2><p>在实际应用中, 电动机与其他机械传动装置连接时, 电动机每转动一圈, 将转换为相应的位移, 带动负载运动。 位置指令通常是由上位机产生的, 是具有一定频率和个数的脉冲。 当指令脉冲当量和位置反馈脉冲当量不一致时, 采用电子齿轮的方法来进行调节是必需的, 它的好处可以用一个例子说明。</p>
 <p>如图所示, 位置环中没有电子齿轮设计时, 要将工件移动 10mm, 上位机要做如下处理：</p>
-<div align="center"> <img src="/img/postImg/motionControl/电子齿轮比.png" width="100%" height="40%"> </div>
+<div align="center"> <img src="/img/postImg/28_motionControl/电子齿轮比.png" width="100%" height="40%"> </div>
 
 
 <p>① 电动机转 1 圈为 6mm, 移动 10mm 需要 1. 6666 圈；</p>

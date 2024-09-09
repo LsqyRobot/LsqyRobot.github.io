@@ -42,7 +42,7 @@
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0-rc2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 7.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 		
 
 
@@ -125,7 +125,7 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/threeLoopControlSystem/logo/background-image-3497025_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/img/postImg/37_threeLoopControlSystem/logo/background-image-3497025_1280.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >三环控制系统</h2></a>
             </div>
 
@@ -147,12 +147,22 @@
 <li><a href="#提高机械刚性">提高机械刚性</a></li>
 </ul>
 </li>
+<li><a href="#机器人关节带宽和测量">机器人关节带宽和测量</a><ul>
+<li><a href="#如何影响带宽"><strong>如何影响带宽</strong></a></li>
+<li><a href="#带宽的测量"><strong>带宽的测量</strong></a><ul>
+<li><a href="#确定幅值"><strong>确定幅值</strong></a></li>
+<li><a href="#32-生成扫频信号"><strong>3.2 生成扫频信号</strong></a></li>
+<li><a href="#实验装置及数据整理"><strong>实验装置及数据整理</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前记录的一部分笔记里,有关于运动控制的简单说明,这部分的内容还是非常吸引自己的,于是就查阅了相关的书本资料,做进一步的学习,下面很多内容/笔记是出自于孙宇等人编著的《交流伺服系统设计指南》,里面的内容让人眼前一亮,会让人对经典控制理论产生极大的兴趣,非常值得去好好的学习下。内容仅作为学习使用,会穿插一些自己对内容的理解以及相关的代码演示等。</p>
 <h1 id="三闭环系统构成"><a href="#三闭环系统构成" class="headerlink" title="三闭环系统构成"></a>三闭环系统构成</h1><p>高性能交流伺服控制系统通常具有位置反馈、 转速反馈和电流反馈的三闭环结构形式, 如图所示。 图中, 虚线框内表示电源、 电动机及编码器模型, 其中 APR 表示位置调节器, ASR 表示转速调节器, ACR 表示电流调节器。</p>
-<div align="center"> <img src="/img/postImg/threeLoopControlSystem/threeLoopControl.png" width="80%" height="40%"> </div>
+<div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/threeLoopControl.png" width="80%" height="40%"> </div>
 
 <p>三个环路调节器都由 P 和 I 组成, 虽然结构相似, 但是完成的功能却各自不同：</p>
 <p>① 电流环 ACR 的作用是改造内核控制对象的传递函数, 提高系统的快速性； 及时抑制电流环内部的干扰； 限制最大电流, 使系统有足够大的加速度转矩, 并且保障系统安全运行。</p>
@@ -160,10 +170,10 @@
 <p>③ 位置环 APR 的作用是保证系统静态准确度、 刚度和动态跟踪的性能； 它是反馈的主要通道。 </p>
 <p>通常把电流环称为内环, 三个环的设计步骤由内到外, 即依次是电流环, 速度环和位置环。 针对各个闭环的具体作用和要求, 采取相应的控制策略。 首要考虑系统的稳定性, 此外, 系统的跟随性、 扰动性、 误差以及稳态裕度等性能也是考虑的基本内容。 </p>
 <p>机械系统是指系统负载和负载与电动机连接的机械传动机构的总称。 通常假设电动机与机械系统的连接特性为理想化的刚性,如下图所示</p>
-<div align="center"> <img src="/img/postImg/threeLoopControlSystem/oneMotorSim.png" width="60%" height="30%"> </div>
+<div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/oneMotorSim.png" width="60%" height="30%"> </div>
 
 <p>系统转动惯量 J 即是电动机转动惯量 JM 与负载转动惯量 JL 之和由它建立的系统一般称为单惯性系统。实际上,机械传动连接特性并非理想化的刚性,它存在一定的柔性,如下图所示,由它建立的系统称为两惯性系统。在该物理模型中,连接特性具有柔性耦合特性,存在弹性常数 Ks ,它使得系统转动惯量 J 不再是电动机转动惯量 JM 与负载转动惯量 JL 之和。 更复杂的是,这种柔性耦合通常会在系统中引发机械振动,机械振动除了发出声学噪声形成噪声污染外,还会对机械传动装置造成严重的损害,影响其使用寿命。另外,甚至还会引发控制系统中的控制量振荡,使得闭环控制的稳定性以及可调整性受到制约。</p>
-<div align="center"> <img src="/img/postImg/threeLoopControlSystem/oneMotorReal.png" width="60%" height="30%"> </div>
+<div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/oneMotorReal.png" width="60%" height="30%"> </div>
 
 <p>由经验可以得出, 虽然三闭环控制策略是在单惯性系统物理模型下分析得出的, 但它同样适用于振动负载模型, 其结论对实际应用中的伺服控制系统同样是有效的。 因此主动式解决振动的方法多数也是在三闭环控制系统的基础上展开研究的。 调整伺服系统就是通过调整各个环路的增益与滤波以使伺服控制器匹配机械特性,从而达到减小振动、快速跟踪指令并且消除异常噪音的目的。</p>
 <h1 id="系统的基本研究内容"><a href="#系统的基本研究内容" class="headerlink" title="系统的基本研究内容"></a>系统的基本研究内容</h1><p>稳定是控制系统的重要性能, 也是系统能够正常运行的首要条件。 在交流伺服控制系统设计中, 分析三闭环结构是否稳定并不重要, 因为工业中即使是临界稳定的系统也是没有用的。 对于设计人员来说, 花费大量精力的重点在于测量系统有多稳定, 或者准确地说在于测 量系统所拥有的稳定性裕度有多大。 无论是在工程应用中, 还是在理论研究上, 这里推荐大家使用<strong>相位裕度</strong> (Phase Margin,PM) 和<strong>增益裕度</strong> (Gain Margin, GM) 来作为系统稳定程度的度量。 这是因为： </p>
@@ -188,7 +198,7 @@
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?W(s) = \frac{K}{s(Ts+1)}"/> </div>
 
 <p>它的闭环系统结构如下所示,</p>
-<div align="center"> <img src="/img/postImg/threeLoopControlSystem/req1.png" width="60%" height="30%"> </div>
+<div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/req1.png" width="60%" height="30%"> </div>
 
 <p> 图 b 表示它的开环对数频率特性。 选择它作为典型系统不仅因为其机构简单, 而且对数幅频特性的中频段以 - 20dB / dec 的斜率穿越零分贝线。 只要参数的选择能保证有足够的中频带宽度,系统就一定是稳定的, 且有足够的稳定裕量。 显然要做到这一点, 应有</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?\begin{cases}\omega_c<\frac{1}{T}\\ arctan \omega_cT<45^\circ\end{cases}"/> </div>
@@ -202,7 +212,7 @@
 
 
 <p>它的闭环系统结构和开环对数频率特性如图所示, </p>
-<div align="center"> <img src="/img/postImg/threeLoopControlSystem/req2.png" width="60%" height="30%"> </div>
+<div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/req2.png" width="60%" height="30%"> </div>
 
 <p>其中频段也是以 - 20dB / dec 的斜率穿越零分贝线。由于分母中已经有s²,对应的相频特性是-180°,后面还有一个惯性环节(这是实际系统必定有的),如果在分子上不添加一个比例微分环节 <img src="https://latex.codecogs.com/png.latex? (\tau s+1)"/> ,就无法把相频特性抬到-180°线以上去,也就无法保证系统稳定。要实现图b这样的特性,显然应有</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?\begin{cases}\frac{1}{\tau}<\omega_c<\frac{1}{T}\\ \tau>T\end{cases}"/> </div>
@@ -212,12 +222,76 @@
 
 <p>由上式可得到,<img src="https://latex.codecogs.com/png.latex?\tau"/> 比T大得越多,则稳定裕度越大。</p>
 <h1 id="手动调整速度环增益和位置环增益"><a href="#手动调整速度环增益和位置环增益" class="headerlink" title="手动调整速度环增益和位置环增益"></a>手动调整速度环增益和位置环增益</h1><p>这部分的内容,松下的伺服驱动器手册说的是非常的详细的,结合着自己查阅相关驱动器手册,对其进行一点归纳。</p>
-<p>1, 伺服驱动器首要的性能参数调整有三个：<strong>1.速度环增益；2.速度环积分时间常数;3.位置环增益</strong>。</p>
+<p> 伺服驱动器首要的性能参数调整有三个：<strong>1.速度环增益；2.速度环积分时间常数;3.位置环增益</strong>。</p>
 <h1 id="增益调整与机械刚性的关系"><a href="#增益调整与机械刚性的关系" class="headerlink" title="增益调整与机械刚性的关系"></a>增益调整与机械刚性的关系</h1><h2 id="提高机械刚性"><a href="#提高机械刚性" class="headerlink" title="提高机械刚性"></a>提高机械刚性</h2><p>1,应将机械牢固的置于地基上,使之不产生晃动。</p>
 <p>2,应使用刚性高的伺服联轴器。</p>
 <p>3, 使用宽幅的同步带。此外,张力应在电机容许轴向的过负载范围内。</p>
 <p>4, 使用齿隙小的齿轮。机械部相关的固有振动 (共振频率) 会极大影响伺服机械的增益调整。共振频率低的机械 (=机械刚性低) ,伺服相关的响应性不可以设定过高。</p>
+<h1 id="机器人关节带宽和测量"><a href="#机器人关节带宽和测量" class="headerlink" title="机器人关节带宽和测量"></a><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/493958760">机器人关节带宽和测量</a></h1><p>文章写的很好，就直接搬运，下面为搬运的内容；</p>
+<p>电机的伺服驱动器通常包括三种控制环——位置环、速度环和电流环。虽然每种控制环的目的是控制电机性能的不同方面，但它们都有一个共同的参数：带宽。在伺服驱动器中，带宽定义为闭环频率响应幅度大于 -3dB 的频率范围。此时，输出增益约为幅值的70.7%，输出功率等于输入功率的50%。定性地讲，系统的带宽可以衡量它对不断变化的输入命令的响应速度，因此对机器人的控制性能至关重要。</p>
+<p>在协作机械臂和腿足式机器人中，位置带宽和力矩带宽已经成为衡量其伺服关节性能的重要指标：</p>
+<ul>
+<li><p>位置带宽：描述执行器可以有效跟踪期望轨迹的最大频率，单位Hz，通常以峰值最大速度为指标来评价。</p>
+</li>
+<li><p>力矩带宽：描述执行器可以有效跟踪期望力矩的最大频率，单位Hz，通常以峰值最大扭矩为指标来评价。</p>
+</li>
+</ul>
+<p>一些典型的力控关节带宽指标如下表所示。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关节</th>
+<th>力矩带宽 （Hz）</th>
+<th>测试负载 (Nm)</th>
+<th>力检测方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ETH ANYdrive [1]</td>
+<td>＞60</td>
+<td>1 Nm</td>
+<td>SEA</td>
+</tr>
+<tr>
+<td>iit WALK-MAN actuator [2]</td>
+<td>14.24</td>
+<td>35 Nm</td>
+<td>SEA</td>
+</tr>
+<tr>
+<td>iit WALK-MAN actuator [2]</td>
+<td>28.05</td>
+<td>35 Nm</td>
+<td>Torque sensor</td>
+</tr>
+<tr>
+<td>Blue Module [3]</td>
+<td>13.8</td>
+<td>10 Nm</td>
+<td>QDD+电流检测</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="如何影响带宽"><a href="#如何影响带宽" class="headerlink" title="如何影响带宽"></a><strong>如何影响带宽</strong></h2><p>关节都可以<strong>近似</strong>看成一个二阶质量-弹簧-阻尼系统，因此这三者会对系统力矩带宽产生影响。下面是我以<strong>JTS-based</strong>关节的闭环传递函数为例，分析这三个参数对力矩带宽影响的仿真结果。</p>
+<ul>
+<li><strong>关节整体刚度</strong>：刚度越高，带宽越高</li>
+<li><strong>传动系统惯量：</strong>惯量越小，带宽越高</li>
+<li><strong>负载端阻尼：</strong>阻尼越大，带宽越高</li>
+</ul>
+<p>由于传动系统惯量和负载端阻尼很难在设计关节时人为设定，因此大多数工作都是从关节刚度入手来改变力矩带宽。</p>
+<h2 id="带宽的测量"><a href="#带宽的测量" class="headerlink" title="带宽的测量"></a><strong>带宽的测量</strong></h2><h3 id="确定幅值"><a href="#确定幅值" class="headerlink" title="确定幅值"></a><strong>确定幅值</strong></h3><p>由于力矩带宽的具体大小由关节输出端负载决定，因此在测量时需要根据你的期望力矩幅值来测量相应带宽。</p>
+<h3 id="3-2-生成扫频信号"><a href="#3-2-生成扫频信号" class="headerlink" title="3.2 生成扫频信号"></a><strong>3.2 生成扫频信号</strong></h3><p>实验时需要根据实际经验大致定义关节力矩带宽的范围，比如0-60Hz，然后在规定时间内给控制器输入频率随时间变化的力矩信号。下面代码是以Matlab语言为例，在0-10s内生成0-60Hz，幅值为A的信号，具体使用时转换为相应的控制器程序语言写入控制器即可</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 使用数学函数式生成啁啾信号</span></span><br><span class="line">fs = <span class="number">1000</span>;              <span class="comment">% 控制器采样频率，1KHz</span></span><br><span class="line">f_ini = <span class="number">0</span>;              <span class="comment">% 初始频率,单位Hz</span></span><br><span class="line">f_fin = <span class="number">60</span>;             <span class="comment">% 终止频率,单位Hz</span></span><br><span class="line">dT = <span class="number">10</span>;                <span class="comment">% 采样周期,单位s</span></span><br><span class="line">t1= <span class="number">0</span>:<span class="number">1</span>/fs:dT;          <span class="comment">% 采样间隔</span></span><br><span class="line">K= A*(f_fin-f_ini)/dT;  <span class="comment">% 频率线性增长率, A为信号幅值</span></span><br><span class="line">track = <span class="built_in">cos</span>(<span class="number">2</span>*<span class="built_in">pi</span>*(f_ini.*t1+<span class="number">0.5</span>.*K.*t1.*t1));</span><br></pre></td></tr></table></figure>
+<p>Matlab有自带的chirp函数可以生成余弦扫频信号，但是无法写入控制器，所以可以把chirp函数当作验证工具来来验证你的扫频信号。</p>
+<h3 id="实验装置及数据整理"><a href="#实验装置及数据整理" class="headerlink" title="实验装置及数据整理"></a><strong>实验装置及数据整理</strong></h3><p>1）实验开始前，需要通过机械装置锁住关节输出端；</p>
+<p>2）实验时，关节工作在力矩模式（closed-loop），力矩环输入命令为扫频信号；</p>
+<p>3）实验过程中实时记录当前信号频率和对应力矩幅值；</p>
+<p>4）最后根据数据画bode图，找出-3dB对应的频率点，即为关节力矩带宽的截止频率。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] 松下驱动器手册</p>
+<p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/493958760">机器人关节带宽的理解和测量</a></p>
 
             </div>
 
