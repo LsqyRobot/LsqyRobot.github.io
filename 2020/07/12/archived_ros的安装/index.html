@@ -67,7 +67,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a>
+	                        <a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a>
 	                    </ul>
 	        </li>
 	        
@@ -181,32 +181,32 @@
 <p>5, 用rosdep安装依赖项</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> rosdep init</span><br><span class="line">rosdep update</span><br></pre></td></tr></table></figure>
 <p>在<code>rosdep update</code>的过程中可能会因为网络的问题而报错, 自己这边连续试了两次才正常的update成功, 如下图所示</p>
-<p><img src="/img/postImg/1_ros/rosdep_update_ubuntu_1804.png" width="50%" height="30%"></p>
+<p><img src="/img/postImg/1_ros/4_install_ros/3_rosdep_update_ubuntu_1804.png" width="50%" height="30%"></p>
 <p>然后再</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">rosdep install <span class="attr">--from-paths</span> <span class="attribute">src</span> <span class="attr">--ignore-src</span> <span class="attr">--rosdistro</span> dashing -<span class="attribute">y</span> <span class="attr">--skip-keys</span> &quot;console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-<span class="number">5.3</span>.<span class="number">1</span> urdfdom_headers&quot;</span><br></pre></td></tr></table></figure>
 <p>6, 编译所有包</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> ~<span class="string">/ros2_ws/</span></span><br><span class="line">colcon build <span class="params">--symlink-install</span></span><br></pre></td></tr></table></figure>
 <p>编译过程如下</p>
-<p><img src="/img/postImg/1_ros/ros_complie_proess.png" width="80%" height="80%"></p>
+<p><img src="/img/postImg/1_ros/4_install_ros/4_ros_complie_proess.png" width="80%" height="80%"></p>
 <p>编译时间那叫做一个相当长。。。。。问题是还出错了。。。</p>
-<p><img src="/img/postImg/1_ros/ros2_complie_ERR.png" width="80%" height="100%"></p>
+<p><img src="/img/postImg/1_ros/4_install_ros/5_ros2_complie_ERR.png" width="80%" height="100%"></p>
 <p>排查了一圈后,结果发现是虚拟机里内存不够了,欲哭无泪啊。。。。解决起来稍微有点麻烦。。。。日了, 如果同样遇到了这个问题,可以按照如下步骤来重置虚拟机, 现在开启虚拟机就会在启动的时候显示<code>[FAILED]Failed to start Login Service</code>, 需要进行如下几步</p>
 <p>1, 进入Recovery模式,自己又从网上查了两种方式,一个是长按<code>Shift</code>另一种是长按<code>e</code>, 亲测无效,且大无语,搞了好几次, 按住<code>Esc</code>的方式结果闪了1秒不到,就又到开机界面了,后面尝试了几次才知道,按1下就行了,不要长按；</p>
 <p>2, 进入到<code>root</code>模式</p>
-<p><img src="/img/postImg/1_ros/Ubuntu_root_mode.png" width="50%" height="30%"></p>
+<p><img src="/img/postImg/1_ros/4_install_ros/1_Ubuntu_root_mode.png" width="50%" height="30%"></p>
 <p>3,  输入如下命令后大概就有几百兆的存储空间了,然后再去扩充下磁盘</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> autoclean</span><br><span class="line">sudo apt-<span class="built_in">get</span> clean</span><br></pre></td></tr></table></figure>
 <p>在拓展磁盘的过程中还发现了Ubuntu里面自带分析内存的旭日图。。。真神奇。。。</p>
-<p><img src="/img/postImg/1_ros/Ubuntu_xuri.png" width="50%" height="30%"></p>
+<p><img src="/img/postImg/1_ros/4_install_ros/2_Ubuntu_xuri.png" width="50%" height="30%"></p>
 <p>主要是用如下方法去进行</p>
 <p>1, 使用命令安装分区管理工具gparted</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install gparted</span><br></pre></td></tr></table></figure>
 <p>2, 使用命令启动分区管理工具</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> gparted</span><br></pre></td></tr></table></figure>
 <p>然后把想拓展的磁盘拉满就可以了。。。</p>
-<p><img src="/img/postImg/1_ros/gparted_expand.png" width="50%" height="30%"></p>
+<p><img src="/img/postImg/1_ros/4_install_ros/6_gparted_expand.png" width="50%" height="30%"></p>
 <p>拉满后点击确认,最后分配成功的时候看一下detail就行了</p>
-<p><img src="/img/postImg/1_ros/parted_OK.png" width="50%" height="30%"></p>
+<p><img src="/img/postImg/1_ros/4_install_ros/7_parted_OK.png" width="50%" height="30%"></p>
 <p>然后通过命令<code>df -h</code>查看下当前磁盘的空间,让心里有个底；然后再回到编译的过程,又是漫长的等待。。。。。</p>
 <h2 id="Connection-refused"><a href="#Connection-refused" class="headerlink" title="Connection refused"></a>Connection refused</h2><p>使用vim /etc/hosts命令打开不能访问的机器的hosts文件,添加如下内容：(如果不能修改这个文件的情况下,采用<code>sudu -i</code>进入管理员模式对这个文件进行修改即可)</p>
 <figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line"><span class="number">199.232.68.133</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">199.232.68.133</span> user-images.githubusercontent.com</span><br><span class="line"><span class="number">199.232.68.133</span> avatars2.githubusercontent.com</span><br><span class="line"><span class="number">199.232.68.133</span> avatars1.githubusercontent.com</span><br></pre></td></tr></table></figure>
@@ -229,7 +229,7 @@
 <h1 id="ROS-rosdep-update更新失败（简单解决）"><a href="#ROS-rosdep-update更新失败（简单解决）" class="headerlink" title="ROS rosdep update更新失败（简单解决）"></a>ROS rosdep update更新失败（简单解决）</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pip install rosdepc</span><br></pre></td></tr></table></figure>
 <h1 id="MAC-M2芯片上安装ROS"><a href="#MAC-M2芯片上安装ROS" class="headerlink" title="MAC M2芯片上安装ROS"></a>MAC M2芯片上安装ROS</h1><p>有的时候发现自己的虚拟机网络被墙，导致很多仿真无法进行下去，于是乎，就想办法不用虚拟机，因为自己虚拟机是ARM 64系统下的，翻墙实在不易，干脆就直接在自己电脑里面安装ROS了，运气好的是，在CSDN上就有人实现了这点，我就直接抄了，原文可见<a target="_blank" rel="noopener" href="https://blog.csdn.net/jyw0401/article/details/130839211">macOS在miniconda下配置安装ROS1</a>, 下面就属于搬运内容了</p>
 <p>1, 安装<a target="_blank" rel="noopener" href="https://docs.conda.io/projects/miniconda/en/latest/">miniconda</a>, 如果自己安装了anaconda的话，在bashrc或者zshrc中给注释掉相关内容即可，没必要卸载掉, 找到如图所示的内容，安装即可</p>
-<p><img src="/img/postImg/1_ros/install_on_mac/miniConda.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/5_install_on_mac/miniConda.png" alt=""></p>
 <p>2, 创建新的环境</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">conda</span> create -n ROS  #如果下载的环境为<span class="number">3</span>.<span class="number">8</span>版本conda,则不写指定python版本</span><br></pre></td></tr></table></figure>
 <p>3, 配置虚拟环境<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment">#激活境ROS</span></span><br><span class="line">conda activate ROS</span><br><span class="line"><span class="comment">#配置当前环境</span></span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">add</span> channels conda-forge</span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">add</span> channels robostack</span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">set</span> channel_priority strict</span><br></pre></td></tr></table></figure></p>
@@ -241,7 +241,7 @@
 <p>接下来就可以创建工作空间来验证安装是否OK了</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/catkin_ws/src</span><br><span class="line"><span class="built_in">cd</span>  ~/catkin_ws/src</span><br><span class="line">catkin_init_workspace</span><br><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
 <p>得到的结果如图所示</p>
-<p><img src="/img/postImg/ros/install_on_mac/catkin_make_OK.png" alt=""></p>
+<p><img src="/img/postImg/1_ros/5_install_on_mac/catkin_make_OK.png" alt=""></p>
 <p>这就已经表明安装成功了</p>
 
             </div>
