@@ -170,6 +170,24 @@
 <li><a href="#e45-readonly-option-is-set-add--to-override">“E45: ‘readonly’ option is set (add ! to override)”</a></li>
 <li><a href="#markdown-文章内部跳转">markdown 文章内部跳转</a></li>
 <li><a href="#破解-beyond-compare">破解 Beyond Compare</a></li>
+<li><a href="#改大写键盘为control键-ubuntu-中">改大写键盘为Control键 ubuntu 中</a></li>
+<li><a href="#统计代码行数">统计代码行数</a></li>
+<li><a href="#valgrind">Valgrind</a><ul>
+<li><a href="#常用命令示例">常用命令示例：</a></li>
+<li><a href="#示例输出片段解析">示例输出片段解析</a></li>
+<li><a href="#泄漏检查部分">泄漏检查部分</a></li>
+<li><a href="#怎么修复">怎么修复？</a></li>
+<li><a href="#高级用法推荐">高级用法（推荐）</a></li>
+</ul>
+</li>
+<li><a href="#git-记住密码方式">GIT 记住密码方式</a></li>
+<li><a href="#nohup-命令的用法">nohup 命令的用法</a><ul>
+<li><a href="#基本语法">基本语法：</a></li>
+<li><a href="#示例用法">示例用法</a></li>
+<li><a href="#注意事项">注意事项：</a></li>
+</ul>
+</li>
+<li><a href="#ros-2-版本信息">ROS 2 版本信息</a></li>
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
@@ -496,6 +514,104 @@
 <figure class="highlight scheme"><table><tr><td class="code"><pre><span class="line">[<span class="name">点击跳转</span>](#yourTags)</span><br></pre></td></tr></table></figure>
 <h1 id="破解-Beyond-Compare"><a href="#破解-Beyond-Compare" class="headerlink" title="破解 Beyond Compare"></a>破解 Beyond Compare</h1><p>有一个非常好用的方法，可以直接用于正版的软件，操作如下</p>
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">命令行： regedit, 打开注册表</span><br><span class="line">删除项目<span class="keyword">CacheId: </span> HEKY_CUREENT_USER\Software\<span class="keyword">Scooter </span>Software\<span class="keyword">Beyond </span><span class="built_in">Compare</span> <span class="number">4</span>\<span class="keyword">CacheId</span></span><br></pre></td></tr></table></figure>
+<h1 id="改大写键盘为Control键-ubuntu-中"><a href="#改大写键盘为Control键-ubuntu-中" class="headerlink" title="改大写键盘为Control键 ubuntu 中"></a>改大写键盘为Control键 ubuntu 中</h1><p>安装 Tweaks（如未安装）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install gnome-tweaks</span><br></pre></td></tr></table></figure>
+<p>打开 Tweaks → 进入 Keyboard &amp; Mouse → Additional Layout Options。</p>
+<p>找到：</p>
+<p>Caps Lock behavior → 选择 “Make Caps Lock an additional Ctrl”</p>
+<p>或 Ctrl position → 选择将 Caps Lock 映射为 Ctrl</p>
+<h1 id="统计代码行数"><a href="#统计代码行数" class="headerlink" title="统计代码行数"></a>统计代码行数</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find . -<span class="built_in">type</span> f -not -path <span class="string">&quot;./build/*&quot;</span> -not -path <span class="string">&quot;./.git/*&quot;</span> -<span class="built_in">exec</span> <span class="built_in">cat</span> &#123;&#125; + 2&gt;/dev/null | <span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure>
+<h1 id="Valgrind"><a href="#Valgrind" class="headerlink" title="Valgrind"></a>Valgrind</h1><p>1) 内存泄漏检测（使用 memcheck 工具）：</p>
+<p>检查 new/malloc 分配的内存有没有被 delete/free。</p>
+<p>2) 未初始化内存访问检测：<br>发现你使用了未赋值的变量或野指针等。</p>
+<p>3) 越界访问检测：</p>
+<p>能发现数组越界、访问非法内存等问题。</p>
+<p>4) 线程错误检查（使用 helgrind）：</p>
+<p>检测线程之间的竞争条件。</p>
+<p>5) 性能分析（cachegrind）：</p>
+<p>可分析缓存命中率、指令执行数量，适用于性能瓶颈分析。</p>
+<h2 id="常用命令示例："><a href="#常用命令示例：" class="headerlink" title="常用命令示例："></a>常用命令示例：</h2><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">valgrind <span class="params">--leak-check=full</span> <span class="string">./your_program</span></span><br></pre></td></tr></table></figure>
+<h2 id="示例输出片段解析"><a href="#示例输出片段解析" class="headerlink" title="示例输出片段解析"></a>示例输出片段解析</h2><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">=</span><span class="punctuation">=</span><span class="number">12345</span><span class="punctuation">=</span><span class="punctuation">=</span> Memcheck<span class="punctuation">,</span> a memory error detector</span><br><span class="line"><span class="punctuation">=</span><span class="punctuation">=</span><span class="number">12345</span><span class="punctuation">=</span><span class="punctuation">=</span> Copyright <span class="punctuation">(</span>C<span class="punctuation">)</span> <span class="number">2002</span><span class="punctuation">-</span><span class="number">2022</span><span class="punctuation">,</span> and GNU GPL&#x27;d, by Julian Seward et al.</span><br><span class="line">==<span class="number">1234</span>5== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info</span><br><span class="line">==<span class="number">1234</span>5== Command: ./my_program</span><br><span class="line">==<span class="number">1234</span>5==</span><br><span class="line">==<span class="number">1234</span>5== Invalid read of size 4</span><br><span class="line">==<span class="number">1234</span>5==    at 0x<span class="number">401234</span>: main (main.cpp:12)</span><br><span class="line">==<span class="number">1234</span>5==  Address 0x0 is not stack&#x27;d<span class="punctuation">,</span> malloc&#x27;d or (recently) free&#x27;d</span><br></pre></td></tr></table></figure>
+<p>这表示程序有一次非法读取（未定义行为）：</p>
+<ul>
+<li><p>Invalid read of size 4：读取了 4 个字节的非法内存</p>
+</li>
+<li><p>main.cpp:12：出错位置</p>
+</li>
+<li><p>Address 0x0：很可能是一个空指针访问</p>
+</li>
+</ul>
+<h2 id="泄漏检查部分"><a href="#泄漏检查部分" class="headerlink" title="泄漏检查部分"></a>泄漏检查部分</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">==<span class="attribute">12345</span>== HEAP SUMMARY:</span><br><span class="line">==<span class="attribute">12345</span>==     <span class="keyword">in</span> use at exit: 72 bytes <span class="keyword">in</span> 2 blocks</span><br><span class="line">==<span class="attribute">12345</span>==   total heap usage: 4 allocs, 2 frees, 144 bytes allocated</span><br><span class="line"></span><br><span class="line">==<span class="attribute">12345</span>== 72 bytes <span class="keyword">in</span> 2 blocks are definitely lost <span class="keyword">in</span> loss record 1 of 1</span><br><span class="line">==<span class="attribute">12345</span>==    at 0x4845DEF: malloc (vg_replace_malloc.c:381)</span><br><span class="line">==<span class="attribute">12345</span>==    by 0x4011F6: main (main.cpp:10)</span><br><span class="line"></span><br><span class="line">==<span class="attribute">12345</span>== LEAK SUMMARY:</span><br><span class="line">==<span class="attribute">12345</span>==    definitely lost: 72 bytes <span class="keyword">in</span> 2 blocks</span><br><span class="line">==<span class="attribute">12345</span>==    indirectly lost: 0 bytes <span class="keyword">in</span> 0 blocks</span><br><span class="line">==<span class="attribute">12345</span>==      possibly lost: 0 bytes <span class="keyword">in</span> 0 blocks</span><br><span class="line">==<span class="attribute">12345</span>==    still reachable: 0 bytes <span class="keyword">in</span> 0 blocks</span><br><span class="line">==<span class="attribute">12345</span>==         suppressed: 0 bytes <span class="keyword">in</span> 0 blocks</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>definitely lost</strong></td>
+<td>明确泄漏的内存，没有任何指针引用它</td>
+</tr>
+<tr>
+<td><strong>indirectly lost</strong></td>
+<td>被 <code>definitely lost</code> 的内存指针引用的内存</td>
+</tr>
+<tr>
+<td><strong>possibly lost</strong></td>
+<td>可能泄漏（比如指针指向中间地址）</td>
+</tr>
+<tr>
+<td><strong>still reachable</strong></td>
+<td>程序退出时仍然可达，但没有释放（不是很严重）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="怎么修复？"><a href="#怎么修复？" class="headerlink" title="怎么修复？"></a>怎么修复？</h2><ul>
+<li><p>找到出错位置的 代码行数（比如上面是 main.cpp:10）；</p>
+</li>
+<li><p>回去加上 delete 或 free；</p>
+</li>
+<li><p>或者修复未初始化、非法访问等行为。</p>
+</li>
+</ul>
+<h2 id="高级用法（推荐）"><a href="#高级用法（推荐）" class="headerlink" title="高级用法（推荐）"></a>高级用法（推荐）</h2><p>带源码行号和可读性：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">valgrind <span class="attribute">--leak-check</span>=full <span class="attribute">--track-origins</span>=<span class="literal">yes</span> <span class="attribute">--show-leak-kinds</span>=all ./my_program</span><br></pre></td></tr></table></figure>
+<h1 id="GIT-记住密码方式"><a href="#GIT-记住密码方式" class="headerlink" title="GIT 记住密码方式"></a>GIT 记住密码方式</h1><p>1) 生成访问 token（GitHub 或 GitLab）：</p>
+<p>GitHub：Settings -&gt; Developer settings -&gt; Personal Access Token -&gt; 生成新 token（记得勾选 repo 权限）</p>
+<p>GitLab：User -&gt; Preferences -&gt; Access Tokens</p>
+<p>2) 第一次推送时使用用户名 + token 登录（而不是密码）：</p>
+<p>用户名：你的 GitHub 用户名</p>
+<p>密码：粘贴刚刚生成的 token</p>
+<p>3) 保存密码到本地凭证管理器（Git 自带功能）：</p>
+<p>对于 Linux/Mac：<br><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">config</span> --global credential.helper <span class="keyword">cache </span>  <span class="comment"># 临时缓存</span></span><br><span class="line">git <span class="built_in">config</span> --global credential.helper store   <span class="comment"># 永久保存（明文保存在 ~/.git-credentials 中）</span></span><br></pre></td></tr></table></figure><br>对于 Windows：</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">config</span> <span class="comment">--global credential.helper manager</span></span><br></pre></td></tr></table></figure>
+<h1 id="nohup-命令的用法"><a href="#nohup-命令的用法" class="headerlink" title="nohup 命令的用法"></a>nohup 命令的用法</h1><p>nohup 命令用于在 Linux/Unix 系统中以忽略挂起信号的方式运行命令，即使命令的终端关闭，它也能继续运行。常用于后台运行任务或脚本。</p>
+<h2 id="基本语法："><a href="#基本语法：" class="headerlink" title="基本语法："></a>基本语法：</h2><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">nohup <span class="keyword">command</span> [<span class="keyword">args</span>] &gt; output.<span class="built_in">log</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br></pre></td></tr></table></figure>
+<p>command：你要执行的命令。</p>
+<blockquote>
+<p>output.log：将标准输出重定向到文件（默认是 nohup.out）。</p>
+</blockquote>
+<p>2&gt;&amp;1：将标准错误也重定向到标准输出（合并日志）。</p>
+<p>&amp;：在后台运行该命令。</p>
+<h2 id="示例用法"><a href="#示例用法" class="headerlink" title="示例用法"></a>示例用法</h2><ol>
+<li>后台运行 Python 脚本：</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">nohup <span class="keyword">python3</span> my_script.<span class="keyword">py</span> &gt; my_script.<span class="built_in">log</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>运行 shell 脚本并输出到默认文件：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./run_task.sh &amp;</span><br></pre></td></tr></table></figure>
+<p>输出会写入当前目录下的 nohup.out。</p>
+<h2 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h2><p>nohup 默认不接受用户输入（stdin 被关闭）。</p>
+<p>日志建议重定向，否则信息会默认写入 nohup.out。</p>
+<p>常与 &amp; 结合使用，真正放入后台运行。</p>
+<h1 id="ROS-2-版本信息"><a href="#ROS-2-版本信息" class="headerlink" title="ROS 2 版本信息"></a>ROS 2 版本信息</h1><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">ros2 doctor <span class="comment">--report</span></span><br></pre></td></tr></table></figure>
+<p>查看有哪些包：</p>
+<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">ros<span class="number">2</span> pkg <span class="keyword">prefix</span> rclcpp</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <img src="https://segmentfault.com/q/1010000006210048" alt="hexo如何引用自己的文章？"></p>
 
             </div>
@@ -505,7 +621,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10px; color: #f38181">Git</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/KDL/" style="font-size: 11px; color: #ea8b89">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11px; color: #ea8b89">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/ROS/" style="font-size: 13px; color: #d79e9a">ROS</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10px; color: #f38181">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/control/" style="font-size: 14px; color: #cda7a2">control</a> <a href="/tags/cpp/" style="font-size: 18px; color: #a8cec3">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 16px; color: #bbbbb2">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/latex/" style="font-size: 11px; color: #ea8b89">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 17px; color: #b1c4ba">life</a> <a href="/tags/linux/" style="font-size: 18px; color: #a8cec3">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 14px; color: #cda7a2">math</a> <a href="/tags/matlab/" style="font-size: 12px; color: #e09491">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/motor/" style="font-size: 11px; color: #ea8b89">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 16px; color: #bbbbb2">python</a> <a href="/tags/robot/" style="font-size: 13px; color: #d79e9a">robot</a> <a href="/tags/robotics/" style="font-size: 13px; color: #d79e9a">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11px; color: #ea8b89">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/simulation/" style="font-size: 11px; color: #ea8b89">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10px; color: #f38181">thread</a> <a href="/tags/tools/" style="font-size: 19px; color: #9ed7cb">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14px; color: #cda7a2">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a>
+    <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10px; color: #f38181">Git</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/KDL/" style="font-size: 10.91px; color: #ea8a88">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 10.91px; color: #ea8a88">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/ROS/" style="font-size: 12.73px; color: #d99b97">ROS</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10px; color: #f38181">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/control/" style="font-size: 13.64px; color: #d1a49f">control</a> <a href="/tags/cpp/" style="font-size: 17.27px; color: #afc7bd">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.45px; color: #c0b5ae">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.91px; color: #ea8a88">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.36px; color: #b7beb5">life</a> <a href="/tags/linux/" style="font-size: 18.18px; color: #a6d0c4">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 14.55px; color: #c8ada6">math</a> <a href="/tags/matlab/" style="font-size: 11.82px; color: #e29290">matlab</a> <a href="/tags/memory/" style="font-size: 14.55px; color: #c8ada6">memory</a> <a href="/tags/motor/" style="font-size: 10.91px; color: #ea8a88">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15.45px; color: #c0b5ae">python</a> <a href="/tags/robot/" style="font-size: 12.73px; color: #d99b97">robot</a> <a href="/tags/robotics/" style="font-size: 13.64px; color: #d1a49f">robotics</a> <a href="/tags/ros/" style="font-size: 15.45px; color: #c0b5ae">ros</a> <a href="/tags/ros2/" style="font-size: 10.91px; color: #ea8a88">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/simulation/" style="font-size: 10.91px; color: #ea8a88">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10px; color: #f38181">thread</a> <a href="/tags/tools/" style="font-size: 19.09px; color: #9ed8cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.55px; color: #c8ada6">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a>
 </div>
 
 

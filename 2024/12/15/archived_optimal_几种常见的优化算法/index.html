@@ -163,6 +163,22 @@
 </ul>
 </li>
 <li><a href="#序列二次规划">序列二次规划</a><ul>
+<li><a href="#简介">简介</a><ul>
+<li><a href="#sqp特点与应用">SQP特点与应用</a></li>
+</ul>
+</li>
+<li><a href="#newton-raphson-n-r-方法简述">Newton-Raphson (N-R) 方法简述</a></li>
+<li><a href="#lagrange-newton-基于-sqp-的方法">Lagrange-Newton 基于 SQP 的方法</a><ul>
+<li><a href="#1-lagrangian-方程">1. Lagrangian 方程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#todo">TODO</a><pre><code>  * [2. KKT 条件](#2-kkt-条件)
+</code></pre></li>
+<li><a href="#todo-1">TODO</a><pre><code>  * [3. SQP 的二次规划近似](#3-sqp-的二次规划近似)
+</code></pre></li>
+<li><a href="#endbmatrix">\end{bmatrix}</a><ul>
 <li><a href="#sqp方法的基本步骤">SQP方法的基本步骤</a><ul>
 <li><a href="#目标函数和约束的泰勒展开">目标函数和约束的泰勒展开</a></li>
 <li><a href="#构造二次规划子问题">构造二次规划子问题</a></li>
@@ -340,6 +356,86 @@
 <h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>经过一些简化，可以得到下列求解<img src="https://latex.codecogs.com/svg.image?Ax=b&space;" title="Ax=b " />的算法，其中A是实对称正定矩阵。</p>
 <p><img src="/img/postImg/16_Algorithm/2_常见的优化算法/1_梯度下降法/共轭梯度法.svg" alt=""></p>
 <h1 id="序列二次规划"><a href="#序列二次规划" class="headerlink" title="序列二次规划"></a>序列二次规划</h1><p>序列二次规划(Sequential Quadratic Programming，SQP)是一类用于解决非线性优化问题的迭代方法，广泛应用于约束优化问题，尤其是在控制、机器人学和工程设计中。SQP方法通过将非线性问题转化为一系列二次规划问题来逐步逼近最优解。它的基本思想是在每次迭代中通过求解一个二次优化问题，找到一个改进方向，并在此方向上更新当前解。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>对于非线性约束最优化问题，<strong>SQP（Sequential Quadratic Programming）</strong> 和 <strong>内点法</strong> 是两类非常重要的算法，可解决大规模的优化问题。</p>
+<ul>
+<li><strong>SQP</strong>：将原始问题分解为一系列二次规划（QP）问题逐步求解。  </li>
+<li><strong>内点法</strong>：将约束添加到目标函数中，转换为一系列无约束问题逐步求解。  </li>
+</ul>
+<p>两者的共同思想：<strong>将原始问题转换为可求解的问题</strong>。</p>
+<h3 id="SQP特点与应用"><a href="#SQP特点与应用" class="headerlink" title="SQP特点与应用"></a>SQP特点与应用</h3><ul>
+<li>能处理任何自由度的非线性约束，功能强大。</li>
+<li>广泛应用于：<ul>
+<li>统计学中的曲线拟合</li>
+<li>机器学习中支持向量机（SVM）计算</li>
+<li>机器人技术中的逆运动学问题等</li>
+</ul>
+</li>
+<li>算法由剑桥大学数学家 <strong>M.J.D Powell</strong> 提出，使用 <strong>Newton-Raphson</strong> 方法求解 <strong>Kuhn-Tucker (KKT)</strong> 方程组。</li>
+<li>为减少偏微分计算量，可改为 <strong>拟牛顿法（Quasi-Newton）</strong>。</li>
+</ul>
+<p><strong>核心思想</strong>：对约束优化问题的一阶最优性条件应用近似牛顿法，在每次迭代中求解一个以拉格朗日函数的二阶近似为目标函数、以原约束的线性化近似为约束条件的 QP 问题。</p>
+<blockquote>
+<p>1980 年的研究 [1] 表明，在测试的 20 多种非线性算法中，SQP 与 GRG 排名前列。GRG 更鲁棒但计算量稍大。</p>
+</blockquote>
+<hr>
+<h2 id="Newton-Raphson-N-R-方法简述"><a href="#Newton-Raphson-N-R-方法简述" class="headerlink" title="Newton-Raphson (N-R) 方法简述"></a>Newton-Raphson (N-R) 方法简述</h2><p>当无法直接求解方程未知数时：</p>
+<ol>
+<li>在预测点或迭代点进行泰勒展开。</li>
+<li>用切线（或割线）与零线的交点投影到函数上，作为新的迭代点。</li>
+<li>不断迭代直至误差满足要求。</li>
+</ol>
+<p>扩展到多变量多方程（非线性）时：</p>
+<ul>
+<li>微分 → 偏微分</li>
+<li>有解析导数时，可直接求雅可比矩阵；无解析导数时，可用差分法。</li>
+</ul>
+<p>实际问题中：</p>
+<ul>
+<li>常遇到 <strong>雅可比矩阵奇异</strong> 或 <strong>步长选择不当导致收敛失败</strong>，因此有变步长方法。</li>
+<li>工程中常需连续求解非线性方程组（如参数变化对系统稳态解的影响、临界速度分析、阈值计算等），对计算速度要求很高。</li>
+</ul>
+<hr>
+<h2 id="Lagrange-Newton-基于-SQP-的方法"><a href="#Lagrange-Newton-基于-SQP-的方法" class="headerlink" title="Lagrange-Newton 基于 SQP 的方法"></a>Lagrange-Newton 基于 SQP 的方法</h2><h3 id="1-Lagrangian-方程"><a href="#1-Lagrangian-方程" class="headerlink" title="1. Lagrangian 方程"></a>1. Lagrangian 方程</h3><p>Lagrange 方程整合了目标函数与约束条件：</p>
+<ul>
+<li>λ：等式约束乘子</li>
+<li>μ：不等式约束乘子</li>
+</ul>
+<h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1><p><img src="https://www.easyera.tech/wp-content/uploads/2020/11/L.png" alt="Lagrangian 方程"></p>
+<h3 id="2-KKT-条件"><a href="#2-KKT-条件" class="headerlink" title="2. KKT 条件"></a>2. KKT 条件</h3><p>通过求梯度为零的临界点实现优化，这就是 <strong>KKT 条件</strong>。Newton 法可用于求解该非线性方程组。</p>
+<h1 id="TODO-1"><a href="#TODO-1" class="headerlink" title="TODO"></a>TODO</h1><p><img src="https://www.easyera.tech/wp-content/uploads/2020/11/L-1.png" alt="KKT 条件"></p>
+<h3 id="3-SQP-的二次规划近似"><a href="#3-SQP-的二次规划近似" class="headerlink" title="3. SQP 的二次规划近似"></a>3. SQP 的二次规划近似</h3><p>SQP 的迭代步骤：</p>
+<ul>
+<li>对目标函数与约束函数进行泰勒展开</li>
+<li>将问题等效为二次规划问题</li>
+</ul>
+<p><strong>典型公式</strong>：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{matrix}
+\text{Active Set Strategy}\\
+\text{Lagrangian Relaxation}\\
+\text{Newton-Rapshon}
+\end{matrix}
+\right.</script><p>SQP 求解方程组形式：</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{r|r}
+2\nabla^2 L & {\nabla}' g \\
+\hline
+\nabla g & 0
+\end{array}
+\right]
+\begin{bmatrix}
+\Delta x \\
+\hline
+\Delta \lambda
+\end{bmatrix}
+=
+\begin{bmatrix}
+\nabla L(x, \Lambda) \\
+\hline
+g(\chi)
+\end{bmatrix}</script><hr>
 <h2 id="SQP方法的基本步骤"><a href="#SQP方法的基本步骤" class="headerlink" title="SQP方法的基本步骤"></a>SQP方法的基本步骤</h2><h3 id="目标函数和约束的泰勒展开"><a href="#目标函数和约束的泰勒展开" class="headerlink" title="目标函数和约束的泰勒展开"></a>目标函数和约束的泰勒展开</h3><p>&bull; 对于给定的非线性目标函数和约束条件，SQP方法首先对目标函数和约束条件在当前点进行一阶(梯度)和二阶(Hessian矩阵)泰勒展开。</p>
 <h3 id="构造二次规划子问题"><a href="#构造二次规划子问题" class="headerlink" title="构造二次规划子问题"></a>构造二次规划子问题</h3><p>&bull; 使用当前点的信息(包括目标函数的梯度和约束的雅可比矩阵、Hessian矩阵等)来构造一个近似的二次规划问题(QP)。</p>
 <p>&bull; 该QP问题通常形如</p>
@@ -372,7 +468,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10px; color: #f38181">Git</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/KDL/" style="font-size: 11px; color: #ea8b89">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11px; color: #ea8b89">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/ROS/" style="font-size: 13px; color: #d79e9a">ROS</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10px; color: #f38181">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/control/" style="font-size: 14px; color: #cda7a2">control</a> <a href="/tags/cpp/" style="font-size: 18px; color: #a8cec3">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 16px; color: #bbbbb2">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/latex/" style="font-size: 11px; color: #ea8b89">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 17px; color: #b1c4ba">life</a> <a href="/tags/linux/" style="font-size: 18px; color: #a8cec3">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 14px; color: #cda7a2">math</a> <a href="/tags/matlab/" style="font-size: 12px; color: #e09491">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/motor/" style="font-size: 11px; color: #ea8b89">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 16px; color: #bbbbb2">python</a> <a href="/tags/robot/" style="font-size: 13px; color: #d79e9a">robot</a> <a href="/tags/robotics/" style="font-size: 13px; color: #d79e9a">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11px; color: #ea8b89">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/simulation/" style="font-size: 11px; color: #ea8b89">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10px; color: #f38181">thread</a> <a href="/tags/tools/" style="font-size: 19px; color: #9ed7cb">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14px; color: #cda7a2">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a>
+    <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10px; color: #f38181">Git</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/KDL/" style="font-size: 10.91px; color: #ea8a88">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 10.91px; color: #ea8a88">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/ROS/" style="font-size: 12.73px; color: #d99b97">ROS</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10px; color: #f38181">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/control/" style="font-size: 13.64px; color: #d1a49f">control</a> <a href="/tags/cpp/" style="font-size: 17.27px; color: #afc7bd">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.45px; color: #c0b5ae">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.91px; color: #ea8a88">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.36px; color: #b7beb5">life</a> <a href="/tags/linux/" style="font-size: 18.18px; color: #a6d0c4">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 14.55px; color: #c8ada6">math</a> <a href="/tags/matlab/" style="font-size: 11.82px; color: #e29290">matlab</a> <a href="/tags/memory/" style="font-size: 14.55px; color: #c8ada6">memory</a> <a href="/tags/motor/" style="font-size: 10.91px; color: #ea8a88">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15.45px; color: #c0b5ae">python</a> <a href="/tags/robot/" style="font-size: 12.73px; color: #d99b97">robot</a> <a href="/tags/robotics/" style="font-size: 13.64px; color: #d1a49f">robotics</a> <a href="/tags/ros/" style="font-size: 15.45px; color: #c0b5ae">ros</a> <a href="/tags/ros2/" style="font-size: 10.91px; color: #ea8a88">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/simulation/" style="font-size: 10.91px; color: #ea8a88">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10px; color: #f38181">thread</a> <a href="/tags/tools/" style="font-size: 19.09px; color: #9ed8cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.55px; color: #c8ada6">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a>
 </div>
 
 
