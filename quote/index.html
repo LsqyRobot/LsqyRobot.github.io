@@ -41,6 +41,7 @@
     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
+    <script src="/js/cursor-heart.js"></script>
 
 <meta name="generator" content="Hexo 7.3.0"></head>
 		
@@ -51,8 +52,99 @@
 <body class="is-loading">
     <div id="wrapper" class="fade-in">
         <header id="header">
-    <a href="/" class="logo">dots</a>
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
 </header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
 
         <nav id="nav" class="special" >
             <ul class="menu links" >
@@ -67,7 +159,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/CPP/">CPP</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a></li><li><a class="category-link" href="/categories/robotics/">robotics</a>
+	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/CPP/">CPP</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/ISAAC-LAB/">ISAAC LAB</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a></li><li><a class="category-link" href="/categories/robotics/">robotics</a>
 	                    </ul>
 	        </li>
 	        
@@ -210,9 +302,156 @@ var saying_list=[
 "Some people never worked a day in their life, don't know what work even means. --Bob Dylan",
 "I can see for myself that the sun is sinking. How I wish you were here to see. Tell me now, am I wrong in thinking. That you have forgotten me? --Bob Dylan",
 "生存是规则，而不是你的选择。--五月天",
+"少年易老学难成，一寸光阴不可轻。--朱熹",
+"问渠哪得清如许，为有源头活水来。--朱熹",
+"路漫漫其修远兮，吾将上下而求索。--屈原",
+"亦余心之所善兮，虽九死其犹未悔。--屈原",
+"长太息以掩涕兮，哀民生之多艰。--屈原",
+"老骥伏枥，志在千里；烈士暮年，壮心不已。--曹操",
+"山不厌高，海不厌深。周公吐哺，天下归心。--曹操",
+"青，取之于蓝，而青于蓝；冰，水为之，而寒于水。--荀子",
+"不积跬步，无以至千里；不积小流，无以成江海。--荀子",
+"临渊羡鱼，不如退而结网。--《汉书》",
+"若要功夫深，铁杵磨成针。--曹学佺",
+"宝剑锋从磨砺出，梅花香自苦寒来。--古诗",
+"天行健，君子以自强不息。地势坤，君子以厚德载物。--《易经》",
+"知己知彼，百战不殆。--孙子",
+"兵者，国之大事，死生之地，存亡之道，不可不察也。--孙子",
+"富贵不能淫，贫贱不能移，威武不能屈。--孟子",
+"生于忧患，死于安乐。--孟子",
+"民为贵，社稷次之，君为轻。--孟子",
+"学而时习之，不亦说乎？有朋自远方来，不亦乐乎？--孔子",
+"知之为知之，不知为不知，是知也。--孔子",
+"三人行，必有我师焉。择其善者而从之，其不善者而改之。--孔子",
+"己所不欲，勿施于人。--孔子",
+"见贤思齐焉，见不贤而内自省也。--孔子",
+"学而不思则罔，思而不学则殆。--孔子",
+"温故而知新，可以为师矣。--孔子",
+"The unexamined life is not worth living. --Socrates",
+"I know that I know nothing. --Socrates",
+"The only true wisdom is in knowing you know nothing. --Socrates",
+"Life must be understood backward. But it must be lived forward. --Kierkegaard",
+"The most painful thing is losing yourself in the process of loving someone too much, and forgetting that you are special too. --Ernest Hemingway",
+"There is nothing noble in being superior to your fellow man; true nobility is being superior to your former self. --Ernest Hemingway",
+"All good books are alike in that they are truer than if they had really happened. --Ernest Hemingway",
+"The world breaks everyone, and afterward, some are strong at the broken places. --Ernest Hemingway",
+"It is not the mountain we conquer but ourselves. --Sir Edmund Hillary",
+"The greatest glory in living lies not in never falling, but in rising every time we fall. --Nelson Mandela",
+"Education is the most powerful weapon which you can use to change the world. --Nelson Mandela",
+"It always seems impossible until it's done. --Nelson Mandela",
+"Be yourself; everyone else is already taken. --Oscar Wilde",
+"We are all in the gutter, but some of us are looking at the stars. --Oscar Wilde",
+"I can resist everything except temptation. --Oscar Wilde",
+"Experience is merely the name men gave to their mistakes. --Oscar Wilde",
+"Two things are infinite: the universe and human stupidity; and I'm not sure about the universe. --Albert Einstein",
+"Imagination is more important than knowledge. --Albert Einstein",
+"Try not to become a person of success, but rather try to become a person of value. --Albert Einstein",
+"The important thing is not to stop questioning. --Albert Einstein",
+"Life is what happens to you while you're busy making other plans. --John Lennon",
+"A dream you dream alone is only a dream. A dream you dream together is reality. --John Lennon",
+"Time you enjoy wasting is not wasted time. --John Lennon",
+"Yesterday is history, tomorrow is a mystery, today is a gift of God, which is why we call it the present. --Bill Keane",
+"The best time to plant a tree was 20 years ago. The second best time is now. --Chinese Proverb",
+"If you want to go fast, go alone. If you want to go far, go together. --African Proverb",
+"不经一番寒彻骨，怎得梅花扑鼻香。--黄蘖禅师",
+"落红不是无情物，化作春泥更护花。--龚自珍",
+"海纳百川，有容乃大；壁立千仞，无欲则刚。--林则徐",
+"苟利国家生死以，岂因祸福避趋之。--林则徐",
+"横眉冷对千夫指，俯首甘为孺子牛。--鲁迅",
+"时间就像海绵里的水，只要愿挤，总还是有的。--鲁迅",
+"真的猛士，敢于直面惨淡的人生，敢于正视淋漓的鲜血。--鲁迅",
+"世上本没有路，走的人多了，也便成了路。--鲁迅",
+"数风流人物，还看今朝。--毛泽东",
+"恰同学少年，风华正茂；书生意气，挥斥方遒。--毛泽东",
+"为有牺牲多壮志，敢教日月换新天。--毛泽东",
+"雄关漫道真如铁，而今迈步从头越。--毛泽东",
+"The way to get started is to quit talking and begin doing. --Walt Disney",
+"Innovation distinguishes between a leader and a follower. --Steve Jobs",
+"Stay hungry, stay foolish. --Steve Jobs",
+"The future belongs to those who believe in the beauty of their dreams. --Eleanor Roosevelt",
+"It is during our darkest moments that we must focus to see the light. --Aristotle",
+"Success is not final, failure is not fatal: it is the courage to continue that counts. --Winston Churchill",
+"The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty. --Winston Churchill",
+"We make a living by what we get, but we make a life by what we give. --Winston Churchill",
+"In the end, we will remember not the words of our enemies, but the silence of our friends. --Martin Luther King Jr.",
+"Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that. --Martin Luther King Jr.",
+"The time is always right to do what is right. --Martin Luther King Jr.",
+"If you can't fly then run, if you can't run then walk, if you can't walk then crawl, but whatever you do you have to keep moving forward. --Martin Luther King Jr.",
+"What does not kill me, makes me stronger. --Nietzsche",
+"He who has a why to live can bear almost any how. --Nietzsche",
+"God is dead. God remains dead. And we have killed him. --Nietzsche",
+"Without music, life would be a mistake. --Nietzsche",
+"That which is done out of love always takes place beyond good and evil. --Nietzsche",
+"The individual has always had to struggle not to be overwhelmed by the tribe. --Nietzsche",
+"In every real man a child is hidden that wants to play. --Nietzsche",
+"One must have chaos within oneself to give birth to a dancing star. --Nietzsche",
+"Battle not with monsters, lest ye become a monster, and if you gaze into the abyss, the abyss gazes also into you. --Nietzsche",
+"A casual stroll through the lunatic asylum shows that faith does not prove anything. --Nietzsche",
+"Whoever fights monsters should see to it that in the process he does not become a monster. --Nietzsche",
+"The man of knowledge must be able not only to love his enemies but also to hate his friends. --Nietzsche",
+"All things are subject to interpretation. Whichever interpretation prevails at a given time is a function of power and not truth. --Nietzsche",
+"A man's worth is measured by the extent to which he can bear loneliness. --Schopenhauer",
+"Every man takes the limits of his own field of vision for the limits of the world. --Schopenhauer",
+"The two enemies of human happiness are pain and boredom. --Schopenhauer",
+"All truth passes through three stages. First, it is ridiculed. Second, it is violently opposed. Third, it is accepted as being self-evident. --Schopenhauer",
+"A person can be himself only so long as he is alone. --Schopenhauer",
+"We forfeit three-fourths of ourselves in order to be like other people. --Schopenhauer",
+"Talent hits a target no one else can hit; genius hits a target no one else can see. --Schopenhauer",
+"The greatest of follies is to sacrifice health for any other kind of happiness. --Schopenhauer",
+"Compassion is the basis of morality. --Schopenhauer",
+"The wise have always said the same things, and fools, who are the majority, have always done just the opposite. --Schopenhauer",
+"Religion is the masterpiece of the art of animal training, for it trains people as to how they shall think. --Schopenhauer",
+"I think, therefore I am. --Descartes",
+"If you would be a real seeker after truth, it is necessary that at least once in your life you doubt, as far as possible, all things. --Descartes",
+"The reading of all good books is like a conversation with the finest minds of past centuries. --Descartes",
+"Divide each difficulty into as many parts as is feasible and necessary to resolve it. --Descartes",
+"Common sense is the most widely shared commodity in the world, for every man is convinced that he is well supplied with it. --Descartes",
+"Hell is other people. --Sartre",
+"Man is condemned to be free; because once thrown into the world, he is responsible for everything he does. --Sartre",
+"In freedom man loses all excuse. --Sartre",
+"Every existing thing is born without reason, prolongs itself out of weakness, and dies by chance. --Sartre",
+"If you're lonely when you're alone, you're in bad company. --Sartre",
+"Freedom is what you do with what's been done to you. --Sartre",
+"Three o'clock is always too late or too early for anything you want to do. --Sartre",
+"The existentialist says at once that man is anguish. --Sartre",
+"I rebel; therefore we exist. --Camus",
+"The struggle itself toward the heights is enough to fill a man's heart. --Camus",
+"There is but one truly serious philosophical problem, and that is suicide. --Camus",
+"In the midst of winter, I found there was, within me, an invincible summer. --Camus",
+"Don't walk behind me; I may not lead. Don't walk in front of me; I may not follow. Just walk beside me and be my friend. --Camus",
+"The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion. --Camus",
+"Real generosity toward the future lies in giving all to the present. --Camus",
+"You will never be happy if you continue to search for what happiness consists of. --Camus",
+"Man is the only creature who refuses to be what he is. --Camus",
+"The absurd is the essential concept and the first truth. --Camus",
+"We are what we repeatedly do. Excellence, then, is not an act, but a habit. --Aristotle",
+"Knowing yourself is the beginning of all wisdom. --Aristotle",
+"The whole is greater than the sum of its parts. --Aristotle",
+"Happiness depends upon ourselves. --Aristotle",
+"No great mind has ever existed without a touch of madness. --Aristotle",
+"Pleasure in the job puts perfection in the work. --Aristotle",
+"Educating the mind without educating the heart is no education at all. --Aristotle",
+"The roots of education are bitter, but the fruit is sweet. --Aristotle",
+"Hope is a waking dream. --Aristotle",
+"Quality is not an act, it is a habit. --Aristotle",
+"The only true wisdom is in knowing you know nothing. --Socrates",
+"An unexamined life is not worth living. --Socrates",
+"I cannot teach anybody anything. I can only make them think. --Socrates",
+"Wonder is the beginning of wisdom. --Socrates",
+"To find yourself, think for yourself. --Socrates",
+"Be kind, for everyone you meet is fighting a hard battle. --Plato",
+"Wise men speak because they have something to say; fools because they have to say something. --Plato",
+"The measure of a man is what he does with power. --Plato",
+"Courage is knowing what not to fear. --Plato",
+"Opinion is the medium between knowledge and ignorance. --Plato",
+"Music is a moral law. It gives soul to the universe, wings to the mind, flight to the imagination. --Plato",
+"The price good men pay for indifference to public affairs is to be ruled by evil men. --Plato",
+"At the touch of love everyone becomes a poet. --Plato",
+"We can easily forgive a child who is afraid of the dark; the real tragedy of life is when men are afraid of the light. --Plato",
+"Only the dead have seen the end of war. --Plato",
 ];
 function sayings(){
-return saying_list[Math.floor(Math.random()*50)]
+return saying_list[Math.floor(Math.random()*saying_list.length)]
 }
 
 
@@ -246,7 +485,7 @@ $("#saying").fadeIn();
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10px; color: #f38181">Git</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/KDL/" style="font-size: 10.91px; color: #ea8a88">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 10.91px; color: #ea8a88">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.73px; color: #d99b97">ROS</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10px; color: #f38181">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/control/" style="font-size: 13.64px; color: #d1a49f">control</a> <a href="/tags/cpp/" style="font-size: 17.27px; color: #afc7bd">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.45px; color: #c0b5ae">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.91px; color: #ea8a88">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.36px; color: #b7beb5">life</a> <a href="/tags/linux/" style="font-size: 18.18px; color: #a6d0c4">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 14.55px; color: #c8ada6">math</a> <a href="/tags/matlab/" style="font-size: 11.82px; color: #e29290">matlab</a> <a href="/tags/memory/" style="font-size: 14.55px; color: #c8ada6">memory</a> <a href="/tags/motor/" style="font-size: 10.91px; color: #ea8a88">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15.45px; color: #c0b5ae">python</a> <a href="/tags/robot/" style="font-size: 12.73px; color: #d99b97">robot</a> <a href="/tags/robotics/" style="font-size: 14.55px; color: #c8ada6">robotics</a> <a href="/tags/ros/" style="font-size: 15.45px; color: #c0b5ae">ros</a> <a href="/tags/ros2/" style="font-size: 11.82px; color: #e29290">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/simulation/" style="font-size: 10.91px; color: #ea8a88">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.91px; color: #ea8a88">thread</a> <a href="/tags/tools/" style="font-size: 19.09px; color: #9ed8cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.55px; color: #c8ada6">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a>
+    <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10px; color: #f38181">Git</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.91px; color: #ea8a88">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.91px; color: #ea8a88">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 10.91px; color: #ea8a88">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.91px; color: #ea8a88">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.73px; color: #d99b97">ROS</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10px; color: #f38181">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/control/" style="font-size: 13.64px; color: #d1a49f">control</a> <a href="/tags/cpp/" style="font-size: 17.27px; color: #afc7bd">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.45px; color: #c0b5ae">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.91px; color: #ea8a88">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.36px; color: #b7beb5">life</a> <a href="/tags/linux/" style="font-size: 18.18px; color: #a6d0c4">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 14.55px; color: #c8ada6">math</a> <a href="/tags/matlab/" style="font-size: 11.82px; color: #e29290">matlab</a> <a href="/tags/memory/" style="font-size: 14.55px; color: #c8ada6">memory</a> <a href="/tags/motor/" style="font-size: 10.91px; color: #ea8a88">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15.45px; color: #c0b5ae">python</a> <a href="/tags/robot/" style="font-size: 12.73px; color: #d99b97">robot</a> <a href="/tags/robotics/" style="font-size: 14.55px; color: #c8ada6">robotics</a> <a href="/tags/ros/" style="font-size: 15.45px; color: #c0b5ae">ros</a> <a href="/tags/ros2/" style="font-size: 11.82px; color: #e29290">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/simulation/" style="font-size: 10.91px; color: #ea8a88">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.91px; color: #ea8a88">thread</a> <a href="/tags/tools/" style="font-size: 19.09px; color: #9ed8cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.55px; color: #c8ada6">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.91px; color: #ea8a88">强化学习</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.91px; color: #ea8a88">配置类</a>
 </div>
 
 

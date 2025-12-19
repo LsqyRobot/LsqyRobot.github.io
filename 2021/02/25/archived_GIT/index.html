@@ -41,6 +41,7 @@
     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
+    <script src="/js/cursor-heart.js"></script>
 
 <meta name="generator" content="Hexo 7.3.0"></head>
 		
@@ -51,8 +52,99 @@
 <body class="is-loading">
     <div id="wrapper" class="fade-in">
         <header id="header">
-    <a href="/" class="logo">dots</a>
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
 </header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
 
         <nav id="nav" class="special" >
             <ul class="menu links" >
@@ -67,7 +159,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/CPP/">CPP</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a></li><li><a class="category-link" href="/categories/robotics/">robotics</a>
+	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/CPP/">CPP</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/ISAAC-LAB/">ISAAC LAB</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a></li><li><a class="category-link" href="/categories/robotics/">robotics</a>
 	                    </ul>
 	        </li>
 	        
@@ -214,6 +306,17 @@
 </ul>
 </li>
 <li><a href="#fatal-lf-would-be-replace-by-crlf">fatal: LF would be replace by CRLF</a></li>
+<li><a href="#下载大文件">下载大文件</a><ul>
+<li><a href="#使用-git-lfs-large-file-storage">使用 Git LFS (Large File Storage)</a></li>
+<li><a href="#安装-git-lfs-的方法">安装 Git LFS 的方法</a><ul>
+<li><a href="#linux-ubuntudebian">Linux (Ubuntu/Debian)</a></li>
+<li><a href="#macos-homebrew">macOS (Homebrew)</a></li>
+<li><a href="#windows">Windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#设置-git-的默认编辑器为-vim">设置 Git 的默认编辑器为 Vim</a></li>
 <li><a href="#参考">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
@@ -342,6 +445,16 @@
 <h1 id="fatal-LF-would-be-replace-by-CRLF"><a href="#fatal-LF-would-be-replace-by-CRLF" class="headerlink" title="fatal: LF would be replace by CRLF"></a>fatal: LF would be replace by CRLF</h1><p>这个问题会导致往仓库推的时候推不上去，解决办法如下，在shell中输入如下指令</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">git config --local core.<span class="built_in">auto</span>crlf <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 <p>可根据自己的需要，将<code>local</code>替换成<code>global</code>;</p>
+<h1 id="下载大文件"><a href="#下载大文件" class="headerlink" title="下载大文件"></a>下载大文件</h1><p>在 Git 里直接下载大文件通常会遇到限制（例如 GitHub 的单文件大小 100MB 上限，整个仓库 2GB 以上推送困难）</p>
+<h2 id="使用-Git-LFS-Large-File-Storage"><a href="#使用-Git-LFS-Large-File-Storage" class="headerlink" title="使用 Git LFS (Large File Storage)"></a>使用 Git LFS (Large File Storage)</h2><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"># 安装 Git <span class="keyword">LFS</span></span><br><span class="line">git <span class="keyword">lfs</span> install</span><br><span class="line"></span><br><span class="line"># 选择要用 <span class="keyword">LFS</span> 管理的文件类型（例如 .zip 或 .mp4）</span><br><span class="line">git <span class="keyword">lfs</span> track <span class="string">&quot;*.zip&quot;</span></span><br><span class="line"></span><br><span class="line"># 添加 .gitattributes 配置</span><br><span class="line">git <span class="keyword">add</span> .gitattributes</span><br><span class="line">git commit -m <span class="string">&quot;Track large files with Git LFS&quot;</span></span><br><span class="line"></span><br><span class="line"># 正常 <span class="keyword">add</span> + commit + <span class="keyword">push</span></span><br><span class="line">git <span class="keyword">add</span> large_file<span class="number">.</span>zip</span><br><span class="line">git commit -m <span class="string">&quot;Add large file&quot;</span></span><br><span class="line">git <span class="keyword">push</span> origin main</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载时，Git 会只拉取指针文件，LFS 会在后台同步大文件。</p>
+</blockquote>
+<h2 id="安装-Git-LFS-的方法"><a href="#安装-Git-LFS-的方法" class="headerlink" title="安装 Git LFS 的方法"></a>安装 Git LFS 的方法</h2><h3 id="Linux-Ubuntu-Debian"><a href="#Linux-Ubuntu-Debian" class="headerlink" title="Linux (Ubuntu/Debian)"></a>Linux (Ubuntu/Debian)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install git-lfs -y</span><br><span class="line">git lfs install</span><br></pre></td></tr></table></figure>
+<h3 id="macOS-Homebrew"><a href="#macOS-Homebrew" class="headerlink" title="macOS (Homebrew)"></a>macOS (Homebrew)</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">brew <span class="keyword">install</span> git-lfs</span><br><span class="line">git lfs <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>去 Git LFS 官方下载页面：<a target="_blank" rel="noopener" href="https://git-lfs.github.com/">https://git-lfs.github.com/</a></p>
+<p>下载 Git LFS installer for Windows，安装完成后重新打开终端。</p>
+<h1 id="设置-Git-的默认编辑器为-Vim"><a href="#设置-Git-的默认编辑器为-Vim" class="headerlink" title="设置 Git 的默认编辑器为 Vim"></a>设置 Git 的默认编辑器为 Vim</h1><figure class="highlight mel"><table><tr><td class="code"><pre><span class="line">git config --<span class="keyword">global</span> core.<span class="keyword">editor</span> <span class="string">&quot;vim&quot;</span></span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]《GitHub 入门》</p>
 <p>[2] <a target="_blank" rel="noopener" href="https://www.web3.xin/code/3055.html">web3</a></p>
 <p>[3] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/yanzige/p/9810333.html">GIT使用log命令显示中文乱码</a></p>
@@ -356,7 +469,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10px; color: #f38181">Git</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/KDL/" style="font-size: 10.91px; color: #ea8a88">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 10.91px; color: #ea8a88">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.73px; color: #d99b97">ROS</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10px; color: #f38181">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/control/" style="font-size: 13.64px; color: #d1a49f">control</a> <a href="/tags/cpp/" style="font-size: 17.27px; color: #afc7bd">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.45px; color: #c0b5ae">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.91px; color: #ea8a88">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.36px; color: #b7beb5">life</a> <a href="/tags/linux/" style="font-size: 18.18px; color: #a6d0c4">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 14.55px; color: #c8ada6">math</a> <a href="/tags/matlab/" style="font-size: 11.82px; color: #e29290">matlab</a> <a href="/tags/memory/" style="font-size: 14.55px; color: #c8ada6">memory</a> <a href="/tags/motor/" style="font-size: 10.91px; color: #ea8a88">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15.45px; color: #c0b5ae">python</a> <a href="/tags/robot/" style="font-size: 12.73px; color: #d99b97">robot</a> <a href="/tags/robotics/" style="font-size: 14.55px; color: #c8ada6">robotics</a> <a href="/tags/ros/" style="font-size: 15.45px; color: #c0b5ae">ros</a> <a href="/tags/ros2/" style="font-size: 11.82px; color: #e29290">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/simulation/" style="font-size: 10.91px; color: #ea8a88">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.91px; color: #ea8a88">thread</a> <a href="/tags/tools/" style="font-size: 19.09px; color: #9ed8cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.55px; color: #c8ada6">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a>
+    <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10px; color: #f38181">Git</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.91px; color: #ea8a88">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.91px; color: #ea8a88">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 10.91px; color: #ea8a88">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.91px; color: #ea8a88">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.73px; color: #d99b97">ROS</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10px; color: #f38181">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/control/" style="font-size: 13.64px; color: #d1a49f">control</a> <a href="/tags/cpp/" style="font-size: 17.27px; color: #afc7bd">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.45px; color: #c0b5ae">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.91px; color: #ea8a88">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.36px; color: #b7beb5">life</a> <a href="/tags/linux/" style="font-size: 18.18px; color: #a6d0c4">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 14.55px; color: #c8ada6">math</a> <a href="/tags/matlab/" style="font-size: 11.82px; color: #e29290">matlab</a> <a href="/tags/memory/" style="font-size: 14.55px; color: #c8ada6">memory</a> <a href="/tags/motor/" style="font-size: 10.91px; color: #ea8a88">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15.45px; color: #c0b5ae">python</a> <a href="/tags/robot/" style="font-size: 12.73px; color: #d99b97">robot</a> <a href="/tags/robotics/" style="font-size: 14.55px; color: #c8ada6">robotics</a> <a href="/tags/ros/" style="font-size: 15.45px; color: #c0b5ae">ros</a> <a href="/tags/ros2/" style="font-size: 11.82px; color: #e29290">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/simulation/" style="font-size: 10.91px; color: #ea8a88">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.91px; color: #ea8a88">thread</a> <a href="/tags/tools/" style="font-size: 19.09px; color: #9ed8cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.55px; color: #c8ada6">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.91px; color: #ea8a88">强化学习</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.91px; color: #ea8a88">配置类</a>
 </div>
 
 

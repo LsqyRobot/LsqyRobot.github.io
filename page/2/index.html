@@ -41,6 +41,7 @@
     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
+    <script src="/js/cursor-heart.js"></script>
 
 <meta name="generator" content="Hexo 7.3.0"></head>
 		<body class="is-loading">
@@ -55,8 +56,99 @@
         </div>
 
         <header id="header">
-    <a href="/" class="logo">dots</a>
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
 </header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
 
         <nav id="nav" class="special" >
             <ul class="menu links" >
@@ -71,7 +163,7 @@
 	            <a href="#s1"><img src="/img/folder.png"></a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/CPP/">CPP</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a></li><li><a class="category-link" href="/categories/robotics/">robotics</a>
+	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/CPP/">CPP</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/ISAAC-LAB/">ISAAC LAB</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a></li><li><a class="category-link" href="/categories/robotics/">robotics</a>
 	                    </ul>
 	        </li>
 	        
@@ -138,6 +230,52 @@
         <section class="link_container" style="margin-top: 0; background-color: transparent; ">
             <div class="link_row">
                 
+                <div class="6u 12u(narrower)">
+                    <section class="link_box special">
+                       <a href="/2024/12/31/archived_2024_summary_2025_plan/">
+                        <div class="page_title" style="background-image: url(/img/postImg/44_yearPlan/2025Plan/new-york-city-brooklyn-bridge-night-skyline-preview_used.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;">
+                            <h2 class="page_title_text"> 2024年总结与展望 </h2>
+                        </div>
+                        </a>
+                        <div class="home-post-info">
+                            <div class="home-post-info-author-avatar">
+                                <h6><span class="home-post-info-data">2024-12-31</span></h6>
+                                <div class="home-post-info-Category">
+                                    <span>
+                            <h6>
+                            <a class="post_category-link" target="_blank" rel="noopener" href="http://localhost:4000/categories/Algorithm/">
+                                <a class="post_category-link" href="/categories/LIFE/">LIFE</a></a>
+                            </h6>
+                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            
+                <div class="6u 12u(narrower)">
+                    <section class="link_box special">
+                       <a href="/2024/12/15/archived_optimal_%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">
+                        <div class="page_title" style="background-image: url(/img/postImg/16_Algorithm/logo/ladybugs-ladybirds-bugs-insects-preview_used.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;">
+                            <h2 class="page_title_text"> 常见的优化算法 </h2>
+                        </div>
+                        </a>
+                        <div class="home-post-info">
+                            <div class="home-post-info-author-avatar">
+                                <h6><span class="home-post-info-data">2024-12-15</span></h6>
+                                <div class="home-post-info-Category">
+                                    <span>
+                            <h6>
+                            <a class="post_category-link" target="_blank" rel="noopener" href="http://localhost:4000/categories/Algorithm/">
+                                <a class="post_category-link" href="/categories/ALGORITHM/">ALGORITHM</a></a>
+                            </h6>
+                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            
                 <div class="6u 12u(narrower)">
                     <section class="link_box special">
                        <a href="/2024/12/12/archived_robot_calib_%E6%9C%BA%E6%A2%B0%E8%87%82%E4%B8%8E%E7%9B%B8%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E6%A0%87%E5%AE%9A/">
@@ -230,52 +368,6 @@
                     </section>
                 </div>
             
-                <div class="6u 12u(narrower)">
-                    <section class="link_box special">
-                       <a href="/2024/08/16/archived_KDL%E7%9B%B8%E5%85%B3/">
-                        <div class="page_title" style="background-image: url(/img/postImg/1_ros/logo/a-book-2134779_1280_used.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;">
-                            <h2 class="page_title_text"> KDL 基本数据结构与设计思想 </h2>
-                        </div>
-                        </a>
-                        <div class="home-post-info">
-                            <div class="home-post-info-author-avatar">
-                                <h6><span class="home-post-info-data">2024-08-16</span></h6>
-                                <div class="home-post-info-Category">
-                                    <span>
-                            <h6>
-                            <a class="post_category-link" target="_blank" rel="noopener" href="http://localhost:4000/categories/Algorithm/">
-                                <a class="post_category-link" href="/categories/robotics/">robotics</a></a>
-                            </h6>
-                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            
-                <div class="6u 12u(narrower)">
-                    <section class="link_box special">
-                       <a href="/2024/08/15/archived_cpp_C++%E7%B1%BB%E6%88%90%E5%91%98%E4%B8%BA%E5%B8%A6%E5%8F%82%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/">
-                        <div class="page_title" style="background-image: url(/img/postImg/18_CPP/logo/flowers-5548043_1280_used.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;">
-                            <h2 class="page_title_text"> 类成员变量为类的带参构造函数 </h2>
-                        </div>
-                        </a>
-                        <div class="home-post-info">
-                            <div class="home-post-info-author-avatar">
-                                <h6><span class="home-post-info-data">2024-08-15</span></h6>
-                                <div class="home-post-info-Category">
-                                    <span>
-                            <h6>
-                            <a class="post_category-link" target="_blank" rel="noopener" href="http://localhost:4000/categories/Algorithm/">
-                                <a class="post_category-link" href="/categories/C/">C++</a></a>
-                            </h6>
-                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            
             </div>
         </section>
         </div>
@@ -290,7 +382,7 @@
 
                 <div id="copyright">
             <ul>
-                <li>&copy;lsqyRobot, 最后修改于2025年9月2号, 加入了git多条历史提交信息合并成一条，未来将会持续更新学习内容；</li>
+                <li>&copy;lsqyRobot, 最后修改于2025年9月29号, 增加了线程绑核的操作；</li>
             </ul>
         </div>
 
