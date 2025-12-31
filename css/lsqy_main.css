@@ -4353,16 +4353,70 @@
 	.post-content {
 		font-family: FZLT;
 	}
-	.post-content li{
+	.post-content ul li{
 		list-style-type:none;
 		margin:0;
 		padding:0;
 		list-style:none;
 		text-align:left;
 	}
+
+	/* 确保有序列表正确显示数字 */
+	.post-content ol li{
+		list-style-type: decimal !important;
+		list-style: decimal !important;
+		margin: 0.5rem 0;
+		padding: 0;
+		text-align: left;
+		display: list-item !important;
+	}
 	.post-content ul{
 		margin-top: 1rem;
 		line-height:20px;
+	}
+
+	/* 确保有序列表容器样式 */
+	.post-content ol{
+		list-style-type: decimal !important;
+		list-style: decimal !important;
+		margin: 1rem 0 2rem 0;
+		padding-left: 2rem;
+		line-height: 2.2rem;
+	}
+
+	/* 更强的有序列表修复 - 覆盖typo.css中的冲突样式 */
+	.typo ol,
+	.typo-ol,
+	.post-content ol,
+	div.typo ol {
+		list-style-type: decimal !important;
+		list-style: decimal !important;
+		margin: 1rem 0 2rem 0;
+		padding-left: 2rem;
+		line-height: 2.2rem;
+	}
+
+	/* 更强的有序列表项修复 - 覆盖全局li样式 */
+	.typo ol li,
+	.typo-ol li,
+	.post-content ol li,
+	div.typo ol li,
+	ol li {
+		list-style-type: decimal !important;
+		list-style: decimal !important;
+		display: list-item !important;
+		margin: 0.5rem 0 !important;
+		padding: 0 !important;
+		text-align: left;
+	}
+
+	/* 确保嵌套列表也能正确显示 */
+	.typo li ol li,
+	.post-content li ol li,
+	div.typo li ol li {
+		list-style-type: decimal !important;
+		list-style: decimal !important;
+		display: list-item !important;
 	}
 	.post-content ul > li{
 		font-size: 1.5rem;
@@ -5360,4 +5414,161 @@ code[class*="language-"],
 pre[class*="language-"] {
     color: #e8eaf6;
     white-space: pre-wrap !important;
+}
+
+/* ========== 现代化表格样式 ========== */
+
+/* 基础表格样式 */
+.post-content table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1.5rem 0 2.5rem 0;
+	font-family: "Source Sans Pro", Helvetica, sans-serif;
+	font-size: 0.9rem;
+	line-height: 1.6;
+	background: #fff;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+/* 表格头部样式 */
+.post-content table thead {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: #fff;
+}
+
+.post-content table thead th {
+	padding: 1rem 1.5rem;
+	font-weight: 600;
+	text-align: left;
+	font-size: 0.85rem;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	border-bottom: none;
+}
+
+/* 表格主体样式 */
+.post-content table tbody tr {
+	border-bottom: 1px solid #f1f3f4;
+	transition: all 0.3s ease;
+}
+
+.post-content table tbody tr:nth-child(even) {
+	background-color: #fafbfc;
+}
+
+.post-content table tbody tr:hover {
+	background-color: #e8f4fd;
+	transform: scale(1.002);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.post-content table tbody td {
+	padding: 1rem 1.5rem;
+	color: #2c3e50;
+	border-bottom: none;
+	vertical-align: top;
+}
+
+/* 第一列加粗 */
+.post-content table tbody td:first-child {
+	font-weight: 600;
+	color: #34495e;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+	.post-content table {
+		font-size: 0.8rem;
+		margin: 1rem 0 2rem 0;
+	}
+
+	.post-content table thead th,
+	.post-content table tbody td {
+		padding: 0.75rem 1rem;
+	}
+
+	.post-content table thead th {
+		font-size: 0.75rem;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.post-content table {
+		font-size: 0.75rem;
+		display: block;
+		overflow-x: auto;
+		white-space: nowrap;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.post-content table thead th,
+	.post-content table tbody td {
+		padding: 0.6rem 0.8rem;
+		min-width: 120px;
+	}
+}
+
+/* 特殊表格样式变体 */
+.post-content table.minimal {
+	box-shadow: none;
+	border-radius: 0;
+}
+
+.post-content table.minimal thead {
+	background: #f8f9fa;
+	color: #495057;
+}
+
+.post-content table.minimal thead th {
+	border-bottom: 2px solid #dee2e6;
+	font-weight: 700;
+}
+
+.post-content table.bordered {
+	border: 1px solid #dee2e6;
+}
+
+.post-content table.bordered thead th,
+.post-content table.bordered tbody td {
+	border-right: 1px solid #dee2e6;
+}
+
+.post-content table.bordered thead th:last-child,
+.post-content table.bordered tbody td:last-child {
+	border-right: none;
+}
+
+/* ========== 强制应用有序列表样式 ========== */
+
+/* 确保有序列表显示数字 */
+.post-content ol {
+	list-style: decimal !important;
+	list-style-type: decimal !important;
+	margin: 1rem 0 2rem 0 !important;
+	padding-left: 2rem !important;
+}
+
+.post-content ol li {
+	list-style: decimal !important;
+	list-style-type: decimal !important;
+	padding-left: 0.5rem !important;
+	margin: 0.5rem 0 !important;
+	display: list-item !important;
+}
+
+/* 确保嵌套有序列表也正确显示 */
+.post-content ol ol {
+	list-style: lower-alpha !important;
+	margin: 0.5rem 0 0.5rem 1rem !important;
+}
+
+.post-content ol ol ol {
+	list-style: lower-roman !important;
+}
+
+/* 覆盖任何可能的重置样式 */
+.post-content ol, .post-content ol li {
+	list-style-position: outside !important;
 }
