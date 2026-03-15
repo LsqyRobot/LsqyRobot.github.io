@@ -36,12 +36,13 @@ var searchFunc = function(path, search_id, content_id) {
             var $input = document.getElementById(search_id);
 			if (!$input) return;
             var $resultContent = document.getElementById(content_id);
-            if ($("#local-search-input").length > 0) {
-                $input.addEventListener('input', function () {
+            if ($input) {
+                var performSearch = function () {
+                    var inputValue = $input.value;
                     var str = '<ul class=\"search-result-list\">';
-                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    var keywords = inputValue.trim().toLowerCase().split(/[\s\-]+/);
                     $resultContent.innerHTML = "";
-                    if (this.value.trim().length <= 0) {
+                    if (inputValue.trim().length <= 0) {
                         return;
                     }
                     // perform local searching
@@ -114,6 +115,14 @@ var searchFunc = function(path, search_id, content_id) {
                     });
                     str += "</ul>";
                     $resultContent.innerHTML = str;
+                };
+
+                // Bind events
+                $input.addEventListener('input', performSearch);
+                $input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
                 });
             }
         }
