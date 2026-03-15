@@ -395,6 +395,35 @@
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var headings = Array.from(
+                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                    );
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
                     var images = document.querySelectorAll('.typo img');
 
                     images.forEach(function (img) {

@@ -230,7 +230,54 @@
             </div>
 
             <div class="typo" style="padding: 3rem;">
-                <h1 id="Git功能分支代码差异比较完全指南"><a href="#Git功能分支代码差异比较完全指南" class="headerlink" title="Git功能分支代码差异比较完全指南"></a>Git功能分支代码差异比较完全指南</h1><h2 id="核心命令速查"><a href="#核心命令速查" class="headerlink" title="核心命令速查"></a>核心命令速查</h2><h3 id="1-直接比较两个分支"><a href="#1-直接比较两个分支" class="headerlink" title="1. 直接比较两个分支"></a>1. 直接比较两个分支</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较两个分支的所有差异</span></span><br><span class="line">git diff feature-branch-a feature-branch-b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较特定文件在两个分支中的差异</span></span><br><span class="line">git diff feature-branch-a feature-branch-b -- path/to/file.js</span><br></pre></td></tr></table></figure>
+                <!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#git功能分支代码差异比较完全指南">Git功能分支代码差异比较完全指南</a><ul>
+<li><a href="#核心命令速查">核心命令速查</a><ul>
+<li><a href="#1-直接比较两个分支">1. 直接比较两个分支</a></li>
+<li><a href="#2-比较分支与共同祖先">2. 比较分支与共同祖先</a></li>
+<li><a href="#3-查看提交历史差异">3. 查看提交历史差异</a></li>
+<li><a href="#4-详细差异分析">4. 详细差异分析</a></li>
+<li><a href="#5-使用commit-id进行比较">5. 使用Commit ID进行比较</a></li>
+<li><a href="#6-commit-id相关的实用技巧">6. Commit ID相关的实用技巧</a></li>
+</ul>
+</li>
+<li><a href="#实际使用场景">实际使用场景</a><ul>
+<li><a href="#场景1code-review前的自检">场景1：Code Review前的自检</a></li>
+<li><a href="#场景2比较不同功能分支的实现方案">场景2：比较不同功能分支的实现方案</a></li>
+<li><a href="#场景3合并冲突预检查">场景3：合并冲突预检查</a></li>
+<li><a href="#场景4版本回滚和历史分析">场景4：版本回滚和历史分析</a></li>
+<li><a href="#场景5cherry-pick前的预览">场景5：Cherry-pick前的预览</a></li>
+</ul>
+</li>
+<li><a href="#语法解释">语法解释</a><ul>
+<li><a href="#两点-vs-三点语法">两点 vs 三点语法</a></li>
+<li><a href="#提交范围语法">提交范围语法</a></li>
+</ul>
+</li>
+<li><a href="#高级技巧">高级技巧</a><ul>
+<li><a href="#1-创建差异补丁">1. 创建差异补丁</a></li>
+<li><a href="#2-可视化工具">2. 可视化工具</a></li>
+<li><a href="#3-忽略特定类型的差异">3. 忽略特定类型的差异</a></li>
+</ul>
+</li>
+<li><a href="#常见陷阱与注意事项">常见陷阱与注意事项</a><ul>
+<li><a href="#-常见错误">⚠️ 常见错误</a></li>
+<li><a href="#-最佳实践">🔧 最佳实践</a></li>
+<li><a href="#-别名推荐">📝 别名推荐</a></li>
+</ul>
+</li>
+<li><a href="#总结">总结</a><ul>
+<li><a href="#分支比较">分支比较</a></li>
+<li><a href="#commit-id比较">Commit ID比较</a></li>
+<li><a href="#快速查找commit-id">快速查找Commit ID</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- vim-markdown-toc -->
+<h1 id="Git功能分支代码差异比较完全指南"><a href="#Git功能分支代码差异比较完全指南" class="headerlink" title="Git功能分支代码差异比较完全指南"></a>Git功能分支代码差异比较完全指南</h1><h2 id="核心命令速查"><a href="#核心命令速查" class="headerlink" title="核心命令速查"></a>核心命令速查</h2><h3 id="1-直接比较两个分支"><a href="#1-直接比较两个分支" class="headerlink" title="1. 直接比较两个分支"></a>1. 直接比较两个分支</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较两个分支的所有差异</span></span><br><span class="line">git diff feature-branch-a feature-branch-b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较特定文件在两个分支中的差异</span></span><br><span class="line">git diff feature-branch-a feature-branch-b -- path/to/file.js</span><br></pre></td></tr></table></figure>
 <h3 id="2-比较分支与共同祖先"><a href="#2-比较分支与共同祖先" class="headerlink" title="2. 比较分支与共同祖先"></a>2. 比较分支与共同祖先</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看feature-branch相对于master的变化（三点语法）</span></span><br><span class="line">git diff master...feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价于下面的命令组合</span></span><br><span class="line">git diff $(git merge-base master feature-branch) feature-branch</span><br></pre></td></tr></table></figure>
 <h3 id="3-查看提交历史差异"><a href="#3-查看提交历史差异" class="headerlink" title="3. 查看提交历史差异"></a>3. 查看提交历史差异</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看在feature-branch中但不在master中的提交</span></span><br><span class="line">git <span class="built_in">log</span> master..feature-branch --oneline</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看两个分支的图形化提交历史</span></span><br><span class="line">git <span class="built_in">log</span> --oneline --graph --decorate master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看分支分歧点</span></span><br><span class="line">git merge-base master feature-branch</span><br></pre></td></tr></table></figure>
 <h3 id="4-详细差异分析"><a href="#4-详细差异分析" class="headerlink" title="4. 详细差异分析"></a>4. 详细差异分析</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 显示文件统计信息</span></span><br><span class="line">git diff --<span class="built_in">stat</span> master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示每个文件的修改行数</span></span><br><span class="line">git diff --numstat master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只显示文件名列表</span></span><br><span class="line">git diff --name-only master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示新增、删除、修改的文件分类</span></span><br><span class="line">git diff --name-status master feature-branch</span><br></pre></td></tr></table></figure>
@@ -299,6 +346,35 @@
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var headings = Array.from(
+                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                    );
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
                     var images = document.querySelectorAll('.typo img');
 
                     images.forEach(function (img) {
