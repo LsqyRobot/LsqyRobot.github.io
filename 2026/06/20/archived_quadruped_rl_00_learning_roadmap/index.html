@@ -227,7 +227,7 @@
             <div class ="post_page_title_img" style="--post-cover-image: url(/img/postImg/49_quadruped_rl/quadruped_rl_series_map.svg);" >
                 <div class="post_page_title_blur"></div>
                 <div class="post_page_title_main"></div>
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >四足机器人强化学习系列 00：这套课应该怎么学</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >四足机器人强化学习系列 00：为什么从 ETH/ANYmal 讲起，以及这套课怎么学</h2></a>
             </div>
 
             <div class="post-content-shell">
@@ -240,192 +240,256 @@
                 </aside>
 
                 <div class="typo post-article-content" style="padding: 3rem;">
-                    <h1>写在前面：这套系列解决什么问题</h1>
-<p>我想系统学习四足机器人里的强化学习，但如果直接从强化学习教材开始，很容易遇到两个问题：</p>
+                    <h1>写在前面：为什么这套系列要从 ETH / ANYmal 讲起</h1>
+<p>如果想系统学习“四足机器人强化学习”，我觉得不能一上来就讲 PPO 公式，也不能一上来就讲代码怎么跑。更好的起点是先回答一个问题：</p>
+<p><strong>为什么最近这些年，四足机器人运动控制会越来越多地往强化学习这条路线靠？</strong></p>
+<p>这个问题背后有一条非常重要的线索：ETH Zürich 的 Robotic Systems Lab，也就是经常和 ANYmal 机器人一起出现的那支团队。</p>
+<p>当然，强化学习用于机器人控制不是 ETH 第一个想到的，四足机器人也不是只有 ANYmal 一条路线。但如果从“现代四足机器人运动控制工程化”的角度看，ETH / RSL / ANYmal 这条线非常有代表性：</p>
+<ul>
+<li>他们不是只在仿真里演示策略，而是持续把学习控制迁移到真实四足机器人上。</li>
+<li>他们的研究围绕真实机器人运动能力展开：动态步态、复杂地形、鲁棒性、Sim2Real。</li>
+<li>他们后续开源的 legged_gym / rsl_rl，让很多人第一次能比较系统地复现四足 RL locomotion。</li>
+<li>他们把 GPU 并行仿真、PPO、奖励函数、课程学习、域随机化这些要素组合成了一套相对清晰的工程路线。</li>
+</ul>
+<p>所以这套系列的 00 篇，应该先把这条脉络讲清楚：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">传统控制能做什么</span><br><span class="line">        ↓</span><br><span class="line">为什么复杂地形和动态运动会变难</span><br><span class="line">        ↓</span><br><span class="line">ETH / ANYmal 为什么开始系统推进 learning-based locomotion</span><br><span class="line">        ↓</span><br><span class="line">PPO + GPU 并行仿真 + Sim2Real 为什么成为常见组合</span><br><span class="line">        ↓</span><br><span class="line">我们学习时应该按什么顺序切入</span><br></pre></td></tr></table></figure>
+<p>这才是一个合适的前言。</p>
+<h1>一句话结论</h1>
+<p><strong>四足机器人强化学习不是为了替代所有传统控制，而是为了在复杂接触、复杂地形、扰动和高维动作空间里，用仿真中的大规模试错学出更灵活的运动策略；ETH / ANYmal 这条线把这件事从“论文演示”往“可复现工程路线”推进了一大步。</strong></p>
+<p>这句话里有几个关键词：</p>
+<ul>
+<li>复杂接触。</li>
+<li>高维动作空间。</li>
+<li>大规模仿真试错。</li>
+<li>可迁移到真实机器人。</li>
+<li>可复现工程路线。</li>
+</ul>
+<p>后面的系列基本都围绕这些词展开。</p>
+<h1>传统四足控制已经很强，为什么还需要强化学习</h1>
+<p>学习强化学习之前，最好先尊重传统控制。</p>
+<p>四足机器人不是有了 RL 才会走路。很长一段时间里，四足运动控制主要依赖模型、规划和控制方法，比如：</p>
+<ul>
+<li>步态规划。</li>
+<li>足端轨迹规划。</li>
+<li>质心动力学模型。</li>
+<li>MPC，Model Predictive Control。</li>
+<li>WBC，Whole-Body Control。</li>
+<li>状态估计。</li>
+<li>接触力分配。</li>
+<li>关节空间 PD / 力矩控制。</li>
+</ul>
+<p>这些方法非常重要，而且今天仍然重要。</p>
+<p>传统方法的优势是：</p>
 <ol>
-<li>教材里的例子往往是 GridWorld、CartPole、Atari，和四足机器人距离比较远。</li>
-<li>直接看四足论文和开源代码，又会被 PPO、reward、domain randomization、PD control、Sim2Real、privileged observation 等词淹没。</li>
+<li>可解释性强。</li>
+<li>稳定性和约束可以更明确地分析。</li>
+<li>对工程安全更友好。</li>
+<li>在结构化任务里表现很好。</li>
 </ol>
-<p>所以这套系列的目标不是把所有强化学习理论都讲完，而是围绕一个非常具体的方向：</p>
-<p><strong>如何理解、复现、修改四足机器人运动控制中的强化学习训练流程。</strong></p>
-<p>换句话说，我们关心的问题是：</p>
+<p>但四足机器人一旦进入复杂场景，问题会迅速变难。</p>
+<p>比如：</p>
 <ul>
-<li>四足机器人强化学习到底在学什么？</li>
-<li>策略网络输入什么，输出什么？</li>
-<li>为什么常见算法是 PPO？</li>
-<li>reward 为什么这么重要？</li>
-<li>仿真里训练出来的策略为什么不能直接上真机？</li>
-<li>如果我要读 legged_gym / rsl_rl / Isaac Lab 这类工程，应该先看哪里？</li>
-<li>如果我要自己做一个小实验，应该怎么安排？</li>
+<li>地面不是平的，有石头、台阶、斜坡、软地面。</li>
+<li>接触会频繁切换，脚什么时候接触、什么时候打滑很难精确建模。</li>
+<li>机器人要同时保持身体平衡、跟踪速度、控制能耗、避免脚滑。</li>
+<li>外界可能推它，传感器有噪声，电机也有延迟。</li>
+<li>不同机器人、不同地面、不同负载都会改变动力学。</li>
 </ul>
-<p>这篇是第 00 篇，相当于课程路线图。</p>
-<h1>先给一句话结论</h1>
-<p><strong>学习四足机器人强化学习，最合适的顺序不是先啃 PPO 公式，而是先建立“机器人观测—策略输出—仿真执行—奖励反馈—策略更新—真机迁移”的工程闭环。</strong></p>
-<p>也就是说，我们要先知道整个系统怎么转起来，再逐步深入每一块。</p>
-<h1>为什么不能只学泛强化学习</h1>
-<p>泛强化学习当然重要，但四足机器人有自己的特殊性。</p>
-<p>普通强化学习教程里经常会讲：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">agent 观察 state</span><br><span class="line">agent 选择 action</span><br><span class="line">environment 返回 reward 和 next state</span><br></pre></td></tr></table></figure>
-<p>这个抽象没有错，但放到四足机器人里，很多细节会突然变得非常具体：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">state / observation 是 IMU、关节角、关节速度、速度命令、上一帧动作</span><br><span class="line"></span><br><span class="line">action 可能是 12 个关节的位置目标偏移</span><br><span class="line"></span><br><span class="line">reward 可能由速度跟踪、姿态稳定、能耗、动作平滑、脚滑、碰撞等十几项组成</span><br><span class="line"></span><br><span class="line">environment 是一个带接触动力学的 GPU 并行仿真器</span><br><span class="line"></span><br><span class="line">policy 最后要尽量安全地部署到真实机器人</span><br></pre></td></tr></table></figure>
-<p>这里面每一项都能单独展开。</p>
-<p>因此如果只学通用 RL 理论，可能知道 policy gradient，但不知道 action scale 为什么会让机器人摔倒；知道 PPO clipping，但不知道 reward 里 torque penalty 太大会让机器人不愿意走；知道 domain randomization，但不知道真实机器人里 obs 顺序错了会直接炸。</p>
-<p>四足 RL 的学习，必须同时有算法视角和工程视角。</p>
+<p>这时候，如果完全依赖人手工写规则，工作量会非常大，而且策略可能不够灵活。</p>
+<p>强化学习的吸引力就在这里：</p>
+<p><strong>它允许机器人在仿真里大量试错，让策略自己从奖励中学出动作模式。</strong></p>
+<h1>ETH / ANYmal 这条线为什么关键</h1>
+<p>ETH Zürich 的 Robotic Systems Lab 长期研究腿足机器人，ANYmal 是其中非常有代表性的四足平台。</p>
+<p>早期很多 RL 控制研究只在仿真里展示，真正上实机很难。难点主要有：</p>
+<ul>
+<li>真机试错成本高。</li>
+<li>摔倒会损坏机器人。</li>
+<li>训练需要大量交互数据。</li>
+<li>仿真和真实世界差异很大。</li>
+<li>高维连续控制很难稳定训练。</li>
+</ul>
+<p>ETH / RSL 这条线的重要之处在于，他们不断把学习策略往真实机器人上推，并且把“如何训练、如何迁移、如何让策略鲁棒”这件事做成了一条越来越清楚的路线。</p>
+<p>几个关键节点可以这样理解。</p>
+<h2 id="1-2019-左右：ANYmal-实机动态运动技能">1. 2019 左右：ANYmal 实机动态运动技能</h2>
+<p>公开论文《Learning agile and dynamic motor skills for legged robots》展示了通过强化学习训练腿足机器人动态运动技能，并部署到真实系统上的思路。</p>
+<p>这类工作的重要意义不是“机器人会做某个炫酷动作”，而是证明了一件事：</p>
+<p><strong>学习出来的低层运动策略，不一定只能停留在仿真里，它可以通过合理训练和迁移进入真实四足机器人。</strong></p>
+<p>这对整个方向很重要。</p>
+<p>因为四足机器人最难的地方不是仿真视频好看，而是真机能不能稳定、鲁棒、安全地执行。</p>
+<h2 id="2-2020-左右：复杂地形上的学习运动">2. 2020 左右：复杂地形上的学习运动</h2>
+<p>后续 ANYmal 相关工作进一步面向复杂地形 locomotion。</p>
+<p>这让大家看到，强化学习不只是能学平地走路，也可以和地形感知、鲁棒控制结合，处理更复杂的真实环境。</p>
+<p>这里的核心变化是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">从“学一个步态”</span><br><span class="line">变成</span><br><span class="line">“学一个在复杂场景中可用的运动策略”</span><br></pre></td></tr></table></figure>
+<p>这也是四足机器人真正走向应用时必须面对的问题。</p>
+<h2 id="3-2021：Learning-to-Walk-in-Minutes-和-legged-gym">3. 2021：Learning to Walk in Minutes 和 legged_gym</h2>
+<p>对很多学习者来说，最关键的节点是 2021 年 CoRL 的工作：</p>
+<p><strong>Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning</strong></p>
+<p>这项工作来自 Robotic Systems Lab, ETH Zurich &amp; NVIDIA。公开页面和 arXiv 摘要里提到，他们使用单工作站 GPU 上的大规模并行仿真训练真实机器人任务；在 ANYmal 上，平地策略可以在数分钟内训练出来，复杂地形也可以在较短时间内训练，并且迁移到真实 ANYmal C 上验证。</p>
+<p>更关键的是：他们开源了训练代码 legged_gym。</p>
+<p>这对学习者影响非常大。</p>
+<p>因为在这之前，你可能只能看论文描述：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">我们训练了 PPO policy</span><br><span class="line">我们做了 domain randomization</span><br><span class="line">我们迁移到了真机</span><br></pre></td></tr></table></figure>
+<p>但有了 legged_gym / rsl_rl，你可以真正看到：</p>
+<ul>
+<li>observation 怎么拼。</li>
+<li>action 怎么映射到关节目标。</li>
+<li>reward 每一项怎么写。</li>
+<li>reset 条件怎么判断。</li>
+<li>terrain curriculum 怎么组织。</li>
+<li>PPO runner 怎么采样和更新。</li>
+<li>日志怎么记录。</li>
+</ul>
+<p>这就是从“看热闹”到“能复现”的区别。</p>
+<h1>为什么 GPU 并行仿真改变了四足 RL</h1>
+<p>强化学习需要大量试错。</p>
+<p>如果只有一个机器人环境，训练会非常慢。</p>
+<p>但是 Isaac Gym 这类 GPU 并行仿真让事情发生变化：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">不是一个机器人慢慢试</span><br><span class="line">而是几千个机器人同时在仿真里试</span><br></pre></td></tr></table></figure>
+<p>比如一个训练任务可以同时跑几千个 env，每个 env 是一个机器人副本。每一步都收集大量数据，然后用 PPO 更新策略。</p>
+<p>这个模式让四足机器人 RL 的工程路线变得更实际：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">大规模并行仿真</span><br><span class="line">      ↓</span><br><span class="line">快速收集 rollout</span><br><span class="line">      ↓</span><br><span class="line">PPO 更新 policy</span><br><span class="line">      ↓</span><br><span class="line">课程学习逐步增加难度</span><br><span class="line">      ↓</span><br><span class="line">域随机化提高鲁棒性</span><br><span class="line">      ↓</span><br><span class="line">迁移到真机</span><br></pre></td></tr></table></figure>
+<p>所以现代四足 RL 不是单纯“用了 PPO”，而是几个技术条件同时成熟：</p>
+<ol>
+<li>GPU 并行物理仿真。</li>
+<li>稳定的 on-policy 算法，如 PPO。</li>
+<li>合理的 reward 和 reset 设计。</li>
+<li>域随机化和噪声建模。</li>
+<li>真机安全部署流程。</li>
+<li>开源工程让大家能复现。</li>
+</ol>
+<h1>这套系列到底要学什么</h1>
+<p>这套系列不是泛泛讲 RL，而是围绕四足 locomotion 的工程闭环：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人模型</span><br><span class="line">  ↓</span><br><span class="line">仿真环境</span><br><span class="line">  ↓</span><br><span class="line">observation</span><br><span class="line">  ↓</span><br><span class="line">action</span><br><span class="line">  ↓</span><br><span class="line">reward</span><br><span class="line">  ↓</span><br><span class="line">PPO 训练</span><br><span class="line">  ↓</span><br><span class="line">日志分析</span><br><span class="line">  ↓</span><br><span class="line">domain randomization</span><br><span class="line">  ↓</span><br><span class="line">Sim2Real</span><br><span class="line">  ↓</span><br><span class="line">真机安全</span><br></pre></td></tr></table></figure>
+<p>你最终要建立的是这样一种能力：</p>
+<ul>
+<li>看到一份四足 RL 代码，知道先看哪里。</li>
+<li>看到 obs 维度，知道里面可能有哪些量。</li>
+<li>看到 action scale，知道它会影响关节动作幅度。</li>
+<li>看到 reward 权重，知道它可能改变什么行为。</li>
+<li>看到训练曲线，能判断策略是不是在变好。</li>
+<li>看到 sim2real 设置，知道它在防什么问题。</li>
+<li>准备上真机前，知道必须检查哪些安全项。</li>
+</ul>
+<p>这比单独背 PPO 推导更重要。</p>
+<h1>为什么不要一开始就啃 PPO 公式</h1>
+<p>PPO 当然重要。</p>
+<p>但对四足机器人学习来说，一开始只啃公式很容易跑偏。</p>
+<p>因为真实训练效果通常由一整套东西决定：</p>
+<ul>
+<li>observation 设计。</li>
+<li>action 表示。</li>
+<li>reward shaping。</li>
+<li>reset 条件。</li>
+<li>command 分布。</li>
+<li>地形课程学习。</li>
+<li>PD 参数。</li>
+<li>action delay。</li>
+<li>domain randomization。</li>
+<li>仿真步长和控制频率。</li>
+</ul>
+<p>同样是 PPO，如果 reward 写得不好，机器人可能趴着滑；如果 action scale 太大，动作会暴力；如果 obs 顺序部署时错了，真机直接乱动。</p>
+<p>所以更好的学习顺序是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">先理解四足 RL 工程闭环</span><br><span class="line">再理解 obs / action / reward</span><br><span class="line">再理解 PPO 在里面负责什么</span><br><span class="line">最后再补公式细节</span><br></pre></td></tr></table></figure>
 <h1>这套课的文章长度标准</h1>
-<p>这里先明确一下后续写作风格。</p>
-<p>我说的“短篇”，不是几百字的碎片，而是：</p>
+<p>这里明确一下后续写作标准。</p>
+<p>我说的“短篇”，不是几百字小卡片，而是：</p>
 <ul>
-<li>单篇只讲一个主题。</li>
+<li>每篇只讲一个明确主题。</li>
 <li>单篇尽量控制在 1 万字以内。</li>
-<li>不写成巨型长文，但内容要完整。</li>
-<li>该讲清楚的概念、例子、工程注意点都要有。</li>
-<li>多拆文章，用连续小节形成体系。</li>
+<li>前因后果要讲清楚。</li>
+<li>概念、例子、工程注意点都要有。</li>
+<li>不写成几十万字的大报告。</li>
+<li>用很多篇文章连成一套系统课。</li>
 </ul>
-<p>这样读起来不会被一篇超长文章压垮，也不会因为太短而学不到东西。</p>
-<h1>总体路线图</h1>
-<p>我建议把四足机器人强化学习拆成 6 个阶段来学。</p>
-<h2 id="阶段-1：先知道四足-RL-在解决什么问题">阶段 1：先知道四足 RL 在解决什么问题</h2>
-<p>这一阶段不急着看公式。</p>
-<p>先建立一个基本图景：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人当前观测 obs</span><br><span class="line">      ↓</span><br><span class="line">策略网络 policy</span><br><span class="line">      ↓</span><br><span class="line">输出动作 action</span><br><span class="line">      ↓</span><br><span class="line">仿真器执行动作</span><br><span class="line">      ↓</span><br><span class="line">得到 reward / done / next obs</span><br><span class="line">      ↓</span><br><span class="line">PPO 更新策略</span><br></pre></td></tr></table></figure>
-<p>在这个阶段，你需要能回答：</p>
+<p>也就是说：<strong>短是相对超长报告而言，内容不能空。</strong></p>
+<h1>学习路线总览</h1>
+<p>我建议把四足强化学习分成 6 个阶段学。</p>
+<h2 id="阶段-1：建立问题意识">阶段 1：建立问题意识</h2>
+<p>先理解四足 RL 到底在学什么。</p>
+<p>你要知道：</p>
 <ul>
-<li>四足机器人为什么可以用强化学习训练步态？</li>
-<li>policy 是什么？</li>
-<li>observation 是什么？</li>
-<li>action 是什么？</li>
-<li>reward 是什么？</li>
-<li>done/reset 是什么？</li>
+<li>它不是让机器人“像人一样思考”。</li>
+<li>它通常是在学习一个低层运动策略。</li>
+<li>输入是机器人当前观测。</li>
+<li>输出是关节控制相关的动作。</li>
+<li>奖励函数塑造步态。</li>
+<li>仿真环境提供试错场。</li>
 </ul>
-<p>如果这些问题不清楚，后面看 PPO 公式和工程代码都会很痛苦。</p>
+<p>这一阶段对应系列 01～02。</p>
 <h2 id="阶段-2：理解-Observation、Action、Reward">阶段 2：理解 Observation、Action、Reward</h2>
-<p>这是四足 RL 的核心三件套。</p>
+<p>这是最核心的三件套。</p>
 <h3 id="Observation">Observation</h3>
-<p>Observation 是机器人策略真正能看到的信息。</p>
+<p>机器人策略真正能看到什么？</p>
 <p>常见包括：</p>
 <ul>
 <li>机身角速度。</li>
-<li>重力方向在机身坐标系下的投影。</li>
+<li>重力方向投影。</li>
 <li>速度命令。</li>
 <li>关节角。</li>
 <li>关节速度。</li>
 <li>上一帧 action。</li>
-<li>可能还有地形高度采样。</li>
+<li>地形高度采样。</li>
 </ul>
-<p>初学时要特别注意：<strong>obs 不是随便拼的，它必须和真机能获得的信息相匹配。</strong></p>
-<p>如果训练时用了真机上拿不到的信息，仿真效果可能很好，但部署时就会遇到问题。</p>
 <h3 id="Action">Action</h3>
-<p>Action 是策略输出的控制量。</p>
-<p>在很多四足 locomotion 工程里，action 不是直接输出电机力矩，而是输出关节位置目标偏移：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">target_joint_position = default_joint_position + action_scale * action</span><br></pre></td></tr></table></figure>
-<p>底层再用 PD 控制器转成力矩。</p>
-<p>这种方式比直接输出 torque 更稳定，也更容易迁移到真实机器人。</p>
+<p>策略输出什么？</p>
+<p>很多工程不是直接输出力矩，而是输出关节位置目标偏移：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">target_q = default_q + action_scale * action</span><br></pre></td></tr></table></figure>
 <h3 id="Reward">Reward</h3>
-<p>Reward 是最值得认真学的部分。</p>
-<p>它通常由很多项组成：</p>
+<p>机器人为什么会学会走？</p>
+<p>因为 reward 告诉它：速度跟踪准、身体稳、能耗低、动作平滑、脚不乱滑，这些行为更好。</p>
+<p>这一阶段对应系列 03～07。</p>
+<h2 id="阶段-3：理解-PPO-的工程角色">阶段 3：理解 PPO 的工程角色</h2>
+<p>PPO 负责用采样数据更新策略。</p>
+<p>你需要知道：</p>
 <ul>
-<li>速度跟踪奖励。</li>
-<li>角速度跟踪奖励。</li>
-<li>身体姿态惩罚。</li>
-<li>力矩惩罚。</li>
-<li>动作变化惩罚。</li>
-<li>脚滑惩罚。</li>
-<li>碰撞惩罚。</li>
-<li>足端空中时间奖励。</li>
+<li>policy 输出 action。</li>
+<li>value 估计状态好坏。</li>
+<li>rollout 收集经验。</li>
+<li>advantage 判断动作比预期好还是差。</li>
+<li>clipping 防止策略更新太猛。</li>
 </ul>
-<p>一句话：<strong>你奖励什么，机器人就会努力变成什么；你漏掉什么，机器人就可能钻空子。</strong></p>
-<h2 id="阶段-3：再学-PPO">阶段 3：再学 PPO</h2>
-<p>PPO 是四足机器人运动控制里非常常见的算法。</p>
-<p>但我不建议一上来就陷入公式。</p>
-<p>先记住 PPO 的核心直觉：</p>
-<p><strong>更新策略时不要一步走太猛。</strong></p>
-<p>四足机器人训练很容易不稳定。策略刚学会站住，如果一次更新太大，可能下一轮又全摔倒。</p>
-<p>PPO 通过限制新旧策略差异，让训练更稳。</p>
-<p>在工程里，你需要理解：</p>
-<ul>
-<li>policy 网络输出 action。</li>
-<li>value 网络估计当前状态好不好。</li>
-<li>advantage 表示这一步比预期好多少。</li>
-<li>rollout 是收集一段机器人交互数据。</li>
-<li>update 是用这些数据更新 policy。</li>
-</ul>
-<p>公式当然可以后面补，但第一阶段要先知道它在工程里扮演什么角色。</p>
+<p>这一阶段对应系列 08。</p>
 <h2 id="阶段-4：读懂训练工程">阶段 4：读懂训练工程</h2>
-<p>真正开始看代码时，不要从 PPO 文件开始。</p>
-<p>建议先找这些位置：</p>
+<p>开始看 legged_gym / rsl_rl / Isaac Lab 时，不要先钻算法文件。</p>
+<p>先找：</p>
 <ol>
-<li>机器人模型在哪里加载。</li>
-<li>observation 在哪里拼接。</li>
-<li>action 怎么变成关节目标。</li>
-<li>reward 在哪里计算。</li>
-<li>reset 条件在哪里。</li>
-<li>command 怎么采样。</li>
-<li>domain randomization 在哪里配置。</li>
-<li>日志保存在哪里。</li>
+<li>环境类。</li>
+<li>配置文件。</li>
+<li>observation 拼接。</li>
+<li>action mapping。</li>
+<li>reward 函数。</li>
+<li>reset 条件。</li>
+<li>terrain curriculum。</li>
+<li>domain randomization。</li>
+<li>train / play 脚本。</li>
 </ol>
-<p>这比直接看算法更新更重要。</p>
-<p>因为同一个 PPO，在不同 obs、reward、action 设计下，结果会完全不同。</p>
-<h1>建议阅读的工程</h1>
-<p>后面如果要实践，可以优先看这些公开项目或生态：</p>
-<h2 id="legged-gym">legged_gym</h2>
-<p>经典四足强化学习 locomotion 工程，适合看 locomotion reward、obs、action、terrain curriculum 等设计。</p>
-<p>仓库：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/leggedrobotics/legged_gym">https://github.com/leggedrobotics/legged_gym</a></p>
-<h2 id="rsl-rl">rsl_rl</h2>
-<p>常与 legged_gym 配合使用的强化学习库，里面有 PPO runner、actor critic 等实现。</p>
-<p>仓库：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/leggedrobotics/rsl_rl">https://github.com/leggedrobotics/rsl_rl</a></p>
-<h2 id="Isaac-Gym-Isaac-Lab">Isaac Gym / Isaac Lab</h2>
-<p>NVIDIA 的 GPU 并行仿真训练生态。四足 RL 之所以能快速训练，很大程度依赖大规模并行仿真。</p>
-<p>Isaac Lab 是后续更现代的方向，适合长期学习。</p>
-<p>仓库：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/isaac-sim/IsaacLab">https://github.com/isaac-sim/IsaacLab</a></p>
-<h1>学习时最容易踩的坑</h1>
-<h2 id="坑-1：只看-PPO，不看-reward">坑 1：只看 PPO，不看 reward</h2>
-<p>PPO 很重要，但很多四足训练效果差，不是 PPO 错了，而是 reward、obs、action scale、PD 参数、reset 条件设计有问题。</p>
-<p>如果只改算法，不看环境，容易抓错重点。</p>
-<h2 id="坑-2：看视频觉得会走了，就以为训练好了">坑 2：看视频觉得会走了，就以为训练好了</h2>
-<p>会走不代表好。</p>
-<p>还要看：</p>
+<p>这一阶段对应系列 09～10。</p>
+<h2 id="阶段-5：理解-Sim2Real">阶段 5：理解 Sim2Real</h2>
+<p>仿真能走，不代表真机能走。</p>
+<p>要理解：</p>
 <ul>
-<li>速度跟踪误差。</li>
-<li>能耗。</li>
-<li>动作是否抖。</li>
-<li>足端是否打滑。</li>
-<li>对扰动是否鲁棒。</li>
-<li>不同地形是否稳定。</li>
-<li>长时间是否会漂。</li>
+<li>为什么仿真和现实不同。</li>
+<li>域随机化在防什么。</li>
+<li>观测噪声和动作延迟为什么重要。</li>
+<li>真机部署前要检查什么。</li>
 </ul>
-<h2 id="坑-3：仿真能走，就想直接上真机">坑 3：仿真能走，就想直接上真机</h2>
-<p>真机部署风险很高。</p>
-<p>仿真和现实之间有很多差异：</p>
+<p>这一阶段对应系列 11～13。</p>
+<h2 id="阶段-6：做自己的复现实验">阶段 6：做自己的复现实验</h2>
+<p>最后要从阅读走向实验。</p>
+<p>比如：</p>
 <ul>
-<li>质量和惯量不准。</li>
-<li>摩擦系数不准。</li>
-<li>电机延迟。</li>
-<li>IMU 噪声。</li>
-<li>关节零位误差。</li>
-<li>控制频率不一致。</li>
-<li>action scale 或 obs 顺序写错。</li>
+<li>跑通一个现成环境。</li>
+<li>改一个 reward 权重。</li>
+<li>比较训练曲线。</li>
+<li>记录机器人行为变化。</li>
+<li>做一个小消融实验。</li>
 </ul>
-<p>Sim2Real 不是最后一步随便做一下，而是从训练设计阶段就要考虑。</p>
-<h2 id="坑-4：不知道日志怎么看">坑 4：不知道日志怎么看</h2>
-<p>训练时不要只看 total reward。</p>
-<p>建议至少记录：</p>
+<p>这一阶段对应系列 14 以及后续实践篇。</p>
+<h1>当前系列目录</h1>
+<p>目前已经规划的基础篇如下：</p>
 <ul>
-<li>episode length。</li>
-<li>tracking reward。</li>
-<li>torque penalty。</li>
-<li>action rate penalty。</li>
-<li>reset rate。</li>
-<li>velocity tracking error。</li>
-</ul>
-<p>否则训练坏了很难定位原因。</p>
-<h1>这套系列的当前目录</h1>
-<p>我会把每一篇控制在一个明确主题内。</p>
-<p>目前规划如下：</p>
-<ul>
-<li>00：这套课应该怎么学。</li>
+<li>00：为什么从 ETH / ANYmal 讲起，以及这套课怎么学。</li>
 <li>01：四足 RL 到底在学什么。</li>
 <li>02：用四足机器人理解 MDP。</li>
 <li>03：Observation 里面到底放什么。</li>
@@ -441,7 +505,7 @@
 <li>13：真机安全检查。</li>
 <li>14：八周练习路线。</li>
 </ul>
-<p>后面可以继续追加：</p>
+<p>后续可以继续展开：</p>
 <ul>
 <li>15：地形课程学习。</li>
 <li>16：足端接触与脚滑惩罚。</li>
@@ -454,46 +518,47 @@
 <li>23：训练日志如何分析。</li>
 <li>24：策略上真机前的检查表。</li>
 </ul>
-<h1>推荐学习节奏</h1>
-<p>如果时间比较充裕，可以按下面方式学。</p>
-<h2 id="第-1-周：建立概念">第 1 周：建立概念</h2>
-<p>读 00～05。</p>
-<p>目标：知道 obs、action、reward、done 是什么。</p>
-<p>练习：用自己的话画出四足 RL 闭环。</p>
-<h2 id="第-2-周：理解-PPO-和训练流程">第 2 周：理解 PPO 和训练流程</h2>
-<p>读 08～10。</p>
-<p>目标：知道 PPO 在工程里做什么，知道训练脚本大概怎么跑。</p>
-<p>练习：找一个开源工程，定位 obs、reward、action mapping。</p>
-<h2 id="第-3-周：重点学-reward">第 3 周：重点学 reward</h2>
-<p>反复读 05～07，并开始看代码里的 reward term。</p>
-<p>目标：知道每个 reward 项会影响什么行为。</p>
-<p>练习：改一个 reward 权重，观察训练结果变化。</p>
-<h2 id="第-4-周：理解-Sim2Real">第 4 周：理解 Sim2Real</h2>
-<p>读 11～13。</p>
-<p>目标：知道仿真策略为什么不能直接上真机。</p>
-<p>练习：写一份真机部署前检查表。</p>
-<h2 id="第-5～8-周：复现实验">第 5～8 周：复现实验</h2>
-<p>按 14 的练习路线，跑通一个小任务。</p>
-<p>目标不是马上做出很强的策略，而是建立完整流程：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">跑通训练 → 观察日志 → 修改参数 → 对比结果 → 总结问题</span><br></pre></td></tr></table></figure>
+<h1>推荐阅读材料</h1>
+<p>后面会逐步展开，但 00 篇先列出几个关键入口。</p>
+<h2 id="ETH-Robotic-Systems-Lab">ETH Robotic Systems Lab</h2>
+<p>Robotic Systems Lab 是理解 ANYmal 和很多腿足机器人学习控制工作的关键入口。</p>
+<p><a target="_blank" rel="noopener" href="https://rsl.ethz.ch/">https://rsl.ethz.ch/</a></p>
+<h2 id="Learning-agile-and-dynamic-motor-skills-for-legged-robots">Learning agile and dynamic motor skills for legged robots</h2>
+<p>这篇工作展示了学习动态运动技能并部署到腿足机器人真实系统上的路线。</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1901.08652">https://arxiv.org/abs/1901.08652</a></p>
+<h2 id="Learning-to-Walk-in-Minutes-Using-Massively-Parallel-Deep-Reinforcement-Learning">Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning</h2>
+<p>这篇是很多人接触现代四足 RL 工程路线的重要入口。它强调单机 GPU 上的大规模并行仿真、快速策略训练、课程学习，并在 ANYmal C 上验证。</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.11978">https://arxiv.org/abs/2109.11978</a></p>
+<h2 id="legged-gym">legged_gym</h2>
+<p>对应上面工作开源出的训练环境，适合学习四足 locomotion 工程结构。</p>
+<p><a target="_blank" rel="noopener" href="https://leggedrobotics.github.io/legged_gym/">https://leggedrobotics.github.io/legged_gym/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/leggedrobotics/legged_gym">https://github.com/leggedrobotics/legged_gym</a></p>
+<h2 id="rsl-rl">rsl_rl</h2>
+<p>与 legged_gym 常配合使用的 PPO / on-policy RL 实现。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/leggedrobotics/rsl_rl">https://github.com/leggedrobotics/rsl_rl</a></p>
+<h2 id="Isaac-Lab">Isaac Lab</h2>
+<p>NVIDIA Isaac 生态下更现代的机器人学习训练框架，后续复现和扩展可以重点关注。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/isaac-sim/IsaacLab">https://github.com/isaac-sim/IsaacLab</a></p>
 <h1>学到什么程度算入门</h1>
-<p>如果你能做到下面这些，就算真正入门了：</p>
+<p>如果你能做到下面这些，就算进入四足 RL 的门了：</p>
 <ol>
-<li>能解释四足 RL 的训练闭环。</li>
+<li>能解释为什么 ETH / ANYmal 这条线对四足 RL 很重要。</li>
+<li>能画出“obs → policy → action → simulator → reward → PPO update”的闭环。</li>
 <li>能说清 obs 里常见量的作用。</li>
-<li>能说清 action 为什么常用关节位置目标。</li>
+<li>能说清 action 为什么常用关节位置目标而不是直接力矩。</li>
 <li>能读懂 reward 的主要项。</li>
 <li>能跑通一个开源训练工程。</li>
-<li>能看训练曲线判断是否变好。</li>
+<li>能看训练曲线判断是否在变好。</li>
 <li>能做一个小的 reward 消融实验。</li>
 <li>知道 Sim2Real 的主要风险。</li>
+<li>知道真机部署前必须有安全检查。</li>
 </ol>
-<p>这比单纯背 PPO 公式更有用。</p>
+<p>这比单纯背强化学习公式更接近真实四足机器人项目。</p>
 <h1>最后</h1>
-<p>四足机器人强化学习不是“一个算法”，而是一套系统工程：</p>
+<p>四足机器人强化学习不是一个孤立算法，而是一套系统工程：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人模型 + 仿真环境 + observation + action + reward + PPO + 日志分析 + 随机化 + 真机安全</span><br></pre></td></tr></table></figure>
-<p>这套系列会尽量按这个工程链路往下讲。</p>
-<p>每篇不会写成超长论文，但也不会只是几百字摘要；目标是控制在一万字以内，把一个主题讲完整。下一篇先讲：<strong>四足 RL 到底在学什么。</strong></p>
+<p>ETH / ANYmal 这条线之所以值得从一开始讲，是因为它把这些要素比较系统地串了起来，并通过公开论文、真实机器人验证和开源工程，让后来者有了可以学习和复现的路径。</p>
+<p>后面的文章就沿着这条路径展开：先不急着推公式，先把四足 RL 的工程世界看清楚。下一篇讲：<strong>四足 RL 到底在学什么。</strong></p>
 
                 </div>
             </div>
