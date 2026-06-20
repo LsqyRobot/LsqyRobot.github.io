@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>四足机器人强化学习系列 01：四足 RL 到底在学什么</title>
+      <link href="/2026/06/20/archived_quadruped_rl_01_what_is_quadruped_rl/"/>
+      <url>/2026/06/20/archived_quadruped_rl_01_what_is_quadruped_rl/</url>
+      
+        <content type="html"><![CDATA[<h1>一句话</h1><p>四足机器人强化学习，核心是在仿真里让机器人反复试错，学出一个从“当前观测”到“关节动作”的控制策略。</p><h1>它不是在学什么</h1><p>它通常不是在学：</p><ul><li>识别这是一只狗还是一台机器人。</li><li>理解地图语义。</li><li>像人一样思考怎么走路。</li></ul><p>在基础 locomotion 任务里，它更像是在学：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">当前身体姿态 + 关节状态 + 速度命令 → 12 个关节该怎么动</span><br></pre></td></tr></table></figure><h1>为什么适合四足机器人</h1><p>四足机器人有很多接触、非线性和耦合：</p><ul><li>每条腿有多个关节。</li><li>脚会接触地面也会离地。</li><li>身体姿态和足端位置互相影响。</li><li>地面摩擦、坡度、扰动都会影响运动。</li></ul><p>传统控制当然可以做，但手工设计所有行为很难。强化学习的优势是：让机器人在仿真中大量试错，自动找到可行步态。</p><h1>学到的 policy 是什么</h1><p>最终得到的 policy 通常是一个神经网络：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">obs 向量 → MLP → action 向量</span><br></pre></td></tr></table></figure><p>部署时，每个控制周期都执行一次：</p><ol><li>读取传感器。</li><li>拼接 observation。</li><li>神经网络输出 action。</li><li>action 转成关节目标。</li><li>底层 PD 或电机控制执行。</li></ol><p>这就是四足 RL 的最小闭环。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>四足机器人强化学习系列 00：为什么从 ETH/ANYmal 讲起，以及我准备怎么学</title>
       <link href="/2026/06/20/archived_quadruped_rl_00_learning_roadmap/"/>
       <url>/2026/06/20/archived_quadruped_rl_00_learning_roadmap/</url>
