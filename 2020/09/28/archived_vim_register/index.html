@@ -370,40 +370,45 @@
 
                             tocNav.appendChild(tocList);
 
-                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
                             var activeTocLink = null;
                             var activeHeadingId = '';
 
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
                             var updateActiveLink = function (currentId) {
-                                if (!currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
                                     return;
                                 }
 
                                 activeHeadingId = currentId;
                                 activeTocLink = null;
 
-                                tocLinks.forEach(function (link) {
+                                sidebarTocLinks.forEach(function (link) {
                                     var isActive = link.getAttribute('data-target-id') === currentId;
                                     link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
                                     if (isActive) {
                                         activeTocLink = link;
                                     }
                                 });
 
-                                if (activeTocLink) {
-                                    activeTocLink.scrollIntoView({
-                                        block: 'nearest',
-                                        inline: 'nearest',
-                                        behavior: 'auto'
-                                    });
-                                }
-                            };
-
-                            var scheduleResync = function () {
-                                handleScroll();
-                                window.setTimeout(handleScroll, 60);
-                                window.setTimeout(handleScroll, 180);
-                                window.setTimeout(handleScroll, 360);
+                                keepActiveLinkInView(activeTocLink);
                             };
 
                             var ticking = false;
@@ -412,30 +417,24 @@
                                     return;
                                 }
 
-                                var headingOffsets = tocHeadings.map(function (heading) {
-                                    return {
-                                        id: heading.id,
-                                        top: heading.getBoundingClientRect().top + window.scrollY
-                                    };
-                                });
-
-                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
-                                var currentId = headingOffsets[0].id;
-                                var pageBottom = window.scrollY + window.innerHeight;
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
                                 var documentBottom = Math.max(
                                     document.body.scrollHeight,
                                     document.documentElement.scrollHeight
                                 );
 
                                 if (pageBottom >= documentBottom - 4) {
-                                    currentId = headingOffsets[headingOffsets.length - 1].id;
-                                    updateActiveLink(currentId);
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
                                     return;
                                 }
 
-                                for (var i = 0; i < headingOffsets.length; i += 1) {
-                                    if (headingOffsets[i].top <= marker) {
-                                        currentId = headingOffsets[i].id;
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
                                     } else {
                                         break;
                                     }
@@ -456,7 +455,15 @@
                                 });
                             };
 
-                            tocLinks.forEach(function (link) {
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
                                 link.addEventListener('click', function () {
                                     var targetId = link.getAttribute('data-target-id');
                                     updateActiveLink(targetId);
@@ -465,22 +472,18 @@
                             });
 
                             window.addEventListener('scroll', handleScroll, { passive: true });
-                            window.addEventListener('resize', handleScroll, { passive: true });
-                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
                             window.addEventListener('hashchange', scheduleResync, { passive: true });
                             document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
 
-                            var lastScrollY = -1;
-                            window.setInterval(function () {
-                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-                                if (currentScrollY !== lastScrollY) {
-                                    lastScrollY = currentScrollY;
-                                    syncActiveHeading();
-                                }
-                            }, 180);
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
 
                             images.forEach(function (img) {
-                                img.addEventListener('load', handleScroll, { passive: true });
+                                img.addEventListener('load', scheduleResync, { passive: true });
                             });
 
                             scheduleResync();
@@ -499,9 +502,9 @@
                     if (contentRoot) {
                         var firstElement = contentRoot.firstElementChild;
                         if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
-                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
                             var totalLinks = firstElement.querySelectorAll('a').length;
-                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
                                 firstElement.classList.add('post-inline-toc');
                             }
                         }
