@@ -434,6 +434,10 @@
 <li><a href="#%E5%85%88%E8%A1%A5%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5">先补基础概念</a></li>
 <li><a href="#wifi-%E5%AE%89%E5%85%A8%E5%85%88%E7%90%86%E8%A7%A3%E4%BB%80%E4%B9%88">WiFi 安全先理解什么</a></li>
 <li><a href="#%E6%8E%A8%E8%8D%90%E7%9A%84%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84">推荐的安全学习路径</a></li>
+<li><a href="#%E4%B8%80%E5%A5%97%E5%8F%AF%E4%BB%A5%E8%B7%9F%E7%9D%80%E5%81%9A%E7%9A%84%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C">一套可以跟着做的家庭网络实验</a></li>
+<li><a href="#macos-%E4%B8%8A%E5%85%88%E7%9C%8B%E6%B8%85%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BD%91%E7%BB%9C">macOS 上先看清自己的网络</a></li>
+<li><a href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E5%90%8E%E5%8F%B0%E9%87%8D%E7%82%B9%E7%9C%8B%E4%BB%80%E4%B9%88">路由器后台重点看什么</a></li>
+<li><a href="#%E6%89%AB%E6%8F%8F%E7%BB%93%E6%9E%9C%E6%80%8E%E4%B9%88%E8%AF%BB">扫描结果怎么读</a></li>
 <li><a href="#%E7%AC%AC-1-%E6%AD%A5%E6%90%AD%E5%BB%BA%E5%90%88%E6%B3%95%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83">第 1 步：搭建合法实验环境</a></li>
 <li><a href="#%E7%AC%AC-2-%E6%AD%A5%E8%AE%A4%E8%AF%86-wifi-%E4%B8%8E%E4%B8%BB%E6%9C%BA%E6%9A%B4%E9%9C%B2%E9%9D%A2">第 2 步：认识 WiFi 与主机暴露面</a></li>
 <li><a href="#%E7%AC%AC-3-%E6%AD%A5%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E5%9C%A8%E9%98%B2%E5%BE%A1%E4%B8%AD%E7%9A%84%E7%94%A8%E9%80%94">第 3 步：端口扫描在防御中的用途</a></li>
@@ -523,6 +527,89 @@
 <p>可以把它理解成一个闭环：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">资产盘点 → 风险识别 → 配置加固 → 重新验证 → 持续记录</span><br></pre></td></tr></table></figure>
 <p>这个闭环比记一堆工具命令更重要。</p>
+<h1>一套可以跟着做的家庭网络实验</h1>
+<p>前面那些原则还是太抽象。更具体一点，入门时可以做一个很小的练习：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">目标：搞清楚自己的家庭网络里有哪些设备、哪些服务暴露出来。</span><br><span class="line">范围：只看自己的路由器、自己的电脑、自己的虚拟机。</span><br><span class="line">结果：得到一张简单资产表，并关闭不需要的服务。</span><br></pre></td></tr></table></figure>
+<p>这个练习不需要“攻击”任何东西，只需要回答几个问题：</p>
+<ol>
+<li>我的电脑当前 IP 是多少？</li>
+<li>默认网关，也就是路由器地址是多少？</li>
+<li>局域网里还有哪些设备？</li>
+<li>哪些设备开放了管理页面、SSH、文件共享等服务？</li>
+<li>这些服务是不是我预期开放的？</li>
+</ol>
+<p>比如一个家庭网络可能长这样：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">光猫 / 宽带入口</span><br><span class="line">    ↓</span><br><span class="line">家用路由器：192.168.31.1</span><br><span class="line">    ↓</span><br><span class="line">手机：192.168.31.20</span><br><span class="line">电脑：192.168.31.30</span><br><span class="line">NAS：192.168.31.40</span><br><span class="line">摄像头 / IoT：192.168.31.50</span><br><span class="line">测试虚拟机：192.168.31.100</span><br></pre></td></tr></table></figure>
+<p>你要学的不是“怎么打进去”，而是：</p>
+<blockquote>
+<p>哪些入口存在？这些入口为什么存在？不需要的能不能关掉？</p>
+</blockquote>
+<h1>macOS 上先看清自己的网络</h1>
+<p>如果是在 macOS 上，可以先看当前 WiFi 连接信息。</p>
+<p>查看 IP、网关等信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ipconfig getifaddr en0</span><br><span class="line">route -n get default</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<ul>
+<li><code>ipconfig getifaddr en0</code>：查看当前 WiFi 网卡的 IP。</li>
+<li><code>route -n get default</code>：查看默认网关，通常就是路由器地址。</li>
+</ul>
+<p>查看本机网络接口：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<p>查看局域网里最近通信过的设备：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">arp -a</span><br></pre></td></tr></table></figure>
+<p><code>arp -a</code> 看到的结果大概会包含：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">? (192.168.31.1) at xx:xx:xx:xx:xx:xx on en0</span><br><span class="line">? (192.168.31.20) at xx:xx:xx:xx:xx:xx on en0</span><br></pre></td></tr></table></figure>
+<p>这里的重点是：</p>
+<ol>
+<li><code>192.168.31.1</code> 这种通常是路由器。</li>
+<li>其他 IP 可能是手机、电脑、NAS、打印机、摄像头等。</li>
+<li>如果出现完全不认识的设备，就值得去路由器后台核对。</li>
+</ol>
+<p>注意：<code>arp -a</code> 只能看到最近有过通信的设备，不等于完整资产清单。完整列表还是要结合路由器后台的“已连接设备”。</p>
+<h1>路由器后台重点看什么</h1>
+<p>进入路由器后台时，不要乱改配置，先只观察。重点看这些页面：</p>
+<ol>
+<li><strong>已连接设备</strong>：有没有陌生设备。</li>
+<li><strong>无线设置</strong>：加密方式是不是 WPA2/WPA3。</li>
+<li><strong>访客网络</strong>：访客网络是否开启隔离。</li>
+<li><strong>管理密码</strong>：是否还在用默认密码。</li>
+<li><strong>远程管理</strong>：是否关闭公网远程管理。</li>
+<li><strong>端口转发 / DMZ</strong>：有没有不认识的转发规则。</li>
+<li><strong>UPnP</strong>：是否有软件自动创建了端口映射。</li>
+<li><strong>固件升级</strong>：固件是否长期未更新。</li>
+</ol>
+<p>这里最容易被忽略的是 <code>端口转发</code>、<code>DMZ</code> 和 <code>UPnP</code>。</p>
+<p>简单理解：</p>
+<ul>
+<li><strong>端口转发</strong>：把公网访问转给内网某台机器。</li>
+<li><strong>DMZ</strong>：把某台内网机器大范围暴露出去，风险更高。</li>
+<li><strong>UPnP</strong>：允许软件自动向路由器申请端口映射，方便但也可能扩大暴露面。</li>
+</ul>
+<p>如果你不是很确定用途，建议先记录下来，不要马上删除。确认确实不用，再改。</p>
+<h1>扫描结果怎么读</h1>
+<p>在自有网络里，端口扫描可以用来做资产盘点。比如只扫描自己的测试虚拟机：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nmap 192.168.31.100</span><br></pre></td></tr></table></figure>
+<p>假设结果类似：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">PORT   STATE SERVICE</span><br><span class="line">22/tcp open  ssh</span><br><span class="line">80/tcp open  http</span><br></pre></td></tr></table></figure>
+<p>可以这样理解：</p>
+<ul>
+<li><code>22/tcp open ssh</code>：这台机器开放了 SSH 登录服务。</li>
+<li><code>80/tcp open http</code>：这台机器开放了网页服务。</li>
+<li><code>open</code>：说明这个端口可以被访问到。</li>
+</ul>
+<p>这时不要急着想“怎么利用”，而是问：</p>
+<ol>
+<li>这两个服务是不是我主动开启的？</li>
+<li>如果只是临时测试，测试完是否该关闭？</li>
+<li>SSH 是否允许密码登录？是否应该改成密钥登录？</li>
+<li>HTTP 是否只是本机使用？是否应该只监听 <code>127.0.0.1</code>？</li>
+</ol>
+<p>如果是扫自己的整个局域网，范围也要明确，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nmap -sn 192.168.31.0/24</span><br></pre></td></tr></table></figure>
+<p>这个命令的目的只是发现在线主机，不做深入探测。</p>
+<p>然后可以把结果整理成资产表：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">IP              设备              预期用途          备注</span><br><span class="line">192.168.31.1    路由器            网关              后台只允许内网访问</span><br><span class="line">192.168.31.30   MacBook           日常电脑          不开放额外服务</span><br><span class="line">192.168.31.40   NAS               文件存储          只允许家庭内网访问</span><br><span class="line">192.168.31.100  Linux VM          测试机            SSH 仅实验时开启</span><br></pre></td></tr></table></figure>
+<p>这个表才是学习成果。它能帮助你知道：网络里有什么，风险在哪里，哪些东西可以收敛。</p>
 <h1>第 1 步：搭建合法实验环境</h1>
 <p>推荐一个最小实验室：</p>
 <ol>
