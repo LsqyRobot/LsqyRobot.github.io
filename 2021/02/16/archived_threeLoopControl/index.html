@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,115 +230,123 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >三环控制系统</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#三闭环系统构成">三闭环系统构成</a></li>
-<li><a href="#系统的基本研究内容">系统的基本研究内容</a><ul>
-<li><a href="#典型系统">典型系统</a><ul>
-<li><a href="#典型型系统">典型Ⅰ型系统</a></li>
-<li><a href="#典型型系统-1">典型<strong>Ⅱ</strong>型系统</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E4%B8%89%E9%97%AD%E7%8E%AF%E7%B3%BB%E7%BB%9F%E6%9E%84%E6%88%90">三闭环系统构成</a></li>
+<li><a href="#%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9">系统的基本研究内容</a>
+<ul>
+<li><a href="#%E5%85%B8%E5%9E%8B%E7%B3%BB%E7%BB%9F">典型系统</a>
+<ul>
+<li><a href="#%E5%85%B8%E5%9E%8B%E5%9E%8B%E7%B3%BB%E7%BB%9F">典型Ⅰ型系统</a></li>
+<li><a href="#%E5%85%B8%E5%9E%8B%E5%9E%8B%E7%B3%BB%E7%BB%9F-1">典型<strong>Ⅱ</strong>型系统</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#手动调整速度环增益和位置环增益">手动调整速度环增益和位置环增益</a></li>
-<li><a href="#增益调整与机械刚性的关系">增益调整与机械刚性的关系</a><ul>
-<li><a href="#提高机械刚性">提高机械刚性</a></li>
+<li><a href="#%E6%89%8B%E5%8A%A8%E8%B0%83%E6%95%B4%E9%80%9F%E5%BA%A6%E7%8E%AF%E5%A2%9E%E7%9B%8A%E5%92%8C%E4%BD%8D%E7%BD%AE%E7%8E%AF%E5%A2%9E%E7%9B%8A">手动调整速度环增益和位置环增益</a></li>
+<li><a href="#%E5%A2%9E%E7%9B%8A%E8%B0%83%E6%95%B4%E4%B8%8E%E6%9C%BA%E6%A2%B0%E5%88%9A%E6%80%A7%E7%9A%84%E5%85%B3%E7%B3%BB">增益调整与机械刚性的关系</a>
+<ul>
+<li><a href="#%E6%8F%90%E9%AB%98%E6%9C%BA%E6%A2%B0%E5%88%9A%E6%80%A7">提高机械刚性</a></li>
 </ul>
 </li>
-<li><a href="#机器人关节带宽和测量">机器人关节带宽和测量</a><ul>
-<li><a href="#如何影响带宽"><strong>如何影响带宽</strong></a></li>
-<li><a href="#带宽的测量"><strong>带宽的测量</strong></a><ul>
-<li><a href="#确定幅值"><strong>确定幅值</strong></a></li>
-<li><a href="#32-生成扫频信号"><strong>3.2 生成扫频信号</strong></a></li>
-<li><a href="#实验装置及数据整理"><strong>实验装置及数据整理</strong></a></li>
+<li><a href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%85%B3%E8%8A%82%E5%B8%A6%E5%AE%BD%E5%92%8C%E6%B5%8B%E9%87%8F">机器人关节带宽和测量</a>
+<ul>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E5%B8%A6%E5%AE%BD"><strong>如何影响带宽</strong></a></li>
+<li><a href="#%E5%B8%A6%E5%AE%BD%E7%9A%84%E6%B5%8B%E9%87%8F"><strong>带宽的测量</strong></a>
+<ul>
+<li><a href="#%E7%A1%AE%E5%AE%9A%E5%B9%85%E5%80%BC"><strong>确定幅值</strong></a></li>
+<li><a href="#32-%E7%94%9F%E6%88%90%E6%89%AB%E9%A2%91%E4%BF%A1%E5%8F%B7"><strong>3.2 生成扫频信号</strong></a></li>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E8%A3%85%E7%BD%AE%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%95%B4%E7%90%86"><strong>实验装置及数据整理</strong></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前记录的一部分笔记里,有关于运动控制的简单说明,这部分的内容还是非常吸引自己的,于是就查阅了相关的书本资料,做进一步的学习,下面很多内容/笔记是出自于孙宇等人编著的《交流伺服系统设计指南》,里面的内容让人眼前一亮,会让人对经典控制理论产生极大的兴趣,非常值得去好好的学习下。内容仅作为学习使用,会穿插一些自己对内容的理解以及相关的代码演示等。</p>
-<h1 id="三闭环系统构成"><a href="#三闭环系统构成" class="headerlink" title="三闭环系统构成"></a>三闭环系统构成</h1><p>高性能交流伺服控制系统通常具有位置反馈、 转速反馈和电流反馈的三闭环结构形式, 如图所示。 图中, 虚线框内表示电源、 电动机及编码器模型, 其中 APR 表示位置调节器, ASR 表示转速调节器, ACR 表示电流调节器。</p>
+<h1>前言</h1>
+<p>之前记录的一部分笔记里,有关于运动控制的简单说明,这部分的内容还是非常吸引自己的,于是就查阅了相关的书本资料,做进一步的学习,下面很多内容/笔记是出自于孙宇等人编著的《交流伺服系统设计指南》,里面的内容让人眼前一亮,会让人对经典控制理论产生极大的兴趣,非常值得去好好的学习下。内容仅作为学习使用,会穿插一些自己对内容的理解以及相关的代码演示等。</p>
+<h1>三闭环系统构成</h1>
+<p>高性能交流伺服控制系统通常具有位置反馈、 转速反馈和电流反馈的三闭环结构形式, 如图所示。 图中, 虚线框内表示电源、 电动机及编码器模型, 其中 APR 表示位置调节器, ASR 表示转速调节器, ACR 表示电流调节器。</p>
 <div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/threeLoopControl.png" width="80%" height="40%"> </div>
-
 <p>三个环路调节器都由 P 和 I 组成, 虽然结构相似, 但是完成的功能却各自不同：</p>
 <p>① 电流环 ACR 的作用是改造内核控制对象的传递函数, 提高系统的快速性； 及时抑制电流环内部的干扰； 限制最大电流, 使系统有足够大的加速度转矩, 并且保障系统安全运行。</p>
-<p>② 速度环 ASR 的作用是增强系统抗负载扰动的能力； 抑制转速波动。 </p>
-<p>③ 位置环 APR 的作用是保证系统静态准确度、 刚度和动态跟踪的性能； 它是反馈的主要通道。 </p>
-<p>通常把电流环称为内环, 三个环的设计步骤由内到外, 即依次是电流环, 速度环和位置环。 针对各个闭环的具体作用和要求, 采取相应的控制策略。 首要考虑系统的稳定性, 此外, 系统的跟随性、 扰动性、 误差以及稳态裕度等性能也是考虑的基本内容。 </p>
+<p>② 速度环 ASR 的作用是增强系统抗负载扰动的能力； 抑制转速波动。</p>
+<p>③ 位置环 APR 的作用是保证系统静态准确度、 刚度和动态跟踪的性能； 它是反馈的主要通道。</p>
+<p>通常把电流环称为内环, 三个环的设计步骤由内到外, 即依次是电流环, 速度环和位置环。 针对各个闭环的具体作用和要求, 采取相应的控制策略。 首要考虑系统的稳定性, 此外, 系统的跟随性、 扰动性、 误差以及稳态裕度等性能也是考虑的基本内容。</p>
 <p>机械系统是指系统负载和负载与电动机连接的机械传动机构的总称。 通常假设电动机与机械系统的连接特性为理想化的刚性,如下图所示</p>
 <div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/oneMotorSim.png" width="60%" height="30%"> </div>
-
 <p>系统转动惯量 J 即是电动机转动惯量 JM 与负载转动惯量 JL 之和由它建立的系统一般称为单惯性系统。实际上,机械传动连接特性并非理想化的刚性,它存在一定的柔性,如下图所示,由它建立的系统称为两惯性系统。在该物理模型中,连接特性具有柔性耦合特性,存在弹性常数 Ks ,它使得系统转动惯量 J 不再是电动机转动惯量 JM 与负载转动惯量 JL 之和。 更复杂的是,这种柔性耦合通常会在系统中引发机械振动,机械振动除了发出声学噪声形成噪声污染外,还会对机械传动装置造成严重的损害,影响其使用寿命。另外,甚至还会引发控制系统中的控制量振荡,使得闭环控制的稳定性以及可调整性受到制约。</p>
 <div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/oneMotorReal.png" width="60%" height="30%"> </div>
-
 <p>由经验可以得出, 虽然三闭环控制策略是在单惯性系统物理模型下分析得出的, 但它同样适用于振动负载模型, 其结论对实际应用中的伺服控制系统同样是有效的。 因此主动式解决振动的方法多数也是在三闭环控制系统的基础上展开研究的。 调整伺服系统就是通过调整各个环路的增益与滤波以使伺服控制器匹配机械特性,从而达到减小振动、快速跟踪指令并且消除异常噪音的目的。</p>
-<h1 id="系统的基本研究内容"><a href="#系统的基本研究内容" class="headerlink" title="系统的基本研究内容"></a>系统的基本研究内容</h1><p>稳定是控制系统的重要性能, 也是系统能够正常运行的首要条件。 在交流伺服控制系统设计中, 分析三闭环结构是否稳定并不重要, 因为工业中即使是临界稳定的系统也是没有用的。 对于设计人员来说, 花费大量精力的重点在于测量系统有多稳定, 或者准确地说在于测 量系统所拥有的稳定性裕度有多大。 无论是在工程应用中, 还是在理论研究上, 这里推荐大家使用<strong>相位裕度</strong> (Phase Margin,PM) 和<strong>增益裕度</strong> (Gain Margin, GM) 来作为系统稳定程度的度量。 这是因为： </p>
-<p>① PM 和 GM 是系统稳定性最直观的量度； </p>
-<p>② 开环设计法是数字的, 适合于计算机； </p>
-<p>③ 这种方法不需要对控制系统进行任何的简化性假设。 </p>
+<h1>系统的基本研究内容</h1>
+<p>稳定是控制系统的重要性能, 也是系统能够正常运行的首要条件。 在交流伺服控制系统设计中, 分析三闭环结构是否稳定并不重要, 因为工业中即使是临界稳定的系统也是没有用的。 对于设计人员来说, 花费大量精力的重点在于测量系统有多稳定, 或者准确地说在于测 量系统所拥有的稳定性裕度有多大。 无论是在工程应用中, 还是在理论研究上, 这里推荐大家使用<strong>相位裕度</strong> (Phase Margin,PM) 和<strong>增益裕度</strong> (Gain Margin, GM) 来作为系统稳定程度的度量。 这是因为：</p>
+<p>① PM 和 GM 是系统稳定性最直观的量度；</p>
+<p>② 开环设计法是数字的, 适合于计算机；</p>
+<p>③ 这种方法不需要对控制系统进行任何的简化性假设。</p>
 <p>若统开环传递函数的对数频率特性曲线如下所示。图中,相位裕度(PM)(通常也称为相角裕度)定义为 180°加开环幅相曲线幅值为 1时的相位∶</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?\gamma = 180^\circ + G(j\omega_c)H(j\omega_c)"/> </div>
-
 <p>式中 <img src="https://latex.codecogs.com/png.latex?  \omega_c "/> 为系统的截止角频率。增益裕度 (GM, 通常也称为幅值裕度) 定义为幅相曲线上, 相位为 -180°时对应幅值的倒数：</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?h=\frac{1}{|G(j\omega_g)H(j\omega_g)|}"/> </div>
-
-<p>通常幅值裕度用分贝值 dB 表示, 将上面的式修改为 </p>
+<p>通常幅值裕度用分贝值 dB 表示, 将上面的式修改为</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?h=20lg\frac{1}{|G(j\omega_g)H(j\omega_g)|} = -20lg|G(j\omega_g)H(j\omega_g)|"/> </div>
-
-<p>虽然目标是测量 PM和 GM的值,但是确定这两个量度的期望值需要判断。其原因之一是裕度大小随应用要求的变化而变化。例如,有些必须跟随指令信号,如阶跃指令信号的场合,除了极稳定的系统外都会产生超调。相对于响应变化柔和的指令信号来说,这样的应用需要更高的稳定裕度。此外,与其他应用相比,有些应用可以承受更大的超调量。最后,对于同样的响应,有些控制方法需要比其他方法更大的相位裕度或者增益裕度。例如,对于一个阶跃响应来说,要获得相同的超调量,PI 调节器需要一定的相位裕度,而对于PID 调节器来说,较小的相位裕度就可能消除所有超调。经验表明,增益裕度(GM)应为10～ 25dB,而相位裕度(PM)应为35°~80°,这取决于具体应用及控制器类型。一般情况下,幅值裕度越大越好,同样,相角裕度也是越大越好。由于增益穿越处及其附近的相位滞后降低了相位裕度, 于是在整个控制回路中的每个噪 声滤波器、 反馈装置以及功率变换器均带来了相位滞后, 每个相位滞后都侵蚀相位裕度, 没必要的相位滞后限制了调节器的最终性能。 因此, 一条最基本的控制法则是： 消除没必要的相位滞后。 </p>
-<h2 id="典型系统"><a href="#典型系统" class="headerlink" title="典型系统"></a>典型系统</h2><p>一般来说, 系统的开环传递函数都可表示为</p>
+<p>虽然目标是测量 PM和 GM的值,但是确定这两个量度的期望值需要判断。其原因之一是裕度大小随应用要求的变化而变化。例如,有些必须跟随指令信号,如阶跃指令信号的场合,除了极稳定的系统外都会产生超调。相对于响应变化柔和的指令信号来说,这样的应用需要更高的稳定裕度。此外,与其他应用相比,有些应用可以承受更大的超调量。最后,对于同样的响应,有些控制方法需要比其他方法更大的相位裕度或者增益裕度。例如,对于一个阶跃响应来说,要获得相同的超调量,PI 调节器需要一定的相位裕度,而对于PID 调节器来说,较小的相位裕度就可能消除所有超调。经验表明,增益裕度(GM)应为10～ 25dB,而相位裕度(PM)应为35°~80°,这取决于具体应用及控制器类型。一般情况下,幅值裕度越大越好,同样,相角裕度也是越大越好。由于增益穿越处及其附近的相位滞后降低了相位裕度, 于是在整个控制回路中的每个噪 声滤波器、 反馈装置以及功率变换器均带来了相位滞后, 每个相位滞后都侵蚀相位裕度, 没必要的相位滞后限制了调节器的最终性能。 因此, 一条最基本的控制法则是： 消除没必要的相位滞后。</p>
+<h2 id="典型系统">典型系统</h2>
+<p>一般来说, 系统的开环传递函数都可表示为</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?W(s) = \frac{K(\tau_1s+1)(\tau_2s+1)}{s^r(T_1s+1)(T_2s+1)}"/> </div>
-
 <p>式中,分子和分母上都可能含有复数零点和复数极点诸项。分母中的s’项表示系统在原点处有r重极点,或者说,系统含有r个积分环节。根据r=0,1,2,…不同值,分别称为0型、Ⅰ型、Ⅱ型、…系统。自动控制理论证明,0型系统在稳态时是有差的,而Ⅲ型和Ⅲ型以上的系统很难稳定。因此,通常为保证稳定性和一定的稳态准确度,多用I型和Ⅱ型系统。</p>
-<h3 id="典型Ⅰ型系统"><a href="#典型Ⅰ型系统" class="headerlink" title="典型Ⅰ型系统"></a>典型Ⅰ型系统</h3><p>作为典型Ⅰ型系统, 其开环传递函数选择为</p>
+<h3 id="典型Ⅰ型系统">典型Ⅰ型系统</h3>
+<p>作为典型Ⅰ型系统, 其开环传递函数选择为</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?W(s) = \frac{K}{s(Ts+1)}"/> </div>
-
 <p>它的闭环系统结构如下所示,</p>
 <div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/req1.png" width="60%" height="30%"> </div>
-
-<p> 图 b 表示它的开环对数频率特性。 选择它作为典型系统不仅因为其机构简单, 而且对数幅频特性的中频段以 - 20dB / dec 的斜率穿越零分贝线。 只要参数的选择能保证有足够的中频带宽度,系统就一定是稳定的, 且有足够的稳定裕量。 显然要做到这一点, 应有</p>
+<p>图 b 表示它的开环对数频率特性。 选择它作为典型系统不仅因为其机构简单, 而且对数幅频特性的中频段以 - 20dB / dec 的斜率穿越零分贝线。 只要参数的选择能保证有足够的中频带宽度,系统就一定是稳定的, 且有足够的稳定裕量。 显然要做到这一点, 应有</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?\begin{cases}\omega_c<\frac{1}{T}\\ arctan \omega_cT<45^\circ\end{cases}"/> </div>
-
 <p>则相位稳定裕度有</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?\gamma = 180^\circ - 90^\circ - arctan \omega_cT>45^\circ"/> </div>
-
-<h3 id="典型Ⅱ型系统"><a href="#典型Ⅱ型系统" class="headerlink" title="典型Ⅱ型系统"></a>典型<strong>Ⅱ</strong>型系统</h3><p>在Ⅱ型系统中,选择一种最简单而稳定的机构作为典型的Ⅱ型系统,其开环传递函数为</p>
+<h3 id="典型Ⅱ型系统">典型<strong>Ⅱ</strong>型系统</h3>
+<p>在Ⅱ型系统中,选择一种最简单而稳定的机构作为典型的Ⅱ型系统,其开环传递函数为</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?W(s) = \frac{K(\tau s + 1)}{s^2(Ts+1)}"/> </div>
-
-
-
-<p>它的闭环系统结构和开环对数频率特性如图所示, </p>
+<p>它的闭环系统结构和开环对数频率特性如图所示,</p>
 <div align="center"> <img src="/img/postImg/37_threeLoopControlSystem/req2.png" width="60%" height="30%"> </div>
-
 <p>其中频段也是以 - 20dB / dec 的斜率穿越零分贝线。由于分母中已经有s²,对应的相频特性是-180°,后面还有一个惯性环节(这是实际系统必定有的),如果在分子上不添加一个比例微分环节 <img src="https://latex.codecogs.com/png.latex? (\tau s+1)"/> ,就无法把相频特性抬到-180°线以上去,也就无法保证系统稳定。要实现图b这样的特性,显然应有</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?\begin{cases}\frac{1}{\tau}<\omega_c<\frac{1}{T}\\ \tau>T\end{cases}"/> </div>
-
 <p>则相位稳定裕度为</p>
 <div align="center"> <img src="https://latex.codecogs.com/png.latex?\gamma = arctan \omega_c \tau - arctan \omega_cT"/> </div>
-
 <p>由上式可得到,<img src="https://latex.codecogs.com/png.latex?\tau"/> 比T大得越多,则稳定裕度越大。</p>
-<h1 id="手动调整速度环增益和位置环增益"><a href="#手动调整速度环增益和位置环增益" class="headerlink" title="手动调整速度环增益和位置环增益"></a>手动调整速度环增益和位置环增益</h1><p>这部分的内容,松下的伺服驱动器手册说的是非常的详细的,结合着自己查阅相关驱动器手册,对其进行一点归纳。</p>
-<p> 伺服驱动器首要的性能参数调整有三个：<strong>1.速度环增益；2.速度环积分时间常数;3.位置环增益</strong>。</p>
-<h1 id="增益调整与机械刚性的关系"><a href="#增益调整与机械刚性的关系" class="headerlink" title="增益调整与机械刚性的关系"></a>增益调整与机械刚性的关系</h1><h2 id="提高机械刚性"><a href="#提高机械刚性" class="headerlink" title="提高机械刚性"></a>提高机械刚性</h2><p>1,应将机械牢固的置于地基上,使之不产生晃动。</p>
+<h1>手动调整速度环增益和位置环增益</h1>
+<p>这部分的内容,松下的伺服驱动器手册说的是非常的详细的,结合着自己查阅相关驱动器手册,对其进行一点归纳。</p>
+<p>伺服驱动器首要的性能参数调整有三个：<strong>1.速度环增益；2.速度环积分时间常数;3.位置环增益</strong>。</p>
+<h1>增益调整与机械刚性的关系</h1>
+<h2 id="提高机械刚性">提高机械刚性</h2>
+<p>1,应将机械牢固的置于地基上,使之不产生晃动。</p>
 <p>2,应使用刚性高的伺服联轴器。</p>
 <p>3, 使用宽幅的同步带。此外,张力应在电机容许轴向的过负载范围内。</p>
 <p>4, 使用齿隙小的齿轮。机械部相关的固有振动 (共振频率) 会极大影响伺服机械的增益调整。共振频率低的机械 (=机械刚性低) ,伺服相关的响应性不可以设定过高。</p>
-<h1 id="机器人关节带宽和测量"><a href="#机器人关节带宽和测量" class="headerlink" title="机器人关节带宽和测量"></a><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/493958760">机器人关节带宽和测量</a></h1><p>文章写的很好，就直接搬运，下面为搬运的内容；</p>
+<h1><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/493958760">机器人关节带宽和测量</a></h1>
+<p>文章写的很好，就直接搬运，下面为搬运的内容；</p>
 <p>电机的伺服驱动器通常包括三种控制环——位置环、速度环和电流环。虽然每种控制环的目的是控制电机性能的不同方面，但它们都有一个共同的参数：带宽。在伺服驱动器中，带宽定义为闭环频率响应幅度大于 -3dB 的频率范围。此时，输出增益约为幅值的70.7%，输出功率等于输入功率的50%。定性地讲，系统的带宽可以衡量它对不断变化的输入命令的响应速度，因此对机器人的控制性能至关重要。</p>
 <p>在协作机械臂和腿足式机器人中，位置带宽和力矩带宽已经成为衡量其伺服关节性能的重要指标：</p>
 <ul>
-<li><p>位置带宽：描述执行器可以有效跟踪期望轨迹的最大频率，单位Hz，通常以峰值最大速度为指标来评价。</p>
+<li>
+<p>位置带宽：描述执行器可以有效跟踪期望轨迹的最大频率，单位Hz，通常以峰值最大速度为指标来评价。</p>
 </li>
-<li><p>力矩带宽：描述执行器可以有效跟踪期望力矩的最大频率，单位Hz，通常以峰值最大扭矩为指标来评价。</p>
+<li>
+<p>力矩带宽：描述执行器可以有效跟踪期望力矩的最大频率，单位Hz，通常以峰值最大扭矩为指标来评价。</p>
 </li>
 </ul>
 <p>一些典型的力控关节带宽指标如下表所示。</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -374,32 +383,70 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h2 id="如何影响带宽"><a href="#如何影响带宽" class="headerlink" title="如何影响带宽"></a><strong>如何影响带宽</strong></h2><p>关节都可以<strong>近似</strong>看成一个二阶质量-弹簧-阻尼系统，因此这三者会对系统力矩带宽产生影响。下面是我以<strong>JTS-based</strong>关节的闭环传递函数为例，分析这三个参数对力矩带宽影响的仿真结果。</p>
+<h2 id="如何影响带宽"><strong>如何影响带宽</strong></h2>
+<p>关节都可以<strong>近似</strong>看成一个二阶质量-弹簧-阻尼系统，因此这三者会对系统力矩带宽产生影响。下面是我以<strong>JTS-based</strong>关节的闭环传递函数为例，分析这三个参数对力矩带宽影响的仿真结果。</p>
 <ul>
 <li><strong>关节整体刚度</strong>：刚度越高，带宽越高</li>
-<li><strong>传动系统惯量：</strong>惯量越小，带宽越高</li>
-<li><strong>负载端阻尼：</strong>阻尼越大，带宽越高</li>
+<li>**传动系统惯量：**惯量越小，带宽越高</li>
+<li>**负载端阻尼：**阻尼越大，带宽越高</li>
 </ul>
 <p>由于传动系统惯量和负载端阻尼很难在设计关节时人为设定，因此大多数工作都是从关节刚度入手来改变力矩带宽。</p>
-<h2 id="带宽的测量"><a href="#带宽的测量" class="headerlink" title="带宽的测量"></a><strong>带宽的测量</strong></h2><h3 id="确定幅值"><a href="#确定幅值" class="headerlink" title="确定幅值"></a><strong>确定幅值</strong></h3><p>由于力矩带宽的具体大小由关节输出端负载决定，因此在测量时需要根据你的期望力矩幅值来测量相应带宽。</p>
-<h3 id="3-2-生成扫频信号"><a href="#3-2-生成扫频信号" class="headerlink" title="3.2 生成扫频信号"></a><strong>3.2 生成扫频信号</strong></h3><p>实验时需要根据实际经验大致定义关节力矩带宽的范围，比如0-60Hz，然后在规定时间内给控制器输入频率随时间变化的力矩信号。下面代码是以Matlab语言为例，在0-10s内生成0-60Hz，幅值为A的信号，具体使用时转换为相应的控制器程序语言写入控制器即可</p>
+<h2 id="带宽的测量"><strong>带宽的测量</strong></h2>
+<h3 id="确定幅值"><strong>确定幅值</strong></h3>
+<p>由于力矩带宽的具体大小由关节输出端负载决定，因此在测量时需要根据你的期望力矩幅值来测量相应带宽。</p>
+<h3 id="3-2-生成扫频信号"><strong>3.2 生成扫频信号</strong></h3>
+<p>实验时需要根据实际经验大致定义关节力矩带宽的范围，比如0-60Hz，然后在规定时间内给控制器输入频率随时间变化的力矩信号。下面代码是以Matlab语言为例，在0-10s内生成0-60Hz，幅值为A的信号，具体使用时转换为相应的控制器程序语言写入控制器即可</p>
 <figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 使用数学函数式生成啁啾信号</span></span><br><span class="line">fs = <span class="number">1000</span>;              <span class="comment">% 控制器采样频率，1KHz</span></span><br><span class="line">f_ini = <span class="number">0</span>;              <span class="comment">% 初始频率,单位Hz</span></span><br><span class="line">f_fin = <span class="number">60</span>;             <span class="comment">% 终止频率,单位Hz</span></span><br><span class="line">dT = <span class="number">10</span>;                <span class="comment">% 采样周期,单位s</span></span><br><span class="line">t1= <span class="number">0</span>:<span class="number">1</span>/fs:dT;          <span class="comment">% 采样间隔</span></span><br><span class="line">K= A*(f_fin-f_ini)/dT;  <span class="comment">% 频率线性增长率, A为信号幅值</span></span><br><span class="line">track = <span class="built_in">cos</span>(<span class="number">2</span>*<span class="built_in">pi</span>*(f_ini.*t1+<span class="number">0.5</span>.*K.*t1.*t1));</span><br></pre></td></tr></table></figure>
 <p>Matlab有自带的chirp函数可以生成余弦扫频信号，但是无法写入控制器，所以可以把chirp函数当作验证工具来来验证你的扫频信号。</p>
-<h3 id="实验装置及数据整理"><a href="#实验装置及数据整理" class="headerlink" title="实验装置及数据整理"></a><strong>实验装置及数据整理</strong></h3><p>1）实验开始前，需要通过机械装置锁住关节输出端；</p>
+<h3 id="实验装置及数据整理"><strong>实验装置及数据整理</strong></h3>
+<p>1）实验开始前，需要通过机械装置锁住关节输出端；</p>
 <p>2）实验时，关节工作在力矩模式（closed-loop），力矩环输入命令为扫频信号；</p>
 <p>3）实验过程中实时记录当前信号频率和对应力矩幅值；</p>
 <p>4）最后根据数据画bode图，找出-3dB对应的频率点，即为关节力矩带宽的截止频率。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] 松下驱动器手册</p>
+<h1>参考</h1>
+<p>[1] 松下驱动器手册</p>
 <p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/493958760">机器人关节带宽的理解和测量</a></p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -426,7 +473,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -461,7 +675,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

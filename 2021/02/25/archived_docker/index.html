@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,61 +230,85 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >docker</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#初识">初识</a><ul>
-<li><a href="#镜像">镜像</a></li>
-<li><a href="#容器">容器</a></li>
-<li><a href="#仓库">仓库</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%88%9D%E8%AF%86">初识</a>
+<ul>
+<li><a href="#%E9%95%9C%E5%83%8F">镜像</a></li>
+<li><a href="#%E5%AE%B9%E5%99%A8">容器</a></li>
+<li><a href="#%E4%BB%93%E5%BA%93">仓库</a></li>
 </ul>
 </li>
-<li><a href="#安装ubuntu-和-debian">安装Ubuntu 和 Debian</a></li>
-<li><a href="#使用-docker-镜像">使用 Docker 镜像</a><ul>
-<li><a href="#运行">运行</a></li>
-<li><a href="#列出镜像">列出镜像</a><ul>
-<li><a href="#列出部分镜像">列出部分镜像</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85ubuntu-%E5%92%8C-debian">安装Ubuntu 和 Debian</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-docker-%E9%95%9C%E5%83%8F">使用 Docker 镜像</a>
+<ul>
+<li><a href="#%E8%BF%90%E8%A1%8C">运行</a></li>
+<li><a href="#%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F">列出镜像</a>
+<ul>
+<li><a href="#%E5%88%97%E5%87%BA%E9%83%A8%E5%88%86%E9%95%9C%E5%83%8F">列出部分镜像</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#利用-commit-理解镜像构成">利用 commit 理解镜像构成</a></li>
-<li><a href="#运行windows-下">运行(windows 下)</a></li>
-<li><a href="#保存修改后的镜像">保存修改后的镜像</a></li>
-<li><a href="#使用-dockerfile-定制镜像">使用 Dockerfile 定制镜像</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E5%88%A9%E7%94%A8-commit-%E7%90%86%E8%A7%A3%E9%95%9C%E5%83%8F%E6%9E%84%E6%88%90">利用 commit 理解镜像构成</a></li>
+<li><a href="#%E8%BF%90%E8%A1%8Cwindows-%E4%B8%8B">运行(windows 下)</a></li>
+<li><a href="#%E4%BF%9D%E5%AD%98%E4%BF%AE%E6%94%B9%E5%90%8E%E7%9A%84%E9%95%9C%E5%83%8F">保存修改后的镜像</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-dockerfile-%E5%AE%9A%E5%88%B6%E9%95%9C%E5%83%8F">使用 Dockerfile 定制镜像</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>不想换个电脑重新配置下参数,这个配置可以说是相当的繁琐,比如说各种软件的配置,模块的兼容等等,以及交互式的界面对于提高自己的编程水平感觉并不高,因此有时需要一个无界面的命令行,强迫自己去使用纯命令行,简而言之,就是自虐。。。。。后来在学习过程中发现了个有意思的工具,没错,就是本文打算入坑的一个虚拟机。是一个属于<strong>Linux 容器的一种封装</strong>。不同操作系统的安装不太一样,这个过程比较简单,可以自行搜索。由于 Docker 确保了执行环境的一致性,使得应用的迁移更加容易。在很多平台上运行,无论是物理机、虚拟机、公有云、私有云,甚至是笔记本,其运行结果是一致的,不用担心运行环境的变化导致应用无法正常运行的情况,就像后来为什么喜欢上了overleaf那样。。。。。,另外一点,这种虚拟机的性能,接近于原生,这就很爽了。。。</p>
-<h1 id="初识"><a href="#初识" class="headerlink" title="初识"></a>初识</h1><p>Docker 包括三个基本概念,镜像(<code>Image</code>) 容器(<code>Container</code>) 仓库(<code>Repository</code>)</p>
-<h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>Docker 镜像是一个特殊的文件系统,除了提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数(如匿名卷、环境 变量、用户等)。镜像不包含任何动态数据,其内容在构建之后也不会被改变。</p>
-<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>镜像(Image)和容器(Container)的关系,就像是面向对象程序设计中的类和实例 一样,镜像是静态的定义,容器是镜像运行时的实体。容器可以被 创建、启动、停止、删除、暂停等。</p>
+<h1>前言</h1>
+<p>不想换个电脑重新配置下参数,这个配置可以说是相当的繁琐,比如说各种软件的配置,模块的兼容等等,以及交互式的界面对于提高自己的编程水平感觉并不高,因此有时需要一个无界面的命令行,强迫自己去使用纯命令行,简而言之,就是自虐。。。。。后来在学习过程中发现了个有意思的工具,没错,就是本文打算入坑的一个虚拟机。是一个属于<strong>Linux 容器的一种封装</strong>。不同操作系统的安装不太一样,这个过程比较简单,可以自行搜索。由于 Docker 确保了执行环境的一致性,使得应用的迁移更加容易。在很多平台上运行,无论是物理机、虚拟机、公有云、私有云,甚至是笔记本,其运行结果是一致的,不用担心运行环境的变化导致应用无法正常运行的情况,就像后来为什么喜欢上了overleaf那样。。。。。,另外一点,这种虚拟机的性能,接近于原生,这就很爽了。。。</p>
+<h1>初识</h1>
+<p>Docker 包括三个基本概念,镜像(<code>Image</code>) 容器(<code>Container</code>) 仓库(<code>Repository</code>)</p>
+<h2 id="镜像">镜像</h2>
+<p>Docker 镜像是一个特殊的文件系统,除了提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数(如匿名卷、环境 变量、用户等)。镜像不包含任何动态数据,其内容在构建之后也不会被改变。</p>
+<h2 id="容器">容器</h2>
+<p>镜像(Image)和容器(Container)的关系,就像是面向对象程序设计中的类和实例 一样,镜像是静态的定义,容器是镜像运行时的实体。容器可以被 创建、启动、停止、删除、暂停等。</p>
 <p>容器的实质是进程,但与直接在宿主执行的进程不同,容器进程运行于属于自己的<code>独立的</code>命名空间。因此容器可以拥有自己的 root 文件系统、自己的网络配置、 自己的进程空间,甚至自己的用户 ID 空间。容器内的进程是运行在一个隔离的环 境里,使用起来,就好像是在一个独立于宿主的系统下操作一样。这种特性使得容 器封装的应用比直接在宿主运行更加安全。也因为这种隔离的特性,很多人初学 Docker 时常常会把容器和虚拟机搞混。容器存储层的生存周期和容器一样,容器消亡时,容器存储层也随之消亡。因此, 任何保存于容器存储层的信息都会随容器删除而丢失。</p>
-<h2 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h2><p>一个 Docker Registry 中可以包含多个仓库(Repository)；每个仓库可以包含多 个标签(Tag)；每个标签对应一个镜像。通常,一个仓库会包含同一个软件不同版本的镜像,而标签就常用于对应该软件的 各个版本。我们可以通过 &lt;仓库名&gt;:&lt;标签&gt; 的格式来指定具体是这个软件哪个版 本的镜像。如果不给出标签,将以 latest 作为默认标签。仓库名经常以 两段式路径 形式出现,比如 jwilder/nginx-proxy ,前者往往意 味着 Docker Registry 多用户环境下的用户名,后者则往往是对应的软件名。但这 并非绝对,取决于所使用的具体 Docker Registry 的软件或服务。</p>
-<h1 id="安装Ubuntu-和-Debian"><a href="#安装Ubuntu-和-Debian" class="headerlink" title="安装Ubuntu 和 Debian"></a>安装Ubuntu 和 Debian</h1><p>官方为了简化安装流程,提供了一套安装脚本,Ubuntu 和 Debian 系统可 以使用这套脚本安装：</p>
+<h2 id="仓库">仓库</h2>
+<p>一个 Docker Registry 中可以包含多个仓库(Repository)；每个仓库可以包含多 个标签(Tag)；每个标签对应一个镜像。通常,一个仓库会包含同一个软件不同版本的镜像,而标签就常用于对应该软件的 各个版本。我们可以通过 &lt;仓库名&gt;:&lt;标签&gt; 的格式来指定具体是这个软件哪个版 本的镜像。如果不给出标签,将以 latest 作为默认标签。仓库名经常以 两段式路径 形式出现,比如 jwilder/nginx-proxy ,前者往往意 味着 Docker Registry 多用户环境下的用户名,后者则往往是对应的软件名。但这 并非绝对,取决于所使用的具体 Docker Registry 的软件或服务。</p>
+<h1>安装Ubuntu 和 Debian</h1>
+<p>官方为了简化安装流程,提供了一套安装脚本,Ubuntu 和 Debian 系统可 以使用这套脚本安装：</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">curl -sSL https://<span class="built_in">get</span>.docker.<span class="keyword">com</span>/ | <span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
 <p>由于墙的原因,可能会存在安装不上的原因,可使用阿里云来进行安装</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-<span class="keyword">cn</span>-hangzhou.aliyuncs.<span class="keyword">com</span>/ docker-engine/internet | <span class="keyword">sh</span> -</span><br></pre></td></tr></table></figure>
-<h1 id="使用-Docker-镜像"><a href="#使用-Docker-镜像" class="headerlink" title="使用 Docker 镜像"></a>使用 Docker 镜像</h1><p>Docker 运行容器前需要本地存在对应的镜像,如果镜像不存在本地,Docker 会从 镜像仓库下载(默认是 Docker Hub 公共注册服务器中的仓库)。</p>
+<h1>使用 Docker 镜像</h1>
+<p>Docker 运行容器前需要本地存在对应的镜像,如果镜像不存在本地,Docker 会从 镜像仓库下载(默认是 Docker Hub 公共注册服务器中的仓库)。</p>
 <p>从 Docker Registry 获取镜像的命令是 <code>docker pull</code> 。其命令格式为：</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">docker pull [选项] [Docker Registry地址]<span class="tag">&lt;<span class="name">仓库名</span>&gt;</span>:<span class="tag">&lt;<span class="name">标签</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>Docker Registry地址：地址的格式一般是 &lt;域名/IP&gt;[端口号]。默认地址是 Docker Hub。仓库名是两段式名称,既 &lt;用户名&gt;/&lt;软件名&gt; 。 对于 Docker Hub,如果不给出用户名,则默认为 library ,也就是官方镜像。</p>
 <p>比如</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull ubuntu:<span class="number">14</span>.<span class="number">04</span></span><br></pre></td></tr></table></figure>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>有了镜像后,我们就可以以这个镜像为基础启动一个容器来运行。以上面的 ubuntu:14.04 为例,如果我们打算启动里面的 bash 并且进行交互式操作的话,可以执行下面的命令。</p>
+<h2 id="运行">运行</h2>
+<p>有了镜像后,我们就可以以这个镜像为基础启动一个容器来运行。以上面的 ubuntu:14.04 为例,如果我们打算启动里面的 bash 并且进行交互式操作的话,可以执行下面的命令。</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span> <span class="comment">--rm ubuntu:14.04 bash</span></span><br></pre></td></tr></table></figure>
-<p><code>docker run</code> 就是运行容器的命令,-it ：这是两个参数,一个是-i：交互式操作,一个是 -t:终端。—rm ：这个参数是说容器退出后随之将其删除。默认情况下,为了排障需<br>求,退出的容器并不会立即删除,除非手动 docker rm 。</p>
-<h2 id="列出镜像"><a href="#列出镜像" class="headerlink" title="列出镜像"></a>列出镜像</h2><p>要想列出已经下载下来的镜像,可以使用<code>docker images</code>命令</p>
-<h3 id="列出部分镜像"><a href="#列出部分镜像" class="headerlink" title="列出部分镜像"></a>列出部分镜像</h3><p>不加任何参数的情况下, docker images 会列出所有顶级镜像,但是有时候我们 只希望列出部分镜像。 docker images 有好几个参数可以帮助做到这个事情。 根据仓库名列出镜像</p>
+<p><code>docker run</code> 就是运行容器的命令,-it ：这是两个参数,一个是-i：交互式操作,一个是 -t:终端。–rm ：这个参数是说容器退出后随之将其删除。默认情况下,为了排障需<br>
+求,退出的容器并不会立即删除,除非手动 docker rm 。</p>
+<h2 id="列出镜像">列出镜像</h2>
+<p>要想列出已经下载下来的镜像,可以使用<code>docker images</code>命令</p>
+<h3 id="列出部分镜像">列出部分镜像</h3>
+<p>不加任何参数的情况下, docker images 会列出所有顶级镜像,但是有时候我们 只希望列出部分镜像。 docker images 有好几个参数可以帮助做到这个事情。 根据仓库名列出镜像</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker images ubuntu</span></span><br></pre></td></tr></table></figure>
 <p>列出特定的某个镜像,也就是说指定仓库名和标签</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> images ubuntu:<span class="number">16</span>.<span class="number">04</span></span><br></pre></td></tr></table></figure>
-<h1 id="利用-commit-理解镜像构成"><a href="#利用-commit-理解镜像构成" class="headerlink" title="利用 commit 理解镜像构成"></a>利用 commit 理解镜像构成</h1><p>镜像是容器的基础,每次执行 <code>docker run</code> 的时候都会指定哪个镜像作为容器运 行的基础。在之前的例子中,我们所使用的都是来自于 Docker Hub 的镜像。直接使用这些镜像是可以满足一定的需求,而当这些镜像无法直接满足需求时,我们就需要定制这些镜像。镜像是多层存储,每一层是在前一层的基础上进行的修改；而容器同样也是多层存储,是在以镜像为基础层,在其基础上加一层作为容器运行时的存储层。</p>
+<h1>利用 commit 理解镜像构成</h1>
+<p>镜像是容器的基础,每次执行 <code>docker run</code> 的时候都会指定哪个镜像作为容器运 行的基础。在之前的例子中,我们所使用的都是来自于 Docker Hub 的镜像。直接使用这些镜像是可以满足一定的需求,而当这些镜像无法直接满足需求时,我们就需要定制这些镜像。镜像是多层存储,每一层是在前一层的基础上进行的修改；而容器同样也是多层存储,是在以镜像为基础层,在其基础上加一层作为容器运行时的存储层。</p>
 <p>定制一个 Web 服务器为例子,来讲解镜像是如何构建的。</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run --name webserver -d -p <span class="number">80</span>:<span class="number">80</span> nginx</span><br></pre></td></tr></table></figure>
 <p>这条命令会用 <code>nginx</code> 镜像启动一个容器,命名为 webserver ,并且映射了 80 端口,这样我们可以用浏览器去访问这个 nginx 服务器。</p>
-<p>如果是在 Linux 本机运行的 Docker,或者如果使用的是 Docker for Mac、Docker for Windows,那么可以直接访问：<a target="_blank" rel="noopener" href="http://localhost；如果使用的是">http://localhost；如果使用的是</a> Docker Toolbox,或者是在虚拟机、云服务器上安装的 Docker,则需要将 localhost 换为虚拟机地址或者实际云服务器地址。</p>
+<p>如果是在 Linux 本机运行的 Docker,或者如果使用的是 Docker for Mac、Docker for Windows,那么可以直接访问：<a target="_blank" rel="noopener" href="http://localhost">http://localhost</a>；如果使用的是 Docker Toolbox,或者是在虚拟机、云服务器上安装的 Docker,则需要将 localhost 换为虚拟机地址或者实际云服务器地址。</p>
 <p>当运行一个容器的时候(如果不使用卷的话),做的任何文件修改都会被记录于容器存储层里。而 Docker 提供了一个 docker commit 命令,可以将容器的存储层保存下来成为镜像。换句话说,就是在原有镜像的基础上,再叠加上容器的存储层,并构成新的镜像。以后我们运行这个新镜像的时候,就会拥有原有容器最后的文件变化。</p>
 <p><code>docker commit</code> 的语法格式为：</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">docker commit [选项] <span class="tag">&lt;<span class="name">容器ID或容器名</span>&gt;</span> [<span class="tag">&lt;<span class="name">仓库名</span>&gt;</span>[:<span class="tag">&lt;<span class="name">标签</span>&gt;</span>]]</span><br></pre></td></tr></table></figure>
@@ -292,28 +317,65 @@
 <p>这里命名为新的服务为 web2 ,并且映射到 81 端口。如果是 Docker for Mac/Windows 或 Linux 桌面的话,我们就可以直接访问 <a target="_blank" rel="noopener" href="http://localhost:81">http://localhost:81</a> 看到结果,其内容应该和之前修改后的 webserver 一样。</p>
 <p>除当前层外,之前的每一层都是不会发生改变的,换句话说,任何修改的结果仅仅是在当前层进行标记、添 加、修改,而不会改动上一层。如果使用 docker commit 制作镜像,以及后期修改的话,每一次修改都会让镜像更加臃肿一次,所删除的上一层的东西并不会丢失,会一直如影随形的跟着这个镜像,即使根本无法访问到。这会让镜像更加臃肿。</p>
 <p>docker commit 命令除了学习之外,还有一些特殊的应用场合,比如被入侵后保存现场等。但是,不要使用 docker commit 定制镜像,定制行为应该使用 Dockerfile 来完成。</p>
-<h1 id="运行-windows-下"><a href="#运行-windows-下" class="headerlink" title="运行(windows 下)"></a>运行(windows 下)</h1><p>如何在Windows下运行,可以首先使用docker images看看自己的镜像,然后在powershell里面输入类似的语法即可：</p>
+<h1>运行(windows 下)</h1>
+<p>如何在Windows下运行,可以首先使用docker images看看自己的镜像,然后在powershell里面输入类似的语法即可：</p>
 <figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">docker run -it lsqy_ubuntu:laster <span class="comment">//bin/bash</span></span><br></pre></td></tr></table></figure>
 <p>对于喜欢linux风格的,可以在git bash 下输入</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">winpty docker <span class="built_in">run</span> -<span class="keyword">it</span> lsqy_ubuntu:latest bash</span><br></pre></td></tr></table></figure>
 <p>一开始也想通过powershell的方式,输入的,结果报了这样的错误<code>the input device is not a TTY.  If you are using mintty, try prefixing the comma</code></p>
-<h1 id="保存修改后的镜像"><a href="#保存修改后的镜像" class="headerlink" title="保存修改后的镜像"></a>保存修改后的镜像</h1><p>一开始很费解,为什么在里面安装了一些软件后,比如配置好了一些环境变量,再次打开的时候,发现之前修改的都不存在了。可以将容器打包成镜像,需要指定要提交保存容器的ID,类似于</p>
+<h1>保存修改后的镜像</h1>
+<p>一开始很费解,为什么在里面安装了一些软件后,比如配置好了一些环境变量,再次打开的时候,发现之前修改的都不存在了。可以将容器打包成镜像,需要指定要提交保存容器的ID,类似于</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> commit <span class="number">214</span>e52618d54 lsqyrobot/lsqy_ubuntu:latest</span><br></pre></td></tr></table></figure>
 <p>这里的<code>214e52618d54</code>就是制定要提交保存的容器ID, 当然,从上面所说的 <code>利用 commit 理解镜像构成</code> 那部分内容,也容易理解为什么做了些修改后,再次重启就不复存在了,这当然有很多好处,比如自己在机器人上开发一些功能,开发后与开发前提升了哪些性能,当然是与开发前相比了,所以每次开机都会恢复成最初的状态,以便于对比和检查更新前后的差别,反复确保没有问题后,方可更新。</p>
-<h1 id="使用-Dockerfile-定制镜像"><a href="#使用-Dockerfile-定制镜像" class="headerlink" title="使用 Dockerfile 定制镜像"></a>使用 Dockerfile 定制镜像</h1><p>从  <code>docker commit</code> 的学习可以了解到,镜像的定制实际上就是定制每一层所添加的配置、文件。如果我们可以把每一层修改、安装、构建、操作 的命令都写入一个脚本,用这个脚本来构建、定制镜像,那么之前提及的无法重复的问题、镜像构建透明性的问题、体积的问题就都会解决。这个脚本就是 Dockerfile。Dockerfile 是一个文本文件,其内包含了一条条的指令(Instruction),每一条指令构建一层,因此每一条指令的内容,就是描述该层应当如何构建。以 nginx 镜像为例,使用 Dockerfile 来定制。 在一个空白目录中,建立一个文本文件,并命名为 Dockerfile ：</p>
+<h1>使用 Dockerfile 定制镜像</h1>
+<p>从  <code>docker commit</code> 的学习可以了解到,镜像的定制实际上就是定制每一层所添加的配置、文件。如果我们可以把每一层修改、安装、构建、操作 的命令都写入一个脚本,用这个脚本来构建、定制镜像,那么之前提及的无法重复的问题、镜像构建透明性的问题、体积的问题就都会解决。这个脚本就是 Dockerfile。Dockerfile 是一个文本文件,其内包含了一条条的指令(Instruction),每一条指令构建一层,因此每一条指令的内容,就是描述该层应当如何构建。以 nginx 镜像为例,使用 Dockerfile 来定制。 在一个空白目录中,建立一个文本文件,并命名为 Dockerfile ：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> mynginx</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> mynginx</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">touch</span> Dockerfile</span></span><br></pre></td></tr></table></figure>
 <p>其内容为：</p>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx <span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&#x27;&lt;h1&gt;Hello, Docker!&lt;/h1&gt;&#x27;</span> &gt; /usr/share/nginx/html/index .html</span></span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]  <a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html">Docker 入门教程——阮一峰</a></p>
-<p>[2] 《docker 从入门到实践》—杨宝华等</p>
+<h1>参考</h1>
+<p>[1]  <a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html">Docker 入门教程——阮一峰</a></p>
+<p>[2] 《docker 从入门到实践》–杨宝华等</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -340,7 +402,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -375,7 +604,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

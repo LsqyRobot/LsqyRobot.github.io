@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,54 +230,74 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >C++学习笔记(一)</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#容器作为函数参数如何传参">容器作为函数参数如何传参</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%AE%B9%E5%99%A8%E4%BD%9C%E4%B8%BA%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%A6%82%E4%BD%95%E4%BC%A0%E5%8F%82">容器作为函数参数如何传参</a></li>
 <li><a href="#resize-and-reserve">resize AND reserve</a></li>
-<li><a href="#动态内存分配和指针">动态内存分配和指针</a></li>
-<li><a href="#hpp与h区别">.hpp与.h区别</a></li>
-<li><a href="#类与对象">类与对象</a><ul>
-<li><a href="#成员访问控制">成员访问控制</a><ul>
-<li><a href="#示例">示例</a></li>
-<li><a href="#注意事项">注意事项</a></li>
-<li><a href="#关于类的注意事项">关于类的注意事项</a></li>
+<li><a href="#%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%92%8C%E6%8C%87%E9%92%88">动态内存分配和指针</a></li>
+<li><a href="#hpp%E4%B8%8Eh%E5%8C%BA%E5%88%AB">.hpp与.h区别</a></li>
+<li><a href="#%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1">类与对象</a>
+<ul>
+<li><a href="#%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6">成员访问控制</a>
+<ul>
+<li><a href="#%E7%A4%BA%E4%BE%8B">示例</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8E%E7%B1%BB%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">关于类的注意事项</a></li>
 </ul>
 </li>
-<li><a href="#读取以及处理数据">读取以及处理数据</a></li>
-<li><a href="#结合解引用和成员访问操作">结合解引用和成员访问操作</a><ul>
-<li><a href="#表达式">表达式</a></li>
-<li><a href="#函数相关">函数相关</a></li>
+<li><a href="#%E8%AF%BB%E5%8F%96%E4%BB%A5%E5%8F%8A%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE">读取以及处理数据</a></li>
+<li><a href="#%E7%BB%93%E5%90%88%E8%A7%A3%E5%BC%95%E7%94%A8%E5%92%8C%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C">结合解引用和成员访问操作</a>
+<ul>
+<li><a href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F">表达式</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3">函数相关</a></li>
 </ul>
 </li>
-<li><a href="#函数的传入参数">函数的传入参数</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E7%9A%84%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0">函数的传入参数</a></li>
 </ul>
 </li>
-<li><a href="#常用库或函数使用说明">常用库或函数使用说明</a><ul>
+<li><a href="#%E5%B8%B8%E7%94%A8%E5%BA%93%E6%88%96%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E">常用库或函数使用说明</a>
+<ul>
 <li><a href="#pugixml">pugixml</a></li>
 </ul>
 </li>
-<li><a href="#知识点">知识点</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E7%9F%A5%E8%AF%86%E7%82%B9">知识点</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记录一些自己感觉比较有用的概念. 实际上就是一份从入门到放弃的笔记,毕竟还是喜欢从网上逛博客学知识,零散些没什么,能够将这些知识串起来就很有用了。</p>
-<h1 id="容器作为函数参数如何传参"><a href="#容器作为函数参数如何传参" class="headerlink" title="容器作为函数参数如何传参"></a>容器作为函数参数如何传参</h1><p>1, void 函数名( vector&lt; int&gt; obj );</p>
+<h1>前言</h1>
+<p>记录一些自己感觉比较有用的概念. 实际上就是一份从入门到放弃的笔记,毕竟还是喜欢从网上逛博客学知识,零散些没什么,能够将这些知识串起来就很有用了。</p>
+<h1>容器作为函数参数如何传参</h1>
+<p>1, void 函数名( vector&lt; int&gt; obj );</p>
 <p>2,  void 函数名( vector&lt; int&gt;* pobj );</p>
 <p>3,  void 函数名( const vector&lt; int&gt;* pobj ); // 在函数内不能改变 pobj 指向的对象 ,//调用时不会调用拷贝构造函数</p>
 <p>4,  void 函数名( vector&lt; int&gt;&amp; obj );</p>
 <p>5,  void 函数名( const vector&lt; int&gt;&amp; obj ); // 在函数内不能改变 obj 对象,// 在函数调用时调用了vector的拷贝构造函数</p>
 <p>表达式放在构析函数中, 如果类的析构函数存在, 那么在每个类的生命期结束时它会被调用.析构函数由类名前面加一个波浪号来标识.</p>
-<h1 id="resize-AND-reserve"><a href="#resize-AND-reserve" class="headerlink" title="resize AND reserve"></a>resize AND reserve</h1><ol>
-<li><p>capacity:指容器在分配新的存储空间之前能存储的元素总数.size:指当前容器所存储的元素个数.</p>
+<h1>resize AND reserve</h1>
+<ol>
+<li>
+<p>capacity:指容器在分配新的存储空间之前能存储的元素总数.size:指当前容器所存储的元素个数.</p>
 </li>
-<li><p>reserve表示容器预留空间,但并不是真正的创建对象,需要通过insert()或push_back()等创建对象.resize既分配了空间,也创建了对象.</p>
+<li>
+<p>reserve表示容器预留空间,但并不是真正的创建对象,需要通过insert()或push_back()等创建对象.resize既分配了空间,也创建了对象.</p>
 </li>
-<li><p>reserve只修改capacity大小,不修改size大小,resize既修改capacity大小,也修改size大小.</p>
+<li>
+<p>reserve只修改capacity大小,不修改size大小,resize既修改capacity大小,也修改size大小.</p>
 </li>
 </ol>
-<h1 id="动态内存分配和指针"><a href="#动态内存分配和指针" class="headerlink" title="动态内存分配和指针"></a>动态内存分配和指针</h1><p>静态与动态内存分配的两个主要区别是:</p>
+<h1>动态内存分配和指针</h1>
+<p>静态与动态内存分配的两个主要区别是:</p>
 <p>1, 静态对象是有名字的变量, 直接对其进行操作,而动态对象是没有名字的变量,通过指针间接地对它进行操作;</p>
 <p>2, 静态对象的分配与释放由编译器自动处理事情, 相反,动态对象的分配与释放,必须由程序员显式地管理但不需要做任何事情,相对来说比较容易出错它通过new和delete两个表达式来完成, 对于动态分配的内存惟一的访问方式是通过指针间接地访问</p>
 <p>3, 没有办法给动态分配的数组的每个元素显式地指定一个初始值, 当用完了动态分配的对象或对象的数组时, 必须显式地释放这些内存, 可以通过使用 delete 表达式的两个版本之一来完成这件事情,而释放之后的内存则可以被程序重新使用.</p>
@@ -284,66 +305,85 @@
 <p>5,  由于 C++不允许成员函数与数据成员共享同一个名字, 所以在这样的情况下,一般的习惯是在数据成员名字前面加一个下划线.</p>
 <p>6,  在类定义中被定义的成员函数会被自动当作是内联函数,此外我们也可以用inline关键字显式地要求一个函数被视为内联函数</p>
 <p>7, 被声明为 static 的数据成员是一类特殊的共享数据成员无论这个类的对象被定义了多少个静态数据成员在程序中也只有一份.</p>
-<h1 id="hpp与-h区别"><a href="#hpp与-h区别" class="headerlink" title=".hpp与.h区别"></a>.hpp与.h区别</h1><p>.hpp,本质就是将.cpp的实现代码混入.h头文件当中,定义与实现都包含在同一文件,则该类的调用者只需要include该.hpp文件即可,无需再将cpp加入到project中进行编译.而实现代码将直接编译到调用者的obj文件中,不再生成单独的obj,采用hpp将大幅度减少调用project中的cpp文件数与编译次数,也不用再发布lib与dll文件,因此非常适合用来编写公用的开源库.</p>
+<h1>.hpp与.h区别</h1>
+<p>.hpp,本质就是将.cpp的实现代码混入.h头文件当中,定义与实现都包含在同一文件,则该类的调用者只需要include该.hpp文件即可,无需再将cpp加入到project中进行编译.而实现代码将直接编译到调用者的obj文件中,不再生成单独的obj,采用hpp将大幅度减少调用project中的cpp文件数与编译次数,也不用再发布lib与dll文件,因此非常适合用来编写公用的开源库.</p>
 <p>由于.hpp本质上是作为.h被调用者include的,所以当hpp文件中存在全局对象或者全局函数,而该hpp被多个调用者include时,将在链接时导致符号重定义错误.要避免这种情况,需要去除全局对象,将全局函数封装为类的静态方法.</p>
 <p>Note: 函数返回运算结果的前提有3个：</p>
-<p>1) 使用指针变量作为函数形参。</p>
-<p>2)用接受运算结果的变量的指针(或地址)作为实参调用函数 </p>
+<ol>
+<li>使用指针变量作为函数形参。</li>
+</ol>
+<p>2)用接受运算结果的变量的指针(或地址)作为实参调用函数</p>
 <p>3)函数中通过指针间接引用修改这些变量。</p>
 <p>Note: 函数名既代表函数,又是函数的指针。 2) delete只能删除由new创建的动态对象,否则将导致程序错误。</p>
-<h1 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h1><p>1, 类成员可以是数据, 函数或类型别名。所有成员必须在类的内部声明, 一旦类定义完成后, 就没有任何其他方式再增加成员了。</p>
+<h1>类与对象</h1>
+<p>1, 类成员可以是数据, 函数或类型别名。所有成员必须在类的内部声明, 一旦类定义完成后, 就没有任何其他方式再增加成员了。</p>
 <p>2, 类定义一般放在程序文件开头, 或者放到头文件中被程序文件包含, 此时这个定义是全局的。在全局作用域内, 该定义处处可见, 因此同一作用域内的所有函数都可以使用它。</p>
-<h2 id="成员访问控制"><a href="#成员访问控制" class="headerlink" title="成员访问控制"></a>成员访问控制</h2><p>对类的成员进行访问,来自两个访问源： 类成员和类用户。类成员指的是类本身的成员函数,类用户指的是类外部的使用者,包括全局函数,另一个类的成员函数等。 无论数据成员还是函数成员,类的每个成员都有访问控制属性,由一下三个访问标号说明: public, private, protected.  类成员和类用户都可以访问公有成员,任何一个来自类外部的类用户都必须通过公有成员来访问。显然,public实现了类的外部接口。</p>
+<h2 id="成员访问控制">成员访问控制</h2>
+<p>对类的成员进行访问,来自两个访问源： 类成员和类用户。类成员指的是类本身的成员函数,类用户指的是类外部的使用者,包括全局函数,另一个类的成员函数等。 无论数据成员还是函数成员,类的每个成员都有访问控制属性,由一下三个访问标号说明: public, private, protected.  类成员和类用户都可以访问公有成员,任何一个来自类外部的类用户都必须通过公有成员来访问。显然,public实现了类的外部接口。</p>
 <p>只有类成员可以访问私有成员,类用户的访问是不允许的。显然,private实现了私有成员的隐蔽。</p>
 <p>保护成员用protected标号说明,在不考虑继承的情况下,protected的性质和private的性质一致,但保护成员可以被派生类的类成员访问。总的来说可以参考如下表中所示</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
-<th>访问     &emsp;</th>
-<th>public &emsp;</th>
-<th>protected &emsp;</th>
+<th>访问      </th>
+<th>public  </th>
+<th>protected  </th>
 <th>private</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>同一个类 &emsp;</td>
-<td>yes    &emsp;</td>
-<td>yes       &emsp;</td>
+<td>同一个类  </td>
+<td>yes     </td>
+<td>yes        </td>
 <td>yes</td>
 </tr>
 <tr>
-<td>派生类   &emsp;</td>
-<td>yes    &emsp;</td>
-<td>yes       &emsp;</td>
+<td>派生类    </td>
+<td>yes     </td>
+<td>yes        </td>
 <td>no</td>
 </tr>
 <tr>
-<td>外部的类 &emsp;</td>
-<td>yes    &emsp;</td>
-<td>no        &emsp;</td>
+<td>外部的类  </td>
+<td>yes     </td>
+<td>no         </td>
 <td>no</td>
 </tr>
 <tr>
-<td>友元类   &emsp;</td>
-<td>yes    &emsp;</td>
-<td>yes       &emsp;</td>
+<td>友元类    </td>
+<td>yes     </td>
+<td>yes        </td>
 <td>yes</td>
 </tr>
 </tbody>
 </table>
-</div>
 <p>另外需要说明:</p>
-<p>1) 数据成员一般声明为 private,以实现信息的隐蔽.</p>
-<p>2) 成员函数一般声明为 public,以提供外界使用的接口.</p>
-<p>3) 构造函数一般声明为 public,以便创建类的对象.</p>
-<p>4) 创建一个类类型的对象时,编译器会自动使用一个构造函数来初始化该对象,构造函数是一个特殊的、与类同名的成员函数,用于初始化每个数据成员来设置初始值。</p>
-<p>5) 构造函数一般使用一个构造函数初始化列表,来初始化对象的数据成员.</p>
-<p>6) 在类内部,声明成员函数是必需的,而定义成员函数则可选,可以在类外定义。在类内部定义的函数默认为 inline 函数.</p>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>可用下面代码辅助理解</p>
+<ol>
+<li>
+<p>数据成员一般声明为 private,以实现信息的隐蔽.</p>
+</li>
+<li>
+<p>成员函数一般声明为 public,以提供外界使用的接口.</p>
+</li>
+<li>
+<p>构造函数一般声明为 public,以便创建类的对象.</p>
+</li>
+<li>
+<p>创建一个类类型的对象时,编译器会自动使用一个构造函数来初始化该对象,构造函数是一个特殊的、与类同名的成员函数,用于初始化每个数据成员来设置初始值。</p>
+</li>
+<li>
+<p>构造函数一般使用一个构造函数初始化列表,来初始化对象的数据成员.</p>
+</li>
+<li>
+<p>在类内部,声明成员函数是必需的,而定义成员函数则可选,可以在类外定义。在类内部定义的函数默认为 inline 函数.</p>
+</li>
+</ol>
+<h3 id="示例">示例</h3>
+<p>可用下面代码辅助理解</p>
 <figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 公有接口</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PublicFunction</span>()</span> &#123;</span><br><span class="line">        <span class="comment">// 可以在类外部调用</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="comment">// 保护接口</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">ProtectedFunction</span>()</span> &#123;</span><br><span class="line">        <span class="comment">// 在派生类中可以调用，但在类外部无法直接访问</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 私有接口</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PrivateFunction</span>()</span> &#123;</span><br><span class="line">        <span class="comment">// 只能在类的内部调用，类外部无法直接访问</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>下面需要注意的源自于林锐的《高质量C++/C编程指南》</p>
+<h3 id="注意事项">注意事项</h3>
+<p>下面需要注意的源自于林锐的《高质量C++/C编程指南》</p>
 <p>1, <strong>在多重循环中,如果有可能,应当将最长的循环放在最内层,最短的循环放在最外层,来提高程序运行效率。</strong></p>
 <p>2,  <strong>如果循环体内存在逻辑判断,并且循环次数很大,宜将逻辑判断移到循环体的外面.</strong></p>
 <p>3, <strong>Switch 是多分支选择语句,而 if  语句只有两个分支可供选择。虽然可以用嵌套的 if 语句来实现多分支选择,但那样的程序冗长难读。这是 switch 语句存在的理由。</strong></p>
@@ -353,26 +393,47 @@
 <p>3, 内存分配成功并且已经初始化,但操作越过了内存的边界</p>
 <p>4, 忘记了释放内存,造成内存泄露。</p>
 <p>5, 释放了内存却继续使用它。</p>
-<p>Note: </p>
-<p>1) 用 malloc 或 new 申请内存之后,应该立即检査指针值是否为 NULL。防止使用指针值为 NULL 的内存</p>
-<p>2) 不要忘记为数组和动态内存赋初值。防止将未被初始化的内存作为右值使用。</p>
-<p>3) 避免数组或指针的下标越界,特别要当心发生“多 1”或者“少 1”操作。</p>
-<p>4) 动态内存的申请与释放必须配对,防止内存泄漏。</p>
+<p>Note:</p>
+<ol>
+<li>
+<p>用 malloc 或 new 申请内存之后,应该立即检査指针值是否为 NULL。防止使用指针值为 NULL 的内存</p>
+</li>
+<li>
+<p>不要忘记为数组和动态内存赋初值。防止将未被初始化的内存作为右值使用。</p>
+</li>
+<li>
+<p>避免数组或指针的下标越界,特别要当心发生“多 1”或者“少 1”操作。</p>
+</li>
+<li>
+<p>动态内存的申请与释放必须配对,防止内存泄漏。</p>
+</li>
+</ol>
 <p>5)用 free 或 delete 释放了内存之后,立即将指针设置为 NULL,防止产生“野指针”.</p>
 <p>malloc 返回值的类型是 void *,所以在调用 malloc 时要显式地进行类型转换,将 void *转换成所需要的指针类型。</p>
-<h3 id="关于类的注意事项"><a href="#关于类的注意事项" class="headerlink" title="关于类的注意事项"></a>关于类的注意事项</h3><p>类的基本思想是数据抽象和封装。数据抽象是种依赖于接口(interface)和实现(implementation)分离的编程(以及设计)技术。类的接口包括用户所能执行的操作；类的实现则包括类的数据成员、负责接口实现的函数体以及定义类所需的各种私有函数。</p>
+<h3 id="关于类的注意事项">关于类的注意事项</h3>
+<p>类的基本思想是数据抽象和封装。数据抽象是种依赖于接口(interface)和实现(implementation)分离的编程(以及设计)技术。类的接口包括用户所能执行的操作；类的实现则包括类的数据成员、负责接口实现的函数体以及定义类所需的各种私有函数。</p>
 <p>除了静态 static 数据成员外,数据成员不能在类体中被显式地初始化。</p>
-<h2 id="读取以及处理数据"><a href="#读取以及处理数据" class="headerlink" title="读取以及处理数据"></a>读取以及处理数据</h2><p>1) file.good()是在文件读取或者写的过程中出现错误；或者读到文件最后继续读才会返回false;</p>
-<p>2) 在读取数组文件的时候,用上了getline这个函数,其函数用法如下,其中默认就是按行读取,这样的好处就是,去模拟信号的输入。</p>
+<h2 id="读取以及处理数据">读取以及处理数据</h2>
+<ol>
+<li>
+<p>file.good()是在文件读取或者写的过程中出现错误；或者读到文件最后继续读才会返回false;</p>
+</li>
+<li>
+<p>在读取数组文件的时候,用上了getline这个函数,其函数用法如下,其中默认就是按行读取,这样的好处就是,去模拟信号的输入。</p>
+</li>
+</ol>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// (buffer, stream_size, delimiter)</span></span><br><span class="line"><span class="function">istream&amp; <span class="title">getline</span><span class="params">(<span class="type">char</span>*, <span class="type">int</span> size, <span class="type">char</span>=<span class="string">&#x27;\n&#x27;</span>)</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="结合解引用和成员访问操作"><a href="#结合解引用和成员访问操作" class="headerlink" title="结合解引用和成员访问操作"></a>结合解引用和成员访问操作</h2><p>解引用迭代器可获得迭代器所指的对象,如果该对象的类型恰好是类,就有可能希望进一步访问它的成员。例如,对于一个由字符串组成的 vector 对象来说,要想检査其元素是否为空,令 it 是该 vector 对象的迭代器,只需检査主 it 所指字符串是否为空就可以了,其代码如下所示</p>
+<h2 id="结合解引用和成员访问操作">结合解引用和成员访问操作</h2>
+<p>解引用迭代器可获得迭代器所指的对象,如果该对象的类型恰好是类,就有可能希望进一步访问它的成员。例如,对于一个由字符串组成的 vector 对象来说,要想检査其元素是否为空,令 it 是该 vector 对象的迭代器,只需检査主 it 所指字符串是否为空就可以了,其代码如下所示</p>
 <figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">(*it)</span>.empty<span class="comment">()</span></span><br></pre></td></tr></table></figure>
 <p>注意,(*it).empty()中的圆括号必不可少,</p>
-<p>为了简化上述表达式,C++语言定义了箭头运算符(-&gt;)。箭头运算符把解引用和成员访问两个操作结合在一起,也就是说,it->mem 和(*it).mem 表达的意思相同。</p>
+<p>为了简化上述表达式,C++语言定义了箭头运算符(-&gt;)。箭头运算符把解引用和成员访问两个操作结合在一起,也就是说,it-&gt;mem 和(*it).mem 表达的意思相同。</p>
 <p>Note: String 和 vector 是两种最重要的标准库类型。string 对象是一个可变长的字符序列,vector 对象是一组同类型对象的容器。 迭代器允许对容器中的对象进行间接访问,对于 string 对象和 vector 对象来说,可以通过迭代器访问元素或者在元素间移动。 数组和指向数组元素的指针在一个较低的层次上实现了与标准库类型 string 和 vector 类似的功能。一般来说,应该优先选用标准库提供的类型,之后再考虑 C++语言内置的低层的替代品数组或指针</p>
 <p>Note: ++运算符(++operator)是迭代器和指针定义的递增运算符。执行“加 1”操作使得迭代器指向下一个元素。</p>
-<h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><p>当一个对象被用作右值的时候,用的是对象的值(内容)；当对象被用作左值的时候,用的是对象的身份(在内存中的位置)。 后置递增运算符的优先级高于解引用运算符,因此*pbeg++等价于*(pbeg++)。pbeg++把 pbeg 的值加 1, 然后返回 pbeg 的初始值的副本作为其求值结果,此时解引用运算符的运算对象是 pbeg 未增加之前的值。最终,这条语句输出 pbeg 开始时指向的那个元素,并将指针向前移动一个位置。 对于逗号运算符来说,首先对左侧的表达式求值,然后将求值结果丢弃掉。逗号运算符真正的结果是右侧表达式的值。如果右侧运算对象是左值,那么最终的求值结果也是左值。</p>
-<h3 id="函数相关"><a href="#函数相关" class="headerlink" title="函数相关"></a>函数相关</h3><p>通过调用运算符(call operator)来执行函数。调用运算符的形式是一对圆括号,它作用于ー个表达式,该表达式是函数或者指向函数的指针：圆括号之内是一个用逗号隔开的实参(argument)列表,我们用实参初始化函数的形参。调用表达式的类型就是函数的返回类型。</p>
+<h3 id="表达式">表达式</h3>
+<p>当一个对象被用作右值的时候,用的是对象的值(内容)；当对象被用作左值的时候,用的是对象的身份(在内存中的位置)。 后置递增运算符的优先级高于解引用运算符,因此*pbeg++等价于*(pbeg++)。pbeg++把 pbeg 的值加 1, 然后返回 pbeg 的初始值的副本作为其求值结果,此时解引用运算符的运算对象是 pbeg 未增加之前的值。最终,这条语句输出 pbeg 开始时指向的那个元素,并将指针向前移动一个位置。 对于逗号运算符来说,首先对左侧的表达式求值,然后将求值结果丢弃掉。逗号运算符真正的结果是右侧表达式的值。如果右侧运算对象是左值,那么最终的求值结果也是左值。</p>
+<h3 id="函数相关">函数相关</h3>
+<p>通过调用运算符(call operator)来执行函数。调用运算符的形式是一对圆括号,它作用于ー个表达式,该表达式是函数或者指向函数的指针：圆括号之内是一个用逗号隔开的实参(argument)列表,我们用实参初始化函数的形参。调用表达式的类型就是函数的返回类型。</p>
 <p>函数的形参列表可以为空,但是不能省略。要想定义一个不带形参的函数,最常用的办法是书写一个空的形参列表。不过为了与 C 语言兼容,也可以使用关键字 void 表示函数没有形参.  形参列表中的形参通常用逗号隔开,其中每个形参都是含有一个声明符的声明。即使两个形参的类型一样,也必须把两个类型都写出来.</p>
 <p>大多数类型都能用作函数的返回类型。一种特殊的返回类型是 void,它表示函数不返回任何值。函数的返回类型不能是数组,类型或函数类型,但可以是指向数组或函数的指针。</p>
 <p>和其他变量一样,形参的类型决定了形参和实参交互的方式。如果形参是<strong>引用类型</strong>,它将绑定到对应的实参上；否则,将实参的值拷贝后赋给形参。 当形参是引用类型时,我们说它对应的实参被引用传递或者函数被传引用调用。和其他引用一样,引用形参也是它绑定的对象的别名：也就是说,引用形参是它对应的实参的别名 当实参的值被拷贝给形参时,形参和实参是两个相互独立的对象。我们说这样的实参被值传递(passed by value)或者函数被传值调用(called by value)。</p>
@@ -382,31 +443,39 @@
 <p>Note: 如果函数无须改变引用形参的值,最好将其声明为常量引用。</p>
 <p>一个函数只能返回一个值,然而有时函数需要同时返回多个值,引用形参为我们一次返回多个结果提供了有效的途径。</p>
 <p>和所有数组一样,当将多维数组传递给函数时,真正传递的是指向数组首元素的指针。因为我们处理的是数组的数组,所以首元素本身就是一个数组,指针就是一个指向数组的指针。数组第二维(以及后面所有维度)的大小都是数组类型的一部分,不能省略</p>
-<p>使用迭代器访问元素:<br><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">vector&lt;int&gt;::iterator <span class="keyword">it</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">it</span>=vec.begin();<span class="keyword">it</span>!=vec.<span class="keyword">end</span>();<span class="keyword">it</span>++)</span><br><span class="line">    cout&lt;&lt;*<span class="keyword">it</span>&lt;&lt;endl;</span><br></pre></td></tr></table></figure></p>
+<p>使用迭代器访问元素:</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">vector&lt;int&gt;::iterator <span class="keyword">it</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">it</span>=vec.begin();<span class="keyword">it</span>!=vec.<span class="keyword">end</span>();<span class="keyword">it</span>++)</span><br><span class="line">    cout&lt;&lt;*<span class="keyword">it</span>&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
 <p>int *a = new int[10] ();  // 每个元素初始化为0,括号内不能写其他值,只能初始化为0</p>
 <p>谨记一句话,但凡使用了迭代器的循环体,都不要向迭代器所属的容器添加元素</p>
-<p>C++初始化类成员的,它们是按照声 明的顺序初始化的,而不是按照出现在初始化列表中的顺序。 </p>
-<h2 id="函数的传入参数"><a href="#函数的传入参数" class="headerlink" title="函数的传入参数"></a>函数的传入参数</h2><p>要修改变量的值,需要使用变量类型的指针作为参数或者变量的引用。如果变量是一般类型的变量,例如int,则需要使用int 类型的指针类型int * 作为参数或者int的引用类型int&amp;。但是如果变量类型是指针类型,例如char*,那么需要使用该类型的指针,即指向指针的指针类型 char**,或者该类型的引用类型char*&amp;。</p>
-<h1 id="常用库或函数使用说明"><a href="#常用库或函数使用说明" class="headerlink" title="常用库或函数使用说明"></a>常用库或函数使用说明</h1><h2 id="pugixml"><a href="#pugixml" class="headerlink" title="pugixml"></a>pugixml</h2><p>pugixml 是一个用于解析和操作 XML 文档的 C++ 库，它被设计为轻量级、高性能且易于使用。pugixml 提供了简单而强大的 API，使得处理 XML 数据变得简单而高效。以下是关于 pugixml 的介绍和使用方法：</p>
+<p>C++初始化类成员的,它们是按照声 明的顺序初始化的,而不是按照出现在初始化列表中的顺序。</p>
+<h2 id="函数的传入参数">函数的传入参数</h2>
+<p>要修改变量的值,需要使用变量类型的指针作为参数或者变量的引用。如果变量是一般类型的变量,例如int,则需要使用int 类型的指针类型int * 作为参数或者int的引用类型int&amp;。但是如果变量类型是指针类型,例如char*,那么需要使用该类型的指针,即指向指针的指针类型 char**,或者该类型的引用类型char*&amp;。</p>
+<h1>常用库或函数使用说明</h1>
+<h2 id="pugixml">pugixml</h2>
+<p>pugixml 是一个用于解析和操作 XML 文档的 C++ 库，它被设计为轻量级、高性能且易于使用。pugixml 提供了简单而强大的 API，使得处理 XML 数据变得简单而高效。以下是关于 pugixml 的介绍和使用方法：</p>
 <p><strong>特点和优势：</strong></p>
-<p>轻量级： pugixml 是一个轻量级的库，不需要大量的内存开销，因此适用于嵌入式系统和资源受限的环境。<br>高性能： pugixml 在解析和处理 XML 数据时具有很高的性能，它使用了一些优化策略，如内存池，来提高效率。<br>易于使用： pugixml 提供了简洁明了的 API，使得读取、写入和操作 XML 数据变得非常容易。<br>安装和集成：</p>
+<p>轻量级： pugixml 是一个轻量级的库，不需要大量的内存开销，因此适用于嵌入式系统和资源受限的环境。<br>
+高性能： pugixml 在解析和处理 XML 数据时具有很高的性能，它使用了一些优化策略，如内存池，来提高效率。<br>
+易于使用： pugixml 提供了简洁明了的 API，使得读取、写入和操作 XML 数据变得非常容易。<br>
+安装和集成：</p>
 <p>pugixml 不需要额外的安装过程，它是一个头文件库（header-only library），你只需要将 pugixml 的头文件包含在你的项目中即可开始使用。</p>
 <p><strong>使用示例</strong></p>
 <p>以下是一个简单的 pugixml 使用示例，展示了如何解析一个 XML 文档并访问其中的元素和属性：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pugixml.hpp&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    pugi::xml_document doc;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 加载 XML 文件</span></span><br><span class="line">    pugi::xml_parse_result result = doc.<span class="built_in">load_file</span>(<span class="string">&quot;example.xml&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!result) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;XML parsing error: &quot;</span> &lt;&lt; result.<span class="built_in">description</span>() &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 访问根节点</span></span><br><span class="line">    pugi::xml_node root = doc.<span class="built_in">child</span>(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Root node name: &quot;</span> &lt;&lt; root.<span class="built_in">name</span>() &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历子节点</span></span><br><span class="line">    <span class="keyword">for</span> (pugi::xml_node child : root.<span class="built_in">children</span>()) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Child node name: &quot;</span> &lt;&lt; child.<span class="built_in">name</span>() &lt;&lt; std::endl;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 访问节点属性</span></span><br><span class="line">        <span class="keyword">for</span> (pugi::xml_attribute attr : child.<span class="built_in">attributes</span>()) &#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;Attribute name: &quot;</span> &lt;&lt; attr.<span class="built_in">name</span>() &lt;&lt; <span class="string">&quot;, value: &quot;</span> &lt;&lt; attr.<span class="built_in">value</span>() &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上述示例首先加载了一个名为 example.xml 的 XML 文件，然后访问了根节点和其子节点，以及子节点的属性。</p>
-<h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><p>1, 如果文件名用<span id = "inline-blue"> 尖括号括 </span>起来,  表明这个文件是一个工程或标准头文件查找过程会<span id = "inline-blue"> 检查预定义的 </span>目录;如果文件名用一对<span id = "inline-blue"> 引号括 </span>起来则表明该文件是用户提供的头文件查找该文件时将从<span id = "inline-blue"> 当前文件目 </span>录开始.</p>
+<h1>知识点</h1>
+<p>1, 如果文件名用<span id = "inline-blue"> 尖括号括 </span>起来,  表明这个文件是一个工程或标准头文件查找过程会<span id = "inline-blue"> 检查预定义的 </span>目录;如果文件名用一对<span id = "inline-blue"> 引号括 </span>起来则表明该文件是用户提供的头文件查找该文件时将从<span id = "inline-blue"> 当前文件目 </span>录开始.</p>
 <p>2, C++ 程序可以定义为对象的集合, 这些对象通过调用彼此的方法进行交互.</p>
 <p>3, 块注释符是不可以嵌套使用的.</p>
 <p>4,  <iostream>头文件中定义的操纵符有：  endl:输出时插入换行符并刷新流;endls：输出时在字符 插入NULL作为尾符;flush：刷新缓冲区, 把流从缓冲区输出到目标设备, 并清空缓冲区; ws：输入时略去空白字符;dec：令IO数据按十进制格式;hex:令IO数据按十六进制格式; oct：令IO数据按八进制格式</p>
 <p>5, 使用 typedef 为一个已有的类型取一个新的名字;</p>
-<p>6,  枚举类型(enumeration)是C++中的一种派生数据类型, 它是由用户定义的若干枚举常量的集合. 如果一个变量只有几种可能的值, 可以定义为枚举(enumeration)类型.所谓”枚举”是指将变量的值一一列举出来, 变量的值只能在列举出来的值的范围内.</p>
+<p>6,  枚举类型(enumeration)是C++中的一种派生数据类型, 它是由用户定义的若干枚举常量的集合. 如果一个变量只有几种可能的值, 可以定义为枚举(enumeration)类型.所谓&quot;枚举&quot;是指将变量的值一一列举出来, 变量的值只能在列举出来的值的范围内.</p>
 <p>7, 把常量定义为大写字母形式, 是一个很好的编程实践.</p>
 <p>8, const 类型的对象在程序执行期间不能被修改改变.修饰符 volatile 告诉编译器不需要优化volatile声明的变量,让程序可以直接从内存中读取变量.对于一般的变量编译器会对变量进行优化,将内存中的变量值放在寄存器中以加快读写效率.由 restrict 修饰的指针是唯一一种访问它所指向的对象的方式.只有 C99 增加了新的类型限定符 restrict.</p>
 <p>9, extern 存储类用于提供一个全局变量的引用,全局变量对所有的程序文件都是可见的.当您使用 ‘extern’ 时,对于无法初始化的变量,会把变量名指向一个之前定义过的存储位置. 当有多个文件且定义了一个可以在其他文件中使用的全局变量或函数时,可以在其他文件中使用 extern 来得到已定义的变量或函数的引用.可以这么理解,extern 是用来在另一个文件中声明一个全局变量或函数.</p>
-<p>10, “::”在C++中表示作用域,和所属关系.”::”是运算符中等级最高的</p>
+<p>10, &quot;::“在C++中表示作用域,和所属关系.”::&quot;是运算符中等级最高的</p>
 <p>11,  预定义的对象 cin 是 iostream 类的一个实例.cin 对象附属到标准输入设备,通常是键盘.cin 是与流提取运算符 &gt;&gt;</p>
-<p>12,  array也位于名称空间std中,与数组一样,array对象的长度也是固定的,也使用栈(静态内存分配),而不是自由存储区,因此其效率与数组相同,但更方便,更安全. </p>
+<p>12,  array也位于名称空间std中,与数组一样,array对象的长度也是固定的,也使用栈(静态内存分配),而不是自由存储区,因此其效率与数组相同,但更方便,更安全.</p>
 <p>13, 类定义是以关键字 class 开头,后跟类的名称.类的主体是包含在一对花括号中.类定义后必须跟着一个分号或一个声明列表.</p>
 <p>14, 关键字 public 确定了类成员的访问属性.在类对象作用域内,公共成员在类的外部是可访问的.</p>
 <p>15, 点运算符“.”应用于实际的对象,箭头运算符“-&gt;”与一个指针对象的指针一起使用.</p>
@@ -432,21 +501,55 @@
 <p>35, Vector作为函数的参数或者返回值时,需要注意它的写法vector<int>&amp;a,  其中的“&amp;”不能少.</p>
 <p>36, 类的构造函数是类的一种特殊的成员函数,它会在每次创建类的新对象时执行。 构造函数的名称与类的名称是完全相同的,并且不会返回任何类型,也不会返回 void。构造函数可用于为某些成员变量设置初始值。</p>
 <p>37, 任何不会修改数据成员的函数都应该声明为const类型;</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>1, 《C++ Primer 第五版》</p>
+<h1>参考</h1>
+<p>1, 《C++ Primer 第五版》</p>
 <p>2, <a target="_blank" rel="noopener" href="https://blog.csdn.net/w_linux/article/details/72417896">浅然言而信</a></p>
 <p>3,  <a target="_blank" rel="noopener" href="https://blog.csdn.net/jackywgw/article/details/6248342">jackywgw</a></p>
 <p>4, <a target="_blank" rel="noopener" href="https://www.cnblogs.com/lzhu/p/8034817.html">瘋子朱磊</a></p>
-<p>5, 《高质量C++/C编程指南》—林锐</p>
+<p>5, 《高质量C++/C编程指南》–林锐</p>
 <p>6, <a target="_blank" rel="noopener" href="https://blog.csdn.net/txl199106/article/details/48622643">Tham</a></p>
 <p>7, <a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuchanming/p/4310506.html">Jessica程序猿</a></p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -473,7 +576,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -508,7 +778,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

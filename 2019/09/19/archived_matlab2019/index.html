@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,24 +230,35 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >matlab 浅记</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#命名方式">命名方式</a></li>
-<li><a href="#编程规范">编程规范</a></li>
-<li><a href="#函数定义">函数定义</a></li>
-<li><a href="#技巧">技巧</a></li>
-<li><a href="#octave配置">octave配置</a></li>
-<li><a href="#后记">后记</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%91%BD%E5%90%8D%E6%96%B9%E5%BC%8F">命名方式</a></li>
+<li><a href="#%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83">编程规范</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89">函数定义</a></li>
+<li><a href="#%E6%8A%80%E5%B7%A7">技巧</a></li>
+<li><a href="#octave%E9%85%8D%E7%BD%AE">octave配置</a></li>
+<li><a href="#%E5%90%8E%E8%AE%B0">后记</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己在学习这个工具的时候是由点及面的,而不是从头到尾按照顺序进行学习,这样的话不知道自己的需求是什么,学习起来就显得非常的乏味,这样就感受不到工具所带来的简便性所带来的乐趣。 仅仅收藏一些自己感觉有用的技巧以及遇到的错误及其解决方法,因为matlab能做的事太多了,网络上教程又那么多,不想画蛇添足, 另外吐槽的一点就是关于matlab的中文书籍(有不少),书中错误挺多,像是半成品,匆忙完成,虽说是工具吧,但是体现了认真负责的态度,而不是简单的堆砌文字,算了自己也没资格去评论。 这个写的太晚了,但是对于未来几十年,这恰恰不晚。另外matlab的程序,百分之95的代码都可以octave中运行的,而且octave是免费开源的,可以避免不必要的版权纠纷,尤其是在公司里上班,可以带来不必要的麻烦, 因此在本文最后会有一部分octave配置方面的内容。 另外个人感觉最重要的就是学会使用 <span id = "inline-green">help</span>和搜索技巧, 不光是matlab, 其他编程语言也是如此。</p>
+<h1>前言</h1>
+<p>自己在学习这个工具的时候是由点及面的,而不是从头到尾按照顺序进行学习,这样的话不知道自己的需求是什么,学习起来就显得非常的乏味,这样就感受不到工具所带来的简便性所带来的乐趣。 仅仅收藏一些自己感觉有用的技巧以及遇到的错误及其解决方法,因为matlab能做的事太多了,网络上教程又那么多,不想画蛇添足, 另外吐槽的一点就是关于matlab的中文书籍(有不少),书中错误挺多,像是半成品,匆忙完成,虽说是工具吧,但是体现了认真负责的态度,而不是简单的堆砌文字,算了自己也没资格去评论。 这个写的太晚了,但是对于未来几十年,这恰恰不晚。另外matlab的程序,百分之95的代码都可以octave中运行的,而且octave是免费开源的,可以避免不必要的版权纠纷,尤其是在公司里上班,可以带来不必要的麻烦, 因此在本文最后会有一部分octave配置方面的内容。 另外个人感觉最重要的就是学会使用 <span id = "inline-green">help</span>和搜索技巧, 不光是matlab, 其他编程语言也是如此。</p>
 <p>matlab有大量的资源在文件交换那,如果是想搜中文的话,进入matlab中文论坛去文件交换那搜索下载就好,或者是搜索 File Exchange 关键字也可以找到文件交换的入口。</p>
-<p><img src="/img/postImg/11_Matlab/fileExchange.png" width="70%" height="50%"></p>
-<p><img src="/img/postImg/11_Matlab/C_fileExchange.png" width="68%" height="50%"></p>
-<h1 id="命名方式"><a href="#命名方式" class="headerlink" title="命名方式"></a>命名方式</h1><p>因为命名方式对于程序而言是非常重要的,自己对此感触颇深,以前写出的代码,以为只有天知道我知道,如今工作了再看那些代码,只有鬼知道。</p>
+<img src="/img/postImg/11_Matlab/fileExchange.png" width="70%" height="50%">
+<img src="/img/postImg/11_Matlab/C_fileExchange.png" width="68%" height="50%">
+<h1>命名方式</h1>
+<p>因为命名方式对于程序而言是非常重要的,自己对此感触颇深,以前写出的代码,以为只有天知道我知道,如今工作了再看那些代码,只有鬼知道。</p>
 <p>1,变量名应该能够反映该变量的含义或用途,以小写字母开头,采用大小写混用模式或下画线分割模式, 如：areYouOk,are_you_ok等。</p>
 <p>2,临时变量的变量名尽量短小。</p>
 <p>3,布尔变量禁止使用否定式的变量名。比如使用areYouOk,而不使用areYouNotOk,一是因为~areYouNotOk相当于双重否定,感觉会有些别扭,二是前者感觉会更加的简介。</p>
@@ -255,15 +267,33 @@
 <p>6,结构体命名应该以大写字母开头</p>
 <p>7,结构体的字段名不需要包含结构体名的含义</p>
 <p>8,所有的函数命名应该采用英文形式,禁止使用汉语拼音</p>
-<h1 id="编程规范"><a href="#编程规范" class="headerlink" title="编程规范"></a>编程规范</h1><p>总体原则:避免使用含糊代码。代码不是越简洁越好,而是越清楚越好,一开始写的时候还是需要注意些的,不能图一时爽,修改维护的时候就知道难受了,下面主要是写给自己看的。</p>
-<p>1) 在内存充足的情况下,变量尽量不要重复使用,赋予每个变量唯一的含义,可以增强代码的可读性。</p>
-<p>2) 在文件开始的注释,为重要变量编写文档。 </p>
-<p>3) 在常量定义处,为该常量编写注释。 </p>
-<p>4) 尽量少地使用全局变量。全局变量过多,不利于代码的维护和阅读。</p>
-<p>5) 浮点数的逻辑运算要当心系统误差。</p>
-<p>6) 函数头部的注释应该支持help和lookfor对该函数的查询,因此,该行注释中应尽可能包含可能的搜索关键字。 </p>
-<p>7) 函数头部的注释应描述该函数的功能,并列出输入参数不同时该函数的语法和功能。</p>
-<h1 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h1><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">定义</span> M 文件函数</span><br><span class="line">nargin 返回函数输入参数个数</span><br><span class="line">nargout 返回函数输出参数个数</span><br><span class="line">nargchk 验证输入参数个数</span><br><span class="line">nargoutchk 验证输出参数个数</span><br><span class="line">varargin 接收函数的输入参数到单元数组</span><br><span class="line">varargout 返回函数的输出参数到单元数组</span><br><span class="line">inputname 返回当前所执行 M 文件的文件名</span><br></pre></td></tr></table></figure>
+<h1>编程规范</h1>
+<p>总体原则:避免使用含糊代码。代码不是越简洁越好,而是越清楚越好,一开始写的时候还是需要注意些的,不能图一时爽,修改维护的时候就知道难受了,下面主要是写给自己看的。</p>
+<ol>
+<li>
+<p>在内存充足的情况下,变量尽量不要重复使用,赋予每个变量唯一的含义,可以增强代码的可读性。</p>
+</li>
+<li>
+<p>在文件开始的注释,为重要变量编写文档。</p>
+</li>
+<li>
+<p>在常量定义处,为该常量编写注释。</p>
+</li>
+<li>
+<p>尽量少地使用全局变量。全局变量过多,不利于代码的维护和阅读。</p>
+</li>
+<li>
+<p>浮点数的逻辑运算要当心系统误差。</p>
+</li>
+<li>
+<p>函数头部的注释应该支持help和lookfor对该函数的查询,因此,该行注释中应尽可能包含可能的搜索关键字。</p>
+</li>
+<li>
+<p>函数头部的注释应描述该函数的功能,并列出输入参数不同时该函数的语法和功能。</p>
+</li>
+</ol>
+<h1>函数定义</h1>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">定义</span> M 文件函数</span><br><span class="line">nargin 返回函数输入参数个数</span><br><span class="line">nargout 返回函数输出参数个数</span><br><span class="line">nargchk 验证输入参数个数</span><br><span class="line">nargoutchk 验证输出参数个数</span><br><span class="line">varargin 接收函数的输入参数到单元数组</span><br><span class="line">varargout 返回函数的输出参数到单元数组</span><br><span class="line">inputname 返回当前所执行 M 文件的文件名</span><br></pre></td></tr></table></figure>
 <p>这里nargin可以分解为n+arg+in,即Number+ argument+ input,输入参数的个数。其他类似。 函数体中的nargin与nargout 函数 ,能够在调用一个函数时,指明函数有几个输入和输出参数。比如</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">n = nargin 返回所在函数的输入参数个数。</span><br><span class="line">N= nargin(<span class="function"><span class="keyword">fun</span>) 返回函数<span class="keyword">fun</span>定义的输入参数个数;如果定义的输入参数个数不确定,返回-1。</span></span><br></pre></td></tr></table></figure>
 <p>这样在输入参数不够或者多的时候抛出异常。</p>
@@ -272,11 +302,12 @@
 <p>如果在函数声明行将 varargin 作为最后一个输入参数,则函数在调用时可接受任意个变量。函数 myFun 接受任意个输入参数,组成一个单元数组,varargin 为单元数组名。该单元数组第 i 个单元就是从 varargin 位置算起的第 i 个输人参数。类似的,比如定义</p>
 <figure class="highlight ada"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">out</span> = myFun(a,varargin)</span><br></pre></td></tr></table></figure>
 <p>当调用格式为myFun(a,b,c)时,varargin 是长度为 2 的单元数组,并且 varargin{1} = b, varargin{2} = c。</p>
-<h1 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h1><p>0, 从自己学习的角度来说,最重要的就是学会使用help, 从自带的例子就可以学到很多,网上的一些说明和教程也不见得是对的,从自带的帮助里面也可以学习到一些编程技巧等等。</p>
-<p>1,set(0,’RecursionLimit’,N) 修改最大递归限制,这个是自己寻找合适的参数时,有时需要跑很久才能找到自己需要的参数,限制就是递归到５００次就停止了,这样修改可以使得留下更多的时间冲一杯咖啡再回来看看结果有没有出来。 (忘记说一件事了,如果把N改的很大,内存溢出别来打我),当然另外一种极端的方法就是设置类似于控制里面的思路,设置误差函数,误差也就是你期待的值减去实际的值,当满足所给精度要求后,退出循环(简单的实现就是利用while循环),输出相关参数,这个对于给定输入并给出特定输出的时候比较适用(类似于函数关系)。这个可以应用于离线仿真的寻找比较好的参数的时候使用,这样就无须手动调整了。</p>
-<p>2,若a为一个向量,则命令 b = a(:) 可以保证b为列向量。即无论a为行向量或列向量,b均是列向量, 这个在设计程序的时候非常有用。 要有预分配内存的习惯,这样会使得程序的运行效率高一些。</p>
+<h1>技巧</h1>
+<p>0, 从自己学习的角度来说,最重要的就是学会使用help, 从自带的例子就可以学到很多,网上的一些说明和教程也不见得是对的,从自带的帮助里面也可以学习到一些编程技巧等等。</p>
+<p>1,set(0,‘RecursionLimit’,N) 修改最大递归限制,这个是自己寻找合适的参数时,有时需要跑很久才能找到自己需要的参数,限制就是递归到５００次就停止了,这样修改可以使得留下更多的时间冲一杯咖啡再回来看看结果有没有出来。 (忘记说一件事了,如果把N改的很大,内存溢出别来打我),当然另外一种极端的方法就是设置类似于控制里面的思路,设置误差函数,误差也就是你期待的值减去实际的值,当满足所给精度要求后,退出循环(简单的实现就是利用while循环),输出相关参数,这个对于给定输入并给出特定输出的时候比较适用(类似于函数关系)。这个可以应用于离线仿真的寻找比较好的参数的时候使用,这样就无须手动调整了。</p>
+<p>2,若a为一个向量,则命令 b = a(😃 可以保证b为列向量。即无论a为行向量或列向量,b均是列向量, 这个在设计程序的时候非常有用。 要有预分配内存的习惯,这样会使得程序的运行效率高一些。</p>
 <p>3,在程序的主函数或者在运行函数前写上dbstop if error, 十分有助于调试;  strfind 可以作用于数值数组用于查找子串的位置。</p>
-<p>4,如果可以, 请使用 <span id = "inline-blue"> octave </span>来替代matlab,因为以后matlab毕竟是商业数学软件,而且价格还很贵,在mac上使用可以在配置文件中加上 alias octave=’octave-cli’,这样退出的话,就不会有多余的命令行界面了, 等有时间的话去测试下linux上是不是也是这样的。</p>
+<p>4,如果可以, 请使用 <span id = "inline-blue"> octave </span>来替代matlab,因为以后matlab毕竟是商业数学软件,而且价格还很贵,在mac上使用可以在配置文件中加上 alias octave=‘octave-cli’,这样退出的话,就不会有多余的命令行界面了, 等有时间的话去测试下linux上是不是也是这样的。</p>
 <p>5,就运行效率来说,逻辑索引要高于数值索引。 A(sub2ind(size(A),i,j))=[], 删除A的第i行、第j列的元素。</p>
 <p>6,evalin 和 assignin 两个函数可以实现函数工作空间和基本工作空间中的变量的相互使用, 对于实验室小伙伴们在使用别人的代码去绘图或者是提取一些变量的时候非常有用,因为局部函数的值如果不去调试,一般来说是不会出现在工作空间中的。</p>
 <p>7,MATLAB 中的 import 语句作用与 Python 中不同。Python使用 import 语句加载代码并使之能够访问。MATLAB使用 import 函数是为了不用包名就可以直接使用类或函数。</p>
@@ -284,8 +315,9 @@
 <p>9,学会使用try,catch函数,一来可以避免程序因为错误或其他缘故而中止,二来可以很好的简化代码量。</p>
 <p>10,在matlab中尽量避免使用for循环,有如下的替代方法,(1)优先考虑用向量化的运算来代替循环操作。(2)在必须使用多重循环时,循环次数少的放在外层,循环次数多的放在内层。</p>
 <p>11, 逻辑数组和标量用.*, 这样会使得效率提升的非常快,下面举个栗子。</p>
-<p><img src="/img/postImg/11_Matlab/eg1_matlab.png" width="70%" height="40%"></p>
-<h1 id="octave配置"><a href="#octave配置" class="headerlink" title="octave配置"></a>octave配置</h1><p>从matlab转到octave其实就花了几天的时间,因为长期在命令行下工作,所以在命令行下玩octave当然不在话下。 如果你喜欢交互式的,那目测玩这个会有点费劲的,毕竟是开源的,没有matlab调试什么什么的那么方便了。</p>
+<img src="/img/postImg/11_Matlab/eg1_matlab.png" width="70%" height="40%">
+<h1>octave配置</h1>
+<p>从matlab转到octave其实就花了几天的时间,因为长期在命令行下工作,所以在命令行下玩octave当然不在话下。 如果你喜欢交互式的,那目测玩这个会有点费劲的,毕竟是开源的,没有matlab调试什么什么的那么方便了。</p>
 <p>自己octave配置文件内容(.octaverc), 前提是这些包要安装上,不然就报错了,退出的话别直接ctrl+z了,不然后台还是在运行,在命令行中exit就行。</p>
 <p>如果通过ctrl+z退出了,其后台依旧在运行,如果通过top指令查看进程并结束掉octave那个进程,可以使用如下方式 ‘ps aus|grep octave-cli’, 会想为什么会是这个指令呢？是不是有好奇心去探索下,哈哈～。</p>
 <p>这里是自己配置文件里的内容,就像vim或者shell一样,换任何台linux/macos系统电脑,只需把之前的配置文件复制到新的电脑中即可,这样可以大大的简化繁琐的配置,这个是受用终身的。所以这里又一次的啰嗦了下。(最好把配置文件放在github或其他非常容易获取到的地方,放心,这个配置文件别人获取了也没什么用,属于私人订制)</p>
@@ -293,18 +325,51 @@
   <summary>展开</summary>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">setenv</span><span class="params">(<span class="string">&quot;GNUTERM&quot;</span>,<span class="string">&quot;qt&quot;</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">graphics_toolkit</span><span class="params">(<span class="string">&quot;gnuplot&quot;</span>)</span></span></span><br><span class="line">pkg load <span class="selector-tag">image</span></span><br><span class="line">pkg load symbolic</span><br><span class="line"><span class="function"><span class="title">graphics_toolkit</span><span class="params">(<span class="string">&quot;gnuplot&quot;</span>)</span></span></span><br><span class="line">edit mode sync</span><br><span class="line">edit home .</span><br><span class="line"><span class="function"><span class="title">EDITOR</span><span class="params">(<span class="string">&#x27;vim &gt; /dev/tty 2&gt;&amp;1 &lt; /dev/tty %s&#x27;</span>)</span></span></span><br><span class="line">dbstop <span class="keyword">if</span> error</span><br></pre></td></tr></table></figure>
 </details>
+<h1>后记</h1>
+<p>2023年8月评： 已经有好几年没有用MATLAB了，好多东西只有印象，好多技巧都给忘记了。。。。MATLAB这篇几乎一直没有更新过，曾几何时最熟悉的工具被自己遗忘的差不多了，惭愧；</p>
+<h1>参考</h1>
+<p>[1] 《MATLAB GUI学习手记第二版》</p>
 
-
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>2023年8月评： 已经有好几年没有用MATLAB了，好多东西只有印象，好多技巧都给忘记了。。。。MATLAB这篇几乎一直没有更新过，曾几何时最熟悉的工具被自己遗忘的差不多了，惭愧；</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] 《MATLAB GUI学习手记第二版》</p>
-
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -331,7 +396,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -366,7 +598,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

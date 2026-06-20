@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,74 +230,146 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >ROS launch</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#xml">XML</a><ul>
-<li><a href="#计算次序">计算次序</a></li>
-<li><a href="#替代参数substitution-args">替代参数(Substitution args)</a></li>
-<li><a href="#if和unless属性">If和unless属性</a></li>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
+<li><a href="#xml">XML</a>
+<ul>
+<li><a href="#%E8%AE%A1%E7%AE%97%E6%AC%A1%E5%BA%8F">计算次序</a></li>
+<li><a href="#%E6%9B%BF%E4%BB%A3%E5%8F%82%E6%95%B0substitution-args">替代参数(Substitution args)</a></li>
+<li><a href="#if%E5%92%8Cunless%E5%B1%9E%E6%80%A7">If和unless属性</a></li>
 </ul>
 </li>
-<li><a href="#launch文件案例">launch文件案例</a><ul>
-<li><a href="#简单案例">简单案例</a></li>
-<li><a href="#重映射机制">重映射机制</a></li>
-<li><a href="#复杂案例">复杂案例</a></li>
-<li><a href="#参数服务器">参数服务器</a></li>
+<li><a href="#launch%E6%96%87%E4%BB%B6%E6%A1%88%E4%BE%8B">launch文件案例</a>
+<ul>
+<li><a href="#%E7%AE%80%E5%8D%95%E6%A1%88%E4%BE%8B">简单案例</a></li>
+<li><a href="#%E9%87%8D%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6">重映射机制</a></li>
+<li><a href="#%E5%A4%8D%E6%9D%82%E6%A1%88%E4%BE%8B">复杂案例</a></li>
+<li><a href="#%E5%8F%82%E6%95%B0%E6%9C%8D%E5%8A%A1%E5%99%A8">参数服务器</a></li>
 </ul>
 </li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>如果<code>rosrun</code>是执行一个节点的命令，那么<code>roslaunch</code>是运行多个节点的概念。该命令允许运行多个确定的节点。其他功能还包括一些专为执行具有诸多选项的节点的ROS命令，比如包括更改功能包参数或节点名称、配置节点命名空间、设置<code>ROS_ROOT</code>和<code>ROS_PACKAGE_PATH</code>以及更改环境变量等。</p>
+<h1>简介</h1>
+<p>如果<code>rosrun</code>是执行一个节点的命令，那么<code>roslaunch</code>是运行多个节点的概念。该命令允许运行多个确定的节点。其他功能还包括一些专为执行具有诸多选项的节点的ROS命令，比如包括更改功能包参数或节点名称、配置节点命名空间、设置<code>ROS_ROOT</code>和<code>ROS_PACKAGE_PATH</code>以及更改环境变量等。</p>
 <p>roslaunch使用*.launch文件来设置可执行节点，它基于可扩展标记语言（XML），并提供XML标记形式的多种选项。像许多ROS包会有相应的启动配置，通过运行下面的指令来进行启动</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">roslaunch package_name <span class="built_in">file</span>.<span class="built_in">launch</span></span><br></pre></td></tr></table></figure>
-<h1 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h1><h2 id="计算次序"><a href="#计算次序" class="headerlink" title="计算次序"></a>计算次序</h2><p>roslaunch与XML文件单一传递。include是按照深度优先遍历的顺序处理。标签tag进行串行处理并且最后的设置有效。因此，若一个参数被多次设置，最后指定的值将被使用。 比较推荐的是使用<code>$(arg)/&lt;arg&gt;</code>设置来进行重写行为。</p>
-<h2 id="替代参数-Substitution-args"><a href="#替代参数-Substitution-args" class="headerlink" title="替代参数(Substitution args)"></a>替代参数(Substitution args)</h2><p>launch文件支持替代参数，roslaunch将在启动节点之前对其进行解析。当前支持的替代参数有：</p>
-<p>1) $(env ENVIRONMENT_VARIABLE)：用环境变量替换变量的值。如果未设置环境变量，则启动将失败。此值不能被<env>标记覆盖。</p>
-<p>2) $(optenv ENVIRONMENT_VARIABLE)：如果设置了环境变量的值，则替换该值。若提供default_value，则在未设置环境变量的情况下使用default_value。若未提供default_value，则将使用空字符串。default_value可以是多个单词，并用空格分隔。</p>
+<h1>XML</h1>
+<h2 id="计算次序">计算次序</h2>
+<p>roslaunch与XML文件单一传递。include是按照深度优先遍历的顺序处理。标签tag进行串行处理并且最后的设置有效。因此，若一个参数被多次设置，最后指定的值将被使用。 比较推荐的是使用<code>$(arg)/&lt;arg&gt;</code>设置来进行重写行为。</p>
+<h2 id="替代参数-Substitution-args">替代参数(Substitution args)</h2>
+<p>launch文件支持替代参数，roslaunch将在启动节点之前对其进行解析。当前支持的替代参数有：</p>
+<ol>
+<li>
+<p>$(env ENVIRONMENT_VARIABLE)：用环境变量替换变量的值。如果未设置环境变量，则启动将失败。此值不能被<env>标记覆盖。</p>
+</li>
+<li>
+<p>$(optenv ENVIRONMENT_VARIABLE)：如果设置了环境变量的值，则替换该值。若提供default_value，则在未设置环境变量的情况下使用default_value。若未提供default_value，则将使用空字符串。default_value可以是多个单词，并用空格分隔。</p>
+</li>
+</ol>
 <p>例如：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(optenv NUM_CPUS 1)</span>&quot;</span> /&gt;</span><br><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(optenv CONFIG_PATH /home/marvin/ros_workspace)</span>&quot;</span> /&gt;</span><br><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(optenv VARIABLE ros rocks)</span>&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 <p>NUM_CPUS的default_value为1；VARIABLE的default_value为ros和rocks。</p>
-<p>3) <code>$(find pkg)</code>: 指定相对于软件包的路径。</p>
+<ol start="3">
+<li><code>$(find pkg)</code>: 指定相对于软件包的路径。</li>
+</ol>
 <p>例如：查找rospy子目录下的manifest.xml文件。</p>
 <figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">find</span> rospy)/manifest.xml</span><br></pre></td></tr></table></figure>
-<p>4) <code>$(anon name)</code>：根据名称生成匿名id，id不能重名。例如：</p>
+<ol start="4">
+<li><code>$(anon name)</code>：根据名称生成匿名id，id不能重名。例如：</li>
+</ol>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;node <span class="attribute">name</span>=<span class="string">&quot;<span class="variable">$(anon foo)</span>&quot;</span> <span class="attribute">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;talker.py&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
-<p>5) $(eval <expression>)：用于计算任意复杂的python表达式。例如：</p>
+<ol start="5">
+<li>$(eval <expression>)：用于计算任意复杂的python表达式。例如：</li>
+</ol>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;circumference&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(eval 2.* 3.1415 * arg(&#x27;radius&#x27;)</span>)&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
-<p>6) <code>$(dirname)</code>：返回启动文件所在目录的绝对路径。例如：</p>
+<ol start="6">
+<li><code>$(dirname)</code>：返回启动文件所在目录的绝对路径。例如：</li>
+</ol>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">&lt;<span class="keyword">include</span> <span class="keyword">file</span>=<span class="string">&quot;$(dirname)/other.launch&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 <p>file指向当前launch文件所在目录下的other.launch文件。</p>
-<p>7) <code>$(arg foo)</code>: 计算由<arg>标签指定的值，在声明arg的同一启动文件中必须有对应的<arg>标签。例如</p>
+<ol start="7">
+<li><code>$(arg foo)</code>: 计算由<arg>标签指定的值，在声明arg的同一启动文件中必须有对应的<arg>标签。例如</li>
+</ol>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;param <span class="attribute">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attribute">value</span>=<span class="string">&quot;<span class="variable">$(arg my_foo)</span>&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 <p>将指定 my_foo 到 foo 参数, 另外一个例子：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;node <span class="attribute">name</span>=<span class="string">&quot;add_two_ints_server&quot;</span> <span class="attribute">pkg</span>=<span class="string">&quot;beginner_tutorials&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;add_two_ints_server&quot;</span> /&gt;</span><br><span class="line"></span><br><span class="line">&lt;node <span class="attribute">name</span>=<span class="string">&quot;add_two_ints_client&quot;</span> <span class="attribute">pkg</span>=<span class="string">&quot;beginner_tutorials&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;add_two_ints_client&quot;</span> <span class="attribute">args</span>=<span class="string">&quot;<span class="variable">$(arg a)</span> <span class="variable">$(arg b)</span>&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
-<p>将会从 <add\_tow\_ints> 例子中启动server和client,作为参数值a和传递。产生的启动项目能用如下语句调用：</p>
+<p>将会从 &lt;add_tow_ints&gt; 例子中启动server和client,作为参数值a和传递。产生的启动项目能用如下语句调用：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">roslaunch beginner tutorials launch_file<span class="selector-class">.launch</span> <span class="selector-tag">a</span>:=<span class="number">1</span> <span class="selector-tag">b</span>:=<span class="number">5</span></span><br></pre></td></tr></table></figure>
-<h2 id="If和unless属性"><a href="#If和unless属性" class="headerlink" title="If和unless属性"></a>If和unless属性</h2><p>所有标签都支持if和unless属性，这些属性基于值的评估包含或不包含在标签内。 “ 1”和“ true”被视为真实值。 “ 0”和“ false”被视为错误值。 其他值将出错。</p>
-<p><code>if=value (optional)</code>：如果value评估为true，则包含标记及其内容。<br><code>unless=value (optional)</code>：如果value的值为false，则包含标记及其内容。</p>
+<h2 id="If和unless属性">If和unless属性</h2>
+<p>所有标签都支持if和unless属性，这些属性基于值的评估包含或不包含在标签内。 “ 1”和“ true”被视为真实值。 “ 0”和“ false”被视为错误值。 其他值将出错。</p>
+<p><code>if=value (optional)</code>：如果value评估为true，则包含标记及其内容。<br>
+<code>unless=value (optional)</code>：如果value的值为false，则包含标记及其内容。</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">group</span> <span class="attr">if</span>=<span class="string">&quot;$(arg foo)&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 此处的代码仅当foo为true时才被读取 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">group</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 满足unless条件时不会设置此参数 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attr">value</span>=<span class="string">&quot;bar&quot;</span> <span class="attr">unless</span>=<span class="string">&quot;$(arg foo)&quot;</span> /&gt;</span> </span><br></pre></td></tr></table></figure>
-<h1 id="launch文件案例"><a href="#launch文件案例" class="headerlink" title="launch文件案例"></a>launch文件案例</h1><h2 id="简单案例"><a href="#简单案例" class="headerlink" title="简单案例"></a>简单案例</h2><p>以下案例具备最基本的启动文件配置。它启动一个单独的“talker”节点，该节点是“rospy_tutorials”软件包的一部分。 该节点将使用当前配置的ROS环境（即ROS_ROOT等）在本地计算机上启动。</p>
+<h1>launch文件案例</h1>
+<h2 id="简单案例">简单案例</h2>
+<p>以下案例具备最基本的启动文件配置。它启动一个单独的“talker”节点，该节点是“rospy_tutorials”软件包的一部分。 该节点将使用当前配置的ROS环境（即ROS_ROOT等）在本地计算机上启动。</p>
 <figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;launch&gt;</span><br><span class="line">  &lt;node name<span class="operator">=</span><span class="string">&quot;talker&quot;</span> pkg<span class="operator">=</span><span class="string">&quot;rospy_tutorials&quot;</span> type<span class="operator">=</span><span class="string">&quot;talker&quot;</span> /&gt;</span><br><span class="line">&lt;/launch&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="重映射机制"><a href="#重映射机制" class="headerlink" title="重映射机制"></a>重映射机制</h2><p> ROS提供一种重映射的机制，简单来说就是取别名，类似于C++中的别名机制，不需要修改别人功能包的接口，只需要将接口名称重映射一下，取个别名。launch文件中的<remap>标签可以帮我们实现这个重映射的功能。 比如turtlebot的键盘控制节点，发布的速度控制指令话题可能是/turtlebot/cmd_vel，但是我们自己的机器人订阅的速度控制话题是/cmd_vel，这个时候使用<code>remap</code>就可以轻松解决问题，将/turtlebot /cmd_vel重映射为/cmd_vel，机器人就可以接收到速度控制指令了：</p>
+<h2 id="重映射机制">重映射机制</h2>
+<p>ROS提供一种重映射的机制，简单来说就是取别名，类似于C++中的别名机制，不需要修改别人功能包的接口，只需要将接口名称重映射一下，取个别名。launch文件中的<remap>标签可以帮我们实现这个重映射的功能。 比如turtlebot的键盘控制节点，发布的速度控制指令话题可能是/turtlebot/cmd_vel，但是我们自己的机器人订阅的速度控制话题是/cmd_vel，这个时候使用<code>remap</code>就可以轻松解决问题，将/turtlebot /cmd_vel重映射为/cmd_vel，机器人就可以接收到速度控制指令了：</p>
 <figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;remap from<span class="operator">=</span><span class="string">&quot;/turtlebot/cmd_vel&quot;</span>to<span class="operator">=</span><span class="string">&quot;/cmd_vel&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>重映射机制在ROS中的使用非常广泛，也非常重要，方法不止这一种，也可以在终端rosrun命令中实现重映射;</p>
-<h2 id="复杂案例"><a href="#复杂案例" class="headerlink" title="复杂案例"></a>复杂案例</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- local machine already has a definition by default.</span></span><br><span class="line"><span class="comment">       This tag overrides the default definition with</span></span><br><span class="line"><span class="comment">       specific ROS_ROOT and ROS_PACKAGE_PATH values --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">machine</span> <span class="attr">name</span>=<span class="string">&quot;local_alt&quot;</span> <span class="attr">address</span>=<span class="string">&quot;localhost&quot;</span> <span class="attr">default</span>=<span class="string">&quot;true&quot;</span> <span class="attr">ros-root</span>=<span class="string">&quot;/user/ros/&quot;</span> <span class="attr">ros-package-path</span>=<span class="string">&quot;/user/ros/ros-pkg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- a basic listener node --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;listener-1&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- pass args to the listener node --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;listener-2&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">args</span>=<span class="string">&quot;-foo arg2&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- a respawn-able listener node --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;listener-3&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- start listener node in the &#x27;wg1&#x27; namespace --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">ns</span>=<span class="string">&quot;wg1&quot;</span> <span class="attr">name</span>=<span class="string">&quot;listener-wg1&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- start a group of nodes in the &#x27;wg2&#x27; namespace --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">group</span> <span class="attr">ns</span>=<span class="string">&quot;wg2&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- remap applies to all future statements in this scope. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;chatter&quot;</span> <span class="attr">to</span>=<span class="string">&quot;hello&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">name</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">args</span>=<span class="string">&quot;--test&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;talker&quot;</span> <span class="attr">name</span>=<span class="string">&quot;talker&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- set a private parameter for the node --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;talker_1_param&quot;</span> <span class="attr">value</span>=<span class="string">&quot;a value&quot;</span> /&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- nodes can have their own remap args --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;chatter&quot;</span> <span class="attr">to</span>=<span class="string">&quot;hello-1&quot;</span>/&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- you can set environment variables for a node --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">env</span> <span class="attr">name</span>=<span class="string">&quot;ENV_EXAMPLE&quot;</span> <span class="attr">value</span>=<span class="string">&quot;some value&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">group</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="参数服务器"><a href="#参数服务器" class="headerlink" title="参数服务器"></a>参数服务器</h2><p>可以在参数服务器上设置参数，这些参数将在启动任何节点之前存储在参数服务器上。如果值是明确的，则可以省略type属性。支持的类型为str，int，double，bool。例子如下</p>
+<h2 id="复杂案例">复杂案例</h2>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- local machine already has a definition by default.</span></span><br><span class="line"><span class="comment">       This tag overrides the default definition with</span></span><br><span class="line"><span class="comment">       specific ROS_ROOT and ROS_PACKAGE_PATH values --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">machine</span> <span class="attr">name</span>=<span class="string">&quot;local_alt&quot;</span> <span class="attr">address</span>=<span class="string">&quot;localhost&quot;</span> <span class="attr">default</span>=<span class="string">&quot;true&quot;</span> <span class="attr">ros-root</span>=<span class="string">&quot;/user/ros/&quot;</span> <span class="attr">ros-package-path</span>=<span class="string">&quot;/user/ros/ros-pkg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- a basic listener node --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;listener-1&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- pass args to the listener node --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;listener-2&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">args</span>=<span class="string">&quot;-foo arg2&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- a respawn-able listener node --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;listener-3&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- start listener node in the &#x27;wg1&#x27; namespace --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">ns</span>=<span class="string">&quot;wg1&quot;</span> <span class="attr">name</span>=<span class="string">&quot;listener-wg1&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- start a group of nodes in the &#x27;wg2&#x27; namespace --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">group</span> <span class="attr">ns</span>=<span class="string">&quot;wg2&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- remap applies to all future statements in this scope. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;chatter&quot;</span> <span class="attr">to</span>=<span class="string">&quot;hello&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">name</span>=<span class="string">&quot;listener&quot;</span> <span class="attr">args</span>=<span class="string">&quot;--test&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;rospy_tutorials&quot;</span> <span class="attr">type</span>=<span class="string">&quot;talker&quot;</span> <span class="attr">name</span>=<span class="string">&quot;talker&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- set a private parameter for the node --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;talker_1_param&quot;</span> <span class="attr">value</span>=<span class="string">&quot;a value&quot;</span> /&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- nodes can have their own remap args --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;chatter&quot;</span> <span class="attr">to</span>=<span class="string">&quot;hello-1&quot;</span>/&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- you can set environment variables for a node --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">env</span> <span class="attr">name</span>=<span class="string">&quot;ENV_EXAMPLE&quot;</span> <span class="attr">value</span>=<span class="string">&quot;some value&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">group</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="参数服务器">参数服务器</h2>
+<p>可以在参数服务器上设置参数，这些参数将在启动任何节点之前存储在参数服务器上。如果值是明确的，则可以省略type属性。支持的类型为str，int，double，bool。例子如下</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;somestring1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;bar&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- force to string instead of integer --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;somestring2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;10&quot;</span> <span class="attr">type</span>=<span class="string">&quot;str&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;someinteger1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span> <span class="attr">type</span>=<span class="string">&quot;int&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;someinteger2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;somefloat1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3.14159&quot;</span> <span class="attr">type</span>=<span class="string">&quot;double&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;somefloat2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3.0&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- you can set parameters in child namespaces --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;wg/childparam&quot;</span> <span class="attr">value</span>=<span class="string">&quot;a child namespace parameter&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- upload the contents of a file to the server --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;configfile&quot;</span> <span class="attr">textfile</span>=<span class="string">&quot;$(find roslaunch)/example.xml&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- upload the contents of a file as base64 binary to the server --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;binaryfile&quot;</span> <span class="attr">binfile</span>=<span class="string">&quot;$(find roslaunch)/example.xml&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. 《ROS机器人编程—从基本概念到机器人应用程序编程实战》</p>
+<h1>参考</h1>
+<p>[1]. 《ROS机器人编程–从基本概念到机器人应用程序编程实战》</p>
 <p>[2]. <a target="_blank" rel="noopener" href="https://www.guyuehome.com/34772">ROS入门（二）：launch文件解析</a></p>
 <p>[3]. <a target="_blank" rel="noopener" href="https://www.guyuehome.com/2195">ROS探索总结（五十六）—— launch文件</a></p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -323,7 +396,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -358,7 +598,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

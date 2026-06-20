@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,67 +230,87 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >URDF</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#简介">简介</a></li>
-<li><a href="#搭建模型">搭建模型</a><ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
+<li><a href="#%E6%90%AD%E5%BB%BA%E6%A8%A1%E5%9E%8B">搭建模型</a>
+<ul>
 <li><a href="#material">material</a></li>
-<li><a href="#link">link</a><ul>
-<li><a href="#连杆标签的属性">连杆标签的属性</a></li>
+<li><a href="#link">link</a>
+<ul>
+<li><a href="#%E8%BF%9E%E6%9D%86%E6%A0%87%E7%AD%BE%E7%9A%84%E5%B1%9E%E6%80%A7">连杆标签的属性</a></li>
 </ul>
 </li>
 <li><a href="#joint">joint</a></li>
 </ul>
 </li>
-<li><a href="#辅助工具">辅助工具</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7">辅助工具</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近需要对运动学以及动力学做一些相关仿真以及实现，故需要了解以及设计一些可视化模型，相关的知识点将会放到这里；另外需要说明的是，solidworks可以导出此部分文件，因此这部分内容作为了解即可，<br>或者是以后可能需要修改一些参数而需要用到的一部分知识。</p>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>URDF(Unified Robot Description Format)，统一机器人描述格式，是一种特殊的xml格式，用来描述一个机器人. 在ROS中，urdf功能包包含一个urdf格式文件的C++解析器，这样，任何通过统一编码格式设计的机器人都可以通过该解析器得到一个可视化的模型.</p>
+<h1>前言</h1>
+<p>最近需要对运动学以及动力学做一些相关仿真以及实现，故需要了解以及设计一些可视化模型，相关的知识点将会放到这里；另外需要说明的是，solidworks可以导出此部分文件，因此这部分内容作为了解即可，<br>
+或者是以后可能需要修改一些参数而需要用到的一部分知识。</p>
+<h1>简介</h1>
+<p>URDF(Unified Robot Description Format)，统一机器人描述格式，是一种特殊的xml格式，用来描述一个机器人. 在ROS中，urdf功能包包含一个urdf格式文件的C++解析器，这样，任何通过统一编码格式设计的机器人都可以通过该解析器得到一个可视化的模型.</p>
 <p>URDF创造的机器人模型包含的内容有：</p>
 <blockquote>
-<p>连杆 link<br>关节 joint<br>运动学参数 axis<br>动力学参数 dynamics<br>可视化模型 visual<br>碰撞检测模型 collision</p>
+<p>连杆 link<br>
+关节 joint<br>
+运动学参数 axis<br>
+动力学参数 dynamics<br>
+可视化模型 visual<br>
+碰撞检测模型 collision</p>
 </blockquote>
-<h1 id="搭建模型"><a href="#搭建模型" class="headerlink" title="搭建模型"></a>搭建模型</h1><p>最终想要搭建的模型效果如下</p>
+<h1>搭建模型</h1>
+<p>最终想要搭建的模型效果如下</p>
 <div align="center"> <img src="/img/postImg/1_ros/URDF/最终想实现的三关节四连杆的结果.png" width="80%" height="40%"> </div>
-
 <p>下面一步步的说明搭建的过程(这里假设所有的包，如OpenManipulator Chain的源代码、URDF、Gazebo和MoveIt！都已安装好的前提下)</p>
 <p>按如下所示创建testbot_description功能包，然后创建urdf目录。然后使用编辑器创建一个testbot.urdf文件，并输入下面的URDF例程。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src</span><br><span class="line">catkin_create_pkg testbot_description urdf</span><br><span class="line"><span class="built_in">cd</span> testbot_description</span><br><span class="line"><span class="built_in">mkdir</span> urdf</span><br><span class="line"><span class="built_in">cd</span> urdf</span><br><span class="line">vim testbot.urdf</span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">robot</span> <span class="attr">name</span>=<span class="string">&quot;testbot&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;0.0 0.0 0.0 1.0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;orange&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;1.0 0.4 0.0 1.0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;base&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;fixed&quot;</span> <span class="attr">type</span>=<span class="string">&quot;fixed&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">parent</span> <span class="attr">link</span>=<span class="string">&quot;base&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">child</span> <span class="attr">link</span>=<span class="string">&quot;link1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;link1&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">collision</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 0.5&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">collision</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 0.5&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertial</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">mass</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertia</span> <span class="attr">ixx</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">ixy</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">ixz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">iyy</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">iyz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">izz</span>=<span class="string">&quot;1.0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">inertial</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;joint1&quot;</span> <span class="attr">type</span>=<span class="string">&quot;revolute&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">parent</span> <span class="attr">link</span>=<span class="string">&quot;link1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">child</span> <span class="attr">link</span>=<span class="string">&quot;link2&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.5&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">axis</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">limit</span> <span class="attr">effort</span>=<span class="string">&quot;30&quot;</span> <span class="attr">lower</span>=<span class="string">&quot;-2.617&quot;</span> <span class="attr">upper</span>=<span class="string">&quot;2.617&quot;</span> <span class="attr">velocity</span>=<span class="string">&quot;1.571&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;link2&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">collision</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 0.5&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">collision</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 0.5&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;orange&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertial</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">mass</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertia</span> <span class="attr">ixx</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">ixy</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">ixz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">iyy</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">iyz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">izz</span>=<span class="string">&quot;1.0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">inertial</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;joint2&quot;</span> <span class="attr">type</span>=<span class="string">&quot;revolute&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">parent</span> <span class="attr">link</span>=<span class="string">&quot;link2&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">child</span> <span class="attr">link</span>=<span class="string">&quot;link3&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.5&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">axis</span> <span class="attr">xyz</span>=<span class="string">&quot;0 1 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">limit</span> <span class="attr">effort</span>=<span class="string">&quot;30&quot;</span> <span class="attr">lower</span>=<span class="string">&quot;-2.617&quot;</span> <span class="attr">upper</span>=<span class="string">&quot;2.617&quot;</span> <span class="attr">velocity</span>=<span class="string">&quot;1.571&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;link3&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">collision</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.5&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">collision</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.5&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertial</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.5&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">mass</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertia</span> <span class="attr">ixx</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">ixy</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">ixz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">iyy</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">iyz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">izz</span>=<span class="string">&quot;1.0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">inertial</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;joint3&quot;</span> <span class="attr">type</span>=<span class="string">&quot;revolute&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">parent</span> <span class="attr">link</span>=<span class="string">&quot;link3&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">child</span> <span class="attr">link</span>=<span class="string">&quot;link4&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 1.0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">axis</span> <span class="attr">xyz</span>=<span class="string">&quot;0 1 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">limit</span> <span class="attr">effort</span>=<span class="string">&quot;30&quot;</span> <span class="attr">lower</span>=<span class="string">&quot;-2.617&quot;</span> <span class="attr">upper</span>=<span class="string">&quot;2.617&quot;</span> <span class="attr">velocity</span>=<span class="string">&quot;1.571&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;link4&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">collision</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 0.5&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">collision</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 0.5&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;orange&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertial</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">mass</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertia</span> <span class="attr">ixx</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">ixy</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">ixz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">iyy</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">iyz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">izz</span>=<span class="string">&quot;1.0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">inertial</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">robot</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>URDF使用XML标签来描述机器人的每个组件。以URDF形式先描述机器人的名称、 基座（在URDF中将基座看作一个固定的连杆）的名称和类型、连接到基座的连杆，之后逐一说明连杆和关节的内容。连杆描述连杆的名称、大小、重量和惯性等。关节描述每个关节的名称、类型和连接的连杆。并且可以很容易地设置机器人的动力学元素、可视化和碰撞模型。URDF是以<robot>标签来开始，详细内容中通常会反复交替出现<link>标签和<joint>标签，这两种标签都用于定义机器人的组件-连杆和关节。其中，为了与ROSControl共用，通常还包括用于设置关节和舵机之间的关系的<transmission>标签;</p>
-<h2 id="material"><a href="#material" class="headerlink" title="material"></a>material</h2><p>material标签描述连杆的颜色和纹理等信息。在下面的例子中，定义了两种材质，黑色和橙色，以区分每个连杆。颜色是利用color标签，可以在rgba选项后面输入对应于红色、绿色和蓝色的三个0.0到1.0之间的一个数字来分别设置。最后一个数字的透明度（alpha）值为0.0到1.0，值为1.0意味着没有透明度。</p>
+<h2 id="material">material</h2>
+<p>material标签描述连杆的颜色和纹理等信息。在下面的例子中，定义了两种材质，黑色和橙色，以区分每个连杆。颜色是利用color标签，可以在rgba选项后面输入对应于红色、绿色和蓝色的三个0.0到1.0之间的一个数字来分别设置。最后一个数字的透明度（alpha）值为0.0到1.0，值为1.0意味着没有透明度。</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">”black”</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;0.0 0.0 0.0 1.0&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;orange&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;1.0 0.4 0.0 1.0&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="link"><a href="#link" class="headerlink" title="link"></a>link</h2><p>机械手臂的第一种组件，基座在URDF中以连杆表示。基座通过关节连接到第一个连杆，这个关节是固定的，位于原点（0,0,0）。为了进行更多关于<link>标签的详细描述，先来看第一个连杆（link1）标签。</p>
+<h2 id="link">link</h2>
+<p>机械手臂的第一种组件，基座在URDF中以连杆表示。基座通过关节连接到第一个连杆，这个关节是固定的，位于原点（0,0,0）。为了进行更多关于<link>标签的详细描述，先来看第一个连杆（link1）标签。</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">”base”/</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;fixed&quot;</span> <span class="attr">type</span>=<span class="string">&quot;fixed&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">parent</span> <span class="attr">link</span>=<span class="string">&quot;base&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">child</span> <span class="attr">link</span>=<span class="string">&quot;link1&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;link1&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">collision</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 0.5&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">collision</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.1 0.1 0.5&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertial</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0.25&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">mass</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">inertia</span> <span class="attr">ixx</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">ixy</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">ixz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">iyy</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">iyz</span>=<span class="string">&quot;0.0&quot;</span> <span class="attr">izz</span>=<span class="string">&quot;1.0&quot;</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">inertial</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>如上面的例子，URDF <link>标签由碰撞（collision）、视觉（visual）和惯性（inertial）标签组成</p>
-<h3 id="连杆标签的属性"><a href="#连杆标签的属性" class="headerlink" title="连杆标签的属性"></a>连杆标签的属性</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span>&gt;</span>：      连杆的可视化、碰撞和惯性信息设置</span><br><span class="line"><span class="tag">&lt;<span class="name">collision</span>&gt;</span>： 设置连杆的碰撞计算的信息</span><br><span class="line"><span class="tag">&lt;<span class="name">visual</span>&gt;</span>：    设置连杆的可视化信息</span><br><span class="line"><span class="tag">&lt;<span class="name">inertial</span>&gt;</span>：  设置连杆的惯性信息</span><br><span class="line"><span class="tag">&lt;<span class="name">mass</span>&gt;</span>：      连杆重量（单位：kg）的设置</span><br><span class="line"><span class="tag">&lt;<span class="name">inertia</span>&gt;</span>：   惯性张量（Inertia tensor）设置</span><br><span class="line"><span class="tag">&lt;<span class="name">origin</span>&gt;</span>：    设置相对于连杆相对坐标系的移动和旋转</span><br><span class="line"><span class="tag">&lt;<span class="name">geometry</span>&gt;</span>：  输入模型的形状。提供box、cylinder、sphere等形态，也可以导入COLLADA</span><br><span class="line">（.dae）、STL（.stl）格式的设计文件。在<span class="tag">&lt;<span class="name">collision</span>&gt;</span>标签中，可以指定为简单的</span><br><span class="line">形态来减少计算时间</span><br><span class="line"><span class="tag">&lt;<span class="name">material</span>&gt;</span>：  设置连杆的颜色和纹理</span><br></pre></td></tr></table></figure>
+<h3 id="连杆标签的属性">连杆标签的属性</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span>&gt;</span>：      连杆的可视化、碰撞和惯性信息设置</span><br><span class="line"><span class="tag">&lt;<span class="name">collision</span>&gt;</span>： 设置连杆的碰撞计算的信息</span><br><span class="line"><span class="tag">&lt;<span class="name">visual</span>&gt;</span>：    设置连杆的可视化信息</span><br><span class="line"><span class="tag">&lt;<span class="name">inertial</span>&gt;</span>：  设置连杆的惯性信息</span><br><span class="line"><span class="tag">&lt;<span class="name">mass</span>&gt;</span>：      连杆重量（单位：kg）的设置</span><br><span class="line"><span class="tag">&lt;<span class="name">inertia</span>&gt;</span>：   惯性张量（Inertia tensor）设置</span><br><span class="line"><span class="tag">&lt;<span class="name">origin</span>&gt;</span>：    设置相对于连杆相对坐标系的移动和旋转</span><br><span class="line"><span class="tag">&lt;<span class="name">geometry</span>&gt;</span>：  输入模型的形状。提供box、cylinder、sphere等形态，也可以导入COLLADA</span><br><span class="line">（.dae）、STL（.stl）格式的设计文件。在<span class="tag">&lt;<span class="name">collision</span>&gt;</span>标签中，可以指定为简单的</span><br><span class="line">形态来减少计算时间</span><br><span class="line"><span class="tag">&lt;<span class="name">material</span>&gt;</span>：  设置连杆的颜色和纹理</span><br></pre></td></tr></table></figure>
 <div align="center"> <img src="/img/postImg/1_ros/URDF/单个连杆的建模参数.png" width="40%" height="40%"> </div>
-
-<h2 id="joint"><a href="#joint" class="headerlink" title="joint"></a>joint</h2><p>关节标签描述了关节的特征，具体来说它描述关节的名称和类型，如revolute（旋转运动型）、 prismatic(平移运动型）、continuous（连续旋转的轮）、fixed（固定型）、floating （非固定）和planar（在与轴垂直的平面移动的形态）。它还描述连接的两个连杆的名 称、关节的位置、旋转和平移运动的基准轴的动作限制。连接的连杆根据位置称为父连杆 （parent link）和子连杆（child link），父连杆通常是靠近基座的连杆。关节参数可参考下图中所示</p>
+<h2 id="joint">joint</h2>
+<p>关节标签描述了关节的特征，具体来说它描述关节的名称和类型，如revolute（旋转运动型）、 prismatic(平移运动型）、continuous（连续旋转的轮）、fixed（固定型）、floating （非固定）和planar（在与轴垂直的平面移动的形态）。它还描述连接的两个连杆的名 称、关节的位置、旋转和平移运动的基准轴的动作限制。连接的连杆根据位置称为父连杆 （parent link）和子连杆（child link），父连杆通常是靠近基座的连杆。关节参数可参考下图中所示</p>
 <div align="center"> <img src="/img/postImg/1_ros/URDF/关节的建模参数.png" width="40%" height="40%"> </div>
-
 <p>以下示例显示了joint2关节的设置。</p>
 <figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;joint name<span class="operator">=</span>”joint2” type<span class="operator">=</span>”revolute”&gt;</span><br><span class="line"> &lt;parent link<span class="operator">=</span><span class="string">&quot;link2&quot;</span>/&gt;</span><br><span class="line"> &lt;child link<span class="operator">=</span><span class="string">&quot;link3&quot;</span>/&gt;</span><br><span class="line"> &lt;origin xyz<span class="operator">=</span><span class="string">&quot;0 0 0.5&quot;</span> rpy<span class="operator">=</span><span class="string">&quot;0 0 0&quot;</span>/&gt;</span><br><span class="line"> &lt;axis xyz<span class="operator">=</span><span class="string">&quot;0 1 0&quot;</span>/&gt;</span><br><span class="line"> &lt;limit effort<span class="operator">=</span><span class="string">&quot;30&quot;</span> lower<span class="operator">=</span><span class="string">&quot;-2.617&quot;</span> upper<span class="operator">=</span><span class="string">&quot;2.617&quot;</span> velocity<span class="operator">=</span><span class="string">&quot;1.571&quot;</span>/&gt;</span><br><span class="line">&lt;/joint&gt;</span><br></pre></td></tr></table></figure>
 <p>完成建模后，我们来检查每个连杆和关节，看它们是否逻辑正确。在ROS中，可以用 <code>check_urdf</code>命令来检查已创建的URDF的语法错误以及每个连杆的连接关系，如下例所示。如果在语法和逻辑上没有问题，则可以看到连杆1、2、3和4正常连接，如下所示。</p>
 <div align="center"> <img src="/img/postImg/1_ros/URDF/check_urdf.png" width="40%" height="40%"> </div>
-
 <p>如果提示没有check_urdf命令，在命令行中输入如下即可</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install liburdfdom-tools</span><br></pre></td></tr></table></figure>
 <p>接下来，来用关系图表示urdf_to_graphiz程序创建的模型。如果运行 urdf_to_graphiz，则会创建一个.gv文件和一个.pdf文件。如果用PDF阅读器，可以一目了然地看到连杆与关节之间的关系，以及每个关节之间的相对坐标转换，</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">urdf_to_graphiz testbot.urdf</span><br><span class="line">Created <span class="keyword">file</span> testbot.<span class="keyword">gv</span></span><br><span class="line">Created <span class="keyword">file</span> testbot.pdf</span><br></pre></td></tr></table></figure>
 <p>用pdf阅读器打开所生成的PDF文件，如下所示</p>
 <div align="center"> <img src="/img/postImg/1_ros/URDF/testbot.png" width="40%" height="40%"> </div>
-
 <p>用check_urdf和urdf_to_graphiz是检查模型的连杆关系的最快的方法。 下面使用RViz检查机器人模型。转至testbot_description功能包目录并创建一个testbot.launch文件，在命令行中输入如下指令</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/testbot_description</span><br><span class="line"><span class="built_in">mkdir</span> launch</span><br><span class="line"><span class="built_in">cd</span> launch</span><br><span class="line">gedit testbot.launch</span><br></pre></td></tr></table></figure>
 <p>并输入如下内容</p>
 <figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;launch&gt;</span><br><span class="line"> &lt;arg name<span class="operator">=</span><span class="string">&quot;model&quot;</span> default<span class="operator">=</span><span class="string">&quot;$(find testbot_description)/urdf/testbot.urdf&quot;</span> /&gt;</span><br><span class="line"> &lt;arg name<span class="operator">=</span><span class="string">&quot;gui&quot;</span> default<span class="operator">=</span><span class="string">&quot;True&quot;</span> /&gt;</span><br><span class="line"> &lt;param name<span class="operator">=</span><span class="string">&quot;robot_description&quot;</span> textfile<span class="operator">=</span><span class="string">&quot;$(arg model)&quot;</span> /&gt;</span><br><span class="line"> &lt;param name<span class="operator">=</span><span class="string">&quot;use_gui&quot;</span> value<span class="operator">=</span><span class="string">&quot;$(arg gui)&quot;</span>/&gt;</span><br><span class="line"> &lt;node pkg<span class="operator">=</span><span class="string">&quot;joint_state_publisher&quot;</span> type<span class="operator">=</span><span class="string">&quot;joint_state_publisher&quot;</span> name<span class="operator">=</span><span class="string">&quot;joint_state_publisher&quot;</span>/&gt;</span><br><span class="line"> &lt;node pkg<span class="operator">=</span><span class="string">&quot;robot_state_publisher&quot;</span> type<span class="operator">=</span><span class="string">&quot;state_publisher&quot;</span> name<span class="operator">=</span><span class="string">&quot;robot_state_publisher&quot;</span>/&gt;</span><br><span class="line">&lt;/launch&gt;</span><br></pre></td></tr></table></figure>
 <p>Launch文件由包含URDF的参数、joint_state_publisher 节点和robot_state_publisher节点组成。joint_state_publisher节点通过sensor_msgs/JointState消息的形式发布URDF形式的机器人的关节状态，并提供一个GUI工具来给关节提供命令。 robot_state_publisher节点以tf消息的形式发布forward kinematics的结果，这个结果是由URDF中设置的机器人信息和sensor_msgs/JointState话题信息来计算得出的。</p>
-<h1 id="辅助工具"><a href="#辅助工具" class="headerlink" title="辅助工具"></a>辅助工具</h1><p>有直接可以从DH参数生成URDF文件的，网址链接为： <code>https://adohaha.github.io/DH2URDF/</code>, 但是。。。。没有通过check(可能需要在这个基础上稍微改改)….这就尴尬了，于是接着搜索，在github上找到了 <a target="_blank" rel="noopener" href="https://github.com/yunlongdong/RoboticsInOne">RoboticsInOne</a>, 于是在自己的MAC上进行了简单的试用，当然，也是有很多坑需要去踩的，配置环境产生了一系列的问题，因为不断地去试，所以就没能一点点的记录整个试的过程了，下面记录一些比较重要的点</p>
+<h1>辅助工具</h1>
+<p>有直接可以从DH参数生成URDF文件的，网址链接为： <code>https://adohaha.github.io/DH2URDF/</code>, 但是。。。。没有通过check(可能需要在这个基础上稍微改改)…这就尴尬了，于是接着搜索，在github上找到了 <a target="_blank" rel="noopener" href="https://github.com/yunlongdong/RoboticsInOne">RoboticsInOne</a>, 于是在自己的MAC上进行了简单的试用，当然，也是有很多坑需要去踩的，配置环境产生了一系列的问题，因为不断地去试，所以就没能一点点的记录整个试的过程了，下面记录一些比较重要的点</p>
 <p>1， 利用conda安装所需Python的配置环境, 主要是去解决wxpython的一些问题, 当时的报错信息如下</p>
 <figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">This program needs <span class="keyword">access</span> <span class="keyword">to</span> the screen. Please run <span class="keyword">with</span> a Framework</span><br><span class="line">build <span class="keyword">of</span> python, <span class="keyword">and</span> <span class="keyword">only</span> <span class="keyword">when</span> you are <span class="keyword">logged</span> <span class="keyword">in</span> <span class="keyword">on</span> the main display</span><br><span class="line"><span class="keyword">of</span> your Mac.</span><br></pre></td></tr></table></figure>
 <p>解决方式如下：</p>
@@ -303,16 +324,50 @@
 <p>以此类推即可，虽然解决方式有些繁琐，但最后也是成功了的，就没必要研究更快更好的方法了。。。。。。最后可以打开里面的用例，以库卡机器人为例，效果如下</p>
 <p><img src="/img/postImg/1_ros/URDF/RoboticsInOne_demo_kuka.png" alt=""></p>
 <p>自然，里面给的urdf模型是可以通过check的；可以拿里面提供的URDF文件进行仿真，当然，想找到URDF仿真来说，相对来说是个比较简单的问题;</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/41939935">ROS开发——URDF简介</a></p>
-<p>[2]《ROS机器人编程—从基本概念到机器人应用程序编程实战》</p>
+<h1>参考</h1>
+<p>[1] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/41939935">ROS开发——URDF简介</a></p>
+<p>[2]《ROS机器人编程–从基本概念到机器人应用程序编程实战》</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -339,7 +394,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -374,7 +596,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

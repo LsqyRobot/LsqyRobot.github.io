@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,60 +230,117 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >ros topic</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#ros-topic概念">ROS Topic概念</a><ul>
+<li><a href="#ros-topic%E6%A6%82%E5%BF%B5">ROS Topic概念</a>
+<ul>
 <li><a href="#publisher">Publisher</a></li>
 <li><a href="#subscriber">Subscriber</a></li>
-<li><a href="#topic通信过程">Topic通信过程</a></li>
+<li><a href="#topic%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B">Topic通信过程</a></li>
 </ul>
 </li>
-<li><a href="#发布一个topic">发布一个topic</a></li>
-<li><a href="#发布自定义数据">发布自定义数据</a><ul>
-<li><a href="#定义自定义消息">定义自定义消息</a></li>
-<li><a href="#修改-packagexml-和-cmakeliststxt">修改 package.xml 和 CMakeLists.txt</a></li>
-<li><a href="#示例">示例</a></li>
+<li><a href="#%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AAtopic">发布一个topic</a></li>
+<li><a href="#%E5%8F%91%E5%B8%83%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE">发布自定义数据</a>
+<ul>
+<li><a href="#%E5%AE%9A%E4%B9%89%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF">定义自定义消息</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9-packagexml-%E5%92%8C-cmakeliststxt">修改 package.xml 和 CMakeLists.txt</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B">示例</a></li>
 </ul>
 </li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="ROS-Topic概念"><a href="#ROS-Topic概念" class="headerlink" title="ROS Topic概念"></a>ROS Topic概念</h1><p>ROS Node之间进行通信所利用的最重要的机制就是消息传递，在ROS中，消息有组织的放到Topic里进行传递。</p>
-<h2 id="Publisher"><a href="#Publisher" class="headerlink" title="Publisher"></a>Publisher</h2><p>&bull; 生成信息，通过ROS Topic与其它Node进行通信。</p>
-<p>&bull; 通常用于处理原始的传感器信息，如相机、编码器等。</p>
-<h2 id="Subscriber"><a href="#Subscriber" class="headerlink" title="Subscriber"></a>Subscriber</h2><p>&bull; 接收信息，通过ROS Topic接收来自其它Node的信息，并通过回调函数处理</p>
-<p>&bull; 通常用于监测系统状态，如当机器人关节到达限位位置时触发运动中断</p>
-<h2 id="Topic通信过程"><a href="#Topic通信过程" class="headerlink" title="Topic通信过程"></a>Topic通信过程</h2><p>1, Publisher节点和Subscriber节点分别在Master进行注册<br>2, Publisher发布Topic<br>3, Subscriber在Master指挥下订阅Topic，从而建立起Pub-Sub之间的通信</p>
+<h1>ROS Topic概念</h1>
+<p>ROS Node之间进行通信所利用的最重要的机制就是消息传递，在ROS中，消息有组织的放到Topic里进行传递。</p>
+<h2 id="Publisher">Publisher</h2>
+<p>• 生成信息，通过ROS Topic与其它Node进行通信。</p>
+<p>• 通常用于处理原始的传感器信息，如相机、编码器等。</p>
+<h2 id="Subscriber">Subscriber</h2>
+<p>• 接收信息，通过ROS Topic接收来自其它Node的信息，并通过回调函数处理</p>
+<p>• 通常用于监测系统状态，如当机器人关节到达限位位置时触发运动中断</p>
+<h2 id="Topic通信过程">Topic通信过程</h2>
+<p>1, Publisher节点和Subscriber节点分别在Master进行注册<br>
+2, Publisher发布Topic<br>
+3, Subscriber在Master指挥下订阅Topic，从而建立起Pub-Sub之间的通信</p>
 <p><strong>注意：消息是直接从发布节点传递到订阅节点，并不经过Master。</strong></p>
 <p>下图是ROS Node和ROS Topic概念的图形化表示，可以看到两个Node（圆形）通过Topic（长方形）实现通信。</p>
-<p><img src="/img/postImg/1_ros/6_ros_topic/1_ROS_Node_Topic通信示意图.webp" alt=""></p>
-<h1 id="发布一个topic"><a href="#发布一个topic" class="headerlink" title="发布一个topic"></a>发布一个topic</h1><p>发布一个 ROS topic 的步骤如下：</p>
-<p>&bull; 确定消息类型：首先，需要知道要发布的消息类型。例如，使用标准消息类型 std_msgs/String。</p>
-<p>&bull; 创建发布节点：需要一个 ROS 节点来发布消息。可以使用 Python 或 C++ 编写这个节点。</p>
+<p><img src="/img/postImg/1_ros/6_ros_topic/1_ROS_Node_Topic%E9%80%9A%E4%BF%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.webp" alt=""></p>
+<h1>发布一个topic</h1>
+<p>发布一个 ROS topic 的步骤如下：</p>
+<p>• 确定消息类型：首先，需要知道要发布的消息类型。例如，使用标准消息类型 std_msgs/String。</p>
+<p>• 创建发布节点：需要一个 ROS 节点来发布消息。可以使用 Python 或 C++ 编写这个节点。</p>
 <p>以下是 C++ 示例，创建一个发布节点并每秒发布一条字符串消息：</p>
 <figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;std_msgs/String.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span> </span>&#123;</span><br><span class="line">    ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;talker&quot;</span>);</span><br><span class="line">    ros::NodeHandle n;</span><br><span class="line">    ros::Publisher pub = n.<span class="built_in">advertise</span>&lt;std_msgs::<span class="type">String</span>&gt;(<span class="string">&quot;chatter&quot;</span>, <span class="number">1000</span>);</span><br><span class="line">    <span class="function">ros::Rate <span class="title">loop_rate</span><span class="params">(<span class="number">1</span>)</span></span>;  <span class="comment">// 1 Hz</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (ros::<span class="built_in">ok</span>()) &#123;</span><br><span class="line">        std_msgs::<span class="type">String</span> msg;</span><br><span class="line">        std::stringstream ss;</span><br><span class="line">        ss &lt;&lt; <span class="string">&quot;Hello, ROS! &quot;</span> &lt;&lt; ros::Time::<span class="built_in">now</span>();</span><br><span class="line">        msg.data = ss.<span class="built_in">str</span>();</span><br><span class="line"></span><br><span class="line">        <span class="built_in">ROS_INFO</span>(<span class="string">&quot;%s&quot;</span>, msg.data.<span class="built_in">c_str</span>());  <span class="comment">// 打印消息到日志</span></span><br><span class="line">        pub.<span class="built_in">publish</span>(msg);  <span class="comment">// 发布消息</span></span><br><span class="line"></span><br><span class="line">        ros::<span class="built_in">spinOnce</span>();  <span class="comment">// 处理回调</span></span><br><span class="line">        loop_rate.<span class="built_in">sleep</span>();  <span class="comment">// 按照设定频率休眠</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="发布自定义数据"><a href="#发布自定义数据" class="headerlink" title="发布自定义数据"></a>发布自定义数据</h1><p>如果想同时发布字符和数组，可以使用自定义消息类型或者使用现有的消息类型，比如 std_msgs/String 和 std_msgs/Float64MultiArray，并将它们封装在一个自定义消息中。</p>
-<h2 id="定义自定义消息"><a href="#定义自定义消息" class="headerlink" title="定义自定义消息"></a>定义自定义消息</h2><p>在 ROS 包中创建一个 msg 文件夹，并定义一个新的消息类型，例如 CombinedMsg.msg，内容如下：</p>
+<h1>发布自定义数据</h1>
+<p>如果想同时发布字符和数组，可以使用自定义消息类型或者使用现有的消息类型，比如 std_msgs/String 和 std_msgs/Float64MultiArray，并将它们封装在一个自定义消息中。</p>
+<h2 id="定义自定义消息">定义自定义消息</h2>
+<p>在 ROS 包中创建一个 msg 文件夹，并定义一个新的消息类型，例如 CombinedMsg.msg，内容如下：</p>
 <figure class="highlight vhdl"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> <span class="literal">text</span></span><br><span class="line">std_msgs/Float64MultiArray <span class="keyword">array</span></span><br></pre></td></tr></table></figure>
-<h2 id="修改-package-xml-和-CMakeLists-txt"><a href="#修改-package-xml-和-CMakeLists-txt" class="headerlink" title="修改 package.xml 和 CMakeLists.txt"></a>修改 package.xml 和 CMakeLists.txt</h2><p>确保在 <code>package.xml</code> 中添加 <code>std_msgs</code> 的依赖，并在 <code>CMakeLists.txt</code> 中添加消息生成的相关配置。</p>
+<h2 id="修改-package-xml-和-CMakeLists-txt">修改 package.xml 和 CMakeLists.txt</h2>
+<p>确保在 <code>package.xml</code> 中添加 <code>std_msgs</code> 的依赖，并在 <code>CMakeLists.txt</code> 中添加消息生成的相关配置。</p>
 <p>在 CMakeLists.txt 中添加以下内容：</p>
 <figure class="highlight isbl"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span>(<span class="variable">catkin</span> <span class="variable">REQUIRED</span> <span class="variable">COMPONENTS</span></span></span><br><span class="line"><span class="function">  <span class="variable">roscpp</span></span></span><br><span class="line"><span class="function">  <span class="variable">std_msgs</span></span></span><br><span class="line"><span class="function">  <span class="variable">message_generation</span></span></span><br><span class="line"><span class="function">)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">add_message_files</span>(</span></span><br><span class="line"><span class="function">  <span class="variable">FILES</span></span></span><br><span class="line"><span class="function">  <span class="variable">CombinedMsg.msg</span></span></span><br><span class="line"><span class="function">)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">generate_messages</span>(</span></span><br><span class="line"><span class="function">  <span class="variable">DEPENDENCIES</span></span></span><br><span class="line"><span class="function">  <span class="variable">std_msgs</span></span></span><br><span class="line"><span class="function">)</span></span><br></pre></td></tr></table></figure>
 <p>到工作空间后<code>catkin_make</code>编译一下包</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>发布包含字符和数组的自定义消息：</p>
+<h2 id="示例">示例</h2>
+<p>发布包含字符和数组的自定义消息：</p>
 <figure class="highlight stan"><table><tr><td class="code"><pre><span class="line"><span class="meta">#include &quot;<span class="string">ros</span>/<span class="string">ros.h</span>&quot;</span></span><br><span class="line"><span class="meta">#include &quot;<span class="string">your_package_name</span>/C<span class="string">ombined</span>M<span class="string">sg.h</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> main(<span class="type">int</span> argc, char **argv) &#123;</span><br><span class="line">    ros::init(argc, argv, <span class="string">&quot;combined_talker&quot;</span>);</span><br><span class="line">    ros::NodeHandle n;</span><br><span class="line">    ros::Publisher pub = n.advertise&lt;your_package_name::CombinedMsg&gt;(<span class="string">&quot;combined_topic&quot;</span>, <span class="number">1000</span>);</span><br><span class="line">    ros::Rate loop_rate(<span class="number">1</span>);  <span class="comment">// 1 Hz</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (ros::ok()) &#123;</span><br><span class="line">        your_package_name::CombinedMsg combined_msg;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 填充字符和数组数据</span></span><br><span class="line">        combined_msg.text = <span class="string">&quot;Hello, ROS!&quot;</span>;</span><br><span class="line">        combined_msg.<span class="type">array</span>.<span class="title">data</span> = &#123;<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>&#125;;</span><br><span class="line"></span><br><span class="line">        ROS_INFO(<span class="string">&quot;Text: %s&quot;</span>, combined_msg.text.c_str());</span><br><span class="line">        ROS_INFO(<span class="string">&quot;Array: %f %f %f %f %f&quot;</span>, combined_msg.<span class="type">array</span>.<span class="title">data</span>[<span class="number">0</span>], combined_msg.<span class="type">array</span>.<span class="title">data</span>[<span class="number">1</span>], combined_msg.<span class="type">array</span>.<span class="title">data</span>[<span class="number">2</span>], combined_msg.<span class="type">array</span>.<span class="title">data</span>[<span class="number">3</span>], combined_msg.<span class="type">array</span>.<span class="title">data</span>[<span class="number">4</span>]);</span><br><span class="line">        pub.publish(combined_msg);  <span class="comment">// 发布消息</span></span><br><span class="line"></span><br><span class="line">        ros::spinOnce();  <span class="comment">// 处理回调</span></span><br><span class="line">        loop_rate.sleep();  <span class="comment">// 按照设定频率休眠</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行发布节点：</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">rosrun your_package_name your_executable_name</span></span><br></pre></td></tr></table></figure>
 <p>可以使用 <code>rostopic echo /combined_topic</code> 来查看发布的字符和数组数据。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a target="_blank" rel="noopener" href="https://tr-ros-tutorial.readthedocs.io/zh-cn/latest/_source/basics/1.4_ROS_Topic.html">ROS Topic</a><br>[2] chatGPT</p>
+<h1>参考</h1>
+<p>[1] <a target="_blank" rel="noopener" href="https://tr-ros-tutorial.readthedocs.io/zh-cn/latest/_source/basics/1.4_ROS_Topic.html">ROS Topic</a><br>
+[2] chatGPT</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -309,7 +367,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -344,7 +569,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

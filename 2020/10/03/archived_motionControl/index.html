@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,93 +230,124 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >运动控制系统简介</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#运动控制">运动控制</a><ul>
-<li><a href="#电机控制与运动控制">电机控制与运动控制</a></li>
-<li><a href="#伺服电机的构成">伺服电机的构成</a></li>
-<li><a href="#运动控制系统的典型构成">运动控制系统的典型构成</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E8%BF%90%E5%8A%A8%E6%8E%A7%E5%88%B6">运动控制</a>
+<ul>
+<li><a href="#%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%BF%90%E5%8A%A8%E6%8E%A7%E5%88%B6">电机控制与运动控制</a></li>
+<li><a href="#%E4%BC%BA%E6%9C%8D%E7%94%B5%E6%9C%BA%E7%9A%84%E6%9E%84%E6%88%90">伺服电机的构成</a></li>
+<li><a href="#%E8%BF%90%E5%8A%A8%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%B8%E5%9E%8B%E6%9E%84%E6%88%90">运动控制系统的典型构成</a></li>
 </ul>
 </li>
-<li><a href="#位置控制">位置控制</a><ul>
-<li><a href="#周期同步位置模式csp">周期同步位置模式(CSP)</a></li>
-<li><a href="#轮廓位置模式-ppm">轮廓位置模式 (PPM)</a></li>
-<li><a href="#位置模式pm">位置模式(PM)</a></li>
+<li><a href="#%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6">位置控制</a>
+<ul>
+<li><a href="#%E5%91%A8%E6%9C%9F%E5%90%8C%E6%AD%A5%E4%BD%8D%E7%BD%AE%E6%A8%A1%E5%BC%8Fcsp">周期同步位置模式(CSP)</a></li>
+<li><a href="#%E8%BD%AE%E5%BB%93%E4%BD%8D%E7%BD%AE%E6%A8%A1%E5%BC%8F-ppm">轮廓位置模式 (PPM)</a></li>
+<li><a href="#%E4%BD%8D%E7%BD%AE%E6%A8%A1%E5%BC%8Fpm">位置模式(PM)</a></li>
 </ul>
 </li>
-<li><a href="#伺服系统相关概念">伺服系统相关概念</a><ul>
-<li><a href="#交流伺服系统的组成">交流伺服系统的组成</a><ul>
-<li><a href="#工作在位置控制模式时的系统组成及说明">工作在位置控制模式时的系统组成及说明</a></li>
-<li><a href="#工作在速度控制模式时的系统组成">工作在速度控制模式时的系统组成</a></li>
-<li><a href="#工作在转矩控制模式时的系统组成及说明">工作在转矩控制模式时的系统组成及说明</a></li>
+<li><a href="#%E4%BC%BA%E6%9C%8D%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5">伺服系统相关概念</a>
+<ul>
+<li><a href="#%E4%BA%A4%E6%B5%81%E4%BC%BA%E6%9C%8D%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%84%E6%88%90">交流伺服系统的组成</a>
+<ul>
+<li><a href="#%E5%B7%A5%E4%BD%9C%E5%9C%A8%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%BC%8F%E6%97%B6%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90%E5%8F%8A%E8%AF%B4%E6%98%8E">工作在位置控制模式时的系统组成及说明</a></li>
+<li><a href="#%E5%B7%A5%E4%BD%9C%E5%9C%A8%E9%80%9F%E5%BA%A6%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%BC%8F%E6%97%B6%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90">工作在速度控制模式时的系统组成</a></li>
+<li><a href="#%E5%B7%A5%E4%BD%9C%E5%9C%A8%E8%BD%AC%E7%9F%A9%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%BC%8F%E6%97%B6%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90%E5%8F%8A%E8%AF%B4%E6%98%8E">工作在转矩控制模式时的系统组成及说明</a></li>
 </ul>
 </li>
-<li><a href="#伺服电动机与编码器">伺服电动机与编码器</a><ul>
-<li><a href="#编码器">编码器</a><ul>
-<li><a href="#增量编码器">增量编码器</a></li>
-<li><a href="#绝对值编码器">绝对值编码器</a></li>
+<li><a href="#%E4%BC%BA%E6%9C%8D%E7%94%B5%E5%8A%A8%E6%9C%BA%E4%B8%8E%E7%BC%96%E7%A0%81%E5%99%A8">伺服电动机与编码器</a>
+<ul>
+<li><a href="#%E7%BC%96%E7%A0%81%E5%99%A8">编码器</a>
+<ul>
+<li><a href="#%E5%A2%9E%E9%87%8F%E7%BC%96%E7%A0%81%E5%99%A8">增量编码器</a></li>
+<li><a href="#%E7%BB%9D%E5%AF%B9%E5%80%BC%E7%BC%96%E7%A0%81%E5%99%A8">绝对值编码器</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#伺服驱动器的结构与原理">伺服驱动器的结构与原理</a></li>
-<li><a href="#电子齿轮比设计">电子齿轮比设计</a></li>
-<li><a href="#通讯方式">通讯方式</a></li>
+<li><a href="#%E4%BC%BA%E6%9C%8D%E9%A9%B1%E5%8A%A8%E5%99%A8%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8E%9F%E7%90%86">伺服驱动器的结构与原理</a></li>
+<li><a href="#%E7%94%B5%E5%AD%90%E9%BD%BF%E8%BD%AE%E6%AF%94%E8%AE%BE%E8%AE%A1">电子齿轮比设计</a></li>
+<li><a href="#%E9%80%9A%E8%AE%AF%E6%96%B9%E5%BC%8F">通讯方式</a></li>
 </ul>
 </li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在做伺服电机方面工作,接触到的一些基础的知识,感觉还是非常值得去了解这些内容的,因此将自己从网络上,以及一些手册里的内容,放到这里。</p>
-<h1 id="运动控制"><a href="#运动控制" class="headerlink" title="运动控制"></a>运动控制</h1><p><strong>运动控制</strong>主要分两个方向,一个是运动控制,通常用于机械领域；另一个就是过程控制,通常使用于化工领域。而运动控制指的是一种起源于早期的伺服系统,基于电动机的控制,以实现物体对角位移、转矩、转速等等物理量改变的控制。</p>
-<h2 id="电机控制与运动控制"><a href="#电机控制与运动控制" class="headerlink" title="电机控制与运动控制"></a>电机控制与运动控制</h2><p><strong>电机控制</strong>(这里指伺服电机)主要关注的是控制单个电机的转距、速度、位置中的一个或多个参数达到给定值。而<strong>运动控制</strong>主要关注点在于协调多个电机,完成指定的运动(合成轨迹、合成速度),比较着重轨迹规划、速度规划、运动学转换。</p>
+<h1>前言</h1>
+<p>最近在做伺服电机方面工作,接触到的一些基础的知识,感觉还是非常值得去了解这些内容的,因此将自己从网络上,以及一些手册里的内容,放到这里。</p>
+<h1>运动控制</h1>
+<p><strong>运动控制</strong>主要分两个方向,一个是运动控制,通常用于机械领域；另一个就是过程控制,通常使用于化工领域。而运动控制指的是一种起源于早期的伺服系统,基于电动机的控制,以实现物体对角位移、转矩、转速等等物理量改变的控制。</p>
+<h2 id="电机控制与运动控制">电机控制与运动控制</h2>
+<p><strong>电机控制</strong>(这里指伺服电机)主要关注的是控制单个电机的转距、速度、位置中的一个或多个参数达到给定值。而<strong>运动控制</strong>主要关注点在于协调多个电机,完成指定的运动(合成轨迹、合成速度),比较着重轨迹规划、速度规划、运动学转换。</p>
 <p><strong>运动控制</strong>往往是针对产品而言的,包含机械、软件、电气等模块,例如机器人、无人机、运动平台等等,是对机械运动部件的位置、速度等进行实时的控制管理,使其按照预期的运动轨迹和规定的运动参数进行运动的一种控制。</p>
 <p>两者有部分内容是重合的：位置环/速度环/转距环可以在电机的驱动器中实现,也可以在运动控制器中实现.</p>
-<h2 id="伺服电机的构成"><a href="#伺服电机的构成" class="headerlink" title="伺服电机的构成"></a>伺服电机的构成</h2><p>伺服电机的装置由下列三者构成:</p>
-<p>1,发出动作指令的”指示装置”(控制器,Controller),</p>
-<p>2,依照指示装置的指示讯号与回馈讯号下等指令使电机动作的”控制装置”(伺服放大器),</p>
-<p>3,以及将由伺服放大器而来的电力供给驱动控制对象和侦测其状态的”驱动、感测装置”。</p>
-<h2 id="运动控制系统的典型构成"><a href="#运动控制系统的典型构成" class="headerlink" title="运动控制系统的典型构成"></a>运动控制系统的典型构成</h2><p>1, 开环系统(电机：步进电机；驱动器：脉冲分配,电流放大)</p>
+<h2 id="伺服电机的构成">伺服电机的构成</h2>
+<p>伺服电机的装置由下列三者构成:</p>
+<p>1,发出动作指令的&quot;指示装置&quot;(控制器,Controller),</p>
+<p>2,依照指示装置的指示讯号与回馈讯号下等指令使电机动作的&quot;控制装置&quot;(伺服放大器),</p>
+<p>3,以及将由伺服放大器而来的电力供给驱动控制对象和侦测其状态的&quot;驱动、感测装置&quot;。</p>
+<h2 id="运动控制系统的典型构成">运动控制系统的典型构成</h2>
+<p>1, 开环系统(电机：步进电机；驱动器：脉冲分配,电流放大)</p>
 <p>2,半闭环系统(电机：直流伺服电机、交流伺服电机；驱动器：电流放大,位置反馈控制)</p>
 <p>3,半闭环系统(直流伺服电机、交流伺服电机；驱动器：速度反馈控制,电流放大；运动控制器：运动规划,速度指令,位置反馈取自电机轴)</p>
 <p>4, 全闭环系统(驱动器：速度反馈控制,电流放大；运动控制器：运动规划,速度指令,位置反馈取自负载)</p>
 <p>全闭环伺服系统可以消除机械传动带来的误差,而半闭环系统只能补偿部分误差,因此,半闭环伺服系统的精度比全闭环伺服系统的精度要低一些。由于采用了位置检测装置,所以全闭环系统的位置精度在其他因素确定了之后,主要取决于检测装置的分辨率和精度。</p>
 <p>注意半闭环系统2与3的区别。驱动器如果工作在位置模式,运动控制器就只做位置轨迹的规划(Trajectory generator),每个通信周期发送目标位置到驱动器。驱动器接收到设定位置后,与当前位置比较,并依据控制器-驱动器通信周期与驱动器位置环周期进行线性或者非线性插值,将插值作为每个位置环周期的“设定位置”。</p>
 <p>假设驱动器位置环周期是125us,控制器和驱动器通信周期为 2ms,当前位置为 0,目标位置为 1mm,那么接下来 16 个周期驱动器位置环的“设定位置”就依次为：0.0625mm,0.125mm, 0.1875mm, 0.25mm,…,1mm. 如果没有插值,那么接下来驱动器的第 1 个周期的设定位置就是 1mm,驱动器在第 125us时,位置为 1mm,在 2-16 个周期,设定位置维持不变,相当于电机停止,直到第 2ms,接收到新的“给定位置”。由于间隔仅为 2ms,电机并不会真的停止,而是表现为顿挫感,转动不流畅。</p>
-<p>驱动器如果工作在速度模式,那么控制器就不仅做位置曲线的规划,还要完成位置环的调节。此时NC周期与位置环周期相等,不必插值。伺服驱动器的位置环被忽略,其速度环直接接受上层给出的”设定速度”。</p>
-<h1 id="位置控制"><a href="#位置控制" class="headerlink" title="位置控制"></a>位置控制</h1><p>位置控制主要有三种模式：周期同步位置模式 (CSP),轮廓位置模式 (PPM),位置模式 (PM)。</p>
-<h2 id="周期同步位置模式-CSP"><a href="#周期同步位置模式-CSP" class="headerlink" title="周期同步位置模式(CSP)"></a>周期同步位置模式(CSP)</h2><p>周期同步位置模式 (Cyclic synchronous position mode) ,与轮廓位置模式 (Profifile Position Mode) 不同,其轨迹发生器位于控制器端,而非驱动器内。在该模式下,控制器只需要周期性的下发目标位置即可(与位置插补模式的原理相类似),而且可以设置附加的速度前馈 (Velocity offffset) 或转矩前馈 (Torque offffset),即轮廓位置模式的 Trajectory Generator 在驱动器内,周期同步位置模式的 Trajectory Generator 在控制器内,而位置模式(Position Mode)、电子手轮模式(Master Encoder Mode)、脉冲/方向模式(Step Direction Mode)则不需要轨迹生成器。</p>
-<h2 id="轮廓位置模式-PPM"><a href="#轮廓位置模式-PPM" class="headerlink" title="轮廓位置模式 (PPM)"></a>轮廓位置模式 (PPM)</h2><p>轮廓位置模式下,驱动器接收主站发送来的目标位置指令,在驱动器内部根据速度、加速度规划参数设置进行轨迹规划。例如：应用程序要求伺服轴以设定的速度、加速度运动到某个目标位置,驱动器接到这个指令后,在内部的轨迹生成器中计算出每个 NC 周期(比如：1ms)伺服轴应该到达的位置,然后发送给位置环去执行。</p>
-<h2 id="位置模式-PM"><a href="#位置模式-PM" class="headerlink" title="位置模式(PM)"></a>位置模式(PM)</h2><p>位置需求值可直接设定。位置模式允许无轮廓线定位,即目标位置被立即设置为位置控制环的一个新的设定值。位置模式是一种有用的操作模式,在这种情况下,轴作为一个隶属轴,由没有大跳跃的渐进式位置设定值所控制。因此,不需要路径生成器。累进设定值的例子是模拟设定值电压。不产生路径的特殊工作模式是主编码器模式,从轴跟随来自外部编码器的信号脉冲 (例如主轴) 或步进方向模式,步进电机驱动的每个脉冲指令对应一个小的旋转角度。另外的操作模式允许运行运动控制器而不接收在线命令。相反,使用模拟电压信号或信号脉冲作为命令值。这些传入的信号被转换成设定值,直接馈入相应的控制回路而没有一个轮廓或轨迹被产生。</p>
-<h1 id="伺服系统相关概念"><a href="#伺服系统相关概念" class="headerlink" title="伺服系统相关概念"></a>伺服系统相关概念</h1><p>伺服系统通常由三个反馈系统构成,由外到内分别是位置环、速度环和电流环。调整时,内环的响应性要高于外环的响应性,如果不遵守该原则,则会使系统响应性变差或产生振动。<strong>电流环调节器参数仅与电机参数有关</strong>,相同电机的电流环参数确定后,如果负载改变,只需调整速度环调节器参数和位置环调节器参数即可,电流环调节器参数不用再做调整。如下所示为应用在机器人上的三环控制简图(非驱控一体)</p>
+<p>驱动器如果工作在速度模式,那么控制器就不仅做位置曲线的规划,还要完成位置环的调节。此时NC周期与位置环周期相等,不必插值。伺服驱动器的位置环被忽略,其速度环直接接受上层给出的&quot;设定速度&quot;。</p>
+<h1>位置控制</h1>
+<p>位置控制主要有三种模式：周期同步位置模式 (CSP),轮廓位置模式 (PPM),位置模式 (PM)。</p>
+<h2 id="周期同步位置模式-CSP">周期同步位置模式(CSP)</h2>
+<p>周期同步位置模式 (Cyclic synchronous position mode) ,与轮廓位置模式 (Profifile Position Mode) 不同,其轨迹发生器位于控制器端,而非驱动器内。在该模式下,控制器只需要周期性的下发目标位置即可(与位置插补模式的原理相类似),而且可以设置附加的速度前馈 (Velocity offffset) 或转矩前馈 (Torque offffset),即轮廓位置模式的 Trajectory Generator 在驱动器内,周期同步位置模式的 Trajectory Generator 在控制器内,而位置模式(Position Mode)、电子手轮模式(Master Encoder Mode)、脉冲/方向模式(Step Direction Mode)则不需要轨迹生成器。</p>
+<h2 id="轮廓位置模式-PPM">轮廓位置模式 (PPM)</h2>
+<p>轮廓位置模式下,驱动器接收主站发送来的目标位置指令,在驱动器内部根据速度、加速度规划参数设置进行轨迹规划。例如：应用程序要求伺服轴以设定的速度、加速度运动到某个目标位置,驱动器接到这个指令后,在内部的轨迹生成器中计算出每个 NC 周期(比如：1ms)伺服轴应该到达的位置,然后发送给位置环去执行。</p>
+<h2 id="位置模式-PM">位置模式(PM)</h2>
+<p>位置需求值可直接设定。位置模式允许无轮廓线定位,即目标位置被立即设置为位置控制环的一个新的设定值。位置模式是一种有用的操作模式,在这种情况下,轴作为一个隶属轴,由没有大跳跃的渐进式位置设定值所控制。因此,不需要路径生成器。累进设定值的例子是模拟设定值电压。不产生路径的特殊工作模式是主编码器模式,从轴跟随来自外部编码器的信号脉冲 (例如主轴) 或步进方向模式,步进电机驱动的每个脉冲指令对应一个小的旋转角度。另外的操作模式允许运行运动控制器而不接收在线命令。相反,使用模拟电压信号或信号脉冲作为命令值。这些传入的信号被转换成设定值,直接馈入相应的控制回路而没有一个轮廓或轨迹被产生。</p>
+<h1>伺服系统相关概念</h1>
+<p>伺服系统通常由三个反馈系统构成,由外到内分别是位置环、速度环和电流环。调整时,内环的响应性要高于外环的响应性,如果不遵守该原则,则会使系统响应性变差或产生振动。<strong>电流环调节器参数仅与电机参数有关</strong>,相同电机的电流环参数确定后,如果负载改变,只需调整速度环调节器参数和位置环调节器参数即可,电流环调节器参数不用再做调整。如下所示为应用在机器人上的三环控制简图(非驱控一体)</p>
 <div align="center"> <img src="/img/postImg/28_motionControl/threeLoopControl.svg" width="100%" height="40%"> </div>
-
-
 <p>在交流伺服控制系统中,交流伺服电机运行状态的优劣取决于位置环、速度环和电流环三环控制器设计的好坏。交流伺服控制系统有两种,一种是位置伺服控制系统,包括电流控制器、速度控制器和位置控制器；另一种是速度伺服控制系统,只包括电流控制器和速度控制器。因此选取合适的参数,能够在一定程度上提高系统的快速性、稳定性、准确性。</p>
 <p>在电流控制器、速度控制器和位置控制器中,电流控制器是最关键、重要的环节,因为不管是速度还是位置控制,最后都要转化成对交流电机电流的控制。速度环的作用是保证速度指令与交流电机的实际转速相同,从而消除负载转矩扰动等因素对交流电机的影响,通过交流电机的实际转速和输入的速度指令相比较,速度控制器利用其差值直接产生指令控制电流,并与电流指令共同作用,控制交流电机匀速、加速、减速旋转,从而达到交流电机实际转速与控制指令保持一致。位置环的作用是生成交流电机的速度指令,并能够使交流电机准确的跟踪、定位。交流电机的实际位置与设定的目标位置相比较,位置控制器利用其偏差生成交流电机的速度指令。当交流电机启动后,在距离目标位置较大的区域,位置控制器产生最大速度指令,从而使交流电机加速运动后以最大速度恒速运行,在距离较小的区域,位置控制器生成逐次减小的速度控制指令,从而使交流电机减速运动,直至到目标位置后静止。</p>
 <p>在清能德创的伺服驱动说明书上,有提到过,电流环调节器参数仅与电机参数有关,因此在调整三环控制的时候,仅需要考虑速度环和运动环即可, 实际上还是需要有经验的人去调整电流环参数的。</p>
-<h2 id="交流伺服系统的组成"><a href="#交流伺服系统的组成" class="headerlink" title="交流伺服系统的组成"></a>交流伺服系统的组成</h2><p>交流伺服系统是以交流伺服电动机为控制对象的自动控制系统, 它主要由伺服控制器、伺服驱动器和伺服电动机组成。交流伺服系统 主要有3种控制模式,分别是位置控制模式、速度控制模式和转矩控制模式。在不同的模式下,系统工作原理略有不同。交流伺服系统的控制模式可通过设置伺服驱动器的参数来改变。</p>
-<h3 id="工作在位置控制模式时的系统组成及说明"><a href="#工作在位置控制模式时的系统组成及说明" class="headerlink" title="工作在位置控制模式时的系统组成及说明"></a>工作在位置控制模式时的系统组成及说明</h3><p>当交流伺服系统工作在位置控制模式时,能精确控制伺服电动机的转数,因此可以精确控制执行部件的移动距离,即可对执行部件进行运动定位控制。</p>
+<h2 id="交流伺服系统的组成">交流伺服系统的组成</h2>
+<p>交流伺服系统是以交流伺服电动机为控制对象的自动控制系统, 它主要由伺服控制器、伺服驱动器和伺服电动机组成。交流伺服系统 主要有3种控制模式,分别是位置控制模式、速度控制模式和转矩控制模式。在不同的模式下,系统工作原理略有不同。交流伺服系统的控制模式可通过设置伺服驱动器的参数来改变。</p>
+<h3 id="工作在位置控制模式时的系统组成及说明">工作在位置控制模式时的系统组成及说明</h3>
+<p>当交流伺服系统工作在位置控制模式时,能精确控制伺服电动机的转数,因此可以精确控制执行部件的移动距离,即可对执行部件进行运动定位控制。</p>
 <p>伺服控制器发出控制信号和脉冲信号给伺服驱动器,伺服驱动器输出U、V、W三相电源电压给伺服电动机,驱动电动机工作,与电动机同轴旋转的编码器会将电动机的旋转信息反馈给伺服驱动器,如电动机每旋转一周编码器会产生一定数量的脉冲送给驱动器。伺服控制器输出的脉冲信号用来确定伺服电动机的转数,在驱动器中,该脉冲信号与编码器送来的脉冲信号进行比较,若两者相等,表明电动机旋转的转数已达到要求,电动机驱动的执行部件已移动到指定的位置。控制器发出的脉冲个数越多,电动机会旋转更多的转数。</p>
-<h3 id="工作在速度控制模式时的系统组成"><a href="#工作在速度控制模式时的系统组成" class="headerlink" title="工作在速度控制模式时的系统组成"></a>工作在速度控制模式时的系统组成</h3><p>当交流伺服系统工作在速度控制模式时,伺服驱动器无需输入脉冲信号也可正常工作,故可取消伺服控制器,此时的伺服驱动器类似于变频器,但由于驱动器能接收伺服电动机的编码器送来的转速信息,不但能调节电动机转速,还能让电动机转速保持稳定。</p>
+<h3 id="工作在速度控制模式时的系统组成">工作在速度控制模式时的系统组成</h3>
+<p>当交流伺服系统工作在速度控制模式时,伺服驱动器无需输入脉冲信号也可正常工作,故可取消伺服控制器,此时的伺服驱动器类似于变频器,但由于驱动器能接收伺服电动机的编码器送来的转速信息,不但能调节电动机转速,还能让电动机转速保持稳定。</p>
 <p>伺服驱动器输出U、V、W三相电源电压给伺服电动机,驱动电动机工作,编码器会将伺服电动机的旋转信息反馈给伺服驱动器。电动机旋转速度越快,编码器反馈给伺服驱动器的脉冲频率就越高。操作伺服驱动器的有关输入开关,可以控制伺服电动机的启动、停止和旋转方向等。调节伺服驱动器的有关输入电位器,可以调节电动机的转速。</p>
-<h3 id="工作在转矩控制模式时的系统组成及说明"><a href="#工作在转矩控制模式时的系统组成及说明" class="headerlink" title="工作在转矩控制模式时的系统组成及说明"></a>工作在转矩控制模式时的系统组成及说明</h3><p>当交流伺服系统工作在转矩控制模式时,伺服驱动器无需输入脉冲信号也可正常工作,故可取消伺服控制器,通过操作伺服驱动器的输入电位器,可以调节伺服电动机的输出转矩(又称扭矩,即转力)。</p>
-<h2 id="伺服电动机与编码器"><a href="#伺服电动机与编码器" class="headerlink" title="伺服电动机与编码器"></a>伺服电动机与编码器</h2><p>交流伺服系统的控制对象是伺服电动机,编码器通常安装在伺服电动机的转轴上,用来检测同服电动机的转速、转向和位置等信息。</p>
-<h3 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a>编码器</h3><p>编码器旋转一周产生的脉冲个数称为分辨率。</p>
-<h4 id="增量编码器"><a href="#增量编码器" class="headerlink" title="增量编码器"></a>增量编码器</h4><p>增量编码器的特点是每旋转一定的角度或移动一定的距离会产生一个脉冲,即输出脉冲随位移增加而不断增多。坑的是不能掉电保存,有段时间用这个编码器增加了不少自己的工作量。。。。。</p>
-<h4 id="绝对值编码器"><a href="#绝对值编码器" class="headerlink" title="绝对值编码器"></a>绝对值编码器</h4><p>增量编码器通过输出脉冲的频率反映电动机的转速,通过A、B相脉冲的相位关系反映电动机的转向,故检测电动机转速和转向非常方便。绝对值编码器可以解决增量编码器测位时存在的问题,它可分为 单圈绝对值编码器和多圈绝对值编码器。</p>
+<h3 id="工作在转矩控制模式时的系统组成及说明">工作在转矩控制模式时的系统组成及说明</h3>
+<p>当交流伺服系统工作在转矩控制模式时,伺服驱动器无需输入脉冲信号也可正常工作,故可取消伺服控制器,通过操作伺服驱动器的输入电位器,可以调节伺服电动机的输出转矩(又称扭矩,即转力)。</p>
+<h2 id="伺服电动机与编码器">伺服电动机与编码器</h2>
+<p>交流伺服系统的控制对象是伺服电动机,编码器通常安装在伺服电动机的转轴上,用来检测同服电动机的转速、转向和位置等信息。</p>
+<h3 id="编码器">编码器</h3>
+<p>编码器旋转一周产生的脉冲个数称为分辨率。</p>
+<h4 id="增量编码器">增量编码器</h4>
+<p>增量编码器的特点是每旋转一定的角度或移动一定的距离会产生一个脉冲,即输出脉冲随位移增加而不断增多。坑的是不能掉电保存,有段时间用这个编码器增加了不少自己的工作量。。。。。</p>
+<h4 id="绝对值编码器">绝对值编码器</h4>
+<p>增量编码器通过输出脉冲的频率反映电动机的转速,通过A、B相脉冲的相位关系反映电动机的转向,故检测电动机转速和转向非常方便。绝对值编码器可以解决增量编码器测位时存在的问题,它可分为 单圈绝对值编码器和多圈绝对值编码器。</p>
 <p>单圈绝对值编码器只能对一个圆周进行定位,超过一个圆周定位 就会发生重复,而多圈绝对值编码器可以对多个圆周进行定位。</p>
-<h2 id="伺服驱动器的结构与原理"><a href="#伺服驱动器的结构与原理" class="headerlink" title="伺服驱动器的结构与原理"></a>伺服驱动器的结构与原理</h2><p>伺服驱动器又称伺服放大器,是交流伺服系统的核心设备。伺服驱动器的品牌很多,常见的有三菱、安川、松下和三洋等。 伺服驱动器的功能是将工频(50Hz或60Hz)交流电源转换成幅度和频率均可变的交流电源提供给伺服电动机。当伺服驱动器工作在速度控制模式时,通过控制输出电源的频率来对电动机进行调速;当工作在转矩控制模式时,通过控制输出电源的幅度来对电动机进行转矩控制;当工作在位置控制模式时,根据输入脉冲来决定输出电源的通断时间。</p>
+<h2 id="伺服驱动器的结构与原理">伺服驱动器的结构与原理</h2>
+<p>伺服驱动器又称伺服放大器,是交流伺服系统的核心设备。伺服驱动器的品牌很多,常见的有三菱、安川、松下和三洋等。 伺服驱动器的功能是将工频(50Hz或60Hz)交流电源转换成幅度和频率均可变的交流电源提供给伺服电动机。当伺服驱动器工作在速度控制模式时,通过控制输出电源的频率来对电动机进行调速;当工作在转矩控制模式时,通过控制输出电源的幅度来对电动机进行转矩控制;当工作在位置控制模式时,根据输入脉冲来决定输出电源的通断时间。</p>
 <p>上位机通过发送脉冲到伺服驱动器,来实现控制。在这种方式下,用脉冲频率来控制速度,用脉冲个数来控制位置。同样,伺服驱动器也会发送脉冲数,来告诉上位机,伺服电机的位置和速度。比如,我们约定伺服电机10000个脉冲旋转一圈,那么,当上位机发送10000个脉冲,伺服电机旋转一圈,实现位置控制。如果上位机在一分钟内发完这10000个脉冲,那么伺服电机的速度就是1r/min,如果实在一秒钟内发完,那么伺服电机的速度就是1r/s,也就是60r/min。</p>
 <p>低端PLC,数控系统,以及各种单片机系统一般都是采用这种模式,简单易行,成本低廉。很显然,当伺服轴数增加,这种控制方式的缺点就会显现出来,上位机硬件成本会增加,配线会很复杂,而且现场EMC不好的话,脉冲极易丢失。所以,这种模式一般是在四轴以下,所以,大部分PLC的脉冲控制轴数都在两轴或是三轴,极少部分PLC可以实现四轴。</p>
 <p>不想介绍伺服驱动器的主电路,因为这个和自己读研的方向就差不多。。。。。问题是那会就懒得学,哈哈哈。。。。</p>
-<h2 id="电子齿轮比设计"><a href="#电子齿轮比设计" class="headerlink" title="电子齿轮比设计"></a>电子齿轮比设计</h2><p>在实际应用中, 电动机与其他机械传动装置连接时, 电动机每转动一圈, 将转换为相应的位移, 带动负载运动。 位置指令通常是由上位机产生的, 是具有一定频率和个数的脉冲。 当指令脉冲当量和位置反馈脉冲当量不一致时, 采用电子齿轮的方法来进行调节是必需的, 它的好处可以用一个例子说明。</p>
+<h2 id="电子齿轮比设计">电子齿轮比设计</h2>
+<p>在实际应用中, 电动机与其他机械传动装置连接时, 电动机每转动一圈, 将转换为相应的位移, 带动负载运动。 位置指令通常是由上位机产生的, 是具有一定频率和个数的脉冲。 当指令脉冲当量和位置反馈脉冲当量不一致时, 采用电子齿轮的方法来进行调节是必需的, 它的好处可以用一个例子说明。</p>
 <p>如图所示, 位置环中没有电子齿轮设计时, 要将工件移动 10mm, 上位机要做如下处理：</p>
 <div align="center"> <img src="/img/postImg/28_motionControl/电子齿轮比.png" width="100%" height="40%"> </div>
-
-
 <p>① 电动机转 1 圈为 6mm, 移动 10mm 需要 1. 6666 圈；</p>
 <p>② 转动 1 圈需要 10000 个脉冲, 转动 1. 6666 圈, 一共需要 16666 个脉冲；</p>
 <p>③ 发出 16666 个指令脉冲。</p>
@@ -327,21 +359,56 @@
 <p>K = A/B =aP/x</p>
 <p>实际应用中, K 一般取值范围为 0. 01 ～ 100, 如果根据 a、 P、 x 计算出的 K 超出了这个范围, 伺服单元不能正常动作, 这时需要变更机械构成, 或者变动指令单位 a。</p>
 <p>电子齿轮是位置环中的一个特殊功能, 它通常放在位置环的给定通道入口处, 齿轮比值 K 的变化实际上只是调节了位置指令脉冲频率, 从而改变了电动机的转速。 因此改变齿轮比 值不会影响位置环的性能。</p>
-<h2 id="通讯方式"><a href="#通讯方式" class="headerlink" title="通讯方式"></a>通讯方式</h2><p>通讯方式就是专门为解决脉冲方式的不足而产生的,已经成为一种发展趋势,他把脉冲数和脉冲频率通过通讯的方式,发送给伺服驱动器,这种方式不但可以传递伺服电机的位置信息,还能传递各种状态信息,比如伺服电机的电流,扭矩以及伺服驱动器的故障代码等等,很显然,当轴数多的时候,这种方式的优势不言而喻。</p>
+<h2 id="通讯方式">通讯方式</h2>
+<p>通讯方式就是专门为解决脉冲方式的不足而产生的,已经成为一种发展趋势,他把脉冲数和脉冲频率通过通讯的方式,发送给伺服驱动器,这种方式不但可以传递伺服电机的位置信息,还能传递各种状态信息,比如伺服电机的电流,扭矩以及伺服驱动器的故障代码等等,很显然,当轴数多的时候,这种方式的优势不言而喻。</p>
 <p>由于运动控制的特殊性,所以不同的厂家都推出自己的运动控制总线,既有开放的,也有封闭的,比如CANopen,以及在此基础上开发的CANmotion和CANlink,MECHATROLINK-II,CCLink等等。随着工业以太网技术的发展,基于以太网的运动控制总线也应运而生,比如<strong>EtherCAT</strong>,ProfinetNet,MECHATROLINK-III等等。还有基于光纤的SERCOS,SSCNETⅢ/H等等。虽然通讯的形式繁多,但他们解决的一般都是实时性问题,因为对于运动控制来说,实时性是非常重要的。从应用开发的角度来说,脉冲和通讯是没有区别的,只是信号传递的形式发生了变化。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>1,<a target="_blank" rel="noopener" href="https://home.cnblogs.com/u/21207-iHome/">XXX已失联</a></p>
+<h1>参考</h1>
+<p>1,<a target="_blank" rel="noopener" href="https://home.cnblogs.com/u/21207-iHome/">XXX已失联</a></p>
 <p>2,<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/gk-auto">gk-auto</a></p>
 <p>3, CoolDrive R 系列伺服驱动器用户说明书</p>
-<p>4, <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BC%BA%E6%9C%8D%E9%A6%AC%E9%81%94">伺服马达—维基百科</a></p>
+<p>4, <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BC%BA%E6%9C%8D%E9%A6%AC%E9%81%94">伺服马达–维基百科</a></p>
 <p>5, 《交流伺服系统设计指南》——孙与等著</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -368,7 +435,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -403,7 +637,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

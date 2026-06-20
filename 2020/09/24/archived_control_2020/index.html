@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,96 +230,143 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >控制学笔记(一)</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a><ul>
-<li><a href="#线性系统的基本特性">线性系统的基本特性</a></li>
-<li><a href="#控制系统的复数域数学模型">控制系统的复数域数学模型</a><ul>
-<li><a href="#传递函数的性质">传递函数的性质</a></li>
-<li><a href="#传递函数的极点和零点对输出的影响">传递函数的极点和零点对输出的影响</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a>
+<ul>
+<li><a href="#%E7%BA%BF%E6%80%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%89%B9%E6%80%A7">线性系统的基本特性</a></li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%8D%E6%95%B0%E5%9F%9F%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B">控制系统的复数域数学模型</a>
+<ul>
+<li><a href="#%E4%BC%A0%E9%80%92%E5%87%BD%E6%95%B0%E7%9A%84%E6%80%A7%E8%B4%A8">传递函数的性质</a></li>
+<li><a href="#%E4%BC%A0%E9%80%92%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E7%82%B9%E5%92%8C%E9%9B%B6%E7%82%B9%E5%AF%B9%E8%BE%93%E5%87%BA%E7%9A%84%E5%BD%B1%E5%93%8D">传递函数的极点和零点对输出的影响</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#线性系统的时域分析法">线性系统的时域分析法</a><ul>
-<li><a href="#动态过程与稳态过程">动态过程与稳态过程</a><ul>
-<li><a href="#减小或消除稳态误差的措施">减小或消除稳态误差的措施</a></li>
+<li><a href="#%E7%BA%BF%E6%80%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90%E6%B3%95">线性系统的时域分析法</a>
+<ul>
+<li><a href="#%E5%8A%A8%E6%80%81%E8%BF%87%E7%A8%8B%E4%B8%8E%E7%A8%B3%E6%80%81%E8%BF%87%E7%A8%8B">动态过程与稳态过程</a>
+<ul>
+<li><a href="#%E5%87%8F%E5%B0%8F%E6%88%96%E6%B6%88%E9%99%A4%E7%A8%B3%E6%80%81%E8%AF%AF%E5%B7%AE%E7%9A%84%E6%8E%AA%E6%96%BD">减小或消除稳态误差的措施</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#线性系统的根轨迹法">线性系统的根轨迹法</a></li>
-<li><a href="#离散状态方程求解">离散状态方程求解</a></li>
-<li><a href="#能控性和能观性">能控性和能观性</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E7%BA%BF%E6%80%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B9%E8%BD%A8%E8%BF%B9%E6%B3%95">线性系统的根轨迹法</a></li>
+<li><a href="#%E7%A6%BB%E6%95%A3%E7%8A%B6%E6%80%81%E6%96%B9%E7%A8%8B%E6%B1%82%E8%A7%A3">离散状态方程求解</a></li>
+<li><a href="#%E8%83%BD%E6%8E%A7%E6%80%A7%E5%92%8C%E8%83%BD%E8%A7%82%E6%80%A7">能控性和能观性</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>如果有数学基础,对高等数学中的微积分很熟悉,入门控制学会相对较快。可以看知乎的 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_217937043">小潘是个工程师</a>     的专栏,过几遍他的文章,心中的框架自然而然的就建立起来了,说的很透彻,也正是以前和师弟所说,控制某种程度上就是求解微分方程,只不过自己很难解释的清楚,另一方面自己水平太低,也解释不清。作为自己的学习笔记,会将书中看到的一些重要的,记录在这里。</p>
-<h2 id="线性系统的基本特性"><a href="#线性系统的基本特性" class="headerlink" title="线性系统的基本特性"></a>线性系统的基本特性</h2><p>用线性微分方程描述的元件或系统,称为线性元件或线性系统。线性系统的重要性质是可以应用叠加原理。叠加原理有两重含义,即具有可叠加性和均匀性(或齐次性)。现举例说明∶设有线性微分方程</p>
+<h1>前言</h1>
+<p>如果有数学基础,对高等数学中的微积分很熟悉,入门控制学会相对较快。可以看知乎的 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_217937043">小潘是个工程师</a> 	的专栏,过几遍他的文章,心中的框架自然而然的就建立起来了,说的很透彻,也正是以前和师弟所说,控制某种程度上就是求解微分方程,只不过自己很难解释的清楚,另一方面自己水平太低,也解释不清。作为自己的学习笔记,会将书中看到的一些重要的,记录在这里。</p>
+<h2 id="线性系统的基本特性">线性系统的基本特性</h2>
+<p>用线性微分方程描述的元件或系统,称为线性元件或线性系统。线性系统的重要性质是可以应用叠加原理。叠加原理有两重含义,即具有可叠加性和均匀性(或齐次性)。现举例说明∶设有线性微分方程</p>
 <div align="center"> <img src="/img/postImg/17_Control/equation/线性微分方程.png" width="20%" height="20%"> </div>
-
 <p>当f(t) = f1(t)时,上述方程的解为 c1(t); 当f(t) = f2(t),其解为c2(t).  如果 f(t) = f1(t) + f2(t), 容易验证,方程的解必为 c(t) = c1(t) +c2(t).这就是可叠加性。而当f(t) = Af1(t)时,式中A为常数,则方程的解必为 c(t) = Ac1(t), 这就是齐次性。</p>
 <p>线性系统的叠加原理表明,两个外作用同时加于系统所产生的总输出,等于各个外作用单独作用时分别产生的输出之和,且外作用的数值增大若干倍时,其输出亦相应增大同样的倍数。因此,对线性系统进行分析和设计时,如果有几个外作用同时加于系统,则可以将它们分别处理,依次求出各个外作用单独加入时系统的输出,然后将它们叠加。此外,每个外作用在数值上可只取单位值,从而大大简化了线性系统的研究工作。</p>
-<h2 id="控制系统的复数域数学模型"><a href="#控制系统的复数域数学模型" class="headerlink" title="控制系统的复数域数学模型"></a>控制系统的复数域数学模型</h2><p>控制系统的微分方程是在时间域描述系统动态性能的数学模型,在给定外作用及初始条件下,求解微分方程可以得到系统的输出响应。这种方法比较直观,特别是借助于计算机可以迅速而准确地求得结果。但是如果<strong>系统的结构改变或某个参数变化时</strong>,就要重新列写并求解微分方程,不便于对系统进行分析和设计。</p>
+<h2 id="控制系统的复数域数学模型">控制系统的复数域数学模型</h2>
+<p>控制系统的微分方程是在时间域描述系统动态性能的数学模型,在给定外作用及初始条件下,求解微分方程可以得到系统的输出响应。这种方法比较直观,特别是借助于计算机可以迅速而准确地求得结果。但是如果<strong>系统的结构改变或某个参数变化时</strong>,就要重新列写并求解微分方程,不便于对系统进行分析和设计。</p>
 <p>用拉氏变换法求解线性系统的微分方程时,可以得到控制系统在复数域中的数学模型——传递函数。传递函数不仅可以表征系统的动态性能,而且可以用来<strong>研究系统的结构或参数变化对系统性能的影响</strong>。经典控制理论中广泛应用的频率法和根轨迹法,就是以传递函数为基础建立起来的,传递函数是经典控制理论中最基本和最重要的概念。</p>
-<h3 id="传递函数的性质"><a href="#传递函数的性质" class="headerlink" title="传递函数的性质"></a>传递函数的性质</h3><p>1)传递函数是复变量s的有理真分式函数,具有复变函数的所有性质;m≤n,且所有系数均为实数。</p>
+<h3 id="传递函数的性质">传递函数的性质</h3>
+<p>1)传递函数是复变量s的有理真分式函数,具有复变函数的所有性质;m≤n,且所有系数均为实数。</p>
 <p>2)传递函数是一种用系统参数表示输出量与输入量之间关系的表达式,它只取决于系统或元件的结构和参数,而与输入量的形式无关,也不反映系统内部的任何信息。</p>
 <p>3)传递函数与微分方程有相通性。传递函数分子多项式系数及分母多项式系数,分别与相应微分方程的右端及左端微分算符多项式系数相对应。故在零初始条件下,将微分方程的算符d/dt用复数s置换便得到传递函数;反之,将传递函数多项式中的变量s用算符d/dt置换便得到微分方程。</p>
-<h3 id="传递函数的极点和零点对输出的影响"><a href="#传递函数的极点和零点对输出的影响" class="headerlink" title="传递函数的极点和零点对输出的影响"></a>传递函数的极点和零点对输出的影响</h3><p>由于传递函数的极点就是微分方程的特征根,因此它们决定了所描述系统自由运动的模态,而且在强迫运动中(即零初始条件响应)也会包含这些自由运动的模态。</p>
-<h1 id="线性系统的时域分析法"><a href="#线性系统的时域分析法" class="headerlink" title="线性系统的时域分析法"></a>线性系统的时域分析法</h1><p>在经典控制理论中,常用时域分析法、根轨迹法或频域分析法来分析线性控制系统的性能。显然,不同的方法有不同的特点和适用范围,但是比较而言,时域分析法是一种直接在时间域中对系统进行分析的方法,具有直观、准确的优点,并且可以提供系统时间响应的全部信息。</p>
-<h2 id="动态过程与稳态过程"><a href="#动态过程与稳态过程" class="headerlink" title="动态过程与稳态过程"></a>动态过程与稳态过程</h2><p>在典型输入信号作用下,任何一个控制系统的时间响应都由动态过程和稳态过程两部分组成。</p>
+<h3 id="传递函数的极点和零点对输出的影响">传递函数的极点和零点对输出的影响</h3>
+<p>由于传递函数的极点就是微分方程的特征根,因此它们决定了所描述系统自由运动的模态,而且在强迫运动中(即零初始条件响应)也会包含这些自由运动的模态。</p>
+<h1>线性系统的时域分析法</h1>
+<p>在经典控制理论中,常用时域分析法、根轨迹法或频域分析法来分析线性控制系统的性能。显然,不同的方法有不同的特点和适用范围,但是比较而言,时域分析法是一种直接在时间域中对系统进行分析的方法,具有直观、准确的优点,并且可以提供系统时间响应的全部信息。</p>
+<h2 id="动态过程与稳态过程">动态过程与稳态过程</h2>
+<p>在典型输入信号作用下,任何一个控制系统的时间响应都由动态过程和稳态过程两部分组成。</p>
 <p>(1) 动态过程</p>
 <p>动态过程又称过渡过程或瞬态过程,指系统在典型输人信号作用下,系统输出量从初始状态到最终状态的响应过程。由于实际控制系统具有惯性、摩擦以及其他一些原因,系统输出量不可能完全复现输入量的变化。根据系统结构和参数选择情况,动态过程表现为衰减、发散或等幅振荡形式。显然,一个可以实际运行的控制系统,其动态过程必须是衰减的。</p>
-<p>(2) 稳态过程<br>稳态过程指系统在典型输入信号作用下,当时间t趋于无穷时,系统输出量的表现方式。稳态过程又称稳态响应,表征系统输出量最终复现输人量的程度,提供系统有关稳态误差的信息,用稳态性能描述。</p>
+<p>(2) 稳态过程<br>
+稳态过程指系统在典型输入信号作用下,当时间t趋于无穷时,系统输出量的表现方式。稳态过程又称稳态响应,表征系统输出量最终复现输人量的程度,提供系统有关稳态误差的信息,用稳态性能描述。</p>
 <p>应当指出,由于所研究的系统实质上都是线性化的系统,称为线性逼近,在建立系统线性化模型的过程中略去了许多次要因素,同时系统的参数又处于不断地微小变化之中,所以临界稳定现象实际上是观察不到的。基于线性逼近的稳定性,李雅普诺夫证明了一个显著的结论;如果其线性逼近是严格稳定的,即所有的根在左半平面,那么非线性系统将在应用线性逼近的平衡点的某个邻域内稳定。此外,他还证明了另一个结论;如果线性逼近至少有一个根在右半平面,那么这个非线性系统不可能在平衡点的任何邻域内稳定。</p>
-<h3 id="减小或消除稳态误差的措施"><a href="#减小或消除稳态误差的措施" class="headerlink" title="减小或消除稳态误差的措施"></a>减小或消除稳态误差的措施</h3><p>为了减小或消除系统在输人信号和扰动作用下的稳态误差,可以采取以下措施。</p>
+<h3 id="减小或消除稳态误差的措施">减小或消除稳态误差的措施</h3>
+<p>为了减小或消除系统在输人信号和扰动作用下的稳态误差,可以采取以下措施。</p>
 <figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">(1)</span> 增大系统开环增益或扰动作用点之前系统的前向通道增益。</span><br><span class="line"><span class="comment">(2)</span> 在系统的前向通道或主反馈通道设置串联积分环节。</span><br></pre></td></tr></table></figure>
 <p>注： 在反馈控制系统中,设置串联积分环节或增大开环增益以消除或减小稳态误差的措施,必然导致降低系统的稳定性,甚至造成系统不稳定,从而恶化系统的动态性能。因此,权衡考虑系统稳定性、稳态误差与动态性能之间的关系,便成为系统校正设计的主要内容。</p>
-<p>(3)采用串级控制抑制内回路扰动<br>当控制系统中存在多个扰动信号,且控制精度要求较高时,宜采用串级控制方式,可以显著抑制内回路的扰动影响。</p>
-<p>(4)采用复合控制方法<br>如果控制系统中存在强扰动,特别是低频强扰动,则一般的反馈控制方式难以满足高稳态精度的要求,此时可以采用复合控制方式。 复合控制系统是在系统的反馈控制回路中加入前馈通路,组成一个前馈控制与反馈控制相结合的系统,只要系统参数选择合适,不但可以保持系统稳定,极大地减小乃至消除稳态误差,而且可以抑制几乎所有的可量测扰动,其中包括低频强扰动。</p>
-<h1 id="线性系统的根轨迹法"><a href="#线性系统的根轨迹法" class="headerlink" title="线性系统的根轨迹法"></a>线性系统的根轨迹法</h1><p>根轨迹简称根迹,它是开环系统某一参数从零变到无穷时,闭环系统特征方程式的根在s平面上变化的轨迹。当闭环系统没有零点与极点相消时,闭环特征方程式的根就是闭环传递函数的极点,常简称之为闭环极点。因此,从已知的开环零、极点位置及某一变化的参数来求取闭环极点的分布,实际上就是解决闭环特征方程式的求根问题。当<strong>开环增益</strong>或其他参数改变时,其全部数值对应的闭环极点均可在根轨迹图上简便地确定。因为系统的稳定性由系统闭环极点唯一确定,而系统的稳态性能和动态性能又与闭环零、极点在s平面上的位置密切相关,所以根轨迹图不仅可以直接给出闭环系统时间响应的全部信息,而且可以指明开环零、极点应该怎样变化才能满足给定的闭环系统的性能指标要求。除此而外,用根轨迹法求解高阶代数方程的根,比用其他近似求根法简便。</p>
-<h1 id="离散状态方程求解"><a href="#离散状态方程求解" class="headerlink" title="离散状态方程求解"></a>离散状态方程求解</h1><p>离散状态空间表达式中的状态方程实际上是一阶差分方程组,所以,关于差分方程求解的方法都可用于离散状态方程的求解,常用的方法有递推法和 z 变换法。</p>
+<p>(3)采用串级控制抑制内回路扰动<br>
+当控制系统中存在多个扰动信号,且控制精度要求较高时,宜采用串级控制方式,可以显著抑制内回路的扰动影响。</p>
+<p>(4)采用复合控制方法<br>
+如果控制系统中存在强扰动,特别是低频强扰动,则一般的反馈控制方式难以满足高稳态精度的要求,此时可以采用复合控制方式。 复合控制系统是在系统的反馈控制回路中加入前馈通路,组成一个前馈控制与反馈控制相结合的系统,只要系统参数选择合适,不但可以保持系统稳定,极大地减小乃至消除稳态误差,而且可以抑制几乎所有的可量测扰动,其中包括低频强扰动。</p>
+<h1>线性系统的根轨迹法</h1>
+<p>根轨迹简称根迹,它是开环系统某一参数从零变到无穷时,闭环系统特征方程式的根在s平面上变化的轨迹。当闭环系统没有零点与极点相消时,闭环特征方程式的根就是闭环传递函数的极点,常简称之为闭环极点。因此,从已知的开环零、极点位置及某一变化的参数来求取闭环极点的分布,实际上就是解决闭环特征方程式的求根问题。当<strong>开环增益</strong>或其他参数改变时,其全部数值对应的闭环极点均可在根轨迹图上简便地确定。因为系统的稳定性由系统闭环极点唯一确定,而系统的稳态性能和动态性能又与闭环零、极点在s平面上的位置密切相关,所以根轨迹图不仅可以直接给出闭环系统时间响应的全部信息,而且可以指明开环零、极点应该怎样变化才能满足给定的闭环系统的性能指标要求。除此而外,用根轨迹法求解高阶代数方程的根,比用其他近似求根法简便。</p>
+<h1>离散状态方程求解</h1>
+<p>离散状态空间表达式中的状态方程实际上是一阶差分方程组,所以,关于差分方程求解的方法都可用于离散状态方程的求解,常用的方法有递推法和 z 变换法。</p>
 <p>1, 递推法</p>
 <p>设离散系统的状态空间表达式为</p>
 <div align="center"> <img src="/img/postImg/17_Control/equation/状态空间表达式.png" width="20%" height="20%"> </div>
-
-
 <p>已知状态初始值 x(0) 和输入序列 u(k),  从 k=0 开始,按照状态方程逐步递推,就可得任意时刻的状态向量值。 对应的输出序列为</p>
 <div align="center"> <img src="/img/postImg/17_Control/equation/递推后的任意时刻状态向量值的输出序列.png" width="60%" height="40%"> </div>
-
-
-
 <p>2, Z 变换法</p>
 <p>对状态方程进行 z 变换,得</p>
 <div align="center"> <img src="/img/postImg/17_Control/equation/Z变换.png" width="40%" height="40%"> </div>
-
-
-<h1 id="能控性和能观性"><a href="#能控性和能观性" class="headerlink" title="能控性和能观性"></a>能控性和能观性</h1><p>对于以离散状态空间表达的被控对象</p>
+<h1>能控性和能观性</h1>
+<p>对于以离散状态空间表达的被控对象</p>
 <div align="center"> <img src="/img/postImg/17_Control/equation/以离散状态空间表达的被控对象.png" width="30%" height="40%"> </div>
-
-
-
 <p>对上式进行z逆变换,即得状态向量序列</p>
 <div align="center"> <img src="/img/postImg/17_Control/equation/Z逆变换后的状态向量序列.png" width="30%" height="40%"> </div>
-
-
 <p>得到状态后,根据输出方程 <code>y(k) = Cx(k) + Du(k)</code>。求得输出序列。 用 z 变换法求解虽然复杂一些,但可以求得解析结果,可以获得所求序列的一般项的表达式。</p>
 <p>对于以离散状态空间表达的被控对象</p>
 <div align="center"> <img src="/img/postImg/17_Control/equation/以离散状态空间表达的被控对象.png" width="30%" height="40%"> </div>
-
 <p>如果系统在一个有限的时间间隔内,可用一个无约束的控制向量,使得系统由初始状态  x(t0)  转移到终点状态或者回到原点 x(0),则称系统在时间 t0 是可控的。它说明了系统控制输人对系统内部状态的控制或影响的能力。</p>
 <p>可控性是被控系统的内在属性,由系统的结构和参数所决定。如果一个被控系统没有可控性,则设计就失去了意义。可观测性是反映由系统的量确定系统状态的可能性,即是说通过分析测量,重构系统状态的可能性。如果一个系统在状态 x(t0),可通过在一个有限的时间间隔内,由输出量的观测值所确定,则称该系统在时间 t0 是可观测的,观测值取决于系统的特性 A 和 C. 实际上大多数系统是可控的和可观测的,但是也有部分物理系统不具有可控性和可观测性,因此要予以判断。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] 《自动控制原理》 胡寿松</p>
+<h1>参考</h1>
+<p>[1] 《自动控制原理》 胡寿松</p>
 <p>[2] 机电系统计算机控制</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -345,7 +393,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -380,7 +595,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,148 +230,233 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >gdb 调试</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
-<pre><code>    * [编译时启用调试信息](#编译时启用调试信息)
-    * [使用断点（Breakpoints）](#使用断点breakpoints)
-    * [运行和继续执行程序](#运行和继续执行程序)
-    * [检查变量值和内存](#检查变量值和内存)
-    * [逐行调试](#逐行调试)
-    * [查看调用栈](#查看调用栈)
-    * [导航调用栈](#导航调用栈)
-    * [修改变量值](#修改变量值)
-    * [使用 Watchpoints](#使用-watchpoints)
-    * [记录与回放（Reverse Debugging）](#记录与回放reverse-debugging)
-    * [自动化脚本（GDB 脚本）](#自动化脚本gdb-脚本)
-    * [使用 TUI 模式](#使用-tui-模式)
-    * [记录调试日志](#记录调试日志)
-    * [使用 GDB GUI 前端](#使用-gdb-gui-前端)
-    * [GDB 与 Valgrind 联合使用](#gdb-与-valgrind-联合使用)
-</code></pre><ul>
-<li><a href="#2025109-cgdb">2025.10.9 cgdb</a><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#启动调试">启动调试</a></li>
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
+<pre><code>	* [编译时启用调试信息](#编译时启用调试信息)
+	* [使用断点（Breakpoints）](#使用断点breakpoints)
+	* [运行和继续执行程序](#运行和继续执行程序)
+	* [检查变量值和内存](#检查变量值和内存)
+	* [逐行调试](#逐行调试)
+	* [查看调用栈](#查看调用栈)
+	* [导航调用栈](#导航调用栈)
+	* [修改变量值](#修改变量值)
+	* [使用 Watchpoints](#使用-watchpoints)
+	* [记录与回放（Reverse Debugging）](#记录与回放reverse-debugging)
+	* [自动化脚本（GDB 脚本）](#自动化脚本gdb-脚本)
+	* [使用 TUI 模式](#使用-tui-模式)
+	* [记录调试日志](#记录调试日志)
+	* [使用 GDB GUI 前端](#使用-gdb-gui-前端)
+	* [GDB 与 Valgrind 联合使用](#gdb-与-valgrind-联合使用)
+</code></pre>
+<ul>
+<li><a href="#2025109-cgdb">2025.10.9 cgdb</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8%E8%B0%83%E8%AF%95">启动调试</a></li>
 </ul>
 </li>
 </ul>
 <!-- vim-markdown-toc -->
 <p>使用 GDB（GNU 调试器）来调试 C/C++ 程序时，有许多有效的方法和技巧可以帮助你快速定位问题。以下是一些有助于提高 GDB 调试效率的方法和技巧(chatGPT回答)：</p>
-<h3 id="编译时启用调试信息"><a href="#编译时启用调试信息" class="headerlink" title="编译时启用调试信息"></a>编译时启用调试信息</h3><p>在编译程序时，使用 <code>-g</code> 选项来启用调试信息，这样 GDB 可以获得源代码级别的信息：</p>
+<h3 id="编译时启用调试信息">编译时启用调试信息</h3>
+<p>在编译程序时，使用 <code>-g</code> 选项来启用调试信息，这样 GDB 可以获得源代码级别的信息：</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">g</span>++ -<span class="selector-tag">g</span> -o my_program my_program<span class="selector-class">.cpp</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用断点（Breakpoints）"><a href="#使用断点（Breakpoints）" class="headerlink" title="使用断点（Breakpoints）"></a>使用断点（Breakpoints）</h3><p>断点是调试中最基本但也是最有力的工具。通过设置断点，你可以在程序执行到特定位置时暂停。</p>
+<h3 id="使用断点（Breakpoints）">使用断点（Breakpoints）</h3>
+<p>断点是调试中最基本但也是最有力的工具。通过设置断点，你可以在程序执行到特定位置时暂停。</p>
 <ul>
-<li><p>设置断点：</p>
+<li>
+<p>设置断点：</p>
 <figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">break</span> main  <span class="comment"># 在 main 函数入口设置断点</span></span><br><span class="line">(gdb) <span class="keyword">break</span> <span class="title class_">MyClass</span><span class="symbol">:</span><span class="symbol">:myFunction</span>  <span class="comment"># 在特定类的方法上设置断点</span></span><br><span class="line">(gdb) <span class="keyword">break</span> my_program.<span class="symbol">cpp:</span><span class="number">25</span>  <span class="comment"># 在指定文件的第 25 行设置断点</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>条件断点：可以在某个条件为真时才触发断点，有助于避免不必要的暂停。</p>
+<li>
+<p>条件断点：可以在某个条件为真时才触发断点，有助于避免不必要的暂停。</p>
 <figure class="highlight gml"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">break</span> my_function <span class="keyword">if</span> <span class="variable language_">x</span> &gt; <span class="number">5</span>  # 当变量 <span class="variable language_">x</span> 大于 <span class="number">5</span> 时触发断点</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="运行和继续执行程序"><a href="#运行和继续执行程序" class="headerlink" title="运行和继续执行程序"></a>运行和继续执行程序</h3><ul>
-<li><p>启动程序：</p>
+<h3 id="运行和继续执行程序">运行和继续执行程序</h3>
+<ul>
+<li>
+<p>启动程序：</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="built_in">run</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>继续执行到下一个断点：</p>
+<li>
+<p>继续执行到下一个断点：</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">continue</span>  <span class="comment"># 或简写为 (gdb) c</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="检查变量值和内存"><a href="#检查变量值和内存" class="headerlink" title="检查变量值和内存"></a>检查变量值和内存</h3><ul>
-<li><p>打印变量值：</p>
+<h3 id="检查变量值和内存">检查变量值和内存</h3>
+<ul>
+<li>
+<p>打印变量值：</p>
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="built_in">print</span> my_object-&gt;member_variable  <span class="comment"># 打印对象成员变量的值</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>检查内存地址内容：</p>
+<li>
+<p>检查内存地址内容：</p>
 <figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">(gdb) x/<span class="number">4</span>xw <span class="variable">&amp;variable_name</span>  <span class="meta"># 打印 variable_name 开始的 4 个字的内存内容，以十六进制显示</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="逐行调试"><a href="#逐行调试" class="headerlink" title="逐行调试"></a>逐行调试</h3><ul>
-<li><p>单步执行一行（会进入函数内部）：</p>
+<h3 id="逐行调试">逐行调试</h3>
+<ul>
+<li>
+<p>单步执行一行（会进入函数内部）：</p>
 <figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">step</span>  <span class="meta"># 或简写为 (gdb) s</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>单步执行一行（不会进入函数内部）：</p>
+<li>
+<p>单步执行一行（不会进入函数内部）：</p>
 <figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">next</span>  <span class="meta"># 或简写为 (gdb) n</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>执行直到函数返回：</p>
+<li>
+<p>执行直到函数返回：</p>
 <figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">(gdb)</span> fi<span class="symbol">nish</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="查看调用栈"><a href="#查看调用栈" class="headerlink" title="查看调用栈"></a>查看调用栈</h3><ul>
-<li><p>打印当前调用栈：</p>
+<h3 id="查看调用栈">查看调用栈</h3>
+<ul>
+<li>
+<p>打印当前调用栈：</p>
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">backtrace </span> <span class="comment"># 或简写为 (gdb) bt</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>打印完整的调用栈信息（包括参数值）：</p>
+<li>
+<p>打印完整的调用栈信息（包括参数值）：</p>
 <figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">(gdb)</span> backtrace full</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="导航调用栈"><a href="#导航调用栈" class="headerlink" title="导航调用栈"></a>导航调用栈</h3><ul>
-<li><p>查看特定帧的信息：</p>
+<h3 id="导航调用栈">导航调用栈</h3>
+<ul>
+<li>
+<p>查看特定帧的信息：</p>
 <figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">(gdb)</span> frame <span class="number">2</span>  <span class="attr"># 切换到第 2</span> 帧</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>查看当前帧的局部变量：</p>
+<li>
+<p>查看当前帧的局部变量：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="built_in">info</span> locals</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="修改变量值"><a href="#修改变量值" class="headerlink" title="修改变量值"></a>修改变量值</h3><ul>
-<li><p>修改变量值（用于测试修复问题）：</p>
+<h3 id="修改变量值">修改变量值</h3>
+<ul>
+<li>
+<p>修改变量值（用于测试修复问题）：</p>
 <figure class="highlight ceylon"><table><tr><td class="code"><pre><span class="line">(gdb) set <span class="keyword">variable</span><span class="number">_n</span>ame = <span class="keyword">new</span><span class="number">_</span><span class="keyword">value</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="使用-Watchpoints"><a href="#使用-Watchpoints" class="headerlink" title="使用 Watchpoints"></a>使用 Watchpoints</h3><ul>
-<li><p>Watchpoints 允许你在变量值发生变化时暂停执行，非常适合调试内存写入错误或状态改变的问题。</p>
+<h3 id="使用-Watchpoints">使用 Watchpoints</h3>
+<ul>
+<li>
+<p>Watchpoints 允许你在变量值发生变化时暂停执行，非常适合调试内存写入错误或状态改变的问题。</p>
 <figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">(</span>gdb<span class="punctuation">)</span> rwatch variable_name  <span class="meta"># 当 variable_name 被读取时暂停</span></span><br><span class="line"><span class="punctuation">(</span>gdb<span class="punctuation">)</span> awatch variable_name  <span class="meta"># 当 variable_name 被访问（读或写）时暂停</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="记录与回放（Reverse-Debugging）"><a href="#记录与回放（Reverse-Debugging）" class="headerlink" title="记录与回放（Reverse Debugging）"></a>记录与回放（Reverse Debugging）</h3><ul>
-<li><p>在某些版本的 GDB 中，可以使用记录与回放功能来跟踪程序执行路径并回溯错误的来源。</p>
+<h3 id="记录与回放（Reverse-Debugging）">记录与回放（Reverse Debugging）</h3>
+<ul>
+<li>
+<p>在某些版本的 GDB 中，可以使用记录与回放功能来跟踪程序执行路径并回溯错误的来源。</p>
 </li>
-<li><p>开始记录：</p>
+<li>
+<p>开始记录：</p>
 <figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">record</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>回到前一步：</p>
+<li>
+<p>回到前一步：</p>
 <figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">reverse</span>-<span class="keyword">step</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="自动化脚本（GDB-脚本）"><a href="#自动化脚本（GDB-脚本）" class="headerlink" title="自动化脚本（GDB 脚本）"></a>自动化脚本（GDB 脚本）</h3><ul>
-<li><p>如果调试任务重复性强，可以编写 GDB 脚本来自动化调试过程。在调试会话中自动执行一系列命令。</p>
+<h3 id="自动化脚本（GDB-脚本）">自动化脚本（GDB 脚本）</h3>
+<ul>
+<li>
+<p>如果调试任务重复性强，可以编写 GDB 脚本来自动化调试过程。在调试会话中自动执行一系列命令。</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">(gdb) source <span class="keyword">script</span>.gdb</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>脚本示例 <code>script.gdb</code>：</p>
+<li>
+<p>脚本示例 <code>script.gdb</code>：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="built_in">run</span></span><br><span class="line"><span class="built_in">print</span> variable_name</span><br><span class="line">continue</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="使用-TUI-模式"><a href="#使用-TUI-模式" class="headerlink" title="使用 TUI 模式"></a>使用 TUI 模式</h3><ul>
-<li><p>GDB 提供了 TUI（Text User Interface）模式，可以直观地查看源代码和寄存器值。</p>
+<h3 id="使用-TUI-模式">使用 TUI 模式</h3>
+<ul>
+<li>
+<p>GDB 提供了 TUI（Text User Interface）模式，可以直观地查看源代码和寄存器值。</p>
 <figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">(gdb) layout <span class="keyword">asm</span>  <span class="comment"># 显示汇编代码视图</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="记录调试日志"><a href="#记录调试日志" class="headerlink" title="记录调试日志"></a>记录调试日志</h3><ul>
-<li><p>使用日志记录来跟踪 GDB 调试过程中发生的事件和命令输出。</p>
+<h3 id="记录调试日志">记录调试日志</h3>
+<ul>
+<li>
+<p>使用日志记录来跟踪 GDB 调试过程中发生的事件和命令输出。</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">set</span> logging <span class="built_in">file</span> gdb_log.txt  <span class="comment"># 指定日志文件</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="使用-GDB-GUI-前端"><a href="#使用-GDB-GUI-前端" class="headerlink" title="使用 GDB GUI 前端"></a>使用 GDB GUI 前端</h3><ul>
+<h3 id="使用-GDB-GUI-前端">使用 GDB GUI 前端</h3>
+<ul>
 <li>借助于图形用户界面（如 <code>gdbgui</code>、<code>ddd</code>、<code>kdbg</code>）可以提供更直观的调试体验。GUI 前端通常支持鼠标点击设置断点、查看变量等功能，简化了调试操作。</li>
 </ul>
-<h3 id="GDB-与-Valgrind-联合使用"><a href="#GDB-与-Valgrind-联合使用" class="headerlink" title="GDB 与 Valgrind 联合使用"></a>GDB 与 Valgrind 联合使用</h3><ul>
-<li><p>当怀疑程序存在内存泄漏或非法内存访问问题时，可以使用 Valgrind 来检测，再结合 GDB 定位和分析问题。</p>
+<h3 id="GDB-与-Valgrind-联合使用">GDB 与 Valgrind 联合使用</h3>
+<ul>
+<li>
+<p>当怀疑程序存在内存泄漏或非法内存访问问题时，可以使用 Valgrind 来检测，再结合 GDB 定位和分析问题。</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">valgrind <span class="params">--vgdb-error=0</span> <span class="string">./my_program</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h1 id="2025-10-9-cgdb"><a href="#2025-10-9-cgdb" class="headerlink" title="2025.10.9 cgdb"></a>2025.10.9 cgdb</h1><p>cgdb（Console GDB）是一个基于 命令行界面 + Ncurses 界面 的调试器，它在 gdb 的基础上加上了类似 vim 的代码窗口和快捷操作。适合在终端下进行可视化调试。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install cgdb</span><br></pre></td></tr></table></figure>
-<h2 id="启动调试"><a href="#启动调试" class="headerlink" title="启动调试"></a>启动调试</h2><p>假设你有个程序 <code>test.cpp</code>:</p>
+<h1>2025.10.9 cgdb</h1>
+<p>cgdb（Console GDB）是一个基于 命令行界面 + Ncurses 界面 的调试器，它在 gdb 的基础上加上了类似 vim 的代码窗口和快捷操作。适合在终端下进行可视化调试。</p>
+<h2 id="安装">安装</h2>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install cgdb</span><br></pre></td></tr></table></figure>
+<h2 id="启动调试">启动调试</h2>
+<p>假设你有个程序 <code>test.cpp</code>:</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">5</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> c = a + b;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;c = &quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>先用 <code>-g</code> 选项编译（带调试信息）：</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">g++ -g <span class="keyword">test</span>.cpp -o <span class="keyword">test</span></span><br></pre></td></tr></table></figure>
 <p>然后用 cgdb 调试：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cgdb ./test</span><br></pre></td></tr></table></figure>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -397,7 +483,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -432,7 +685,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

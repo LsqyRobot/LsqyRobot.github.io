@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,60 +230,77 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >分贝 dB</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#分贝的历史背景">分贝的历史背景</a></li>
-<li><a href="#什么是分贝">什么是分贝</a></li>
-<li><a href="#为什么使用对数形式">为什么使用对数形式</a></li>
-<li><a href="#分贝的定义">分贝的定义</a></li>
-<li><a href="#分贝的计算示例">分贝的计算示例</a><ul>
-<li><a href="#功率比计算示例">功率比计算示例</a></li>
-<li><a href="#电压比计算示例">电压比计算示例</a></li>
-<li><a href="#声压级计算示例">声压级计算示例</a></li>
+<li><a href="#%E5%88%86%E8%B4%9D%E7%9A%84%E5%8E%86%E5%8F%B2%E8%83%8C%E6%99%AF">分贝的历史背景</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E8%B4%9D">什么是分贝</a></li>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E5%AF%B9%E6%95%B0%E5%BD%A2%E5%BC%8F">为什么使用对数形式</a></li>
+<li><a href="#%E5%88%86%E8%B4%9D%E7%9A%84%E5%AE%9A%E4%B9%89">分贝的定义</a></li>
+<li><a href="#%E5%88%86%E8%B4%9D%E7%9A%84%E8%AE%A1%E7%AE%97%E7%A4%BA%E4%BE%8B">分贝的计算示例</a>
+<ul>
+<li><a href="#%E5%8A%9F%E7%8E%87%E6%AF%94%E8%AE%A1%E7%AE%97%E7%A4%BA%E4%BE%8B">功率比计算示例</a></li>
+<li><a href="#%E7%94%B5%E5%8E%8B%E6%AF%94%E8%AE%A1%E7%AE%97%E7%A4%BA%E4%BE%8B">电压比计算示例</a></li>
+<li><a href="#%E5%A3%B0%E5%8E%8B%E7%BA%A7%E8%AE%A1%E7%AE%97%E7%A4%BA%E4%BE%8B">声压级计算示例</a></li>
 </ul>
 </li>
-<li><a href="#常见分贝值对照表">常见分贝值对照表</a></li>
-<li><a href="#常见参考值和分贝单位类型">常见参考值和分贝单位类型</a><ul>
-<li><a href="#声学领域">声学领域</a></li>
-<li><a href="#电子通信领域">电子通信领域</a></li>
-<li><a href="#天线和传播">天线和传播</a></li>
-<li><a href="#光纤通信">光纤通信</a></li>
-<li><a href="#数字信号处理">数字信号处理</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E5%88%86%E8%B4%9D%E5%80%BC%E5%AF%B9%E7%85%A7%E8%A1%A8">常见分贝值对照表</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E5%8F%82%E8%80%83%E5%80%BC%E5%92%8C%E5%88%86%E8%B4%9D%E5%8D%95%E4%BD%8D%E7%B1%BB%E5%9E%8B">常见参考值和分贝单位类型</a>
+<ul>
+<li><a href="#%E5%A3%B0%E5%AD%A6%E9%A2%86%E5%9F%9F">声学领域</a></li>
+<li><a href="#%E7%94%B5%E5%AD%90%E9%80%9A%E4%BF%A1%E9%A2%86%E5%9F%9F">电子通信领域</a></li>
+<li><a href="#%E5%A4%A9%E7%BA%BF%E5%92%8C%E4%BC%A0%E6%92%AD">天线和传播</a></li>
+<li><a href="#%E5%85%89%E7%BA%A4%E9%80%9A%E4%BF%A1">光纤通信</a></li>
+<li><a href="#%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86">数字信号处理</a></li>
 </ul>
 </li>
-<li><a href="#-3-db的特殊含义">-3 dB的特殊含义</a></li>
-<li><a href="#分贝在各领域的应用">分贝在各领域的应用</a><ul>
-<li><a href="#声学与音频工程">声学与音频工程</a></li>
-<li><a href="#电子与通信工程">电子与通信工程</a></li>
-<li><a href="#控制系统工程">控制系统工程</a></li>
-<li><a href="#振动与机械工程">振动与机械工程</a></li>
-<li><a href="#生物医学工程">生物医学工程</a></li>
-<li><a href="#广播电视">广播电视</a></li>
+<li><a href="#-3-db%E7%9A%84%E7%89%B9%E6%AE%8A%E5%90%AB%E4%B9%89">-3 dB的特殊含义</a></li>
+<li><a href="#%E5%88%86%E8%B4%9D%E5%9C%A8%E5%90%84%E9%A2%86%E5%9F%9F%E7%9A%84%E5%BA%94%E7%94%A8">分贝在各领域的应用</a>
+<ul>
+<li><a href="#%E5%A3%B0%E5%AD%A6%E4%B8%8E%E9%9F%B3%E9%A2%91%E5%B7%A5%E7%A8%8B">声学与音频工程</a></li>
+<li><a href="#%E7%94%B5%E5%AD%90%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B">电子与通信工程</a></li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B">控制系统工程</a></li>
+<li><a href="#%E6%8C%AF%E5%8A%A8%E4%B8%8E%E6%9C%BA%E6%A2%B0%E5%B7%A5%E7%A8%8B">振动与机械工程</a></li>
+<li><a href="#%E7%94%9F%E7%89%A9%E5%8C%BB%E5%AD%A6%E5%B7%A5%E7%A8%8B">生物医学工程</a></li>
+<li><a href="#%E5%B9%BF%E6%92%AD%E7%94%B5%E8%A7%86">广播电视</a></li>
 </ul>
 </li>
-<li><a href="#分贝的特性和优点">分贝的特性和优点</a><ul>
-<li><a href="#数学特性">数学特性</a></li>
-<li><a href="#感知特性">感知特性</a></li>
-<li><a href="#工程优势">工程优势</a></li>
+<li><a href="#%E5%88%86%E8%B4%9D%E7%9A%84%E7%89%B9%E6%80%A7%E5%92%8C%E4%BC%98%E7%82%B9">分贝的特性和优点</a>
+<ul>
+<li><a href="#%E6%95%B0%E5%AD%A6%E7%89%B9%E6%80%A7">数学特性</a></li>
+<li><a href="#%E6%84%9F%E7%9F%A5%E7%89%B9%E6%80%A7">感知特性</a></li>
+<li><a href="#%E5%B7%A5%E7%A8%8B%E4%BC%98%E5%8A%BF">工程优势</a></li>
 </ul>
 </li>
-<li><a href="#使用分贝的注意事项">使用分贝的注意事项</a><ul>
-<li><a href="#参考值的重要性">参考值的重要性</a></li>
-<li><a href="#计算注意事项">计算注意事项</a></li>
-<li><a href="#测量实践">测量实践</a></li>
-<li><a href="#数据处理">数据处理</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%88%86%E8%B4%9D%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">使用分贝的注意事项</a>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83%E5%80%BC%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7">参考值的重要性</a></li>
+<li><a href="#%E8%AE%A1%E7%AE%97%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">计算注意事项</a></li>
+<li><a href="#%E6%B5%8B%E9%87%8F%E5%AE%9E%E8%B7%B5">测量实践</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86">数据处理</a></li>
 </ul>
 </li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="分贝的历史背景"><a href="#分贝的历史背景" class="headerlink" title="分贝的历史背景"></a>分贝的历史背景</h1><p>分贝（decibel，简写为 dB）这个概念源于电话工程的发展史。它的命名是为了纪念亚历山大·格雷厄姆·贝尔（Alexander Graham Bell），电话的发明者。</p>
+<h1>分贝的历史背景</h1>
+<p>分贝（decibel，简写为 dB）这个概念源于电话工程的发展史。它的命名是为了纪念亚历山大·格雷厄姆·贝尔（Alexander Graham Bell），电话的发明者。</p>
 <p>最初，贝尔实验室的工程师们在研究电话传输时，需要一个方便的单位来描述信号功率的损失和放大。他们发现，人耳对声音强度的感知不是线性的，而是呈对数关系。同样，在电子电路中，功率和电压的变化范围往往跨越数个数量级，线性刻度很难直观地表示这些巨大的变化。</p>
-<p>1924年，贝尔实验室的工程师们正式引入了”贝尔”（bel）作为功率比的对数单位。不过，在实际使用中，贝尔这个单位过大，所以通常使用它的十分之一——分贝（decibel）。这样，分贝就成为了一个既实用又能纪念贝尔先生的计量单位。</p>
+<p>1924年，贝尔实验室的工程师们正式引入了&quot;贝尔&quot;（bel）作为功率比的对数单位。不过，在实际使用中，贝尔这个单位过大，所以通常使用它的十分之一——分贝（decibel）。这样，分贝就成为了一个既实用又能纪念贝尔先生的计量单位。</p>
 <p>从最初的电话工程开始，分贝逐渐被广泛应用到声学、振动、无线电、音频工程、控制系统等多个领域，成为了工程技术中不可或缺的概念。</p>
-<h1 id="什么是分贝"><a href="#什么是分贝" class="headerlink" title="什么是分贝"></a>什么是分贝</h1><p>关于分贝 dB， 人们的第一感觉认为是声音的大小单位, 但实际上它不是一个单位， 它是个无量纲量。 经常在声学、 振动、 电子学、 电信、 音频工程和设计等领域见到它。</p>
-<h1 id="为什么使用对数形式"><a href="#为什么使用对数形式" class="headerlink" title="为什么使用对数形式"></a>为什么使用对数形式</h1><p>在工程和科学应用中，我们经常遇到跨越数个数量级的数值变化。例如：</p>
+<h1>什么是分贝</h1>
+<p>关于分贝 dB， 人们的第一感觉认为是声音的大小单位, 但实际上它不是一个单位， 它是个无量纲量。 经常在声学、 振动、 电子学、 电信、 音频工程和设计等领域见到它。</p>
+<h1>为什么使用对数形式</h1>
+<p>在工程和科学应用中，我们经常遇到跨越数个数量级的数值变化。例如：</p>
 <p><strong>声学领域</strong>：人耳能听到的最小声压大约是 20 μPa，而痛阈声压大约是 200 Pa，两者相差 10,000,000 倍（107倍）！如果用线性刻度表示，绝大部分有用信息都会挤在坐标轴的底部，难以清晰观察和比较。</p>
 <p><strong>电子系统</strong>：在放大器设计中，增益可能从 0.001 到 10,000 倍变化，同样跨越了 7 个数量级。</p>
 <p><strong>控制系统</strong>：在博德图中，频率可能从 0.1 Hz 到 100,000 Hz，跨越 6 个数量级。</p>
@@ -298,16 +316,17 @@
 <li>线性计算：总增益 = 10 × 20 × 5 = 1000 倍</li>
 <li>dB 计算：20 dB + 26 dB + 14 dB = 60 dB（对应 1000 倍）</li>
 </ul>
-<h1 id="分贝的定义"><a href="#分贝的定义" class="headerlink" title="分贝的定义"></a>分贝的定义</h1><p>分贝 dB 定义为两个数值的对数比率， 这两个数值分别是测量值和参考值 （也称为基准值）。 存在两种定义形式：</p>
+<h1>分贝的定义</h1>
+<p>分贝 dB 定义为两个数值的对数比率， 这两个数值分别是测量值和参考值 （也称为基准值）。 存在两种定义形式：</p>
 <p>1, 一种为功率之比：</p>
 <div align="center"> <img src="/img/postImg/17_Control/dB/dB_def_1.png" width="10%" height="10%"> </div>
-
 <p>2, 一种为幅值之比(功率与电压的平方成正比)：</p>
 <div align="center"> <img src="/img/postImg/17_Control/dB/dB_def_2.png" width="20%" height="20%"> </div>
-
 <p>下标为 0 的数值均为幅值和功率的参考值。因为分贝值完全依赖于测量值与参考值之比， 因此， 计算时选择合适的参考值尤为关键。当测量结果相互比较时， 这一点非常重要， 选择的参考值不同， 计算结果肯定不一样。</p>
-<h1 id="分贝的计算示例"><a href="#分贝的计算示例" class="headerlink" title="分贝的计算示例"></a>分贝的计算示例</h1><p>为了更好地理解分贝的概念，我们来看一些具体的计算示例：</p>
-<h2 id="功率比计算示例"><a href="#功率比计算示例" class="headerlink" title="功率比计算示例"></a>功率比计算示例</h2><p><strong>例1</strong>：如果输出功率是输入功率的 100 倍，求增益（dB）</p>
+<h1>分贝的计算示例</h1>
+<p>为了更好地理解分贝的概念，我们来看一些具体的计算示例：</p>
+<h2 id="功率比计算示例">功率比计算示例</h2>
+<p><strong>例1</strong>：如果输出功率是输入功率的 100 倍，求增益（dB）</p>
 <ul>
 <li>功率比 = P₂/P₁ = 100</li>
 <li>增益(dB) = 10 × log₁₀(100) = 10 × 2 = 20 dB</li>
@@ -317,7 +336,8 @@
 <li>功率比 = P₂/P₁ = 1/4 = 0.25</li>
 <li>衰减(dB) = 10 × log₁₀(0.25) = 10 × (-0.602) = -6.02 dB ≈ -6 dB</li>
 </ul>
-<h2 id="电压比计算示例"><a href="#电压比计算示例" class="headerlink" title="电压比计算示例"></a>电压比计算示例</h2><p><strong>例3</strong>：如果输出电压是输入电压的 10 倍，求增益（dB）</p>
+<h2 id="电压比计算示例">电压比计算示例</h2>
+<p><strong>例3</strong>：如果输出电压是输入电压的 10 倍，求增益（dB）</p>
 <ul>
 <li>电压比 = V₂/V₁ = 10</li>
 <li>增益(dB) = 20 × log₁₀(10) = 20 × 1 = 20 dB</li>
@@ -327,13 +347,14 @@
 <li>电压比 = V₂/V₁ = 1/2 = 0.5</li>
 <li>衰减(dB) = 20 × log₁₀(0.5) = 20 × (-0.301) = -6.02 dB ≈ -6 dB</li>
 </ul>
-<h2 id="声压级计算示例"><a href="#声压级计算示例" class="headerlink" title="声压级计算示例"></a>声压级计算示例</h2><p><strong>例5</strong>：测得某环境的声压为 2 Pa，求声压级（SPL）</p>
+<h2 id="声压级计算示例">声压级计算示例</h2>
+<p><strong>例5</strong>：测得某环境的声压为 2 Pa，求声压级（SPL）</p>
 <ul>
 <li>参考声压 p₀ = 20 × 10⁻⁶ Pa</li>
 <li>SPL = 20 × log₁₀(2/(20 × 10⁻⁶)) = 20 × log₁₀(100,000) = 20 × 5 = 100 dB SPL</li>
 </ul>
-<h1 id="常见分贝值对照表"><a href="#常见分贝值对照表" class="headerlink" title="常见分贝值对照表"></a>常见分贝值对照表</h1><p>为了建立对分贝数值的直观认识，下表列出了常见的分贝值及其对应的比值：</p>
-<div class="table-container">
+<h1>常见分贝值对照表</h1>
+<p>为了建立对分贝数值的直观认识，下表列出了常见的分贝值及其对应的比值：</p>
 <table>
 <thead>
 <tr>
@@ -412,7 +433,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>记忆技巧</strong>：</p>
 <ul>
 <li><strong>3 dB ≈ 功率×2</strong>：每增加3dB，功率大约翻倍</li>
@@ -420,8 +440,10 @@
 <li><strong>10 dB = 功率×10</strong>：每增加10dB，功率增加10倍</li>
 <li><strong>20 dB = 电压×10</strong>：每增加20dB，电压增加10倍</li>
 </ul>
-<h1 id="常见参考值和分贝单位类型"><a href="#常见参考值和分贝单位类型" class="headerlink" title="常见参考值和分贝单位类型"></a>常见参考值和分贝单位类型</h1><p>在不同领域中，分贝使用不同的参考值，形成了各种专门的分贝单位：</p>
-<h2 id="声学领域"><a href="#声学领域" class="headerlink" title="声学领域"></a>声学领域</h2><p><strong>dB SPL（声压级）</strong>：</p>
+<h1>常见参考值和分贝单位类型</h1>
+<p>在不同领域中，分贝使用不同的参考值，形成了各种专门的分贝单位：</p>
+<h2 id="声学领域">声学领域</h2>
+<p><strong>dB SPL（声压级）</strong>：</p>
 <ul>
 <li>参考值：20 μPa（人耳可听到的最小声压）</li>
 <li>应用：环境噪声测量、音响设备测试</li>
@@ -432,7 +454,8 @@
 <li>参考值：1 pW（10⁻¹² W）</li>
 <li>应用：声源功率评估</li>
 </ul>
-<h2 id="电子通信领域"><a href="#电子通信领域" class="headerlink" title="电子通信领域"></a>电子通信领域</h2><p><strong>dBm（功率级）</strong>：</p>
+<h2 id="电子通信领域">电子通信领域</h2>
+<p><strong>dBm（功率级）</strong>：</p>
 <ul>
 <li>参考值：1 mW</li>
 <li>应用：射频系统、天线增益、信号强度</li>
@@ -458,7 +481,8 @@
 <li>参考值：0.775 V（对应1mW@600Ω负载）</li>
 <li>应用：专业音频设备</li>
 </ul>
-<h2 id="天线和传播"><a href="#天线和传播" class="headerlink" title="天线和传播"></a>天线和传播</h2><p><strong>dBi</strong>：</p>
+<h2 id="天线和传播">天线和传播</h2>
+<p><strong>dBi</strong>：</p>
 <ul>
 <li>参考：理想各向同性天线</li>
 <li>应用：天线增益表示</li>
@@ -473,23 +497,28 @@
 <li>参考：载波功率</li>
 <li>应用：谐波、杂散信号测量</li>
 </ul>
-<h2 id="光纤通信"><a href="#光纤通信" class="headerlink" title="光纤通信"></a>光纤通信</h2><p><strong>dBm</strong>（光功率）：</p>
+<h2 id="光纤通信">光纤通信</h2>
+<p><strong>dBm</strong>（光功率）：</p>
 <ul>
 <li>参考值：1 mW光功率</li>
 <li>应用：激光器输出功率、接收机灵敏度</li>
 </ul>
-<h2 id="数字信号处理"><a href="#数字信号处理" class="headerlink" title="数字信号处理"></a>数字信号处理</h2><p><strong>dBFS（满量程分贝）</strong>：</p>
+<h2 id="数字信号处理">数字信号处理</h2>
+<p><strong>dBFS（满量程分贝）</strong>：</p>
 <ul>
 <li>参考：数字系统的最大可能信号幅度</li>
 <li>特点：所有实际信号都是负值</li>
 <li>应用：数字音频、ADC/DAC规格</li>
 </ul>
-<h1 id="3-dB的特殊含义"><a href="#3-dB的特殊含义" class="headerlink" title="-3 dB的特殊含义"></a>-3 dB的特殊含义</h1><p>-3dB 对应的幅值比为 0.707。 如果按功率比计算，则功率比为 1/2，即原来功率的一半， 因此，- 3dB 称为 “半功率点”, 在振动教材中，有用半功率带宽法求阻尼的方法。半功率带宽法求阻尼的公式为</p>
-<p><img src="/img/postImg/17_Control/dB/半功率带宽法求阻尼的公式.png" alt=""></p>
+<h1>-3 dB的特殊含义</h1>
+<p>-3dB 对应的幅值比为 0.707。 如果按功率比计算，则功率比为 1/2，即原来功率的一半， 因此，- 3dB 称为 “半功率点”, 在振动教材中，有用半功率带宽法求阻尼的方法。半功率带宽法求阻尼的公式为</p>
+<p><img src="/img/postImg/17_Control/dB/%E5%8D%8A%E5%8A%9F%E7%8E%87%E5%B8%A6%E5%AE%BD%E6%B3%95%E6%B1%82%E9%98%BB%E5%B0%BC%E7%9A%84%E5%85%AC%E5%BC%8F.png" alt=""></p>
 <p>在幅频曲线的峰值wr,处的左右两侧，找到峰值幅值的0.707倍处w1和w2,这两点称为 “半功率点”。因此，这种阻尼比估计方法称为半功率带宽法，如图所示</p>
-<p><img src="/img/postImg/17_Control/dB/半功率带宽求阻尼.png" alt=""></p>
-<h1 id="分贝在各领域的应用"><a href="#分贝在各领域的应用" class="headerlink" title="分贝在各领域的应用"></a>分贝在各领域的应用</h1><p>分贝作为一个通用的对数计量方式，在众多工程和科学领域都有广泛应用：</p>
-<h2 id="声学与音频工程"><a href="#声学与音频工程" class="headerlink" title="声学与音频工程"></a>声学与音频工程</h2><p><strong>环境声学</strong>：</p>
+<p><img src="/img/postImg/17_Control/dB/%E5%8D%8A%E5%8A%9F%E7%8E%87%E5%B8%A6%E5%AE%BD%E6%B1%82%E9%98%BB%E5%B0%BC.png" alt=""></p>
+<h1>分贝在各领域的应用</h1>
+<p>分贝作为一个通用的对数计量方式，在众多工程和科学领域都有广泛应用：</p>
+<h2 id="声学与音频工程">声学与音频工程</h2>
+<p><strong>环境声学</strong>：</p>
 <ul>
 <li>噪声污染评估（交通噪声、工业噪声）</li>
 <li>建筑声学设计（隔声、吸声性能）</li>
@@ -507,7 +536,8 @@
 <li>音频压缩、限制器设置</li>
 <li>音频格式规格定义</li>
 </ul>
-<h2 id="电子与通信工程"><a href="#电子与通信工程" class="headerlink" title="电子与通信工程"></a>电子与通信工程</h2><p><strong>射频系统</strong>：</p>
+<h2 id="电子与通信工程">电子与通信工程</h2>
+<p><strong>射频系统</strong>：</p>
 <ul>
 <li>发射机输出功率规格</li>
 <li>接收机灵敏度指标</li>
@@ -526,7 +556,8 @@
 <li>误码率与信号质量关系</li>
 <li>调制解调器性能指标</li>
 </ul>
-<h2 id="控制系统工程"><a href="#控制系统工程" class="headerlink" title="控制系统工程"></a>控制系统工程</h2><p><strong>频域分析</strong>：</p>
+<h2 id="控制系统工程">控制系统工程</h2>
+<p><strong>频域分析</strong>：</p>
 <ul>
 <li>博德图绘制（增益和相位）</li>
 <li>系统稳定性分析</li>
@@ -538,7 +569,8 @@
 <li>滤波器阶数选择</li>
 <li>截止频率定义</li>
 </ul>
-<h2 id="振动与机械工程"><a href="#振动与机械工程" class="headerlink" title="振动与机械工程"></a>振动与机械工程</h2><p><strong>振动分析</strong>：</p>
+<h2 id="振动与机械工程">振动与机械工程</h2>
+<p><strong>振动分析</strong>：</p>
 <ul>
 <li>振动加速度、速度、位移测量</li>
 <li>机器故障诊断</li>
@@ -550,7 +582,8 @@
 <li>振动传递路径分析</li>
 <li>阻尼材料性能测试</li>
 </ul>
-<h2 id="生物医学工程"><a href="#生物医学工程" class="headerlink" title="生物医学工程"></a>生物医学工程</h2><p><strong>听力学</strong>：</p>
+<h2 id="生物医学工程">生物医学工程</h2>
+<p><strong>听力学</strong>：</p>
 <ul>
 <li>听力阈值测定</li>
 <li>助听器增益调节</li>
@@ -561,7 +594,8 @@
 <li>超声成像系统增益设置</li>
 <li>图像对比度表示</li>
 </ul>
-<h2 id="广播电视"><a href="#广播电视" class="headerlink" title="广播电视"></a>广播电视</h2><p><strong>广播发射</strong>：</p>
+<h2 id="广播电视">广播电视</h2>
+<p><strong>广播发射</strong>：</p>
 <ul>
 <li>发射机功率规格</li>
 <li>覆盖区域预测</li>
@@ -572,26 +606,33 @@
 <li>信号质量指标</li>
 <li>接收门限设定</li>
 </ul>
-<h1 id="分贝的特性和优点"><a href="#分贝的特性和优点" class="headerlink" title="分贝的特性和优点"></a>分贝的特性和优点</h1><p>分贝具有以下重要特性，这些特性使其在工程应用中极为有用：</p>
-<h2 id="数学特性"><a href="#数学特性" class="headerlink" title="数学特性"></a>数学特性</h2><p><strong>对数运算优势</strong>：</p>
+<h1>分贝的特性和优点</h1>
+<p>分贝具有以下重要特性，这些特性使其在工程应用中极为有用：</p>
+<h2 id="数学特性">数学特性</h2>
+<p><strong>对数运算优势</strong>：</p>
 <ul>
 <li>乘法 → 加法：A×B (线性) = A_dB + B_dB</li>
 <li>除法 → 减法：A/B (线性) = A_dB - B_dB</li>
 <li>指数 → 乘法：A^n (线性) = n × A_dB</li>
 </ul>
-<p><strong>级联系统简化</strong>：<br>在级联系统中，总增益等于各级增益的分贝值之和：<br><figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">总增益_dB = <span class="name">G1</span>_dB + <span class="name">G2</span>_dB + <span class="name">G3</span>_dB + ... + G<span class="symbol">n_dB</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="感知特性"><a href="#感知特性" class="headerlink" title="感知特性"></a>感知特性</h2><p><strong>符合人类感知规律</strong>：</p>
+<p><strong>级联系统简化</strong>：<br>
+在级联系统中，总增益等于各级增益的分贝值之和：</p>
+<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">总增益_dB = <span class="name">G1</span>_dB + <span class="name">G2</span>_dB + <span class="name">G3</span>_dB + ... + G<span class="symbol">n_dB</span></span><br></pre></td></tr></table></figure>
+<h2 id="感知特性">感知特性</h2>
+<p><strong>符合人类感知规律</strong>：</p>
 <ul>
 <li>韦伯-费希纳定律：感觉强度与刺激强度的对数成正比</li>
 <li>人耳对声音强度的感知接近对数关系</li>
 <li>视觉亮度感知同样呈对数特性</li>
 </ul>
-<p><strong>等比感知</strong>：<br>每增加相同的分贝数，人的感知变化大致相等：</p>
+<p><strong>等比感知</strong>：<br>
+每增加相同的分贝数，人的感知变化大致相等：</p>
 <ul>
 <li>音量每增加10 dB，听起来大约响两倍</li>
 <li>亮度每增加相同分贝数，看起来有相似的变化</li>
 </ul>
-<h2 id="工程优势"><a href="#工程优势" class="headerlink" title="工程优势"></a>工程优势</h2><p><strong>动态范围压缩</strong>：</p>
+<h2 id="工程优势">工程优势</h2>
+<p><strong>动态范围压缩</strong>：</p>
 <ul>
 <li>将几个数量级的变化压缩到较小范围</li>
 <li>便于在图表上表示和观察</li>
@@ -603,8 +644,10 @@
 <li>便于工程师之间的交流和理解</li>
 <li>工程规范和标准的统一表达</li>
 </ul>
-<h1 id="使用分贝的注意事项"><a href="#使用分贝的注意事项" class="headerlink" title="使用分贝的注意事项"></a>使用分贝的注意事项</h1><p>在使用分贝时，需要注意以下重要事项：</p>
-<h2 id="参考值的重要性"><a href="#参考值的重要性" class="headerlink" title="参考值的重要性"></a>参考值的重要性</h2><p><strong>明确参考值</strong>：</p>
+<h1>使用分贝的注意事项</h1>
+<p>在使用分贝时，需要注意以下重要事项：</p>
+<h2 id="参考值的重要性">参考值的重要性</h2>
+<p><strong>明确参考值</strong>：</p>
 <ul>
 <li>分贝是相对量，必须明确参考值</li>
 <li>不同参考值的分贝不能直接比较</li>
@@ -616,7 +659,8 @@
 <li>选择行业标准或国际标准规定的参考值</li>
 <li>确保参考值的稳定性和可重现性</li>
 </ul>
-<h2 id="计算注意事项"><a href="#计算注意事项" class="headerlink" title="计算注意事项"></a>计算注意事项</h2><p><strong>区分功率型和幅值型</strong>：</p>
+<h2 id="计算注意事项">计算注意事项</h2>
+<p><strong>区分功率型和幅值型</strong>：</p>
 <ul>
 <li>功率型量：10 × log₁₀(P₂/P₁)</li>
 <li>幅值型量：20 × log₁₀(V₂/V₁)</li>
@@ -628,7 +672,8 @@
 <li>负分贝并不意味着负的物理量</li>
 <li>在对数计算中要特别注意符号</li>
 </ul>
-<h2 id="测量实践"><a href="#测量实践" class="headerlink" title="测量实践"></a>测量实践</h2><p><strong>仪器设置</strong>：</p>
+<h2 id="测量实践">测量实践</h2>
+<p><strong>仪器设置</strong>：</p>
 <ul>
 <li>确认测量仪器的参考值设置</li>
 <li>注意仪器的频率响应和动态范围</li>
@@ -640,7 +685,8 @@
 <li>注意背景噪声和干扰的影响</li>
 <li>采用适当的测量方法和条件</li>
 </ul>
-<h2 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h2><p><strong>平均计算</strong>：</p>
+<h2 id="数据处理">数据处理</h2>
+<p><strong>平均计算</strong>：</p>
 <ul>
 <li>分贝不能直接算术平均</li>
 <li>需要转换为线性值后平均，再转换回分贝</li>
@@ -652,15 +698,49 @@
 <li>避免多次转换引起的累积误差</li>
 <li>注意数值舍入对结果的影响</li>
 </ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] &lt;&lt;从这里学NVH噪声、 振动、 模态分析的入门与进阶&gt;&gt; — 谭祥军 编著</p>
+<h1>参考</h1>
+<p>[1] &lt;&lt;从这里学NVH噪声、 振动、 模态分析的入门与进阶&gt;&gt; – 谭祥军 编著</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -687,7 +767,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -722,7 +969,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

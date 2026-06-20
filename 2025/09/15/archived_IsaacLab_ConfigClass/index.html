@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,101 +230,133 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Isaac Lab 强化学习配置详解：PPO 算法参数指南</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#rslrlppoalgorithmcfg">RslRlPpoAlgorithmCfg</a><ul>
-<li><a href="#1-算法基本信息">1. 算法基本信息</a></li>
-<li><a href="#2-学习过程参数">2. 学习过程参数</a></li>
-<li><a href="#3-折扣与优势估计">3. 折扣与优势估计</a></li>
-<li><a href="#4-损失函数相关参数">4. 损失函数相关参数</a></li>
-<li><a href="#5-优势归一化">5. 优势归一化</a></li>
-<li><a href="#6-扩展功能">6. 扩展功能</a></li>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
+<li><a href="#rslrlppoalgorithmcfg">RslRlPpoAlgorithmCfg</a>
+<ul>
+<li><a href="#1-%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF">1. 算法基本信息</a></li>
+<li><a href="#2-%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B%E5%8F%82%E6%95%B0">2. 学习过程参数</a></li>
+<li><a href="#3-%E6%8A%98%E6%89%A3%E4%B8%8E%E4%BC%98%E5%8A%BF%E4%BC%B0%E8%AE%A1">3. 折扣与优势估计</a></li>
+<li><a href="#4-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0">4. 损失函数相关参数</a></li>
+<li><a href="#5-%E4%BC%98%E5%8A%BF%E5%BD%92%E4%B8%80%E5%8C%96">5. 优势归一化</a></li>
+<li><a href="#6-%E6%89%A9%E5%B1%95%E5%8A%9F%E8%83%BD">6. 扩展功能</a></li>
 </ul>
 </li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>学习一下IsaacLab中的一些配置类的说明</p>
-<h1 id="RslRlPpoAlgorithmCfg"><a href="#RslRlPpoAlgorithmCfg" class="headerlink" title="RslRlPpoAlgorithmCfg"></a>RslRlPpoAlgorithmCfg</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@configclass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RslRlPpoAlgorithmCfg</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Configuration for the PPO algorithm.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    class_name: <span class="built_in">str</span> = <span class="string">&quot;PPO&quot;</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;The algorithm class name. Default is PPO.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    num_learning_epochs: <span class="built_in">int</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The number of learning epochs per update.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    num_mini_batches: <span class="built_in">int</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The number of mini-batches per update.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    learning_rate: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The learning rate for the policy.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    schedule: <span class="built_in">str</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The learning rate schedule.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    gamma: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The discount factor.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    lam: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The lambda parameter for Generalized Advantage Estimation (GAE).&quot;&quot;&quot;</span></span><br><span class="line">    entropy_coef: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The coefficient for the entropy loss.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    desired_kl: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The desired KL divergence.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    max_grad_norm: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The maximum gradient norm.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    value_loss_coef: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The coefficient for the value loss.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    use_clipped_value_loss: <span class="built_in">bool</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Whether to use clipped value loss.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    clip_param: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The clipping parameter for the policy.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    normalize_advantage_per_mini_batch: <span class="built_in">bool</span> = <span class="literal">False</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Whether to normalize the advantage per mini-batch. Default is False.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    If True, the advantage is normalized over the mini-batches only.</span></span><br><span class="line"><span class="string">    Otherwise, the advantage is normalized over the entire collected trajectories.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    symmetry_cfg: RslRlSymmetryCfg | <span class="literal">None</span> = <span class="literal">None</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;The symmetry configuration. Default is None, in which case symmetry is not used.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    rnd_cfg: RslRlRndCfg | <span class="literal">None</span> = <span class="literal">None</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;The configuration for the Random Network Distillation (RND) module. Default is None,</span></span><br><span class="line"><span class="string">    in which case RND is not used.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<h1>简介</h1>
+<p>学习一下IsaacLab中的一些配置类的说明</p>
+<h1>RslRlPpoAlgorithmCfg</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@configclass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RslRlPpoAlgorithmCfg</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Configuration for the PPO algorithm.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    class_name: <span class="built_in">str</span> = <span class="string">&quot;PPO&quot;</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;The algorithm class name. Default is PPO.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    num_learning_epochs: <span class="built_in">int</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The number of learning epochs per update.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    num_mini_batches: <span class="built_in">int</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The number of mini-batches per update.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    learning_rate: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The learning rate for the policy.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    schedule: <span class="built_in">str</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The learning rate schedule.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    gamma: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The discount factor.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    lam: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The lambda parameter for Generalized Advantage Estimation (GAE).&quot;&quot;&quot;</span></span><br><span class="line">    entropy_coef: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The coefficient for the entropy loss.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    desired_kl: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The desired KL divergence.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    max_grad_norm: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The maximum gradient norm.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    value_loss_coef: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The coefficient for the value loss.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    use_clipped_value_loss: <span class="built_in">bool</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Whether to use clipped value loss.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    clip_param: <span class="built_in">float</span> = MISSING</span><br><span class="line">    <span class="string">&quot;&quot;&quot;The clipping parameter for the policy.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    normalize_advantage_per_mini_batch: <span class="built_in">bool</span> = <span class="literal">False</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Whether to normalize the advantage per mini-batch. Default is False.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    If True, the advantage is normalized over the mini-batches only.</span></span><br><span class="line"><span class="string">    Otherwise, the advantage is normalized over the entire collected trajectories.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    symmetry_cfg: RslRlSymmetryCfg | <span class="literal">None</span> = <span class="literal">None</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;The symmetry configuration. Default is None, in which case symmetry is not used.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    rnd_cfg: RslRlRndCfg | <span class="literal">None</span> = <span class="literal">None</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;The configuration for the Random Network Distillation (RND) module. Default is None,</span></span><br><span class="line"><span class="string">    in which case RND is not used.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>这个类是 Isaac Lab 中 PPO 算法的配置类，主要用来控制训练中涉及到的超参数和附加模块。</p>
-<h2 id="1-算法基本信息"><a href="#1-算法基本信息" class="headerlink" title="1. 算法基本信息"></a>1. 算法基本信息</h2><ul>
-<li><strong><code>class_name</code></strong> (str)<ul>
+<h2 id="1-算法基本信息">1. 算法基本信息</h2>
+<ul>
+<li><strong><code>class_name</code></strong> (str)
+<ul>
 <li>默认值：<code>&quot;PPO&quot;</code></li>
 <li>说明：使用的算法名称</li>
 </ul>
 </li>
 </ul>
-<h2 id="2-学习过程参数"><a href="#2-学习过程参数" class="headerlink" title="2. 学习过程参数"></a>2. 学习过程参数</h2><ul>
-<li><p><strong><code>num_learning_epochs</code></strong> (int)</p>
+<h2 id="2-学习过程参数">2. 学习过程参数</h2>
+<ul>
+<li>
+<p><strong><code>num_learning_epochs</code></strong> (int)</p>
 <ul>
 <li>说明：每次更新时训练的轮数，决定一次采样数据要在网络上迭代多少次</li>
 </ul>
 </li>
-<li><p><strong><code>num_mini_batches</code></strong> (int)</p>
+<li>
+<p><strong><code>num_mini_batches</code></strong> (int)</p>
 <ul>
 <li>说明：每次更新拆分的 mini-batch 数量，影响梯度估计的稳定性和训练速度</li>
 </ul>
 </li>
-<li><p><strong><code>learning_rate</code></strong> (float)</p>
+<li>
+<p><strong><code>learning_rate</code></strong> (float)</p>
 <ul>
 <li>说明：策略网络的学习率</li>
 </ul>
 </li>
-<li><p><strong><code>schedule</code></strong> (str)</p>
+<li>
+<p><strong><code>schedule</code></strong> (str)</p>
 <ul>
 <li>说明：学习率的调度方式，例如固定（<code>constant</code>）、线性衰减（<code>linear</code>）等</li>
 </ul>
 </li>
 </ul>
-<h2 id="3-折扣与优势估计"><a href="#3-折扣与优势估计" class="headerlink" title="3. 折扣与优势估计"></a>3. 折扣与优势估计</h2><ul>
-<li><p><strong><code>gamma</code></strong> (float)</p>
+<h2 id="3-折扣与优势估计">3. 折扣与优势估计</h2>
+<ul>
+<li>
+<p><strong><code>gamma</code></strong> (float)</p>
 <ul>
 <li>说明：折扣因子，用于未来奖励的折现。取值范围 [0, 1]，通常接近 1（如 0.99）</li>
 </ul>
 </li>
-<li><p><strong><code>lam</code></strong> (float)</p>
+<li>
+<p><strong><code>lam</code></strong> (float)</p>
 <ul>
 <li>说明：GAE（Generalized Advantage Estimation，广义优势估计）的 λ 参数，用于控制 bias 和 variance 的平衡。取值范围 [0, 1]，通常为 0.95</li>
 </ul>
 </li>
 </ul>
-<h2 id="4-损失函数相关参数"><a href="#4-损失函数相关参数" class="headerlink" title="4. 损失函数相关参数"></a>4. 损失函数相关参数</h2><ul>
-<li><p><strong><code>entropy_coef</code></strong> (float)</p>
+<h2 id="4-损失函数相关参数">4. 损失函数相关参数</h2>
+<ul>
+<li>
+<p><strong><code>entropy_coef</code></strong> (float)</p>
 <ul>
 <li>说明：熵项系数，用于鼓励策略探索，防止过早收敛</li>
 </ul>
 </li>
-<li><p><strong><code>desired_kl</code></strong> (float)</p>
+<li>
+<p><strong><code>desired_kl</code></strong> (float)</p>
 <ul>
 <li>说明：期望的 KL 散度阈值，用于自适应学习率调整，防止策略更新过快</li>
 </ul>
 </li>
-<li><p><strong><code>max_grad_norm</code></strong> (float)</p>
+<li>
+<p><strong><code>max_grad_norm</code></strong> (float)</p>
 <ul>
 <li>说明：梯度裁剪的最大范数，避免梯度爆炸问题</li>
 </ul>
 </li>
-<li><p><strong><code>value_loss_coef</code></strong> (float)</p>
+<li>
+<p><strong><code>value_loss_coef</code></strong> (float)</p>
 <ul>
 <li>说明：Value loss 在总损失中的权重系数</li>
 </ul>
 </li>
-<li><p><strong><code>use_clipped_value_loss</code></strong> (bool)</p>
+<li>
+<p><strong><code>use_clipped_value_loss</code></strong> (bool)</p>
 <ul>
 <li>说明：是否对 Value function 使用裁剪损失，提高训练稳定性</li>
 </ul>
 </li>
-<li><p><strong><code>clip_param</code></strong> (float)</p>
+<li>
+<p><strong><code>clip_param</code></strong> (float)</p>
 <ul>
 <li>说明：PPO 中的裁剪参数 ε，限制策略更新幅度，通常设置为 0.2</li>
 </ul>
 </li>
 </ul>
-<h2 id="5-优势归一化"><a href="#5-优势归一化" class="headerlink" title="5. 优势归一化"></a>5. 优势归一化</h2><ul>
-<li><strong><code>normalize_advantage_per_mini_batch</code></strong> (bool)<ul>
+<h2 id="5-优势归一化">5. 优势归一化</h2>
+<ul>
+<li><strong><code>normalize_advantage_per_mini_batch</code></strong> (bool)
+<ul>
 <li>默认值：<code>False</code></li>
-<li>说明：<ul>
+<li>说明：
+<ul>
 <li><code>False</code>：在整个采样的 trajectory 上归一化优势函数</li>
 <li><code>True</code>：在每个 mini-batch 内单独归一化优势函数</li>
 </ul>
@@ -332,14 +365,17 @@
 </ul>
 </li>
 </ul>
-<h2 id="6-扩展功能"><a href="#6-扩展功能" class="headerlink" title="6. 扩展功能"></a>6. 扩展功能</h2><ul>
-<li><p><strong><code>symmetry_cfg</code></strong> (RslRlSymmetryCfg | None)</p>
+<h2 id="6-扩展功能">6. 扩展功能</h2>
+<ul>
+<li>
+<p><strong><code>symmetry_cfg</code></strong> (RslRlSymmetryCfg | None)</p>
 <ul>
 <li>默认值：<code>None</code></li>
 <li>说明：对称性配置，用于利用环境对称性（例如四足机器人的左右对称性）来提高样本效率。若为 <code>None</code> 则不启用</li>
 </ul>
 </li>
-<li><p><strong><code>rnd_cfg</code></strong> (RslRlRndCfg | None)</p>
+<li>
+<p><strong><code>rnd_cfg</code></strong> (RslRlRndCfg | None)</p>
 <ul>
 <li>默认值：<code>None</code></li>
 <li>说明：随机网络蒸馏（Random Network Distillation, RND）的配置，用于生成内在探索奖励。若为 <code>None</code> 则不启用</li>
@@ -356,13 +392,46 @@
 </ul>
 <p>它相当于训练过程中所有关键开关和调节旋钮的集中配置点，通过调整这些参数可以控制训练的收敛速度、稳定性和探索效率。</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -389,7 +458,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -424,7 +660,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

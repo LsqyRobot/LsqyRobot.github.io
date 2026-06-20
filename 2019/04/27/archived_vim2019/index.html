@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,90 +230,108 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >vim 学习笔记(一)</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#定制vim">定制VIM</a><ul>
-<li><a href="#更改字体">更改字体</a></li>
-<li><a href="#修改配色方案">修改配色方案</a><ul>
-<li><a href="#用彩色标记某列后面的文字">用彩色标记某列后面的文字</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%AE%9A%E5%88%B6vim">定制VIM</a>
+<ul>
+<li><a href="#%E6%9B%B4%E6%94%B9%E5%AD%97%E4%BD%93">更改字体</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E8%89%B2%E6%96%B9%E6%A1%88">修改配色方案</a>
+<ul>
+<li><a href="#%E7%94%A8%E5%BD%A9%E8%89%B2%E6%A0%87%E8%AE%B0%E6%9F%90%E5%88%97%E5%90%8E%E9%9D%A2%E7%9A%84%E6%96%87%E5%AD%97">用彩色标记某列后面的文字</a></li>
 </ul>
 </li>
-<li><a href="#补全方式">补全方式</a></li>
-<li><a href="#加密文件">加密文件</a></li>
-<li><a href="#搜索文件夹中含有的特定代码">搜索文件夹中含有的特定代码</a></li>
+<li><a href="#%E8%A1%A5%E5%85%A8%E6%96%B9%E5%BC%8F">补全方式</a></li>
+<li><a href="#%E5%8A%A0%E5%AF%86%E6%96%87%E4%BB%B6">加密文件</a></li>
+<li><a href="#%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%AD%E5%90%AB%E6%9C%89%E7%9A%84%E7%89%B9%E5%AE%9A%E4%BB%A3%E7%A0%81">搜索文件夹中含有的特定代码</a></li>
 </ul>
 </li>
-<li><a href="#编写库脚本">编写库脚本</a></li>
-<li><a href="#用寄存器实现删除复制与粘贴操作">用寄存器实现删除,复制与粘贴操作</a></li>
-<li><a href="#搜集的技巧">搜集的技巧</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E5%BA%93%E8%84%9A%E6%9C%AC">编写库脚本</a></li>
+<li><a href="#%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%88%A0%E9%99%A4%E5%A4%8D%E5%88%B6%E4%B8%8E%E7%B2%98%E8%B4%B4%E6%93%8D%E4%BD%9C">用寄存器实现删除,复制与粘贴操作</a></li>
+<li><a href="#%E6%90%9C%E9%9B%86%E7%9A%84%E6%8A%80%E5%B7%A7">搜集的技巧</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>花时间找易用的工具,不如花时间掌握强大的工具. 收集了一些自己经常使用的一些指令, 这个工具强大之处在于尽可能的按照想法去实现． 不一定是程序员才用VIM, 如此高效的工具是值得去学的. 笔记很多来自于《VIM中文手册》《Practical Vim》《VIM 7.2》。 里面摘抄部分自己经常查阅的内容, 以便于日后翻阅, 也希望能够给那些想入坑的提供些参考. 想想那时是18年开始使用的这个工具, 不觉感慨时间飞逝, 现在还不断的学习相关的知识, 发现很多神奇的操作。</p>
-<p>如果仅仅是为了能够实现一些其他IDE的功能进而安装大量的插件, 而忽略了VIM本身, 那还是直接用其他IDE吧。现成的工具也是极其优秀的。 有的时候自己在怀疑自己,学这个有什么用….可能就是喜欢单纯的折腾吧, 毋庸置疑的是, 这个工具确实可以帮到自己提升效率, 就像屠龙刀一样, 自己并不排斥其他的编辑器, 比如vscode, 但是绝大多数的时间, 还是以vim作为自己的主力。 这个视频<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=wlR5gYd6um0">Mastering the Vim Language</a>里可以学到很多东西。</p>
-<h1 id="定制VIM"><a href="#定制VIM" class="headerlink" title="定制VIM"></a>定制VIM</h1><h2 id="更改字体"><a href="#更改字体" class="headerlink" title="更改字体"></a>更改字体</h2><p>这个是自己在工作中遇到的问题,由于公司配的电脑使用的windows系统,在公司工作的时候用的编辑器就是GVim了,但是默认的GVIM的字体是挺小的,看起来挺吃力的。下面说明下如何更改字体。在LINUX和windows上还是有些区别。其主要的指令还是guifont</p>
+<h1>前言</h1>
+<p>花时间找易用的工具,不如花时间掌握强大的工具. 收集了一些自己经常使用的一些指令, 这个工具强大之处在于尽可能的按照想法去实现． 不一定是程序员才用VIM, 如此高效的工具是值得去学的. 笔记很多来自于《VIM中文手册》《Practical Vim》《VIM 7.2》。 里面摘抄部分自己经常查阅的内容, 以便于日后翻阅, 也希望能够给那些想入坑的提供些参考. 想想那时是18年开始使用的这个工具, 不觉感慨时间飞逝, 现在还不断的学习相关的知识, 发现很多神奇的操作。</p>
+<p>如果仅仅是为了能够实现一些其他IDE的功能进而安装大量的插件, 而忽略了VIM本身, 那还是直接用其他IDE吧。现成的工具也是极其优秀的。 有的时候自己在怀疑自己,学这个有什么用…可能就是喜欢单纯的折腾吧, 毋庸置疑的是, 这个工具确实可以帮到自己提升效率, 就像屠龙刀一样, 自己并不排斥其他的编辑器, 比如vscode, 但是绝大多数的时间, 还是以vim作为自己的主力。 这个视频<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=wlR5gYd6um0">Mastering the Vim Language</a>里可以学到很多东西。</p>
+<p>#定制VIM</p>
+<h2 id="更改字体">更改字体</h2>
+<p>这个是自己在工作中遇到的问题,由于公司配的电脑使用的windows系统,在公司工作的时候用的编辑器就是GVim了,但是默认的GVIM的字体是挺小的,看起来挺吃力的。下面说明下如何更改字体。在LINUX和windows上还是有些区别。其主要的指令还是guifont</p>
 <p>在 Linux 中,</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="attribute">guifont</span>=yourFont\ 18 </span><br></pre></td></tr></table></figure>
 <p>可以把 yourFont替换成你喜欢的任意一种字体的名字,字体大小根据自己的需求更改。在Windows：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="attribute">guifont</span>=yourFont:h18 </span><br></pre></td></tr></table></figure>
-<h2 id="修改配色方案"><a href="#修改配色方案" class="headerlink" title="修改配色方案"></a>修改配色方案</h2><p>在默认情况下,Vim 的窗口颜色与打开它的控制台相同不仅难看,而且还很苍白。。。。为了把配色方案修改成某个系统中已有的方案,只需要执行</p>
+<h2 id="修改配色方案">修改配色方案</h2>
+<p>在默认情况下,Vim 的窗口颜色与打开它的控制台相同不仅难看,而且还很苍白。。。。为了把配色方案修改成某个系统中已有的方案,只需要执行</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">colorscheme mycolors</span></span><br></pre></td></tr></table></figure>
 <p>在这个命令中,mycolors 是系统中已安装的某个配色方案的名字,自己选择的是经典的molokai主题。</p>
-<p><img src="/img/postImg/42_vim/my_colorScheme.png" width="70%" height="50%"></p>
+<img src="/img/postImg/42_vim/my_colorScheme.png" width="70%" height="50%">
 <p>除了前景色与背景色,配色方案还会影响代码高亮,错误标记,以及文件中的其他可视化标记。根据自己的需求,去选择适合自己的主题,要不就自己配。。。。</p>
-<h3 id="用彩色标记某列后面的文字"><a href="#用彩色标记某列后面的文字" class="headerlink" title="用彩色标记某列后面的文字"></a>用彩色标记某列后面的文字</h3><p>第一次见到这种做法的时候,是在油管的一个vim讲座里出现的,正巧在《vim 7.2》这本书看到了,举得例子都很棒,就全抄下来吧。。。。</p>
+<h3 id="用彩色标记某列后面的文字">用彩色标记某列后面的文字</h3>
+<p>第一次见到这种做法的时候,是在油管的一个vim讲座里出现的,正巧在《vim 7.2》这本书看到了,举得例子都很棒,就全抄下来吧。。。。</p>
 <p>当你在一行内写出的字符数超过某个上限时,只需要下面这个命令就可以给出提示</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:<span class="keyword">match</span> ErrorMsg /\%&gt;<span class="number">73</span>v.\+/</span><br></pre></td></tr></table></figure>
 <p>执行该命令后,一行内的第 73 个字符之后的那些字符都会被标记成错误. 匹配命令中含有一个正则表达式, 这个表达式可以拆成:</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
-<th>命令                    &emsp;</th>
+<th>命令                     </th>
 <th>内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>\%&gt; 匹配该列之后的内容, &emsp;</td>
+<td>%&gt; 匹配该列之后的内容,  </td>
 <td>匹配该列之后的内容, 列号紧跟在尖括号的右边</td>
 </tr>
 <tr>
-<td>73                      &emsp;</td>
+<td>73                       </td>
 <td>列号</td>
 </tr>
 <tr>
-<td>v                       &emsp;</td>
+<td>v                        </td>
 <td>只能工作在可见的列上面</td>
 </tr>
 <tr>
-<td>.+                     &emsp;</td>
+<td>.+                      </td>
 <td>匹配一个或多个任意的字符</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h2 id="补全方式"><a href="#补全方式" class="headerlink" title="补全方式"></a>补全方式</h2><p>vim 的补全命令比较多,建议使用一些插件,比如ycm</p>
+<h2 id="补全方式">补全方式</h2>
+<p>vim 的补全命令比较多,建议使用一些插件,比如ycm</p>
 <details>
 <summary>
 展开
 </summary>
 <figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">ctrl+x +l       整行补全</span><br><span class="line">ctrl+x +n	根据当前文件里关键字补全</span><br><span class="line">ctrl+x +k	根据字典补全  实现创建好字典(或下载):<span class="keyword">set</span> dictionary+=/path/to/dictionary/file/with/words</span><br><span class="line">ctrl+x <span class="comment">+t</span>	根据同义词字典补全</span><br><span class="line">ctrl+x <span class="comment">+i</span>	根据头文件内关键字补全</span><br><span class="line">ctrl+x <span class="comment">+]</span>	根据标签补全</span><br><span class="line">ctrl+x <span class="comment">+f</span>	补全文件名</span><br><span class="line">ctrl+x <span class="comment">+d</span>	补全宏定义</span><br><span class="line">ctrl+x <span class="comment">+v</span>	补全<span class="comment">vim</span>命令</span><br><span class="line">ctrl+x <span class="comment">+u</span>	用户自定义补全方式</span><br><span class="line">ctrl+x <span class="comment">+s</span>	拼写建议</span><br><span class="line">ctrl+n|p   	代码内基本补全</span><br></pre></td></tr></table></figure>
 </details>
-
 <p>组合键ctrl+n所做的工作是向前搜索匹配的单词. 如果用户知道自己刚刚才输入过同样的单词, 那么用ctrl+p会更快一点, 因为这个组合键是向后搜索匹配. 一般来说, 除非文件非常大, 或者可能的匹配非常多, 否则ctrl+n与ctrl+p对用户来说并没有太大的区别.  对于补全的插件也很多,自己用的是ycm(编译这个得看自己的环境了MBP编译了N次都是提示个莫名奇妙的错误,用macMINI一次就好了),使用起来感觉还行。</p>
-<h2 id="加密文件"><a href="#加密文件" class="headerlink" title="加密文件"></a>加密文件</h2><p>加密文件的方式是当使用vim打或新建,加上-x参数使用以下命令,可以查看当前使用的加密算法:set cm?使用以下命令,可以切换使用的不同加密算法：<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">:<span class="built_in">set</span> <span class="attribute">cm</span>=zip</span><br><span class="line">:<span class="built_in">set</span> <span class="attribute">cm</span>=blowfish</span><br><span class="line">:<span class="built_in">set</span> <span class="attribute">cm</span>=blowfish2</span><br></pre></td></tr></table></figure><br>使用以下命令将选项key置空,解除加密:set key=</p>
-<h2 id="搜索文件夹中含有的特定代码"><a href="#搜索文件夹中含有的特定代码" class="headerlink" title="搜索文件夹中含有的特定代码"></a>搜索文件夹中含有的特定代码</h2><p>使用vimgrep可以搜索文件夹下的文件含有特定文字/代码,方式如下</p>
+<h2 id="加密文件">加密文件</h2>
+<p>加密文件的方式是当使用vim打或新建,加上-x参数使用以下命令,可以查看当前使用的加密算法:set cm?使用以下命令,可以切换使用的不同加密算法：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">:<span class="built_in">set</span> <span class="attribute">cm</span>=zip</span><br><span class="line">:<span class="built_in">set</span> <span class="attribute">cm</span>=blowfish</span><br><span class="line">:<span class="built_in">set</span> <span class="attribute">cm</span>=blowfish2</span><br></pre></td></tr></table></figure>
+<p>使用以下命令将选项key置空,解除加密:set key=</p>
+<h2 id="搜索文件夹中含有的特定代码">搜索文件夹中含有的特定代码</h2>
+<p>使用vimgrep可以搜索文件夹下的文件含有特定文字/代码,方式如下</p>
 <details>
 <summary>
 展开
 </summary>
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">vimgrep <span class="regexp">/匹配模式/</span>[g][j] 要搜索的文件/范围 </span><br><span class="line">g：表示是否把每一行的多个匹配结果都加入</span><br><span class="line">j：表示是否搜索完后定位到第一个匹配位置</span><br><span class="line">vimgrep <span class="regexp">/pattern/</span> %           在当前打开文件中查找</span><br><span class="line">vimgrep <span class="regexp">/pattern/</span> <span class="string">\*</span>             在当前目录下查找所有</span><br><span class="line">vimgrep <span class="regexp">/pattern/</span> <span class="string">\*\*</span>            在当前目录及子目录下查找所有(目前这个自己用的比较多)</span><br><span class="line">vimgrep <span class="regexp">/pattern/</span> <span class="string">\*.c</span>          查找当前目录下所有.c文件</span><br><span class="line">vimgrep <span class="regexp">/pattern/</span> <span class="string">\*\*/\*</span>         只查找子目录</span><br></pre></td></tr></table></figure>
 </details>
-
-<h1 id="编写库脚本"><a href="#编写库脚本" class="headerlink" title="编写库脚本"></a>编写库脚本</h1><p>有些功能会在多个地方调用。如果这已经不是一两行的代码,你可能会希望把这些代码放进脚本,然后被许多其它脚本使用。我们把这种脚本称为库脚本。 可以手动载入库脚本,只要你不要重复调用它就行了。用 |exists()| 函数可以判断。</p>
+<h1>编写库脚本</h1>
+<p>有些功能会在多个地方调用。如果这已经不是一两行的代码,你可能会希望把这些代码放进脚本,然后被许多其它脚本使用。我们把这种脚本称为库脚本。 可以手动载入库脚本,只要你不要重复调用它就行了。用 |exists()| 函数可以判断。</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> !exists(<span class="string">&#x27;*MyLibFunction&#x27;</span>)</span><br><span class="line"><span class="keyword">runtime</span> library/mylibscript.<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"><span class="keyword">call</span> MyLibFunction(arg)</span><br></pre></td></tr></table></figure>
 <p>这里你需要知道 MyLibFunction() 在脚本 “library/mylibscript.vim” 里定义,该脚本 在 ’runtimepath’ 的某个目录里。 为了稍稍简化,Vim 提供了自动载入机制。如下所示：</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">call</span> mylib#myfunction(arg)</span><br></pre></td></tr></table></figure>
@@ -320,7 +339,7 @@
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:<span class="keyword">match</span> Group /pattern/</span><br></pre></td></tr></table></figure>
 <p>比如超过一行内的11个字符以后的字符被标记为错误</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:<span class="keyword">match</span> ErrorMsg /\%&gt;<span class="number">11</span>v.\+/</span><br></pre></td></tr></table></figure>
-<p>其中\%&gt; 匹配该列之后的内容, 列号紧跟在尖括号的右边;v 只能工作在可见的列上面;.+ 匹配一个或多个任意的字符, 想匹配有效的 IP 地址, 只需要执行:</p>
+<p>其中%&gt; 匹配该列之后的内容, 列号紧跟在尖括号的右边;v 只能工作在可见的列上面;.+ 匹配一个或多个任意的字符, 想匹配有效的 IP 地址, 只需要执行:</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">match</span> todo</span><br><span class="line">/\(\(<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]\|<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>][<span class="number">0</span>-<span class="number">9</span>]\|[<span class="number">01</span>]\?[<span class="number">0</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]\?\)\.\)\\\&#123;<span class="number">3</span>\&#125;\(<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]\|<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>][<span class="number">0</span>-<span class="number">9</span>]\|[<span class="number">01</span>]\?[<span class="number">0</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]\?\)/</span><br></pre></td></tr></table></figure>
 <p>打开拼写检查的命令是</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:<span class="keyword">set</span> spell</span><br></pre></td></tr></table></figure>
@@ -328,9 +347,11 @@
 <p>为了避免多次输入同一个内容, 用户可以使用缩写 (abbreviations).根据不同的使用模式, 可以使用以下三个命令来创建缩写:</p>
 <figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">abbreviate:</span> 创建在所有模式中均可使用的缩写</span><br><span class="line"><span class="symbol">iabbrev:</span> 创建只能在插入模式中使用的缩写</span><br><span class="line"><span class="symbol">cabbrev:</span> 创建只能在命令行中使用的缩写</span><br></pre></td></tr></table></figure>
 <p>为了避免每次都执行一次缩写命令, 用户可以把它们放在 VIMHOME 的某个文件中, 假设文件名就叫 abbreviations.vim, 然后在文件 vimrc 使用命令 source 来使能该文件 (需确保该文件是可读的) <code>:source $VIM/abbreviations.vim</code></p>
-<p>比如写个编程模板(tex,等等都是可以自定义的)<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">iabbr forx <span class="keyword">for</span>(<span class="keyword">x</span>=<span class="number">0</span>;<span class="keyword">x</span>&lt;<span class="number">100</span>;<span class="keyword">x</span>++)&#123;<span class="symbol">&lt;cr&gt;</span><span class="symbol">&lt;cr&gt;</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="用寄存器实现删除-复制与粘贴操作"><a href="#用寄存器实现删除-复制与粘贴操作" class="headerlink" title="用寄存器实现删除,复制与粘贴操作"></a>用寄存器实现删除,复制与粘贴操作</h1><p>在技巧里面说了一小部分,但是没有系统的说明,在这里详细的补充一下。通常情况下, 在许多程序与操作系统中, 用户只能利用一个剪贴板来完成文本的剪切与复制. 在 Vim 中不会出现这种情况,因为用户可以访问多达 9 种不同的剪贴板, 更准确来说, 应该是 9 种不的寄存器类型.  vim 缺省使用无名寄存器。无名寄存器用引号表示。</p>
-<p>有些寄存器类型的工作领域有所重叠, 但还有一些则拥有自己独特的目的. 用户可以在多种不同的命令或操 作中 (比如复制, 删除, 粘贴) 使用寄存器. 寄存器的名字都以双引号 “ 开始, 比如 “x, 所以, 现在让我们来看一下 如何使用一个寄存器. 假设我们现在要用的寄存器是 “x 为了把某段文本复制到寄存器中, 可以用命令 y 来完成, 不过这次有所不同, 在复制之前, 我们先告诉 Vim 被 复制文本的存放位置: “xy (用 “xyy 可以复制一整行) 对于用来剪切文本的命令 x 也是一样的: “xx 对于删除文本的命令 d 则是: “xd 现在, 用户已经在寄存器 “x 中存放了一段文本, 并且想要把这段文本粘贴到正式文本中, 可以用命令 P (粘贴 在光标位置之前) 或 p (粘贴在光标位置之后), 但在粘贴之前, 我们要先指定寄存器: “xP 或 “xp 如果用户忘记自己使用了哪些寄存器, 可以执行命令: :registers.更多的内容可以通过网络搜索获得,这里就不加赘述了。</p>
+<p>比如写个编程模板(tex,等等都是可以自定义的)</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">iabbr forx <span class="keyword">for</span>(<span class="keyword">x</span>=<span class="number">0</span>;<span class="keyword">x</span>&lt;<span class="number">100</span>;<span class="keyword">x</span>++)&#123;<span class="symbol">&lt;cr&gt;</span><span class="symbol">&lt;cr&gt;</span>&#125;</span><br></pre></td></tr></table></figure>
+<h1>用寄存器实现删除,复制与粘贴操作</h1>
+<p>在技巧里面说了一小部分,但是没有系统的说明,在这里详细的补充一下。通常情况下, 在许多程序与操作系统中, 用户只能利用一个剪贴板来完成文本的剪切与复制. 在 Vim 中不会出现这种情况,因为用户可以访问多达 9 种不同的剪贴板, 更准确来说, 应该是 9 种不的寄存器类型.  vim 缺省使用无名寄存器。无名寄存器用引号表示。</p>
+<p>有些寄存器类型的工作领域有所重叠, 但还有一些则拥有自己独特的目的. 用户可以在多种不同的命令或操 作中 (比如复制, 删除, 粘贴) 使用寄存器. 寄存器的名字都以双引号 &quot; 开始, 比如 &quot;x, 所以, 现在让我们来看一下 如何使用一个寄存器. 假设我们现在要用的寄存器是 &quot;x 为了把某段文本复制到寄存器中, 可以用命令 y 来完成, 不过这次有所不同, 在复制之前, 我们先告诉 Vim 被 复制文本的存放位置: &quot;xy (用 &quot;xyy 可以复制一整行) 对于用来剪切文本的命令 x 也是一样的: &quot;xx 对于删除文本的命令 d 则是: &quot;xd 现在, 用户已经在寄存器 &quot;x 中存放了一段文本, 并且想要把这段文本粘贴到正式文本中, 可以用命令 P (粘贴 在光标位置之前) 或 p (粘贴在光标位置之后), 但在粘贴之前, 我们要先指定寄存器: &quot;xP 或 &quot;xp 如果用户忘记自己使用了哪些寄存器, 可以执行命令: :registers.更多的内容可以通过网络搜索获得,这里就不加赘述了。</p>
 <details>
 <summary>
 展开
@@ -343,8 +364,8 @@
 </summary>
 <figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">目的                        &amp;   操作                   &amp;  重复              &amp;    回退   </span><br><span class="line">做出一个修改                &amp;  &#123;edit&#125;                  &amp;   .              &amp;   u       </span><br><span class="line">在行内查找下一指定字符      &amp;  f&#123;<span class="built_in">char</span>&#125;/<span class="built_in">t</span>&#123;<span class="built_in">char</span>&#125;         &amp;   ;              &amp;    ,      </span><br><span class="line">在行内查找上一指定字符      &amp;  F&#123;<span class="built_in">char</span>&#125;/<span class="built_in">T</span>&#123;<span class="built_in">char</span>&#125;         &amp;   ;              &amp;    ,      </span><br><span class="line">在文档中查找下一处匹配项    &amp;  /pattern                &amp;    <span class="built_in">n</span>             &amp;    <span class="built_in">N</span>      </span><br><span class="line">在文档中查找上一处匹配项    &amp;  ?pattern                &amp;    <span class="built_in">n</span>             &amp;    <span class="built_in">N</span>      </span><br><span class="line">执行替换                    &amp;   <span class="symbol">:s</span>/target/replacement  &amp;   \&amp;             &amp;    u      </span><br><span class="line">执行一系列修改              &amp;   qx&#123;changes&#125;q           &amp;   @x             &amp;    u      </span><br></pre></td></tr></table></figure>
 </details>
-
-<h1 id="搜集的技巧"><a href="#搜集的技巧" class="headerlink" title="搜集的技巧"></a>搜集的技巧</h1><p>1,gd 快速跳转到当前光标所在变量或者函数名的定义处. gD: 跳转到全局变量的定义处,从当前文件开头开始搜索； 类似的还有gf,来打开被包含的文件。</p>
+<h1>搜集的技巧</h1>
+<p>1,gd 快速跳转到当前光标所在变量或者函数名的定义处. gD: 跳转到全局变量的定义处,从当前文件开头开始搜索； 类似的还有gf,来打开被包含的文件。</p>
 <p>2,<code>:g /word/d</code> 删除所有含有word的单词所在行. 相反的可以<code>:v /abc/d</code>,也就是删除没有word这个字母所在行, 删除空行可以用 <code>:g /^\s*$/d</code>, 其中^表示开头,\s 表示空格, * 代表匹配任意字符,$ 代表末尾。</p>
 <p>3,autocmd可以用这个命令实现对不同的文件格式应用不同的配置; 可以在新建文件时自动添加上版权声明等等. 这些命令一般定义在 ~/.vimrc 这样的配置文件里面。</p>
 <p>4,在打开一个文件编辑后才知道登录的用户对该文件没有写权,不能存盘, 可以执行vim file :w /tmp/1,先临时存到/tmp/1 中, 然后进行后续的操作。</p>
@@ -352,23 +373,23 @@
 <p>6,按 Ctrl + r 最后按 Ctrl + w。这个在光标下的单词会被拷贝, 这就省的在输入或是在查找一个单词的时候自己手动输入啦。</p>
 <p>7,在Vim中直接进行转换文件编码,比如将一个文件转换成utf-8格式可用如下指令:set fileencoding=utf-8.</p>
 <p>8,<code>\&gt;</code>是一个特殊的记号,表示只匹配单词末尾.类似地,<code>\&lt;</code> 只匹配单词的开头.所以要匹配一个完整的单词 “int”,只需：<code>/\&lt; int\&gt;</code></p>
-<p>9, 对同一个文件夹下的文件批量处理方法,以.m文件为例(因为有的时候,需要转换文件编码方式),<code>:args ./\*.m ;  :argdo set fileencoding=utf-8</code> (之所以写这个,是因为小董问我要代码,而自己电脑里的编码方式又和windows不一样,自己又懒,文件一多就不想让每个都转化格式,所以就…..)</p>
+<p>9, 对同一个文件夹下的文件批量处理方法,以.m文件为例(因为有的时候,需要转换文件编码方式),<code>:args ./\*.m ;  :argdo set fileencoding=utf-8</code> (之所以写这个,是因为小董问我要代码,而自己电脑里的编码方式又和windows不一样,自己又懒,文件一多就不想让每个都转化格式,所以就…)</p>
 <p>10,可以用 = 符号指明使用表达式寄存器.在插入模式中,输入 <C-r>= 就可以访问这一寄存器.这条命令会在屏幕的下方显示一个提示符,我们可以在其后输入要执行的表达式.输入表达式后敲一下 <CR>, Vim 就会把执行的结果插入到文档的当前位置了。</p>
-<p>11,替换目标字符串前加一个\&lt;,它就会匹配一个word的起始位置,>可以用来指示一个word的结束位置。</p>
-<p>12,:write !wc  统计字数;J 命令则用来把当前行和下一行连接在一起.”yas” 命令拷贝一个句子。</p>
+<p>11,替换目标字符串前加一个&lt;,它就会匹配一个word的起始位置,&gt;可以用来指示一个word的结束位置。</p>
+<p>12,:write !wc  统计字数;J 命令则用来把当前行和下一行连接在一起.“yas” 命令拷贝一个句子。</p>
 <p>13,宏的录制,在Normal模式下先按q,录制的符号可以在[a-z]中选择(假设这里选择了a),就像标记m那样,一系列胡乱操作后,在Normal模式下按q停止,想重复录制的内容,按下@a就行,喜欢重复的又不想连续按@a的可以输入<code>.</code>,来重复上一过程。</p>
 <p>14,在当前行正好处于窗口顶部或底部时,有时我会滚动一下屏幕,以便看到更多的上下文.用 zz (用<strong>智障</strong>记忆,很快的…)命令可以重绘屏幕,并把当前行显示在窗口正中,这样就能够阅读当前行之上及之下的半屏内容。</p>
 <p>15,:Sex  水平分割一个窗口,浏览文件系统； :Vex  垂直分割一个窗口,浏览文件系统；(安装了插件后,就没用过这个功能了),有必要补充一句,如果在mac中,感觉分割窗口并不是必须的,如果屏幕比较小,看起来挺难受的,ctrl+N, 这样就另开了一个命令行,然后通过触摸板,用手势即可切换,长时间的编辑,有的时候受不了那种强度,所以换换口味也挺好。</p>
 <p>16,m{a-z}: 标记光标所在位置,局部标记,只用于当前文件.m{A-Z}: 标记光标所在位置,全局标记.标记之后,退出Vim, 重新启动,标记仍然有效.:marks 显示所有标记.  :delmarks!  删除当前缓冲区的所有标记。</p>
-<p>17,<code>&#39;&#39;</code>: 移动到上次离开的地方。</p>
+<p>17,<code>''</code>: 移动到上次离开的地方。</p>
 <p>18,%: 不仅能移动到匹配的(),{}或[]上,而且能在#if,#else, #endif之间跳跃。</p>
 <p>19,:r !date 在光标处插入当前日期与时间.同理,:r !command可以将其它shell命令的输出插入当前文档。</p>
 <p>20,w: 移到下一个单词的首字母; b: 移到前一个单词的首字母;e: 移到单词的末尾;这些命令可以互相组合, 比如, 用户想要移到下一个单词的末尾, 只需要执行we。</p>
 <p>21,所有类型的变量都是通过命令 :let 定义。 置位 <code>ruler</code> 选项.这会在 Vim 窗口的右下角显示当前光标的位置。</p>
 <p>22,自动缩进的一种简洁形式gg=G。</p>
 <p>23,Vim 有一套功能非常强大的命令,可以完成所有功能。但有些东西外部命令能够完成得更好或者更快。命令 “!{motion}{program}” 用一个外部程序对一个文本块进行过滤。换句话说,它用一个文本块作为输入,执行一个由{program}指定的外部命令,然后用该程序的输出替代选中的文本块。</p>
-<p>24,在插入模式,当我们按下<CTRL> + R键,再加上相应的寄存器的名字,就可以插入寄存器中的内容了。 无名寄存器用(“)来标识,如果没指定的话,复制(y),剪切(x,s,d,c和他们的大写),粘贴(p)命令都会将内容存放到这个寄存器里面,或是从这个寄存器里面来读取内容。查看寄存器:reg,　这个用起来会非常方便,就像把一些自己会用到的内容放在一个寄存器中,想调出来”” + 寄存器名字　＋操作”即可。</p>
-<p>25,如果厌倦了使用ESC,<c-[>,<c-c>来切换,不妨更改一下映射关系,自己是这么做的： :imap oo <esc>, 买了HHKB后,这个语句就从配置文件中消失了。。。。。还有,HHKB真香,不过适用的群体真的很小众,如果是用来打游戏,还是别了,会让你失望的。</p>
+<p>24,在插入模式,当我们按下<CTRL> + R键,再加上相应的寄存器的名字,就可以插入寄存器中的内容了。 无名寄存器用(“)来标识,如果没指定的话,复制(y),剪切(x,s,d,c和他们的大写),粘贴§命令都会将内容存放到这个寄存器里面,或是从这个寄存器里面来读取内容。查看寄存器:reg,　这个用起来会非常方便,就像把一些自己会用到的内容放在一个寄存器中,想调出来”&quot; + 寄存器名字　＋操作&quot;即可。</p>
+<p>25,如果厌倦了使用ESC,&lt;c-[&gt;,<c-c>来切换,不妨更改一下映射关系,自己是这么做的： :imap oo <esc>, 买了HHKB后,这个语句就从配置文件中消失了。。。。。还有,HHKB真香,不过适用的群体真的很小众,如果是用来打游戏,还是别了,会让你失望的。</p>
 <p>26,<code>&gt;&gt;</code> 当前行增加缩进 <code>&lt;&lt;</code>当前行减少缩进, 个人比较喜欢在可视模式中使用这个。</p>
 <p>27,set ts=4  (注：ts是tabstop的缩写,设TAB宽4个空格) set expandtab</p>
 <p>28,G 命令会增加从当前行到文档末尾处的缩进层级。</p>
@@ -403,15 +424,51 @@
 <p>56, 在普通模式下,按 <code>:vsp</code> 可以在垂直方向上分割窗口,按 <code>Ctrl</code> + <code>w</code> + <code>w</code> 可以在窗口之间切换,按 <code>:q</code> 可以关闭当前窗口</p>
 <p>57,在普通模式下,按 <code>:r !date</code> 可以将当前时间插入到当前光标所在行的下一行。</p>
 <p>58,在普通模式下,按 <code>:g/foo/d</code> 可以删除所有包含字符串 <code>foo</code> 的行。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] 《VIM中文手册》<br>[2] 《Practical Vim》<br>[3] 《VIM 7.2》</p>
+<h1>参考</h1>
+<p>[1] 《VIM中文手册》<br>
+[2] 《Practical Vim》<br>
+[3] 《VIM 7.2》</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -438,7 +495,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -473,7 +697,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

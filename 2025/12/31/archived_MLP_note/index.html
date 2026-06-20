@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,15 +230,28 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >MLP (Multi-Layer Perceptron) 学习笔记</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <h2 id="📚-基本概念"><a href="#📚-基本概念" class="headerlink" title="📚 基本概念"></a>📚 基本概念</h2><p><strong>MLP = Multi-Layer Perceptron（多层感知机）</strong></p>
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <h2 id="📚-基本概念">📚 基本概念</h2>
+<p><strong>MLP = Multi-Layer Perceptron（多层感知机）</strong></p>
 <p>MLP 是最基础的神经网络结构，也称为：</p>
 <ul>
 <li><strong>全连接网络（Fully Connected Network）</strong></li>
 <li><strong>前馈神经网络（Feed-forward Neural Network）</strong></li>
 </ul>
-<h2 id="🏗️-网络结构"><a href="#🏗️-网络结构" class="headerlink" title="🏗️ 网络结构"></a>🏗️ 网络结构</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">输入层 → 隐藏层<span class="number">1</span> → 隐藏层<span class="number">2</span> → ... → 输出层</span><br><span class="line">  ↓         ↓          ↓              ↓</span><br><span class="line"> <span class="selector-attr">[x₁]</span>    <span class="selector-attr">[h₁₁]</span>      <span class="selector-attr">[h₂₁]</span>         <span class="selector-attr">[y₁]</span></span><br><span class="line"> <span class="selector-attr">[x₂]</span> →  <span class="selector-attr">[h₁₂]</span>  →   <span class="selector-attr">[h₂₂]</span>    →    <span class="selector-attr">[y₂]</span></span><br><span class="line"> <span class="selector-attr">[x₃]</span>    <span class="selector-attr">[h₁₃]</span>      <span class="selector-attr">[h₂₃]</span>         <span class="selector-attr">[y₃]</span></span><br></pre></td></tr></table></figure>
-<h3 id="数学表示"><a href="#数学表示" class="headerlink" title="数学表示"></a>数学表示</h3><p>对于一层：<br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">h</span> = activation(W × x + b)</span><br></pre></td></tr></table></figure></p>
+<h2 id="🏗️-网络结构">🏗️ 网络结构</h2>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">输入层 → 隐藏层<span class="number">1</span> → 隐藏层<span class="number">2</span> → ... → 输出层</span><br><span class="line">  ↓         ↓          ↓              ↓</span><br><span class="line"> <span class="selector-attr">[x₁]</span>    <span class="selector-attr">[h₁₁]</span>      <span class="selector-attr">[h₂₁]</span>         <span class="selector-attr">[y₁]</span></span><br><span class="line"> <span class="selector-attr">[x₂]</span> →  <span class="selector-attr">[h₁₂]</span>  →   <span class="selector-attr">[h₂₂]</span>    →    <span class="selector-attr">[y₂]</span></span><br><span class="line"> <span class="selector-attr">[x₃]</span>    <span class="selector-attr">[h₁₃]</span>      <span class="selector-attr">[h₂₃]</span>         <span class="selector-attr">[y₃]</span></span><br></pre></td></tr></table></figure>
+<h3 id="数学表示">数学表示</h3>
+<p>对于一层：</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">h</span> = activation(W × x + b)</span><br></pre></td></tr></table></figure>
 <p>其中：</p>
 <ul>
 <li><code>x</code>: 输入向量</li>
@@ -246,19 +260,24 @@
 <li><code>activation</code>: 激活函数（ReLU, ELU, Tanh等）</li>
 <li><code>h</code>: 输出向量</li>
 </ul>
-<h2 id="⚡-核心特点"><a href="#⚡-核心特点" class="headerlink" title="⚡ 核心特点"></a>⚡ 核心特点</h2><h3 id="1-全连接（Fully-Connected）"><a href="#1-全连接（Fully-Connected）" class="headerlink" title="1. 全连接（Fully Connected）"></a>1. 全连接（Fully Connected）</h3><ul>
+<h2 id="⚡-核心特点">⚡ 核心特点</h2>
+<h3 id="1-全连接（Fully-Connected）">1. 全连接（Fully Connected）</h3>
+<ul>
 <li>每一层的<strong>所有神经元</strong>都与下一层的<strong>所有神经元</strong>相连</li>
 <li>每个连接都有独立的权重参数</li>
 <li>参数量 = <code>input_size × output_size + bias</code></li>
 </ul>
-<h3 id="2-前馈（Feed-forward）"><a href="#2-前馈（Feed-forward）" class="headerlink" title="2. 前馈（Feed-forward）"></a>2. 前馈（Feed-forward）</h3><ul>
+<h3 id="2-前馈（Feed-forward）">2. 前馈（Feed-forward）</h3>
+<ul>
 <li>信息<strong>单向流动</strong>，从输入到输出</li>
 <li>没有循环或反馈连接（区别于 RNN）</li>
 <li>计算过程是确定性的</li>
 </ul>
-<h3 id="3-非线性激活"><a href="#3-非线性激活" class="headerlink" title="3. 非线性激活"></a>3. 非线性激活</h3><ul>
+<h3 id="3-非线性激活">3. 非线性激活</h3>
+<ul>
 <li>每层之间使用激活函数引入非线性</li>
-<li>常见激活函数：<ul>
+<li>常见激活函数：
+<ul>
 <li><strong>ReLU</strong>: <code>max(0, x)</code> - 最常用，计算快</li>
 <li><strong>ELU</strong>: <code>x if x&gt;0 else α(e^x - 1)</code> - 平滑，负值有梯度</li>
 <li><strong>Tanh</strong>: <code>(e^x - e^-x)/(e^x + e^-x)</code> - 输出范围 [-1, 1]</li>
@@ -266,15 +285,25 @@
 </ul>
 </li>
 </ul>
-<h2 id="💻-PyTorch-实现示例"><a href="#💻-PyTorch-实现示例" class="headerlink" title="💻 PyTorch 实现示例"></a>💻 PyTorch 实现示例</h2><h3 id="基础-MLP"><a href="#基础-MLP" class="headerlink" title="基础 MLP"></a>基础 MLP</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SimpleMLP</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, input_dim, hidden_dims, output_dim</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="variable language_">self</span>.network = nn.Sequential(</span><br><span class="line">            nn.Linear(input_dim, hidden_dims[<span class="number">0</span>]),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(hidden_dims[<span class="number">0</span>], hidden_dims[<span class="number">1</span>]),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(hidden_dims[<span class="number">1</span>], output_dim)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.network(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用示例</span></span><br><span class="line">mlp = SimpleMLP(input_dim=<span class="number">64</span>, hidden_dims=[<span class="number">256</span>, <span class="number">128</span>], output_dim=<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="带-BatchNorm-的-MLP"><a href="#带-BatchNorm-的-MLP" class="headerlink" title="带 BatchNorm 的 MLP"></a>带 BatchNorm 的 MLP</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">mlp_batchnorm_factory</span>(<span class="params">input_dims, hidden_dims, out_dims, activation</span>):</span><br><span class="line">    layers = []</span><br><span class="line">    dims = [input_dims] + hidden_dims + [out_dims]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(dims) - <span class="number">1</span>):</span><br><span class="line">        layers.append(nn.Linear(dims[i], dims[i+<span class="number">1</span>]))</span><br><span class="line">        <span class="keyword">if</span> i &lt; <span class="built_in">len</span>(dims) - <span class="number">2</span>:  <span class="comment"># 不在最后一层添加激活</span></span><br><span class="line">            layers.append(nn.BatchNorm1d(dims[i+<span class="number">1</span>]))</span><br><span class="line">            layers.append(activation())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> layers</span><br></pre></td></tr></table></figure>
-<h2 id="🤖-在强化学习中的应用"><a href="#🤖-在强化学习中的应用" class="headerlink" title="🤖 在强化学习中的应用"></a>🤖 在强化学习中的应用</h2><h3 id="1-Actor-Network（策略网络）"><a href="#1-Actor-Network（策略网络）" class="headerlink" title="1. Actor Network（策略网络）"></a>1. Actor Network（策略网络）</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入：状态观测 → 输出：动作</span></span><br><span class="line"><span class="variable language_">self</span>.actor = nn.Sequential(</span><br><span class="line">    nn.Linear(obs_dim, <span class="number">256</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">256</span>, <span class="number">128</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">128</span>, action_dim)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h3 id="2-Critic-Network（价值网络）"><a href="#2-Critic-Network（价值网络）" class="headerlink" title="2. Critic Network（价值网络）"></a>2. Critic Network（价值网络）</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入：状态观测 → 输出：状态价值</span></span><br><span class="line"><span class="variable language_">self</span>.critic = nn.Sequential(</span><br><span class="line">    nn.Linear(obs_dim, <span class="number">256</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">256</span>, <span class="number">128</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">128</span>, <span class="number">1</span>)  <span class="comment"># 输出单个价值</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h3 id="3-Encoder-Network（编码器）"><a href="#3-Encoder-Network（编码器）" class="headerlink" title="3. Encoder Network（编码器）"></a>3. Encoder Network（编码器）</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入：高维观测 → 输出：低维特征</span></span><br><span class="line"><span class="variable language_">self</span>.encoder = nn.Sequential(</span><br><span class="line">    nn.Linear(high_dim, <span class="number">512</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">512</span>, <span class="number">256</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">256</span>, latent_dim)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h2 id="📊-项目中的-MLP-示例"><a href="#📊-项目中的-MLP-示例" class="headerlink" title="📊 项目中的 MLP 示例"></a>📊 项目中的 MLP 示例</h2><h3 id="MlpBarlowTwinsActor"><a href="#MlpBarlowTwinsActor" class="headerlink" title="MlpBarlowTwinsActor"></a>MlpBarlowTwinsActor</h3><p>这是一个复杂的 MLP 架构，结合了 Barlow Twins 自监督学习：</p>
+<h2 id="💻-PyTorch-实现示例">💻 PyTorch 实现示例</h2>
+<h3 id="基础-MLP">基础 MLP</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SimpleMLP</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, input_dim, hidden_dims, output_dim</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="variable language_">self</span>.network = nn.Sequential(</span><br><span class="line">            nn.Linear(input_dim, hidden_dims[<span class="number">0</span>]),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(hidden_dims[<span class="number">0</span>], hidden_dims[<span class="number">1</span>]),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(hidden_dims[<span class="number">1</span>], output_dim)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.network(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用示例</span></span><br><span class="line">mlp = SimpleMLP(input_dim=<span class="number">64</span>, hidden_dims=[<span class="number">256</span>, <span class="number">128</span>], output_dim=<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="带-BatchNorm-的-MLP">带 BatchNorm 的 MLP</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">mlp_batchnorm_factory</span>(<span class="params">input_dims, hidden_dims, out_dims, activation</span>):</span><br><span class="line">    layers = []</span><br><span class="line">    dims = [input_dims] + hidden_dims + [out_dims]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(dims) - <span class="number">1</span>):</span><br><span class="line">        layers.append(nn.Linear(dims[i], dims[i+<span class="number">1</span>]))</span><br><span class="line">        <span class="keyword">if</span> i &lt; <span class="built_in">len</span>(dims) - <span class="number">2</span>:  <span class="comment"># 不在最后一层添加激活</span></span><br><span class="line">            layers.append(nn.BatchNorm1d(dims[i+<span class="number">1</span>]))</span><br><span class="line">            layers.append(activation())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> layers</span><br></pre></td></tr></table></figure>
+<h2 id="🤖-在强化学习中的应用">🤖 在强化学习中的应用</h2>
+<h3 id="1-Actor-Network（策略网络）">1. Actor Network（策略网络）</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入：状态观测 → 输出：动作</span></span><br><span class="line"><span class="variable language_">self</span>.actor = nn.Sequential(</span><br><span class="line">    nn.Linear(obs_dim, <span class="number">256</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">256</span>, <span class="number">128</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">128</span>, action_dim)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="2-Critic-Network（价值网络）">2. Critic Network（价值网络）</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入：状态观测 → 输出：状态价值</span></span><br><span class="line"><span class="variable language_">self</span>.critic = nn.Sequential(</span><br><span class="line">    nn.Linear(obs_dim, <span class="number">256</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">256</span>, <span class="number">128</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">128</span>, <span class="number">1</span>)  <span class="comment"># 输出单个价值</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="3-Encoder-Network（编码器）">3. Encoder Network（编码器）</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入：高维观测 → 输出：低维特征</span></span><br><span class="line"><span class="variable language_">self</span>.encoder = nn.Sequential(</span><br><span class="line">    nn.Linear(high_dim, <span class="number">512</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">512</span>, <span class="number">256</span>),</span><br><span class="line">    nn.ELU(),</span><br><span class="line">    nn.Linear(<span class="number">256</span>, latent_dim)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="📊-项目中的-MLP-示例">📊 项目中的 MLP 示例</h2>
+<h3 id="MlpBarlowTwinsActor">MlpBarlowTwinsActor</h3>
+<p>这是一个复杂的 MLP 架构，结合了 Barlow Twins 自监督学习：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MlpBarlowTwinsActor</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, num_prop, num_hist, mlp_encoder_dims,</span></span><br><span class="line"><span class="params">                 actor_dims, latent_dim, num_actions, activation</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 1. 历史编码器：压缩历史观测</span></span><br><span class="line">        <span class="variable language_">self</span>.mlp_encoder = nn.Sequential(</span><br><span class="line">            *mlp_batchnorm_factory(</span><br><span class="line">                input_dims=num_prop * num_hist,  <span class="comment"># 展平的历史观测</span></span><br><span class="line">                hidden_dims=mlp_encoder_dims,     <span class="comment"># [256, 128]</span></span><br><span class="line">                activation=activation</span><br><span class="line">            )</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2. 潜在层：提取关键特征</span></span><br><span class="line">        <span class="variable language_">self</span>.latent_layer = nn.Sequential(</span><br><span class="line">            nn.Linear(mlp_encoder_dims[-<span class="number">1</span>], <span class="number">32</span>),</span><br><span class="line">            nn.BatchNorm1d(<span class="number">32</span>),</span><br><span class="line">            nn.ELU(),</span><br><span class="line">            nn.Linear(<span class="number">32</span>, latent_dim)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3. 速度预测层</span></span><br><span class="line">        <span class="variable language_">self</span>.vel_layer = nn.Linear(mlp_encoder_dims[-<span class="number">1</span>], <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 4. Actor 网络：生成动作</span></span><br><span class="line">        <span class="variable language_">self</span>.actor = nn.Sequential(</span><br><span class="line">            *mlp_factory(</span><br><span class="line">                input_dims=latent_dim + num_prop + <span class="number">3</span>,  <span class="comment"># 潜在特征 + 当前观测 + 速度</span></span><br><span class="line">                out_dims=num_actions,</span><br><span class="line">                hidden_dims=actor_dims</span><br><span class="line">            )</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, actor_obs</span>):</span><br><span class="line">        <span class="comment"># actor_obs shape: (batch, history_length, num_prop)</span></span><br><span class="line">        obs = actor_obs[:, -<span class="number">1</span>, :]              <span class="comment"># 当前帧</span></span><br><span class="line">        obs_hist = actor_obs[:, <span class="number">1</span>:<span class="number">6</span>, :]       <span class="comment"># 历史帧</span></span><br><span class="line">        b, _, _ = obs_hist.size()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 编码历史</span></span><br><span class="line">        latent = <span class="variable language_">self</span>.mlp_encoder(obs_hist.reshape(b, -<span class="number">1</span>))</span><br><span class="line">        z = <span class="variable language_">self</span>.latent_layer(latent)</span><br><span class="line">        vel = <span class="variable language_">self</span>.vel_layer(latent)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 拼接特征并生成动作</span></span><br><span class="line">        actor_input = torch.cat([vel, z, obs], dim=-<span class="number">1</span>)</span><br><span class="line">        mean = <span class="variable language_">self</span>.actor(actor_input)</span><br><span class="line">        <span class="keyword">return</span> mean</span><br></pre></td></tr></table></figure>
-<p><strong>网络流程</strong>：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">历史观测 → MLP编码器 → 潜在特征 + 速度预测</span><br><span class="line">                              ↓</span><br><span class="line">              当前观测 → 拼接 → MLP Actor → 动作输出</span><br></pre></td></tr></table></figure></p>
-<h2 id="🎯-MLP-vs-其他网络"><a href="#🎯-MLP-vs-其他网络" class="headerlink" title="🎯 MLP vs 其他网络"></a>🎯 MLP vs 其他网络</h2><div class="table-container">
+<p><strong>网络流程</strong>：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">历史观测 → MLP编码器 → 潜在特征 + 速度预测</span><br><span class="line">                              ↓</span><br><span class="line">              当前观测 → 拼接 → MLP Actor → 动作输出</span><br></pre></td></tr></table></figure>
+<h2 id="🎯-MLP-vs-其他网络">🎯 MLP vs 其他网络</h2>
 <table>
 <thead>
 <tr>
@@ -306,30 +335,69 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h2 id="⚠️-MLP-的优缺点"><a href="#⚠️-MLP-的优缺点" class="headerlink" title="⚠️ MLP 的优缺点"></a>⚠️ MLP 的优缺点</h2><h3 id="优点-✅"><a href="#优点-✅" class="headerlink" title="优点 ✅"></a>优点 ✅</h3><ul>
+<h2 id="⚠️-MLP-的优缺点">⚠️ MLP 的优缺点</h2>
+<h3 id="优点-✅">优点 ✅</h3>
+<ul>
 <li><strong>简单直观</strong>：易于理解和实现</li>
 <li><strong>通用性强</strong>：适用于各种任务</li>
 <li><strong>并行计算</strong>：所有层可以批量并行处理</li>
 <li><strong>成熟稳定</strong>：训练技巧丰富</li>
 </ul>
-<h3 id="缺点-❌"><a href="#缺点-❌" class="headerlink" title="缺点 ❌"></a>缺点 ❌</h3><ul>
+<h3 id="缺点-❌">缺点 ❌</h3>
+<ul>
 <li><strong>参数量大</strong>：全连接导致参数爆炸</li>
 <li><strong>不考虑结构</strong>：忽略输入的空间/时间结构</li>
 <li><strong>容易过拟合</strong>：参数多需要正则化</li>
 <li><strong>需要固定输入</strong>：输入维度必须固定</li>
 </ul>
-<h2 id="🛠️-常用技巧"><a href="#🛠️-常用技巧" class="headerlink" title="🛠️ 常用技巧"></a>🛠️ 常用技巧</h2><h3 id="1-防止过拟合"><a href="#1-防止过拟合" class="headerlink" title="1. 防止过拟合"></a>1. 防止过拟合</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Dropout</span></span><br><span class="line">nn.Dropout(p=<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># L2 正则化（在优化器中）</span></span><br><span class="line">optimizer = torch.optim.Adam(model.parameters(), lr=<span class="number">1e-3</span>, weight_decay=<span class="number">1e-4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># BatchNorm</span></span><br><span class="line">nn.BatchNorm1d(hidden_dim)</span><br></pre></td></tr></table></figure>
-<h3 id="2-梯度问题"><a href="#2-梯度问题" class="headerlink" title="2. 梯度问题"></a>2. 梯度问题</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 梯度裁剪</span></span><br><span class="line">torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=<span class="number">1.0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用更好的初始化</span></span><br><span class="line">nn.init.xavier_uniform_(layer.weight)</span><br><span class="line">nn.init.kaiming_normal_(layer.weight, mode=<span class="string">&#x27;fan_out&#x27;</span>, nonlinearity=<span class="string">&#x27;relu&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="3-加速训练"><a href="#3-加速训练" class="headerlink" title="3. 加速训练"></a>3. 加速训练</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Layer Normalization</span></span><br><span class="line">nn.LayerNorm(hidden_dim)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 残差连接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ResidualMLP</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> x + <span class="variable language_">self</span>.mlp(x)  <span class="comment"># 跳跃连接</span></span><br></pre></td></tr></table></figure>
+<h2 id="🛠️-常用技巧">🛠️ 常用技巧</h2>
+<h3 id="1-防止过拟合">1. 防止过拟合</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Dropout</span></span><br><span class="line">nn.Dropout(p=<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># L2 正则化（在优化器中）</span></span><br><span class="line">optimizer = torch.optim.Adam(model.parameters(), lr=<span class="number">1e-3</span>, weight_decay=<span class="number">1e-4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># BatchNorm</span></span><br><span class="line">nn.BatchNorm1d(hidden_dim)</span><br></pre></td></tr></table></figure>
+<h3 id="2-梯度问题">2. 梯度问题</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 梯度裁剪</span></span><br><span class="line">torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=<span class="number">1.0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用更好的初始化</span></span><br><span class="line">nn.init.xavier_uniform_(layer.weight)</span><br><span class="line">nn.init.kaiming_normal_(layer.weight, mode=<span class="string">&#x27;fan_out&#x27;</span>, nonlinearity=<span class="string">&#x27;relu&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="3-加速训练">3. 加速训练</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Layer Normalization</span></span><br><span class="line">nn.LayerNorm(hidden_dim)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 残差连接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ResidualMLP</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> x + <span class="variable language_">self</span>.mlp(x)  <span class="comment"># 跳跃连接</span></span><br></pre></td></tr></table></figure>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -356,7 +424,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -391,7 +626,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

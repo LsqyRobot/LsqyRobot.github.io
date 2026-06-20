@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,27 +230,40 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >ros 的安装</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#docker上安装ros">docker上安装ROS</a></li>
-<li><a href="#ubuntu-上安装ros2">Ubuntu 上安装ROS2</a><ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#docker%E4%B8%8A%E5%AE%89%E8%A3%85ros">docker上安装ROS</a></li>
+<li><a href="#ubuntu-%E4%B8%8A%E5%AE%89%E8%A3%85ros2">Ubuntu 上安装ROS2</a>
+<ul>
 <li><a href="#connection-refused">Connection refused</a></li>
 </ul>
 </li>
-<li><a href="#install-ros1">Install ROS1</a><ul>
-<li><a href="#初始化rosdep">初始化rosdep</a></li>
-<li><a href="#创建并初始化工作目录">创建并初始化工作目录</a></li>
-<li><a href="#命令-ifconfig没有找到的问题">命令 <code>ifconfig</code>没有找到的问题</a></li>
+<li><a href="#install-ros1">Install ROS1</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96rosdep">初始化rosdep</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95">创建并初始化工作目录</a></li>
+<li><a href="#%E5%91%BD%E4%BB%A4-ifconfig%E6%B2%A1%E6%9C%89%E6%89%BE%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98">命令 <code>ifconfig</code>没有找到的问题</a></li>
 </ul>
 </li>
-<li><a href="#ros-rosdep-update更新失败简单解决">ROS rosdep update更新失败（简单解决）</a></li>
-<li><a href="#mac-m2芯片上安装ros">MAC M2芯片上安装ROS</a></li>
+<li><a href="#ros-rosdep-update%E6%9B%B4%E6%96%B0%E5%A4%B1%E8%B4%A5%E7%AE%80%E5%8D%95%E8%A7%A3%E5%86%B3">ROS rosdep update更新失败（简单解决）</a></li>
+<li><a href="#mac-m2%E8%8A%AF%E7%89%87%E4%B8%8A%E5%AE%89%E8%A3%85ros">MAC M2芯片上安装ROS</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>希望把一些自己学到的东西串联起来,所以学这个工具,可能要学习很长的时间,但是并不畏惧。很多内容源自于维基百科以及相关的书籍,比如《ROS机器人编程》等。</p>
-<h1 id="docker上安装ROS"><a href="#docker上安装ROS" class="headerlink" title="docker上安装ROS"></a>docker上安装ROS</h1><p>在macOs系统上,建议在docker上学习以及使用ros, 类似的,可以在docker中学习linux内核,可以节省系统的运行开销以及储存空间。下面简单的说明下docker的安装。命令行下输入</p>
+<h1>前言</h1>
+<p>希望把一些自己学到的东西串联起来,所以学这个工具,可能要学习很长的时间,但是并不畏惧。很多内容源自于维基百科以及相关的书籍,比如《ROS机器人编程》等。</p>
+<h1>docker上安装ROS</h1>
+<p>在macOs系统上,建议在docker上学习以及使用ros, 类似的,可以在docker中学习linux内核,可以节省系统的运行开销以及储存空间。下面简单的说明下docker的安装。命令行下输入</p>
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span>cask <span class="keyword">install </span>docker</span><br></pre></td></tr></table></figure>
 <p>下载成功后会出现</p>
 <figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">Moving App <span class="string">&#x27;Docker.app&#x27;</span> <span class="keyword">to</span> <span class="string">&#x27;/Applications/Docker.app&#x27;</span>.</span><br></pre></td></tr></table></figure>
@@ -259,13 +273,24 @@
 <figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">docker <span class="comment">--version</span></span><br></pre></td></tr></table></figure>
 <p>安装ros的方法使用了知乎用户<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/85664330">JK 触发器</a>提供的策略,在登入账号的前提下,在命令行下输入 ：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull yz16/my_ros</span><br></pre></td></tr></table></figure>
-<p>生成Container:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~;<span class="built_in">mkdir</span> ros_workspaces;</span><br><span class="line">docker run --name ros_env \</span><br><span class="line">--mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/Users/yourName/ros_workspaces,\</span><br><span class="line">target=/root/ros_workspaces \</span><br><span class="line">-itd -p 6080:80 yz16/my_ros</span><br></pre></td></tr></table></figure><br>浏览器打开 <a target="_blank" rel="noopener" href="http://127.0.0.1:6080">http://127.0.0.1:6080</a> 就可以强行操作一波了。</p>
-<p>确认容器有在运行,可以通过 docker ps 来查看,<br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">cd</span> ~;<span class="attribute">cd</span> ros_env;<span class="attribute">docker</span> ps</span><br></pre></td></tr></table></figure></p>
-<p>输出详情介绍：<br>1,CONTAINER ID: 容器 ID。<br>2,IMAGE: 使用的镜像。<br>3,COMMAND: 启动容器时运行的命令。<br>4,CREATED: 容器的创建时间。<br>5,STATUS: 容器状态。<br>6,PORTS: 容器的端口信息和使用的连接类型(tcp\udp)。<br>7,NAMES: 自动分配的容器名称。</p>
+<p>生成Container:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~;<span class="built_in">mkdir</span> ros_workspaces;</span><br><span class="line">docker run --name ros_env \</span><br><span class="line">--mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/Users/yourName/ros_workspaces,\</span><br><span class="line">target=/root/ros_workspaces \</span><br><span class="line">-itd -p 6080:80 yz16/my_ros</span><br></pre></td></tr></table></figure>
+<p>浏览器打开 <a target="_blank" rel="noopener" href="http://127.0.0.1:6080">http://127.0.0.1:6080</a> 就可以强行操作一波了。</p>
+<p>确认容器有在运行,可以通过 docker ps 来查看,</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">cd</span> ~;<span class="attribute">cd</span> ros_env;<span class="attribute">docker</span> ps</span><br></pre></td></tr></table></figure>
+<p>输出详情介绍：<br>
+1,CONTAINER ID: 容器 ID。<br>
+2,IMAGE: 使用的镜像。<br>
+3,COMMAND: 启动容器时运行的命令。<br>
+4,CREATED: 容器的创建时间。<br>
+5,STATUS: 容器状态。<br>
+6,PORTS: 容器的端口信息和使用的连接类型(tcp\udp)。<br>
+7,NAMES: 自动分配的容器名称。</p>
 <p>在宿主主机内使用 docker logs 命令,查看容器内的标准输出(先使用ps指令,查看文件夹中一连串的字母,再docker logs asdfadfs。</p>
 <p>以后启动和关闭就可以直接使用如下指令来解决：</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">docker <span class="literal">start</span>/<span class="literal">stop</span> ros_env</span><br></pre></td></tr></table></figure>
-<h1 id="Ubuntu-上安装ROS2"><a href="#Ubuntu-上安装ROS2" class="headerlink" title="Ubuntu 上安装ROS2"></a>Ubuntu 上安装ROS2</h1><p>下面主要是通过源码编译的方式实现的,踩了些坑,记录了一下；</p>
+<h1>Ubuntu 上安装ROS2</h1>
+<p>下面主要是通过源码编译的方式实现的,踩了些坑,记录了一下；</p>
 <p>1, 确保有一个支持<code>UTF-8</code>的locale设置。locale设置例子如下：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo locale-gen en_US en_US.UTF-8</span><br><span class="line">sudo update-locale <span class="attribute">LC_ALL</span>=en_US.UTF-8 <span class="attribute">LANG</span>=en_US.UTF-8</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">LANG</span>=en_US.UTF-8</span><br></pre></td></tr></table></figure>
 <p>2, 设置源：</p>
@@ -274,43 +299,46 @@
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt-get install build-essential </span><br><span class="line">sudo apt-get install cmake </span><br><span class="line">sudo apt-get install git </span><br><span class="line">sudo apt-get install python3-colcon-common-extensions </span><br><span class="line">sudo apt-get install python3-lark-parser </span><br><span class="line">sudo apt-get install python3-pip </span><br><span class="line">sudo apt-get install python3-rosdep2</span><br><span class="line">sudo apt-get python3-vcstool </span><br><span class="line">sudo apt-get wget</span><br><span class="line">python3 -m pip install -U <span class="string">\</span></span><br><span class="line">  argcomplete <span class="string">\</span></span><br><span class="line">  flake8 <span class="string">\</span></span><br><span class="line">  flake8-blind-except <span class="string">\</span></span><br><span class="line">  flake8-builtins <span class="string">\</span></span><br><span class="line">  flake8-<span class="keyword">class</span>-newline <span class="string">\</span></span><br><span class="line">  flake8-comprehensions <span class="string">\</span></span><br><span class="line">  flake8-deprecated <span class="string">\</span></span><br><span class="line">  flake8-docstrings <span class="string">\</span></span><br><span class="line">  flake8-<span class="keyword">import</span>-order <span class="string">\</span></span><br><span class="line">  flake8-quotes <span class="string">\</span></span><br><span class="line">  pytest-repeat <span class="string">\</span></span><br><span class="line">  pytest-rerunfailures <span class="string">\</span></span><br><span class="line">  pytest <span class="string">\</span></span><br><span class="line">  pytest-cov <span class="string">\</span></span><br><span class="line">  pytest-runner <span class="string">\</span></span><br><span class="line">  setuptools</span><br><span class="line">  </span><br><span class="line"><span class="comment"># install Fast-RTPS dependencies</span></span><br><span class="line">sudo apt install --<span class="literal">no</span>-install-recommends -y <span class="string">\</span></span><br><span class="line">  libasio-dev <span class="string">\</span></span><br><span class="line">  libtinyxml2-dev</span><br></pre></td></tr></table></figure>
 <p>4, 创建工作空间并进行下载源码</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/ros2_ws/src</span><br><span class="line"><span class="built_in">cd</span> ~/ros2_ws</span><br><span class="line">wget https://raw.githubusercontent.com/ros2/ros2/dashing/ros2.repos</span><br><span class="line">vcs import src &lt; ros2.repos</span><br></pre></td></tr></table></figure>
-<p>一、遇到的问题：<br>根据ROS2的官方编译教程步骤下载ROS包时,到vcs import src &lt; ros2.repos 或 vcs import —input ros2.repos src这一步报错或者下载速度极慢</p>
+<p>一、遇到的问题：<br>
+根据ROS2的官方编译教程步骤下载ROS包时,到vcs import src &lt; ros2.repos 或 vcs import --input ros2.repos src这一步报错或者下载速度极慢</p>
 <p>搜索到了以下三个网址,尝试了都不行,会显示 <code>Could not resolve host</code>等错误</p>
 <figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">https:</span><span class="comment">//github.com.cnpmjs.org/</span></span><br><span class="line"><span class="symbol">https:</span><span class="comment">//hub.fastgit.org/</span></span><br><span class="line"><span class="symbol">https:</span><span class="comment">//hub.fastgit.xyz/</span></span><br></pre></td></tr></table></figure>
 <p>替换成<code>https://kgithub.com/</code>,这个目前是可以的(2023年6月3号测试没问题)</p>
 <p>5, 用rosdep安装依赖项</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> rosdep init</span><br><span class="line">rosdep update</span><br></pre></td></tr></table></figure>
-<p>在<code>rosdep update</code>的过程中可能会因为网络的问题而报错, 自己这边连续试了两次才正常的update成功, 如下图所示</p>
-<p><img src="/img/postImg/1_ros/4_install_ros/3_rosdep_update_ubuntu_1804.png" width="50%" height="30%"></p>
+<p>在<code>rosdep update </code>的过程中可能会因为网络的问题而报错, 自己这边连续试了两次才正常的update成功, 如下图所示</p>
+<img src="/img/postImg/1_ros/4_install_ros/3_rosdep_update_ubuntu_1804.png" width="50%" height="30%">
 <p>然后再</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">rosdep install <span class="attr">--from-paths</span> <span class="attribute">src</span> <span class="attr">--ignore-src</span> <span class="attr">--rosdistro</span> dashing -<span class="attribute">y</span> <span class="attr">--skip-keys</span> &quot;console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-<span class="number">5.3</span>.<span class="number">1</span> urdfdom_headers&quot;</span><br></pre></td></tr></table></figure>
 <p>6, 编译所有包</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> ~<span class="string">/ros2_ws/</span></span><br><span class="line">colcon build <span class="params">--symlink-install</span></span><br></pre></td></tr></table></figure>
 <p>编译过程如下</p>
-<p><img src="/img/postImg/1_ros/4_install_ros/4_ros_complie_proess.png" width="80%" height="80%"></p>
+<img src="/img/postImg/1_ros/4_install_ros/4_ros_complie_proess.png" width="80%" height="80%">
 <p>编译时间那叫做一个相当长。。。。。问题是还出错了。。。</p>
-<p><img src="/img/postImg/1_ros/4_install_ros/5_ros2_complie_ERR.png" width="80%" height="100%"></p>
+<img src="/img/postImg/1_ros/4_install_ros/5_ros2_complie_ERR.png" width="80%" height="100%">
 <p>排查了一圈后,结果发现是虚拟机里内存不够了,欲哭无泪啊。。。。解决起来稍微有点麻烦。。。。日了, 如果同样遇到了这个问题,可以按照如下步骤来重置虚拟机, 现在开启虚拟机就会在启动的时候显示<code>[FAILED]Failed to start Login Service</code>, 需要进行如下几步</p>
 <p>1, 进入Recovery模式,自己又从网上查了两种方式,一个是长按<code>Shift</code>另一种是长按<code>e</code>, 亲测无效,且大无语,搞了好几次, 按住<code>Esc</code>的方式结果闪了1秒不到,就又到开机界面了,后面尝试了几次才知道,按1下就行了,不要长按；</p>
 <p>2, 进入到<code>root</code>模式</p>
-<p><img src="/img/postImg/1_ros/4_install_ros/1_Ubuntu_root_mode.png" width="50%" height="30%"></p>
+<img src="/img/postImg/1_ros/4_install_ros/1_Ubuntu_root_mode.png" width="50%" height="30%">
 <p>3,  输入如下命令后大概就有几百兆的存储空间了,然后再去扩充下磁盘</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> autoclean</span><br><span class="line">sudo apt-<span class="built_in">get</span> clean</span><br></pre></td></tr></table></figure>
 <p>在拓展磁盘的过程中还发现了Ubuntu里面自带分析内存的旭日图。。。真神奇。。。</p>
-<p><img src="/img/postImg/1_ros/4_install_ros/2_Ubuntu_xuri.png" width="50%" height="30%"></p>
+<img src="/img/postImg/1_ros/4_install_ros/2_Ubuntu_xuri.png" width="50%" height="30%">
 <p>主要是用如下方法去进行</p>
 <p>1, 使用命令安装分区管理工具gparted</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install gparted</span><br></pre></td></tr></table></figure>
 <p>2, 使用命令启动分区管理工具</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> gparted</span><br></pre></td></tr></table></figure>
 <p>然后把想拓展的磁盘拉满就可以了。。。</p>
-<p><img src="/img/postImg/1_ros/4_install_ros/6_gparted_expand.png" width="50%" height="30%"></p>
+<img src="/img/postImg/1_ros/4_install_ros/6_gparted_expand.png" width="50%" height="30%">
 <p>拉满后点击确认,最后分配成功的时候看一下detail就行了</p>
-<p><img src="/img/postImg/1_ros/4_install_ros/7_parted_OK.png" width="50%" height="30%"></p>
+<img src="/img/postImg/1_ros/4_install_ros/7_parted_OK.png" width="50%" height="30%">
 <p>然后通过命令<code>df -h</code>查看下当前磁盘的空间,让心里有个底；然后再回到编译的过程,又是漫长的等待。。。。。</p>
-<h2 id="Connection-refused"><a href="#Connection-refused" class="headerlink" title="Connection refused"></a>Connection refused</h2><p>使用vim /etc/hosts命令打开不能访问的机器的hosts文件,添加如下内容：(如果不能修改这个文件的情况下,采用<code>sudu -i</code>进入管理员模式对这个文件进行修改即可)</p>
+<h2 id="Connection-refused">Connection refused</h2>
+<p>使用vim /etc/hosts命令打开不能访问的机器的hosts文件,添加如下内容：(如果不能修改这个文件的情况下,采用<code>sudu -i</code>进入管理员模式对这个文件进行修改即可)</p>
 <figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line"><span class="number">199.232.68.133</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">199.232.68.133</span> user-images.githubusercontent.com</span><br><span class="line"><span class="number">199.232.68.133</span> avatars2.githubusercontent.com</span><br><span class="line"><span class="number">199.232.68.133</span> avatars1.githubusercontent.com</span><br></pre></td></tr></table></figure>
-<h1 id="Install-ROS1"><a href="#Install-ROS1" class="headerlink" title="Install ROS1"></a>Install ROS1</h1><p>鉴于很多视频介绍或者是书籍,都是基于较老的版本的ROS,也就是ROS1 版本了,其实安装起来非常简单,不过建议添加清华大学的镜像,这样快一些</p>
+<h1>Install ROS1</h1>
+<p>鉴于很多视频介绍或者是书籍,都是基于较老的版本的ROS,也就是ROS1 版本了,其实安装起来非常简单,不过建议添加清华大学的镜像,这样快一些</p>
 <figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apt/sources<span class="meta">.list</span>.d/ros-latest<span class="meta">.list</span></span><br></pre></td></tr></table></figure>
 <p>然后添加或替换成如下内容</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">deb https:<span class="regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="regexp">/ros/u</span>buntu/ focal main</span><br></pre></td></tr></table></figure>
@@ -319,38 +347,80 @@
 <p>我看的书籍是基于<code>ros-kinetic</code>的,但是感觉都差不多,于是就直接安装了<code>ros-noetic</code>这个版本的了,估计等我完全熟悉的时候,这个版本依旧不会过时；</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ros-noetic-desktop-full</span><br></pre></td></tr></table></figure>
 <p>还好个人网速给力,安装起来比上面用ROS2的用源码编译快得多了；后续的操作直接去看官网吧,就不一一复制下来了 <code>http://wiki.ros.org/noetic/Installation/Ubuntu</code></p>
-<h2 id="初始化rosdep"><a href="#初始化rosdep" class="headerlink" title="初始化rosdep"></a>初始化rosdep</h2><p>在使用ROS之前,必须初始化rosdep。rosdep是一个通过在使用或编译ros的核心组 件时轻松安装依赖包来增强用户便利的功能。</p>
+<h2 id="初始化rosdep">初始化rosdep</h2>
+<p>在使用ROS之前,必须初始化rosdep。rosdep是一个通过在使用或编译ros的核心组 件时轻松安装依赖包来增强用户便利的功能。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> rosdep init</span><br><span class="line">rosdep update</span><br></pre></td></tr></table></figure>
-<h2 id="创建并初始化工作目录"><a href="#创建并初始化工作目录" class="headerlink" title="创建并初始化工作目录"></a>创建并初始化工作目录</h2><p>ROS使用一个名为catkin的ROS专用构建系统。为了使用它,用户需要创建并初始化 catkin工作目录,如下所示。除非用户创建新的工作目录,否则此设置只需设置一次。</p>
+<h2 id="创建并初始化工作目录">创建并初始化工作目录</h2>
+<p>ROS使用一个名为catkin的ROS专用构建系统。为了使用它,用户需要创建并初始化 catkin工作目录,如下所示。除非用户创建新的工作目录,否则此设置只需设置一次。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/catkin_ws/src</span><br><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src</span><br><span class="line">catkin_init_workspace</span><br></pre></td></tr></table></figure>
-<h2 id="命令-ifconfig没有找到的问题"><a href="#命令-ifconfig没有找到的问题" class="headerlink" title="命令 ifconfig没有找到的问题"></a>命令 <code>ifconfig</code>没有找到的问题</h2><p>输入如下指令安装即可</p>
+<h2 id="命令-ifconfig没有找到的问题">命令 <code>ifconfig</code>没有找到的问题</h2>
+<p>输入如下指令安装即可</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install net-tools</span><br></pre></td></tr></table></figure>
 <p>这个主要是为了一些配置所用；</p>
-<h1 id="ROS-rosdep-update更新失败（简单解决）"><a href="#ROS-rosdep-update更新失败（简单解决）" class="headerlink" title="ROS rosdep update更新失败（简单解决）"></a>ROS rosdep update更新失败（简单解决）</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pip install rosdepc</span><br></pre></td></tr></table></figure>
-<h1 id="MAC-M2芯片上安装ROS"><a href="#MAC-M2芯片上安装ROS" class="headerlink" title="MAC M2芯片上安装ROS"></a>MAC M2芯片上安装ROS</h1><p>有的时候发现自己的虚拟机网络被墙，导致很多仿真无法进行下去，于是乎，就想办法不用虚拟机，因为自己虚拟机是ARM 64系统下的，翻墙实在不易，干脆就直接在自己电脑里面安装ROS了，运气好的是，在CSDN上就有人实现了这点，我就直接抄了，原文可见<a target="_blank" rel="noopener" href="https://blog.csdn.net/jyw0401/article/details/130839211">macOS在miniconda下配置安装ROS1</a>, 下面就属于搬运内容了</p>
+<h1>ROS rosdep update更新失败（简单解决）</h1>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pip install rosdepc</span><br></pre></td></tr></table></figure>
+<h1>MAC M2芯片上安装ROS</h1>
+<p>有的时候发现自己的虚拟机网络被墙，导致很多仿真无法进行下去，于是乎，就想办法不用虚拟机，因为自己虚拟机是ARM 64系统下的，翻墙实在不易，干脆就直接在自己电脑里面安装ROS了，运气好的是，在CSDN上就有人实现了这点，我就直接抄了，原文可见<a target="_blank" rel="noopener" href="https://blog.csdn.net/jyw0401/article/details/130839211">macOS在miniconda下配置安装ROS1</a>, 下面就属于搬运内容了</p>
 <p>1, 安装<a target="_blank" rel="noopener" href="https://docs.conda.io/projects/miniconda/en/latest/">miniconda</a>, 如果自己安装了anaconda的话，在bashrc或者zshrc中给注释掉相关内容即可，没必要卸载掉, 找到如图所示的内容，安装即可</p>
 <p><img src="/img/postImg/1_ros/5_install_on_mac/miniConda.png" alt=""></p>
 <p>2, 创建新的环境</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">conda</span> create -n ROS  #如果下载的环境为<span class="number">3</span>.<span class="number">8</span>版本conda,则不写指定python版本</span><br></pre></td></tr></table></figure>
-<p>3, 配置虚拟环境<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment">#激活境ROS</span></span><br><span class="line">conda activate ROS</span><br><span class="line"><span class="comment">#配置当前环境</span></span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">add</span> channels conda-forge</span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">add</span> channels robostack</span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">set</span> channel_priority strict</span><br></pre></td></tr></table></figure></p>
+<p>3, 配置虚拟环境</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment">#激活境ROS</span></span><br><span class="line">conda activate ROS</span><br><span class="line"><span class="comment">#配置当前环境</span></span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">add</span> channels conda-forge</span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">add</span> channels robostack</span><br><span class="line">conda<span class="built_in"> config </span>--<span class="built_in">set</span> channel_priority strict</span><br></pre></td></tr></table></figure>
 <p>4, 安装ROS noetic</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装noetic版本</span></span><br><span class="line">conda <span class="keyword">install</span> ros-noetic-desktop-full</span><br></pre></td></tr></table></figure>
-<p>5, 安装附加工具<br><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">conda <span class="keyword">install </span>compilers cmake pkg-<span class="built_in">config</span> make ninja catkin_tools</span><br></pre></td></tr></table></figure></p>
-<p>6, 重新加载ROS环境<br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">conda <span class="built_in">deactivate</span></span><br><span class="line">conda <span class="built_in">activate</span> ROS</span><br></pre></td></tr></table></figure></p>
-<p>7, ROS 初始化<br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">rosdep <span class="keyword">init</span></span><br><span class="line">rosdep update</span><br></pre></td></tr></table></figure></p>
+<p>5, 安装附加工具</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">conda <span class="keyword">install </span>compilers cmake pkg-<span class="built_in">config</span> make ninja catkin_tools</span><br></pre></td></tr></table></figure>
+<p>6, 重新加载ROS环境</p>
+<figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">conda <span class="built_in">deactivate</span></span><br><span class="line">conda <span class="built_in">activate</span> ROS</span><br></pre></td></tr></table></figure>
+<p>7, ROS 初始化</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">rosdep <span class="keyword">init</span></span><br><span class="line">rosdep update</span><br></pre></td></tr></table></figure>
 <p>接下来就可以创建工作空间来验证安装是否OK了</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/catkin_ws/src</span><br><span class="line"><span class="built_in">cd</span>  ~/catkin_ws/src</span><br><span class="line">catkin_init_workspace</span><br><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
 <p>得到的结果如图所示</p>
 <p><img src="/img/postImg/1_ros/5_install_on_mac/catkin_make_OK.png" alt=""></p>
 <p>这就已经表明安装成功了</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -377,7 +447,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -412,7 +649,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

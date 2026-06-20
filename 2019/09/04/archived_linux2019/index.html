@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,23 +230,35 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >linux 初探</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#远程ssh">远程ssh</a></li>
-<li><a href="#免密码登陆">免密码登陆</a></li>
-<li><a href="#说明">说明</a></li>
-<li><a href="#shell-脚本编程">SHELL 脚本编程</a><ul>
-<li><a href="#if-then-语句">if-then 语句</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E8%BF%9C%E7%A8%8Bssh">远程ssh</a></li>
+<li><a href="#%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86">免密码登陆</a></li>
+<li><a href="#%E8%AF%B4%E6%98%8E">说明</a></li>
+<li><a href="#shell-%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B">SHELL 脚本编程</a>
+<ul>
+<li><a href="#if-then-%E8%AF%AD%E5%8F%A5">if-then 语句</a></li>
 </ul>
 </li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记得一开始入门Linux是因为在windows中安装ros太折腾了,虽然最终安装ok了(后来却没有去学习),但过程很不爽,一气之下就转战了ubuntu(2018年夏),真的时间不等人啊,使用这个系统,基本上就是工作在一个黑框下,配置着绿色的字体(嗯,原谅绿),  当然,为了简化日常操作,通过<a target="_blank" rel="noopener" href="https://ohmyz.sh/">oh-my-zsh</a>配置了自己的zsh(说好的折腾呢？),下面是自己的插件,plugins=(git  zsh-autosuggestions wd extract z) ,就说一个extract吧,一个x基本就能解压所有压缩格式了,是不是。。。很方便？感兴趣的自己去搜搜吧,插件不要太多,就像vim一样,插件太多了,会适得其反。 当然值得一提的还是zsh-autosuggestions, 自知记性不太好,有的时候只是知道个模糊的开头,这个工具就可以大大的简化自己的日常操作,很是过瘾啊。 扯个题外话,git是非常值得拥有的工具,可以将自己的本地的文本<strong>免费</strong>的托管到github,即使换其他的电脑也不耽误事,很是方便。 也许多年之后返回来看一些东西,别有另一番的感觉呢？</p>
+<h1>前言</h1>
+<p>记得一开始入门Linux是因为在windows中安装ros太折腾了,虽然最终安装ok了(后来却没有去学习),但过程很不爽,一气之下就转战了ubuntu(2018年夏),真的时间不等人啊,使用这个系统,基本上就是工作在一个黑框下,配置着绿色的字体(嗯,原谅绿),  当然,为了简化日常操作,通过<a target="_blank" rel="noopener" href="https://ohmyz.sh/">oh-my-zsh</a>配置了自己的zsh(说好的折腾呢？),下面是自己的插件,plugins=(git  zsh-autosuggestions wd extract z) ,就说一个extract吧,一个x基本就能解压所有压缩格式了,是不是。。。很方便？感兴趣的自己去搜搜吧,插件不要太多,就像vim一样,插件太多了,会适得其反。 当然值得一提的还是zsh-autosuggestions, 自知记性不太好,有的时候只是知道个模糊的开头,这个工具就可以大大的简化自己的日常操作,很是过瘾啊。 扯个题外话,git是非常值得拥有的工具,可以将自己的本地的文本<strong>免费</strong>的托管到github,即使换其他的电脑也不耽误事,很是方便。 也许多年之后返回来看一些东西,别有另一番的感觉呢？</p>
 <p>另外值得推荐的工具就是<a target="_blank" rel="noopener" href="https://github.com/soimort/you-get">you-get</a> 了, 要学习很多视频,很多视频是值得收藏与学习的,用you-get可以从命令行中下载自己想要的视频,是不是很过瘾呢,感兴趣的自己搜一下吧,如果想下载其他的alias这个工具也是不错的。 突然又想到了个事,文件的权限问题,有时不要乱给文件赋予高级权限(比如随手sudo chmod +777 给一个文件,早晚得吃亏),万一那个文件是间谍咋整。。。。。</p>
-<p>偶尔会去调试别人发布在github中的python程序(好奇心的驱使),安装需要依赖的包的时候以及管理python环境时anconda是个非常不错的选择。主要是方便管理环境,貌似在Windows里面不只是要把bin文件目录添加到环境变量中,还有其他的东西要添加,比较折腾. 还有比如you-get这类工具是对python的环境是有依赖的,所以了解ananconda还是能节省些时间,总不想在配置环境的时候就耽误很多时间吧。 </p>
-<h1 id="远程ssh"><a href="#远程ssh" class="headerlink" title="远程ssh"></a>远程ssh</h1><p>ssh用起来是非常方便的,下面搬运<a target="_blank" rel="noopener" href="https://yangbingdong.com/2017/note-of-linux-command/">yangbingdong</a>博客里的内容。安装ssh</p>
+<p>偶尔会去调试别人发布在github中的python程序(好奇心的驱使),安装需要依赖的包的时候以及管理python环境时anconda是个非常不错的选择。主要是方便管理环境,貌似在Windows里面不只是要把bin文件目录添加到环境变量中,还有其他的东西要添加,比较折腾. 还有比如you-get这类工具是对python的环境是有依赖的,所以了解ananconda还是能节省些时间,总不想在配置环境的时候就耽误很多时间吧。</p>
+<h1>远程ssh</h1>
+<p>ssh用起来是非常方便的,下面搬运<a target="_blank" rel="noopener" href="https://yangbingdong.com/2017/note-of-linux-command/">yangbingdong</a>博客里的内容。安装ssh</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ssh</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl status ssh --no-pager</span><br></pre></td></tr></table></figure>
 <p>查看启动成功: <code>ps -e|grep ssh</code>, 如果看到<code>sshd</code>那代表成功了, 如果没有, 执行:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span>/etc/init.d/ssh start</span><br></pre></td></tr></table></figure>
@@ -255,22 +268,24 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;your_email@youremail.com&quot;</span></span><br></pre></td></tr></table></figure>
 <p>默认的<code>RSA</code>长度是2048位, 如果非常注重安全, 那么可以指定4096位的长度,剩下的基本一路Enter.</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -b 4096 -t rsa -C <span class="string">&quot;your_email@youremail.com&quot;</span></span><br></pre></td></tr></table></figure>
-<h1 id="免密码登陆"><a href="#免密码登陆" class="headerlink" title="免密码登陆"></a>免密码登陆</h1><p>参考如下</p>
+<h1>免密码登陆</h1>
+<p>参考如下</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">cat ~<span class="string">/.ssh/id_ed25519.pub</span> | ssh cat@192.168.123.18 &#x27;mkdir -p ~<span class="string">/.ssh</span> &amp;&amp; chmod 700 ~<span class="string">/.ssh</span> &amp;&amp; cat &gt;&gt; ~<span class="string">/.ssh/authorized_keys</span> &amp;&amp; chmod 600 ~<span class="string">/.ssh/authorized_keys</span>&#x27;</span><br></pre></td></tr></table></figure>
-<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>1, linux内核是操作系统的核心,分进程管理,储存管理,文件管理,设备管理和网络管理。进程管理:进程控制、进程同步、进程通信、死锁处理、处理机调度等。内存管理:内存分配、地址映射、内存保护与共享、虚拟内存等。 文件管理:文件存储空间的管理、目录管理、文件读写管理和保护等。设备管理:完成用户的 I/O 请求,方便用户使用各种设备,并提高设备的利用率。</p>
-<p>2,  用 /  代替 cd / ；用 .. 代替 cd .. ；用 …. 代替 cd ../..；用 ~  代替 cd ~。复制ctrl shift c</p>
+<h1>说明</h1>
+<p>1, linux内核是操作系统的核心,分进程管理,储存管理,文件管理,设备管理和网络管理。进程管理:进程控制、进程同步、进程通信、死锁处理、处理机调度等。内存管理:内存分配、地址映射、内存保护与共享、虚拟内存等。 文件管理:文件存储空间的管理、目录管理、文件读写管理和保护等。设备管理:完成用户的 I/O 请求,方便用户使用各种设备,并提高设备的利用率。</p>
+<p>2,  用 /  代替 cd / ；用 … 代替 cd … ；用 …. 代替 cd …/…；用 ~  代替 cd ~。复制ctrl shift c</p>
 <p>3, 远程传输文件可以用scp指令,将文件/文件夹 从远程服务器拷至本地(,这里采用默认的端口,换端口用-P指令就行)</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">scp -r username<span class="variable">@192</span>.<span class="number">168.0</span>.<span class="number">1</span><span class="symbol">:/home/username/remotefile</span>.txt</span><br><span class="line">反之 scp -r  username<span class="variable">@192</span>.<span class="number">168.0</span>.<span class="number">1</span><span class="symbol">:/home/username/someFile</span> /home/username/someWhere。</span><br></pre></td></tr></table></figure>
 <p>4, 找到重复文件并进行相关处理的工具rdfind,使用命令rdfind ∼/Downloads,结果存储到当前工作目录下一个名为 results.txt的文件中。可以在 results.txt 文件中看到可能是重复文件的名字。删除重复文件,就运行：  rdfind -deleteduplicates true ∼/Downloads。</p>
 <p>5, tree 工具。它能够以一种美观的方式展示目录、子目录及其中的文件。如果需要了解目录结构,尤其是在删除目录之前,这款工具正好能派上用场(自己的系统中无,需要安装)。</p>
-<p>6, 递归下载抓取整个网站内容wget -r -p -k -np <URL>。其中,<code>-p</code>: 下载所有用于显示 HTML 页面的图片之类的元素,-k<code>: 在转换文件 X 前先将它备份为</code>X.orig,<code>-np</code>: 不追溯至父目录。</p>
+<p>6, 递归下载抓取整个网站内容wget -r -p -k -np <URL>。其中,<code>-p</code>: 下载所有用于显示 HTML 页面的图片之类的元素,-k<code>: 在转换文件 X 前先将它备份为 </code>X.orig,<code>-np</code>: 不追溯至父目录。</p>
 <p>7, df 和 du 这两个指令可以方便的查看磁盘或者是文件的的空间大小。</p>
-<p>8,  ‘&gt;’会覆盖原有文件的内容,而’&gt;&gt;’会追加在文件的后面,比如添加一个新的路径,用了’&gt;’然后source ~/.zshrc后,等着哭吧.</p>
+<p>8,  '&gt;‘会覆盖原有文件的内容,而’&gt;&gt;‘会追加在文件的后面,比如添加一个新的路径,用了’&gt;'然后source ~/.zshrc后,等着哭吧.</p>
 <p>9, 使用ctrl-r搜索命令历史记录,反复按ctrl-r循环切换更多匹配,按Enter键执行找到的命令。当然,如果安装了<span id = "inline-blue"> autosuggestions </span>这个插件,会自动显示出来,所以说是个非常推荐的zsh插件。</p>
 <p>10, 使用ctrl-w删除最后一个单词；使用ctrl-u将当前光标中的内容删除回行的开头；ctrl -a将光标移动到行首；ctrl -e将光标移动到行尾；ctrl -k删除到行尾,ctrl -l 清除屏幕。</p>
 <p>11, 返回到上一次的文件夹中可以使用cd -指令, 对于进程的树状形式可以使用指令pstree -p, 查看哪些用户在此电脑上一个w就O了,如果嫌一个指令太长,可以将那个指令通过alias简化,并输入到SHELL配置文件中(.bashrc,.zshrc)。</p>
-<p>12, 超快的文件搜索工具<a target="_blank" rel="noopener" href="https://github.com/ggreer/the_silver_searcher">Ag</a>,并在vim的配置文件中输入let g:ackprg = ‘ag —vimgrep’,　这样搜索片段的时候会快的很多。 </p>
-<p>13, touch 创建多个文件比如 touch test_{1..100}.txt, 配合着seq命令使用,有很好的效果,比如 touch $(seq -f ‘vel%g.txt’ 1 10), 或者是中间加一个间隔touch $(seq -f ‘vel%g.txt’ 1 2 10),这个对于自己在做实物测试数据的时候起到了不少的帮助。</p>
+<p>12, 超快的文件搜索工具<a target="_blank" rel="noopener" href="https://github.com/ggreer/the_silver_searcher">Ag</a>,并在vim的配置文件中输入let g:ackprg = ‘ag --vimgrep’,　这样搜索片段的时候会快的很多。</p>
+<p>13, touch 创建多个文件比如 touch test_{1…100}.txt, 配合着seq命令使用,有很好的效果,比如 touch $(seq -f ‘vel%g.txt’ 1 10), 或者是中间加一个间隔touch $(seq -f ‘vel%g.txt’ 1 2 10),这个对于自己在做实物测试数据的时候起到了不少的帮助。</p>
 <p>14, 常见的Linux顶层虚拟目录名及其内容</p>
 <details>
 <summary>
@@ -278,8 +293,6 @@
 </summary>
 <figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;table&#125;</span><br><span class="line">    <span class="keyword">\begin</span>&#123;tabular&#125; &#123;ll&#125;</span><br><span class="line">        <span class="keyword">\hline</span></span><br><span class="line">    目录<span class="built_in">&amp;</span>　　　　　用途                                                        <span class="keyword">\\</span>   <span class="keyword">\hline</span></span><br><span class="line">/       <span class="built_in">&amp;</span>    虚拟目录的根目录。通常不会在这里存储文件                          <span class="keyword">\\</span></span><br><span class="line">/bin    <span class="built_in">&amp;</span>    二进制目录,存放许多用户级的GNU工具                                <span class="keyword">\\</span></span><br><span class="line">/boot   <span class="built_in">&amp;</span>       启动目录,存放启动文件                                          <span class="keyword">\\</span></span><br><span class="line">/dev    <span class="built_in">&amp;</span>      设备目录,Linux在这里创建设备节点                                <span class="keyword">\\</span></span><br><span class="line">/etc    <span class="built_in">&amp;</span>     系统配置文件目录                                                 <span class="keyword">\\</span></span><br><span class="line">/home   <span class="built_in">&amp;</span>     主目录,Linux在这里创建用户目录                                   <span class="keyword">\\</span></span><br><span class="line">/lib    <span class="built_in">&amp;</span>    库目录,存放系统和应用程序的库文件                                 <span class="keyword">\\</span></span><br><span class="line">/media  <span class="built_in">&amp;</span>    媒体目录,可移动媒体设备的常用挂载点                               <span class="keyword">\\</span></span><br><span class="line">/mnt    <span class="built_in">&amp;</span>      挂载目录,另一个可移动媒体设备的常用挂载点                       <span class="keyword">\\</span></span><br><span class="line">/opt    <span class="built_in">&amp;</span>      可选目录,常用于存放第三方软件包和数据文件                       <span class="keyword">\\</span></span><br><span class="line">/proc   <span class="built_in">&amp;</span>      进程目录,存放现有硬件及当前进程的相关信息                       <span class="keyword">\\</span></span><br><span class="line">/root   <span class="built_in">&amp;</span>      root用户的主目录                                                <span class="keyword">\\</span></span><br><span class="line">/sbin   <span class="built_in">&amp;</span>   系统二进制目录,存放许多GNU管理员级工具                             <span class="keyword">\\</span></span><br><span class="line">/run    <span class="built_in">&amp;</span>     运行目录,存放系统运作时的运行时数据                              <span class="keyword">\\</span></span><br><span class="line">/srv    <span class="built_in">&amp;</span>  服务目录,存放本地服务的相关文件                                     <span class="keyword">\\</span></span><br><span class="line">/sys    <span class="built_in">&amp;</span>  系统目录,存放系统硬件信息的相关文件                                 <span class="keyword">\\</span></span><br><span class="line">/tmp    <span class="built_in">&amp;</span>  临时目录,可以在该目录中创建和删除临时工作文件                       <span class="keyword">\\</span></span><br><span class="line">/usr    <span class="built_in">&amp;</span>  用户二进制目录,大量用户级的GNU工具和数据文件都存储在这里            <span class="keyword">\\</span></span><br><span class="line">/var    <span class="built_in">&amp;</span>  可变目录,用以存放经常变化的文件,比如日志文件                        <span class="keyword">\\</span>  <span class="keyword">\hline</span></span><br><span class="line"><span class="keyword">\end</span>&#123;tabular&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;table&#125;</span><br></pre></td></tr></table></figure>
 </details>
-
-
 <p>这种分类,给自己编程带来了很多的便利,当然,写一两个函数时候当然无所谓,当函数比较多的时候,就有一点费劲了,将一些函数分类,比如专门存放输出数据的放在一起,方便后续编程来处理这些数据等等.</p>
 <p>top 指令根据进程的属主(用户还是系统)和进程的状态(运行、空闲还是等待)将CPU利用率分成几类输出。显示的结果代表的意思：</p>
 <details>
@@ -288,7 +301,6 @@
 </summary>
 <figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;itemize&#125;</span><br><span class="line">    <span class="keyword">\item</span> PID:进程的ID。</span><br><span class="line">    <span class="keyword">\item</span> USER:进程属主的名字。</span><br><span class="line">    <span class="keyword">\item</span> PR:进程的优先级。</span><br><span class="line">    <span class="keyword">\item</span> NI:进程的谦让度值。</span><br><span class="line">    <span class="keyword">\item</span> VIRT:进程占用的虚拟内存总量。</span><br><span class="line">    <span class="keyword">\item</span> RES:进程占用的物理内存总量。</span><br><span class="line">    <span class="keyword">\item</span> SHR:进程和其他进程共享的内存总量。</span><br><span class="line">    <span class="keyword">\item</span> S:进程的状态(D代表可中断的休眠状态,R代表在运行状态,S代表休眠状态,T代表</span><br><span class="line">    <span class="keyword">\item</span> 踪状态或停止状态,Z代表僵化状态)</span><br><span class="line">    <span class="keyword">\item</span> <span class="keyword">\%</span>CPU:进程使用的CPU时间比例。                                               </span><br><span class="line">    <span class="keyword">\item</span> <span class="keyword">\%</span>MEM:进程使用的内存占可用内存的比例。</span><br><span class="line">    <span class="keyword">\item</span> TIME+:自进程启动到目前为止的CPU时间总量。</span><br><span class="line">    <span class="keyword">\item</span> COMMAND:进程所对应的命令行名称,也就是启动的程序名。</span><br><span class="line"><span class="keyword">\end</span>&#123;itemize&#125;</span><br></pre></td></tr></table></figure>
 </details>
-
 <p>结束进程指令kill,kill 命令可通过进程ID(PID)给进程发信号。默认情况下, kill 命令会向命令行中列出的全部PID发送一个 TERM 信号。</p>
 <details>
 <summary>
@@ -296,8 +308,6 @@
 </summary>
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\begin&#123;table&#125;</span></span><br><span class="line">    <span class="string">\begin&#123;tabular&#125;&#123;lll&#125;</span></span><br><span class="line">        <span class="string">\hline</span></span><br><span class="line">信号　&amp;　　　 名称       　　&amp;  　描述                               <span class="string">\\</span>  <span class="string">\hline</span></span><br><span class="line"><span class="number">1</span>     &amp;       HUP            &amp;    挂起                                <span class="string">\\</span></span><br><span class="line"><span class="number">2</span>     &amp;       INT            &amp;    中断                                <span class="string">\\</span></span><br><span class="line"><span class="number">3</span>     &amp;       QUIT           &amp;    结束运行                           <span class="string">\\</span></span><br><span class="line"><span class="number">9</span>     &amp;       KILL           &amp;    无条件终止                         <span class="string">\\</span></span><br><span class="line"><span class="number">11</span>    &amp;       SEGV           &amp;    段错误                             <span class="string">\\</span></span><br><span class="line"><span class="number">15</span>    &amp;       TERM           &amp;    尽可能终止                         <span class="string">\\</span></span><br><span class="line"><span class="number">17</span>    &amp;       STOP           &amp;    无条件停止运行,但不终止            <span class="string">\\</span></span><br><span class="line"><span class="number">18</span>    &amp;       TSTP           &amp;    停止或暂停,但继续在后台运行        <span class="string">\\</span></span><br><span class="line"><span class="number">19</span>    &amp;       CONT           &amp;    在 STOP 或 TSTP 之后恢复执行       <span class="string">\\</span>  <span class="string">\hline</span></span><br><span class="line">    <span class="string">\end&#123;tabular&#125;</span></span><br><span class="line">    <span class="string">\caption&#123;linux进程信号&#125;</span></span><br><span class="line"><span class="string">\end&#123;table&#125;</span></span><br></pre></td></tr></table></figure>
 </details>
-
-
 <p>当然使用kill的一种好的方法就是配合着 ps 与grep, 通过查找特定进程来将程序关闭。</p>
 <p>一般在Linux中绘制流程图会使用<a href="plantuml.com">plantUML</a>, 当然 ,还是为了提高些效率 ,记不得之前在哪写过关于这方面的东西了, 先不管了, 如果嫌弃自带的分辨率太低的话, 可以使用如下方式更改其分辨率的大小, 比如</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">scale</span> <span class="attribute">x</span>*<span class="attribute">y</span></span><br></pre></td></tr></table></figure>
@@ -306,19 +316,54 @@
 <p>这样的话,就可以把EFI分区给合并了。 然后再对其格式化后,输入如下的指令</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo dd <span class="attribute">if</span>=/Users/lsqyRobot/Downloads/archlinux-2020.01.01-x86_64.iso <span class="attribute">of</span>=/dev/disk2 <span class="attribute">bs</span>=1m</span><br></pre></td></tr></table></figure>
 <p>其中 if 后面跟的是文件的下载路径,后面的就是挂载的u盘了,bs代表着写入的时间。 至于为什么这样做,肯定是有原因的,这个就是为老年机安装了linux mint后,又突发奇想,用了那么久的linux mint 自然想换换口味,就选择arch linux吧,至于分区挂载什么的,之前安装破解一些软件的时候就很熟了,所以想必对自己也不是什么难事。</p>
-<h1 id="SHELL-脚本编程"><a href="#SHELL-脚本编程" class="headerlink" title="SHELL 脚本编程"></a>SHELL 脚本编程</h1><p>许多程序要求对shell脚本中的命令施加一些逻辑流程控制。有一类命令会根据条件使脚本跳过某些命令。这样的命令通常称为结构化命令(structured command)。 </p>
-<h2 id="if-then-语句"><a href="#if-then-语句" class="headerlink" title="if-then 语句"></a>if-then 语句</h2><p>最基本的结构化命令就是if-then语句。if-then语句有如下格式。</p>
+<h1>SHELL 脚本编程</h1>
+<p>许多程序要求对shell脚本中的命令施加一些逻辑流程控制。有一类命令会根据条件使脚本跳过某些命令。这样的命令通常称为结构化命令(structured command)。</p>
+<h2 id="if-then-语句">if-then 语句</h2>
+<p>最基本的结构化命令就是if-then语句。if-then语句有如下格式。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if command </span><br><span class="line">then</span><br><span class="line">	commands </span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 <p>bash shell的if语句会运行if后面的那个命令。如果该命令的退出状态码(参见第11章)是0 (该命令成功运行),位于then部分的命令就会被执行。如果该命令的退出状态码是其他值, then 部分的命令就不会被执行,bash shell会继续执行脚本中的下一个命令。fi语句用来表示if-then 语句到此结束。</p>
 <p>鉴于shell脚本不是一两句话就能写完的, 以后专门用一篇或几篇文章记录一下一些shell脚本的编写和使用；</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -345,7 +390,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -380,7 +592,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

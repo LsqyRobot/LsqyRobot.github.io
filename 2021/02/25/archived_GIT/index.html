@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,88 +230,111 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Git 的使用</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#基本操作">基本操作</a><ul>
-<li><a href="#初始化仓库">初始化仓库</a></li>
-<li><a href="#查看仓库的状态">查看仓库的状态</a></li>
-<li><a href="#向暂存区中添加文件">向暂存区中添加文件</a></li>
-<li><a href="#保存仓库的历史记录">保存仓库的历史记录</a><ul>
-<li><a href="#记述一行提交信息">记述一行提交信息</a></li>
-<li><a href="#记述详细提交信息">记述详细提交信息</a></li>
-<li><a href="#中止提交">中止提交</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">基本操作</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93">初始化仓库</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E4%BB%93%E5%BA%93%E7%9A%84%E7%8A%B6%E6%80%81">查看仓库的状态</a></li>
+<li><a href="#%E5%90%91%E6%9A%82%E5%AD%98%E5%8C%BA%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6">向暂存区中添加文件</a></li>
+<li><a href="#%E4%BF%9D%E5%AD%98%E4%BB%93%E5%BA%93%E7%9A%84%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95">保存仓库的历史记录</a>
+<ul>
+<li><a href="#%E8%AE%B0%E8%BF%B0%E4%B8%80%E8%A1%8C%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF">记述一行提交信息</a></li>
+<li><a href="#%E8%AE%B0%E8%BF%B0%E8%AF%A6%E7%BB%86%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF">记述详细提交信息</a></li>
+<li><a href="#%E4%B8%AD%E6%AD%A2%E6%8F%90%E4%BA%A4">中止提交</a></li>
 </ul>
 </li>
-<li><a href="#查看提交日志">查看提交日志</a><ul>
-<li><a href="#只显示提交信息的第一行">只显示提交信息的第一行</a></li>
-<li><a href="#只显示指定目录文件的日志">只显示指定目录、文件的日志</a></li>
-<li><a href="#显示文件的改动">显示文件的改动</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#分支的操作">分支的操作</a><ul>
-<li><a href="#分支查看与切换">分支查看与切换</a></li>
-<li><a href="#新建分支并切换">新建分支并切换</a></li>
-<li><a href="#合并分支">合并分支</a></li>
-<li><a href="#图表形式查看分支">图表形式查看分支</a></li>
-</ul>
-</li>
-<li><a href="#更改提交的操作">更改提交的操作</a><ul>
-<li><a href="#回溯历史版本">回溯历史版本</a></li>
-<li><a href="#修复未提交文件中的错误重置">修复未提交文件中的错误(重置)</a></li>
-<li><a href="#修复已提交文件中的错误">修复已提交文件中的错误</a><ul>
-<li><a href="#没有-add没有添加到暂存区">没有 add（没有添加到暂存区）</a></li>
-<li><a href="#创建新提交来修复错误">创建新提交来修复错误</a></li>
-<li><a href="#修改提交来修复错误">修改提交来修复错误</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E6%97%A5%E5%BF%97">查看提交日志</a>
+<ul>
+<li><a href="#%E5%8F%AA%E6%98%BE%E7%A4%BA%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E7%9A%84%E7%AC%AC%E4%B8%80%E8%A1%8C">只显示提交信息的第一行</a></li>
+<li><a href="#%E5%8F%AA%E6%98%BE%E7%A4%BA%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6%E7%9A%84%E6%97%A5%E5%BF%97">只显示指定目录、文件的日志</a></li>
+<li><a href="#%E6%98%BE%E7%A4%BA%E6%96%87%E4%BB%B6%E7%9A%84%E6%94%B9%E5%8A%A8">显示文件的改动</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#乱码解决办法">乱码解决办法</a></li>
-<li><a href="#常用指令的具体介绍">常用指令的具体介绍</a><ul>
-<li><a href="#git-clean">git clean</a><ul>
-<li><a href="#删除-untracked-files">删除 untracked files</a></li>
-<li><a href="#删除-untracked-文件和目录">删除 untracked 文件和目录</a></li>
-<li><a href="#连-gitignore-的-untracked-文件和目录也一起删掉">连 gitignore 的 untracked 文件和目录也一起删掉</a></li>
+<li><a href="#%E5%88%86%E6%94%AF%E7%9A%84%E6%93%8D%E4%BD%9C">分支的操作</a>
+<ul>
+<li><a href="#%E5%88%86%E6%94%AF%E6%9F%A5%E7%9C%8B%E4%B8%8E%E5%88%87%E6%8D%A2">分支查看与切换</a></li>
+<li><a href="#%E6%96%B0%E5%BB%BA%E5%88%86%E6%94%AF%E5%B9%B6%E5%88%87%E6%8D%A2">新建分支并切换</a></li>
+<li><a href="#%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF">合并分支</a></li>
+<li><a href="#%E5%9B%BE%E8%A1%A8%E5%BD%A2%E5%BC%8F%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF">图表形式查看分支</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9B%B4%E6%94%B9%E6%8F%90%E4%BA%A4%E7%9A%84%E6%93%8D%E4%BD%9C">更改提交的操作</a>
+<ul>
+<li><a href="#%E5%9B%9E%E6%BA%AF%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC">回溯历史版本</a></li>
+<li><a href="#%E4%BF%AE%E5%A4%8D%E6%9C%AA%E6%8F%90%E4%BA%A4%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E9%87%8D%E7%BD%AE">修复未提交文件中的错误(重置)</a></li>
+<li><a href="#%E4%BF%AE%E5%A4%8D%E5%B7%B2%E6%8F%90%E4%BA%A4%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF">修复已提交文件中的错误</a>
+<ul>
+<li><a href="#%E6%B2%A1%E6%9C%89-add%E6%B2%A1%E6%9C%89%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%9A%82%E5%AD%98%E5%8C%BA">没有 add（没有添加到暂存区）</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E6%8F%90%E4%BA%A4%E6%9D%A5%E4%BF%AE%E5%A4%8D%E9%94%99%E8%AF%AF">创建新提交来修复错误</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E6%8F%90%E4%BA%A4%E6%9D%A5%E4%BF%AE%E5%A4%8D%E9%94%99%E8%AF%AF">修改提交来修复错误</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95">乱码解决办法</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E7%9A%84%E5%85%B7%E4%BD%93%E4%BB%8B%E7%BB%8D">常用指令的具体介绍</a>
+<ul>
+<li><a href="#git-clean">git clean</a>
+<ul>
+<li><a href="#%E5%88%A0%E9%99%A4-untracked-files">删除 untracked files</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4-untracked-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95">删除 untracked 文件和目录</a></li>
+<li><a href="#%E8%BF%9E-gitignore-%E7%9A%84-untracked-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E4%B9%9F%E4%B8%80%E8%B5%B7%E5%88%A0%E6%8E%89">连 gitignore 的 untracked 文件和目录也一起删掉</a></li>
 </ul>
 </li>
 <li><a href="#git-diff">git diff</a></li>
-<li><a href="#git-tag">git tag</a><ul>
-<li><a href="#创建标签">创建标签</a></li>
-<li><a href="#创建一个带有注释的标签">创建一个带有注释的标签</a></li>
-<li><a href="#查看标签">查看标签</a></li>
-<li><a href="#查看特定标签的详细信息">查看特定标签的详细信息</a></li>
-<li><a href="#推送标签到远程仓库">推送标签到远程仓库</a></li>
-<li><a href="#删除标签">删除标签</a><ul>
-<li><a href="#删除本地标签">删除本地标签</a></li>
-<li><a href="#删除远程标签">删除远程标签</a></li>
+<li><a href="#git-tag">git tag</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E6%A0%87%E7%AD%BE">创建标签</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B8%A6%E6%9C%89%E6%B3%A8%E9%87%8A%E7%9A%84%E6%A0%87%E7%AD%BE">创建一个带有注释的标签</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E6%A0%87%E7%AD%BE">查看标签</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E7%89%B9%E5%AE%9A%E6%A0%87%E7%AD%BE%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF">查看特定标签的详细信息</a></li>
+<li><a href="#%E6%8E%A8%E9%80%81%E6%A0%87%E7%AD%BE%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93">推送标签到远程仓库</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E6%A0%87%E7%AD%BE">删除标签</a>
+<ul>
+<li><a href="#%E5%88%A0%E9%99%A4%E6%9C%AC%E5%9C%B0%E6%A0%87%E7%AD%BE">删除本地标签</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E6%A0%87%E7%AD%BE">删除远程标签</a></li>
 </ul>
 </li>
-<li><a href="#切换到标签对应的提交">切换到标签对应的提交</a></li>
-<li><a href="#检出标签的特定文件版本">检出标签的特定文件版本</a></li>
-<li><a href="#在标签上创建新分支">在标签上创建新分支</a></li>
-<li><a href="#对以前提交的信息打标签">对以前提交的信息打标签</a></li>
+<li><a href="#%E5%88%87%E6%8D%A2%E5%88%B0%E6%A0%87%E7%AD%BE%E5%AF%B9%E5%BA%94%E7%9A%84%E6%8F%90%E4%BA%A4">切换到标签对应的提交</a></li>
+<li><a href="#%E6%A3%80%E5%87%BA%E6%A0%87%E7%AD%BE%E7%9A%84%E7%89%B9%E5%AE%9A%E6%96%87%E4%BB%B6%E7%89%88%E6%9C%AC">检出标签的特定文件版本</a></li>
+<li><a href="#%E5%9C%A8%E6%A0%87%E7%AD%BE%E4%B8%8A%E5%88%9B%E5%BB%BA%E6%96%B0%E5%88%86%E6%94%AF">在标签上创建新分支</a></li>
+<li><a href="#%E5%AF%B9%E4%BB%A5%E5%89%8D%E6%8F%90%E4%BA%A4%E7%9A%84%E4%BF%A1%E6%81%AF%E6%89%93%E6%A0%87%E7%AD%BE">对以前提交的信息打标签</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#代码冲突检测">代码冲突检测</a><ul>
-<li><a href="#检查是否存在冲突">检查是否存在冲突</a></li>
-<li><a href="#查看冲突文件">查看冲突文件</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81%E6%A3%80%E6%B5%8B">代码冲突检测</a>
+<ul>
+<li><a href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E5%86%B2%E7%AA%81">检查是否存在冲突</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E5%86%B2%E7%AA%81%E6%96%87%E4%BB%B6">查看冲突文件</a></li>
 </ul>
 </li>
-<li><a href="#遇到的问题">遇到的问题</a><ul>
-<li><a href="#无法推送">无法推送</a></li>
-<li><a href="#提交中文字符乱码问题">提交中文字符乱码问题</a></li>
+<li><a href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98">遇到的问题</a>
+<ul>
+<li><a href="#%E6%97%A0%E6%B3%95%E6%8E%A8%E9%80%81">无法推送</a></li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98">提交中文字符乱码问题</a></li>
 </ul>
 </li>
 <li><a href="#fatal-lf-would-be-replace-by-crlf">fatal: LF would be replace by CRLF</a></li>
-<li><a href="#下载大文件">下载大文件</a><ul>
-<li><a href="#使用-git-lfs-large-file-storage">使用 Git LFS (Large File Storage)</a></li>
-<li><a href="#安装-git-lfs-的方法">安装 Git LFS 的方法</a><ul>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E5%A4%A7%E6%96%87%E4%BB%B6">下载大文件</a>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8-git-lfs-large-file-storage">使用 Git LFS (Large File Storage)</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-git-lfs-%E7%9A%84%E6%96%B9%E6%B3%95">安装 Git LFS 的方法</a>
+<ul>
 <li><a href="#linux-ubuntudebian">Linux (Ubuntu/Debian)</a></li>
 <li><a href="#macos-homebrew">macOS (Homebrew)</a></li>
 <li><a href="#windows">Windows</a></li>
@@ -318,124 +342,181 @@
 </li>
 </ul>
 </li>
-<li><a href="#设置-git-的默认编辑器为-vim">设置 Git 的默认编辑器为 Vim</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AE-git-%E7%9A%84%E9%BB%98%E8%AE%A4%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BA-vim">设置 Git 的默认编辑器为 Vim</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了好几年的工具了,主要被我用来记录更新时候的点滴,有时回过头看看,一路上不太容易。对于以后日益复杂的项目, 会一点简单的 Git 指令显然是不能满足要求的,所以打算记录一些笔记,留给自己日后查阅使用。</p>
-<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h2><figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> <span class="keyword">file</span></span><br><span class="line"><span class="keyword">cd</span> <span class="keyword">file</span></span><br><span class="line">git init</span><br></pre></td></tr></table></figure>
+<h1>前言</h1>
+<p>用了好几年的工具了,主要被我用来记录更新时候的点滴,有时回过头看看,一路上不太容易。对于以后日益复杂的项目, 会一点简单的 Git 指令显然是不能满足要求的,所以打算记录一些笔记,留给自己日后查阅使用。</p>
+<h1>基本操作</h1>
+<h2 id="初始化仓库">初始化仓库</h2>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> <span class="keyword">file</span></span><br><span class="line"><span class="keyword">cd</span> <span class="keyword">file</span></span><br><span class="line">git init</span><br></pre></td></tr></table></figure>
 <p>如果初始化成功,执行了git init命令的目录下就会生成 .git 目录。这个 <code>.git</code> 目录里存储着管理当前目录内容所需的仓库数据。 在 Git 中,将这个目录的内容称为“附属于该仓库的工作树”。 文件的编辑等操作在工作树中进行,然后记录到仓库中,以此管理文件的历史快照。如果想将文件恢复到原先的状态,可以从仓库中调取之前的快照,在工作树中打开。</p>
-<h2 id="查看仓库的状态"><a href="#查看仓库的状态" class="headerlink" title="查看仓库的状态"></a>查看仓库的状态</h2><p><code>git status</code> 命令用于显示 Git 仓库的状态。</p>
-<h2 id="向暂存区中添加文件"><a href="#向暂存区中添加文件" class="headerlink" title="向暂存区中添加文件"></a>向暂存区中添加文件</h2><figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">add</span></span><br></pre></td></tr></table></figure>
-<p>如果只是用 Git 仓库的工作树创建了文件,那么该文件并不会被记<br>入 Git 仓库的版本管理对象当中。因此我们用 git status命令查看 README.md 文件时,它会显示在 Untracked files 里。要想让文件成为 Git 仓库的管理对象,就需要用<code>git add</code>命令将其 加入暂存区(Stage 或者 Index)中。暂存区是提交之前的一个临时区域。如果提交有错误,想强制提交的话,可用如下指令</p>
+<h2 id="查看仓库的状态">查看仓库的状态</h2>
+<p><code>git status</code> 命令用于显示 Git 仓库的状态。</p>
+<h2 id="向暂存区中添加文件">向暂存区中添加文件</h2>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">add</span></span><br></pre></td></tr></table></figure>
+<p>如果只是用 Git 仓库的工作树创建了文件,那么该文件并不会被记<br>
+入 Git 仓库的版本管理对象当中。因此我们用 git status命令查看 <a target="_blank" rel="noopener" href="http://README.md">README.md</a> 文件时,它会显示在 Untracked files 里。要想让文件成为 Git 仓库的管理对象,就需要用<code>git add</code>命令将其 加入暂存区(Stage 或者 Index)中。暂存区是提交之前的一个临时区域。如果提交有错误,想强制提交的话,可用如下指令</p>
 <figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">git add</span> <span class="literal">--</span><span class="comment">ignore</span><span class="literal">-</span><span class="comment">errors</span> <span class="literal">--</span><span class="comment">force</span> <span class="string">.</span></span><br></pre></td></tr></table></figure>
-<h2 id="保存仓库的历史记录"><a href="#保存仓库的历史记录" class="headerlink" title="保存仓库的历史记录"></a>保存仓库的历史记录</h2><figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git commit</span></span><br></pre></td></tr></table></figure>
+<h2 id="保存仓库的历史记录">保存仓库的历史记录</h2>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git commit</span></span><br></pre></td></tr></table></figure>
 <p><code>git commit</code> 命令可以将当前暂存区中的文件实际保存到仓库的历 史记录中。通过这些记录,就可以在工作树中复原文件。</p>
-<h3 id="记述一行提交信息"><a href="#记述一行提交信息" class="headerlink" title="记述一行提交信息"></a>记述一行提交信息</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git</span> commit -m <span class="string">&quot;First commit&quot;</span></span><br></pre></td></tr></table></figure>
-<p>-m 参数后的 “First commit”称作提交信息,是对这个提交的 记述详细提交信息概述。</p>
-<h3 id="记述详细提交信息"><a href="#记述详细提交信息" class="headerlink" title="记述详细提交信息"></a>记述详细提交信息</h3><p>如果想要记述得更加详细,请不加 -m,直接执行git commit命令。执行后编辑器就会启动,并显示如下结果。下面的代码前面都有#号,因为在我这编译的时候会有问题,所以就没加上去。</p>
+<h3 id="记述一行提交信息">记述一行提交信息</h3>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git</span> commit -m <span class="string">&quot;First commit&quot;</span></span><br></pre></td></tr></table></figure>
+<p>-m 参数后的 &quot;First commit&quot;称作提交信息,是对这个提交的 记述详细提交信息概述。</p>
+<h3 id="记述详细提交信息">记述详细提交信息</h3>
+<p>如果想要记述得更加详细,请不加 -m,直接执行git commit命令。执行后编辑器就会启动,并显示如下结果。下面的代码前面都有#号,因为在我这编译的时候会有问题,所以就没加上去。</p>
 <figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Please enter <span class="keyword">the</span> commit message <span class="keyword">for</span> your changes. Lines starting</span><br><span class="line"><span class="keyword">with</span> <span class="string">&#x27;#&#x27;</span> will be ignored, <span class="keyword">and</span> <span class="keyword">an</span> <span class="literal">empty</span> message aborts <span class="keyword">the</span> commit.</span><br><span class="line"></span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">Initial commit</span><br><span class="line"></span><br><span class="line">Changes <span class="built_in">to</span> be committed:</span><br><span class="line">       <span class="built_in">new</span> <span class="built_in">file</span>:   readme.md</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>在编辑器中记述提交信息的格式如下。 </p>
-<p>第一行：用一行文字简述提交的更改内容 </p>
+<p>在编辑器中记述提交信息的格式如下。</p>
+<p>第一行：用一行文字简述提交的更改内容</p>
 <p>第二行：空行</p>
 <p>第三行以后：记述更改的原因和详细内容</p>
 <p>只要按照上面的格式输入,今后便可以通过确认日志的命令或工具看到这些记录。在以 # 标为注释的 <code>Changes to be committed</code>(要提交的更改)栏中,可以查看本次提交中包含的文件。将提交信息按格式 记述完毕后,请保存并关闭编辑器,以 #(井号)标为注释的行不必删除。随后,刚才记述的提交信息就会被提交。</p>
-<h3 id="中止提交"><a href="#中止提交" class="headerlink" title="中止提交"></a>中止提交</h3><p>如果在编辑器启动后想中止提交,请将提交信息留空并直接关闭编辑器,随后提交就会被中止。</p>
-<h2 id="查看提交日志"><a href="#查看提交日志" class="headerlink" title="查看提交日志"></a>查看提交日志</h2><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<h3 id="中止提交">中止提交</h3>
+<p>如果在编辑器启动后想中止提交,请将提交信息留空并直接关闭编辑器,随后提交就会被中止。</p>
+<h2 id="查看提交日志">查看提交日志</h2>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
 <p>git log命令可以查看以往仓库中提交的日志。包括可以查看什么人在什么时候进行了提交或合并,以及操作前后有怎样的差别。</p>
-<h3 id="只显示提交信息的第一行"><a href="#只显示提交信息的第一行" class="headerlink" title="只显示提交信息的第一行"></a>只显示提交信息的第一行</h3><p>如果只想让程序显示第一行简述信息,可以在 git log命令后加上 <code>--pretty=short</code>。这样一来开发人员就能够更轻松地把握多个提交。</p>
-<h3 id="只显示指定目录、文件的日志"><a href="#只显示指定目录、文件的日志" class="headerlink" title="只显示指定目录、文件的日志"></a>只显示指定目录、文件的日志</h3><p>只要在git log命令后加上目录名,便会只显示该目录下的日志。 如果加的是文件名,就会只显示与该文件相关的日志。</p>
+<h3 id="只显示提交信息的第一行">只显示提交信息的第一行</h3>
+<p>如果只想让程序显示第一行简述信息,可以在 git log命令后加上 <code>--pretty=short</code>。这样一来开发人员就能够更轻松地把握多个提交。</p>
+<h3 id="只显示指定目录、文件的日志">只显示指定目录、文件的日志</h3>
+<p>只要在git log命令后加上目录名,便会只显示该目录下的日志。 如果加的是文件名,就会只显示与该文件相关的日志。</p>
 <figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> README.md</span><br></pre></td></tr></table></figure>
-<h3 id="显示文件的改动"><a href="#显示文件的改动" class="headerlink" title="显示文件的改动"></a>显示文件的改动</h3><p>如果想查看提交所带来的改动,可以加上-p参数,文件的前后差 别就会显示在提交信息之后。<br><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="punctuation">-</span>p</span><br></pre></td></tr></table></figure></p>
-<h1 id="分支的操作"><a href="#分支的操作" class="headerlink" title="分支的操作"></a>分支的操作</h1><p>在进行多个并行作业时,我们会用到分支。在这类并行开发的过程中,往往同时存在多个最新代码状态。从 master 分支创 建 A 分支和 B 分支后,每个分支中都拥有自己的最新代码。 master 分支是 Git 默认创建的分支,因此基本上所有开发都是以这个分支为中心进行的</p>
+<h3 id="显示文件的改动">显示文件的改动</h3>
+<p>如果想查看提交所带来的改动,可以加上-p参数,文件的前后差 别就会显示在提交信息之后。</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="punctuation">-</span>p</span><br></pre></td></tr></table></figure>
+<h1>分支的操作</h1>
+<p>在进行多个并行作业时,我们会用到分支。在这类并行开发的过程中,往往同时存在多个最新代码状态。从 master 分支创 建 A 分支和 B 分支后,每个分支中都拥有自己的最新代码。 master 分支是 Git 默认创建的分支,因此基本上所有开发都是以这个分支为中心进行的</p>
 <p>不同分支中,可以同时进行完全不同的作业。等该分支的作业完成之后再与 master 分支合并。如下所示</p>
 <div align="center"> <img src="/img/postImg/6_Git/Git1.png" width="100%" height="40%"> </div>
-
-
-<h2 id="分支查看与切换"><a href="#分支查看与切换" class="headerlink" title="分支查看与切换"></a>分支查看与切换</h2><p>查看所有分支<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">git branch -<span class="selector-tag">a</span></span><br></pre></td></tr></table></figure></p>
-<p>查看当前使用分支<br><figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git branch</span></span><br></pre></td></tr></table></figure></p>
-<p>切换分支<br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git</span> checkout 分支名</span><br></pre></td></tr></table></figure></p>
+<h2 id="分支查看与切换">分支查看与切换</h2>
+<p>查看所有分支</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">git branch -<span class="selector-tag">a</span></span><br></pre></td></tr></table></figure>
+<p>查看当前使用分支</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git branch</span></span><br></pre></td></tr></table></figure>
+<p>切换分支</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git</span> checkout 分支名</span><br></pre></td></tr></table></figure>
 <p>切换回上一个分支</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git</span> checkout -</span><br></pre></td></tr></table></figure>
-<h2 id="新建分支并切换"><a href="#新建分支并切换" class="headerlink" title="新建分支并切换"></a>新建分支并切换</h2><p>想要新建一个分支并同时切换到那个分支上,可使用如下命令(如创建dev并切换):</p>
+<h2 id="新建分支并切换">新建分支并切换</h2>
+<p>想要新建一个分支并同时切换到那个分支上,可使用如下命令(如创建dev并切换):</p>
 <figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> dev</span><br></pre></td></tr></table></figure>
-<h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><p>假设 A 已经实现完毕,想要将它合并到主干分支 master 中。首先切换到 master 分支。</p>
+<h2 id="合并分支">合并分支</h2>
+<p>假设 A 已经实现完毕,想要将它合并到主干分支 master 中。首先切换到 master 分支。</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git checkout <span class="literal">master</span></span><br></pre></td></tr></table></figure>
-<p>然后合并 feature-A 分支。为了在历史记录中明确记录下本次分支合并,需要创建合并提交。因此,在合并时加上 —no-ff参数。</p>
+<p>然后合并 feature-A 分支。为了在历史记录中明确记录下本次分支合并,需要创建合并提交。因此,在合并时加上 --no-ff参数。</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">git merge <span class="attr">--no-ff</span> <span class="selector-tag">A</span></span><br></pre></td></tr></table></figure>
-<h2 id="图表形式查看分支"><a href="#图表形式查看分支" class="headerlink" title="图表形式查看分支"></a>图表形式查看分支</h2><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">--graph</span></span><br></pre></td></tr></table></figure>
+<h2 id="图表形式查看分支">图表形式查看分支</h2>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">--graph</span></span><br></pre></td></tr></table></figure>
 <p>用 <code>git log --graph</code> 命令进行查看的话,能很清楚地看到分支A提交的内容已被合并。</p>
-<h1 id="更改提交的操作"><a href="#更改提交的操作" class="headerlink" title="更改提交的操作"></a>更改提交的操作</h1><h2 id="回溯历史版本"><a href="#回溯历史版本" class="headerlink" title="回溯历史版本"></a>回溯历史版本</h2><figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git reset</span></span><br></pre></td></tr></table></figure>
-<h2 id="修复未提交文件中的错误-重置"><a href="#修复未提交文件中的错误-重置" class="headerlink" title="修复未提交文件中的错误(重置)"></a>修复未提交文件中的错误(重置)</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">reset</span> <span class="comment">--hard HEAD</span></span><br></pre></td></tr></table></figure>
+<h1>更改提交的操作</h1>
+<h2 id="回溯历史版本">回溯历史版本</h2>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git reset</span></span><br></pre></td></tr></table></figure>
+<h2 id="修复未提交文件中的错误-重置">修复未提交文件中的错误(重置)</h2>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">reset</span> <span class="comment">--hard HEAD</span></span><br></pre></td></tr></table></figure>
 <p>这条件命令会把你工作目录中所有未提交的内容清空。</p>
-<h2 id="修复已提交文件中的错误"><a href="#修复已提交文件中的错误" class="headerlink" title="修复已提交文件中的错误"></a>修复已提交文件中的错误</h2><p>1, 创建一个新的提交(commit),在新的提交里撤消老的提交所作的修改。</p>
+<h2 id="修复已提交文件中的错误">修复已提交文件中的错误</h2>
+<p>1, 创建一个新的提交(commit),在新的提交里撤消老的提交所作的修改。</p>
 <p>2, 也可以去修改你的老提交(old commit)。但是如果你已经把代码发布了,那么千万别这么做；Git 不会处理项目的历史会改变的情况,如果一个分支的历史被改变了那以后就不能正常的合并。</p>
-<h3 id="没有-add（没有添加到暂存区）"><a href="#没有-add（没有添加到暂存区）" class="headerlink" title="没有 add（没有添加到暂存区）"></a>没有 add（没有添加到暂存区）</h3><p>撤销全部文件修改：</p>
+<h3 id="没有-add（没有添加到暂存区）">没有 add（没有添加到暂存区）</h3>
+<p>撤销全部文件修改：</p>
 <figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">git checkout <span class="comment">-- .</span></span><br></pre></td></tr></table></figure>
 <p>这个是我在犯傻后用<code>argdo %s /old/new/g</code>，发现修改的东西太多了，发现的一个有用的功能；</p>
-<h3 id="创建新提交来修复错误"><a href="#创建新提交来修复错误" class="headerlink" title="创建新提交来修复错误"></a>创建新提交来修复错误</h3><p>创建一个新的,撤消(revert)了前期修改的提交(commit)是很容易的；只要把出错的提交(commit)的名字(reference)做为参数传给命令：git revert就可以了；</p>
+<h3 id="创建新提交来修复错误">创建新提交来修复错误</h3>
+<p>创建一个新的,撤消(revert)了前期修改的提交(commit)是很容易的；只要把出错的提交(commit)的名字(reference)做为参数传给命令：git revert就可以了；</p>
 <figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">revert</span> HEAD</span><br></pre></td></tr></table></figure>
 <p>撤消“上上次”(next-to-last)的提交：</p>
 <figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">revert</span> HEAD^</span><br></pre></td></tr></table></figure>
 <p>git revert其实不会直接创建一个提交(commit),把撤消后的文件内容放到索引(index)里,你需要再执行git commit命令,它们才会成为真正的提交(commit)。</p>
-<h3 id="修改提交来修复错误"><a href="#修改提交来修复错误" class="headerlink" title="修改提交来修复错误"></a>修改提交来修复错误</h3><p>git commit现在支持一个叫—amend的参数,它能让你修改刚才的这个提交(<code>HEAD commit</code>)。这项机制能让你在代码发布前,添加一些新的文件或是修改你的提交注释(commit message)。</p>
+<h3 id="修改提交来修复错误">修改提交来修复错误</h3>
+<p>git commit现在支持一个叫–amend的参数,它能让你修改刚才的这个提交(<code>HEAD commit</code>)。这项机制能让你在代码发布前,添加一些新的文件或是修改你的提交注释(commit message)。</p>
 <p>如果你在老提交(older commit)里发现一个错误,但是现在还没有发布到代码服务器上。你可以使用<code>git rebase</code>命令的交互模式,<code>git rebase -i</code>会提示你在编辑中做相关的修改。这样其实就是让你在 rebase 的过程来修改提交。</p>
-<h1 id="乱码解决办法"><a href="#乱码解决办法" class="headerlink" title="乱码解决办法"></a>乱码解决办法</h1><p>在git bash查看日志的时候发现乱码,需要更改一下相关设置即可,在窗口点击右键,选择 <code>Options -&gt; Text</code>, 找到 <code>Locale,Charector set</code>, 并进行如下设置。</p>
+<h1>乱码解决办法</h1>
+<p>在git bash查看日志的时候发现乱码,需要更改一下相关设置即可,在窗口点击右键,选择 <code>Options -&gt; Text</code>, 找到 <code>Locale,Charector set</code>, 并进行如下设置。</p>
 <div align="center"> <img src="/img/postImg/6_Git/gitbash乱码设置.png" width="50%" height="40%"> </div>
-
 <p>然后在命令窗口中输入如下设置命令即可</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--global i18n.commitencoding utf-8</span><br><span class="line">git<span class="built_in"> config </span>--global i18n.logoutputencoding utf-8</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">LESSCHARSET</span>=utf-8</span><br></pre></td></tr></table></figure>
-<h1 id="常用指令的具体介绍"><a href="#常用指令的具体介绍" class="headerlink" title="常用指令的具体介绍"></a>常用指令的具体介绍</h1><h2 id="git-clean"><a href="#git-clean" class="headerlink" title="git clean"></a>git clean</h2><p>要取消已经track过的文件的修改，可以使用git checkout xxx，但是如果要取消 untracked 文件的修改，除了手动删除，还可以用 git clean 命令实现</p>
-<h3 id="删除-untracked-files"><a href="#删除-untracked-files" class="headerlink" title="删除 untracked files"></a>删除 untracked files</h3><figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git clean -f</span></span><br></pre></td></tr></table></figure>
-<h3 id="删除-untracked-文件和目录"><a href="#删除-untracked-文件和目录" class="headerlink" title="删除 untracked 文件和目录"></a>删除 untracked 文件和目录</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git clean -<span class="built_in">df</span></span><br></pre></td></tr></table></figure>
-<h3 id="连-gitignore-的-untracked-文件和目录也一起删掉"><a href="#连-gitignore-的-untracked-文件和目录也一起删掉" class="headerlink" title="连 gitignore 的 untracked 文件和目录也一起删掉"></a>连 gitignore 的 untracked 文件和目录也一起删掉</h3><figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git clean -xdf</span></span><br></pre></td></tr></table></figure>
+<h1>常用指令的具体介绍</h1>
+<h2 id="git-clean">git clean</h2>
+<p>要取消已经track过的文件的修改，可以使用git checkout xxx，但是如果要取消 untracked 文件的修改，除了手动删除，还可以用 git clean 命令实现</p>
+<h3 id="删除-untracked-files">删除 untracked files</h3>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git clean -f</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除-untracked-文件和目录">删除 untracked 文件和目录</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git clean -<span class="built_in">df</span></span><br></pre></td></tr></table></figure>
+<h3 id="连-gitignore-的-untracked-文件和目录也一起删掉">连 gitignore 的 untracked 文件和目录也一起删掉</h3>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git clean -xdf</span></span><br></pre></td></tr></table></figure>
 <p>建议加上-n参数来看看会删掉哪些文件，防止重要文件被误删。</p>
 <figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clean</span> -nf</span><br><span class="line">git <span class="built_in">clean</span> -ndf</span><br><span class="line">git <span class="built_in">clean</span> -nxdf</span><br></pre></td></tr></table></figure>
-<h2 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h2><p>git diff 命令可以对比两个版本的差异,具体来说包括：</p>
-<p>1, 本地工作区和暂存区的diff信息：git diff 或者 git diff file<br>2, 暂存区和版本库的diff信息（使用git add 将工作区修改保存到了暂存区后）：git diff —cached<br>3, 版本库中不同commit、分支的diff信息（使用git commit 将暂存区修改提交到了版本库）：git diff commit1 commit2 或 git diff branch1 branch2<br>4, 技巧：一般将要对比的分支/commitID名字放到第二个参数,这样对比起来比较直观。</p>
+<h2 id="git-diff">git diff</h2>
+<p>git diff 命令可以对比两个版本的差异,具体来说包括：</p>
+<p>1, 本地工作区和暂存区的diff信息：git diff 或者 git diff file<br>
+2, 暂存区和版本库的diff信息（使用git add 将工作区修改保存到了暂存区后）：git diff --cached<br>
+3, 版本库中不同commit、分支的diff信息（使用git commit 将暂存区修改提交到了版本库）：git diff commit1 commit2 或 git diff branch1 branch2<br>
+4, 技巧：一般将要对比的分支/commitID名字放到第二个参数,这样对比起来比较直观。</p>
 <p>1）基本操作</p>
 <figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">diff</span> branch1 branch2 --stat //--stat参数,显示两分支简单<span class="built_in">diff</span>信息</span><br><span class="line">git <span class="built_in">diff</span> branch1 branch2 //显示两分支详细的<span class="built_in">diff</span>信息</span><br><span class="line">git <span class="built_in">diff</span> branch1 branch2 path //显示两分支指定路径下文件的详细<span class="built_in">diff</span>信息</span><br><span class="line">git <span class="built_in">diff</span> branch1 branch2 <span class="built_in">file_name</span>(带路径) //显示两分支指定文件的详细<span class="built_in">diff</span>信息</span><br></pre></td></tr></table></figure>
 <p>注：这里的分支可以是本地的,也可以是远程的（git diff branch1 origin/branch2）</p>
-<h2 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h2><p>Git 标签（Tag）是用于在代码库中标记某个特定提交（commit）的方式。标签通常用于标识发布版本或重要的里程碑，以便于追踪和管理代码库的发展历史。下面详细介绍了 Git 中标签的常用操作：</p>
-<h3 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h3><p>创建一个轻量级标签：</p>
+<h2 id="git-tag">git tag</h2>
+<p>Git 标签（Tag）是用于在代码库中标记某个特定提交（commit）的方式。标签通常用于标识发布版本或重要的里程碑，以便于追踪和管理代码库的发展历史。下面详细介绍了 Git 中标签的常用操作：</p>
+<h3 id="创建标签">创建标签</h3>
+<p>创建一个轻量级标签：</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span> <span class="title">tag_name</span></span><br></pre></td></tr></table></figure>
-<h3 id="创建一个带有注释的标签"><a href="#创建一个带有注释的标签" class="headerlink" title="创建一个带有注释的标签"></a>创建一个带有注释的标签</h3><p>个人最喜欢的方式创建标签：<br><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span> <span class="title">-a</span> tag_name -m <span class="string">&quot;Tag message&quot;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="查看标签"><a href="#查看标签" class="headerlink" title="查看标签"></a>查看标签</h3><p>查看所有标签：</p>
+<h3 id="创建一个带有注释的标签">创建一个带有注释的标签</h3>
+<p>个人最喜欢的方式创建标签：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span> <span class="title">-a</span> tag_name -m <span class="string">&quot;Tag message&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看标签">查看标签</h3>
+<p>查看所有标签：</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span></span><br></pre></td></tr></table></figure>
-<h3 id="查看特定标签的详细信息"><a href="#查看特定标签的详细信息" class="headerlink" title="查看特定标签的详细信息"></a>查看特定标签的详细信息</h3><figure class="highlight dart"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">show</span> tag_name</span><br></pre></td></tr></table></figure>
-<h3 id="推送标签到远程仓库"><a href="#推送标签到远程仓库" class="headerlink" title="推送标签到远程仓库"></a>推送标签到远程仓库</h3><p>推送单个标签：</p>
+<h3 id="查看特定标签的详细信息">查看特定标签的详细信息</h3>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">show</span> tag_name</span><br></pre></td></tr></table></figure>
+<h3 id="推送标签到远程仓库">推送标签到远程仓库</h3>
+<p>推送单个标签：</p>
 <figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> tag_name</span><br></pre></td></tr></table></figure>
 <p>推送所有标签：</p>
 <figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> --tags</span><br></pre></td></tr></table></figure>
-<h3 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h3><h4 id="删除本地标签"><a href="#删除本地标签" class="headerlink" title="删除本地标签"></a>删除本地标签</h4><p>删除一个本地标签：</p>
+<h3 id="删除标签">删除标签</h3>
+<h4 id="删除本地标签">删除本地标签</h4>
+<p>删除一个本地标签：</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span> <span class="title">-d</span> tag_name</span><br></pre></td></tr></table></figure>
-<h4 id="删除远程标签"><a href="#删除远程标签" class="headerlink" title="删除远程标签"></a>删除远程标签</h4><p>首先删除本地标签：</p>
+<h4 id="删除远程标签">删除远程标签</h4>
+<p>首先删除本地标签：</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">tag</span> <span class="title">-d</span> tag_name</span><br></pre></td></tr></table></figure>
 <p>然后删除远程标签：</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">git push origin <span class="symbol">:refs/tags/tag_name</span></span><br></pre></td></tr></table></figure>
-<h3 id="切换到标签对应的提交"><a href="#切换到标签对应的提交" class="headerlink" title="切换到标签对应的提交"></a>切换到标签对应的提交</h3><p>创建一个新分支并切换到标签对应的提交：</p>
+<h3 id="切换到标签对应的提交">切换到标签对应的提交</h3>
+<p>创建一个新分支并切换到标签对应的提交：</p>
 <figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> new_branch_name tag_name</span><br></pre></td></tr></table></figure>
-<h3 id="检出标签的特定文件版本"><a href="#检出标签的特定文件版本" class="headerlink" title="检出标签的特定文件版本"></a>检出标签的特定文件版本</h3><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">git checkout tag_name <span class="comment">-- file_path</span></span><br></pre></td></tr></table></figure>
-<h3 id="在标签上创建新分支"><a href="#在标签上创建新分支" class="headerlink" title="在标签上创建新分支"></a>在标签上创建新分支</h3><figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> new_branch_name tag_name</span><br></pre></td></tr></table></figure>
+<h3 id="检出标签的特定文件版本">检出标签的特定文件版本</h3>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">git checkout tag_name <span class="comment">-- file_path</span></span><br></pre></td></tr></table></figure>
+<h3 id="在标签上创建新分支">在标签上创建新分支</h3>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> new_branch_name tag_name</span><br></pre></td></tr></table></figure>
 <p>列出与标签相关的提交：</p>
 <figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">log</span> <span class="keyword">tag_name</span>^..<span class="keyword">tag_name</span></span><br></pre></td></tr></table></figure>
-<h3 id="对以前提交的信息打标签"><a href="#对以前提交的信息打标签" class="headerlink" title="对以前提交的信息打标签"></a>对以前提交的信息打标签</h3><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">--pretty=oneline</span></span><br></pre></td></tr></table></figure>
+<h3 id="对以前提交的信息打标签">对以前提交的信息打标签</h3>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">--pretty=oneline</span></span><br></pre></td></tr></table></figure>
 <p>上面这条命令显示了全部的commit id信息，简短点的commit 信息，看下面的命令:</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">--pretty=oneline --abbrev-commit</span></span><br></pre></td></tr></table></figure>
-<h1 id="代码冲突检测"><a href="#代码冲突检测" class="headerlink" title="代码冲突检测"></a>代码冲突检测</h1><p>在多人同时修改同一个文件或者同一个代码库时，就可能出现冲突。如果有人在本地已经修改了某个文件并提交了，但另一个人在远程也修改了这个文件并提交了，这时候就会出现冲突。</p>
-<h2 id="检查是否存在冲突"><a href="#检查是否存在冲突" class="headerlink" title="检查是否存在冲突"></a>检查是否存在冲突</h2><p>通过以下命令检查当前文件是否存在冲突：</p>
+<h1>代码冲突检测</h1>
+<p>在多人同时修改同一个文件或者同一个代码库时，就可能出现冲突。如果有人在本地已经修改了某个文件并提交了，但另一个人在远程也修改了这个文件并提交了，这时候就会出现冲突。</p>
+<h2 id="检查是否存在冲突">检查是否存在冲突</h2>
+<p>通过以下命令检查当前文件是否存在冲突：</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">git status</span></span><br></pre></td></tr></table></figure>
 <p>如果出现类似如下输出，则说明当前文件存在冲突：</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">On branch <span class="keyword">master</span></span><br><span class="line"><span class="title">You</span> have unmerged paths.</span><br><span class="line">(fix conflicts run <span class="string">&quot;git commit&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="查看冲突文件"><a href="#查看冲突文件" class="headerlink" title="查看冲突文件"></a>查看冲突文件</h2><p>在检查出存在冲突后，我们需要查看具体哪些文件存在冲突，可以通过以下命令查看：</p>
+<h2 id="查看冲突文件">查看冲突文件</h2>
+<p>在检查出存在冲突后，我们需要查看具体哪些文件存在冲突，可以通过以下命令查看：</p>
 <figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">git diff</span> <span class="literal">--</span><span class="comment">name</span><span class="literal">-</span><span class="comment">only</span> <span class="literal">--</span><span class="comment">diff</span><span class="literal">-</span><span class="comment">filter=U</span></span><br></pre></td></tr></table></figure>
-<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h2 id="无法推送"><a href="#无法推送" class="headerlink" title="无法推送"></a>无法推送</h2><p> 已明确账号密码输入无误,在 <code>git bash</code> 里面无法推送自己的代码,其报错如下：</p>
+<h1>遇到的问题</h1>
+<h2 id="无法推送">无法推送</h2>
+<p>已明确账号密码输入无误,在 <code>git bash</code> 里面无法推送自己的代码,其报错如下：</p>
 <figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">Logon failed, use ctrl+c <span class="keyword">to</span> cancel basic credential prompt.</span><br><span class="line">remote: Support <span class="keyword">for</span> <span class="keyword">password</span> authentication was removed <span class="keyword">on</span> August <span class="number">13</span>, <span class="number">2021.</span> Please use a personal <span class="keyword">access</span> token <span class="keyword">instead</span>.</span><br></pre></td></tr></table></figure>
 <p>有一种可能,由于git 升级,执行 <code>git update-git-for-windows</code>, 更新后推送报了一个新的错误</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">SSL certificate problem: unable <span class="keyword">to</span> <span class="keyword">get</span> <span class="keyword">local</span> issuer certificate</span><br></pre></td></tr></table></figure>
 <p>解决方式,输入如下指令</p>
 <figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">git config --global http.sslVerify <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<h2 id="提交中文字符乱码问题"><a href="#提交中文字符乱码问题" class="headerlink" title="提交中文字符乱码问题"></a>提交中文字符乱码问题</h2><p>这个问题主要是在Windows下使用<code>git bash</code>时候遇到的, 从以下几个步骤可以解决这个问题</p>
+<h2 id="提交中文字符乱码问题">提交中文字符乱码问题</h2>
+<p>这个问题主要是在Windows下使用<code>git bash</code>时候遇到的, 从以下几个步骤可以解决这个问题</p>
 <p>1, 确认本地git配置</p>
 <figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">config</span> <span class="comment">--global -l</span></span><br></pre></td></tr></table></figure>
 <p>看输出的结果里面有没有包含下面两条信息</p>
@@ -444,33 +525,75 @@
 <figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">config</span> <span class="comment">--global core.quotepath false</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global i18n.commitencoding UTF-8</span></span><br></pre></td></tr></table></figure>
 <p>3, 将文件字符集设置为UTF-8,可以保证中文字符在git提交后不会乱码。</p>
 <figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">config</span> <span class="comment">--global core.autocrlf true</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global core.safecrlf true</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global core.quotepath false</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global i18n.commitencoding UTF-8</span></span><br><span class="line">git <span class="built_in">config</span> <span class="comment">--global i18n.logoutputencoding UTF-8</span></span><br></pre></td></tr></table></figure>
-<h1 id="fatal-LF-would-be-replace-by-CRLF"><a href="#fatal-LF-would-be-replace-by-CRLF" class="headerlink" title="fatal: LF would be replace by CRLF"></a>fatal: LF would be replace by CRLF</h1><p>这个问题会导致往仓库推的时候推不上去，解决办法如下，在shell中输入如下指令</p>
+<h1>fatal: LF would be replace by CRLF</h1>
+<p>这个问题会导致往仓库推的时候推不上去，解决办法如下，在shell中输入如下指令</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">git config --local core.<span class="built_in">auto</span>crlf <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 <p>可根据自己的需要，将<code>local</code>替换成<code>global</code>;</p>
-<h1 id="下载大文件"><a href="#下载大文件" class="headerlink" title="下载大文件"></a>下载大文件</h1><p>在 Git 里直接下载大文件通常会遇到限制（例如 GitHub 的单文件大小 100MB 上限，整个仓库 2GB 以上推送困难）</p>
-<h2 id="使用-Git-LFS-Large-File-Storage"><a href="#使用-Git-LFS-Large-File-Storage" class="headerlink" title="使用 Git LFS (Large File Storage)"></a>使用 Git LFS (Large File Storage)</h2><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"># 安装 Git <span class="keyword">LFS</span></span><br><span class="line">git <span class="keyword">lfs</span> install</span><br><span class="line"></span><br><span class="line"># 选择要用 <span class="keyword">LFS</span> 管理的文件类型（例如 .zip 或 .mp4）</span><br><span class="line">git <span class="keyword">lfs</span> track <span class="string">&quot;*.zip&quot;</span></span><br><span class="line"></span><br><span class="line"># 添加 .gitattributes 配置</span><br><span class="line">git <span class="keyword">add</span> .gitattributes</span><br><span class="line">git commit -m <span class="string">&quot;Track large files with Git LFS&quot;</span></span><br><span class="line"></span><br><span class="line"># 正常 <span class="keyword">add</span> + commit + <span class="keyword">push</span></span><br><span class="line">git <span class="keyword">add</span> large_file<span class="number">.</span>zip</span><br><span class="line">git commit -m <span class="string">&quot;Add large file&quot;</span></span><br><span class="line">git <span class="keyword">push</span> origin main</span><br></pre></td></tr></table></figure>
+<h1>下载大文件</h1>
+<p>在 Git 里直接下载大文件通常会遇到限制（例如 GitHub 的单文件大小 100MB 上限，整个仓库 2GB 以上推送困难）</p>
+<h2 id="使用-Git-LFS-Large-File-Storage">使用 Git LFS (Large File Storage)</h2>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"># 安装 Git <span class="keyword">LFS</span></span><br><span class="line">git <span class="keyword">lfs</span> install</span><br><span class="line"></span><br><span class="line"># 选择要用 <span class="keyword">LFS</span> 管理的文件类型（例如 .zip 或 .mp4）</span><br><span class="line">git <span class="keyword">lfs</span> track <span class="string">&quot;*.zip&quot;</span></span><br><span class="line"></span><br><span class="line"># 添加 .gitattributes 配置</span><br><span class="line">git <span class="keyword">add</span> .gitattributes</span><br><span class="line">git commit -m <span class="string">&quot;Track large files with Git LFS&quot;</span></span><br><span class="line"></span><br><span class="line"># 正常 <span class="keyword">add</span> + commit + <span class="keyword">push</span></span><br><span class="line">git <span class="keyword">add</span> large_file<span class="number">.</span>zip</span><br><span class="line">git commit -m <span class="string">&quot;Add large file&quot;</span></span><br><span class="line">git <span class="keyword">push</span> origin main</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>下载时，Git 会只拉取指针文件，LFS 会在后台同步大文件。</p>
 </blockquote>
-<h2 id="安装-Git-LFS-的方法"><a href="#安装-Git-LFS-的方法" class="headerlink" title="安装 Git LFS 的方法"></a>安装 Git LFS 的方法</h2><h3 id="Linux-Ubuntu-Debian"><a href="#Linux-Ubuntu-Debian" class="headerlink" title="Linux (Ubuntu/Debian)"></a>Linux (Ubuntu/Debian)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install git-lfs -y</span><br><span class="line">git lfs install</span><br></pre></td></tr></table></figure>
-<h3 id="macOS-Homebrew"><a href="#macOS-Homebrew" class="headerlink" title="macOS (Homebrew)"></a>macOS (Homebrew)</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">brew <span class="keyword">install</span> git-lfs</span><br><span class="line">git lfs <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
-<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>去 Git LFS 官方下载页面：<a target="_blank" rel="noopener" href="https://git-lfs.github.com/">https://git-lfs.github.com/</a></p>
+<h2 id="安装-Git-LFS-的方法">安装 Git LFS 的方法</h2>
+<h3 id="Linux-Ubuntu-Debian">Linux (Ubuntu/Debian)</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install git-lfs -y</span><br><span class="line">git lfs install</span><br></pre></td></tr></table></figure>
+<h3 id="macOS-Homebrew">macOS (Homebrew)</h3>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">brew <span class="keyword">install</span> git-lfs</span><br><span class="line">git lfs <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<h3 id="Windows">Windows</h3>
+<p>去 Git LFS 官方下载页面：<a target="_blank" rel="noopener" href="https://git-lfs.github.com/">https://git-lfs.github.com/</a></p>
 <p>下载 Git LFS installer for Windows，安装完成后重新打开终端。</p>
-<h1 id="设置-Git-的默认编辑器为-Vim"><a href="#设置-Git-的默认编辑器为-Vim" class="headerlink" title="设置 Git 的默认编辑器为 Vim"></a>设置 Git 的默认编辑器为 Vim</h1><figure class="highlight mel"><table><tr><td class="code"><pre><span class="line">git config --<span class="keyword">global</span> core.<span class="keyword">editor</span> <span class="string">&quot;vim&quot;</span></span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]《GitHub 入门》</p>
+<h1>设置 Git 的默认编辑器为 Vim</h1>
+<figure class="highlight mel"><table><tr><td class="code"><pre><span class="line">git config --<span class="keyword">global</span> core.<span class="keyword">editor</span> <span class="string">&quot;vim&quot;</span></span><br></pre></td></tr></table></figure>
+<h1>参考</h1>
+<p>[1]《GitHub 入门》</p>
 <p>[2] <a target="_blank" rel="noopener" href="https://www.web3.xin/code/3055.html">web3</a></p>
 <p>[3] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/yanzige/p/9810333.html">GIT使用log命令显示中文乱码</a></p>
 <p>[4] <a target="_blank" rel="noopener" href="https://pythonjishu.com/egsjerugrbprzdt/">Python 技术站</a></p>
 <p>[5] <a target="_blank" rel="noopener" href="https://blog.csdn.net/liuxiao723846/article/details/109689069">git diff</a></p>
 <p>[6] chatGPT 的回答</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -497,7 +620,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -532,7 +822,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

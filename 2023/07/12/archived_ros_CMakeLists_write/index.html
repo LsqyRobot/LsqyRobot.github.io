@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,47 +230,61 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >ROS 的CMakeLists编写</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#总体结构和顺序">总体结构和顺序</a></li>
-<li><a href="#cmake版本">CMake版本</a></li>
-<li><a href="#软件包包名">软件包包名</a></li>
-<li><a href="#查找编译依赖的cmake包">查找编译依赖的CMake包</a><ul>
-<li><a href="#find_package做了什么">find_package()做了什么？</a></li>
-<li><a href="#为何将catkin软件包指定为组件">为何将Catkin软件包指定为组件？</a></li>
-<li><a href="#boost库">Boost库</a></li>
+<li><a href="#%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84%E5%92%8C%E9%A1%BA%E5%BA%8F">总体结构和顺序</a></li>
+<li><a href="#cmake%E7%89%88%E6%9C%AC">CMake版本</a></li>
+<li><a href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%8C%85%E5%90%8D">软件包包名</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE%E7%BC%96%E8%AF%91%E4%BE%9D%E8%B5%96%E7%9A%84cmake%E5%8C%85">查找编译依赖的CMake包</a>
+<ul>
+<li><a href="#find_package%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88">find_package()做了什么？</a></li>
+<li><a href="#%E4%B8%BA%E4%BD%95%E5%B0%86catkin%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%8C%87%E5%AE%9A%E4%B8%BA%E7%BB%84%E4%BB%B6">为何将Catkin软件包指定为组件？</a></li>
+<li><a href="#boost%E5%BA%93">Boost库</a></li>
 </ul>
 </li>
 <li><a href="#catkin_package">catkin_package()</a></li>
-<li><a href="#明确编译的目标">明确编译的目标</a><ul>
-<li><a href="#目标命名">目标命名</a></li>
-<li><a href="#自定义输出目录">自定义输出目录</a></li>
-<li><a href="#头文件和库路径">头文件和库路径</a></li>
+<li><a href="#%E6%98%8E%E7%A1%AE%E7%BC%96%E8%AF%91%E7%9A%84%E7%9B%AE%E6%A0%87">明确编译的目标</a>
+<ul>
+<li><a href="#%E7%9B%AE%E6%A0%87%E5%91%BD%E5%90%8D">目标命名</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BE%93%E5%87%BA%E7%9B%AE%E5%BD%95">自定义输出目录</a></li>
+<li><a href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E5%92%8C%E5%BA%93%E8%B7%AF%E5%BE%84">头文件和库路径</a></li>
 <li><a href="#include_directories">include_directories()</a></li>
 <li><a href="#link_directories">link_directories()</a></li>
-<li><a href="#可执行目标">可执行目标</a></li>
-<li><a href="#库目标">库目标</a></li>
+<li><a href="#%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9B%AE%E6%A0%87">可执行目标</a></li>
+<li><a href="#%E5%BA%93%E7%9B%AE%E6%A0%87">库目标</a></li>
 </ul>
 </li>
 <li><a href="#target_link_libraries">target_link_libraries</a></li>
-<li><a href="#消息服务和操作目标">消息、服务和操作目标</a><ul>
-<li><a href="#重要的前提和限制">重要的前提和限制</a></li>
-<li><a href="#例子">例子</a></li>
+<li><a href="#%E6%B6%88%E6%81%AF%E6%9C%8D%E5%8A%A1%E5%92%8C%E6%93%8D%E4%BD%9C%E7%9B%AE%E6%A0%87">消息、服务和操作目标</a>
+<ul>
+<li><a href="#%E9%87%8D%E8%A6%81%E7%9A%84%E5%89%8D%E6%8F%90%E5%92%8C%E9%99%90%E5%88%B6">重要的前提和限制</a></li>
+<li><a href="#%E4%BE%8B%E5%AD%90">例子</a></li>
 </ul>
 </li>
-<li><a href="#启动python模块支持">启动Python模块支持</a></li>
-<li><a href="#单元测试">单元测试</a></li>
-<li><a href="#可选步骤明确安装目标">可选步骤：明确安装目标</a><ul>
-<li><a href="#安装python可执行脚本">安装Python可执行脚本</a></li>
-<li><a href="#安装头文件">安装头文件</a></li>
-<li><a href="#安装roslaunch文件或其他源">安装roslaunch文件或其他源</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8python%E6%A8%A1%E5%9D%97%E6%94%AF%E6%8C%81">启动Python模块支持</a></li>
+<li><a href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95">单元测试</a></li>
+<li><a href="#%E5%8F%AF%E9%80%89%E6%AD%A5%E9%AA%A4%E6%98%8E%E7%A1%AE%E5%AE%89%E8%A3%85%E7%9B%AE%E6%A0%87">可选步骤：明确安装目标</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85python%E5%8F%AF%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC">安装Python可执行脚本</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E5%A4%B4%E6%96%87%E4%BB%B6">安装头文件</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85roslaunch%E6%96%87%E4%BB%B6%E6%88%96%E5%85%B6%E4%BB%96%E6%BA%90">安装roslaunch文件或其他源</a></li>
 </ul>
 </li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="总体结构和顺序"><a href="#总体结构和顺序" class="headerlink" title="总体结构和顺序"></a>总体结构和顺序</h1><p>CMakeList.txt文件必须遵循如下的格式，不然就无法正确地编译(编译ROS软件包时提示“ROS未定义的引用”的错误，原因就是CMakeList.txt文件中命令顺序不正确)。</p>
+<h1>总体结构和顺序</h1>
+<p>CMakeList.txt文件必须遵循如下的格式，不然就无法正确地编译(编译ROS软件包时提示“ROS未定义的引用”的错误，原因就是CMakeList.txt文件中命令顺序不正确)。</p>
 <ul>
 <li>必需的CMake版本：cmake_minimum_required()</li>
 <li>软件包名：project()</li>
@@ -282,107 +297,177 @@
 <li>测试编译：catkin_add_gtest()</li>
 <li>安装规则：install()</li>
 </ul>
-<h1 id="CMake版本"><a href="#CMake版本" class="headerlink" title="CMake版本"></a>CMake版本</h1><p>每一个catkin CMakeList.txt文件必须以所需的CMake版本说明语句开始，Catkin需要2.8.3或者更高的版本</p>
+<h1>CMake版本</h1>
+<p>每一个catkin CMakeList.txt文件必须以所需的CMake版本说明语句开始，Catkin需要2.8.3或者更高的版本</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">cmake_minimum_required</span>(VERSION <span class="number">2</span>.<span class="number">8</span>.<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="软件包包名"><a href="#软件包包名" class="headerlink" title="软件包包名"></a>软件包包名</h1><p>软件包报名使用CMake的 project()函数指明，例如以robot_brain命名一个软件包：</p>
+<h1>软件包包名</h1>
+<p>软件包报名使用CMake的 project()函数指明，例如以robot_brain命名一个软件包：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">project</span><span class="params">(robot_brain)</span></span></span><br></pre></td></tr></table></figure>
 <p>CMake中，可以通过使用变量 ${PROJECT_NAME}在CMake脚本后面的任何位置引用项目名称。</p>
-<h1 id="查找编译依赖的CMake包"><a href="#查找编译依赖的CMake包" class="headerlink" title="查找编译依赖的CMake包"></a>查找编译依赖的CMake包</h1><p>编译一个项目，需要使用CMake 的 find_package函数确定依赖的其他CMake包并找到它们，一般情况下至少会有一个catkin依赖：</p>
+<h1>查找编译依赖的CMake包</h1>
+<p>编译一个项目，需要使用CMake 的 find_package函数确定依赖的其他CMake包并找到它们，一般情况下至少会有一个catkin依赖：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(catkin REQUIRED)</span></span></span><br></pre></td></tr></table></figure>
 <p>除此之外，项目依赖的其他软件包，都会自动成为catkin的组件(components)(就CMake而言)。因此可以将这些依赖包指定为catkin的组件，而不必再使用find_package，这样将会变得简单，例如依赖包nodelet：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(catkin REQUIRED COMPONENTS nodelet)</span></span></span><br></pre></td></tr></table></figure>
 <p>注意：只能find_package那些想要编译标志的组件，不能添加运行时(runtime)依赖。 当然也可以写成下面的方式，但不方便:</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(catkin REQUIRED)</span></span></span><br><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(nodelet REQUIRED)</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="find-package-做了什么？"><a href="#find-package-做了什么？" class="headerlink" title="find_package()做了什么？"></a>find_package()做了什么？</h2><p> 如果CMake通过 find<em>package()查找到一个软件包，它就会创建几个CMake环境变量，以提供有关已查找到的软件包的信息。这些环境变量可以在后面的CMake脚本中使用，它们表示软件包导出的头文件所在的位置、源文件所在的位置、软件包依赖的库以及这些库的查找路径，环境变量的名字遵循<PACKAGENAME>\</em><PROPERTY>，即包名-属性：</p>
+<h2 id="find-package-做了什么？">find_package()做了什么？</h2>
+<p>如果CMake通过 find_package()查找到一个软件包，它就会创建几个CMake环境变量，以提供有关已查找到的软件包的信息。这些环境变量可以在后面的CMake脚本中使用，它们表示软件包导出的头文件所在的位置、源文件所在的位置、软件包依赖的库以及这些库的查找路径，环境变量的名字遵循<PACKAGENAME>_<PROPERTY>，即包名-属性：</p>
 <figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line">&lt;<span class="built_in">NAME</span>&gt;<span class="variable">_FOUND</span>：当库被查找到时置为<span class="literal">true</span>，否则为<span class="literal">false</span></span><br><span class="line">&lt;<span class="built_in">NAME</span>&gt;<span class="variable">_INCLUDE_DIRS</span>或&lt;<span class="built_in">NAME</span>&gt;<span class="variable">_INCLUDES</span>：软件包导出的头文件路径</span><br><span class="line">&lt;<span class="built_in">NAME</span>&gt;<span class="variable">_LIBRARIES</span>或&lt;<span class="built_in">NAME</span>&gt;<span class="variable">_LIBS</span>：软件包导出的库的路径</span><br><span class="line">&lt;<span class="built_in">NAME</span>&gt;<span class="variable">_DEFINITIONS</span>：</span><br></pre></td></tr></table></figure>
-<h2 id="为何将Catkin软件包指定为组件？"><a href="#为何将Catkin软件包指定为组件？" class="headerlink" title="为何将Catkin软件包指定为组件？"></a>为何将Catkin软件包指定为组件？</h2><p> Catkin软件包严格意义上并不是catkin的组件，而且，CMake的功能组件功能被用于catkin的设计，以节省大量的打字时间。 对于catkin软件包，以catkin的组件的方式 find_package它们是有好处的，因为这个过程以catkin_prefix的形式创建了一组环境变量。例如，在程序中要使用nodelet软件包，推荐查找软件包的方式是：</p>
+<h2 id="为何将Catkin软件包指定为组件？">为何将Catkin软件包指定为组件？</h2>
+<p>Catkin软件包严格意义上并不是catkin的组件，而且，CMake的功能组件功能被用于catkin的设计，以节省大量的打字时间。 对于catkin软件包，以catkin的组件的方式 find_package它们是有好处的，因为这个过程以catkin_prefix的形式创建了一组环境变量。例如，在程序中要使用nodelet软件包，推荐查找软件包的方式是：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(catkin REQUIRED COMPONENTS nodelet)</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="Boost库"><a href="#Boost库" class="headerlink" title="Boost库"></a>Boost库</h2><p>如果使用C++和Boost库，需要在Boost上调用 find_package()，并指定Boost中将要作为组件的那部分。例如，如果想要使用Boost的线程，可以用：</p>
+<h2 id="Boost库">Boost库</h2>
+<p>如果使用C++和Boost库，需要在Boost上调用 find_package()，并指定Boost中将要作为组件的那部分。例如，如果想要使用Boost的线程，可以用：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(Boost REQUIRED COMPONENTS thread)</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="catkin-package"><a href="#catkin-package" class="headerlink" title="catkin_package()"></a>catkin_package()</h1><p>catkin_package()是一个由catkin提供的CMake宏。需要指定特定的catkin信息到编译系统，而这些信息又会被用于生成pkg-config和CMake文件。 该函数必须在使用 add_library()或add_executable()声明任何targets之前调用。其5个可选参数：</p>
+<h1>catkin_package()</h1>
+<p>catkin_package()是一个由catkin提供的CMake宏。需要指定特定的catkin信息到编译系统，而这些信息又会被用于生成pkg-config和CMake文件。 该函数必须在使用 add_library()或add_executable()声明任何targets之前调用。其5个可选参数：</p>
 <figure class="highlight objectivec"><table><tr><td class="code"><pre><span class="line">INCLUDE_DIRS：软件包导出的头文件路径(例如cflags)</span><br><span class="line">LIBRARIES：项目导出的库</span><br><span class="line"><span class="built_in">CATKIN_DEPENDS</span>：当前项目依赖的其他catkin项目</span><br><span class="line">DEPENDS：当前项目依赖的非catkin <span class="built_in">CMake</span>项目，详细解释参见这里</span><br><span class="line"><span class="built_in">CFG_EXTRAS</span>：其他的配置选项</span><br></pre></td></tr></table></figure>
 <p>例如：</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">catkin_package( INCLUDE_DIRS <span class="keyword">include</span>  </span><br><span class="line">                LIBRARIES <span class="variable">$&#123;PROJECT_NAME&#125;</span>   </span><br><span class="line">                CATKIN_DEPENDS roscpp nodelet   </span><br><span class="line">                DEPENDS eigen opencv)</span><br></pre></td></tr></table></figure>
 <p>这里表明软件包文件夹中的include文件夹是导出头文件的位置，CMake环境变量 ${PROJECT_NAME}将会鉴定之前传递给project()函数的所有内容，在这种情况下它作为“robot_brain”。“roscpp”+“nodelet”是编译/运行此程序包需要存在的软件包，“eigen”+“opencv”是编译/运行此程序包时需要存在的系统依赖项(ROS packages有时会需要操作系统提供一些外部函数库，这些函数库就是所谓的“系统依赖项”)。</p>
-<h1 id="明确编译的目标"><a href="#明确编译的目标" class="headerlink" title="明确编译的目标"></a>明确编译的目标</h1><p>编译目标可以采取多种形式，但通常它们代表两种可能性之一：</p>
+<h1>明确编译的目标</h1>
+<p>编译目标可以采取多种形式，但通常它们代表两种可能性之一：</p>
 <ul>
 <li>可执行目标：可以运行的程序</li>
 <li>库目标：在编译和/或运行时可以由可执行目标使用的库</li>
 </ul>
-<h2 id="目标命名"><a href="#目标命名" class="headerlink" title="目标命名"></a>目标命名</h2><p>非常重要的一点是，不管编译/安装到哪个文件夹中，编译目标在catkin中的名称都必须是唯一的。这是CMake的一项要求，但目标唯一的名称又只是在CMake内部是必需的。可以使用set_target_properties()函数对目标重命名，例如</p>
+<h2 id="目标命名">目标命名</h2>
+<p>非常重要的一点是，不管编译/安装到哪个文件夹中，编译目标在catkin中的名称都必须是唯一的。这是CMake的一项要求，但目标唯一的名称又只是在CMake内部是必需的。可以使用set_target_properties()函数对目标重命名，例如</p>
 <figure class="highlight isbl"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">set_target_properties</span>(<span class="variable">rviz_image_view</span> </span></span><br><span class="line"><span class="function">                      <span class="variable">PROPERTIES</span> <span class="variable">OUTPUT_NAME</span> <span class="variable">image_view</span></span></span><br><span class="line"><span class="function">                      <span class="variable">PREFIX</span> <span class="string">&quot;&quot;</span>)</span></span><br></pre></td></tr></table></figure>
 <p>这会在编译和安装输出中将目标 rviz_image_view的名称改为image_view。</p>
-<h2 id="自定义输出目录"><a href="#自定义输出目录" class="headerlink" title="自定义输出目录"></a>自定义输出目录</h2><p>可执行文件和库的默认输出目录通常设置为了合理的值，但在某些情况下必须进行自定义，例如，包含Python绑定的库必须放置在不同的文件夹中才能在Python中导入。 例子：</p>
+<h2 id="自定义输出目录">自定义输出目录</h2>
+<p>可执行文件和库的默认输出目录通常设置为了合理的值，但在某些情况下必须进行自定义，例如，包含Python绑定的库必须放置在不同的文件夹中才能在Python中导入。 例子：</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">set_target_properties(python_module_library  PROPERTIES LIBRARY_OUTPUT_DIRECTORY </span></span><br><span class="line"><span class="language-xml"></span><span class="template-variable">&#123;CATKIN_DEVEL_PREFIX&#125;</span><span class="language-xml">/</span><span class="template-variable">&#123;CATKIN_PACKAGE_PYTHON_DESTINATION&#125;</span><span class="language-xml">)</span></span><br></pre></td></tr></table></figure>
-<h2 id="头文件和库路径"><a href="#头文件和库路径" class="headerlink" title="头文件和库路径"></a>头文件和库路径</h2><p>在指定目标之前，需要指定可以为所述目标找到资源的位置，特别是头文件和库：</p>
+<h2 id="头文件和库路径">头文件和库路径</h2>
+<p>在指定目标之前，需要指定可以为所述目标找到资源的位置，特别是头文件和库：</p>
 <ul>
 <li>头文件目录：将要编译的代码(C/C++)所需的头文件路径</li>
 <li>库目录：可执行目标编译指向的库路径</li>
 <li>include_directories(<dir1>, <dir2>, …, <dirN>)</li>
 <li>link_directories(<dir1>, <dir2>, …, <dirN>)</li>
 </ul>
-<h2 id="include-directories"><a href="#include-directories" class="headerlink" title="include_directories()"></a>include_directories()</h2><p>include_directories的参数应该是由调用find_package生成的* _INCLUDE_DIRS变量以及需要包含的任何其他目录。如果使用catkin和Boost，include_directories()的调用为：</p>
+<h2 id="include-directories">include_directories()</h2>
+<p>include_directories的参数应该是由调用find_package生成的* _INCLUDE_DIRS变量以及需要包含的任何其他目录。如果使用catkin和Boost，include_directories()的调用为：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">include_directories</span><span class="params">(include &#123;Boost_INCLUDE_DIRS&#125; &#123;catkin_INCLUDE_DIRS&#125;)</span></span></span><br></pre></td></tr></table></figure>
 <p>第一个参数“include”表示包中的include/目录也是路径的一部分。</p>
-<h2 id="link-directories"><a href="#link-directories" class="headerlink" title="link_directories()"></a>link_directories()</h2><p>CMake的 link_directories()函数可以添加其他的库目录，然而，并不推荐这么做。所有的catkin和CMake包在find_package时都会自动添加链接信息。只需链接到target_link_libraries()中的库。</p>
+<h2 id="link-directories">link_directories()</h2>
+<p>CMake的 link_directories()函数可以添加其他的库目录，然而，并不推荐这么做。所有的catkin和CMake包在find_package时都会自动添加链接信息。只需链接到target_link_libraries()中的库。</p>
 <p>例子：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">link_directories</span><span class="params">(~/my_libs)</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="可执行目标"><a href="#可执行目标" class="headerlink" title="可执行目标"></a>可执行目标</h2><p>要指定必须编译的可执行目标，必须使用CMake函数 add_executable()。声明想要的可执行文件的文件名，以此生成此可执行文件所需的源文件列表，如果有多个源文件，用空格区分开。例如：</p>
+<h2 id="可执行目标">可执行目标</h2>
+<p>要指定必须编译的可执行目标，必须使用CMake函数 add_executable()。声明想要的可执行文件的文件名，以此生成此可执行文件所需的源文件列表，如果有多个源文件，用空格区分开。例如：</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">add_executable(myProgram <span class="attribute">src</span>/<span class="selector-tag">main</span><span class="selector-class">.cpp</span> <span class="attribute">src</span>/some_file<span class="selector-class">.cpp</span> <span class="attribute">src</span>/another_file<span class="selector-class">.cpp</span>)</span><br></pre></td></tr></table></figure>
 <p>该命令会编译名为 myProgram的可执行文件，它是由后面的三个源文件共同编译生成的。</p>
-<h2 id="库目标"><a href="#库目标" class="headerlink" title="库目标"></a>库目标</h2><p>CMake函数 add_library()指定用于编译的库文件，默认情况下，catkin编译共享库。<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">add_library</span><span class="params">(&#123;PROJECT_NAME&#125; &#123;$&#123;PROJECT_NAME&#125;_SRCS&#125;)</span></span></span><br></pre></td></tr></table></figure></p>
-<h1 id="target-link-libraries"><a href="#target-link-libraries" class="headerlink" title="target_link_libraries"></a>target_link_libraries</h1><p>使用 target_link_libraries()函数指定可执行目标所要链接的库，即告诉CMake当链接此可执行文件时需要链接哪些库（这些库在上面的find_package中定义），通常在调用完add_executable()后被调用。如果出现ros未定义的引用错误，则添加${catkin_LIBRARIES}。</p>
-<p>语法：<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">target_link_libraries(<span class="tag">&lt;<span class="name">executableTargetName</span>&gt;</span>, <span class="tag">&lt;<span class="name">lib1</span>&gt;</span>, <span class="tag">&lt;<span class="name">lib2</span>&gt;</span>, ... <span class="tag">&lt;<span class="name">libN</span>&gt;</span>)</span><br></pre></td></tr></table></figure></p>
-<p>例子:<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">add_executable</span><span class="params">(foo src/foo.cpp)</span></span></span><br><span class="line"><span class="function"><span class="title">add_library</span><span class="params">(moo src/moo.cpp)</span></span></span><br><span class="line"><span class="function"><span class="title">target_link_libraries</span><span class="params">(foo moo)</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="库目标">库目标</h2>
+<p>CMake函数 add_library()指定用于编译的库文件，默认情况下，catkin编译共享库。</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">add_library</span><span class="params">(&#123;PROJECT_NAME&#125; &#123;$&#123;PROJECT_NAME&#125;_SRCS&#125;)</span></span></span><br></pre></td></tr></table></figure>
+<h1>target_link_libraries</h1>
+<p>使用 target_link_libraries()函数指定可执行目标所要链接的库，即告诉CMake当链接此可执行文件时需要链接哪些库（这些库在上面的find_package中定义），通常在调用完add_executable()后被调用。如果出现ros未定义的引用错误，则添加${catkin_LIBRARIES}。</p>
+<p>语法：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">target_link_libraries(<span class="tag">&lt;<span class="name">executableTargetName</span>&gt;</span>, <span class="tag">&lt;<span class="name">lib1</span>&gt;</span>, <span class="tag">&lt;<span class="name">lib2</span>&gt;</span>, ... <span class="tag">&lt;<span class="name">libN</span>&gt;</span>)</span><br></pre></td></tr></table></figure>
+<p>例子:</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">add_executable</span><span class="params">(foo src/foo.cpp)</span></span></span><br><span class="line"><span class="function"><span class="title">add_library</span><span class="params">(moo src/moo.cpp)</span></span></span><br><span class="line"><span class="function"><span class="title">target_link_libraries</span><span class="params">(foo moo)</span></span></span><br></pre></td></tr></table></figure>
 <p>上面的例子将 foo与libmoo.so链接起来, 注意，在大多数使用情况下，没有必要使用link_directories()，因为该信息通过find_package()已经自动提取到了。 这就意味着nodelet导出的头文件路径、库等都会附加到 catkin_variables上，比如，catkin_INCLUDE_DIRS不仅包含catkin的头文件路径，也包含了nodelet软件包的头文件路径，这在后面会派上用场。 如果单独的find_package nodelet：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(nodelet)</span></span></span><br></pre></td></tr></table></figure>
 <p>这意味着nodelet的头文件路径、库及其他文件都不会包含在 catkin_variables中，对于nodelet_INCLUDE_DIRS,nodelet_LIBRARIES及其他变量也是如此。相同的变量也可以通过下面的方式创建：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(catkin REQUIRED COMPONENTS nodelet)</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="消息、服务和操作目标"><a href="#消息、服务和操作目标" class="headerlink" title="消息、服务和操作目标"></a>消息、服务和操作目标</h1><p>在被ROS软件包编译和使用之前，ROS中的消息（.msg）、服务（.srv）和操作（.action）文件需要特殊的预处理器编译步骤。这些宏的要点是生成编程语言特定的文件，以便可以在编程语言中使用消息、服务和操作。编译系统将使用所有可用的生成器（例如gencpp、genpy、genlisp）生成绑定。</p>
+<h1>消息、服务和操作目标</h1>
+<p>在被ROS软件包编译和使用之前，ROS中的消息（.msg）、服务（.srv）和操作（.action）文件需要特殊的预处理器编译步骤。这些宏的要点是生成编程语言特定的文件，以便可以在编程语言中使用消息、服务和操作。编译系统将使用所有可用的生成器（例如gencpp、genpy、genlisp）生成绑定。</p>
 <p>提供了三个宏来分别处理消息，服务和操作：</p>
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_message_files</span></span><br><span class="line"><span class="keyword"></span><span class="keyword">add_service_files</span></span><br><span class="line"><span class="keyword"></span><span class="keyword">add_action_files</span></span><br></pre></td></tr></table></figure>
-<p>这些宏后面必须调用一个调用生成的宏：<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">generate_messages</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
-<h2 id="重要的前提和限制"><a href="#重要的前提和限制" class="headerlink" title="重要的前提和限制"></a>重要的前提和限制</h2><p>这些宏必须在调用catkin_package()之前被调用，以正确地完成生成工作。<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(catkin REQUIRED COMPONENTS ...)</span></span> </span><br><span class="line"><span class="function"><span class="title">add_message_files</span><span class="params">(...)</span></span> </span><br><span class="line"><span class="function"><span class="title">add_service_files</span><span class="params">(...)</span></span> </span><br><span class="line"><span class="function"><span class="title">add_action_files</span><span class="params">(...)</span></span> </span><br><span class="line"><span class="function"><span class="title">generate_messages</span><span class="params">(...)</span></span> </span><br><span class="line"><span class="function"><span class="title">catkin_package</span><span class="params">(...)</span></span> ...</span><br><span class="line"><span class="function"><span class="title">catkin_package</span><span class="params">()</span></span>宏必须包含一个在message_runtime上的CATKIN_DEPENDS依赖。</span><br><span class="line"><span class="built_in">catkin_package</span>( ... </span><br><span class="line">                CATKIN_DEPENDS message_runtime ... </span><br><span class="line">                ...)</span><br></pre></td></tr></table></figure></p>
+<p>这些宏后面必须调用一个调用生成的宏：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">generate_messages</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="重要的前提和限制">重要的前提和限制</h2>
+<p>这些宏必须在调用catkin_package()之前被调用，以正确地完成生成工作。</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(catkin REQUIRED COMPONENTS ...)</span></span> </span><br><span class="line"><span class="function"><span class="title">add_message_files</span><span class="params">(...)</span></span> </span><br><span class="line"><span class="function"><span class="title">add_service_files</span><span class="params">(...)</span></span> </span><br><span class="line"><span class="function"><span class="title">add_action_files</span><span class="params">(...)</span></span> </span><br><span class="line"><span class="function"><span class="title">generate_messages</span><span class="params">(...)</span></span> </span><br><span class="line"><span class="function"><span class="title">catkin_package</span><span class="params">(...)</span></span> ...</span><br><span class="line"><span class="function"><span class="title">catkin_package</span><span class="params">()</span></span>宏必须包含一个在message_runtime上的CATKIN_DEPENDS依赖。</span><br><span class="line"><span class="built_in">catkin_package</span>( ... </span><br><span class="line">                CATKIN_DEPENDS message_runtime ... </span><br><span class="line">                ...)</span><br></pre></td></tr></table></figure>
 <p>必须对软件包message_generation使用find_package()，可单独或者作为catkin的组件使用：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(catkin REQUIRED COMPONENTS message_generation)</span></span></span><br></pre></td></tr></table></figure>
-<p>1, package.xml文件必须包含一个在message_generation上的编译依赖和一个在message_runtime上的运行时依赖，如果从其他包中传递依赖关系，则这不是必需的。 </p>
+<p>1, package.xml文件必须包含一个在message_generation上的编译依赖和一个在message_runtime上的运行时依赖，如果从其他包中传递依赖关系，则这不是必需的。</p>
 <p>2, 如果有一个目标（甚至是过渡性的）依赖于需要建立消息/服务/动作的其他目标，需要在目标catkin_EXPORTED_TARGETS上添加显式依赖项，以使它们按照正确的顺序编译。这种情况几乎总是适用，除非你的软件包真的不使用ROS的任何部分。不幸的是，这种依赖不能自动传播。（some_target是由add_executable()设置的目标的名字）</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">add_dependencies</span><span class="params">(some_target $&#123;catkin_EXPORTED_TARGETS&#125;)</span></span></span><br></pre></td></tr></table></figure>
 <p>如果有编译消息和/或服务的软件包以及使用这些软件的可执行文件，则需要在自动生成的消息目标上创建明确的依赖关系，以便它们按正确的顺序编译。（some_target是由add_executable()设置的目标的名字）</p>
 <figure class="highlight erlang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">add_dependencies</span><span class="params">(some_target <span class="string">$&#123;</span><span class="string">$&#123;</span>PROJECT_NAME&#125;_EXPORTED_TARGETS&#125;)</span></span></span><br></pre></td></tr></table></figure>
 <p>如果软件包满足上述两个条件，则需要添加两个依赖项，即：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">add_dependencies</span><span class="params">(some_target &#123;$&#123;PROJECT_NAME&#125;_EXPORTED_TARGETS&#125;                  &#123;catkin_EXPORTED_TARGETS&#125;)</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>如果在msg目录下有两个消息文件 MyMessage1.msg和MyMessage2.msg，并且这些消息依赖于std_msgs和sensor_msgs，另外在srv目录下有一个服务文件MyService.srv，就可以使用这些消息、服务定义可执行message_program，和可执行的程序does_not_use_local_messages_program，这个过程使用了ROS的某些部分，但不包含此包中定义的消息/服务。需要在CMakeList.txt文件中加上一下内容：</p>
+<h2 id="例子">例子</h2>
+<p>如果在msg目录下有两个消息文件 MyMessage1.msg和MyMessage2.msg，并且这些消息依赖于std_msgs和sensor_msgs，另外在srv目录下有一个服务文件MyService.srv，就可以使用这些消息、服务定义可执行message_program，和可执行的程序does_not_use_local_messages_program，这个过程使用了ROS的某些部分，但不包含此包中定义的消息/服务。需要在CMakeList.txt文件中加上一下内容：</p>
 <figure class="highlight leaf"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">#</span><span class="keyword">Get</span> the information about this package&#x27;s buildtime dependencies  find_package(catkin REQUIRED    </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">COMPONENTS</span> message_generation std_msgs sensor_msgs)  </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">Declare</span> the message files to be built  </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">add_message_files</span><span class="params">(<span class="variable">FILES</span> <span class="variable">MyMessage1</span>.<span class="variable">msg</span> <span class="variable">MyMessage2</span>.<span class="variable">msg</span>  )</span>  </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">Declare</span> the service files to be built  add_service_files(FILES    MyService.srv  )  </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">Actually</span> generate the language-specific message and service files  generate_messages(DEPENDENCIES std_msgs sensor_msgs)  </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">Declare</span> that this catkin package&#x27;s runtime dependencies  </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">catkin_package</span><span class="params">(<span class="variable">CATKIN_DEPENDS</span> <span class="variable">message_runtime</span> <span class="variable">std_msgs</span> <span class="variable">sensor_msgs</span>  )</span>  </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">define</span> executable using MyMessage1 etc.  add_executable(message_program src/main.cpp) </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">add_dependencies</span><span class="params">(<span class="variable">message_program</span> &#123;$&#123;<span class="variable">PROJECT_NAME</span>&#125;<span class="variable">_EXPORTED_TARGETS</span>&#125; &#123;<span class="variable">catkin_EXPORTED_TARGETS</span>&#125;)</span>  </span><br><span class="line"><span class="punctuation">#</span><span class="keyword">define</span> executable not using any messages/services provided by this package  </span><br><span class="line">add_executable(does_not_use_local_messages_program src/main.cpp)</span><br><span class="line">add_dependencies(does_not_use_local_messages_program $&#123;catkin_EXPORTED_TARGETS&#125;)</span><br></pre></td></tr></table></figure>
 <p>另外如果需要编译actionlib操作，并且在action目录下有一个名为MyAction.action的操作规范文件，就必须要添加actionlib_msgs到组件列表中，该组件列表就是find_package中catkin的组件，并在调用generate_messages()之前调用：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">add_action_files</span><span class="params">(FILES MyAction.action)</span></span></span><br></pre></td></tr></table></figure>
 <p>此外，该包必须对 actionlib_msgs具有编译依赖关系。</p>
-<h1 id="启动Python模块支持"><a href="#启动Python模块支持" class="headerlink" title="启动Python模块支持"></a>启动Python模块支持</h1><p>如果ROS软件包提供了一些Python模块，就要创建一个setup.py文件并调用：<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">catkin_python_setup</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<h1>启动Python模块支持</h1>
+<p>如果ROS软件包提供了一些Python模块，就要创建一个setup.py文件并调用：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">catkin_python_setup</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
 <p>该调用要在generate_message()和catkin_package()的调用之前。</p>
-<h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><p>特定的catkin宏 catkin_add_gtest()用于处理基于gtest的单元测试：<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">catkin_add_gtest</span><span class="params">(myUnitTest test/utest.cpp)</span></span></span><br></pre></td></tr></table></figure></p>
-<h1 id="可选步骤：明确安装目标"><a href="#可选步骤：明确安装目标" class="headerlink" title="可选步骤：明确安装目标"></a>可选步骤：明确安装目标</h1><p>编译完成后，目标被放入catkin工作空间下的devel目录。一般希望将目标安装到系统上，以使其他用户使用，或者安装到本地目录来测试系统级别的安装。也就是说，如果希望能够对代码进行make install，就需要明确目标结束的位置。</p>
+<h1>单元测试</h1>
+<p>特定的catkin宏 catkin_add_gtest()用于处理基于gtest的单元测试：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">catkin_add_gtest</span><span class="params">(myUnitTest test/utest.cpp)</span></span></span><br></pre></td></tr></table></figure>
+<h1>可选步骤：明确安装目标</h1>
+<p>编译完成后，目标被放入catkin工作空间下的devel目录。一般希望将目标安装到系统上，以使其他用户使用，或者安装到本地目录来测试系统级别的安装。也就是说，如果希望能够对代码进行make install，就需要明确目标结束的位置。</p>
 <p>上述过程可以使用CMake的 install()函数实现，该函数的参数有：</p>
 <figure class="highlight scss"><table><tr><td class="code"><pre><span class="line">TARGETS：要安装的目标</span><br><span class="line">ARCHIVE DESTINATION：静态库和动态链接库<span class="built_in">DLL</span>(Windows)<span class="selector-class">.lib</span>存根</span><br><span class="line">LIBRARY DESTINATION：非DLL共享库和模块</span><br><span class="line">RUNTIME DESTINATION：可执行目标和<span class="built_in">DLL</span>(Windows)模式共享库</span><br></pre></td></tr></table></figure>
-<p>例子：<br><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">install</span>(TARGETS <span class="variable">$&#123;PROJECT_NAME&#125;</span>  </span><br><span class="line">        ARCHIVE DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_LIB_DESTINATION&#125;</span>  </span><br><span class="line">        LIBRARY DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_LIB_DESTINATION&#125;</span>  </span><br><span class="line">        RUNTIME DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_BIN_DESTINATION&#125;</span>)</span><br></pre></td></tr></table></figure></p>
+<p>例子：</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">install</span>(TARGETS <span class="variable">$&#123;PROJECT_NAME&#125;</span>  </span><br><span class="line">        ARCHIVE DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_LIB_DESTINATION&#125;</span>  </span><br><span class="line">        LIBRARY DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_LIB_DESTINATION&#125;</span>  </span><br><span class="line">        RUNTIME DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_BIN_DESTINATION&#125;</span>)</span><br></pre></td></tr></table></figure>
 <p>除了这些标准的目标，还要安装一些文件到特定的目录下，即一个包含Python绑定的库必须要安装到另外的不同的目录下，这对Python是重要的：</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">install</span>(TARGETS python_module_library  </span><br><span class="line">        ARCHIVE DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_PYTHON_DESTINATION&#125;</span>  </span><br><span class="line">        LIBRARY DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_PYTHON_DESTINATION&#125;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="安装Python可执行脚本"><a href="#安装Python可执行脚本" class="headerlink" title="安装Python可执行脚本"></a>安装Python可执行脚本</h2><p>Python代码的安装规则有些不同，它不需要使用 add_library()和add_executable()函数来告知CMake哪个文件是目标文件、目标文件是什么类型的。而是使用如下的CMakeList.txt文件：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">catkin_install_python(PROGRAMS scripts/myscript  </span><br><span class="line">                      DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_BIN_DESTINATION&#125;</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装Python可执行脚本">安装Python可执行脚本</h2>
+<p>Python代码的安装规则有些不同，它不需要使用 add_library()和add_executable()函数来告知CMake哪个文件是目标文件、目标文件是什么类型的。而是使用如下的CMakeList.txt文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">catkin_install_python(PROGRAMS scripts/myscript  </span><br><span class="line">                      DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_BIN_DESTINATION&#125;</span>)</span><br></pre></td></tr></table></figure>
 <p>如果只是安装了Python的脚本，不提供任何模块的话，就不用创建上文提到的 setup.py文件，也不用调用catkin_python_setup()。</p>
-<h2 id="安装头文件"><a href="#安装头文件" class="headerlink" title="安装头文件"></a>安装头文件</h2><p>头文件必须安装到include目录下，这通常通过安装整个文件夹的文件来完成（可以根据文件名模式进行过滤，并排除SVN子文件夹）。可以通过一下安装规则实现：</p>
+<h2 id="安装头文件">安装头文件</h2>
+<p>头文件必须安装到include目录下，这通常通过安装整个文件夹的文件来完成（可以根据文件名模式进行过滤，并排除SVN子文件夹）。可以通过一下安装规则实现：</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">install</span>(DIRECTORY <span class="keyword">include</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>/  </span><br><span class="line">        DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_INCLUDE_DESTINATION&#125;</span>  </span><br><span class="line">        PATTERN <span class="string">&quot;.svn&quot;</span> EXCLUDE)</span><br></pre></td></tr></table></figure>
-<p>或者如果include目录下的子文件夹无法和软件包名匹配时：<br><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">install</span>(DIRECTORY <span class="keyword">include</span>/  </span><br><span class="line">        DESTINATION <span class="variable">$&#123;CATKIN_GLOBAL_INCLUDE_DESTINATION&#125;</span>  </span><br><span class="line">        PATTERN <span class="string">&quot;.svn&quot;</span> EXCLUDE)</span><br></pre></td></tr></table></figure></p>
-<h2 id="安装roslaunch文件或其他源"><a href="#安装roslaunch文件或其他源" class="headerlink" title="安装roslaunch文件或其他源"></a>安装roslaunch文件或其他源</h2><p>其他像launchfiles的资源可以安装到 ${CATKIN_PACKAGE_SHARE_DESTINATION}：<br><figure class="highlight mel"><table><tr><td class="code"><pre><span class="line">install(DIRECTORY <span class="keyword">launch</span>/  </span><br><span class="line">        DESTINATION $&#123;CATKIN_PACKAGE_SHARE_DESTINATION&#125;/<span class="keyword">launch</span>  </span><br><span class="line">        PATTERN <span class="string">&quot;.svn&quot;</span> EXCLUDE)</span><br></pre></td></tr></table></figure></p>
+<p>或者如果include目录下的子文件夹无法和软件包名匹配时：</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">install</span>(DIRECTORY <span class="keyword">include</span>/  </span><br><span class="line">        DESTINATION <span class="variable">$&#123;CATKIN_GLOBAL_INCLUDE_DESTINATION&#125;</span>  </span><br><span class="line">        PATTERN <span class="string">&quot;.svn&quot;</span> EXCLUDE)</span><br></pre></td></tr></table></figure>
+<h2 id="安装roslaunch文件或其他源">安装roslaunch文件或其他源</h2>
+<p>其他像launchfiles的资源可以安装到 ${CATKIN_PACKAGE_SHARE_DESTINATION}：</p>
+<figure class="highlight mel"><table><tr><td class="code"><pre><span class="line">install(DIRECTORY <span class="keyword">launch</span>/  </span><br><span class="line">        DESTINATION $&#123;CATKIN_PACKAGE_SHARE_DESTINATION&#125;/<span class="keyword">launch</span>  </span><br><span class="line">        PATTERN <span class="string">&quot;.svn&quot;</span> EXCLUDE)</span><br></pre></td></tr></table></figure>
 <p>CMakeLists.txt文件书写模板</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 2.8.3)</span><br><span class="line">project(my_p)</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Compile as C++11, supported in ROS Kinetic and newer</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">add_compile_options(-std=c++11)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Find catkin macros and libraries</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># is used, also find other catkin packages</span></span></span><br><span class="line">find_package(catkin REQUIRED COMPONENTS</span><br><span class="line">  roscpp</span><br><span class="line">  rospy</span><br><span class="line">  std_msgs</span><br><span class="line">)</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># System dependencies are found with CMake&#x27;s conventions</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">find_package(Boost REQUIRED COMPONENTS system)</span></span><br><span class="line"> </span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Uncomment this if the package has a setup.py. This macro ensures</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># modules and global scripts declared therein get installed</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">catkin_python_setup()</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">###############################################</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Declare ROS messages, services and actions ##</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">###############################################</span></span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># To declare and build messages, services or actions from within this</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># package, follow these steps:</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># * Let MSG_DEP_SET be the set of packages whose message types you use in</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># * In the file package.xml:</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * add a build_depend tag for &quot;message_generation&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * If MSG_DEP_SET isn&#x27;t empty the following dependency has been pulled in</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#     but can be declared for certainty nonetheless:</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#     * add a run_depend tag for &quot;message_runtime&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># * In this file (CMakeLists.txt):</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * add &quot;message_generation&quot; and every package in MSG_DEP_SET to</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#     find_package(catkin REQUIRED COMPONENTS ...)</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * add &quot;message_runtime&quot; and every package in MSG_DEP_SET to</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#     catkin_package(CATKIN_DEPENDS ...)</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * uncomment the add_*_files sections below as needed</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#     and list every .msg/.srv/.action file to be processed</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * uncomment the generate_messages entry below</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)</span></span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Generate messages in the &#x27;msg&#x27; folder</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">add_message_files(</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  FILES</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  Message1.msg</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  Message2.msg</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Generate services in the &#x27;srv&#x27; folder</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">add_service_files(</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  FILES</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  Service1.srv</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  Service2.srv</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Generate actions in the &#x27;action&#x27; folder</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">add_action_files(</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  FILES</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  Action1.action</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  Action2.action</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Generate added messages and services with any dependencies listed here</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">generate_messages(</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  DEPENDENCIES</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  std_msgs</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">###############################################</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Declare ROS dynamic reconfigure parameters ##</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">###############################################</span></span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># To declare and build dynamic reconfigure parameters within this</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># package, follow these steps:</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># * In the file package.xml:</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * add a build_depend and a run_depend tag for &quot;dynamic_reconfigure&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># * In this file (CMakeLists.txt):</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * add &quot;dynamic_reconfigure&quot; to</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#     find_package(catkin REQUIRED COMPONENTS ...)</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#   * uncomment the &quot;generate_dynamic_reconfigure_options&quot; section below</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#     and list every .cfg file to be processed</span></span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Generate dynamic reconfigure parameters in the &#x27;cfg&#x27; folder</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">generate_dynamic_reconfigure_options(</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  cfg/DynReconf1.cfg</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  cfg/DynReconf2.cfg</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##################################</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># catkin specific configuration ##</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##################################</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># The catkin_package macro generates cmake config files for your package</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Declare things to be passed to dependent projects</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># INCLUDE_DIRS: uncomment this if your package contains header files</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># LIBRARIES: libraries you create in this project that dependent projects also need</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># CATKIN_DEPENDS: catkin_packages dependent projects also need</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># DEPENDS: system dependencies of this project that dependent projects also need</span></span></span><br><span class="line">catkin_package(</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> INCLUDE_DIRS include</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> LIBRARIES my_p</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> CATKIN_DEPENDS roscpp rospy std_msgs</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> DEPENDS system_lib</span></span><br><span class="line">)</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##########</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Build ##</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##########</span></span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Specify additional locations of header files</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Your package locations should be listed before other locations</span></span></span><br><span class="line">include_directories(</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">include</span></span><br><span class="line"><span class="meta prompt_">  $</span><span class="language-bash">&#123;catkin_INCLUDE_DIRS&#125;</span></span><br><span class="line">)</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Declare a C++ library</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">add_library(<span class="variable">$&#123;PROJECT_NAME&#125;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  src/<span class="variable">$&#123;PROJECT_NAME&#125;</span>/my_p.cpp</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Add cmake target dependencies of the library</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># as an example, code may need to be generated before libraries</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># either from message generation or dynamic reconfigure</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">add_dependencies(<span class="variable">$&#123;PROJECT_NAME&#125;</span> <span class="variable">$&#123;<span class="variable">$&#123;PROJECT_NAME&#125;</span>_EXPORTED_TARGETS&#125;</span> <span class="variable">$&#123;catkin_EXPORTED_TARGETS&#125;</span>)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Declare a C++ executable</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># With catkin_make all packages are built within a single CMake context</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># The recommended prefix ensures that target names across packages don&#x27;t collide</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">add_executable(<span class="variable">$&#123;PROJECT_NAME&#125;</span>_node src/my_p_node.cpp)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Rename C++ executable without prefix</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># The above recommended prefix causes long target names, the following renames the</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># target back to the shorter version for ease of user use</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># e.g. &quot;rosrun someones_pkg node&quot; instead of &quot;rosrun someones_pkg someones_pkg_node&quot;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">set_target_properties(<span class="variable">$&#123;PROJECT_NAME&#125;</span>_node PROPERTIES OUTPUT_NAME node PREFIX <span class="string">&quot;&quot;</span>)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Add cmake target dependencies of the executable</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># same as for the library above</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">add_dependencies(<span class="variable">$&#123;PROJECT_NAME&#125;</span>_node <span class="variable">$&#123;<span class="variable">$&#123;PROJECT_NAME&#125;</span>_EXPORTED_TARGETS&#125;</span> <span class="variable">$&#123;catkin_EXPORTED_TARGETS&#125;</span>)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Specify libraries to link a library or executable target against</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">target_link_libraries(<span class="variable">$&#123;PROJECT_NAME&#125;</span>_node</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  <span class="variable">$&#123;catkin_LIBRARIES&#125;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">############</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Install ##</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">############</span></span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">all install targets should use catkin DESTINATION variables</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Mark executable scripts (Python etc.) for installation</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># in contrast to setup.py, you can choose the destination</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">install(PROGRAMS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  scripts/my_python_script</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_BIN_DESTINATION&#125;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Mark executables and/or libraries for installation</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">install(TARGETS <span class="variable">$&#123;PROJECT_NAME&#125;</span> <span class="variable">$&#123;PROJECT_NAME&#125;</span>_node</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  ARCHIVE DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_LIB_DESTINATION&#125;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  LIBRARY DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_LIB_DESTINATION&#125;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  RUNTIME DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_BIN_DESTINATION&#125;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Mark cpp header files for installation</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">install(DIRECTORY include/<span class="variable">$&#123;PROJECT_NAME&#125;</span>/</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_INCLUDE_DESTINATION&#125;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  FILES_MATCHING PATTERN <span class="string">&quot;*.h&quot;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  PATTERN <span class="string">&quot;.svn&quot;</span> EXCLUDE</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Mark other files for installation (e.g. launch and bag files, etc.)</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">install(FILES</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  <span class="comment"># myfile1</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  <span class="comment"># myfile2</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_SHARE_DESTINATION&#125;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">)</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">############</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Testing ##</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">############</span></span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Add gtest based cpp test target and link libraries</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">catkin_add_gtest(<span class="variable">$&#123;PROJECT_NAME&#125;</span>-<span class="built_in">test</span> <span class="built_in">test</span>/test_my_p.cpp)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span>(TARGET <span class="variable">$&#123;PROJECT_NAME&#125;</span>-<span class="built_in">test</span>)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  target_link_libraries(<span class="variable">$&#123;PROJECT_NAME&#125;</span>-<span class="built_in">test</span> <span class="variable">$&#123;PROJECT_NAME&#125;</span>)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">endif()</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Add folders to be run by python nosetests</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">catkin_add_nosetests</span></span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. <a target="_blank" rel="noopener" href="https://blog.csdn.net/jinking01/article/details/102891918">ROS的CMakeList文件详解</a></p>
+<h1>参考</h1>
+<p>[1]. <a target="_blank" rel="noopener" href="https://blog.csdn.net/jinking01/article/details/102891918">ROS的CMakeList文件详解</a></p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -409,7 +494,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -444,7 +696,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,48 +230,128 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >uml类图解释及其常用绘制工具</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#uml-类图介绍">UML 类图介绍</a></li>
-<li><a href="#使用-doxygen-从源代码生成-uml-类图">使用 Doxygen 从源代码生成 UML 类图</a></li>
-<li><a href="#mermaid绘制流程图的语法">Mermaid绘制流程图的语法</a></li>
-<li><a href="#命令行生成">命令行生成</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#uml-%E7%B1%BB%E5%9B%BE%E4%BB%8B%E7%BB%8D">UML 类图介绍</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-doxygen-%E4%BB%8E%E6%BA%90%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90-uml-%E7%B1%BB%E5%9B%BE">使用 Doxygen 从源代码生成 UML 类图</a></li>
+<li><a href="#mermaid%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%9A%84%E8%AF%AD%E6%B3%95">Mermaid绘制流程图的语法</a></li>
+<li><a href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%94%9F%E6%88%90">命令行生成</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="UML-类图介绍"><a href="#UML-类图介绍" class="headerlink" title="UML 类图介绍"></a>UML 类图介绍</h1><p>在UML类图中，箭头和线的样式用于表示类与类之间的关系。以下是各种关系及其对应的箭头和线的含义：</p>
-<p>1, 关联（Association）：<br>箭头：普通箭头（实心箭头或空心箭头，通常是实心箭头）。<br>线：通常是直线，连接两个类的关联关系。<br>含义：表示两个类之间的静态关系，表示一个类与另一个类之间的连接。关联是一种比较强的关系，表明两个类之间存在关联，但不一定是紧密耦合的。</p>
-<p>2, 聚集（Aggregation）：<br>箭头：带空心菱形的箭头。<br>线：通常是直线，连接一个整体与其部分。<br>含义：表示整体与部分之间的关系，整体可以包含部分，但部分可以独立存在。聚集表示一种弱关系，整体的生命周期不依赖于部分的生命周期。</p>
-<p>3, 组合（Composition）：<br>箭头：带实心菱形的箭头。<br>线：通常是直线，连接一个整体与其部分。<br>含义：表示整体与部分之间的关系，整体包含部分，部分不能独立存在，它们的生命周期是紧密耦合的。组合表示一种强关系，整体的生命周期取决于部分的生命周期。</p>
-<p>4, 依赖（Dependency）：<br>箭头：带箭头的虚线。<br>线：通常是虚线，连接一个使用另一个类的类。<br>含义：表示一个类的实现或行为依赖于另一个类。依赖是一种比较弱的关系，表示类之间的一种使用关系，当一个类的变化可能影响到另一个类时，它们之间存在依赖关系。</p>
-<h1 id="使用-Doxygen-从源代码生成-UML-类图"><a href="#使用-Doxygen-从源代码生成-UML-类图" class="headerlink" title="使用 Doxygen 从源代码生成 UML 类图"></a>使用 Doxygen 从源代码生成 UML 类图</h1><p>1, 安装Doxygen：首先，需要安装Doxygen工具。可以从Doxygen的官方网站（<a target="_blank" rel="noopener" href="https://www.doxygen.nl/download.html）下载并安装适合的操作系统版本。">https://www.doxygen.nl/download.html）下载并安装适合的操作系统版本。</a><br>2, 配置Doxyfile：Doxygen使用名为Doxyfile的配置文件来指定需要生成的文档和设置。在项目根目录下创建一个名为Doxyfile的文件。可以使用以下命令在项目根目录生成默认的Doxyfile：</p>
+<h1>UML 类图介绍</h1>
+<p>在UML类图中，箭头和线的样式用于表示类与类之间的关系。以下是各种关系及其对应的箭头和线的含义：</p>
+<p>1, 关联（Association）：<br>
+箭头：普通箭头（实心箭头或空心箭头，通常是实心箭头）。<br>
+线：通常是直线，连接两个类的关联关系。<br>
+含义：表示两个类之间的静态关系，表示一个类与另一个类之间的连接。关联是一种比较强的关系，表明两个类之间存在关联，但不一定是紧密耦合的。</p>
+<p>2, 聚集（Aggregation）：<br>
+箭头：带空心菱形的箭头。<br>
+线：通常是直线，连接一个整体与其部分。<br>
+含义：表示整体与部分之间的关系，整体可以包含部分，但部分可以独立存在。聚集表示一种弱关系，整体的生命周期不依赖于部分的生命周期。</p>
+<p>3, 组合（Composition）：<br>
+箭头：带实心菱形的箭头。<br>
+线：通常是直线，连接一个整体与其部分。<br>
+含义：表示整体与部分之间的关系，整体包含部分，部分不能独立存在，它们的生命周期是紧密耦合的。组合表示一种强关系，整体的生命周期取决于部分的生命周期。</p>
+<p>4, 依赖（Dependency）：<br>
+箭头：带箭头的虚线。<br>
+线：通常是虚线，连接一个使用另一个类的类。<br>
+含义：表示一个类的实现或行为依赖于另一个类。依赖是一种比较弱的关系，表示类之间的一种使用关系，当一个类的变化可能影响到另一个类时，它们之间存在依赖关系。</p>
+<h1>使用 Doxygen 从源代码生成 UML 类图</h1>
+<p>1, 安装Doxygen：首先，需要安装Doxygen工具。可以从Doxygen的官方网站（<a target="_blank" rel="noopener" href="https://www.doxygen.nl/download.html%EF%BC%89%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%AE%89%E8%A3%85%E9%80%82%E5%90%88%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC%E3%80%82">https://www.doxygen.nl/download.html）下载并安装适合的操作系统版本。</a><br>
+2, 配置Doxyfile：Doxygen使用名为Doxyfile的配置文件来指定需要生成的文档和设置。在项目根目录下创建一个名为Doxyfile的文件。可以使用以下命令在项目根目录生成默认的Doxyfile：</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">doxygen -<span class="selector-tag">g</span> Doxyfile</span><br></pre></td></tr></table></figure>
-<p>3, 配置Doxyfile中的参数：打开Doxyfile文件，并设置以下参数：<br> 1)<code>INPUT</code>：指定源代码目录，你可以在这里列出你希望生成UML类图的源代码目录。<br> 2)<code>GENERATE_UML</code>：设置为YES，允许Doxygen生成UML图。<br> 3)<code>UML_LOOK</code>：设置为YES以生成较为简洁的UML类图（可选）。<br> 4)<code>UML_LIMIT_NUM_FIELDS</code>：设置生成的UML图中类的最大字段数量（可选）。<br> 5)<code>UML_LIMIT_NUM_RELATIONS</code>：设置生成的UML图中类之间的最大关系数量（可选）。<br>注意：确保删除或注释掉EXTRACT_ALL和EXTRACT_PRIVATE等参数，以便Doxygen生成所有类的UML类图。<br>4, 运行Doxygen：配置完成后，使用以下命令运行Doxygen：</p>
+<p>3, 配置Doxyfile中的参数：打开Doxyfile文件，并设置以下参数：<br>
+1)<code>INPUT</code>：指定源代码目录，你可以在这里列出你希望生成UML类图的源代码目录。<br>
+2)<code>GENERATE_UML</code>：设置为YES，允许Doxygen生成UML图。<br>
+3)<code>UML_LOOK</code>：设置为YES以生成较为简洁的UML类图（可选）。<br>
+4)<code>UML_LIMIT_NUM_FIELDS</code>：设置生成的UML图中类的最大字段数量（可选）。<br>
+5)<code>UML_LIMIT_NUM_RELATIONS</code>：设置生成的UML图中类之间的最大关系数量（可选）。<br>
+注意：确保删除或注释掉EXTRACT_ALL和EXTRACT_PRIVATE等参数，以便Doxygen生成所有类的UML类图。<br>
+4, 运行Doxygen：配置完成后，使用以下命令运行Doxygen：</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">doxygen Doxyfile</span></span><br></pre></td></tr></table></figure>
-<p>运行完成后，Doxygen将在输出目录中生成文档。<br>5, 查看生成的UML类图：打开生成的文档，在文档中应该可以找到生成的UML类图，通常以SVG或PNG格式呈现。</p>
+<p>运行完成后，Doxygen将在输出目录中生成文档。<br>
+5, 查看生成的UML类图：打开生成的文档，在文档中应该可以找到生成的UML类图，通常以SVG或PNG格式呈现。</p>
 <p>请注意，Doxygen生成的UML类图可能相对简单，特别是在大型项目中，因为它主要关注源代码的文档生成。如果需要更复杂的UML图，可能需要使用其他专业的UML建模工具，如Enterprise Architect、Visual Paradigm等。</p>
-<h1 id="Mermaid绘制流程图的语法"><a href="#Mermaid绘制流程图的语法" class="headerlink" title="Mermaid绘制流程图的语法"></a>Mermaid绘制流程图的语法</h1><p>Mermaid是一种简洁易读的文本描述语言，用于绘制流程图、时序图、甘特图等各种图表。下面是Mermaid绘制流程图的基本语法:</p>
-<p>1, 定义节点和连接关系：<br>    1) 使用graph或flowchart关键字开始绘图，然后使用TD（从上到下）或LR（从左到右）来指定节点排列方式。<br>    2) 使用—&gt;定义连接箭头，箭头可以用来连接两个节点。<br>    3) 使用—-定义没有箭头的连接线。<br>节点标识符通常由字母、数字、下划线和连字符组成。</p>
-<p>2, 定义节点的形状和样式：<br>    1) 使用[ ]来定义方形节点。<br>    2) 使用[ ]]来定义圆角矩形节点。<br>    3) 使用(( ))来定义圆形节点。<br>    4) 使用{ }来定义菱形节点。<br>    5) 使用样式选项来更改节点的外观，如style、class和stroke等。</p>
-<p>3, 添加子图：<br>    1) 使用子图可以在一个节点内部绘制更复杂的流程图。<br>    2) 使用subgraph关键字开始子图，然后在其中定义节点和连接。<br>    3) 使用end关键字结束子图。</p>
+<h1>Mermaid绘制流程图的语法</h1>
+<p>Mermaid是一种简洁易读的文本描述语言，用于绘制流程图、时序图、甘特图等各种图表。下面是Mermaid绘制流程图的基本语法:</p>
+<p>1, 定义节点和连接关系：<br>
+1) 使用graph或flowchart关键字开始绘图，然后使用TD（从上到下）或LR（从左到右）来指定节点排列方式。<br>
+2) 使用–&gt;定义连接箭头，箭头可以用来连接两个节点。<br>
+3) 使用—定义没有箭头的连接线。<br>
+节点标识符通常由字母、数字、下划线和连字符组成。</p>
+<p>2, 定义节点的形状和样式：<br>
+1) 使用[ ]来定义方形节点。<br>
+2) 使用[ ]]来定义圆角矩形节点。<br>
+3) 使用(( ))来定义圆形节点。<br>
+4) 使用{ }来定义菱形节点。<br>
+5) 使用样式选项来更改节点的外观，如style、class和stroke等。</p>
+<p>3, 添加子图：<br>
+1) 使用子图可以在一个节点内部绘制更复杂的流程图。<br>
+2) 使用subgraph关键字开始子图，然后在其中定义节点和连接。<br>
+3) 使用end关键字结束子图。</p>
 <p>下面是一个示例Mermaid流程图的代码：</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">graph <span class="selector-tag">TD</span>;</span><br><span class="line">    <span class="selector-tag">A</span>((开始)) --&gt; <span class="selector-tag">B</span><span class="selector-attr">[处理A]</span>;</span><br><span class="line">    <span class="selector-tag">B</span> --&gt; C<span class="selector-attr">[处理B]</span>;</span><br><span class="line">    <span class="selector-tag">B</span> --&gt; D<span class="selector-attr">[处理C]</span>;</span><br><span class="line">    C --&gt; E<span class="selector-attr">[处理D]</span>;</span><br><span class="line">    D --&gt; E;</span><br><span class="line">    E --&gt; F((结束));</span><br></pre></td></tr></table></figure>
-<p>在上面的示例中，我们定义了几个节点，例如(开始)、[处理A]、{ }、((结束))等，并用箭头—&gt;表示连接关系。</p>
+<p>在上面的示例中，我们定义了几个节点，例如(开始)、[处理A]、{ }、((结束))等，并用箭头–&gt;表示连接关系。</p>
 <p>注意，Mermaid语法不区分大小写，并且注释以%%开头。</p>
-<h1 id="命令行生成"><a href="#命令行生成" class="headerlink" title="命令行生成"></a>命令行生成</h1><p>非常可惜的是官网在生成图片的时候特别慢，有的时候试了十几次，没错，是十几次，都没有生成出来PNG图片，一开始以为是自己网络问题导致的，后面发现，无论网络好不好都生成不了，推荐使用命令行的方式来生成，首先配置好命令行下所需的环境</p>
+<h1>命令行生成</h1>
+<p>非常可惜的是官网在生成图片的时候特别慢，有的时候试了十几次，没错，是十几次，都没有生成出来PNG图片，一开始以为是自己网络问题导致的，后面发现，无论网络好不好都生成不了，推荐使用命令行的方式来生成，首先配置好命令行下所需的环境</p>
 <figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> install -g @mermaid-js/mermaid-cli</span><br></pre></td></tr></table></figure>
 <p>然后创建文件后缀名为<code>.mmd</code>, 采用如下命令行即可生成PNG图片</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">mmdc -<span class="selector-tag">i</span> test<span class="selector-class">.mmd</span> -o blue<span class="selector-class">.png</span> -w <span class="number">1080</span> -h <span class="number">3600</span> -t forest -<span class="selector-tag">b</span> transparent</span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]. chatGPT 的回答</p>
+<h1>参考</h1>
+<p>[1]. chatGPT 的回答</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -297,7 +378,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -332,7 +580,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

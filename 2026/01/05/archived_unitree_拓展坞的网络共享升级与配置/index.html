@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,51 +230,73 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Unitree go2 拓展坞的升级及相关配置</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#拓展坞通过笔记本-wi-fi-上网拓展坞固定-19216812318">拓展坞通过笔记本 Wi-Fi 上网（拓展坞固定 192.168.123.18）</a><ul>
-<li><a href="#目标">目标</a></li>
-<li><a href="#已确认的接口与现状">已确认的接口与现状</a><ul>
-<li><a href="#笔记本ubuntu">笔记本（Ubuntu）</a></li>
-<li><a href="#拓展坞ubuntujetson">拓展坞（Ubuntu/Jetson）</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%8B%93%E5%B1%95%E5%9D%9E%E9%80%9A%E8%BF%87%E7%AC%94%E8%AE%B0%E6%9C%AC-wi-fi-%E4%B8%8A%E7%BD%91%E6%8B%93%E5%B1%95%E5%9D%9E%E5%9B%BA%E5%AE%9A-19216812318">拓展坞通过笔记本 Wi-Fi 上网（拓展坞固定 192.168.123.18）</a>
+<ul>
+<li><a href="#%E7%9B%AE%E6%A0%87">目标</a></li>
+<li><a href="#%E5%B7%B2%E7%A1%AE%E8%AE%A4%E7%9A%84%E6%8E%A5%E5%8F%A3%E4%B8%8E%E7%8E%B0%E7%8A%B6">已确认的接口与现状</a>
+<ul>
+<li><a href="#%E7%AC%94%E8%AE%B0%E6%9C%ACubuntu">笔记本（Ubuntu）</a></li>
+<li><a href="#%E6%8B%93%E5%B1%95%E5%9D%9Eubuntujetson">拓展坞（Ubuntu/Jetson）</a></li>
 </ul>
 </li>
-<li><a href="#用笔记本当前地址-19216812322-作为网关">用笔记本当前地址 192.168.123.22 作为网关</a><ul>
-<li><a href="#笔记本端配置nat--转发">笔记本端配置（NAT + 转发）</a></li>
-<li><a href="#拓展坞端配置默认路由--dns">拓展坞端配置（默认路由 + DNS）</a></li>
+<li><a href="#%E7%94%A8%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%BD%93%E5%89%8D%E5%9C%B0%E5%9D%80-19216812322-%E4%BD%9C%E4%B8%BA%E7%BD%91%E5%85%B3">用笔记本当前地址 192.168.123.22 作为网关</a>
+<ul>
+<li><a href="#%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%AB%AF%E9%85%8D%E7%BD%AEnat--%E8%BD%AC%E5%8F%91">笔记本端配置（NAT + 转发）</a></li>
+<li><a href="#%E6%8B%93%E5%B1%95%E5%9D%9E%E7%AB%AF%E9%85%8D%E7%BD%AE%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1--dns">拓展坞端配置（默认路由 + DNS）</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#升级拓展坞到-ubuntu-2204版本">升级拓展坞到 ubuntu 22.04版本</a></li>
-<li><a href="#把-2004-更新到最新降低依赖冲突">把 20.04 更新到最新（降低依赖冲突）</a></li>
+<li><a href="#%E5%8D%87%E7%BA%A7%E6%8B%93%E5%B1%95%E5%9D%9E%E5%88%B0-ubuntu-2204%E7%89%88%E6%9C%AC">升级拓展坞到 ubuntu 22.04版本</a></li>
+<li><a href="#%E6%8A%8A-2004-%E6%9B%B4%E6%96%B0%E5%88%B0%E6%9C%80%E6%96%B0%E9%99%8D%E4%BD%8E%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81">把 20.04 更新到最新（降低依赖冲突）</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用宇树的拓展坞进行控制太爽了，不过还是喜欢刷成humble的版本，这样对于跑一些开源代码是挺有用处的，总比抱着笔记本进行转发强，但是默认拓展坞里面是ubuntu 20.04的版本，太低了，这个升级即可，这里主要记录一下，因为需要升级的拓展坞还挺多的。</p>
-<h1 id="拓展坞通过笔记本-Wi-Fi-上网（拓展坞固定-192-168-123-18）"><a href="#拓展坞通过笔记本-Wi-Fi-上网（拓展坞固定-192-168-123-18）" class="headerlink" title="拓展坞通过笔记本 Wi-Fi 上网（拓展坞固定 192.168.123.18）"></a>拓展坞通过笔记本 Wi-Fi 上网（拓展坞固定 192.168.123.18）</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ol>
+<h1>前言</h1>
+<p>使用宇树的拓展坞进行控制太爽了，不过还是喜欢刷成humble的版本，这样对于跑一些开源代码是挺有用处的，总比抱着笔记本进行转发强，但是默认拓展坞里面是ubuntu 20.04的版本，太低了，这个升级即可，这里主要记录一下，因为需要升级的拓展坞还挺多的。</p>
+<h1>拓展坞通过笔记本 Wi-Fi 上网（拓展坞固定 192.168.123.18）</h1>
+<h2 id="目标">目标</h2>
+<ol>
 <li>拓展坞固定管理地址：192.168.123.18/24</li>
 <li>笔记本通过 Wi-Fi 上网，并通过网线把网络共享给拓展坞（NAT）</li>
 <li>拓展坞可访问外网（apt/git/ping）</li>
 </ol>
-<h2 id="已确认的接口与现状"><a href="#已确认的接口与现状" class="headerlink" title="已确认的接口与现状"></a>已确认的接口与现状</h2><h3 id="笔记本（Ubuntu）"><a href="#笔记本（Ubuntu）" class="headerlink" title="笔记本（Ubuntu）"></a>笔记本（Ubuntu）</h3><ol>
+<h2 id="已确认的接口与现状">已确认的接口与现状</h2>
+<h3 id="笔记本（Ubuntu）">笔记本（Ubuntu）</h3>
+<ol>
 <li>Wi-Fi 接口：wlp0s20f3（已联网）</li>
 <li>有线接口：enx00e04c360ba2（连接拓展坞）</li>
 <li>当前有线 IP：192.168.123.22/24（你已确认）</li>
 </ol>
-<h3 id="拓展坞（Ubuntu-Jetson）"><a href="#拓展坞（Ubuntu-Jetson）" class="headerlink" title="拓展坞（Ubuntu/Jetson）"></a>拓展坞（Ubuntu/Jetson）</h3><ol>
+<h3 id="拓展坞（Ubuntu-Jetson）">拓展坞（Ubuntu/Jetson）</h3>
+<ol>
 <li>有线接口：eth0</li>
 <li>固定 IP：192.168.123.18</li>
 <li>连接 profile：Profile 1</li>
 </ol>
-<h2 id="用笔记本当前地址-192-168-123-22-作为网关"><a href="#用笔记本当前地址-192-168-123-22-作为网关" class="headerlink" title="用笔记本当前地址 192.168.123.22 作为网关"></a>用笔记本当前地址 192.168.123.22 作为网关</h2><h3 id="笔记本端配置（NAT-转发）"><a href="#笔记本端配置（NAT-转发）" class="headerlink" title="笔记本端配置（NAT + 转发）"></a>笔记本端配置（NAT + 转发）</h3><p>在笔记本执行：</p>
+<h2 id="用笔记本当前地址-192-168-123-22-作为网关">用笔记本当前地址 192.168.123.22 作为网关</h2>
+<h3 id="笔记本端配置（NAT-转发）">笔记本端配置（NAT + 转发）</h3>
+<p>在笔记本执行：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 开启 IPv4 转发</span></span><br><span class="line"><span class="built_in">sudo</span> sysctl -w net.ipv4.ip_forward=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为 192.168.123.0/24 做 NAT 到 Wi-Fi</span></span><br><span class="line"><span class="built_in">sudo</span> iptables -t nat -C POSTROUTING -s 192.168.123.0/24 -o wlp0s20f3 -j MASQUERADE 2&gt;/dev/null \</span><br><span class="line">|| <span class="built_in">sudo</span> iptables -t nat -A POSTROUTING -s 192.168.123.0/24 -o wlp0s20f3 -j MASQUERADE</span><br><span class="line"></span><br><span class="line"><span class="comment"># 放行转发</span></span><br><span class="line"><span class="built_in">sudo</span> iptables -C FORWARD -i wlp0s20f3 -o enx00e04c360ba2 -m state --state RELATED,ESTABLISHED -j ACCEPT 2&gt;/dev/null \</span><br><span class="line">|| <span class="built_in">sudo</span> iptables -A FORWARD -i wlp0s20f3 -o enx00e04c360ba2 -m state --state RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> iptables -C FORWARD -i enx00e04c360ba2 -o wlp0s20f3 -j ACCEPT 2&gt;/dev/null \</span><br><span class="line">|| <span class="built_in">sudo</span> iptables -A FORWARD -i enx00e04c360ba2 -o wlp0s20f3 -j ACCEPT</span><br></pre></td></tr></table></figure>
-<h3 id="拓展坞端配置（默认路由-DNS）"><a href="#拓展坞端配置（默认路由-DNS）" class="headerlink" title="拓展坞端配置（默认路由 + DNS）"></a>拓展坞端配置（默认路由 + DNS）</h3><p>在拓展坞执行：</p>
+<h3 id="拓展坞端配置（默认路由-DNS）">拓展坞端配置（默认路由 + DNS）</h3>
+<p>在拓展坞执行：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 默认路由指向笔记本（注意：这里用 192.168.123.22）</span></span><br><span class="line"><span class="built_in">sudo</span> ip route replace default via 192.168.123.22 dev eth0</span><br><span class="line"></span><br><span class="line"><span class="comment"># DNS（快速验证版）</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;nameserver 8.8.8.8&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/resolv.conf</span><br></pre></td></tr></table></figure>
 <p>验证：</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ping</span> -c <span class="number">2</span> <span class="number">192.168.123.22</span></span><br><span class="line"><span class="attribute">ping</span> -c <span class="number">2</span> <span class="number">1.1.1.1</span></span><br><span class="line"><span class="attribute">ping</span> -c <span class="number">2</span> github.com</span><br></pre></td></tr></table></figure>
-<h1 id="升级拓展坞到-ubuntu-22-04版本"><a href="#升级拓展坞到-ubuntu-22-04版本" class="headerlink" title="升级拓展坞到 ubuntu 22.04版本"></a>升级拓展坞到 ubuntu 22.04版本</h1><p>先远程到宇树go2的拓展坞里面</p>
+<h1>升级拓展坞到 ubuntu 22.04版本</h1>
+<p>先远程到宇树go2的拓展坞里面</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> unitree@<span class="number">192.168.123.18</span>  <span class="comment">#密码默认是123</span></span><br></pre></td></tr></table></figure>
 <p>编辑文件：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vim /etc/update-manager/release-upgrades</span><br></pre></td></tr></table></figure>
@@ -281,18 +304,52 @@
 <figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Prompt</span><span class="operator">=</span>never</span><br></pre></td></tr></table></figure>
 <p>改成：</p>
 <figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Prompt</span><span class="operator">=</span>lts</span><br></pre></td></tr></table></figure>
-<h1 id="把-20-04-更新到最新（降低依赖冲突）"><a href="#把-20-04-更新到最新（降低依赖冲突）" class="headerlink" title="把 20.04 更新到最新（降低依赖冲突）"></a>把 20.04 更新到最新（降低依赖冲突）</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt full-upgrade -y</span><br><span class="line"><span class="built_in">sudo</span> apt autoremove --purge -y</span><br><span class="line"><span class="built_in">sudo</span> reboot</span><br></pre></td></tr></table></figure>
+<h1>把 20.04 更新到最新（降低依赖冲突）</h1>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt full-upgrade -y</span><br><span class="line"><span class="built_in">sudo</span> apt autoremove --purge -y</span><br><span class="line"><span class="built_in">sudo</span> reboot</span><br></pre></td></tr></table></figure>
 <p>使用命令进行升级</p>
 <figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">sudo <span class="keyword">do</span>-release-upgrade</span><br></pre></td></tr></table></figure>
 <p>有任何阻碍升级的第三方源，都给删了即可。一般在 <code>/etc/apt/sources.list</code>, 或者在路径 <code>/etc/apt/sources.list.d/</code>下面，总有一些妨碍升级的，屏蔽掉即可， 后面等待的时间就很长了，尽量有一个好一些的网络，不然卡在了半山腰，可能就成砖了。</p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -319,7 +376,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -354,7 +578,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

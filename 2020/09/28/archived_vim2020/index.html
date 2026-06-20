@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,104 +230,154 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >vim 学习笔记(二)</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#powershell下使用vim">PowerShell下使用vim</a><ul>
-<li><a href="#宏的读取与执行">宏的读取与执行</a></li>
-<li><a href="#为不同类型定制样式">为不同类型定制样式</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#powershell%E4%B8%8B%E4%BD%BF%E7%94%A8vim">PowerShell下使用vim</a>
+<ul>
+<li><a href="#%E5%AE%8F%E7%9A%84%E8%AF%BB%E5%8F%96%E4%B8%8E%E6%89%A7%E8%A1%8C">宏的读取与执行</a></li>
+<li><a href="#%E4%B8%BA%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E5%AE%9A%E5%88%B6%E6%A0%B7%E5%BC%8F">为不同类型定制样式</a></li>
 </ul>
 </li>
-<li><a href="#格式化代码">格式化代码</a><ul>
-<li><a href="#保持相同的缩进层次">保持相同的缩进层次</a></li>
-<li><a href="#上一行的缩进层次保持到下一行">上一行的缩进层次保持到下一行</a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81">格式化代码</a>
+<ul>
+<li><a href="#%E4%BF%9D%E6%8C%81%E7%9B%B8%E5%90%8C%E7%9A%84%E7%BC%A9%E8%BF%9B%E5%B1%82%E6%AC%A1">保持相同的缩进层次</a></li>
+<li><a href="#%E4%B8%8A%E4%B8%80%E8%A1%8C%E7%9A%84%E7%BC%A9%E8%BF%9B%E5%B1%82%E6%AC%A1%E4%BF%9D%E6%8C%81%E5%88%B0%E4%B8%8B%E4%B8%80%E8%A1%8C">上一行的缩进层次保持到下一行</a></li>
 <li><a href="#cindent-cindent">cindent Cindent</a></li>
 <li><a href="#indentexpr">Indentexpr</a></li>
 </ul>
 </li>
-<li><a href="#代码块快速格式化">代码块快速格式化</a></li>
-<li><a href="#部分插件介绍">部分插件介绍</a></li>
-<li><a href="#技巧">技巧</a><ul>
-<li><a href="#手动载入插件">手动载入插件</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BF%AB%E9%80%9F%E6%A0%BC%E5%BC%8F%E5%8C%96">代码块快速格式化</a></li>
+<li><a href="#%E9%83%A8%E5%88%86%E6%8F%92%E4%BB%B6%E4%BB%8B%E7%BB%8D">部分插件介绍</a></li>
+<li><a href="#%E6%8A%80%E5%B7%A7">技巧</a>
+<ul>
+<li><a href="#%E6%89%8B%E5%8A%A8%E8%BD%BD%E5%85%A5%E6%8F%92%E4%BB%B6">手动载入插件</a></li>
 </ul>
 </li>
-<li><a href="#创建分割窗口">创建分割窗口</a><ul>
-<li><a href="#窗口之间的切换">窗口之间的切换</a></li>
-<li><a href="#关闭窗口">关闭窗口</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%88%86%E5%89%B2%E7%AA%97%E5%8F%A3">创建分割窗口</a>
+<ul>
+<li><a href="#%E7%AA%97%E5%8F%A3%E4%B9%8B%E9%97%B4%E7%9A%84%E5%88%87%E6%8D%A2">窗口之间的切换</a></li>
+<li><a href="#%E5%85%B3%E9%97%AD%E7%AA%97%E5%8F%A3">关闭窗口</a></li>
 </ul>
 </li>
-<li><a href="#正则表达式">正则表达式</a><ul>
-<li><a href="#元字符">元字符</a><ul>
-<li><a href="#表示数量的元字符">表示数量的元字符</a></li>
-<li><a href="#表示位置的符号">表示位置的符号</a></li>
-<li><a href="#懒惰模式">懒惰模式</a></li>
+<li><a href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F">正则表达式</a>
+<ul>
+<li><a href="#%E5%85%83%E5%AD%97%E7%AC%A6">元字符</a>
+<ul>
+<li><a href="#%E8%A1%A8%E7%A4%BA%E6%95%B0%E9%87%8F%E7%9A%84%E5%85%83%E5%AD%97%E7%AC%A6">表示数量的元字符</a></li>
+<li><a href="#%E8%A1%A8%E7%A4%BA%E4%BD%8D%E7%BD%AE%E7%9A%84%E7%AC%A6%E5%8F%B7">表示位置的符号</a></li>
+<li><a href="#%E6%87%92%E6%83%B0%E6%A8%A1%E5%BC%8F">懒惰模式</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#跳转">跳转</a></li>
-<li><a href="#后记">后记</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E8%B7%B3%E8%BD%AC">跳转</a></li>
+<li><a href="#%E5%90%8E%E8%AE%B0">后记</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前记的笔记已经在日常生活中大量的使用了,但是还是有很多技巧值得自己去探索,虽然下面的笔记中会经常用到,鉴于笔记的完整性,还是记录下来。这里的笔记很多源自于《vim实用技巧》</p>
-<h1 id="PowerShell下使用vim"><a href="#PowerShell下使用vim" class="headerlink" title="PowerShell下使用vim"></a>PowerShell下使用vim</h1><p>第一步,以管理员的方式打开<code>powershell</code>。</p>
+<h1>前言</h1>
+<p>之前记的笔记已经在日常生活中大量的使用了,但是还是有很多技巧值得自己去探索,虽然下面的笔记中会经常用到,鉴于笔记的完整性,还是记录下来。这里的笔记很多源自于《vim实用技巧》</p>
+<h1>PowerShell下使用vim</h1>
+<p>第一步,以管理员的方式打开<code>powershell</code>。</p>
 <p>第二步,输入 <code>Set-ExecutionPolicy RemoteSigned</code>, 选择<code>Y</code>。</p>
-<p><img src="/img/postImg/42_vim/powershell_Set.png" style="zoom:60%;" /></p>
+<img src="/img/postImg/42_vim/powershell_Set.png" style="zoom:60%;" />
 <p>第三步,输入命令</p>
 <figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line"><span class="built_in">new</span>-<span class="keyword">item</span> -path $profile -itemtype <span class="built_in">file</span> -force</span><br></pre></td></tr></table></figure>
 <p>创建配置文件。先切换到给出的地址,然后用记事本编辑(复制地址的时候,可以先选择,然后Contrl+ins)</p>
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">cd C:<span class="string">\Users\yourComputerName\Documents\windowsPowerShell</span></span><br><span class="line">notepad .<span class="string">\Microsoft.PowerShell_profile.psl</span></span><br></pre></td></tr></table></figure>
-<p><img src="/img/postImg/42_vim/usingNotepadOpenPSLFile.png" style="zoom:60%;" /></p>
+<img src="/img/postImg/42_vim/usingNotepadOpenPSLFile.png" style="zoom:60%;" />
 <p>第四步,在打开的文本中输入如下内容</p>
 <figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set-alias</span> <span class="string">vim</span> <span class="string">&quot;D:\Vim\vim82\vim.exe&quot;</span> <span class="comment"># 此处为vim的安装路径</span></span><br><span class="line"></span><br><span class="line"><span class="string">Function</span> <span class="string">Edit-Profile</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">vim</span> $<span class="string">profile</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="string">Function</span> <span class="string">Edit-Vimrc</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">vim</span> $<span class="string">HOME</span>\<span class="string">_vimrc</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>添加结束后,重启powershell即可。也只有windows可以这么折腾人了。</p>
-<h2 id="宏的读取与执行"><a href="#宏的读取与执行" class="headerlink" title="宏的读取与执行"></a>宏的读取与执行</h2><p>宏允许把一段修改序列录制下来,用于之后的重复操作。 q 键既是“录制”按钮,也是“停止”按钮。为了录制按键操作,一开始需要按 q{register｝,从而指定一个用于保存宏的寄存器。当状态栏中出现“记录中”时,表示录制已经开始。此后,执行的每一条命令都将被宏捕获,直到再次按下 q 键停下为止。<br>可以用@{register}命令执行指定寄存器的内容,也可以用 @@ 来重复最近调用过的宏。</p>
-<h2 id="为不同类型定制样式"><a href="#为不同类型定制样式" class="headerlink" title="为不同类型定制样式"></a>为不同类型定制样式</h2><p>vim 有很多的选项可以让我们来定制自己习惯的行为,完整的列表可以参考 :h option-list。可以通过在vimrc中通过:set命令来改变它们。 不同的语言或者是文档,由于类型不同,排版会有所差异。比如,对Ruby文件采用两个空格的缩进,而对JavaScript文件采用4列宽度的制表符。可以将下面的代码放到配置文件vimrc中：</p>
+<h2 id="宏的读取与执行">宏的读取与执行</h2>
+<p>宏允许把一段修改序列录制下来,用于之后的重复操作。 q 键既是“录制”按钮,也是“停止”按钮。为了录制按键操作,一开始需要按 q{register｝,从而指定一个用于保存宏的寄存器。当状态栏中出现“记录中”时,表示录制已经开始。此后,执行的每一条命令都将被宏捕获,直到再次按下 q 键停下为止。<br>
+可以用@{register}命令执行指定寄存器的内容,也可以用 @@ 来重复最近调用过的宏。</p>
+<h2 id="为不同类型定制样式">为不同类型定制样式</h2>
+<p>vim 有很多的选项可以让我们来定制自己习惯的行为,完整的列表可以参考 :h option-list。可以通过在vimrc中通过:set命令来改变它们。 不同的语言或者是文档,由于类型不同,排版会有所差异。比如,对Ruby文件采用两个空格的缩进,而对JavaScript文件采用4列宽度的制表符。可以将下面的代码放到配置文件vimrc中：</p>
  <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">has</span>(<span class="string">&quot;autocmd&quot;</span>)</span><br><span class="line">        <span class="keyword">filetype</span> <span class="keyword">on</span></span><br><span class="line">        <span class="keyword">autocmd</span> FileType <span class="keyword">ruby</span> <span class="keyword">setlocal</span> <span class="keyword">ts</span>=<span class="number">2</span> <span class="keyword">sts</span>=<span class="number">2</span> <span class="keyword">sw</span>=<span class="number">2</span> et</span><br><span class="line">        <span class="keyword">autocmd</span> FileType javascript <span class="keyword">setlocal</span> <span class="keyword">ts</span>=<span class="number">4</span> <span class="keyword">ts</span>=<span class="number">4</span> <span class="keyword">sts</span>=<span class="number">4</span> <span class="keyword">sw</span>=<span class="number">4</span> noet</span><br><span class="line"><span class="keyword">endif</span></span><br></pre></td></tr></table></figure>
-<h1 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h1><p> 开始介绍折叠功能之前, 需要将折叠选项功能打开:</p>
+<h1>折叠</h1>
+<p>开始介绍折叠功能之前, 需要将折叠选项功能打开:</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">:<span class="built_in">set</span> foldenable</span><br></pre></td></tr></table></figure>
 <p>打开后, Vim就会注意到在普通模式下输入的折叠命令. 用来打开和关闭折叠的命令有很多个, 主要的有:</p>
 <figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">zc:</span> 关闭一个折叠 </span><br><span class="line"><span class="symbol">zo:</span> 打开一个折叠</span><br><span class="line"><span class="symbol">zM:</span> 关闭所有的折叠 </span><br><span class="line"><span class="symbol">zR:</span> 打开所有的折叠</span><br><span class="line"><span class="symbol">zf:</span> 可视模式下进行折叠(自己用的比较多)</span><br><span class="line"><span class="symbol">zd:</span> 删除折叠</span><br></pre></td></tr></table></figure>
-<h1 id="格式化代码"><a href="#格式化代码" class="headerlink" title="格式化代码"></a>格式化代码</h1><p>在对代码进行格式化时经常需要考虑很多因素. 每一种语言都有自己的语法规则, 还有些语言对格式非常依赖. 在有些情况下, 程序员需要按照公司给出的规定来格式化代码.虽然具体的格式化细节不尽相同, 但是它们都遵循一些基本的规则, 也就是说, 用户只需要关心不同的地方即可. 在大部分情况下, 格式化规则的修改可以通过一系列的 Vim选项来设置, 在这些选项当中, 比较重要的有以下几个:</p>
+<h1>格式化代码</h1>
+<p>在对代码进行格式化时经常需要考虑很多因素. 每一种语言都有自己的语法规则, 还有些语言对格式非常依赖. 在有些情况下, 程序员需要按照公司给出的规定来格式化代码.虽然具体的格式化细节不尽相同, 但是它们都遵循一些基本的规则, 也就是说, 用户只需要关心不同的地方即可. 在大部分情况下, 格式化规则的修改可以通过一系列的 Vim选项来设置, 在这些选项当中, 比较重要的有以下几个:</p>
 <figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">formatoptions: 这个选项负责特定格式的设置。</span></span><br><span class="line"></span><br><span class="line"><span class="section">comments: 什么是注释, 以及如何对它们进行格式化 </span></span><br><span class="line"></span><br><span class="line"><span class="section">(no)expandtab: 用空格代替制表符</span></span><br><span class="line"></span><br><span class="line"><span class="section">softtabstop: 一个制表符可以用多少个空格来代替</span></span><br><span class="line"></span><br><span class="line"><span class="section">tabstop: 一个制表符的宽度</span></span><br></pre></td></tr></table></figure>
 <p>通过这些选项, 用户几乎可以设置与缩进相关的方方面面. 但是光有这些还不足够, 用户仍然需要告诉 Vim 是否需要自动缩进, 还是由用户手动完成缩进. 如果用户希望由 Vim来完成缩进, 可以通过 4 种方法来完成。</p>
-<h2 id="保持相同的缩进层次"><a href="#保持相同的缩进层次" class="headerlink" title="保持相同的缩进层次"></a>保持相同的缩进层次</h2><p>Autoindent 是缩进代码最简单的方式. 它的功能仅仅是与上一行保持相同的缩进层次. 所以说, 如果当前行缩进了 4 个空格, 按下 Enter 后插入的空行也会缩进 4 个空格. 至于什么时候修改缩进的层次则完成取决于用户. 这种缩进方式适用于若干行需要保持相同缩进层次的语言. 打开 autoindent 的命令是 :set autoindent 或 :set ai.</p>
-<h2 id="上一行的缩进层次保持到下一行"><a href="#上一行的缩进层次保持到下一行" class="headerlink" title="上一行的缩进层次保持到下一行"></a>上一行的缩进层次保持到下一行</h2><p>Smartindent 比 autoindent 稍微智能一些. 它仍然可以让上一行的缩进层次保持到下一行, 但用户无需手动修改缩进层次. Smartindent 可以识别出 C 语言的大部分结构, 并根据它们来决定何时增加/减少缩进层次. 由于许多 编程语言都或多或少地都继承了 C 语言的语法, 所以 smartindent 也可以应用到其他语言. 打开 smartindent 可以用:set smartindent 或 :set si。</p>
-<h2 id="cindent-Cindent"><a href="#cindent-Cindent" class="headerlink" title="cindent Cindent"></a>cindent Cindent</h2><p>Cindent 经常被称为 clever indent(聪明的缩进) 或 configurable indent(可配置的缩进), 这是因为与前面介绍的两种缩进相比, 它的可配置性更强. 有三种设置选项:</p>
-<p>cinkeys: 这个选项包含了一个列表, 列表中的各项之间用逗号分开, Vim 可以根据列表中的项来改变缩进 层次. 一个例子是: :set cinkeys=”0{,0},0#,:”, 意思是说无论何时碰到一个以 {, 或 }, 或 # 作为开 始的行, 或者是以 : 作为结束的行 (很多语言的 switch 结构都用到了 :), Vim 都要再缩进一层. cinkeys 的默认值是 “0{, 0}, 0), :, 0#, !^F, o, O, e”,</p>
-<p>cinoptions: 这个选项包含了所有的, 专门用于 cindent 的选项. 它是一个各项之间由逗号分开的列表, 通 过这个列表可以设置大量的选项. 一个例子是 cinoptions=”&gt;2,{3,}3”, 意思是说在正常的缩进之上, 再额外添加两个空格, 另外, 在 { 与 } 的左边添加三个空格, 以便与前一行作比较。</p>
-<p>cinwords: 这个选项包含的关键词会让Vim在下一行增加缩进. 一个例子是:set cinwords=”if,else,do,while 这同时也是它的默认值。</p>
-<h2 id="Indentexpr"><a href="#Indentexpr" class="headerlink" title="Indentexpr"></a>Indentexpr</h2><p>Indentexpr 是最灵活的缩进选项, 但同时也是最复杂的. 使用 indentexpr 时, 它会对一个表达式求值, 然后计算出一行的缩进. 因此, 用户写出的表达式必须能被 Vim求值。这里就不举例了。。。。</p>
-<h1 id="代码块快速格式化"><a href="#代码块快速格式化" class="headerlink" title="代码块快速格式化"></a>代码块快速格式化</h1><p>缩进选项设置完毕后, 用户可能想根据新设置的选项更新一下代码的格式. 为了更新代码, 只需要告诉 Vim 重新缩进第一行到最后一行, 具体的命令是:<br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">1G</span>=G</span><br></pre></td></tr></table></figure><br>如果把命令拆开来看, 各个部分的意思是:<br>1G: 跳到文件的第一行 (也可以使用 gg),=: 根据格式化的配置对文本加以缩进,G: 跳到文件的最后一行 (缩进的结束位置)</p>
-<h1 id="部分插件介绍"><a href="#部分插件介绍" class="headerlink" title="部分插件介绍"></a>部分插件介绍</h1><p><code>auto-pairs</code>:自动补全括号和引号等, <code>Plugin &#39;jiangmiao/auto-pairs&#39;</code></p>
+<h2 id="保持相同的缩进层次">保持相同的缩进层次</h2>
+<p>Autoindent 是缩进代码最简单的方式. 它的功能仅仅是与上一行保持相同的缩进层次. 所以说, 如果当前行缩进了 4 个空格, 按下 Enter 后插入的空行也会缩进 4 个空格. 至于什么时候修改缩进的层次则完成取决于用户. 这种缩进方式适用于若干行需要保持相同缩进层次的语言. 打开 autoindent 的命令是 :set autoindent 或 :set ai.</p>
+<h2 id="上一行的缩进层次保持到下一行">上一行的缩进层次保持到下一行</h2>
+<p>Smartindent 比 autoindent 稍微智能一些. 它仍然可以让上一行的缩进层次保持到下一行, 但用户无需手动修改缩进层次. Smartindent 可以识别出 C 语言的大部分结构, 并根据它们来决定何时增加/减少缩进层次. 由于许多 编程语言都或多或少地都继承了 C 语言的语法, 所以 smartindent 也可以应用到其他语言. 打开 smartindent 可以用:set smartindent 或 :set si。</p>
+<h2 id="cindent-Cindent">cindent Cindent</h2>
+<p>Cindent 经常被称为 clever indent(聪明的缩进) 或 configurable indent(可配置的缩进), 这是因为与前面介绍的两种缩进相比, 它的可配置性更强. 有三种设置选项:</p>
+<p>cinkeys: 这个选项包含了一个列表, 列表中的各项之间用逗号分开, Vim 可以根据列表中的项来改变缩进 层次. 一个例子是: :set cinkeys=“0{,0},0#,:”, 意思是说无论何时碰到一个以 {, 或 }, 或 # 作为开 始的行, 或者是以 : 作为结束的行 (很多语言的 switch 结构都用到了 😃, Vim 都要再缩进一层. cinkeys 的默认值是 “0{, 0}, 0), :, 0#, !^F, o, O, e”,</p>
+<p>cinoptions: 这个选项包含了所有的, 专门用于 cindent 的选项. 它是一个各项之间由逗号分开的列表, 通 过这个列表可以设置大量的选项. 一个例子是 cinoptions=“&gt;2,{3,}3”, 意思是说在正常的缩进之上, 再额外添加两个空格, 另外, 在 { 与 } 的左边添加三个空格, 以便与前一行作比较。</p>
+<p>cinwords: 这个选项包含的关键词会让Vim在下一行增加缩进. 一个例子是:set cinwords=&quot;if,else,do,while 这同时也是它的默认值。</p>
+<h2 id="Indentexpr">Indentexpr</h2>
+<p>Indentexpr 是最灵活的缩进选项, 但同时也是最复杂的. 使用 indentexpr 时, 它会对一个表达式求值, 然后计算出一行的缩进. 因此, 用户写出的表达式必须能被 Vim求值。这里就不举例了。。。。</p>
+<h1>代码块快速格式化</h1>
+<p>缩进选项设置完毕后, 用户可能想根据新设置的选项更新一下代码的格式. 为了更新代码, 只需要告诉 Vim 重新缩进第一行到最后一行, 具体的命令是:</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">1G</span>=G</span><br></pre></td></tr></table></figure>
+<p>如果把命令拆开来看, 各个部分的意思是:<br>
+1G: 跳到文件的第一行 (也可以使用 gg),=: 根据格式化的配置对文本加以缩进,G: 跳到文件的最后一行 (缩进的结束位置)</p>
+<h1>部分插件介绍</h1>
+<p><code>auto-pairs</code>:自动补全括号和引号等, <code>Plugin 'jiangmiao/auto-pairs'</code></p>
 <p><code>vim-gitgutter</code>:支持Git 的高亮,<code>airblade/vim-gitgutter</code></p>
-<h1 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h1><p>1, 向下查找当前光标所在单词或字符串<br>g* 查找则不限制whole word。 区别：比如在if这个单词上按*键则查找单词if,按g*键则查找if。</p>
-<p>2, 向上查找当前光标所在单词或字符串<br>g# 查找则不限制whole word。 区别：比如在if这个单词上按#键则查找单词if,按g#键则查找if。</p>
+<h1>技巧</h1>
+<p>1, 向下查找当前光标所在单词或字符串<br>
+g* 查找则不限制whole word。 区别：比如在if这个单词上按*键则查找单词if,按g*键则查找if。</p>
+<p>2, 向上查找当前光标所在单词或字符串<br>
+g# 查找则不限制whole word。 区别：比如在if这个单词上按#键则查找单词if,按g#键则查找if。</p>
 <p>3, 删掉奇偶行</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="symbol">:g/^/+</span><span class="number">1</span> d 或 %norm jdd 删除偶数行</span><br><span class="line"><span class="symbol">:g/^/d|m</span>  %删除奇数行</span><br></pre></td></tr></table></figure>
-<p>4, C-o (fast out, fast in)<br>在insert模式下,用C-o后可以执行一个normal命令,然后立即返回insert模式,省去了用ESC的麻烦。</p>
-<p>5, 特殊的“寄存器”：”=”<br>在插入模式或命令模式中,键入“Ctrl-R=”,Vim 会提示你输入一个表达式,普通的整数运算在此完全有效。</p>
-<p>5, Make 和 grep<br>Make 和grep 应当算是 Unix 世界里无人不晓的基本工具了吧。很自然的,Vim 对它们有着特殊的支持。该支持主要通过访问一个特殊的快速修订窗口(quickfix window)来实现。直接在 Vim 的命令模式里输入相应的 make 或 grep 命令(如“:grep foo *.c”)即可将命令的执行结果放入该窗口,同时根据返回的结果跳转到第一个错误(make 的情况；在使用 grep 时是匹配成功之处)。以下是常用的“快速修订”命令：</p>
+<p>4, C-o (fast out, fast in)<br>
+在insert模式下,用C-o后可以执行一个normal命令,然后立即返回insert模式,省去了用ESC的麻烦。</p>
+<p>5, 特殊的“寄存器”：”=”<br>
+在插入模式或命令模式中,键入“Ctrl-R=”,Vim 会提示你输入一个表达式,普通的整数运算在此完全有效。</p>
+<p>5, Make 和 grep<br>
+Make 和grep 应当算是 Unix 世界里无人不晓的基本工具了吧。很自然的,Vim 对它们有着特殊的支持。该支持主要通过访问一个特殊的快速修订窗口(quickfix window)来实现。直接在 Vim 的命令模式里输入相应的 make 或 grep 命令(如“:grep foo *.c”)即可将命令的执行结果放入该窗口,同时根据返回的结果跳转到第一个错误(make 的情况；在使用 grep 时是匹配成功之处)。以下是常用的“快速修订”命令：</p>
 <figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="symbol">:cn</span>(显示下一个错误)</span><br><span class="line"><span class="symbol">:cp</span>(显示上一个错误)</span><br><span class="line"><span class="symbol">:cl</span>(列出所有的错误及其编号)</span><br><span class="line"><span class="symbol">:cc</span>(跳转到指定编号的错误)</span><br><span class="line"><span class="symbol">:copen</span>(打开快速修订窗口<span class="punctuation">,</span>在其中显示所有错误<span class="punctuation">,</span>可在错误上双击鼠标或按回车键跳转至该错误</span><br></pre></td></tr></table></figure>
-<p>6,  快捷键 </p>
+<p>6,  快捷键</p>
 <figure class="highlight objectivec"><table><tr><td class="code"><pre><span class="line"><span class="built_in">CTRL</span>-A          插入最近插入的文本</span><br><span class="line"><span class="built_in">CTRL</span>-H  删除光标前的字符</span><br><span class="line"><span class="built_in">CTRL</span>-W          删除光标前的单词</span><br><span class="line"><span class="built_in">CTRL</span>-U          删除光标所有输入的字符</span><br></pre></td></tr></table></figure>
-<p>7,  跳回上次修改过的地方<br>很简单的一种方法就是先撤销,再反撤销：u<C-r></p>
-<p>8,  跳转文件<br>在使用 df 后跳转回来,可用<C-o>跳转回原文件。</p>
-<h2 id="手动载入插件"><a href="#手动载入插件" class="headerlink" title="手动载入插件"></a>手动载入插件</h2><p><code>filetype</code> 提供一种方便的机制来定义不同文件类型的配置。 也可以不用这种机制,手动载入对应文件的配置,例如, 创建或读取 *.plt 文件时执行 plt.vim:<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">au</span> BufNewFile,BufRead *.plt  <span class="keyword">source</span> ~/.<span class="keyword">vim</span>/after/ftplugin/plt.<span class="keyword">vim</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="创建分割窗口"><a href="#创建分割窗口" class="headerlink" title="创建分割窗口"></a>创建分割窗口</h1><p>vim 在启动的时候只会打开单个窗口,可用<code>Control+W+s</code> 来水平切分窗口,类似的,可用<code>Control+w+v</code> 来进行垂直切分。或者是用命令的方式来打开新的文件:</p>
+<p>7,  跳回上次修改过的地方<br>
+很简单的一种方法就是先撤销,再反撤销：u<C-r></p>
+<p>8,  跳转文件<br>
+在使用 df 后跳转回来,可用<C-o>跳转回原文件。</p>
+<h2 id="手动载入插件">手动载入插件</h2>
+<p><code>filetype</code> 提供一种方便的机制来定义不同文件类型的配置。 也可以不用这种机制,手动载入对应文件的配置,例如, 创建或读取 *.plt 文件时执行 plt.vim:</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">au</span> BufNewFile,BufRead *.plt  <span class="keyword">source</span> ~/.<span class="keyword">vim</span>/after/ftplugin/plt.<span class="keyword">vim</span></span><br></pre></td></tr></table></figure>
+<h1>创建分割窗口</h1>
+<p>vim 在启动的时候只会打开单个窗口,可用<code>Control+W+s</code> 来水平切分窗口,类似的,可用<code>Control+w+v</code> 来进行垂直切分。或者是用命令的方式来打开新的文件:</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:<span class="keyword">sp</span>[lit] &#123;<span class="keyword">file</span>&#125;   水平切分</span><br><span class="line">:vsp[lit] &#123;<span class="keyword">file</span>&#125;  垂直切分</span><br></pre></td></tr></table></figure>
-<h2 id="窗口之间的切换"><a href="#窗口之间的切换" class="headerlink" title="窗口之间的切换"></a>窗口之间的切换</h2><p>常见的一些命令如下所示</p>
+<h2 id="窗口之间的切换">窗口之间的切换</h2>
+<p>常见的一些命令如下所示</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="section">&lt;C-w&gt;</span><span class="attribute">w</span>   在窗口间循环切换</span><br><span class="line"><span class="section">&lt;C-w&gt;</span><span class="attribute">h</span>,j,k,l 类似移动一样的切换</span><br></pre></td></tr></table></figure>
-<h2 id="关闭窗口"><a href="#关闭窗口" class="headerlink" title="关闭窗口"></a>关闭窗口</h2><p>减少工作去中窗口的数量,可以采用两种方式：<code>:close</code>, 命令关闭活动窗口,<code>:only</code> 命令关闭除了活动窗口以外的所有窗口,其等效的普通模式命令：</p>
+<h2 id="关闭窗口">关闭窗口</h2>
+<p>减少工作去中窗口的数量,可以采用两种方式：<code>:close</code>, 命令关闭活动窗口,<code>:only</code> 命令关闭除了活动窗口以外的所有窗口,其等效的普通模式命令：</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">EX命令          普通模式命令      用途</span><br><span class="line">:<span class="keyword">clo</span>[<span class="keyword">se</span>]        <span class="symbol">&lt;C-w&gt;</span><span class="keyword">c</span>         关闭活动窗口</span><br><span class="line">:<span class="keyword">on</span>[ly]         <span class="symbol">&lt;C-w&gt;</span><span class="keyword">o</span>         只保留活动窗口</span><br></pre></td></tr></table></figure>
-<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">. 匹配任意字符</span><br><span class="line"><span class="selector-attr">[abc]</span> 匹配方括号中的任意一个字符,可用-表示字符范围。如<span class="selector-attr">[a-z0-9]</span>匹配小写字母和数字</span><br><span class="line"><span class="selector-attr">[^abc]</span> 匹配除方括号中字符之外的任意字符</span><br><span class="line">\d 匹配阿拉伯数字,等同于<span class="selector-attr">[0-9]</span></span><br><span class="line">\D 匹配阿拉伯数字之外的任意字符,等同于<span class="selector-attr">[^0-9]</span></span><br><span class="line">\<span class="attribute">x</span> 匹配十六进制数字,等同于<span class="selector-attr">[0-9A-Fa-f]</span></span><br><span class="line">\<span class="attribute">X</span> 匹配十六进制数字之外的任意字符,等同于<span class="selector-attr">[^0-9A-Fa-f]</span></span><br><span class="line">\l 匹配<span class="selector-attr">[a-z]</span></span><br><span class="line">\L 匹配<span class="selector-attr">[^a-z]</span></span><br><span class="line">\u 匹配<span class="selector-attr">[A-Z]</span></span><br><span class="line">\U 匹配<span class="selector-attr">[^A-Z]</span></span><br><span class="line">\w 匹配单词字母,等同于<span class="selector-attr">[0-9A-Za-z_]</span></span><br><span class="line">\W 匹配单词字母之外的任意字符,等同于<span class="selector-attr">[^0-9A-Za-z_]</span></span><br><span class="line">\t 匹配&lt;TAB&gt;字符</span><br><span class="line">\s 匹配空白字符,等同于<span class="selector-attr">[\t]</span></span><br><span class="line">\S 匹配非空白字符,等同于<span class="selector-attr">[^\t]</span></span><br></pre></td></tr></table></figure>
-<h3 id="表示数量的元字符"><a href="#表示数量的元字符" class="headerlink" title="表示数量的元字符"></a>表示数量的元字符</h3><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\*</span> 匹配<span class="number">0</span>-任意个</span><br><span class="line"><span class="string">\+</span> 匹配<span class="number">1</span>-任意个</span><br><span class="line"><span class="string">\?</span> 匹配<span class="number">0</span>-<span class="number">1</span>个</span><br><span class="line"><span class="string">\&#123;n,m&#125;</span> 匹配n-m个</span><br><span class="line"><span class="string">\&#123;n&#125;</span> 匹配n个</span><br><span class="line"><span class="string">\&#123;n,&#125;</span> 匹配n-任意个</span><br><span class="line"><span class="string">\&#123;,m&#125;</span> 匹配<span class="number">0</span>-m个</span><br><span class="line"><span class="string">\_.</span> 匹配包含换行在内的所有字符</span><br><span class="line"><span class="string">\&#123;-&#125;</span> 表示前一个字符可出现零次或多次,但在整个正则表达式可以匹配成功的前提下,匹配的字符数越少越好(使用“<span class="string">\&#123;-&#125;”来代替“*”,实现非贪婪匹配)</span></span><br><span class="line"><span class="string">\=</span> 匹配一个可有可无的项</span><br><span class="line"><span class="string">\_s</span> 匹配空格或断行</span><br><span class="line"><span class="string">\_[]</span></span><br><span class="line"><span class="string">\\*匹配</span> <span class="string">\*</span> 字符</span><br><span class="line"><span class="string">\.匹配</span> . 字符</span><br><span class="line"><span class="string">\/匹配</span> / 字符</span><br><span class="line"><span class="string">\\匹配</span> <span class="string">\</span> 字符</span><br><span class="line"><span class="string">\[匹配</span> [ 字符</span><br></pre></td></tr></table></figure>
-<h3 id="表示位置的符号"><a href="#表示位置的符号" class="headerlink" title="表示位置的符号"></a>表示位置的符号</h3><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">$ 匹配行尾</span><br><span class="line">^ 匹配行首</span><br><span class="line"><span class="string">\&lt;</span> 匹配单词词首</span><br><span class="line"><span class="string">\&gt;</span> 匹配单词词尾</span><br></pre></td></tr></table></figure>
-<h3 id="懒惰模式"><a href="#懒惰模式" class="headerlink" title="懒惰模式"></a>懒惰模式</h3><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\&#123;-n,m&#125;</span> 与<span class="string">\&#123;n,m&#125;一样,尽可能少次数地重复</span></span><br><span class="line"><span class="string">\&#123;-&#125;</span> 匹配它前面的项一次或<span class="number">0</span>次, 尽可能地少</span><br><span class="line"><span class="string">\|&quot;或&quot;操作符</span></span><br><span class="line"><span class="string">\&amp;并列</span></span><br></pre></td></tr></table></figure>
+<h1>正则表达式</h1>
+<h2 id="元字符">元字符</h2>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">. 匹配任意字符</span><br><span class="line"><span class="selector-attr">[abc]</span> 匹配方括号中的任意一个字符,可用-表示字符范围。如<span class="selector-attr">[a-z0-9]</span>匹配小写字母和数字</span><br><span class="line"><span class="selector-attr">[^abc]</span> 匹配除方括号中字符之外的任意字符</span><br><span class="line">\d 匹配阿拉伯数字,等同于<span class="selector-attr">[0-9]</span></span><br><span class="line">\D 匹配阿拉伯数字之外的任意字符,等同于<span class="selector-attr">[^0-9]</span></span><br><span class="line">\<span class="attribute">x</span> 匹配十六进制数字,等同于<span class="selector-attr">[0-9A-Fa-f]</span></span><br><span class="line">\<span class="attribute">X</span> 匹配十六进制数字之外的任意字符,等同于<span class="selector-attr">[^0-9A-Fa-f]</span></span><br><span class="line">\l 匹配<span class="selector-attr">[a-z]</span></span><br><span class="line">\L 匹配<span class="selector-attr">[^a-z]</span></span><br><span class="line">\u 匹配<span class="selector-attr">[A-Z]</span></span><br><span class="line">\U 匹配<span class="selector-attr">[^A-Z]</span></span><br><span class="line">\w 匹配单词字母,等同于<span class="selector-attr">[0-9A-Za-z_]</span></span><br><span class="line">\W 匹配单词字母之外的任意字符,等同于<span class="selector-attr">[^0-9A-Za-z_]</span></span><br><span class="line">\t 匹配&lt;TAB&gt;字符</span><br><span class="line">\s 匹配空白字符,等同于<span class="selector-attr">[\t]</span></span><br><span class="line">\S 匹配非空白字符,等同于<span class="selector-attr">[^\t]</span></span><br></pre></td></tr></table></figure>
+<h3 id="表示数量的元字符">表示数量的元字符</h3>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\*</span> 匹配<span class="number">0</span>-任意个</span><br><span class="line"><span class="string">\+</span> 匹配<span class="number">1</span>-任意个</span><br><span class="line"><span class="string">\?</span> 匹配<span class="number">0</span>-<span class="number">1</span>个</span><br><span class="line"><span class="string">\&#123;n,m&#125;</span> 匹配n-m个</span><br><span class="line"><span class="string">\&#123;n&#125;</span> 匹配n个</span><br><span class="line"><span class="string">\&#123;n,&#125;</span> 匹配n-任意个</span><br><span class="line"><span class="string">\&#123;,m&#125;</span> 匹配<span class="number">0</span>-m个</span><br><span class="line"><span class="string">\_.</span> 匹配包含换行在内的所有字符</span><br><span class="line"><span class="string">\&#123;-&#125;</span> 表示前一个字符可出现零次或多次,但在整个正则表达式可以匹配成功的前提下,匹配的字符数越少越好(使用“<span class="string">\&#123;-&#125;”来代替“*”,实现非贪婪匹配)</span></span><br><span class="line"><span class="string">\=</span> 匹配一个可有可无的项</span><br><span class="line"><span class="string">\_s</span> 匹配空格或断行</span><br><span class="line"><span class="string">\_[]</span></span><br><span class="line"><span class="string">\\*匹配</span> <span class="string">\*</span> 字符</span><br><span class="line"><span class="string">\.匹配</span> . 字符</span><br><span class="line"><span class="string">\/匹配</span> / 字符</span><br><span class="line"><span class="string">\\匹配</span> <span class="string">\</span> 字符</span><br><span class="line"><span class="string">\[匹配</span> [ 字符</span><br></pre></td></tr></table></figure>
+<h3 id="表示位置的符号">表示位置的符号</h3>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">$ 匹配行尾</span><br><span class="line">^ 匹配行首</span><br><span class="line"><span class="string">\&lt;</span> 匹配单词词首</span><br><span class="line"><span class="string">\&gt;</span> 匹配单词词尾</span><br></pre></td></tr></table></figure>
+<h3 id="懒惰模式">懒惰模式</h3>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\&#123;-n,m&#125;</span> 与<span class="string">\&#123;n,m&#125;一样,尽可能少次数地重复</span></span><br><span class="line"><span class="string">\&#123;-&#125;</span> 匹配它前面的项一次或<span class="number">0</span>次, 尽可能地少</span><br><span class="line"><span class="string">\|&quot;或&quot;操作符</span></span><br><span class="line"><span class="string">\&amp;并列</span></span><br></pre></td></tr></table></figure>
 <p>另外需要注意的一点是,在ex中,竖直线(|)是命令的分割符,有点像shell里面的管道,不过没有测试过是不是第二个命令可以用来接收第一个命令输出的结果。</p>
-<h1 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h1><p>跳转用 <code>ctags</code> 是真的香, 配置好了后在各种函数之间跳转,可以快速的浏览代码的感觉真是爽爆了,macOs下面可以按照如下操作去安装</p>
+<h1>跳转</h1>
+<p>跳转用 <code>ctags</code> 是真的香, 配置好了后在各种函数之间跳转,可以快速的浏览代码的感觉真是爽爆了,macOs下面可以按照如下操作去安装</p>
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>exuberant-ctags</span><br></pre></td></tr></table></figure>
 <p>然后更改一下<code>～/.zprofile</code>文件(自己用的zsh, bash 的话应该有类似的文件), 往里面写入如下内容</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> <span class="attribute">PATH</span>=<span class="string">&quot;/usr/local/bin:/usr/local/sbin:<span class="variable">$PATH</span>&quot;</span></span><br></pre></td></tr></table></figure>
@@ -334,16 +385,53 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zprofile</span><br><span class="line"><span class="built_in">which</span> ctags</span><br></pre></td></tr></table></figure>
 <p>自己这边输出的是<code>/opt/homebrew/bin/ctags</code>, 然后在vim的配置文件中输入如下内容即可：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">let Tlist_Ctags_Cmd=<span class="string">&quot;/opt/homebrew/bin/ctags&quot;</span></span><br><span class="line"><span class="keyword">set</span> tags=<span class="string">../</span>*<span class="string">/tags</span>,<span class="string">./</span>*<span class="string">/tags</span>,<span class="string">./tags</span>,<span class="string">./../tags</span></span><br></pre></td></tr></table></figure>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>寄存器部分单独拿出来作为说明；</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] Vim 7.2<br>[2] Practice Vim<br>[3] <a target="_blank" rel="noopener" href="https://harttle.land/2015/07/17/vim-advanced.html">感受Vim的强大：进阶技巧</a></p>
+<h1>后记</h1>
+<p>寄存器部分单独拿出来作为说明；</p>
+<h1>参考</h1>
+<p>[1] Vim 7.2<br>
+[2] Practice Vim<br>
+[3] <a target="_blank" rel="noopener" href="https://harttle.land/2015/07/17/vim-advanced.html">感受Vim的强大：进阶技巧</a></p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -370,7 +458,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -405,7 +660,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

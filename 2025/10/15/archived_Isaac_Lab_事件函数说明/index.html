@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,23 +230,39 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Isaac Lab 事件函数（Events）说明文档</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Domain Randomization（域随机化）是一种提高机器人策略从仿真到真实环境迁移能力的技术。通过在训练时随机化各种物理参数和环境条件，使策略能够适应真实世界的不确定性。</p>
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <h2 id="概述">概述</h2>
+<p>Domain Randomization（域随机化）是一种提高机器人策略从仿真到真实环境迁移能力的技术。通过在训练时随机化各种物理参数和环境条件，使策略能够适应真实世界的不确定性。</p>
 <hr>
-<h2 id="1-物理材质随机化-physics-material"><a href="#1-物理材质随机化-physics-material" class="headerlink" title="1. 物理材质随机化 physics_material"></a>1. 物理材质随机化 <code>physics_material</code></h2><p><strong>函数</strong>: <code>mdp.randomize_rigid_body_material</code><br><strong>触发模式</strong>: <code>startup</code>（启动时执行一次）</p>
-<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
+<h2 id="1-物理材质随机化-physics-material">1. 物理材质随机化 <code>physics_material</code></h2>
+<p><strong>函数</strong>: <code>mdp.randomize_rigid_body_material</code><br>
+<strong>触发模式</strong>: <code>startup</code>（启动时执行一次）</p>
+<h3 id="参数说明">参数说明</h3>
+<ul>
 <li><strong><code>asset_cfg</code></strong>: 指定机器人实体，<code>&quot;.*&quot;</code> 表示所有刚体部件</li>
-<li><strong><code>static_friction_range</code></strong>: 静摩擦系数范围 (0.4, 1.0)<ul>
+<li><strong><code>static_friction_range</code></strong>: 静摩擦系数范围 (0.4, 1.0)
+<ul>
 <li>控制物体从静止开始移动时的阻力</li>
 <li>值越大，越难开始滑动</li>
 </ul>
 </li>
-<li><strong><code>dynamic_friction_range</code></strong>: 动摩擦系数范围 (0.4, 0.8)<ul>
+<li><strong><code>dynamic_friction_range</code></strong>: 动摩擦系数范围 (0.4, 0.8)
+<ul>
 <li>控制物体运动时的阻力</li>
 <li>通常小于静摩擦系数</li>
 </ul>
 </li>
-<li><strong><code>restitution_range</code></strong>: 恢复系数范围 (0.0, 0.0)<ul>
+<li><strong><code>restitution_range</code></strong>: 恢复系数范围 (0.0, 0.0)
+<ul>
 <li>0.0 = 完全非弹性碰撞（不反弹）</li>
 <li>1.0 = 完全弹性碰撞（完全反弹）</li>
 </ul>
@@ -253,75 +270,105 @@
 <li><strong><code>num_buckets</code></strong>: 64 个离散化桶，用于参数采样</li>
 <li><strong><code>make_consistent</code></strong>: 确保动摩擦不超过静摩擦（符合物理规律）</li>
 </ul>
-<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>模拟不同地面材质（混凝土、瓷砖、草地等），提高机器人在不同摩擦条件下的适应性。</p>
+<h3 id="作用">作用</h3>
+<p>模拟不同地面材质（混凝土、瓷砖、草地等），提高机器人在不同摩擦条件下的适应性。</p>
 <hr>
-<h2 id="2-质量随机化-add-base-mass"><a href="#2-质量随机化-add-base-mass" class="headerlink" title="2. 质量随机化 add_base_mass"></a>2. 质量随机化 <code>add_base_mass</code></h2><p><strong>函数</strong>: <code>mdp.randomize_rigid_body_mass</code><br><strong>触发模式</strong>: <code>startup</code></p>
-<h3 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
-<li><strong><code>mass_distribution_params</code></strong>: (0.95, 1.05)<ul>
+<h2 id="2-质量随机化-add-base-mass">2. 质量随机化 <code>add_base_mass</code></h2>
+<p><strong>函数</strong>: <code>mdp.randomize_rigid_body_mass</code><br>
+<strong>触发模式</strong>: <code>startup</code></p>
+<h3 id="参数说明-2">参数说明</h3>
+<ul>
+<li><strong><code>mass_distribution_params</code></strong>: (0.95, 1.05)
+<ul>
 <li>质量缩放范围：95%-105%</li>
 </ul>
 </li>
 <li><strong><code>operation</code></strong>: <code>&quot;scale&quot;</code> 表示按比例缩放原始质量</li>
 </ul>
-<h3 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h3><p>模拟机器人携带不同负载或部件质量差异，使策略对质量变化鲁棒。</p>
+<h3 id="作用-2">作用</h3>
+<p>模拟机器人携带不同负载或部件质量差异，使策略对质量变化鲁棒。</p>
 <hr>
-<h2 id="3-外力-力矩扰动-base-external-force-torque"><a href="#3-外力-力矩扰动-base-external-force-torque" class="headerlink" title="3. 外力/力矩扰动 base_external_force_torque"></a>3. 外力/力矩扰动 <code>base_external_force_torque</code></h2><p><strong>函数</strong>: <code>mdp.apply_external_force_torque</code><br><strong>触发模式</strong>: <code>reset</code>（每次重置环境时）</p>
-<h3 id="参数说明-2"><a href="#参数说明-2" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
+<h2 id="3-外力-力矩扰动-base-external-force-torque">3. 外力/力矩扰动 <code>base_external_force_torque</code></h2>
+<p><strong>函数</strong>: <code>mdp.apply_external_force_torque</code><br>
+<strong>触发模式</strong>: <code>reset</code>（每次重置环境时）</p>
+<h3 id="参数说明-3">参数说明</h3>
+<ul>
 <li><strong><code>force_range</code></strong>: (0.0, 0.0) - 当前未施加外力</li>
 <li><strong><code>torque_range</code></strong>: (-0.0, 0.0) - 当前未施加力矩</li>
 </ul>
-<h3 id="作用-2"><a href="#作用-2" class="headerlink" title="作用"></a>作用</h3><p>可用于模拟风力、碰撞等外部扰动（当前已禁用）。</p>
+<h3 id="作用-3">作用</h3>
+<p>可用于模拟风力、碰撞等外部扰动（当前已禁用）。</p>
 <hr>
-<h2 id="4-基座状态随机化-reset-base"><a href="#4-基座状态随机化-reset-base" class="headerlink" title="4. 基座状态随机化 reset_base"></a>4. 基座状态随机化 <code>reset_base</code></h2><p><strong>函数</strong>: <code>mdp.reset_root_state_uniform</code><br><strong>触发模式</strong>: <code>reset</code></p>
-<h3 id="参数说明-3"><a href="#参数说明-3" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
-<li><strong><code>pose_range</code></strong>: 初始位姿范围<ul>
+<h2 id="4-基座状态随机化-reset-base">4. 基座状态随机化 <code>reset_base</code></h2>
+<p><strong>函数</strong>: <code>mdp.reset_root_state_uniform</code><br>
+<strong>触发模式</strong>: <code>reset</code></p>
+<h3 id="参数说明-4">参数说明</h3>
+<ul>
+<li><strong><code>pose_range</code></strong>: 初始位姿范围
+<ul>
 <li><code>x</code>: (-0.5, 0.5) 米</li>
 <li><code>y</code>: (-0.5, 0.5) 米</li>
 <li><code>yaw</code>: (-3.14, 3.14) 弧度（完整旋转）</li>
 </ul>
 </li>
-<li><strong><code>velocity_range</code></strong>: 初始速度范围<ul>
+<li><strong><code>velocity_range</code></strong>: 初始速度范围
+<ul>
 <li>线速度 x, y, z: (-0.5, 0.5) m/s</li>
 <li>角速度 roll, pitch, yaw: (-0.5, 0.5) rad/s</li>
 </ul>
 </li>
 </ul>
-<h3 id="作用-3"><a href="#作用-3" class="headerlink" title="作用"></a>作用</h3><p>每次训练回合开始时，机器人从不同位置、朝向和初始速度开始，增加训练多样性。</p>
+<h3 id="作用-4">作用</h3>
+<p>每次训练回合开始时，机器人从不同位置、朝向和初始速度开始，增加训练多样性。</p>
 <hr>
-<h2 id="5-关节状态随机化-reset-robot-joints"><a href="#5-关节状态随机化-reset-robot-joints" class="headerlink" title="5. 关节状态随机化 reset_robot_joints"></a>5. 关节状态随机化 <code>reset_robot_joints</code></h2><p><strong>函数</strong>: <code>mdp.reset_joints_by_scale</code><br><strong>触发模式</strong>: <code>reset</code></p>
-<h3 id="参数说明-4"><a href="#参数说明-4" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
+<h2 id="5-关节状态随机化-reset-robot-joints">5. 关节状态随机化 <code>reset_robot_joints</code></h2>
+<p><strong>函数</strong>: <code>mdp.reset_joints_by_scale</code><br>
+<strong>触发模式</strong>: <code>reset</code></p>
+<h3 id="参数说明-5">参数说明</h3>
+<ul>
 <li><strong><code>position_range</code></strong>: (0.5, 1.5) - 关节位置按默认值的 50%-150% 缩放</li>
 <li><strong><code>velocity_range</code></strong>: (0.0, 0.0) - 关节初始速度为 0</li>
 </ul>
-<h3 id="作用-4"><a href="#作用-4" class="headerlink" title="作用"></a>作用</h3><p>使机器人从不同的关节配置开始，避免策略过拟合到特定初始姿态。</p>
+<h3 id="作用-5">作用</h3>
+<p>使机器人从不同的关节配置开始，避免策略过拟合到特定初始姿态。</p>
 <hr>
-<h2 id="6-动态推力扰动-push-robot"><a href="#6-动态推力扰动-push-robot" class="headerlink" title="6. 动态推力扰动 push_robot"></a>6. 动态推力扰动 <code>push_robot</code></h2><p><strong>函数</strong>: <code>mdp.push_by_setting_velocity</code><br><strong>触发模式</strong>: <code>interval</code>（间隔触发）</p>
-<h3 id="参数说明-5"><a href="#参数说明-5" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
+<h2 id="6-动态推力扰动-push-robot">6. 动态推力扰动 <code>push_robot</code></h2>
+<p><strong>函数</strong>: <code>mdp.push_by_setting_velocity</code><br>
+<strong>触发模式</strong>: <code>interval</code>（间隔触发）</p>
+<h3 id="参数说明-6">参数说明</h3>
+<ul>
 <li><strong><code>interval_range_s</code></strong>: (12.0, 15.0) - 每 12-15 秒随机触发一次</li>
-<li><strong><code>velocity_range</code></strong>: 施加的速度扰动<ul>
+<li><strong><code>velocity_range</code></strong>: 施加的速度扰动
+<ul>
 <li><code>x</code>: (-1.0, 1.0) m/s</li>
 <li><code>y</code>: (-1.0, 1.0) m/s</li>
 <li><code>z</code>: (0, 0) - 不施加垂直扰动</li>
 </ul>
 </li>
 </ul>
-<h3 id="作用-5"><a href="#作用-5" class="headerlink" title="作用"></a>作用</h3><p>模拟外部推力（如人的推动、碰撞），训练策略的恢复能力。</p>
+<h3 id="作用-6">作用</h3>
+<p>模拟外部推力（如人的推动、碰撞），训练策略的恢复能力。</p>
 <hr>
-<h2 id="7-速度命令随机化-base-velocity"><a href="#7-速度命令随机化-base-velocity" class="headerlink" title="7. 速度命令随机化 base_velocity"></a>7. 速度命令随机化 <code>base_velocity</code></h2><p><strong>函数</strong>: <code>mdp.UniformVelocityCommandCfg</code><br><strong>类型</strong>: 命令生成器</p>
-<h3 id="参数说明-6"><a href="#参数说明-6" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
+<h2 id="7-速度命令随机化-base-velocity">7. 速度命令随机化 <code>base_velocity</code></h2>
+<p><strong>函数</strong>: <code>mdp.UniformVelocityCommandCfg</code><br>
+<strong>类型</strong>: 命令生成器</p>
+<h3 id="参数说明-7">参数说明</h3>
+<ul>
 <li><strong><code>resampling_time_range</code></strong>: (9.0, 10.0) 秒 - 命令更新频率</li>
 <li><strong><code>rel_standing_envs</code></strong>: 0.1 - 10% 的环境执行静止命令</li>
 <li><strong><code>debug_vis</code></strong>: True - 显示调试可视化</li>
-<li><strong><code>ranges</code></strong>: 目标速度范围<ul>
+<li><strong><code>ranges</code></strong>: 目标速度范围
+<ul>
 <li><code>lin_vel_x</code>: (-1.5, 1.5) m/s - 前后速度</li>
 <li><code>lin_vel_y</code>: (-0.4, 0.4) m/s - 左右速度</li>
 <li><code>ang_vel_z</code>: (-1.5, 1.5) rad/s - 旋转速度</li>
 </ul>
 </li>
 </ul>
-<h3 id="作用-6"><a href="#作用-6" class="headerlink" title="作用"></a>作用</h3><p>训练机器人跟随不同速度命令的能力，包括前进、后退、侧移、旋转及组合动作。</p>
+<h3 id="作用-7">作用</h3>
+<p>训练机器人跟随不同速度命令的能力，包括前进、后退、侧移、旋转及组合动作。</p>
 <hr>
-<h2 id="触发模式说明"><a href="#触发模式说明" class="headerlink" title="触发模式说明"></a>触发模式说明</h2><div class="table-container">
+<h2 id="触发模式说明">触发模式说明</h2>
 <table>
 <thead>
 <tr>
@@ -348,9 +395,9 @@
 </tr>
 </tbody>
 </table>
-</div>
 <hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<h2 id="总结">总结</h2>
+<ol>
 <li><strong>物理参数随机化</strong>：摩擦、质量</li>
 <li><strong>初始条件随机化</strong>：位姿、速度、关节状态</li>
 <li><strong>动态扰动</strong>：推力、命令变化</li>
@@ -365,13 +412,46 @@
 <li>执行多样化运动指令</li>
 </ul>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -398,7 +478,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -433,7 +680,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 

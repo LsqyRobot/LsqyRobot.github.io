@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
     <link rel="stylesheet" href="/css/lsqy_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
     <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
@@ -43,7 +44,7 @@
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 		
 
 
@@ -229,30 +230,43 @@
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Latex 学习笔记(二)</h2></a>
             </div>
 
-            <div class="typo" style="padding: 3rem;">
-                <!-- vim-markdown-toc GFM -->
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#图片及子图排版">图片及子图排版</a></li>
-<li><a href="#与段落有关的距离">与段落有关的距离</a><ul>
-<li><a href="#首行缩进">首行缩进</a></li>
-<li><a href="#段落间距">段落间距</a></li>
-<li><a href="#字母上加小箭头">字母上加小箭头</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E5%8F%8A%E5%AD%90%E5%9B%BE%E6%8E%92%E7%89%88">图片及子图排版</a></li>
+<li><a href="#%E4%B8%8E%E6%AE%B5%E8%90%BD%E6%9C%89%E5%85%B3%E7%9A%84%E8%B7%9D%E7%A6%BB">与段落有关的距离</a>
+<ul>
+<li><a href="#%E9%A6%96%E8%A1%8C%E7%BC%A9%E8%BF%9B">首行缩进</a></li>
+<li><a href="#%E6%AE%B5%E8%90%BD%E9%97%B4%E8%B7%9D">段落间距</a></li>
+<li><a href="#%E5%AD%97%E6%AF%8D%E4%B8%8A%E5%8A%A0%E5%B0%8F%E7%AE%AD%E5%A4%B4">字母上加小箭头</a></li>
 </ul>
 </li>
-<li><a href="#listings-宏包使用说明">listings 宏包使用说明</a><ul>
-<li><a href="#预设">预设</a></li>
-<li><a href="#环境参数">环境参数</a></li>
-<li><a href="#框架">框架</a></li>
-<li><a href="#背景颜色">背景颜色</a></li>
-<li><a href="#更多的指令">更多的指令</a></li>
+<li><a href="#listings-%E5%AE%8F%E5%8C%85%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E">listings 宏包使用说明</a>
+<ul>
+<li><a href="#%E9%A2%84%E8%AE%BE">预设</a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E5%8F%82%E6%95%B0">环境参数</a></li>
+<li><a href="#%E6%A1%86%E6%9E%B6">框架</a></li>
+<li><a href="#%E8%83%8C%E6%99%AF%E9%A2%9C%E8%89%B2">背景颜色</a></li>
+<li><a href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%8C%87%E4%BB%A4">更多的指令</a></li>
 </ul>
 </li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>距离上次记录LaTex已经有好长一段时间了,大概有大半年的时间都没有更新,而上一次的记录的内容,大多数是出自于自己的需要,确实,想把技能变成肌肉记忆,还是得需要长时间的去练习的,后面会给出一些实用的东西,经常用,自然而然的就知道怎么回事了。这次做笔记,就事无巨细了,基础的还是很重要的,毕竟是给自己看的,不必那么多奇技淫巧。</p>
-<h1 id="图片及子图排版"><a href="#图片及子图排版" class="headerlink" title="图片及子图排版"></a>图片及子图排版</h1><p>在学生时代写论文的时候,很多图都是通过matlab绘制的,而matlab导出的图最清晰地就属eps格式了,这里感兴趣的可以去了解下矢量图与位图,这里就不做阐述了,但是对于日常的记录而言,其实png或者其他位图都是可以满足阅读要求的,而在写论文的时候,会经常使用到多个子图的排版问题,这里就简要的记录下,因为实现的方式太多了,</p>
+<h1>前言</h1>
+<p>距离上次记录LaTex已经有好长一段时间了,大概有大半年的时间都没有更新,而上一次的记录的内容,大多数是出自于自己的需要,确实,想把技能变成肌肉记忆,还是得需要长时间的去练习的,后面会给出一些实用的东西,经常用,自然而然的就知道怎么回事了。这次做笔记,就事无巨细了,基础的还是很重要的,毕竟是给自己看的,不必那么多奇技淫巧。</p>
+<h1>图片及子图排版</h1>
+<p>在学生时代写论文的时候,很多图都是通过matlab绘制的,而matlab导出的图最清晰地就属eps格式了,这里感兴趣的可以去了解下矢量图与位图,这里就不做阐述了,但是对于日常的记录而言,其实png或者其他位图都是可以满足阅读要求的,而在写论文的时候,会经常使用到多个子图的排版问题,这里就简要的记录下,因为实现的方式太多了,</p>
 <p>graphicx 提供了一组控制命令,其中最常用的是插图命令如下(以eps为例,假设在文件夹imgs下的图片名字为your.eps)：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">includegraphics[opts]&#123;imgs/your.eps&#125;</span><br></pre></td></tr></table></figure>
 <p>下表为常用选项(opts)：</p>
@@ -284,47 +298,88 @@
 </tr>
 </tbody>
 </table>
-
-
-
 <p>插入图片一般可以分为两种情况,一种是只有一个图,一个标题；另一种是有多个图,每个图有个子标题,然后有个总的大标题。第一种情况就不做介绍了,第二种情况的命令如下(需要subfigure宏包):</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\begin</span><span class="template-variable">&#123;figure&#125;</span><span class="language-xml"> [!htbp]</span></span><br><span class="line"><span class="language-xml">\begin</span><span class="template-variable">&#123;minipage&#125;</span><span class="language-xml">[t]</span><span class="template-variable">&#123;0.5\textwidth&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\centering</span></span><br><span class="line"><span class="language-xml">\includegraphics[width=2.7in]</span><span class="template-variable">&#123;imgs/your1.eps&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\caption</span><span class="template-variable">&#123;fig1&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\end</span><span class="template-variable">&#123;minipage&#125;</span><span class="language-xml">%</span></span><br><span class="line"><span class="language-xml">\begin</span><span class="template-variable">&#123;minipage&#125;</span><span class="language-xml">[t]</span><span class="template-variable">&#123;0.5\textwidth&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\centering</span></span><br><span class="line"><span class="language-xml">\includegraphics[width=2.7in]</span><span class="template-variable">&#123;imgs/your1.eps&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\caption</span><span class="template-variable">&#123;fig2&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\end</span><span class="template-variable">&#123;minipage&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\end</span><span class="template-variable">&#123;figure&#125;</span></span><br></pre></td></tr></table></figure>
 <p>如果不想让其显示caption,删除或者置空即可。</p>
-<h1 id="与段落有关的距离"><a href="#与段落有关的距离" class="headerlink" title="与段落有关的距离"></a>与段落有关的距离</h1><h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>段落首行缩进的距离由长度\parindent决定,用户可如下改变这个值∶</p>
+<h1>与段落有关的距离</h1>
+<h2 id="首行缩进">首行缩进</h2>
+<p>段落首行缩进的距离由长度\parindent决定,用户可如下改变这个值∶</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\setlength</span><span class="template-variable">&#123;\parindent&#125;</span><span class="template-variable">&#123;长度&#125;</span></span><br></pre></td></tr></table></figure>
 <p>当上述长度不是零时,段落的首行会自动缩进由长度指定的距离。对于中文文章,命令</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\setlength</span><span class="template-variable">&#123;\parindent&#125;</span><span class="template-variable">&#123;2em&#125;</span><span class="language-xml"> 或在 CJK环境中写上 \CJKindent</span></span><br></pre></td></tr></table></figure>
 <p>就会使其后段落首行缩进两个汉字的距离.需要注意的是上述两种首行缩进的距离等于当前字体两个汉字的宽度,若改变了字体尺寸,需重新再写一次上述命令,才会使后继段落首行缩进两个新字体汉字的宽度。若想使某段首行不缩进,可在该段开始放上命令<code>\noindent</code>。需要注意的是每一节的第一段的首行并不会缩进,为了使第一段能像其他段一样会首行缩进,可在第一段的开始放上命令</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\hspace*</span><span class="template-variable">&#123;\parindent&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="段落间距"><a href="#段落间距" class="headerlink" title="段落间距"></a>段落间距</h2><p>两段之间的距离 等于行 间 隔(也称为行 隙)(\lineskip)加上 长 度\parskip的值,如果重设这个值,通常应设置成弹性长度并使用ex作单位,以便它随着字体尺寸的改变而变化。中文书籍段落之间的距离通常与行间隔相同,为达到这种效果,可在导言区放上命令</p>
+<h2 id="段落间距">段落间距</h2>
+<p>两段之间的距离 等于行 间 隔(也称为行 隙)(\lineskip)加上 长 度\parskip的值,如果重设这个值,通常应设置成弹性长度并使用ex作单位,以便它随着字体尺寸的改变而变化。中文书籍段落之间的距离通常与行间隔相同,为达到这种效果,可在导言区放上命令</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\setlength</span><span class="template-variable">&#123;\parskip&#125;</span><span class="template-variable">&#123;0pt&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="字母上加小箭头"><a href="#字母上加小箭头" class="headerlink" title="字母上加小箭头"></a>字母上加小箭头</h2><p>遇到一些矢量需要加箭头,短的箭头可用比如 \vec 去表示,想用长箭头去表示,可用指令\overrightarrow 来实现。</p>
-<h1 id="listings-宏包使用说明"><a href="#listings-宏包使用说明" class="headerlink" title="listings 宏包使用说明"></a>listings 宏包使用说明</h1><p>listings 可以自定义一些特定风格的代码,在自己写文档的时候经常能够用的上,比如给matlab代码块配色等等,总之是挺好用的一个宏包,在网上可以查阅到很多的用法,下面的内容来自于知乎用户 <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/liu-zhi-yu-17-91">Lluvio Liu</a></p>
-<h2 id="预设"><a href="#预设" class="headerlink" title="预设"></a>预设</h2><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\lstset&#123;</span> </span><br><span class="line">basicstyle=<span class="string">\small,</span> %环境中的代码字体变小 [在结尾要加逗号！]</span><br><span class="line">basicstyle=<span class="string">\tt,</span> %使用teletype字体(一种等宽字体)</span><br><span class="line">basicstyle=<span class="string">\it,</span> %使用罗马斜体</span><br><span class="line">%其他可选的还有：<span class="string">\bf,</span> <span class="string">\sc,</span> <span class="string">\st,</span> <span class="string">\sl,</span> <span class="string">\em,</span> <span class="string">\nocorr等</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="字母上加小箭头">字母上加小箭头</h2>
+<p>遇到一些矢量需要加箭头,短的箭头可用比如 \vec 去表示,想用长箭头去表示,可用指令\overrightarrow 来实现。</p>
+<h1>listings 宏包使用说明</h1>
+<p>listings 可以自定义一些特定风格的代码,在自己写文档的时候经常能够用的上,比如给matlab代码块配色等等,总之是挺好用的一个宏包,在网上可以查阅到很多的用法,下面的内容来自于知乎用户 <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/liu-zhi-yu-17-91">Lluvio Liu</a></p>
+<h2 id="预设">预设</h2>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\lstset&#123;</span> </span><br><span class="line">basicstyle=<span class="string">\small,</span> %环境中的代码字体变小 [在结尾要加逗号！]</span><br><span class="line">basicstyle=<span class="string">\tt,</span> %使用teletype字体(一种等宽字体)</span><br><span class="line">basicstyle=<span class="string">\it,</span> %使用罗马斜体</span><br><span class="line">%其他可选的还有：<span class="string">\bf,</span> <span class="string">\sc,</span> <span class="string">\st,</span> <span class="string">\sl,</span> <span class="string">\em,</span> <span class="string">\nocorr等</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\lstset&#123; </span><br><span class="line"><span class="attribute">keywordstyle</span>=\color&#123;black&#125;, %设置关键字颜色为黑色</span><br><span class="line"><span class="attribute">keywordstyle</span>=\color&#123;blue&#125;, %设置关键字颜色为蓝色</span><br><span class="line"><span class="attribute">keywordstyle</span>=\bfseries, %不改变当前字体的族与形状,但转变成bold加粗序列</span><br><span class="line"><span class="attribute">keywordstyle</span>=\mdseries, %不改变当前字体的族与形状,但转变成中等粗细medium序列</span><br><span class="line"><span class="attribute">keywordstyle</span>=\underbar, %添加下划线</span><br><span class="line"><span class="attribute">keywordstyle</span>=\color&#123;black&#125;\bfseries\underbar, %添加下划线的加粗黑色关键字</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">identifierstyle</span>=\color&#123;red&#125;,</span><br><span class="line">identifierstyle= , %不设置 &#125;</span><br><span class="line"></span><br><span class="line"><span class="attribute">showstringspaces</span>=<span class="literal">false</span> %去掉空格时产生的下划的空格标志, 设置为<span class="literal">true</span>则出现</span><br><span class="line"><span class="attribute">showtabs</span>=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">\lstset&#123; [公式]</span><br><span class="line"><span class="attribute">commentstyle</span>=\it\color[RGB]&#123;100,100,100&#125;, &#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">numbers</span>=left, %在左侧显示行数</span><br><span class="line"><span class="attribute">numbers</span>=right %在右侧显示行数</span><br><span class="line"><span class="attribute">numbers</span>=none, %去掉行数显示</span><br><span class="line"><span class="attribute">numberstyle</span>=\tiny\color&#123;red&#125;, %数字大小,颜色调整</span><br><span class="line"><span class="attribute">numberstyle</span>=\it, %数字字体调整</span><br><span class="line"><span class="attribute">stepnumber</span>=2 , %每两行标号一次</span><br><span class="line"><span class="attribute">numbersep</span>=5pt, %数字右端(若为左侧显示数字)水平距离代码5pt</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">tabsize</span>=2; %此时一个tab键=2个空格</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">xleftmargin</span>=2em, %整体距左侧边线的距离为2em</span><br><span class="line"><span class="attribute">xrightmargin</span>=2em,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">也可以使用</span><br><span class="line"><span class="attribute">linewidth</span>=1.2\linewidth 改变长度</span><br><span class="line"></span><br><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">columns</span>=fixed, %改变字母间的空隙大小</span><br><span class="line"><span class="attribute">columns</span>=flexible,</span><br><span class="line"><span class="attribute">columns</span>=fullflexible,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="环境参数"><a href="#环境参数" class="headerlink" title="环境参数"></a>环境参数</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\begin&#123;lstlisting&#125;</span><br><span class="line">[<span class="attribute">firstline</span>=2, lastline =5] 只排版2-5行的代码</span><br><span class="line">[<span class="attribute">language</span>=C] %代码为C语言(会自动识别C语言关键字)</span><br><span class="line">[<span class="attribute">language</span>=Java] %代码为Java语言</span><br><span class="line">[float] %设置为浮动题</span><br><span class="line">[<span class="attribute">float</span>=t] %在页面上方</span><br><span class="line">[<span class="attribute">float</span>=!h] %在此处</span><br><span class="line">[<span class="attribute">firstnumber</span>=100] %第一个数字为100 [<span class="attribute">firstnumber</span>=last] %起始行数为上一段lstlisting环境结尾的行数 [caption=&#123;MyCode1&#125;] %说明 [caption=&#123;[Code2] An very important code&#125;] %可分别添加一个短的和长的caption [<span class="attribute">label</span>=Code1] % 标签 [<span class="attribute">title</span>=Code1] %可以去掉label产生的Listings 1</span><br></pre></td></tr></table></figure>
+<h2 id="环境参数">环境参数</h2>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\begin&#123;lstlisting&#125;</span><br><span class="line">[<span class="attribute">firstline</span>=2, lastline =5] 只排版2-5行的代码</span><br><span class="line">[<span class="attribute">language</span>=C] %代码为C语言(会自动识别C语言关键字)</span><br><span class="line">[<span class="attribute">language</span>=Java] %代码为Java语言</span><br><span class="line">[float] %设置为浮动题</span><br><span class="line">[<span class="attribute">float</span>=t] %在页面上方</span><br><span class="line">[<span class="attribute">float</span>=!h] %在此处</span><br><span class="line">[<span class="attribute">firstnumber</span>=100] %第一个数字为100 [<span class="attribute">firstnumber</span>=last] %起始行数为上一段lstlisting环境结尾的行数 [caption=&#123;MyCode1&#125;] %说明 [caption=&#123;[Code2] An very important code&#125;] %可分别添加一个短的和长的caption [<span class="attribute">label</span>=Code1] % 标签 [<span class="attribute">title</span>=Code1] %可以去掉label产生的Listings 1</span><br></pre></td></tr></table></figure>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">[<span class="attribute">name</span>=MyCode1] %使用<span class="attribute">name</span>=***为代码环境取名,同名的环境代码行数会延续</span><br><span class="line">[<span class="attribute">aboveskip</span>=5pt] %与代码环境上一行的垂直间距为5pt</span><br><span class="line">[<span class="attribute">belowskip</span>=4pt] %与代码环境下一行的垂直间距为4pt</span><br></pre></td></tr></table></figure>
 <p>当然,它们也可以在 lstset 中设置</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">[emph=</span><span class="template-variable">&#123;printf&#125;</span><span class="language-xml">, emphstyle=</span><span class="template-variable">&#123;\underbar&#125;</span><span class="language-xml">] %强调printf,在它下面加下划线</span></span><br><span class="line"><span class="language-xml">[emph=</span><span class="template-variable">&#123;for,while&#125;</span><span class="language-xml">, emphstyle=\color</span><span class="template-variable">&#123;red&#125;</span><span class="language-xml">]</span></span><br><span class="line"><span class="language-xml">[emph=</span><span class="template-variable">&#123;strlen&#125;</span><span class="language-xml">, emphstyle=\color</span><span class="template-variable">&#123;red&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">emph=</span><span class="template-variable">&#123;[2]strcpy&#125;</span><span class="language-xml">, emphstyle=</span><span class="template-variable">&#123;[2]\color&#123;blue&#125;</span><span class="language-xml">&#125;,</span></span><br><span class="line"><span class="language-xml">emph=</span><span class="template-variable">&#123;[3]strcmp&#125;</span><span class="language-xml">,emphstyle=</span><span class="template-variable">&#123;[3]\underbar&#125;</span><span class="language-xml">] %强调多个,并且强调方式不同</span></span><br></pre></td></tr></table></figure>
-<h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">[<span class="attribute">frame</span>=none] %无框</span><br><span class="line">[<span class="attribute">frame</span>=leftline,topline,rightline, bottomline] %分别对应只在左侧,上方,右侧,下方有竖线</span><br><span class="line">[<span class="attribute">frame</span>=trb] %t-top,r-right,b-bottom,l-left. 这是为框架只在上,右,下方</span><br><span class="line">[<span class="attribute">frame</span>=trBL] %大写表示双重线</span><br><span class="line">在预设中可设置框的拐角处为圆弧：</span><br><span class="line">\lstset&#123;</span><br><span class="line">\frameround = fttt,</span><br><span class="line">&#125;</span><br><span class="line">\frameround后必须有四个字母。第一个字母表示右上角的拐角,然后顺时针地依次代表各个拐角。f表示方形,t表示弧形。</span><br><span class="line"><span class="attribute">frame</span>=shadowbox, %设置阴影</span><br><span class="line"><span class="attribute">framexleftmargin</span>=4mm, %框架左边界延长(frame是不会考虑到左边的行数栏的)</span><br><span class="line"><span class="attribute">rulecolor</span>=\color&#123;gray&#125;, %框架颜色设置</span><br><span class="line"><span class="attribute">rulesepcolor</span>=\color&#123;gray&#125;, %框架阴影颜色设置</span><br></pre></td></tr></table></figure>
-<h2 id="背景颜色"><a href="#背景颜色" class="headerlink" title="背景颜色"></a>背景颜色</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">backgroundcolor</span><span class="operator">=</span>\color&#123;yellow&#125; %背景颜色为黄色</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="更多的指令"><a href="#更多的指令" class="headerlink" title="更多的指令"></a>更多的指令</h2><figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\lstdefinestyle 可以预设多个不同的style。 \lstdefinestyle</span><span class="template-variable">&#123;numbers1&#125;</span><span class="template-variable">&#123;numbers=left, stepnumber=1, numberstyle=\tiny, numbersep=10pt&#125;</span><span class="language-xml"> \lstdefinestyle</span><span class="template-variable">&#123;numbers2&#125;</span><span class="template-variable">&#123;numbers=none&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\begin</span><span class="template-variable">&#123;lstlisting&#125;</span><span class="language-xml">[style=numbers1] 即可选择numbers1作为style</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\lstdefinelanguage 定义一个新的语言.</span></span><br><span class="line"><span class="language-xml">\lstdefinelanguage</span><span class="template-variable">&#123;SDU&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-variable">&#123;morekeywords=&#123;ShiYidDa, CheapCafeteria&#125;</span><span class="language-xml">, %定义关键字</span></span><br><span class="line"><span class="language-xml">sensitive=false, %是否大小写敏感</span></span><br><span class="line"><span class="language-xml">morecommet=[l]</span><span class="template-tag">&#123;//&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morecomment=[s]</span><span class="template-tag">&#123;/*&#125;</span><span class="template-variable">&#123;*/&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morecomment=[n]</span><span class="template-variable">&#123;(*&#125;</span><span class="template-variable">&#123;*)&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morestring=[b]&quot;,</span></span><br><span class="line"><span class="language-xml">morestring=[d]&#x27;,&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">**morecomment**指令用于定义书写注释的标识符。</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">[l] 表示标识符后至该行末尾</span></span><br><span class="line"><span class="language-xml">[s] 表示定义的第一个和第二个标识符之间</span></span><br><span class="line"><span class="language-xml">[n] 表示从第一个定义的标识符开始,直至出现第二个标识符。</span></span><br><span class="line"><span class="language-xml">[il] [is] [in] 编译时不显示注释</span></span><br></pre></td></tr></table></figure>
+<h2 id="框架">框架</h2>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">[<span class="attribute">frame</span>=none] %无框</span><br><span class="line">[<span class="attribute">frame</span>=leftline,topline,rightline, bottomline] %分别对应只在左侧,上方,右侧,下方有竖线</span><br><span class="line">[<span class="attribute">frame</span>=trb] %t-top,r-right,b-bottom,l-left. 这是为框架只在上,右,下方</span><br><span class="line">[<span class="attribute">frame</span>=trBL] %大写表示双重线</span><br><span class="line">在预设中可设置框的拐角处为圆弧：</span><br><span class="line">\lstset&#123;</span><br><span class="line">\frameround = fttt,</span><br><span class="line">&#125;</span><br><span class="line">\frameround后必须有四个字母。第一个字母表示右上角的拐角,然后顺时针地依次代表各个拐角。f表示方形,t表示弧形。</span><br><span class="line"><span class="attribute">frame</span>=shadowbox, %设置阴影</span><br><span class="line"><span class="attribute">framexleftmargin</span>=4mm, %框架左边界延长(frame是不会考虑到左边的行数栏的)</span><br><span class="line"><span class="attribute">rulecolor</span>=\color&#123;gray&#125;, %框架颜色设置</span><br><span class="line"><span class="attribute">rulesepcolor</span>=\color&#123;gray&#125;, %框架阴影颜色设置</span><br></pre></td></tr></table></figure>
+<h2 id="背景颜色">背景颜色</h2>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">backgroundcolor</span><span class="operator">=</span>\color&#123;yellow&#125; %背景颜色为黄色</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="更多的指令">更多的指令</h2>
+<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\lstdefinestyle 可以预设多个不同的style。 \lstdefinestyle</span><span class="template-variable">&#123;numbers1&#125;</span><span class="template-variable">&#123;numbers=left, stepnumber=1, numberstyle=\tiny, numbersep=10pt&#125;</span><span class="language-xml"> \lstdefinestyle</span><span class="template-variable">&#123;numbers2&#125;</span><span class="template-variable">&#123;numbers=none&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\begin</span><span class="template-variable">&#123;lstlisting&#125;</span><span class="language-xml">[style=numbers1] 即可选择numbers1作为style</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\lstdefinelanguage 定义一个新的语言.</span></span><br><span class="line"><span class="language-xml">\lstdefinelanguage</span><span class="template-variable">&#123;SDU&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-variable">&#123;morekeywords=&#123;ShiYidDa, CheapCafeteria&#125;</span><span class="language-xml">, %定义关键字</span></span><br><span class="line"><span class="language-xml">sensitive=false, %是否大小写敏感</span></span><br><span class="line"><span class="language-xml">morecommet=[l]</span><span class="template-tag">&#123;//&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morecomment=[s]</span><span class="template-tag">&#123;/*&#125;</span><span class="template-variable">&#123;*/&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morecomment=[n]</span><span class="template-variable">&#123;(*&#125;</span><span class="template-variable">&#123;*)&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morestring=[b]&quot;,</span></span><br><span class="line"><span class="language-xml">morestring=[d]&#x27;,&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">**morecomment**指令用于定义书写注释的标识符。</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">[l] 表示标识符后至该行末尾</span></span><br><span class="line"><span class="language-xml">[s] 表示定义的第一个和第二个标识符之间</span></span><br><span class="line"><span class="language-xml">[n] 表示从第一个定义的标识符开始,直至出现第二个标识符。</span></span><br><span class="line"><span class="language-xml">[il] [is] [in] 编译时不显示注释</span></span><br></pre></td></tr></table></figure>
 <p>也可以定义不同颜色的注释(要先定义好普通注释/**/)</p>
 <figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\lstset</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">morecomment=[s][\color&#123;blue&#125;</span><span class="language-xml">]</span><span class="template-tag">&#123;/*+&#125;</span><span class="template-variable">&#123;*/&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morecomment=[s][\color</span><span class="template-variable">&#123;red&#125;</span><span class="language-xml">]</span><span class="template-tag">&#123;/*<span class="name">-</span>&#125;</span><span class="template-variable">&#123;*/&#125;</span><span class="language-xml">, &#125;</span></span><br></pre></td></tr></table></figure>
 <p><strong>\lstlistoflistings</strong> 添加过 caption 的代码段可以通过此命令全部被列出来,并且按顺序标号和标注页码。 添加过 name 的代码段也会通过此命令被列出来,且不会参与标号。此时对该代码段再添加caption就会覆盖name。 对于caption{[<short>]<long>}只会打出其短名。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1]  《LaTex 入门与提高》——陈志杰等。</p>
+<h1>参考</h1>
+<p>[1]  《LaTex 入门与提高》——陈志杰等。</p>
 <p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/261667944">LaTeX listings 宏包使用说明</a></p>
 
+                </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
                     var headings = Array.from(
-                        document.querySelectorAll('.typo h1[id], .typo h2[id], .typo h3[id], .typo h4[id], .typo h5[id], .typo h6[id]')
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
                     );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
 
                     document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
                         var href = link.getAttribute('href');
@@ -351,7 +406,174 @@
                         }
                     });
 
-                    var images = document.querySelectorAll('.typo img');
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                tocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                if (activeTocLink) {
+                                    activeTocLink.scrollIntoView({
+                                        block: 'nearest',
+                                        inline: 'nearest',
+                                        behavior: 'auto'
+                                    });
+                                }
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 60);
+                                window.setTimeout(handleScroll, 180);
+                                window.setTimeout(handleScroll, 360);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var headingOffsets = tocHeadings.map(function (heading) {
+                                    return {
+                                        id: heading.id,
+                                        top: heading.getBoundingClientRect().top + window.scrollY
+                                    };
+                                });
+
+                                var marker = window.scrollY + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = headingOffsets[0].id;
+                                var pageBottom = window.scrollY + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    currentId = headingOffsets[headingOffsets.length - 1].id;
+                                    updateActiveLink(currentId);
+                                    return;
+                                }
+
+                                for (var i = 0; i < headingOffsets.length; i += 1) {
+                                    if (headingOffsets[i].top <= marker) {
+                                        currentId = headingOffsets[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            tocLinks.forEach(function (link) {
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', handleScroll, { passive: true });
+                            window.addEventListener('load', handleScroll, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            var lastScrollY = -1;
+                            window.setInterval(function () {
+                                var currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                                if (currentScrollY !== lastScrollY) {
+                                    lastScrollY = currentScrollY;
+                                    syncActiveHeading();
+                                }
+                            }, 180);
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', handleScroll, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var tocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (tocLinks.length > 0 && tocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
 
                     images.forEach(function (img) {
                         if (img.closest('.post-image-frame')) {
@@ -386,7 +608,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/CMake/" style="font-size: 10px; color: #f38181">CMake</a> <a href="/tags/CMakeLists/" style="font-size: 10px; color: #f38181">CMakeLists</a> <a href="/tags/Conan/" style="font-size: 10px; color: #f38181">Conan</a> <a href="/tags/Eigen/" style="font-size: 10px; color: #f38181">Eigen</a> <a href="/tags/FCPX/" style="font-size: 10px; color: #f38181">FCPX</a> <a href="/tags/Forge/" style="font-size: 10px; color: #f38181">Forge</a> <a href="/tags/GNU/" style="font-size: 10px; color: #f38181">GNU</a> <a href="/tags/Gazebo/" style="font-size: 10px; color: #f38181">Gazebo</a> <a href="/tags/Git/" style="font-size: 10.83px; color: #eb8988">Git</a> <a href="/tags/IBus/" style="font-size: 10px; color: #f38181">IBus</a> <a href="/tags/Interest/" style="font-size: 10px; color: #f38181">Interest</a> <a href="/tags/IsaacLab/" style="font-size: 10.83px; color: #eb8988">IsaacLab</a> <a href="/tags/KDL/" style="font-size: 10.83px; color: #eb8988">KDL</a> <a href="/tags/Life/" style="font-size: 10px; color: #f38181">Life</a> <a href="/tags/Linux/" style="font-size: 11.67px; color: #e3918f">Linux</a> <a href="/tags/Matrix/" style="font-size: 10px; color: #f38181">Matrix</a> <a href="/tags/ODE/" style="font-size: 10px; color: #f38181">ODE</a> <a href="/tags/PPO/" style="font-size: 10.83px; color: #eb8988">PPO</a> <a href="/tags/QoS/" style="font-size: 10px; color: #f38181">QoS</a> <a href="/tags/ROS/" style="font-size: 12.5px; color: #dc9996">ROS</a> <a href="/tags/ROS2/" style="font-size: 10px; color: #f38181">ROS2</a> <a href="/tags/Ros/" style="font-size: 10px; color: #f38181">Ros</a> <a href="/tags/UML/" style="font-size: 10px; color: #f38181">UML</a> <a href="/tags/Ubuntu/" style="font-size: 10.83px; color: #eb8988">Ubuntu</a> <a href="/tags/VcXsrv/" style="font-size: 10px; color: #f38181">VcXsrv</a> <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/dB/" style="font-size: 10px; color: #f38181">dB</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 10px; color: #f38181">git</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 18.33px; color: #a5d1c5">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 15px; color: #c4b1aa">ros</a> <a href="/tags/ros2/" style="font-size: 11.67px; color: #e3918f">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 19.17px; color: #9dd9cc">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 10.83px; color: #eb8988">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10.83px; color: #eb8988">强化学习</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
 </div>
 
 
