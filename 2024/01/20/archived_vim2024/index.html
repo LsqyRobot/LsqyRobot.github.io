@@ -427,109 +427,19 @@
                 
 
                 <div class="typo post-article-content" style="padding: 3rem;">
-                    <!-- vim-markdown-toc GFM -->
-<ul>
-<li><a href="#%E6%AF%8F%E8%A1%8C%E8%B6%85%E8%BF%8780%E4%B8%AA%E7%9A%84%E5%AD%97%E7%AC%A6%E7%94%A8%E4%B8%8B%E5%88%92%E7%BA%BF%E6%A0%87%E7%A4%BA">每行超过80个的字符用下划线标示</a></li>
-<li><a href="#%E5%AF%84%E5%AD%98%E5%99%A8">寄存器</a></li>
-<li><a href="#%E6%8A%80%E5%B7%A7">技巧</a></li>
-<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
-</ul>
-<!-- vim-markdown-toc -->
-<h1>每行超过80个的字符用下划线标示</h1>
+                    <h1>每行超过80个的字符用下划线标示</h1>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">au BufRead,BufNewFile *<span class="string">.asm</span>,*<span class="string">.c</span>,*<span class="string">.cpp</span>,*<span class="string">.java</span>,*<span class="string">.cs</span>,*<span class="string">.sh</span>,*<span class="string">.lua</span>,*<span class="string">.pl</span>,*<span class="string">.pm</span>,*<span class="string">.py</span>,*<span class="string">.rb</span>,*<span class="string">.hs</span>,*<span class="string">.vim</span> 2match Underlined <span class="string">/.</span>\%81v/</span><br></pre></td></tr></table></figure>
 <h1>寄存器</h1>
-<p>寄存器就是存储文本的地方。常用的「复制」操作就是把文本存储到寄存器，「 粘贴」 操作就是把文本从寄存器中读出来。顺便，在 Vim 中复制的快捷键是 y，粘贴的快捷键是 p。</p>
-<p>Vim 为我们提供了如下的寄存器：</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>标识</th>
-<th>读写者</th>
-<th>是否为只读</th>
-<th>包含的字符来源</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Unnamed</td>
-<td><code>&quot;</code></td>
-<td>vim</td>
-<td>否</td>
-<td>最近一次的复制或删除操作 (<code>d</code>, <code>c</code>, <code>s</code>, <code>x</code>, <code>y</code>)</td>
-</tr>
-<tr>
-<td>Numbered</td>
-<td><code>0</code>至<code>9</code></td>
-<td>vim</td>
-<td>否</td>
-<td>寄存器 <code>0</code>: 最近一次复制。寄存器 <code>1</code>: 最近一次删除。寄存器 <code>2</code>: 倒数第二次删除，以此类推。对于寄存器 <code>1</code> 至 <code>9</code>，他们其实是只读的最多包含 9 个元素的队列。这里的队列即为数据类型 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Queue_(abstract_data_type)">queue</a></td>
-</tr>
-<tr>
-<td>Small delete</td>
-<td><code>-</code></td>
-<td>vim</td>
-<td>否</td>
-<td>最近一次行内删除</td>
-</tr>
-<tr>
-<td>Named</td>
-<td><code>a</code>至<code>z</code>, <code>A</code>至<code>Z</code></td>
-<td>用户</td>
-<td>否</td>
-<td>如果你通过复制操作存储文本至寄存器 <code>a</code>，那么 <code>a</code> 中的文本就会被完全覆盖。如果你存储至 <code>A</code>，那么会将文本添加给寄存器 <code>a</code>，不会覆盖之前已有的文本</td>
-</tr>
-<tr>
-<td>Read-only</td>
-<td><code>:</code>与<code>.</code>和<code>%</code></td>
-<td>vim</td>
-<td>是</td>
-<td><code>:</code>: 最近一次使用的命令，<code>.</code>: 最近一次添加的文本，<code>%</code>: 当前的文件名</td>
-</tr>
-<tr>
-<td>Alternate buffer</td>
-<td><code>#</code></td>
-<td>vim</td>
-<td>否</td>
-<td>大部分情况下，这个寄存器是当前窗口中，上一次访问的缓冲区。请参阅 <code>:h alternate-file</code> 来获取更多帮助</td>
-</tr>
-<tr>
-<td>Expression</td>
-<td><code>=</code></td>
-<td>用户</td>
-<td>否</td>
-<td>复制 VimL 代码时，这个寄存器用于存储代码片段的执行结果。比如，在插入模式下复制 <code>&lt;c-r&gt;=5+5&lt;cr&gt;</code>，那么这个寄存器就会存入 10</td>
-</tr>
-<tr>
-<td>Selection</td>
-<td><code>+</code>和<code>*</code></td>
-<td>vim</td>
-<td>否</td>
-<td><code>*</code> 和 <code>+</code> 是 <a href="#%E5%89%AA%E8%B4%B4%E6%9D%BF">剪贴板</a> 寄存器</td>
-</tr>
-<tr>
-<td>Drop</td>
-<td><code>~</code></td>
-<td>vim</td>
-<td>是</td>
-<td>最后一次拖拽添加至 Vim 的文本（需要 “+dnd” 支持，暂时只支持 GTK GUI。请参阅 <code>:help dnd</code> 及 <code>:help quote~</code>）</td>
-</tr>
-<tr>
-<td>Black hole</td>
-<td><code>_</code></td>
-<td>vim</td>
-<td>否</td>
-<td>一般称为黑洞寄存器。对于当前操作，如果你不希望在其他寄存器中保留文本，那就在命令前加上 <code>_</code>。比如，<code>&quot;_dd</code> 命令不会将文本放到寄存器 <code>&quot;</code>、<code>1</code>、<code>+</code> 或 <code>*</code> 中</td>
-</tr>
-<tr>
-<td>Last search pattern</td>
-<td><code>/</code></td>
-<td>vim</td>
-<td>否</td>
-<td>最近一次通过 <code>/</code>、<code>?</code> 或 <code>:global</code> 等命令调用的匹配条件</td>
-</tr>
-</tbody>
-</table>
+<p>寄存器内容已经单独整理到专文，避免这篇 2024 笔记和旧笔记重复：</p>
+<ul>
+<li><a href="/2020/09/28/archived_vim_register/">vim 寄存器</a></li>
+</ul>
+<p>日常最常用的几条先记住即可：</p>
+<ul>
+<li><code>&quot;0p</code>：粘贴最近一次 yank 的内容，避免被 delete 覆盖。</li>
+<li><code>&quot;+y</code> / <code>&quot;+p</code>：和系统剪贴板交互。</li>
+<li><code>&quot;_d</code>：删除但不污染默认寄存器。</li>
+</ul>
 <h1>技巧</h1>
 <p>1，<code>:%normal A;</code>可以让所有行后都加入分号， 类似的， 可借用这个模式， 输入行后都是<code>.</code>, 如<code>:%normal A.</code><br>
 2, 在使用 v 或者 V 选择某段文字后，可以用 o 或者 O 按键跳至选择区域的开头或者结尾。</p>
