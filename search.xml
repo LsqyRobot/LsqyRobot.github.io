@@ -4,44 +4,11 @@
   
     
     <entry>
-      <title>四足机器人强化学习系列 05：给自己的复现实验清单</title>
-      <link href="/2026/06/20/archived_quadruped_rl_05_practice_checklist/"/>
-      <url>/2026/06/20/archived_quadruped_rl_05_practice_checklist/</url>
+      <title>四足机器人强化学习系列 14：八周练习路线</title>
+      <link href="/2026/06/20/archived_quadruped_rl_14_practice_plan/"/>
+      <url>/2026/06/20/archived_quadruped_rl_14_practice_plan/</url>
       
-        <content type="html"><![CDATA[<h1>目标</h1><p>这一篇不是讲新理论，而是给一个可执行的练习路线。目标是：从看懂文章，逐步走到能改一个四足 RL 训练任务。</p><h1>第 1 周：读懂最小概念</h1><p>你需要能解释：</p><ul><li>observation 是什么。</li><li>action 是什么。</li><li>reward 是什么。</li><li>episode 是什么。</li><li>policy 和 value 的区别。</li><li>PPO 为什么要限制更新幅度。</li></ul><p>练习：</p><ol><li>写一个 CartPole 或 Pendulum 的 PPO 训练笔记。</li><li>把 obs/action/reward/done 画成流程图。</li><li>不看公式，用自己的话解释 advantage。</li></ol><h1>第 2 周：跑通现成四足仿真</h1><p>目标：跑通一个公开工程，而不是马上改代码。</p><p>建议检查项：</p><ul><li>环境能创建。</li><li>训练能开始。</li><li>日志能记录。</li><li>play 能加载训练结果。</li><li>能保存 policy。</li></ul><p>记录这些信息：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人型号：</span><br><span class="line">仿真器：</span><br><span class="line">num_envs：</span><br><span class="line">control frequency：</span><br><span class="line">policy obs dim：</span><br><span class="line">action dim：</span><br><span class="line">训练迭代数：</span><br><span class="line">最终平均 episode length：</span><br></pre></td></tr></table></figure><h1>第 3 周：定位关键代码</h1><p>在工程里找到：</p><ul><li>obs 计算函数。</li><li>reward 计算函数。</li><li>reset 判断函数。</li><li>action 到 torque/position target 的映射。</li><li>command 采样函数。</li><li>domain randomization 配置。</li></ul><p>练习：给每个函数写中文注释，不需要改逻辑。</p><h1>第 4 周：改一个 reward</h1><p>选择一个最小改动：</p><ul><li>增大 action rate penalty。</li><li>增大 torque penalty。</li><li>降低目标速度范围。</li><li>增加 base height 惩罚。</li></ul><p>然后对比：</p><ul><li>训练曲线变化。</li><li>机器人动作变化。</li><li>reward term 变化。</li><li>是否更稳或更保守。</li></ul><h1>第 5 周：做一次消融实验</h1><p>例如只改 torque penalty：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">实验 A：默认 torque penalty</span><br><span class="line">实验 B：torque penalty * 2</span><br><span class="line">实验 C：torque penalty * 5</span><br></pre></td></tr></table></figure><p>记录：</p><ul><li>速度跟踪误差。</li><li>平均 torque。</li><li>episode length。</li><li>视频现象。</li></ul><p>这一步会让你真正理解奖励权重不是玄学，而是可以实验比较的工程参数。</p><h1>第 6 周：加入扰动或随机化</h1><p>尝试：</p><ul><li>随机摩擦。</li><li>随机质量。</li><li>加外力 push。</li><li>加观测噪声。</li></ul><p>观察策略是否更鲁棒。</p><h1>第 7 周：整理 Sim2Real 检查表</h1><p>即使没有真机，也可以先写检查表：</p><ul><li>obs 顺序。</li><li>action 顺序。</li><li>action scale。</li><li>PD 参数。</li><li>控制频率。</li><li>关节限位。</li><li>torque limit。</li><li>安全停机条件。</li><li>日志字段。</li></ul><h1>第 8 周：形成自己的模板</h1><p>最终你应该有一个自己的四足 RL 学习模板：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">1. 任务目标</span><br><span class="line">2. 机器人模型</span><br><span class="line">3. observation 设计</span><br><span class="line">4. action 设计</span><br><span class="line">5. reward 设计</span><br><span class="line">6. reset 设计</span><br><span class="line">7. 随机化设计</span><br><span class="line">8. 训练曲线</span><br><span class="line">9. play 视频</span><br><span class="line">10. 问题与下一步</span><br></pre></td></tr></table></figure><h1>推荐长期方向</h1><p>学完基础 locomotion 后，可以继续深入：</p><ul><li>rough terrain locomotion。</li><li>blind locomotion vs vision-based locomotion。</li><li>teacher-student / privileged learning。</li><li>RMA 自适应。</li><li>imitation learning。</li><li>whole-body control + RL。</li><li>wheel-legged robot RL。</li><li>real-world deployment safety。</li></ul><h1>最后</h1><p>四足机器人强化学习最好的学习方式不是只看论文，而是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">读论文 → 跑代码 → 改 reward → 看现象 → 记录对比 → 再读论文</span><br></pre></td></tr></table></figure><p>这个循环跑几次，你会比单纯看理论进步快很多。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> RL </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ppo </tag>
-            
-            <tag> 强化学习 </tag>
-            
-            <tag> 四足机器人 </tag>
-            
-            <tag> legged locomotion </tag>
-            
-            <tag> isaac gym </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>四足机器人强化学习系列 04：Sim2Real 为什么难，怎么降低真机翻车风险</title>
-      <link href="/2026/06/20/archived_quadruped_rl_04_sim2real/"/>
-      <url>/2026/06/20/archived_quadruped_rl_04_sim2real/</url>
-      
-        <content type="html"><![CDATA[<h1>一句话结论</h1><p>Sim2Real 的核心不是“把仿真练得更强”，而是让策略在仿真中见过足够多的不确定性，并在真机上通过严格限幅、分级测试和安全保护逐步放开。</p><h1>为什么仿真能走，真机不一定能走</h1><p>仿真器永远是现实的近似。差异主要来自：</p><ul><li>机器人质量、质心、惯量不准。</li><li>关节摩擦和电机模型不准。</li><li>地面摩擦系数不同。</li><li>足端橡胶材料不同。</li><li>控制延迟不同。</li><li>IMU 有噪声和漂移。</li><li>编码器有零位误差。</li><li>电池电压变化。</li><li>通信周期不稳定。</li></ul><p>这些差异在四足机器人上会被接触动力学放大。</p><h1>域随机化</h1><p>域随机化的想法是：训练时不要让仿真世界太完美，而是故意让参数变化。</p><p>常见随机化：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">质量 ±10%</span><br><span class="line">质心偏移</span><br><span class="line">摩擦系数随机</span><br><span class="line">关节阻尼随机</span><br><span class="line">电机强度随机</span><br><span class="line">动作延迟随机</span><br><span class="line">观测噪声随机</span><br><span class="line">外力推搡随机</span><br><span class="line">地形高度随机</span><br></pre></td></tr></table></figure><p>这样策略学到的不是“只适应一个完美仿真世界”，而是对一类变化都有鲁棒性。</p><h1>观测噪声</h1><p>真机观测不干净，所以训练时可以加入噪声：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">obs_noisy = obs + torch.randn_like(obs) * noise_scale</span><br></pre></td></tr></table></figure><p>常见加噪对象：</p><ul><li>IMU 角速度。</li><li>projected gravity。</li><li>关节角。</li><li>关节速度。</li><li>速度估计。</li><li>地形高度采样。</li></ul><p>但噪声也不能乱加，太大可能导致训练困难。</p><h1>动作延迟</h1><p>真实系统里，policy 输出动作到电机执行之间存在延迟。</p><p>训练中可以模拟：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">当前执行的 action = 前几帧 policy 输出的 action</span><br></pre></td></tr></table></figure><p>这能让策略对控制延迟更不敏感。</p><h1>力矩和速度限制</h1><p>真机部署时必须限制：</p><ul><li>action 范围。</li><li>关节位置目标范围。</li><li>关节速度。</li><li>电机力矩。</li><li>身体姿态。</li><li>最大命令速度。</li></ul><p>第一版上真机，不要直接给训练中最大速度命令。</p><h1>分级上真机流程</h1><p>建议顺序：</p><ol><li><strong>离线检查</strong>：网络输入输出维度、归一化、action scale。</li><li><strong>空载/吊绳测试</strong>：机器人脚不完全受力，检查动作方向。</li><li><strong>站立测试</strong>：只给零速度命令，看能否稳定站住。</li><li><strong>小速度测试</strong>：例如 0.1 m/s。</li><li><strong>转向测试</strong>：小角速度。</li><li><strong>扰动测试</strong>：轻微推搡。</li><li><strong>不同地面测试</strong>：地毯、橡胶垫、硬地。</li><li><strong>长时间测试</strong>：检查电机温度和动作漂移。</li></ol><h1>实机安全保护</h1><p>至少要有：</p><ul><li>急停。</li><li>姿态超过阈值自动失能。</li><li>关节超限保护。</li><li>电机温度保护。</li><li>通信丢包保护。</li><li>policy 输出 NaN 检测。</li><li>命令速度限幅。</li></ul><p>不要让 RL policy 拥有无约束控制权。</p><h1>训练时就要为真机考虑</h1><p>如果目标是真机，不要只追求仿真视频好看。</p><p>训练中就要考虑：</p><ul><li>action 不要太抖。</li><li>torque 不要太大。</li><li>足端不要频繁打滑。</li><li>base 高度不要过低。</li><li>对外力扰动要有恢复能力。</li><li>对传感器噪声要有鲁棒性。</li></ul><h1>常见翻车原因</h1><ol><li>仿真 URDF 惯量和真机差很多。</li><li>PD 参数训练和部署不一致。</li><li>action scale 训练和部署不一致。</li><li>obs 顺序错了。</li><li>关节方向定义反了。</li><li>没有做观测归一化或归一化参数错了。</li><li>真机控制频率和训练不一致。</li><li>策略输出没有限幅。</li></ol><p>其中 obs 顺序错和 action 顺序错特别致命，而且肉眼很难第一时间发现。</p><h1>总结</h1><p>Sim2Real 不是单个技巧，而是一整套工程防线：随机化、噪声、延迟、限幅、分级测试、安全保护。</p><p>下一篇给一个学习和复现实验清单，让你知道每周可以练什么。</p>]]></content>
+        <content type="html"><![CDATA[<h1>目标</h1><p>给自己一个可执行的学习节奏。</p><h1>第 1 周</h1><p>理解 obs、action、reward、done。</p><p>能用自己的话解释四足 RL 闭环。</p><h1>第 2 周</h1><p>读 PPO 直觉，不追公式细节。</p><p>知道 policy、value、advantage 是什么。</p><h1>第 3 周</h1><p>跑通一个现成仿真工程。</p><p>记录 num_envs、obs_dim、action_dim、reward 曲线。</p><h1>第 4 周</h1><p>找到 observation、reward、action mapping、reset 代码。</p><p>给关键函数写中文注释。</p><h1>第 5 周</h1><p>改一个 reward 权重。</p><p>观察机器人动作和训练曲线变化。</p><h1>第 6 周</h1><p>做一个小消融实验。</p><p>比如 torque penalty 设置为 1 倍、2 倍、5 倍。</p><h1>第 7 周</h1><p>加入一点随机化或扰动。</p><p>观察策略是否更鲁棒。</p><h1>第 8 周</h1><p>整理一份自己的四足 RL 模板：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">任务目标</span><br><span class="line">obs 设计</span><br><span class="line">action 设计</span><br><span class="line">reward 设计</span><br><span class="line">reset 条件</span><br><span class="line">随机化设置</span><br><span class="line">训练曲线</span><br><span class="line">play 效果</span><br><span class="line">问题记录</span><br></pre></td></tr></table></figure><p>这比单纯看论文更容易真正掌握。</p>]]></content>
       
       
       <categories>
@@ -70,44 +37,11 @@
     
     
     <entry>
-      <title>四足机器人强化学习系列 03：奖励函数如何塑造步态</title>
-      <link href="/2026/06/20/archived_quadruped_rl_03_reward_design/"/>
-      <url>/2026/06/20/archived_quadruped_rl_03_reward_design/</url>
+      <title>四足机器人强化学习系列 13：真机安全检查</title>
+      <link href="/2026/06/20/archived_quadruped_rl_13_real_robot_safety/"/>
+      <url>/2026/06/20/archived_quadruped_rl_13_real_robot_safety/</url>
       
-        <content type="html"><![CDATA[<h1>先给结论</h1><p>四足机器人强化学习里，奖励函数不是“打分表”这么简单，它更像行为塑形器：你奖励什么，机器人就会努力变成什么；你漏掉什么，它就可能钻空子。</p><h1>奖励函数的基本结构</h1><p>一个 locomotion reward 常常是多项加权和：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">总奖励 = 任务奖励 - 能耗惩罚 - 抖动惩罚 - 姿态惩罚 - 接触异常惩罚</span><br></pre></td></tr></table></figure><p>比如：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">reward = <span class="number">0.0</span></span><br><span class="line">reward += w_vx * reward_tracking_lin_vel</span><br><span class="line">reward += w_wz * reward_tracking_ang_vel</span><br><span class="line">reward -= w_tau * penalty_torque</span><br><span class="line">reward -= w_action_rate * penalty_action_rate</span><br><span class="line">reward -= w_orientation * penalty_orientation</span><br><span class="line">reward -= w_collision * penalty_collision</span><br></pre></td></tr></table></figure><h1>速度跟踪奖励</h1><p>如果任务是让机器人按命令速度走，最核心的是速度跟踪：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">希望 base velocity 接近 command velocity</span><br></pre></td></tr></table></figure><p>常见写法类似：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">error = torch.<span class="built_in">sum</span>((command_xy - base_vel_xy) ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br><span class="line">reward = torch.exp(-error / sigma)</span><br></pre></td></tr></table></figure><p>为什么用指数？因为误差小的时候奖励接近 1，误差大时快速变小，训练信号比较平滑。</p><h1>姿态稳定奖励</h1><p>机器人不能只顾往前冲，还要身体稳定。</p><p>常见约束：</p><ul><li>roll / pitch 不要太大。</li><li>base height 不要太低。</li><li>projected gravity 接近正常方向。</li><li>角速度不要过大。</li></ul><p>如果姿态惩罚太弱，机器人可能出现低头、趴地、扭动身体等奇怪策略。</p><h1>能耗与力矩惩罚</h1><p>力矩惩罚通常写成：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">penalty = torch.<span class="built_in">sum</span>(torques ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure><p>它会鼓励机器人省力。</p><p>但注意：</p><ul><li>惩罚太小：动作可能暴力、费电、真机风险高。</li><li>惩罚太大：机器人可能不愿意动，或者步态很保守。</li></ul><h1>动作平滑惩罚</h1><p>常见项：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">penalty = torch.<span class="built_in">sum</span>((action_t - action_t_minus_1) ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure><p>这个项能减少关节目标剧烈变化，让动作更柔和。</p><p>真机上很重要，因为高频抖动会导致：</p><ul><li>电机发热。</li><li>齿轮/减速器冲击。</li><li>足端打滑。</li><li>IMU 噪声放大。</li></ul><h1>脚端相关奖励</h1><p>四足步态离不开接触。常见设计包括：</p><ul><li>脚滑惩罚：接触地面时脚端水平速度不要太大。</li><li>空中时间奖励：鼓励形成自然摆腿。</li><li>碰撞惩罚：小腿/大腿不要撞地。</li><li>足端高度奖励：摆腿时抬脚，避免绊倒。</li></ul><p>脚端奖励很容易影响步态风格。</p><p>例如：</p><ul><li>空中时间奖励太强，可能出现夸张抬腿。</li><li>脚滑惩罚太弱，机器人可能拖脚。</li><li>足端高度过强，可能动作不自然。</li></ul><h1>为什么 reward 会被钻空子</h1><p>强化学习只优化你写出来的目标，不优化你脑子里的目标。</p><p>如果你写：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">只要 x 方向速度大就奖励</span><br></pre></td></tr></table></figure><p>机器人可能学会：</p><ul><li>摔倒后滑行。</li><li>跳一下往前蹭。</li><li>身体扭动产生位移。</li></ul><p>所以要配合：</p><ul><li>姿态约束。</li><li>高度约束。</li><li>碰撞惩罚。</li><li>reset 条件。</li><li>能耗惩罚。</li></ul><h1>奖励调参建议</h1><p>我建议初学者按这个顺序调：</p><ol><li>先保证机器人能站住。</li><li>再加入低速前进。</li><li>再加入角速度命令。</li><li>再加入更大速度范围。</li><li>再加入地形或扰动。</li><li>最后优化能耗和步态美观。</li></ol><p>不要一开始就把所有奖励项拉满。</p><h1>一个简单奖励模板</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">compute_reward</span>(<span class="params">env</span>):</span><br><span class="line">    reward = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">    lin_vel_error = torch.<span class="built_in">sum</span>((env.commands[:, :<span class="number">2</span>] - env.base_lin_vel[:, :<span class="number">2</span>]) ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br><span class="line">    reward += <span class="number">1.0</span> * torch.exp(-lin_vel_error / <span class="number">0.25</span>)</span><br><span class="line"></span><br><span class="line">    ang_vel_error = (env.commands[:, <span class="number">2</span>] - env.base_ang_vel[:, <span class="number">2</span>]) ** <span class="number">2</span></span><br><span class="line">    reward += <span class="number">0.5</span> * torch.exp(-ang_vel_error / <span class="number">0.25</span>)</span><br><span class="line"></span><br><span class="line">    reward -= <span class="number">0.0002</span> * torch.<span class="built_in">sum</span>(env.torques ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br><span class="line">    reward -= <span class="number">0.01</span> * torch.<span class="built_in">sum</span>((env.actions - env.last_actions) ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br><span class="line">    reward -= <span class="number">1.0</span> * torch.<span class="built_in">sum</span>(env.projected_gravity[:, :<span class="number">2</span>] ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> reward</span><br></pre></td></tr></table></figure><p>这只是教学模板，不是直接上真机的完整奖励。</p><h1>看 reward 的正确方式</h1><p>不要只看总 reward。每个 reward term 都要单独记录。</p><p>你应该能回答：</p><ul><li>速度跟踪奖励有没有上升？</li><li>能耗惩罚有没有爆炸？</li><li>动作变化惩罚是否过大？</li><li>reset rate 有没有下降？</li><li>机器人有没有靠奇怪动作拿分？</li></ul><h1>总结</h1><p>奖励函数决定了机器人“想成为什么”。四足机器人 RL 里，奖励设计往往比 PPO 公式更影响最终效果。</p><p>下一篇讲 Sim2Real：为什么仿真里很厉害的策略，到真机上可能一秒摔倒。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> RL </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ppo </tag>
-            
-            <tag> 强化学习 </tag>
-            
-            <tag> 四足机器人 </tag>
-            
-            <tag> legged locomotion </tag>
-            
-            <tag> isaac gym </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>四足机器人强化学习系列 02：一次仿真训练到底是怎么跑起来的</title>
-      <link href="/2026/06/20/archived_quadruped_rl_02_training_pipeline/"/>
-      <url>/2026/06/20/archived_quadruped_rl_02_training_pipeline/</url>
-      
-        <content type="html"><![CDATA[<h1>一句话结论</h1><p>四足 RL 训练工程通常由五块组成：机器人模型、环境 Env、策略网络、PPO Runner、日志与评估。</p><h1>一个典型目录长什么样</h1><p>以 legged locomotion 工程为例，常见结构类似：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">project/</span><br><span class="line">  envs/</span><br><span class="line">    base_legged_robot.py</span><br><span class="line">    go2_config.py</span><br><span class="line">    anymal_config.py</span><br><span class="line">  assets/</span><br><span class="line">    robot.urdf</span><br><span class="line">    meshes/</span><br><span class="line">  train.py</span><br><span class="line">  play.py</span><br><span class="line">  logs/</span><br><span class="line">  algorithms/</span><br><span class="line">    ppo.py</span><br><span class="line">    actor_critic.py</span><br></pre></td></tr></table></figure><p>你第一次读这类代码，不要从 PPO 细节开始，而应该先找四个位置：</p><ol><li>robot asset 在哪里加载。</li><li>observation 在哪里拼接。</li><li>reward 在哪里计算。</li><li>action 在哪里变成关节目标。</li></ol><h1>训练入口</h1><p>训练脚本通常做这些事：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">env = make_env(task_name)</span><br><span class="line">runner = OnPolicyRunner(env, train_cfg)</span><br><span class="line">runner.learn(num_learning_iterations)</span><br></pre></td></tr></table></figure><p>真正复杂的部分藏在 env 里。</p><h1>Env 里有什么</h1><p>四足机器人环境一般包括：</p><ul><li>加载 URDF / MJCF。</li><li>创建多个并行机器人。</li><li>初始化地形。</li><li>设置 PD 控制参数。</li><li>接收 action。</li><li>推进仿真。</li><li>计算 observation。</li><li>计算 reward。</li><li>判断 reset。</li><li>随机化质量、摩擦、扰动等参数。</li></ul><h1>Action 到关节控制</h1><p>很多 locomotion 策略输出的是 action 向量，然后转换成关节目标：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">target_q = default_joint_pos + action_scale * action</span><br></pre></td></tr></table></figure><p>底层 PD 控制：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">torque = Kp * (target_q - q) - Kd * dq</span><br></pre></td></tr></table></figure><p>这意味着 policy 并不是直接发电机电流，而是在告诉每个关节“目标角度往哪里偏”。</p><p>这个设计对初学者特别重要，因为它解释了为什么策略输出维度通常等于关节数。</p><h1>Observation 拼接</h1><p>一个典型 obs 可能是：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">obs = torch.cat([</span><br><span class="line">    base_ang_vel * scale,</span><br><span class="line">    projected_gravity,</span><br><span class="line">    commands * scale,</span><br><span class="line">    (joint_pos - default_joint_pos) * scale,</span><br><span class="line">    joint_vel * scale,</span><br><span class="line">    actions,</span><br><span class="line">], dim=-<span class="number">1</span>)</span><br></pre></td></tr></table></figure><p>注意几个点：</p><ul><li>线速度有时不会直接给 policy，而是通过奖励或估计器处理。</li><li>projected_gravity 很常见，用来让机器人知道身体姿态。</li><li>previous action 能让策略动作更平滑。</li><li>所有量通常要 scale，否则训练不稳定。</li></ul><h1>Reward 计算</h1><p>环境每步会计算多个 reward term：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">reward = <span class="number">0</span></span><br><span class="line">reward += tracking_lin_vel</span><br><span class="line">reward += tracking_ang_vel</span><br><span class="line">reward -= torque_penalty</span><br><span class="line">reward -= action_rate_penalty</span><br><span class="line">reward -= base_orientation_penalty</span><br><span class="line">reward -= feet_slip_penalty</span><br></pre></td></tr></table></figure><p>实际代码里通常会把每个 reward term 写成函数，最后乘权重求和。</p><h1>Reset 条件</h1><p>reset 很关键，它决定哪些行为被认为“失败”。</p><p>常见 reset：</p><ul><li>base 姿态过大。</li><li>base 高度过低。</li><li>机身撞地。</li><li>episode 时间到。</li><li>机器人离开允许区域。</li></ul><p>如果 reset 太宽松，机器人可能学出摔倒但拿奖励的奇怪策略。<br>如果 reset 太严格，机器人探索不到有效行为。</p><h1>并行环境</h1><p>四足 RL 常见几千个环境同时跑：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">num_envs = 4096</span><br><span class="line">horizon = 24</span><br><span class="line">一次 rollout 收集 4096 * 24 条 transition</span><br></pre></td></tr></table></figure><p>这就是为什么 GPU 仿真能显著加速训练。</p><h1>训练时要看哪些曲线</h1><p>不要只看总 reward。建议看：</p><ul><li>episode length：机器人是不是越走越久。</li><li>tracking reward：速度跟踪是否变好。</li><li>torque penalty：是否越来越费力。</li><li>action rate：动作是否抖。</li><li>fall/reset rate：摔倒比例。</li><li>command tracking error：命令速度误差。</li></ul><h1><a href="http://play.py">play.py</a> 是什么</h1><p>训练完成后通常用 <a href="http://play.py">play.py</a> 加载 policy：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">policy = runner.get_inference_policy()</span><br><span class="line">obs = env.get_observations()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    action = policy(obs)</span><br><span class="line">    obs, _, _, _ = env.step(action)</span><br></pre></td></tr></table></figure><p>play 阶段不更新网络，只看效果。</p><h1>初学者最容易卡在哪里</h1><ol><li>只盯着 PPO，不看 env。</li><li>不知道 action scale 对动作幅度影响很大。</li><li>不知道 reward 权重会改变步态。</li><li>不知道 PD 参数也是控制效果的一部分。</li><li>不看日志，只凭肉眼判断。</li></ol><p>下一篇我们专门讲奖励函数：为什么它是四足 RL 里最值得认真学的部分。</p>]]></content>
+        <content type="html"><![CDATA[<h1>先说重点</h1><p>RL policy 上真机之前，安全检查比算法更重要。</p><h1>必备保护</h1><p>至少要有：</p><ul><li>急停。</li><li>姿态超限保护。</li><li>关节位置限位。</li><li>关节速度限位。</li><li>力矩限幅。</li><li>电机温度保护。</li><li>通信丢包保护。</li><li>policy 输出 NaN 检查。</li></ul><h1>分级测试</h1><p>建议按顺序：</p><ol><li>离线检查输入输出维度。</li><li>吊绳或支架测试。</li><li>零速度站立。</li><li>小速度前进。</li><li>小角速度转向。</li><li>轻微推搡。</li><li>不同地面。</li><li>长时间运行。</li></ol><h1>第一次不要做什么</h1><p>不要第一次就：</p><ul><li>给最大速度命令。</li><li>关闭保护。</li><li>在硬地高速测试。</li><li>让 policy 直接输出无限制 torque。</li></ul><p>四足 RL 真机部署要慢慢放开。</p>]]></content>
       
       
       <categories>
@@ -136,11 +70,11 @@
     
     
     <entry>
-      <title>四足机器人强化学习系列 01：先把 MDP、Policy、PPO 讲明白</title>
-      <link href="/2026/06/20/archived_quadruped_rl_01_ppo_mdp/"/>
-      <url>/2026/06/20/archived_quadruped_rl_01_ppo_mdp/</url>
+      <title>四足机器人强化学习系列 12：域随机化</title>
+      <link href="/2026/06/20/archived_quadruped_rl_12_domain_randomization/"/>
+      <url>/2026/06/20/archived_quadruped_rl_12_domain_randomization/</url>
       
-        <content type="html"><![CDATA[<h1>先给结论</h1><p>四足机器人里常用 PPO，不是因为它最“高级”，而是因为它在连续控制任务里足够稳定、工程实现成熟、并行采样效率高，适合让机器人在仿真中反复试错。</p><h1>MDP 是什么</h1><p>强化学习通常把问题抽象成 MDP：Markov Decision Process，马尔可夫决策过程。</p><p>在四足机器人里可以这样理解：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">状态 s：机器人当前情况</span><br><span class="line">动作 a：控制器给出的动作</span><br><span class="line">奖励 r：这一步做得好不好</span><br><span class="line">转移 P：执行动作后，机器人到了什么新状态</span><br><span class="line">折扣 γ：未来奖励的重要程度</span><br></pre></td></tr></table></figure><p>比如让机器人按命令速度向前走：</p><ul><li>状态：机身角速度、重力方向、关节角、关节速度、上一帧动作、速度命令。</li><li>动作：12 个关节的位置目标或位置偏移。</li><li>奖励：走得越接近目标速度越好，身体越稳越好，能耗越低越好。</li><li>终止：摔倒、身体姿态过大、超时。</li></ul><h1>State 和 Observation 的区别</h1><p>理论里常说 state，但机器人训练里经常用 observation。</p><ul><li>state：完整真实状态，理论上包含系统全部信息。</li><li>observation：策略实际能看到的信息。</li></ul><p>真实机器人不可能知道所有东西，比如精确地面摩擦、每个接触点真实接触力、完整环境模型。所以工程里更关心 observation。</p><p>四足运动控制常见 observation：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">base angular velocity</span><br><span class="line">projected gravity</span><br><span class="line">command velocity</span><br><span class="line">joint position error</span><br><span class="line">joint velocity</span><br><span class="line">previous action</span><br><span class="line">optional: terrain height samples</span><br><span class="line">optional: contact state</span><br></pre></td></tr></table></figure><h1>Action 是什么</h1><p>四足机器人动作通常不是“脚往前迈一步”这种高层语义，而是更低层的控制量。</p><p>常见设计：</p><ol><li><strong>关节位置目标</strong>：策略输出每个关节的目标角度，然后底层 PD 控制。</li><li><strong>关节位置偏移</strong>：策略输出相对默认姿态的偏移量。</li><li><strong>关节力矩</strong>：策略直接输出 torque，难度更高，安全风险更大。</li><li><strong>残差动作</strong>：在传统控制器基础上加一个 RL 修正量。</li></ol><p>很多四足 locomotion 训练会选择“位置目标/偏移 + PD”，因为稳定、易迁移、真机风险小一些。</p><h1>Policy 是什么</h1><p>Policy 就是策略：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">π(a | obs)</span><br></pre></td></tr></table></figure><p>意思是：给定当前观测，策略输出动作。</p><p>工程上，policy 通常是一个神经网络：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">obs 向量 → MLP → action 向量</span><br></pre></td></tr></table></figure><p>例如：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">obs_dim = 48</span><br><span class="line">act_dim = 12</span><br><span class="line">policy: 48 → 256 → 256 → 12</span><br></pre></td></tr></table></figure><h1>Value 是什么</h1><p>PPO 通常还会训练一个 value 网络。</p><p>Policy 负责回答：</p><blockquote><p>我现在应该做什么动作？</p></blockquote><p>Value 负责回答：</p><blockquote><p>我现在这个状态大概有多好？未来能拿多少奖励？</p></blockquote><p>它不是直接控制机器人，但能帮助算法判断某次动作是不是比预期更好。</p><h1>为什么四足机器人常用 PPO</h1><p>PPO 的核心思想是：<strong>每次更新策略不要走太猛，避免刚学会一点东西又被一次大更新毁掉。</strong></p><p>它通过 clipped objective 限制新旧策略差异，大致意思是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">如果新策略比旧策略好，可以更新；</span><br><span class="line">但不要好得太离谱，防止一步跨太大。</span><br></pre></td></tr></table></figure><p>这对四足机器人很重要，因为 locomotion 任务非常容易不稳定：</p><ul><li>一个动作不合适就会摔倒。</li><li>奖励函数里很多项相互拉扯。</li><li>接触动力学带来强非线性。</li><li>仿真并行采样数据量很大，策略更新太激进会崩。</li></ul><h1>PPO 在四足训练里的流程</h1><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">1. 创建几千个并行机器人环境</span><br><span class="line">2. 每个环境执行当前 policy</span><br><span class="line">3. 收集 obs/action/reward/done</span><br><span class="line">4. 用 value 估计 advantage</span><br><span class="line">5. 用 PPO loss 更新 policy 和 value</span><br><span class="line">6. 重复训练几千到几万轮</span><br></pre></td></tr></table></figure><p>并行环境是四足 RL 的效率关键。比如 Isaac Gym 的思路是让大量仿真环境在 GPU 上并行跑，几分钟到几十分钟内收集大量经验。</p><h1>Advantage 是什么</h1><p>Advantage 可以理解成：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">这一步动作，比我原本预期的好多少？</span><br></pre></td></tr></table></figure><p>如果 advantage 为正，说明这个动作比预期好，策略应该更倾向于它。</p><p>如果 advantage 为负，说明这个动作比预期差，策略应该少做。</p><h1>一段伪代码</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> iteration <span class="keyword">in</span> <span class="built_in">range</span>(num_iterations):</span><br><span class="line">    buffer = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> step <span class="keyword">in</span> <span class="built_in">range</span>(horizon):</span><br><span class="line">        obs = env.get_observation()</span><br><span class="line">        action = policy(obs)</span><br><span class="line">        next_obs, reward, done, info = env.step(action)</span><br><span class="line">        buffer.append(obs, action, reward, done)</span><br><span class="line"></span><br><span class="line">    advantages = compute_gae(buffer, value_net)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(update_epochs):</span><br><span class="line">        ppo_update(policy, value_net, buffer, advantages)</span><br></pre></td></tr></table></figure><h1>四足机器人里 PPO 不是全部</h1><p>学 PPO 是必要的，但不要误以为“会 PPO = 会四足强化学习”。真正影响效果的往往是：</p><ul><li>observation 设计。</li><li>reward 设计。</li><li>action scale。</li><li>PD 参数。</li><li>terrain curriculum。</li><li>domain randomization。</li><li>reset 条件。</li><li>训练命令分布。</li></ul><p>下一篇我们看四足 RL 工程里，一次训练任务通常是怎么组织起来的。</p>]]></content>
+        <content type="html"><![CDATA[<h1>一句话</h1><p>域随机化就是训练时故意把仿真世界变得“不确定”，让策略更抗现实误差。</p><h1>可以随机什么</h1><p>常见随机项：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人质量</span><br><span class="line">质心位置</span><br><span class="line">地面摩擦</span><br><span class="line">关节阻尼</span><br><span class="line">电机强度</span><br><span class="line">动作延迟</span><br><span class="line">观测噪声</span><br><span class="line">外力推搡</span><br><span class="line">地形高度</span><br></pre></td></tr></table></figure><h1>为什么有效</h1><p>如果机器人只在一种摩擦系数下训练，它可能只会适应那一种地面。</p><p>如果训练时摩擦系数随机，它就更可能学到鲁棒策略。</p><h1>不要乱随机</h1><p>随机范围太小，没效果。</p><p>随机范围太大，训练困难，甚至学不会。</p><p>所以域随机化需要从小范围开始，逐渐扩大。</p><h1>一个简单例子</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">friction = random_uniform(<span class="number">0.5</span>, <span class="number">1.25</span>)</span><br><span class="line">mass_scale = random_uniform(<span class="number">0.9</span>, <span class="number">1.1</span>)</span><br><span class="line">obs = obs + noise</span><br></pre></td></tr></table></figure><p>这只是概念示例，真实工程要结合机器人和仿真器配置。</p>]]></content>
       
       
       <categories>
@@ -169,11 +103,374 @@
     
     
     <entry>
-      <title>四足机器人强化学习系列 00：从零开始的学习路线图</title>
+      <title>四足机器人强化学习系列 11：Sim2Real 为什么难</title>
+      <link href="/2026/06/20/archived_quadruped_rl_11_sim2real_gap/"/>
+      <url>/2026/06/20/archived_quadruped_rl_11_sim2real_gap/</url>
+      
+        <content type="html"><![CDATA[<h1>一句话</h1><p>仿真和现实不完全一样，而四足机器人的接触动力学会放大这些差异。</p><h1>常见差异</h1><ul><li>质量和惯量不准。</li><li>关节摩擦不准。</li><li>地面摩擦不同。</li><li>电机延迟不同。</li><li>IMU 有噪声。</li><li>关节零位有误差。</li><li>控制频率不稳定。</li><li>足端材料不同。</li></ul><p>这些小差异可能让仿真里很稳的策略，真机上一秒摔倒。</p><h1>最危险的错误</h1><p>真机部署中最危险的常见错误：</p><ul><li>obs 顺序错。</li><li>action 顺序错。</li><li>action scale 不一致。</li><li>PD 参数不一致。</li><li>关节方向定义反了。</li><li>没有限幅。</li></ul><p>这些不是算法问题，但非常致命。</p><h1>Sim2Real 的核心思想</h1><p>不要让策略只适应一个完美仿真世界。</p><p>训练时就要让它见过：</p><ul><li>参数变化。</li><li>噪声。</li><li>延迟。</li><li>外部扰动。</li><li>不同地形。</li></ul><p>这就是后面要讲的域随机化。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 10：代码先看哪里</title>
+      <link href="/2026/06/20/archived_quadruped_rl_10_code_map/"/>
+      <url>/2026/06/20/archived_quadruped_rl_10_code_map/</url>
+      
+        <content type="html"><![CDATA[<h1>目标</h1><p>第一次看 legged_gym / rsl_rl 这类工程，不要从 PPO 公式开始。</p><p>先找四个位置。</p><h1>1. Observation 在哪里拼接</h1><p>通常会看到类似：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">obs = torch.cat([...], dim=-<span class="number">1</span>)</span><br></pre></td></tr></table></figure><p>这里决定 policy 看到什么。</p><h1>2. Reward 在哪里计算</h1><p>通常每个 reward term 是一个函数。</p><p>例如：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">_reward_tracking_lin_vel</span><br><span class="line">_reward_torques</span><br><span class="line">_reward_action_rate</span><br></pre></td></tr></table></figure><p>这里决定机器人学什么行为。</p><h1>3. Action 如何变成关节目标</h1><p>重点看：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">target_q = default_q + action_scale * action</span><br></pre></td></tr></table></figure><p>以及 PD 参数。</p><h1>4. Reset 条件在哪里</h1><p>找摔倒判断、姿态阈值、episode length。</p><p>reset 决定什么行为被认为失败。</p><h1>建议读代码顺序</h1><ol><li>config。</li><li>env。</li><li>reward。</li><li>action mapping。</li><li>runner。</li><li>PPO。</li></ol><p>这样更符合四足机器人工程逻辑。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 09：一次训练流程长什么样</title>
+      <link href="/2026/06/20/archived_quadruped_rl_09_training_pipeline/"/>
+      <url>/2026/06/20/archived_quadruped_rl_09_training_pipeline/</url>
+      
+        <content type="html"><![CDATA[<h1>一句话</h1><p>一次四足 RL 训练，就是不断执行：采样、算奖励、更新策略、再采样。</p><h1>基本流程</h1><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">创建很多并行机器人</span><br><span class="line">      ↓</span><br><span class="line">policy 根据 obs 输出 action</span><br><span class="line">      ↓</span><br><span class="line">仿真器执行动作</span><br><span class="line">      ↓</span><br><span class="line">计算 reward 和 done</span><br><span class="line">      ↓</span><br><span class="line">收集一段 rollout</span><br><span class="line">      ↓</span><br><span class="line">PPO 更新 policy</span><br><span class="line">      ↓</span><br><span class="line">重复</span><br></pre></td></tr></table></figure><h1>为什么要很多并行环境</h1><p>四足 RL 需要大量试错。</p><p>如果只有一个机器人仿真，采样太慢。</p><p>Isaac Gym 这类 GPU 仿真可以同时跑几千个机器人，大幅提高训练效率。</p><h1>训练时看什么</h1><p>不要只看总 reward。</p><p>建议看：</p><ul><li>episode length。</li><li>velocity tracking reward。</li><li>torque penalty。</li><li>action rate penalty。</li><li>reset rate。</li><li>command tracking error。</li></ul><h1>play 阶段是什么</h1><p>训练后通常有 <a href="http://play.py">play.py</a>。</p><p>play 不再更新网络，只加载训练好的 policy 看效果。</p><p>这一步用来观察步态、录视频、排查动作是否异常。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 08：PPO 的核心直觉</title>
+      <link href="/2026/06/20/archived_quadruped_rl_08_ppo_intuition/"/>
+      <url>/2026/06/20/archived_quadruped_rl_08_ppo_intuition/</url>
+      
+        <content type="html"><![CDATA[<h1>一句话</h1><p>PPO 的核心是：更新策略时别一步走太猛。</p><h1>为什么不能更新太猛</h1><p>四足机器人训练很脆弱。</p><p>策略刚学会站住，如果一次梯度更新太大，可能下一轮又全摔倒。</p><p>PPO 用 clipped objective 限制新旧策略差异，让训练更稳定。</p><h1>policy 和 value</h1><p>PPO 通常有两个网络：</p><ul><li>policy：决定做什么动作。</li><li>value：估计当前状态未来能拿多少奖励。</li></ul><p>policy 直接控制机器人。</p><p>value 帮助算法判断一个动作比预期好还是差。</p><h1>advantage</h1><p>advantage 可以粗略理解成：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">这一步动作比原本预期好多少？</span><br></pre></td></tr></table></figure><p>如果 advantage 为正，说明这个动作值得更多采用。</p><p>如果为负，说明这个动作不太好。</p><h1>四足机器人为什么常用 PPO</h1><p>因为它：</p><ul><li>工程成熟。</li><li>连续控制任务表现稳定。</li><li>适合并行采样。</li><li>和 Isaac Gym / legged_gym 这类框架配合很好。</li></ul><p>但要记住：PPO 只是骨架，reward、obs、action、仿真设置同样重要。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 07：能耗和平滑惩罚</title>
+      <link href="/2026/06/20/archived_quadruped_rl_07_torque_action_penalty/"/>
+      <url>/2026/06/20/archived_quadruped_rl_07_torque_action_penalty/</url>
+      
+        <content type="html"><![CDATA[<h1>为什么需要惩罚项</h1><p>速度跟踪会让机器人努力完成任务，但不一定让动作好看、安全、省电。</p><p>所以需要惩罚项。</p><h1>力矩惩罚</h1><p>常见形式：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">penalty = torch.<span class="built_in">sum</span>(torques ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure><p>作用：鼓励机器人少用力。</p><p>如果太弱，动作可能暴力。</p><p>如果太强，机器人可能不愿意动。</p><h1>动作变化惩罚</h1><p>常见形式：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">penalty = torch.<span class="built_in">sum</span>((actions - last_actions) ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure><p>作用：让 action 不要一帧一帧剧烈跳变。</p><p>这对真机很重要，因为动作抖会带来：</p><ul><li>电机发热。</li><li>减速器冲击。</li><li>足端打滑。</li><li>姿态震荡。</li></ul><h1>惩罚项不是越大越好</h1><p>惩罚太大，机器人会变保守。</p><p>调参时要看多个指标：</p><ul><li>是否还能跟踪速度。</li><li>torque 是否下降。</li><li>动作是否平滑。</li><li>是否更容易摔倒。</li></ul><p>这就是 reward tuning 的核心工作。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 06：速度跟踪奖励</title>
+      <link href="/2026/06/20/archived_quadruped_rl_06_velocity_tracking_reward/"/>
+      <url>/2026/06/20/archived_quadruped_rl_06_velocity_tracking_reward/</url>
+      
+        <content type="html"><![CDATA[<h1>目标</h1><p>如果命令机器人向前走 0.5 m/s，我们希望它实际速度也接近 0.5 m/s。</p><h1>常见写法</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">error = torch.<span class="built_in">sum</span>((command_xy - base_vel_xy) ** <span class="number">2</span>, dim=<span class="number">1</span>)</span><br><span class="line">reward = torch.exp(-error / sigma)</span><br></pre></td></tr></table></figure><p>误差越小，reward 越接近 1。</p><p>误差越大，reward 越接近 0。</p><h1>为什么不用简单负误差</h1><p>也可以用，但指数形式更平滑，很多 locomotion 工程喜欢这样写。</p><p>它的好处是：</p><ul><li>小误差区域奖励变化明显。</li><li>大误差不会无限变负。</li><li>比较容易和其他奖励项加权。</li></ul><h1>sigma 是什么</h1><p>sigma 控制奖励对误差的敏感程度。</p><ul><li>sigma 小：要求更严格。</li><li>sigma 大：容忍误差更大。</li></ul><h1>不要只奖励速度</h1><p>只奖励速度会出问题。</p><p>还需要配合：</p><ul><li>姿态稳定。</li><li>能耗惩罚。</li><li>动作平滑。</li><li>摔倒 reset。</li></ul><p>否则机器人可能用很难看的方式“刷速度分”。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 05：Reward 是在塑造行为</title>
+      <link href="/2026/06/20/archived_quadruped_rl_05_reward_overview/"/>
+      <url>/2026/06/20/archived_quadruped_rl_05_reward_overview/</url>
+      
+        <content type="html"><![CDATA[<h1>一句话</h1><p>Reward 不是简单打分，而是在告诉机器人：什么行为值得保留，什么行为应该避免。</p><h1>常见 reward 结构</h1><p>四足 locomotion 的 reward 通常是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">任务奖励 - 惩罚项</span><br></pre></td></tr></table></figure><p>任务奖励包括：</p><ul><li>速度跟踪。</li><li>转向角速度跟踪。</li><li>保持身体高度。</li></ul><p>惩罚项包括：</p><ul><li>力矩太大。</li><li>动作变化太快。</li><li>身体倾斜。</li><li>脚滑。</li><li>非足端碰撞。</li></ul><h1>为什么 reward 难</h1><p>因为机器人会钻空子。</p><p>如果只奖励向前速度，机器人可能学会：</p><ul><li>趴地滑行。</li><li>用奇怪姿态蹭地。</li><li>高能耗乱动但速度够。</li></ul><p>所以 reward 必须和 reset、安全约束一起设计。</p><h1>初学顺序</h1><p>建议先理解三类 reward：</p><ol><li>任务项：走得准不准。</li><li>稳定项：身体稳不稳。</li><li>代价项：动作是否省力、平滑、安全。</li></ol><p>后面几篇分别拆开讲。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 04：Action 为什么常用关节位置目标</title>
+      <link href="/2026/06/20/archived_quadruped_rl_04_action/"/>
+      <url>/2026/06/20/archived_quadruped_rl_04_action/</url>
+      
+        <content type="html"><![CDATA[<h1>一句话</h1><p>四足 RL 的 action 通常不是“迈左脚”，而是每个关节的低层控制目标。</p><h1>常见 action 形式</h1><h2 id="1-关节位置目标">1. 关节位置目标</h2><p>policy 输出每个关节的目标位置。</p><h2 id="2-关节位置偏移">2. 关节位置偏移</h2><p>更常见的是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">target_q = default_q + action_scale * action</span><br></pre></td></tr></table></figure><p>也就是在默认站立姿态附近加一个偏移。</p><h2 id="3-关节力矩">3. 关节力矩</h2><p>policy 直接输出 torque。这个更自由，但真机风险更高，也更难稳定。</p><h1>为什么常用位置目标 + PD</h1><p>因为它比较稳。</p><p>底层可以用 PD：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">torque = Kp * (target_q - q) - Kd * dq</span><br></pre></td></tr></table></figure><p>policy 不需要直接控制电机力矩，只需要给出目标姿态偏移。</p><h1>action_scale 很关键</h1><p>action_scale 决定动作幅度。</p><p>太小：机器人动不起来。</p><p>太大：动作暴力，容易抖或摔。</p><p>训练和部署时 action_scale 必须一致，否则真机表现会明显变差。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 03：Observation 里面到底放什么</title>
+      <link href="/2026/06/20/archived_quadruped_rl_03_observation/"/>
+      <url>/2026/06/20/archived_quadruped_rl_03_observation/</url>
+      
+        <content type="html"><![CDATA[<h1>一句话</h1><p>Observation 是 policy 真正能看到的信息。它决定机器人“凭什么做判断”。</p><h1>常见 observation</h1><p>四足 locomotion 里经常包含：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机身角速度</span><br><span class="line">重力方向在机身坐标系下的投影</span><br><span class="line">速度命令</span><br><span class="line">关节角相对默认姿态的偏差</span><br><span class="line">关节速度</span><br><span class="line">上一帧 action</span><br></pre></td></tr></table></figure><p>如果是复杂地形，还可能加入：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">周围地形高度采样</span><br><span class="line">足端接触状态</span><br><span class="line">估计的身体线速度</span><br></pre></td></tr></table></figure><h1>为什么不直接给所有信息</h1><p>因为真机上很多量并不容易准确获得。</p><p>比如：</p><ul><li>真实地面摩擦不知道。</li><li>足端真实接触力可能没有传感器。</li><li>机身速度可能只能估计。</li></ul><p>所以训练时的 obs 要尽量贴近真机可获得信息。</p><h1>projected gravity 为什么常见</h1><p>projected gravity 可以告诉策略：机器人身体现在相对重力方向是歪的还是正的。</p><p>它比直接给 roll/pitch 有时更稳定，也常见于 legged locomotion 工程。</p><h1>obs 顺序很重要</h1><p>部署时 obs 顺序必须和训练完全一致。</p><p>如果训练时是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">角速度 → 重力方向 → 命令 → 关节角 → 关节速度</span><br></pre></td></tr></table></figure><p>部署时写成：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">命令 → 角速度 → 关节角 → 重力方向</span><br></pre></td></tr></table></figure><p>策略会直接乱掉。这是真机部署里非常致命的错误。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 02：用四足机器人理解 MDP</title>
+      <link href="/2026/06/20/archived_quadruped_rl_02_mdp/"/>
+      <url>/2026/06/20/archived_quadruped_rl_02_mdp/</url>
+      
+        <content type="html"><![CDATA[<h1>MDP 是什么</h1><p>MDP 是 Markov Decision Process，马尔可夫决策过程。</p><p>不用被名字吓到，在四足机器人里可以这样理解：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人看到当前情况 → 做一个动作 → 得到一个结果和分数 → 进入下一步</span><br></pre></td></tr></table></figure><h1>五个核心元素</h1><h2 id="1-状态-观测">1. 状态 / 观测</h2><p>机器人当前知道什么，比如：</p><ul><li>机身姿态。</li><li>关节角。</li><li>关节速度。</li><li>速度命令。</li><li>上一帧动作。</li></ul><h2 id="2-动作">2. 动作</h2><p>策略输出什么，比如 12 个关节的位置目标偏移。</p><h2 id="3-奖励">3. 奖励</h2><p>这一步做得好不好。比如速度跟踪准、身体稳定、省力，就给高分。</p><h2 id="4-转移">4. 转移</h2><p>执行动作后，机器人状态怎么变化。这个由仿真器或真实物理世界决定。</p><h2 id="5-终止">5. 终止</h2><p>什么时候算这一局结束。比如摔倒、姿态过大、超时。</p><h1>一个具体例子</h1><p>任务：让机器人以 0.5 m/s 向前走。</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">obs：身体姿态、关节状态、目标速度</span><br><span class="line">act：12 个关节目标偏移</span><br><span class="line">reward：越接近 0.5 m/s 越高，摔倒扣分</span><br><span class="line">next obs：仿真器执行后得到的新状态</span><br><span class="line">done：摔倒或时间到</span><br></pre></td></tr></table></figure><p>这就是四足 locomotion 的 MDP 直觉。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 01：四足 RL 到底在学什么</title>
+      <link href="/2026/06/20/archived_quadruped_rl_01_what_is_quadruped_rl/"/>
+      <url>/2026/06/20/archived_quadruped_rl_01_what_is_quadruped_rl/</url>
+      
+        <content type="html"><![CDATA[<h1>一句话</h1><p>四足机器人强化学习，核心是在仿真里让机器人反复试错，学出一个从“当前观测”到“关节动作”的控制策略。</p><h1>它不是在学什么</h1><p>它通常不是在学：</p><ul><li>识别这是一只狗还是一台机器人。</li><li>理解地图语义。</li><li>像人一样思考怎么走路。</li></ul><p>在基础 locomotion 任务里，它更像是在学：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">当前身体姿态 + 关节状态 + 速度命令 → 12 个关节该怎么动</span><br></pre></td></tr></table></figure><h1>为什么适合四足机器人</h1><p>四足机器人有很多接触、非线性和耦合：</p><ul><li>每条腿有多个关节。</li><li>脚会接触地面也会离地。</li><li>身体姿态和足端位置互相影响。</li><li>地面摩擦、坡度、扰动都会影响运动。</li></ul><p>传统控制当然可以做，但手工设计所有行为很难。强化学习的优势是：让机器人在仿真中大量试错，自动找到可行步态。</p><h1>学到的 policy 是什么</h1><p>最终得到的 policy 通常是一个神经网络：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">obs 向量 → MLP → action 向量</span><br></pre></td></tr></table></figure><p>部署时，每个控制周期都执行一次：</p><ol><li>读取传感器。</li><li>拼接 observation。</li><li>神经网络输出 action。</li><li>action 转成关节目标。</li><li>底层 PD 或电机控制执行。</li></ol><p>这就是四足 RL 的最小闭环。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四足机器人强化学习系列 00：这套短篇课怎么学</title>
       <link href="/2026/06/20/archived_quadruped_rl_00_learning_roadmap/"/>
       <url>/2026/06/20/archived_quadruped_rl_00_learning_roadmap/</url>
       
-        <content type="html"><![CDATA[<h1>为什么要单独学“四足机器人强化学习”</h1><p>如果只是泛泛地学强化学习，通常会先从 GridWorld、CartPole、Atari、MuJoCo HalfCheetah 讲起。这些例子很好，但和四足机器人真正落地之间还隔着几层：机器人动力学、关节控制、仿真器、奖励函数、接触、地形、域随机化、实机安全。</p><p>所以这个系列不追求“把所有 RL 理论讲完”，而是围绕一个目标：<strong>看懂并能复现四足机器人运动控制里的强化学习训练流程</strong>。</p><h1>一句话路线</h1><p><strong>先建立 PPO 与 MDP 的最小直觉，再理解四足机器人的状态/动作/奖励，随后用仿真并行训练，最后学习 Sim2Real 与实机安全验证。</strong></p><h1>这个系列会怎么写</h1><p>计划按下面顺序写：</p><ol><li><strong>00 路线图</strong>：知道要学什么、先后顺序是什么。</li><li><strong>01 PPO 与 MDP</strong>：四足机器人训练里最常见的算法骨架。</li><li><strong>02 仿真训练流程</strong>：Isaac Gym / legged_gym / rsl_rl 这类工程是怎么跑起来的。</li><li><strong>03 奖励函数设计</strong>：为什么机器人会学会走路，奖励到底在约束什么。</li><li><strong>04 Sim2Real</strong>：仿真策略怎么尽量安全地迁移到真机。</li><li><strong>05 复现实验清单</strong>：给自己搭一个从仿真到日志分析的练习路径。</li></ol><p>后面可以继续追加：地形课程学习、速度命令跟踪、跳跃/攀爬、轮足机器人、模仿学习、世界模型、视觉 RL 等。</p><h1>你需要具备什么基础</h1><p>最低门槛：</p><ul><li>会一点 Python。</li><li>知道机器人有“关节角、关节速度、IMU、足端接触”这些量。</li><li>能接受一开始不追求公式全懂，先跑通工程闭环。</li></ul><p>更理想的基础：</p><ul><li>Linux / Conda / Git 基础。</li><li>PyTorch 基础。</li><li>ROS2 基础。</li><li>一点动力学概念：质心、姿态、关节力矩、接触力。</li></ul><h1>四足 RL 的核心闭环</h1><p>可以把训练过程理解成下面这个循环：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人观测 obs</span><br><span class="line">   ↓</span><br><span class="line">策略网络 policy 输出动作 action</span><br><span class="line">   ↓</span><br><span class="line">仿真器执行动作，机器人走一步</span><br><span class="line">   ↓</span><br><span class="line">计算 reward 和 done</span><br><span class="line">   ↓</span><br><span class="line">收集很多条经验</span><br><span class="line">   ↓</span><br><span class="line">PPO 更新策略网络</span><br><span class="line">   ↓</span><br><span class="line">重复很多很多次</span><br></pre></td></tr></table></figure><p>四足机器人强化学习真正难的地方，不只是 PPO，而是：</p><ul><li>obs 里放什么？</li><li>action 表示什么？位置目标、力矩、还是残差？</li><li>reward 怎么设计才不会学出奇怪动作？</li><li>reset 条件怎么写？</li><li>仿真和真机差异怎么处理？</li><li>学出来之后怎么安全上真机？</li></ul><h1>建议学习节奏</h1><p>如果你是零基础，我建议这样学：</p><h2 id="第一阶段：只求建立直觉">第一阶段：只求建立直觉</h2><p>目标：不用完全推公式，但要知道每个词在四足机器人里对应什么。</p><p>需要掌握：</p><ul><li>state / observation：机器人“看到”的信息。</li><li>action：策略网络控制机器人做什么。</li><li>reward：希望机器人更像什么。</li><li>episode：一次从开始到摔倒/结束的尝试。</li><li>policy：从观测到动作的函数。</li><li>value：当前状态未来大概能拿多少分。</li></ul><h2 id="第二阶段：跑通一个现成工程">第二阶段：跑通一个现成工程</h2><p>推荐优先看：</p><ul><li>legged_gym：经典四足 PPO locomotion 工程。</li><li>rsl_rl：常与 legged_gym 配套的 PPO 实现。</li><li>Isaac Gym / Isaac Sim / Isaac Lab：NVIDIA 生态下的并行仿真训练工具。</li></ul><p>这一阶段的目标不是改算法，而是能回答：</p><ul><li>训练入口在哪？</li><li>环境类在哪里？</li><li>reward 在哪里？</li><li>obs 在哪里拼接？</li><li>action 怎么映射到 PD target？</li><li>日志怎么看？</li></ul><h2 id="第三阶段：改奖励、看现象">第三阶段：改奖励、看现象</h2><p>这一步最关键。比如：</p><ul><li>增大速度跟踪奖励，机器人更努力追命令速度。</li><li>增大力矩惩罚，动作更省力，但可能变慢。</li><li>增大脚滑惩罚，步态更稳，但可能保守。</li><li>调整 base height 奖励，身体高度和姿态会变。</li></ul><p>你会发现，四足 RL 很像“用奖励塑造行为”。奖励写得不好，模型可能会钻空子。</p><h2 id="第四阶段：理解-Sim2Real">第四阶段：理解 Sim2Real</h2><p>仿真里能走，不代表真机能走。真机问题包括：</p><ul><li>电机延迟。</li><li>摩擦系数不同。</li><li>关节零位误差。</li><li>IMU 噪声。</li><li>地面材质不同。</li><li>电池电压变化。</li><li>URDF / 惯量参数不准。</li></ul><p>因此需要：</p><ul><li>域随机化。</li><li>观测噪声。</li><li>动作延迟建模。</li><li>推力/力矩限制。</li><li>安全保护和逐级测试。</li></ul><h1>推荐资料</h1><ul><li>legged_gym: <a href="https://github.com/leggedrobotics/legged_gym">https://github.com/leggedrobotics/legged_gym</a></li><li>rsl_rl: <a href="https://github.com/leggedrobotics/rsl_rl">https://github.com/leggedrobotics/rsl_rl</a></li><li>Isaac Gym: <a href="https://developer.nvidia.com/isaac-gym">https://developer.nvidia.com/isaac-gym</a></li><li>Isaac Lab: <a href="https://github.com/isaac-sim/IsaacLab">https://github.com/isaac-sim/IsaacLab</a></li><li>Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning: <a href="https://arxiv.org/abs/2109.11978">https://arxiv.org/abs/2109.11978</a></li><li>Rapid Motor Adaptation for Legged Robots: <a href="https://arxiv.org/abs/2107.04034">https://arxiv.org/abs/2107.04034</a></li><li>ANYmal 学术相关项目入口可从 Legged Robotics / Robotic Systems Lab 公开仓库继续追。</li></ul><h1>最后</h1><p>这个系列的重点不是堆概念，而是帮你形成一个工程视角：<strong>四足强化学习 = 策略网络 + 仿真环境 + 奖励函数 + 大量并行采样 + Sim2Real 安全约束</strong>。</p><p>下一篇我们从 PPO 和 MDP 开始，把最常见的训练算法骨架讲清楚。</p>]]></content>
+        <content type="html"><![CDATA[<h1>这一篇只解决一个问题</h1><p>我们要学四足机器人强化学习，应该按什么顺序学？</p><h1>推荐路线</h1><p>我建议按下面顺序：</p><ol><li>先知道四足 RL 在解决什么问题。</li><li>再理解 obs、action、reward、done。</li><li>然后学 PPO 的基本直觉。</li><li>接着看训练工程：环境、策略、runner、日志。</li><li>再重点学奖励函数。</li><li>最后学 Sim2Real 和真机安全。</li></ol><h1>为什么要拆成很多短篇</h1><p>四足 RL 不是单个知识点，而是一串工程链路。</p><p>如果一篇文章讲完 PPO、奖励函数、仿真器、Sim2Real，容易看完就忘。所以这个系列后面尽量保持：</p><ul><li>一篇只讲一个概念。</li><li>每篇都短一点。</li><li>能用机器人例子解释就不用抽象例子。</li><li>理论够用即可，重点放在四足运动控制。</li></ul><h1>当前目录</h1><ul><li>00：路线图。</li><li>01：四足 RL 到底学什么。</li><li>02：MDP。</li><li>03：Observation。</li><li>04：Action。</li><li>05：Reward 总览。</li><li>06：速度跟踪奖励。</li><li>07：能耗和平滑惩罚。</li><li>08：PPO 直觉。</li><li>09：训练流程。</li><li>10：legged_gym / rsl_rl 代码该看哪里。</li><li>11：Sim2Real 为什么难。</li><li>12：域随机化。</li><li>13：真机安全检查。</li><li>14：八周练习路线。</li></ul><p>后面还可以继续追加：RMA、地形课程学习、视觉强化学习、轮足机器人、模仿学习。</p>]]></content>
       
       
       <categories>

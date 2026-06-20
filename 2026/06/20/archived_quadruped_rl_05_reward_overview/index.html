@@ -227,7 +227,7 @@
             <div class ="post_page_title_img" style="--post-cover-image: url(/img/postImg/49_quadruped_rl/quadruped_rl_series_map.svg);" >
                 <div class="post_page_title_blur"></div>
                 <div class="post_page_title_main"></div>
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >四足机器人强化学习系列 01：先把 MDP、Policy、PPO 讲明白</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >四足机器人强化学习系列 05：Reward 是在塑造行为</h2></a>
             </div>
 
             <div class="post-content-shell">
@@ -240,91 +240,42 @@
                 </aside>
 
                 <div class="typo post-article-content" style="padding: 3rem;">
-                    <h1>先给结论</h1>
-<p>四足机器人里常用 PPO，不是因为它最“高级”，而是因为它在连续控制任务里足够稳定、工程实现成熟、并行采样效率高，适合让机器人在仿真中反复试错。</p>
-<h1>MDP 是什么</h1>
-<p>强化学习通常把问题抽象成 MDP：Markov Decision Process，马尔可夫决策过程。</p>
-<p>在四足机器人里可以这样理解：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">状态 s：机器人当前情况</span><br><span class="line">动作 a：控制器给出的动作</span><br><span class="line">奖励 r：这一步做得好不好</span><br><span class="line">转移 P：执行动作后，机器人到了什么新状态</span><br><span class="line">折扣 γ：未来奖励的重要程度</span><br></pre></td></tr></table></figure>
-<p>比如让机器人按命令速度向前走：</p>
+                    <h1>一句话</h1>
+<p>Reward 不是简单打分，而是在告诉机器人：什么行为值得保留，什么行为应该避免。</p>
+<h1>常见 reward 结构</h1>
+<p>四足 locomotion 的 reward 通常是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">任务奖励 - 惩罚项</span><br></pre></td></tr></table></figure>
+<p>任务奖励包括：</p>
 <ul>
-<li>状态：机身角速度、重力方向、关节角、关节速度、上一帧动作、速度命令。</li>
-<li>动作：12 个关节的位置目标或位置偏移。</li>
-<li>奖励：走得越接近目标速度越好，身体越稳越好，能耗越低越好。</li>
-<li>终止：摔倒、身体姿态过大、超时。</li>
+<li>速度跟踪。</li>
+<li>转向角速度跟踪。</li>
+<li>保持身体高度。</li>
 </ul>
-<h1>State 和 Observation 的区别</h1>
-<p>理论里常说 state，但机器人训练里经常用 observation。</p>
+<p>惩罚项包括：</p>
 <ul>
-<li>state：完整真实状态，理论上包含系统全部信息。</li>
-<li>observation：策略实际能看到的信息。</li>
+<li>力矩太大。</li>
+<li>动作变化太快。</li>
+<li>身体倾斜。</li>
+<li>脚滑。</li>
+<li>非足端碰撞。</li>
 </ul>
-<p>真实机器人不可能知道所有东西，比如精确地面摩擦、每个接触点真实接触力、完整环境模型。所以工程里更关心 observation。</p>
-<p>四足运动控制常见 observation：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">base angular velocity</span><br><span class="line">projected gravity</span><br><span class="line">command velocity</span><br><span class="line">joint position error</span><br><span class="line">joint velocity</span><br><span class="line">previous action</span><br><span class="line">optional: terrain height samples</span><br><span class="line">optional: contact state</span><br></pre></td></tr></table></figure>
-<h1>Action 是什么</h1>
-<p>四足机器人动作通常不是“脚往前迈一步”这种高层语义，而是更低层的控制量。</p>
-<p>常见设计：</p>
+<h1>为什么 reward 难</h1>
+<p>因为机器人会钻空子。</p>
+<p>如果只奖励向前速度，机器人可能学会：</p>
+<ul>
+<li>趴地滑行。</li>
+<li>用奇怪姿态蹭地。</li>
+<li>高能耗乱动但速度够。</li>
+</ul>
+<p>所以 reward 必须和 reset、安全约束一起设计。</p>
+<h1>初学顺序</h1>
+<p>建议先理解三类 reward：</p>
 <ol>
-<li><strong>关节位置目标</strong>：策略输出每个关节的目标角度，然后底层 PD 控制。</li>
-<li><strong>关节位置偏移</strong>：策略输出相对默认姿态的偏移量。</li>
-<li><strong>关节力矩</strong>：策略直接输出 torque，难度更高，安全风险更大。</li>
-<li><strong>残差动作</strong>：在传统控制器基础上加一个 RL 修正量。</li>
+<li>任务项：走得准不准。</li>
+<li>稳定项：身体稳不稳。</li>
+<li>代价项：动作是否省力、平滑、安全。</li>
 </ol>
-<p>很多四足 locomotion 训练会选择“位置目标/偏移 + PD”，因为稳定、易迁移、真机风险小一些。</p>
-<h1>Policy 是什么</h1>
-<p>Policy 就是策略：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">π(a | obs)</span><br></pre></td></tr></table></figure>
-<p>意思是：给定当前观测，策略输出动作。</p>
-<p>工程上，policy 通常是一个神经网络：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">obs 向量 → MLP → action 向量</span><br></pre></td></tr></table></figure>
-<p>例如：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">obs_dim = 48</span><br><span class="line">act_dim = 12</span><br><span class="line">policy: 48 → 256 → 256 → 12</span><br></pre></td></tr></table></figure>
-<h1>Value 是什么</h1>
-<p>PPO 通常还会训练一个 value 网络。</p>
-<p>Policy 负责回答：</p>
-<blockquote>
-<p>我现在应该做什么动作？</p>
-</blockquote>
-<p>Value 负责回答：</p>
-<blockquote>
-<p>我现在这个状态大概有多好？未来能拿多少奖励？</p>
-</blockquote>
-<p>它不是直接控制机器人，但能帮助算法判断某次动作是不是比预期更好。</p>
-<h1>为什么四足机器人常用 PPO</h1>
-<p>PPO 的核心思想是：<strong>每次更新策略不要走太猛，避免刚学会一点东西又被一次大更新毁掉。</strong></p>
-<p>它通过 clipped objective 限制新旧策略差异，大致意思是：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">如果新策略比旧策略好，可以更新；</span><br><span class="line">但不要好得太离谱，防止一步跨太大。</span><br></pre></td></tr></table></figure>
-<p>这对四足机器人很重要，因为 locomotion 任务非常容易不稳定：</p>
-<ul>
-<li>一个动作不合适就会摔倒。</li>
-<li>奖励函数里很多项相互拉扯。</li>
-<li>接触动力学带来强非线性。</li>
-<li>仿真并行采样数据量很大，策略更新太激进会崩。</li>
-</ul>
-<h1>PPO 在四足训练里的流程</h1>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">1. 创建几千个并行机器人环境</span><br><span class="line">2. 每个环境执行当前 policy</span><br><span class="line">3. 收集 obs/action/reward/done</span><br><span class="line">4. 用 value 估计 advantage</span><br><span class="line">5. 用 PPO loss 更新 policy 和 value</span><br><span class="line">6. 重复训练几千到几万轮</span><br></pre></td></tr></table></figure>
-<p>并行环境是四足 RL 的效率关键。比如 Isaac Gym 的思路是让大量仿真环境在 GPU 上并行跑，几分钟到几十分钟内收集大量经验。</p>
-<h1>Advantage 是什么</h1>
-<p>Advantage 可以理解成：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">这一步动作，比我原本预期的好多少？</span><br></pre></td></tr></table></figure>
-<p>如果 advantage 为正，说明这个动作比预期好，策略应该更倾向于它。</p>
-<p>如果 advantage 为负，说明这个动作比预期差，策略应该少做。</p>
-<h1>一段伪代码</h1>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> iteration <span class="keyword">in</span> <span class="built_in">range</span>(num_iterations):</span><br><span class="line">    buffer = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> step <span class="keyword">in</span> <span class="built_in">range</span>(horizon):</span><br><span class="line">        obs = env.get_observation()</span><br><span class="line">        action = policy(obs)</span><br><span class="line">        next_obs, reward, done, info = env.step(action)</span><br><span class="line">        buffer.append(obs, action, reward, done)</span><br><span class="line"></span><br><span class="line">    advantages = compute_gae(buffer, value_net)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(update_epochs):</span><br><span class="line">        ppo_update(policy, value_net, buffer, advantages)</span><br></pre></td></tr></table></figure>
-<h1>四足机器人里 PPO 不是全部</h1>
-<p>学 PPO 是必要的，但不要误以为“会 PPO = 会四足强化学习”。真正影响效果的往往是：</p>
-<ul>
-<li>observation 设计。</li>
-<li>reward 设计。</li>
-<li>action scale。</li>
-<li>PD 参数。</li>
-<li>terrain curriculum。</li>
-<li>domain randomization。</li>
-<li>reset 条件。</li>
-<li>训练命令分布。</li>
-</ul>
-<p>下一篇我们看四足 RL 工程里，一次训练任务通常是怎么组织起来的。</p>
+<p>后面几篇分别拆开讲。</p>
 
                 </div>
             </div>
@@ -597,7 +548,7 @@
 </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/algorithm/" style="font-size: 11.67px; color: #e3918f">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.33px; color: #d4a19c">control</a> <a href="/tags/cpp/" style="font-size: 16.67px; color: #b4c1b8">cpp</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.83px; color: #bcb9b1">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fov/" style="font-size: 10px; color: #f38181">fov</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.67px; color: #e3918f">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 14.17px; color: #cca9a3">isaac gym</a> <a href="/tags/isaaclab/" style="font-size: 10.83px; color: #eb8988">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.83px; color: #eb8988">kdl</a> <a href="/tags/latex/" style="font-size: 10.83px; color: #eb8988">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/legged-locomotion/" style="font-size: 14.17px; color: #cca9a3">legged locomotion</a> <a href="/tags/life/" style="font-size: 16.67px; color: #b4c1b8">life</a> <a href="/tags/linux/" style="font-size: 19.17px; color: #9dd9cc">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.33px; color: #d4a19c">math</a> <a href="/tags/matlab/" style="font-size: 11.67px; color: #e3918f">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 15px; color: #c4b1aa">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.83px; color: #eb8988">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 15.83px; color: #bcb9b1">ppo</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/robot/" style="font-size: 12.5px; color: #dc9996">robot</a> <a href="/tags/robotics/" style="font-size: 13.33px; color: #d4a19c">robotics</a> <a href="/tags/ros/" style="font-size: 17.5px; color: #adc9bf">ros</a> <a href="/tags/ros2/" style="font-size: 12.5px; color: #dc9996">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.83px; color: #eb8988">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.83px; color: #eb8988">thread</a> <a href="/tags/tools/" style="font-size: 18.33px; color: #a5d1c5">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.83px; color: #eb8988">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.17px; color: #cca9a3">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 14.17px; color: #cca9a3">四足机器人</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 15.83px; color: #bcb9b1">强化学习</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%A7%86%E8%A7%89/" style="font-size: 10px; color: #f38181">机器人视觉</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA/" style="font-size: 10px; color: #f38181">深度相机</a> <a href="/tags/%E7%82%B9%E4%BA%91/" style="font-size: 10px; color: #f38181">点云</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.83px; color: #eb8988">配置类</a>
+    <a href="/tags/algorithm/" style="font-size: 11.54px; color: #e5908e">algorithm</a> <a href="/tags/algorithms/" style="font-size: 10px; color: #f38181">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.08px; color: #d69f9a">control</a> <a href="/tags/cpp/" style="font-size: 16.15px; color: #b9bcb3">cpp</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.38px; color: #c0b5ad">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fov/" style="font-size: 10px; color: #f38181">fov</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.54px; color: #e5908e">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 17.69px; color: #abcbc0">isaac gym</a> <a href="/tags/isaaclab/" style="font-size: 10.77px; color: #ec8887">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.77px; color: #ec8887">kdl</a> <a href="/tags/latex/" style="font-size: 10.77px; color: #ec8887">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/legged-locomotion/" style="font-size: 17.69px; color: #abcbc0">legged locomotion</a> <a href="/tags/life/" style="font-size: 16.15px; color: #b9bcb3">life</a> <a href="/tags/linux/" style="font-size: 18.46px; color: #a3d2c6">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.08px; color: #d69f9a">math</a> <a href="/tags/matlab/" style="font-size: 11.54px; color: #e5908e">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 14.62px; color: #c8ada7">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.77px; color: #ec8887">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 19.23px; color: #9cdacd">ppo</a> <a href="/tags/python/" style="font-size: 14.62px; color: #c8ada7">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/robot/" style="font-size: 12.31px; color: #dd9794">robot</a> <a href="/tags/robotics/" style="font-size: 13.08px; color: #d69f9a">robotics</a> <a href="/tags/ros/" style="font-size: 16.92px; color: #b2c3ba">ros</a> <a href="/tags/ros2/" style="font-size: 12.31px; color: #dd9794">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.77px; color: #ec8887">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.77px; color: #ec8887">thread</a> <a href="/tags/tools/" style="font-size: 17.69px; color: #abcbc0">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.77px; color: #ec8887">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 13.85px; color: #cfa6a1">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 17.69px; color: #abcbc0">四足机器人</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 19.23px; color: #9cdacd">强化学习</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%A7%86%E8%A7%89/" style="font-size: 10px; color: #f38181">机器人视觉</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA/" style="font-size: 10px; color: #f38181">深度相机</a> <a href="/tags/%E7%82%B9%E4%BA%91/" style="font-size: 10px; color: #f38181">点云</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.77px; color: #ec8887">配置类</a>
 </div>
 
 
