@@ -227,7 +227,7 @@
             <div class ="post_page_title_img" style="--post-cover-image: url(/img/postImg/49_quadruped_rl/quadruped_rl_series_map.svg);" >
                 <div class="post_page_title_blur"></div>
                 <div class="post_page_title_main"></div>
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >四足机器人强化学习系列 00：为什么从 ETH/ANYmal 讲起，以及这套课怎么学</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >四足机器人强化学习系列 00：为什么从 ETH/ANYmal 讲起，以及我准备怎么学</h2></a>
             </div>
 
             <div class="post-content-shell">
@@ -240,7 +240,7 @@
                 </aside>
 
                 <div class="typo post-article-content" style="padding: 3rem;">
-                    <h1>写在前面：为什么这套系列要从 ETH / ANYmal 讲起</h1>
+                    <h1>写在前面：为什么这套笔记要从 ETH / ANYmal 讲起</h1>
 <p>如果想系统学习“四足机器人强化学习”，我觉得不能一上来就讲 PPO 公式，也不能一上来就讲代码怎么跑。更好的起点是先回答一个问题：</p>
 <p><strong>为什么最近这些年，四足机器人运动控制会越来越多地往强化学习这条路线靠？</strong></p>
 <p>这个问题背后有一条非常重要的线索：ETH Zürich 的 Robotic Systems Lab，也就是经常和 ANYmal 机器人一起出现的那支团队。</p>
@@ -251,7 +251,7 @@
 <li>他们后续开源的 legged_gym / rsl_rl，让很多人第一次能比较系统地复现四足 RL locomotion。</li>
 <li>他们把 GPU 并行仿真、PPO、奖励函数、课程学习、域随机化这些要素组合成了一套相对清晰的工程路线。</li>
 </ul>
-<p>所以这套系列的 00 篇，应该先把这条脉络讲清楚：</p>
+<p>所以这篇 00 笔记，应该先把这条脉络整理清楚：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">传统控制能做什么</span><br><span class="line">        ↓</span><br><span class="line">为什么复杂地形和动态运动会变难</span><br><span class="line">        ↓</span><br><span class="line">ETH / ANYmal 为什么开始系统推进 learning-based locomotion</span><br><span class="line">        ↓</span><br><span class="line">PPO + GPU 并行仿真 + Sim2Real 为什么成为常见组合</span><br><span class="line">        ↓</span><br><span class="line">我们学习时应该按什么顺序切入</span><br></pre></td></tr></table></figure>
 <p>这才是一个合适的前言。</p>
 <h1>一句话结论</h1>
@@ -358,8 +358,8 @@
 <li>真机安全部署流程。</li>
 <li>开源工程让大家能复现。</li>
 </ol>
-<h1>这套系列到底要学什么</h1>
-<p>这套系列不是泛泛讲 RL，而是围绕四足 locomotion 的工程闭环：</p>
+<h1>这套笔记到底要整理什么</h1>
+<p>这套笔记不是泛泛讲 RL，而是围绕四足 locomotion 的工程闭环：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人模型</span><br><span class="line">  ↓</span><br><span class="line">仿真环境</span><br><span class="line">  ↓</span><br><span class="line">observation</span><br><span class="line">  ↓</span><br><span class="line">action</span><br><span class="line">  ↓</span><br><span class="line">reward</span><br><span class="line">  ↓</span><br><span class="line">PPO 训练</span><br><span class="line">  ↓</span><br><span class="line">日志分析</span><br><span class="line">  ↓</span><br><span class="line">domain randomization</span><br><span class="line">  ↓</span><br><span class="line">Sim2Real</span><br><span class="line">  ↓</span><br><span class="line">真机安全</span><br></pre></td></tr></table></figure>
 <p>你最终要建立的是这样一种能力：</p>
 <ul>
@@ -391,18 +391,18 @@
 <p>同样是 PPO，如果 reward 写得不好，机器人可能趴着滑；如果 action scale 太大，动作会暴力；如果 obs 顺序部署时错了，真机直接乱动。</p>
 <p>所以更好的学习顺序是：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">先理解四足 RL 工程闭环</span><br><span class="line">再理解 obs / action / reward</span><br><span class="line">再理解 PPO 在里面负责什么</span><br><span class="line">最后再补公式细节</span><br></pre></td></tr></table></figure>
-<h1>这套课的文章长度标准</h1>
-<p>这里明确一下后续写作标准。</p>
+<h1>这套笔记的文章长度标准</h1>
+<p>这里明确一下后续整理笔记的标准。</p>
 <p>我说的“短篇”，不是几百字小卡片，而是：</p>
 <ul>
-<li>每篇只讲一个明确主题。</li>
-<li>单篇尽量控制在 1 万字以内。</li>
-<li>前因后果要讲清楚。</li>
-<li>概念、例子、工程注意点都要有。</li>
+<li>每篇只整理一个明确主题。</li>
+<li>单篇尽量控制在 1 万字以内，方便自己回看。</li>
+<li>前因后果要整理清楚。</li>
+<li>概念、例子、工程注意点都要保留。</li>
 <li>不写成几十万字的大报告。</li>
-<li>用很多篇文章连成一套系统课。</li>
+<li>用很多篇笔记连成一套自己的学习路径。</li>
 </ul>
-<p>也就是说：<strong>短是相对超长报告而言，内容不能空。</strong></p>
+<p>也就是说：<strong>短是相对超长报告而言，内容不能空；毕竟这是给自己以后反复看的。</strong></p>
 <h1>学习路线总览</h1>
 <p>我建议把四足强化学习分成 6 个阶段学。</p>
 <h2 id="阶段-1：建立问题意识">阶段 1：建立问题意识</h2>
@@ -416,7 +416,7 @@
 <li>奖励函数塑造步态。</li>
 <li>仿真环境提供试错场。</li>
 </ul>
-<p>这一阶段对应系列 01～02。</p>
+<p>这一阶段对应笔记 01～02。</p>
 <h2 id="阶段-2：理解-Observation、Action、Reward">阶段 2：理解 Observation、Action、Reward</h2>
 <p>这是最核心的三件套。</p>
 <h3 id="Observation">Observation</h3>
@@ -438,7 +438,7 @@
 <h3 id="Reward">Reward</h3>
 <p>机器人为什么会学会走？</p>
 <p>因为 reward 告诉它：速度跟踪准、身体稳、能耗低、动作平滑、脚不乱滑，这些行为更好。</p>
-<p>这一阶段对应系列 03～07。</p>
+<p>这一阶段对应笔记 03～07。</p>
 <h2 id="阶段-3：理解-PPO-的工程角色">阶段 3：理解 PPO 的工程角色</h2>
 <p>PPO 负责用采样数据更新策略。</p>
 <p>你需要知道：</p>
@@ -449,7 +449,7 @@
 <li>advantage 判断动作比预期好还是差。</li>
 <li>clipping 防止策略更新太猛。</li>
 </ul>
-<p>这一阶段对应系列 08。</p>
+<p>这一阶段对应笔记 08。</p>
 <h2 id="阶段-4：读懂训练工程">阶段 4：读懂训练工程</h2>
 <p>开始看 legged_gym / rsl_rl / Isaac Lab 时，不要先钻算法文件。</p>
 <p>先找：</p>
@@ -464,7 +464,7 @@
 <li>domain randomization。</li>
 <li>train / play 脚本。</li>
 </ol>
-<p>这一阶段对应系列 09～10。</p>
+<p>这一阶段对应笔记 09～10。</p>
 <h2 id="阶段-5：理解-Sim2Real">阶段 5：理解 Sim2Real</h2>
 <p>仿真能走，不代表真机能走。</p>
 <p>要理解：</p>
@@ -474,7 +474,7 @@
 <li>观测噪声和动作延迟为什么重要。</li>
 <li>真机部署前要检查什么。</li>
 </ul>
-<p>这一阶段对应系列 11～13。</p>
+<p>这一阶段对应笔记 11～13。</p>
 <h2 id="阶段-6：做自己的复现实验">阶段 6：做自己的复现实验</h2>
 <p>最后要从阅读走向实验。</p>
 <p>比如：</p>
@@ -485,11 +485,11 @@
 <li>记录机器人行为变化。</li>
 <li>做一个小消融实验。</li>
 </ul>
-<p>这一阶段对应系列 14 以及后续实践篇。</p>
+<p>这一阶段对应笔记 14 以及后续实践篇。</p>
 <h1>当前系列目录</h1>
-<p>目前已经规划的基础篇如下：</p>
+<p>目前先按下面这些基础笔记整理：</p>
 <ul>
-<li>00：为什么从 ETH / ANYmal 讲起，以及这套课怎么学。</li>
+<li>00：为什么从 ETH / ANYmal 讲起，以及我准备怎么学。</li>
 <li>01：四足 RL 到底在学什么。</li>
 <li>02：用四足机器人理解 MDP。</li>
 <li>03：Observation 里面到底放什么。</li>
@@ -558,7 +558,7 @@
 <p>四足机器人强化学习不是一个孤立算法，而是一套系统工程：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人模型 + 仿真环境 + observation + action + reward + PPO + 日志分析 + 随机化 + 真机安全</span><br></pre></td></tr></table></figure>
 <p>ETH / ANYmal 这条线之所以值得从一开始讲，是因为它把这些要素比较系统地串了起来，并通过公开论文、真实机器人验证和开源工程，让后来者有了可以学习和复现的路径。</p>
-<p>后面的文章就沿着这条路径展开：先不急着推公式，先把四足 RL 的工程世界看清楚。下一篇讲：<strong>四足 RL 到底在学什么。</strong></p>
+<p>后面的笔记就沿着这条路径展开：先不急着推公式，先把四足 RL 的工程世界看清楚。下一篇整理：<strong>四足 RL 到底在学什么。</strong></p>
 
                 </div>
             </div>
