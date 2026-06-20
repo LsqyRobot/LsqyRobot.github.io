@@ -1,0 +1,1022 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
+    <link rel="stylesheet" href="/css/lsqy_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/dytitle.js"></script>
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+    <script src="/js/codeBlockFuction.js"></script>
+    <script src="/js/cursor-heart.js"></script>
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<body class="is-loading">
+    <div id="wrapper" class="fade-in">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1"><img src="/img/folder.png"></a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/CPP/">CPP</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/ISAAC-LAB/">ISAAC LAB</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/RL/">RL</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a></li><li><a class="category-link" href="/categories/robotics/">robotics</a>
+	                    </ul>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="--post-cover-image: url(/img/postImg/40_usefulTools/logo/hourglass-1938677_1280.jpg);" >
+                <div class="post_page_title_blur"></div>
+                <div class="post_page_title_main"></div>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >WiFi与网络安全学习笔记（仅限授权环境）</h2></a>
+            </div>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                
+                    <aside class="post-floating-tags" aria-label="Site tags">
+                        <div class="post-floating-tags-card">
+                            <div class="post-floating-tags-title">标签</div>
+                            <div id="postTagSphere" class="post-tag-sphere">
+                                
+                                
+                                    
+                                    <a href="/tags/work/" style="font-size: 17.00px; color: rgb(149,225,211)" title="work：27 篇">work</a>
+                                
+                                    
+                                    <a href="/tags/linux/" style="font-size: 14.36px; color: rgb(94,210,223)" title="linux：16 篇">linux</a>
+                                
+                                    
+                                    <a href="/tags/tools/" style="font-size: 14.12px; color: rgb(89,209,224)" title="tools：15 篇">tools</a>
+                                
+                                    
+                                    <a href="/tags/ros/" style="font-size: 13.40px; color: rgb(74,205,228)" title="ros：12 篇">ros</a>
+                                
+                                    
+                                    <a href="/tags/cpp/" style="font-size: 13.16px; color: rgb(69,203,229)" title="cpp：11 篇">cpp</a>
+                                
+                                    
+                                    <a href="/tags/life/" style="font-size: 12.92px; color: rgb(64,202,230)" title="life：10 篇">life</a>
+                                
+                                    
+                                    <a href="/tags/dots/" style="font-size: 12.44px; color: rgb(54,199,232)" title="dots：8 篇">dots</a>
+                                
+                                    
+                                    <a href="/tags/memory/" style="font-size: 12.20px; color: rgb(49,198,233)" title="memory：7 篇">memory</a>
+                                
+                                    
+                                    <a href="/tags/python/" style="font-size: 12.20px; color: rgb(49,198,233)" title="python：7 篇">python</a>
+                                
+                                    
+                                    <a href="/tags/vim/" style="font-size: 11.96px; color: rgb(44,196,235)" title="vim：6 篇">vim</a>
+                                
+                                    
+                                    <a href="/tags/control/" style="font-size: 11.72px; color: rgb(39,195,236)" title="control：5 篇">control</a>
+                                
+                                    
+                                    <a href="/tags/math/" style="font-size: 11.72px; color: rgb(39,195,236)" title="math：5 篇">math</a>
+                                
+                                    
+                                    <a href="/tags/ppo/" style="font-size: 11.72px; color: rgb(39,195,236)" title="ppo：5 篇">ppo</a>
+                                
+                                    
+                                    <a href="/tags/robotics/" style="font-size: 11.72px; color: rgb(39,195,236)" title="robotics：5 篇">robotics</a>
+                                
+                                    
+                                    <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 11.72px; color: rgb(39,195,236)" title="强化学习：5 篇">强化学习</a>
+                                
+                                    
+                                    <a href="/tags/algorithms/" style="font-size: 11.48px; color: rgb(34,194,237)" title="algorithms：4 篇">algorithms</a>
+                                
+                                    
+                                    <a href="/tags/robot/" style="font-size: 11.48px; color: rgb(34,194,237)" title="robot：4 篇">robot</a>
+                                
+                                    
+                                    <a href="/tags/ros2/" style="font-size: 11.48px; color: rgb(34,194,237)" title="ros2：4 篇">ros2</a>
+                                
+                                    
+                                    <a href="/tags/git/" style="font-size: 11.24px; color: rgb(29,192,238)" title="git：3 篇">git</a>
+                                
+                                    
+                                    <a href="/tags/isaac-gym/" style="font-size: 11.24px; color: rgb(29,192,238)" title="isaac gym：3 篇">isaac gym</a>
+                                
+                                    
+                                    <a href="/tags/legged-locomotion/" style="font-size: 11.24px; color: rgb(29,192,238)" title="legged locomotion：3 篇">legged locomotion</a>
+                                
+                                    
+                                    <a href="/tags/matlab/" style="font-size: 11.24px; color: rgb(29,192,238)" title="matlab：3 篇">matlab</a>
+                                
+                                    
+                                    <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 11.24px; color: rgb(29,192,238)" title="四足机器人：3 篇">四足机器人</a>
+                                
+                                    
+                                    <a href="/tags/isaaclab/" style="font-size: 11.00px; color: rgb(24,191,239)" title="isaaclab：2 篇">isaaclab</a>
+                                
+                                    
+                                    <a href="/tags/kdl/" style="font-size: 11.00px; color: rgb(24,191,239)" title="kdl：2 篇">kdl</a>
+                                
+                                    
+                                    <a href="/tags/latex/" style="font-size: 11.00px; color: rgb(24,191,239)" title="latex：2 篇">latex</a>
+                                
+                                    
+                                    <a href="/tags/motor/" style="font-size: 11.00px; color: rgb(24,191,239)" title="motor：2 篇">motor</a>
+                                
+                                    
+                                    <a href="/tags/simulation/" style="font-size: 11.00px; color: rgb(24,191,239)" title="simulation：2 篇">simulation</a>
+                                
+                                    
+                                    <a href="/tags/thread/" style="font-size: 11.00px; color: rgb(24,191,239)" title="thread：2 篇">thread</a>
+                                
+                                    
+                                    <a href="/tags/ubuntu/" style="font-size: 11.00px; color: rgb(24,191,239)" title="ubuntu：2 篇">ubuntu</a>
+                                
+                                    
+                                    <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 11.00px; color: rgb(24,191,239)" title="配置类：2 篇">配置类</a>
+                                
+                            </div>
+                        </div>
+                    </aside>
+                    <script>
+                        (function () {
+                            function startPostTagSphere() {
+                                var sphere = document.getElementById('postTagSphere');
+                                if (!sphere || sphere.dataset.ready === 'true') {
+                                    return;
+                                }
+
+                                var links = Array.from(sphere.querySelectorAll('a'));
+                                if (!links.length) {
+                                    return;
+                                }
+
+                                sphere.dataset.ready = 'true';
+                                sphere.classList.add('is-ready');
+                                var floatingCard = sphere.closest('.post-floating-tags-card');
+                                if (floatingCard) {
+                                    floatingCard.classList.add('is-sphere-ready');
+                                }
+
+                                var radius = Math.min(sphere.clientWidth || 200, sphere.clientHeight || 200) * 0.38;
+                                var angleX = 0;
+                                var angleY = 0;
+                                var speedX = 0.0017;
+                                var speedY = 0.0025;
+                                var paused = false;
+
+                                links.forEach(function (link, index) {
+                                    var k = -1 + (2 * (index + 0.5)) / links.length;
+                                    var phi = Math.acos(k);
+                                    var theta = Math.sqrt(links.length * Math.PI) * phi;
+                                    link.dataset.x = radius * Math.cos(theta) * Math.sin(phi);
+                                    link.dataset.y = radius * Math.sin(theta) * Math.sin(phi);
+                                    link.dataset.z = radius * Math.cos(phi);
+                                    link.classList.add('post-tag-sphere-item');
+                                });
+
+                                sphere.addEventListener('mouseenter', function () { paused = true; });
+                                sphere.addEventListener('mouseleave', function () { paused = false; });
+
+                                function render() {
+                                    if (!paused) {
+                                        angleX += speedX;
+                                        angleY += speedY;
+                                    }
+
+                                    var sinX = Math.sin(angleX);
+                                    var cosX = Math.cos(angleX);
+                                    var sinY = Math.sin(angleY);
+                                    var cosY = Math.cos(angleY);
+
+                                    links.forEach(function (link) {
+                                        var x = parseFloat(link.dataset.x);
+                                        var y = parseFloat(link.dataset.y);
+                                        var z = parseFloat(link.dataset.z);
+                                        var y1 = y * cosX - z * sinX;
+                                        var z1 = z * cosX + y * sinX;
+                                        var x2 = x * cosY - z1 * sinY;
+                                        var z2 = z1 * cosY + x * sinY;
+                                        var scale = 0.68 + ((z2 + radius) / (2 * radius)) * 0.55;
+                                        var opacity = 0.38 + ((z2 + radius) / (2 * radius)) * 0.62;
+
+                                        link.style.transform = 'translate3d(' + x2 + 'px,' + y1 + 'px,0) translate(-50%, -50%) scale(' + scale + ')';
+                                        link.style.opacity = opacity.toFixed(3);
+                                        link.style.zIndex = Math.round(1000 + z2);
+                                    });
+
+                                    window.requestAnimationFrame(render);
+                                }
+
+                                render();
+                            }
+
+                            if (document.readyState === 'loading') {
+                                document.addEventListener('DOMContentLoaded', startPostTagSphere);
+                            } else {
+                                startPostTagSphere();
+                            }
+                            window.addEventListener('load', startPostTagSphere);
+                            window.setTimeout(startPostTagSphere, 300);
+                        })();
+                    </script>
+                
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%AD%A6%E4%B9%A0%E8%BE%B9%E7%95%8C">学习边界</a></li>
+<li><a href="#%E5%85%88%E8%A1%A5%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5">先补基础概念</a></li>
+<li><a href="#wifi-%E5%AE%89%E5%85%A8%E5%85%88%E7%90%86%E8%A7%A3%E4%BB%80%E4%B9%88">WiFi 安全先理解什么</a></li>
+<li><a href="#%E6%8E%A8%E8%8D%90%E7%9A%84%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84">推荐的安全学习路径</a></li>
+<li><a href="#%E7%AC%AC-1-%E6%AD%A5%E6%90%AD%E5%BB%BA%E5%90%88%E6%B3%95%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83">第 1 步：搭建合法实验环境</a></li>
+<li><a href="#%E7%AC%AC-2-%E6%AD%A5%E8%AE%A4%E8%AF%86-wifi-%E4%B8%8E%E4%B8%BB%E6%9C%BA%E6%9A%B4%E9%9C%B2%E9%9D%A2">第 2 步：认识 WiFi 与主机暴露面</a></li>
+<li><a href="#%E7%AC%AC-3-%E6%AD%A5%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E5%9C%A8%E9%98%B2%E5%BE%A1%E4%B8%AD%E7%9A%84%E7%94%A8%E9%80%94">第 3 步：端口扫描在防御中的用途</a></li>
+<li><a href="#%E7%AC%AC-4-%E6%AD%A5%E5%85%88%E5%AD%A6%E5%8A%A0%E5%9B%BA%E5%86%8D%E5%AD%A6%E6%A3%80%E6%B5%8B">第 4 步：先学加固，再学检测</a></li>
+<li><a href="#%E5%AE%B6%E5%BA%AD-wifi-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%9B%BA%E6%B8%85%E5%8D%95">家庭 WiFi 基础加固清单</a></li>
+<li><a href="#%E4%B8%BB%E6%9C%BA%E6%9C%80%E5%B0%8F%E6%9A%B4%E9%9C%B2%E9%9D%A2%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95">主机最小暴露面检查清单</a></li>
+<li><a href="#%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E6%A8%A1%E6%9D%BF">学习记录模板</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA">常见误区</a></li>
+<li><a href="#%E5%90%8E%E7%BB%AD%E5%8F%AF%E7%BB%A7%E7%BB%AD%E8%A1%A5%E5%85%85%E7%9A%84%E6%96%B9%E5%90%91">后续可继续补充的方向</a></li>
+</ul>
+<!-- vim-markdown-toc -->
+<h1>前言</h1>
+<p>这份笔记只用于学习合法、授权范围内的网络安全知识，不涉及帮助攻击他人网络、WiFi 或主机。</p>
+<p>我现在更推荐把网络安全入门理解成：</p>
+<blockquote>
+<p>先学会看清自己的网络里有什么，再学会减少不必要的暴露，最后学会用日志和告警发现异常。</p>
+</blockquote>
+<p>如果目标是系统性学习，建议先把路线修正为：</p>
+<ol>
+<li>理解网络与 WiFi 基础。</li>
+<li>在自建实验环境中做观察、扫描与加固。</li>
+<li>学会识别风险、收敛暴露面、记录证据。</li>
+<li>只在自己拥有或明确书面授权的资产上做测试。</li>
+</ol>
+<h1>学习边界</h1>
+<p>下面这些行为不应进行：</p>
+<ol>
+<li>扫描、接入、破解他人 WiFi。</li>
+<li>未授权探测公网主机或内网设备。</li>
+<li>绕过对方防御、获取口令、提权或植入持久化。</li>
+<li>在不确定授权范围的情况下做批量扫描或压力测试。</li>
+</ol>
+<p>下面这些行为适合作为入门：</p>
+<ol>
+<li>扫描你自己的路由器、测试机、虚拟机。</li>
+<li>记录开放端口、服务版本和加固前后的差异。</li>
+<li>学习日志分析、补丁管理、最小暴露原则。</li>
+<li>在授权靶场里理解漏洞原理和修复方式。</li>
+</ol>
+<p>一句话原则：</p>
+<blockquote>
+<p>只碰自己的、授权的、可恢复的实验环境。</p>
+</blockquote>
+<h1>先补基础概念</h1>
+<p>建议先搞清楚这几个问题：</p>
+<ol>
+<li><code>IP</code>、<code>MAC</code>、<code>SSID</code>、<code>BSSID</code> 分别是什么。</li>
+<li><code>TCP</code> 和 <code>UDP</code> 的区别是什么。</li>
+<li>端口为什么会开放，开放端口意味着什么。</li>
+<li>家庭路由器、接入点、交换机、终端主机分别承担什么角色。</li>
+<li><code>WPA2</code>、<code>WPA3</code>、访客网络、MAC 隔离、AP 隔离分别解决什么问题。</li>
+<li>NAT、防火墙、端口转发之间是什么关系。</li>
+<li>DHCP 为什么能自动分配 IP，静态 IP 又适合放在哪里。</li>
+</ol>
+<p>这里先用很粗的方式理解：</p>
+<ul>
+<li><code>SSID</code>：你看到的 WiFi 名称。</li>
+<li><code>BSSID</code>：某个无线接入点的 MAC 地址。</li>
+<li><code>IP</code>：设备在网络里的地址。</li>
+<li><code>端口</code>：主机上某个网络服务的入口。</li>
+<li><code>防火墙</code>：决定哪些流量允许进出。</li>
+</ul>
+<h1>WiFi 安全先理解什么</h1>
+<p>WiFi 安全不是单纯看“密码能不能被猜出来”。它至少包含三层：</p>
+<ol>
+<li><strong>接入安全</strong>：谁能连上这个 WiFi。</li>
+<li><strong>隔离安全</strong>：连上以后，设备之间能不能互相访问。</li>
+<li><strong>主机安全</strong>：设备自身有没有暴露不该暴露的服务。</li>
+</ol>
+<p>比如：</p>
+<ul>
+<li>WiFi 密码很强，但路由器后台还用默认密码，依然危险。</li>
+<li>WiFi 使用 WPA3，但 NAS、摄像头、打印机暴露了弱口令后台，依然危险。</li>
+<li>访客连上了你的 WiFi，如果没有访客隔离，就可能访问内网设备。</li>
+</ul>
+<p>所以学习 WiFi 安全时，不要只盯着“无线密码”，还要看整个局域网暴露面。</p>
+<h1>推荐的安全学习路径</h1>
+<p>更合理的顺序不是“先攻破别人”，而是：</p>
+<ol>
+<li>网络基础。</li>
+<li>WiFi 基础与家用路由器配置。</li>
+<li>主机服务与端口暴露。</li>
+<li>防御性扫描与资产盘点。</li>
+<li>漏洞管理、补丁修复、配置加固。</li>
+<li>日志、告警、入侵检测与响应。</li>
+</ol>
+<p>可以把它理解成一个闭环：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">资产盘点 → 风险识别 → 配置加固 → 重新验证 → 持续记录</span><br></pre></td></tr></table></figure>
+<p>这个闭环比记一堆工具命令更重要。</p>
+<h1>第 1 步：搭建合法实验环境</h1>
+<p>推荐一个最小实验室：</p>
+<ol>
+<li>一台你的电脑作为管理机。</li>
+<li>一台虚拟机作为 Linux 测试主机。</li>
+<li>一台虚拟机作为日志或 Web 测试服务主机。</li>
+<li>你的家用路由器，或者一台单独的测试路由器。</li>
+</ol>
+<p>建议记录：</p>
+<ol>
+<li>每台机器的 IP。</li>
+<li>每台机器开启了哪些服务。</li>
+<li>每次改动前后的扫描结果。</li>
+<li>每次加固动作改了什么配置。</li>
+</ol>
+<p>可以先做的合法练习：</p>
+<ol>
+<li>给测试虚拟机装一个 <code>ssh</code> 服务。</li>
+<li>再装一个简单的 Web 服务。</li>
+<li>从你的管理机确认这些服务是否真的只暴露了你想暴露的端口。</li>
+<li>关闭服务后重新检查，确认端口已经消失。</li>
+</ol>
+<p>这里的重点不是“扫描别人”，而是验证自己对网络服务暴露面的理解是否正确。</p>
+<h1>第 2 步：认识 WiFi 与主机暴露面</h1>
+<p>WiFi 学习的重点不该是“怎么闯进去”，而是“为什么会暴露”：</p>
+<ol>
+<li>弱口令会导致未授权接入风险。</li>
+<li>老旧加密方式会导致风险升高。</li>
+<li>路由器管理口暴露会成为更直接的风险点。</li>
+<li>即使 WiFi 本身安全，终端主机上的开放端口依然可能带来风险。</li>
+<li>IoT 设备安全能力弱，应该尽量隔离。</li>
+</ol>
+<p>所以 WiFi 和端口扫描要分开理解：</p>
+<ol>
+<li>WiFi 解决的是“谁能接入网络”。</li>
+<li>端口扫描看到的是“接入后哪些服务对网络开放”。</li>
+<li>防火墙和网络隔离解决的是“哪些访问路径应该被阻断”。</li>
+</ol>
+<h1>第 3 步：端口扫描在防御中的用途</h1>
+<p>端口扫描的防御用途主要有三类：</p>
+<ol>
+<li><strong>资产盘点</strong>：确认哪些主机在线、有哪些服务存在。</li>
+<li><strong>暴露面核对</strong>：检查是否存在误开的远程管理端口。</li>
+<li><strong>变更验证</strong>：加固后重新检查，确认风险是否收敛。</li>
+</ol>
+<p>学习时应关注这些结果，而不是把扫描当成攻击起点：</p>
+<ol>
+<li>哪些端口是预期开放的。</li>
+<li>哪些服务版本过旧。</li>
+<li>哪些服务根本不该对局域网开放。</li>
+<li>路由器管理页面是否只允许内网访问。</li>
+<li>是否存在不认识的设备或服务。</li>
+</ol>
+<p>记录时可以写成：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">时间：2026-xx-xx</span><br><span class="line">范围：仅自有家庭网络 / 自建虚拟机</span><br><span class="line">目标：确认当前有哪些开放服务</span><br><span class="line">发现：192.168.x.x 开放了 SSH 和 HTTP</span><br><span class="line">处理：关闭不需要的 HTTP 服务，保留 SSH 密钥登录</span><br><span class="line">复查：HTTP 端口已关闭</span><br></pre></td></tr></table></figure>
+<h1>第 4 步：先学加固，再学检测</h1>
+<p>对于自有 WiFi 和主机，优先做这些事：</p>
+<ol>
+<li>把 WiFi 改成 <code>WPA2/WPA3</code>，避免过时加密。</li>
+<li>使用高强度口令，不复用密码。</li>
+<li>关闭不需要的远程管理功能。</li>
+<li>给 IoT 设备单独放到访客网络或隔离网段。</li>
+<li>定期更新路由器固件和主机补丁。</li>
+<li>关闭不用的服务，减少开放端口。</li>
+</ol>
+<p>主机侧可以重点观察：</p>
+<ol>
+<li><code>ssh</code> 是否允许密码登录，还是改成密钥认证。</li>
+<li>Web 管理界面是否暴露在不该暴露的网段。</li>
+<li>防火墙规则是否只允许必要来源访问。</li>
+<li>数据库服务是否只监听本机或可信网段。</li>
+<li>日志里是否有大量失败登录或异常访问。</li>
+</ol>
+<h1>家庭 WiFi 基础加固清单</h1>
+<p>下面这个清单适合给自己的家庭网络做一次基础体检：</p>
+<ol>
+<li><strong>无线加密</strong>：优先使用 WPA3；不支持时使用 WPA2-AES。</li>
+<li><strong>禁用过时协议</strong>：避免 WEP、WPA、TKIP。</li>
+<li><strong>强口令</strong>：WiFi 密码足够长，避免姓名、生日、手机号等弱模式。</li>
+<li><strong>路由器后台密码</strong>：不要使用默认管理员密码。</li>
+<li><strong>关闭远程管理</strong>：除非明确需要，不要把路由器后台暴露到公网。</li>
+<li><strong>访客网络</strong>：客人和 IoT 设备尽量放访客网络。</li>
+<li><strong>AP 隔离</strong>：访客网络建议打开 AP 隔离，减少设备互访。</li>
+<li><strong>固件更新</strong>：定期检查路由器固件更新。</li>
+<li><strong>设备列表</strong>：定期查看在线设备，识别陌生设备。</li>
+<li><strong>端口转发</strong>：不用的端口转发规则及时删除。</li>
+</ol>
+<p>这里不用追求一上来就很复杂。先把默认密码、过时加密、远程管理、陌生设备这几类明显风险处理掉，收益就很高。</p>
+<h1>主机最小暴露面检查清单</h1>
+<p>每台主机可以问自己几个问题：</p>
+<ol>
+<li>这台机器应该被谁访问？</li>
+<li>它必须开放哪些端口？</li>
+<li>哪些服务只是临时测试，是否已经关闭？</li>
+<li>是否有默认账号或弱口令？</li>
+<li>是否有自动更新或补丁计划？</li>
+<li>是否启用了基础防火墙？</li>
+<li>重要服务是否有日志？日志是否能看懂？</li>
+</ol>
+<p>最小暴露面的目标不是“什么都关掉”，而是：</p>
+<blockquote>
+<p>只开放业务真正需要的入口，并且知道每个入口为什么存在。</p>
+</blockquote>
+<h1>学习记录模板</h1>
+<p>建议每次学习或实验都留下记录，不要只凭感觉：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">主题：家庭网络基础资产盘点</span><br><span class="line">日期：2026-xx-xx</span><br><span class="line">范围：自有路由器、自有电脑、自建虚拟机</span><br><span class="line"></span><br><span class="line">当前拓扑：</span><br><span class="line">- 路由器：192.168.x.1</span><br><span class="line">- 管理机：192.168.x.10</span><br><span class="line">- Linux 测试机：192.168.x.20</span><br><span class="line"></span><br><span class="line">预期开放服务：</span><br><span class="line">- Linux 测试机：SSH</span><br><span class="line">- Web 测试机：HTTP，仅测试时开启</span><br><span class="line"></span><br><span class="line">发现问题：</span><br><span class="line">- 某台测试机 HTTP 服务忘记关闭</span><br><span class="line"></span><br><span class="line">处理动作：</span><br><span class="line">- 关闭 HTTP 服务</span><br><span class="line">- 更新记录</span><br><span class="line"></span><br><span class="line">复查结果：</span><br><span class="line">- HTTP 端口不再开放</span><br></pre></td></tr></table></figure>
+<p>这个模板的好处是：以后回头能看清楚自己到底改过什么，也方便把零散经验沉淀成长期笔记。</p>
+<h1>常见误区</h1>
+<h2 id="误区-1：只要-WiFi-密码强就安全">误区 1：只要 WiFi 密码强就安全</h2>
+<p>不完全对。WiFi 密码只解决接入问题。路由器后台、端口转发、终端主机弱口令、IoT 设备暴露同样重要。</p>
+<h2 id="误区-2：扫描等于攻击">误区 2：扫描等于攻击</h2>
+<p>也不完全对。扫描本身是一种观察手段。关键在于范围和目的：</p>
+<ul>
+<li>授权范围内，用于资产盘点和加固验证，是防御学习。</li>
+<li>未授权地探测他人资产，就是不应该做的事情。</li>
+</ul>
+<h2 id="误区-3：工具越多越专业">误区 3：工具越多越专业</h2>
+<p>初学阶段更重要的是理解网络模型、暴露面和记录方法。工具只是辅助，不能代替判断。</p>
+<h2 id="误区-4：关闭-SSID-广播就安全">误区 4：关闭 SSID 广播就安全</h2>
+<p>隐藏 SSID 不能真正替代强加密和强口令。它更多是“减少可见性”，不是核心安全机制。</p>
+<h1>后续可继续补充的方向</h1>
+<p>后面可以继续往这几个方向学：</p>
+<ol>
+<li>家庭网络分段与访客网络隔离。</li>
+<li>Linux 主机防火墙基础。</li>
+<li>常见服务的安全基线，例如 <code>ssh</code>、<code>nginx</code>、数据库。</li>
+<li>安全日志采集与告警。</li>
+<li>在授权靶场中学习漏洞原理与修复方法。</li>
+</ol>
+<p>如果继续写下一篇，建议主题改成：</p>
+<ol>
+<li>《如何在自建实验环境中做主机与端口资产盘点》</li>
+<li>《家庭 WiFi 与路由器的基础加固清单》</li>
+<li>《Linux 主机最小暴露面实践笔记》</li>
+</ol>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        if (img.closest('.post-image-frame')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+</div>
+
+   <div class="tag-cloud-tags">
+    <a href="/tags/algorithms/" style="font-size: 12.31px; color: #dd9794">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.08px; color: #d69f9a">control</a> <a href="/tags/cpp/" style="font-size: 16.92px; color: #b2c3ba">cpp</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.38px; color: #c0b5ad">dots</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fov/" style="font-size: 10px; color: #f38181">fov</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.54px; color: #e5908e">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 11.54px; color: #e5908e">isaac gym</a> <a href="/tags/isaaclab/" style="font-size: 10.77px; color: #ec8887">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.77px; color: #ec8887">kdl</a> <a href="/tags/latex/" style="font-size: 10.77px; color: #ec8887">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/learning-notes/" style="font-size: 10px; color: #f38181">learning-notes</a> <a href="/tags/legged-locomotion/" style="font-size: 11.54px; color: #e5908e">legged locomotion</a> <a href="/tags/life/" style="font-size: 16.15px; color: #b9bcb3">life</a> <a href="/tags/linux/" style="font-size: 19.23px; color: #9cdacd">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.08px; color: #d69f9a">math</a> <a href="/tags/matlab/" style="font-size: 11.54px; color: #e5908e">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 14.62px; color: #c8ada7">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/motor/" style="font-size: 10.77px; color: #ec8887">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/network/" style="font-size: 10px; color: #f38181">network</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/ppo/" style="font-size: 13.08px; color: #d69f9a">ppo</a> <a href="/tags/python/" style="font-size: 14.62px; color: #c8ada7">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/robot/" style="font-size: 12.31px; color: #dd9794">robot</a> <a href="/tags/robotics/" style="font-size: 13.08px; color: #d69f9a">robotics</a> <a href="/tags/ros/" style="font-size: 17.69px; color: #abcbc0">ros</a> <a href="/tags/ros2/" style="font-size: 12.31px; color: #dd9794">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/security/" style="font-size: 10px; color: #f38181">security</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.77px; color: #ec8887">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.77px; color: #ec8887">thread</a> <a href="/tags/tools/" style="font-size: 18.46px; color: #a3d2c6">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.77px; color: #ec8887">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 13.85px; color: #cfa6a1">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/wifi/" style="font-size: 10px; color: #f38181">wifi</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 11.54px; color: #e5908e">四足机器人</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 13.08px; color: #d69f9a">强化学习</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%A7%86%E8%A7%89/" style="font-size: 10px; color: #f38181">机器人视觉</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA/" style="font-size: 10px; color: #f38181">深度相机</a> <a href="/tags/%E7%82%B9%E4%BA%91/" style="font-size: 10px; color: #f38181">点云</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.77px; color: #ec8887">配置类</a>
+</div>
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" alt="知识共享许可协议">
+
+
+
+        </div>
+    </div>
+</body>
+
+
+</html>
