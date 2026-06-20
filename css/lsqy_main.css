@@ -4724,33 +4724,35 @@
 		margin-bottom: 0.28rem;
 	}
 
-	.post-floating-tags-canvas {
-		display: block;
+	.post-tag-sphere {
+		position: relative;
 		width: 100%;
-		height: auto;
+		height: 13rem;
 		border-radius: 12px;
-		background: radial-gradient(circle at 50% 45%, rgba(24, 191, 239, 0.10), rgba(149, 225, 211, 0.08) 45%, rgba(255, 255, 255, 0.18) 72%);
+		overflow: hidden;
+		background: radial-gradient(circle at 50% 45%, rgba(24, 191, 239, 0.12), rgba(149, 225, 211, 0.08) 45%, rgba(255, 255, 255, 0.18) 72%);
 	}
 
-	.post-floating-tags-list,
-	.post-floating-tags-fallback {
-		display: none;
-	}
-
-	.post-floating-tags-fallback {
-		flex-wrap: wrap;
-		gap: 0.32rem;
-		max-height: 12rem;
-		overflow: auto;
-		line-height: 1.2;
-	}
-
-	.post-floating-tags-fallback a {
+	.post-tag-sphere a {
 		border-bottom: none;
-		border-radius: 999px;
-		background: rgba(24, 191, 239, 0.08);
-		padding: 0.18rem 0.42rem;
+		color: #1e6c7f !important;
 		font-size: 0.78rem !important;
+		line-height: 1;
+		white-space: nowrap;
+		text-shadow: 0 1px 10px rgba(24, 191, 239, 0.18);
+	}
+
+	.post-tag-sphere.is-ready a {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		will-change: transform, opacity;
+		transition: color 0.18s ease, text-shadow 0.18s ease;
+	}
+
+	.post-tag-sphere.is-ready a:hover {
+		color: #0a5d74 !important;
+		text-shadow: 0 0 12px rgba(24, 191, 239, 0.45);
 	}
 
 	.post-inline-toc {
@@ -4794,12 +4796,17 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.post-floating-tags-canvas {
-			display: none;
+		.post-tag-sphere.is-ready a {
+			position: static;
+			display: inline-block;
+			transform: none !important;
+			opacity: 1 !important;
+			margin: 0.16rem;
 		}
 
-		.post-floating-tags-fallback {
-			display: flex;
+		.post-tag-sphere {
+			height: auto;
+			padding: 0.35rem;
 		}
 	}
 
