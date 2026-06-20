@@ -248,6 +248,88 @@
                             </div>
                         </div>
                     </aside>
+                    <script>
+                        (function () {
+                            function startPostTagSphere() {
+                                var sphere = document.getElementById('postTagSphere');
+                                if (!sphere || sphere.dataset.ready === 'true') {
+                                    return;
+                                }
+
+                                var links = Array.from(sphere.querySelectorAll('a'));
+                                if (!links.length) {
+                                    return;
+                                }
+
+                                sphere.dataset.ready = 'true';
+                                sphere.classList.add('is-ready');
+                                var floatingCard = sphere.closest('.post-floating-tags-card');
+                                if (floatingCard) {
+                                    floatingCard.classList.add('is-sphere-ready');
+                                }
+
+                                var radius = Math.min(sphere.clientWidth || 200, sphere.clientHeight || 200) * 0.38;
+                                var angleX = 0;
+                                var angleY = 0;
+                                var speedX = 0.0017;
+                                var speedY = 0.0025;
+                                var paused = false;
+
+                                links.forEach(function (link, index) {
+                                    var k = -1 + (2 * (index + 0.5)) / links.length;
+                                    var phi = Math.acos(k);
+                                    var theta = Math.sqrt(links.length * Math.PI) * phi;
+                                    link.dataset.x = radius * Math.cos(theta) * Math.sin(phi);
+                                    link.dataset.y = radius * Math.sin(theta) * Math.sin(phi);
+                                    link.dataset.z = radius * Math.cos(phi);
+                                    link.classList.add('post-tag-sphere-item');
+                                });
+
+                                sphere.addEventListener('mouseenter', function () { paused = true; });
+                                sphere.addEventListener('mouseleave', function () { paused = false; });
+
+                                function render() {
+                                    if (!paused) {
+                                        angleX += speedX;
+                                        angleY += speedY;
+                                    }
+
+                                    var sinX = Math.sin(angleX);
+                                    var cosX = Math.cos(angleX);
+                                    var sinY = Math.sin(angleY);
+                                    var cosY = Math.cos(angleY);
+
+                                    links.forEach(function (link) {
+                                        var x = parseFloat(link.dataset.x);
+                                        var y = parseFloat(link.dataset.y);
+                                        var z = parseFloat(link.dataset.z);
+                                        var y1 = y * cosX - z * sinX;
+                                        var z1 = z * cosX + y * sinX;
+                                        var x2 = x * cosY - z1 * sinY;
+                                        var z2 = z1 * cosY + x * sinY;
+                                        var scale = 0.68 + ((z2 + radius) / (2 * radius)) * 0.55;
+                                        var opacity = 0.38 + ((z2 + radius) / (2 * radius)) * 0.62;
+
+                                        link.style.transform = 'translate3d(' + x2 + 'px,' + y1 + 'px,0) translate(-50%, -50%) scale(' + scale + ')';
+                                        link.style.opacity = opacity.toFixed(3);
+                                        link.style.zIndex = Math.round(1000 + z2);
+                                    });
+
+                                    window.requestAnimationFrame(render);
+                                }
+
+                                render();
+                            }
+
+                            if (document.readyState === 'loading') {
+                                document.addEventListener('DOMContentLoaded', startPostTagSphere);
+                            } else {
+                                startPostTagSphere();
+                            }
+                            window.addEventListener('load', startPostTagSphere);
+                            window.setTimeout(startPostTagSphere, 300);
+                        })();
+                    </script>
                 
 
                 <div class="typo post-article-content" style="padding: 3rem;">
@@ -586,80 +668,8 @@ gazebo_ros_control是Gazebo的一个插件用来根据设定装载合适的硬�
                         });
                     }
 
-                    var initFloatingTagCloud = function () {
-                        var sphere = document.getElementById('postTagSphere');
-                        if (!sphere) {
-                            return;
-                        }
-
-                        var links = Array.from(sphere.querySelectorAll('a'));
-                        if (!links.length) {
-                            return;
-                        }
-
-                        sphere.classList.add('is-ready');
-                        var floatingCard = sphere.closest('.post-floating-tags-card');
-                        if (floatingCard) {
-                            floatingCard.classList.add('is-sphere-ready');
-                        }
-                        var radius = Math.min(sphere.clientWidth, sphere.clientHeight) * 0.38;
-                        var angleX = 0;
-                        var angleY = 0;
-                        var speedX = 0.0017;
-                        var speedY = 0.0025;
-                        var paused = false;
-
-                        links.forEach(function (link, index) {
-                            var k = -1 + (2 * (index + 0.5)) / links.length;
-                            var phi = Math.acos(k);
-                            var theta = Math.sqrt(links.length * Math.PI) * phi;
-                            link.dataset.x = radius * Math.cos(theta) * Math.sin(phi);
-                            link.dataset.y = radius * Math.sin(theta) * Math.sin(phi);
-                            link.dataset.z = radius * Math.cos(phi);
-                            link.classList.add('post-tag-sphere-item');
-                        });
-
-                        sphere.addEventListener('mouseenter', function () {
-                            paused = true;
-                        });
-                        sphere.addEventListener('mouseleave', function () {
-                            paused = false;
-                        });
-
-                        var render = function () {
-                            if (!paused) {
-                                angleX += speedX;
-                                angleY += speedY;
-                            }
-
-                            var sinX = Math.sin(angleX);
-                            var cosX = Math.cos(angleX);
-                            var sinY = Math.sin(angleY);
-                            var cosY = Math.cos(angleY);
-
-                            links.forEach(function (link) {
-                                var x = parseFloat(link.dataset.x);
-                                var y = parseFloat(link.dataset.y);
-                                var z = parseFloat(link.dataset.z);
-                                var y1 = y * cosX - z * sinX;
-                                var z1 = z * cosX + y * sinX;
-                                var x2 = x * cosY - z1 * sinY;
-                                var z2 = z1 * cosY + x * sinY;
-                                var scale = 0.68 + ((z2 + radius) / (2 * radius)) * 0.55;
-                                var opacity = 0.38 + ((z2 + radius) / (2 * radius)) * 0.62;
-
-                                link.style.transform = 'translate3d(' + x2 + 'px,' + y1 + 'px,0) translate(-50%, -50%) scale(' + scale + ')';
-                                link.style.opacity = opacity.toFixed(3);
-                                link.style.zIndex = Math.round(1000 + z2);
-                            });
-
-                            window.requestAnimationFrame(render);
-                        };
-
-                        render();
-                    };
-
-                    initFloatingTagCloud();
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
 
                     if (contentRoot) {
                         var firstElement = contentRoot.firstElementChild;
