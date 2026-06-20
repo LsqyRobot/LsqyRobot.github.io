@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+  <defs>
+    <style>.bg{fill:#fbfbfd}.txt{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#222}.title{font-size:30px;font-weight:700}.small{font-size:18px;fill:#444}.axis{stroke:#333;stroke-width:3}.fov{fill:rgba(91,141,239,0.18);stroke:#5b8def;stroke-width:3}.crop{fill:rgba(231,111,81,0.22);stroke:#e76f51;stroke-width:3}.screen{fill:#fff;stroke:#333;stroke-width:2}.formula{font-size:22px;fill:#111}</style>
+  </defs>
+  <rect class="bg" width="960" height="520"/>
+  <text x="40" y="50" class="txt title">裁剪后 FOV：不是简单按比例乘，而是按焦距/角度关系计算</text>
+  <line x1="150" y1="400" x2="150" y2="120" class="axis"/>
+  <line x1="150" y1="400" x2="700" y2="400" class="axis"/>
+  <polygon points="150,400 650,150 650,400" class="fov"/>
+  <polygon points="150,400 650,245 650,400" class="crop"/>
+  <text x="172" y="138" class="txt small">原始垂直 FOV</text>
+  <text x="370" y="238" class="txt small">裁剪后的垂直 FOV</text>
+  <rect x="720" y="125" width="180" height="250" class="screen"/>
+  <rect x="750" y="205" width="120" height="90" class="crop"/>
+  <text x="727" y="410" class="txt small">图像中心裁剪</text>
+  <text x="65" y="455" class="txt formula">FOV_crop = 2 × atan( crop / full × tan(FOV_full / 2) )</text>
+  <text x="65" y="488" class="txt small">例如：848 宽裁成 424 宽，水平 FOV 不是 87°/2，而约为 47°。</text>
+</svg>
