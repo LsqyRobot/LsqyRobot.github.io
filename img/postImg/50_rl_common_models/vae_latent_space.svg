@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="390" viewBox="0 0 980 390">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/></marker>
+    <style>
+      .title{font:700 24px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .label{font:600 17px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .small{font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#374151}
+      .tiny{font:13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#6b7280}
+      .input{fill:#eff6ff;stroke:#60a5fa;stroke-width:2}
+      .enc{fill:#f0fdf4;stroke:#22c55e;stroke-width:2}
+      .latent{fill:#fff7ed;stroke:#fb923c;stroke-width:2}
+      .dec{fill:#fdf2f8;stroke:#f472b6;stroke-width:2}
+      .loss{fill:#f9fafb;stroke:#9ca3af;stroke-width:2}
+      .arrow{stroke:#4b5563;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+      .dash{stroke:#9ca3af;stroke-width:2;fill:none;stroke-dasharray:6 6;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <text class="title" x="32" y="42">VAE：不是编码成一个点，而是编码成一个概率分布</text>
+
+  <rect class="input" x="42" y="130" width="130" height="90" rx="14"/>
+  <text class="label" x="88" y="165">x</text>
+  <text class="small" x="70" y="194">原始输入</text>
+
+  <path class="arrow" d="M180 175 H250"/>
+
+  <rect class="enc" x="260" y="105" width="160" height="140" rx="14"/>
+  <text class="label" x="305" y="140">Encoder</text>
+  <text class="small" x="294" y="172">输出 μ(x)</text>
+  <text class="small" x="294" y="200">输出 σ²(x)</text>
+  <text class="tiny" x="288" y="226">q(z|x)=N(μ,σ²)</text>
+
+  <path class="arrow" d="M430 175 H500"/>
+
+  <rect class="latent" x="510" y="105" width="170" height="140" rx="14"/>
+  <text class="label" x="555" y="140">采样 z</text>
+  <text class="small" x="548" y="172">z = μ + σ ⊙ ε</text>
+  <text class="small" x="548" y="200">ε ~ N(0,I)</text>
+  <text class="tiny" x="540" y="226">reparameterization trick</text>
+
+  <path class="arrow" d="M690 175 H760"/>
+
+  <rect class="dec" x="770" y="130" width="150" height="90" rx="14"/>
+  <text class="label" x="808" y="165">Decoder</text>
+  <text class="small" x="815" y="194">重建 x̂</text>
+
+  <path class="dash" d="M845 222 C810 300,240 300,107 223"/>
+  <rect class="loss" x="230" y="310" width="520" height="52" rx="12"/>
+  <text class="label" x="268" y="343">Loss = 重建误差 MSE/BCE + KL(q(z|x) || N(0,I))</text>
+
+  <text class="small" x="44" y="78">重建误差保证“还原得像”，KL 项保证 latent space 规整，方便采样生成。</text>
+</svg>

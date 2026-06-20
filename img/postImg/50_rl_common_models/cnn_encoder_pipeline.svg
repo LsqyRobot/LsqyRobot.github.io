@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+    <style>
+      .title{font:700 24px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .label{font:600 17px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .small{font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#374151}
+      .tiny{font:13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#6b7280}
+      .box{fill:#f9fafb;stroke:#9ca3af;stroke-width:2;rx:14}
+      .input{fill:#eff6ff;stroke:#60a5fa}
+      .process{fill:#f0fdf4;stroke:#22c55e}
+      .latent{fill:#fff7ed;stroke:#fb923c}
+      .head{fill:#fdf2f8;stroke:#f472b6}
+      .arrow{stroke:#4b5563;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <text class="title" x="32" y="42">CNN 在强化学习里的常见用法：图像 → 特征向量 → Policy / Value</text>
+
+  <rect class="box input" x="36" y="110" width="150" height="120" rx="14"/>
+  <text class="label" x="76" y="150">输入图像</text>
+  <text class="small" x="70" y="178">Depth / RGB</text>
+  <text class="tiny" x="72" y="204">例如 1×64×64</text>
+
+  <path class="arrow" d="M196 170 H260"/>
+
+  <rect class="box process" x="270" y="92" width="170" height="156" rx="14"/>
+  <text class="label" x="318" y="128">卷积层</text>
+  <text class="small" x="310" y="158">Conv + ReLU</text>
+  <text class="small" x="310" y="184">Conv + ReLU</text>
+  <text class="small" x="310" y="210">Pooling / Stride</text>
+  <text class="tiny" x="300" y="234">提取局部空间特征</text>
+
+  <path class="arrow" d="M450 170 H514"/>
+
+  <rect class="box process" x="524" y="110" width="150" height="120" rx="14"/>
+  <text class="label" x="554" y="150">特征图</text>
+  <text class="small" x="558" y="178">C × H × W</text>
+  <text class="tiny" x="552" y="204">例如 32×8×8</text>
+
+  <path class="arrow" d="M684 170 H748"/>
+
+  <rect class="box latent" x="758" y="92" width="170" height="156" rx="14"/>
+  <text class="label" x="793" y="128">Flatten</text>
+  <text class="small" x="798" y="158">压平成一维</text>
+  <text class="small" x="802" y="184">feature vector</text>
+  <text class="tiny" x="796" y="214">32×8×8=2048维</text>
+
+  <path class="arrow" d="M842 248 V294"/>
+  <rect class="box head" x="708" y="298" width="270" height="46" rx="12"/>
+  <text class="label" x="746" y="328">MLP Head → action / value</text>
+
+  <text class="small" x="38" y="294">注意：CNN 中间通常不是一维，而是多通道特征图；接 MLP 前才常 flatten / pooling 成向量。</text>
+</svg>
