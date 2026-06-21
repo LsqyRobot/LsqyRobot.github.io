@@ -436,16 +436,37 @@
 <li><a href="#1-ocs2-%E6%98%AF%E4%BB%80%E4%B9%88">1. OCS2 是什么</a></li>
 <li><a href="#2-mpc-%E5%9C%A8-ocs2-%E9%87%8C%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98">2. MPC 在 OCS2 里解决什么问题</a></li>
 <li><a href="#3-%E5%85%88%E7%9C%8B%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84%E5%9B%BE">3. 先看整体结构图</a></li>
-<li><a href="#4-ocs2-%E7%9A%84-mpc-%E5%A4%96%E5%A3%B3mpc_base">4. OCS2 的 MPC 外壳：MPC_BASE</a></li>
+<li><a href="#4-ocs2-%E7%9A%84-mpc-%E5%A4%96%E5%A3%B3mpc_base">4. OCS2 的 MPC 外壳：MPC_BASE</a>
+<ul>
+<li><a href="#41-run-%E9%80%90%E8%A1%8C%E7%9C%8B">4.1 <code>run()</code> 逐行看</a></li>
+<li><a href="#42-%E4%B8%BA%E4%BB%80%E4%B9%88-calculatecontroller-%E6%98%AF%E8%99%9A%E5%87%BD%E6%95%B0">4.2 为什么 <code>calculateController()</code> 是虚函数</a></li>
+</ul>
+</li>
 <li><a href="#5-mpc-%E7%9A%84%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0mpc_settings">5. MPC 的关键参数：MPC_Settings</a></li>
-<li><a href="#6-ddp-%E7%89%88%E6%9C%AC-mpcgaussnewtonddp_mpc">6. DDP 版本 MPC：GaussNewtonDDP_MPC</a></li>
-<li><a href="#7-%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BE%8B%E5%AD%90leggedrobotddmpcnode">7. 四足机器人例子：LeggedRobotDdpMpcNode</a></li>
+<li><a href="#6-ddp-%E7%89%88%E6%9C%AC-mpcgaussnewtonddp_mpc">6. DDP 版本 MPC：GaussNewtonDDP_MPC</a>
+<ul>
+<li><a href="#61-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%9C%A8%E9%80%89%E6%8B%A9%E6%B1%82%E8%A7%A3%E5%99%A8">6.1 构造函数在选择求解器</a></li>
+<li><a href="#62-calculatecontroller-%E7%9C%9F%E6%AD%A3%E8%A7%A6%E5%8F%91%E6%B1%82%E8%A7%A3">6.2 <code>calculateController()</code> 真正触发求解</a></li>
+</ul>
+</li>
+<li><a href="#7-%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BE%8B%E5%AD%90leggedrobotddmpcnode">7. 四足机器人例子：LeggedRobotDdpMpcNode</a>
+<ul>
+<li><a href="#71-main-%E5%85%A5%E5%8F%A3%E9%80%90%E6%AE%B5%E7%9C%8B">7.1 <code>main()</code> 入口逐段看</a></li>
+</ul>
+</li>
 <li><a href="#8-sqp-%E7%89%88%E6%9C%AC-mpcleggedrobotsqpmpcnode">8. SQP 版本 MPC：LeggedRobotSqpMpcNode</a></li>
 <li><a href="#9-leggedrobotinterface-%E5%88%B0%E5%BA%95%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88">9. LeggedRobotInterface 到底做了什么</a></li>
 <li><a href="#10-mpc-%E5%92%8C-mrt-%E7%9A%84%E5%85%B3%E7%B3%BB">10. MPC 和 MRT 的关系</a></li>
-<li><a href="#11-slq--ilqr-%E5%A4%A7%E6%A6%82%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88">11. SLQ / iLQR 大概在做什么</a></li>
-<li><a href="#12-%E5%AD%A6%E4%B9%A0%E6%97%B6%E5%BA%94%E8%AF%A5%E4%BC%98%E5%85%88%E8%AF%BB%E5%93%AA%E4%BA%9B%E6%96%87%E4%BB%B6">12. 学习时应该优先读哪些文件</a></li>
-<li><a href="#13-%E4%B8%80%E4%B8%AA%E6%8E%A8%E8%8D%90%E7%9A%84%E7%90%86%E8%A7%A3%E9%A1%BA%E5%BA%8F">13. 一个推荐的理解顺序</a></li>
+<li><a href="#11-ros-%E6%8E%A5%E5%8F%A3%E4%BB%A3%E7%A0%81mpc_ros_interface">11. ROS 接口代码：MPC_ROS_Interface</a>
+<ul>
+<li><a href="#111-%E6%8E%A5%E6%94%B6-observation-%E5%90%8E%E6%80%8E%E4%B9%88%E8%A7%A6%E5%8F%91-mpc">11.1 接收 observation 后怎么触发 MPC</a></li>
+<li><a href="#112-%E4%BC%98%E5%8C%96%E7%BB%93%E6%9E%9C%E6%80%8E%E4%B9%88%E5%8F%91%E5%B8%83%E5%87%BA%E5%8E%BB">11.2 优化结果怎么发布出去</a></li>
+</ul>
+</li>
+<li><a href="#12-slq--ilqr-%E5%A4%A7%E6%A6%82%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88">12. SLQ / iLQR 大概在做什么</a></li>
+<li><a href="#13-solverbase%E6%B1%82%E8%A7%A3%E5%99%A8%E7%BB%9F%E4%B8%80%E6%8E%A5%E5%8F%A3">13. SolverBase：求解器统一接口</a></li>
+<li><a href="#14-%E5%AD%A6%E4%B9%A0%E6%97%B6%E5%BA%94%E8%AF%A5%E4%BC%98%E5%85%88%E8%AF%BB%E5%93%AA%E4%BA%9B%E6%96%87%E4%BB%B6">14. 学习时应该优先读哪些文件</a></li>
+<li><a href="#15-%E4%B8%80%E4%B8%AA%E6%8E%A8%E8%8D%90%E7%9A%84%E7%90%86%E8%A7%A3%E9%A1%BA%E5%BA%8F">15. 一个推荐的理解顺序</a></li>
 <li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
 </ul>
 <!-- vim-markdown-toc -->
@@ -526,6 +547,43 @@
 <p>也就是说：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">MPC_BASE::run()</span><br><span class="line">  ↓</span><br><span class="line">计算 finalTime = currentTime + timeHorizon</span><br><span class="line">  ↓</span><br><span class="line">调用 calculateController()</span><br><span class="line">  ↓</span><br><span class="line">具体子类负责真正求解</span><br></pre></td></tr></table></figure>
 <p>所以 <code>MPC_BASE</code> 很薄，但它定义了 OCS2 里 MPC 的共同接口。</p>
+<h2 id="4-1-run-逐行看">4.1 <code>run()</code> 逐行看</h2>
+<p><code>MPC_BASE::run()</code> 是理解 OCS2 MPC 的第一段关键代码。可以把源码简化成下面这样：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">MPC_BASE::run</span><span class="params">(<span class="type">scalar_t</span> currentTime, <span class="type">const</span> <span class="type">vector_t</span>&amp; currentState)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!initRun_ &amp;&amp; currentTime &gt;= <span class="built_in">getSolverPtr</span>()-&gt;<span class="built_in">getFinalTime</span>()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> <span class="type">scalar_t</span> finalTime = currentTime + mpcSettings_.timeHorizon_;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">calculateController</span>(currentTime, currentState, finalTime);</span><br><span class="line"></span><br><span class="line">  initRun_ = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>逐行理解：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!initRun_ &amp;&amp; currentTime &gt;= <span class="built_in">getSolverPtr</span>()-&gt;<span class="built_in">getFinalTime</span>())</span><br></pre></td></tr></table></figure>
+<p>这句是在检查：当前时间是不是已经超过上一次求解器给出的最终时间。</p>
+<p>如果 MPC 上一次只优化到 5.0 秒，但当前机器人观测已经到了 5.1 秒，那么控制器就没有可用的未来轨迹了。这种情况下继续使用旧策略是不安全的，所以直接返回 <code>false</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">scalar_t</span> finalTime = currentTime + mpcSettings_.timeHorizon_;</span><br></pre></td></tr></table></figure>
+<p>这句定义本轮 MPC 的优化终点：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mrow><mi>f</mi><mi>i</mi><mi>n</mi><mi>a</mi><mi>l</mi></mrow></msub><mo>=</mo><msub><mi>t</mi><mrow><mi>c</mi><mi>u</mi><mi>r</mi><mi>r</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>T</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">T_{final}=t_{current}+T_h
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1076em;">f</span><span class="mord mathnormal mtight">ina</span><span class="mord mathnormal mtight" style="margin-right:0.0197em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight" style="margin-right:0.0278em;">r</span><span class="mord mathnormal mtight" style="margin-right:0.0278em;">r</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">currentTime = 12.3 s</span><br><span class="line">timeHorizon = 1.0 s</span><br><span class="line">finalTime   = 13.3 s</span><br></pre></td></tr></table></figure>
+<p>本轮优化就是在 <code>[12.3, 13.3]</code> 上重新规划。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">calculateController</span>(currentTime, currentState, finalTime);</span><br></pre></td></tr></table></figure>
+<p>这句是最核心的调用。<code>MPC_BASE</code> 不知道你到底用 SLQ、iLQR、SQP 还是 IPM，所以它只调用一个抽象函数。真正怎么求解，由子类实现。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">initRun_ = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<p>第一次 MPC 运行之后，<code>initRun_</code> 被置为 false。后续 MPC 会开始检查当前时间是否超过 solver 的 final time。</p>
+<p>所以 <code>run()</code> 的本质就是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">检查当前策略是否还覆盖当前时间</span><br><span class="line">  ↓</span><br><span class="line">根据 timeHorizon 计算本轮终点</span><br><span class="line">  ↓</span><br><span class="line">调用具体求解器重新算 controller</span><br><span class="line">  ↓</span><br><span class="line">返回是否成功</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-为什么-calculateController-是虚函数">4.2 为什么 <code>calculateController()</code> 是虚函数</h2>
+<p><code>MPC_BASE</code> 里有这一句：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">calculateController</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">scalar_t</span> initTime,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> <span class="type">vector_t</span>&amp; initState,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">scalar_t</span> finalTime)</span> </span>= <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>这是一个纯虚函数，说明 <code>MPC_BASE</code> 只定义接口，不定义具体算法。</p>
+<p>原因是 OCS2 想支持多种 MPC 后端：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">MPC_BASE</span><br><span class="line">  ├── GaussNewtonDDP_MPC  → SLQ / iLQR</span><br><span class="line">  ├── SqpMpc              → SQP</span><br><span class="line">  ├── IpmMpc              → Interior Point Method</span><br><span class="line">  └── 其他求解器</span><br></pre></td></tr></table></figure>
+<p>这样设计的好处是：</p>
+<ol>
+<li>ROS 接口不需要关心底层求解器。</li>
+<li>四足机器人建模可以复用。</li>
+<li>同一个 <code>OptimalControlProblem</code> 可以换不同 solver。</li>
+<li>MPC 的滚动调用逻辑统一。</li>
+</ol>
+<p>换句话说：</p>
+<blockquote>
+<p><code>MPC_BASE</code> 管“什么时候求解”，具体子类管“怎么求解”。</p>
+</blockquote>
 <h1>5. MPC 的关键参数：MPC_Settings</h1>
 <p>代码位置：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ocs2_mpc/include/ocs2_mpc/MPC_Settings.h</span><br></pre></td></tr></table></figure>
@@ -587,6 +645,58 @@
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">GaussNewtonDDP_MPC</span><br><span class="line">  ↓ 持有</span><br><span class="line">std::unique_ptr&lt;GaussNewtonDDP&gt; ddpPtr_</span><br><span class="line">  ↓ 具体类型可以是</span><br><span class="line">SLQ 或 ILQR</span><br></pre></td></tr></table></figure>
 <p>运行过程是：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">MPC_BASE::run()</span><br><span class="line">  ↓</span><br><span class="line">GaussNewtonDDP_MPC::calculateController()</span><br><span class="line">  ↓</span><br><span class="line">SLQ / ILQR 的 run()</span><br><span class="line">  ↓</span><br><span class="line">得到最优控制策略</span><br></pre></td></tr></table></figure>
+<h2 id="6-1-构造函数在选择求解器">6.1 构造函数在选择求解器</h2>
+<p><code>GaussNewtonDDP_MPC</code> 的构造函数里最关键的是这段：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (ddpSettings.algorithm_) &#123;</span><br><span class="line">  <span class="keyword">case</span> ddp::Algorithm::SLQ:</span><br><span class="line">    ddpPtr_.<span class="built_in">reset</span>(<span class="keyword">new</span> <span class="built_in">SLQ</span>(</span><br><span class="line">        std::<span class="built_in">move</span>(ddpSettings),</span><br><span class="line">        rollout,</span><br><span class="line">        optimalControlProblem,</span><br><span class="line">        initializer));</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">case</span> ddp::Algorithm::ILQR:</span><br><span class="line">    ddpPtr_.<span class="built_in">reset</span>(<span class="keyword">new</span> <span class="built_in">ILQR</span>(</span><br><span class="line">        std::<span class="built_in">move</span>(ddpSettings),</span><br><span class="line">        rollout,</span><br><span class="line">        optimalControlProblem,</span><br><span class="line">        initializer));</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有几个对象特别重要：</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ddpSettings</code></td>
+<td>DDP/SLQ/iLQR 的迭代次数、容差、算法类型等参数</td>
+</tr>
+<tr>
+<td><code>rollout</code></td>
+<td>给定控制策略后，向前积分系统动力学，生成状态轨迹</td>
+</tr>
+<tr>
+<td><code>optimalControlProblem</code></td>
+<td>动力学、代价、约束的总定义</td>
+</tr>
+<tr>
+<td><code>initializer</code></td>
+<td>当还没有可用控制器时，用来初始化状态/输入轨迹</td>
+</tr>
+</tbody>
+</table>
+<p>其中 <code>rollout</code> 很关键。DDP 类算法需要不断做：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">给一条控制轨迹</span><br><span class="line">  ↓</span><br><span class="line">用动力学往前积分</span><br><span class="line">  ↓</span><br><span class="line">得到一条状态轨迹</span><br><span class="line">  ↓</span><br><span class="line">沿这条轨迹线性化/二次近似</span><br><span class="line">  ↓</span><br><span class="line">更新控制律</span><br></pre></td></tr></table></figure>
+<p>所以如果没有 <code>rollout</code>，求解器就没法知道当前控制策略会把系统带到哪里。</p>
+<h2 id="6-2-calculateController-真正触发求解">6.2 <code>calculateController()</code> 真正触发求解</h2>
+<p><code>GaussNewtonDDP_MPC</code> 里真正触发求解的是：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculateController</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">scalar_t</span> initTime,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> <span class="type">vector_t</span>&amp; initState,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">scalar_t</span> finalTime)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">settings</span>().coldStart_) &#123;</span><br><span class="line">    ddpPtr_-&gt;<span class="built_in">reset</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ddpPtr_-&gt;<span class="built_in">run</span>(initTime, initState, finalTime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里最值得注意的是 <code>coldStart_</code>。</p>
+<p>如果：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">coldStart_ = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<p>每次 MPC 都会先：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ddpPtr_-&gt;<span class="built_in">reset</span>();</span><br></pre></td></tr></table></figure>
+<p>这表示不要用上一轮结果热启动，而是重新开始。</p>
+<p>如果：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">coldStart_ = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<p>通常可以复用上一轮的控制策略和轨迹作为初值，这就是 MPC 里常说的 warm start。</p>
+<p>为什么 warm start 有用？因为相邻两次 MPC 的优化问题通常很像：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">第 k 次：求 [t, t+T_h]</span><br><span class="line">第 k+1 次：求 [t+Δt, t+Δt+T_h]</span><br></pre></td></tr></table></figure>
+<p>两次时间窗口只平移了一点点，上一轮解通常是下一轮很好的初值，可以减少迭代次数，提高实时性。</p>
+<p>一句话：</p>
+<blockquote>
+<p><code>GaussNewtonDDP_MPC</code> 本身不直接写 SLQ 细节，它只是把 MPC 的时间窗口交给 <code>ddpPtr_-&gt;run()</code>。</p>
+</blockquote>
 <h1>7. 四足机器人例子：LeggedRobotDdpMpcNode</h1>
 <p>代码位置：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ocs2_robotic_examples/ocs2_legged_robot_ros/src/LeggedRobotDdpMpcNode.cpp</span><br></pre></td></tr></table></figure>
@@ -603,6 +713,67 @@
 </ol>
 <p>因此四足机器人的 MPC 不是直接散落在一个巨大 main 函数里，而是拆成了几个层次：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ROS node</span><br><span class="line">  ↓</span><br><span class="line">LeggedRobotInterface</span><br><span class="line">  ↓</span><br><span class="line">MPC solver</span><br><span class="line">  ↓</span><br><span class="line">ROS interface</span><br></pre></td></tr></table></figure>
+<h2 id="7-1-main-入口逐段看">7.1 <code>main()</code> 入口逐段看</h2>
+<p>四足机器人 DDP-MPC 的入口代码可以拆成几段看。</p>
+<p>第一段：初始化 ROS 和读取参数。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">::ros::<span class="built_in">init</span>(argc, argv, robotName + <span class="string">&quot;_mpc&quot;</span>);</span><br><span class="line">::ros::NodeHandle nodeHandle;</span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> multiplot = <span class="literal">false</span>;</span><br><span class="line">std::string taskFile, urdfFile, referenceFile;</span><br><span class="line">nodeHandle.<span class="built_in">getParam</span>(<span class="string">&quot;/multiplot&quot;</span>, multiplot);</span><br><span class="line">nodeHandle.<span class="built_in">getParam</span>(<span class="string">&quot;/taskFile&quot;</span>, taskFile);</span><br><span class="line">nodeHandle.<span class="built_in">getParam</span>(<span class="string">&quot;/referenceFile&quot;</span>, referenceFile);</span><br><span class="line">nodeHandle.<span class="built_in">getParam</span>(<span class="string">&quot;/urdfFile&quot;</span>, urdfFile);</span><br></pre></td></tr></table></figure>
+<p>这几个参数非常重要：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>taskFile</code></td>
+<td>任务配置，通常包含 MPC、DDP、代价权重、约束等参数</td>
+</tr>
+<tr>
+<td><code>urdfFile</code></td>
+<td>机器人模型文件</td>
+</tr>
+<tr>
+<td><code>referenceFile</code></td>
+<td>参考轨迹或默认目标配置</td>
+</tr>
+<tr>
+<td><code>multiplot</code></td>
+<td>是否开启一些调试观测量发布</td>
+</tr>
+</tbody>
+</table>
+<p>第二段：创建机器人接口。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">LeggedRobotInterface <span class="title">interface</span><span class="params">(taskFile, urdfFile, referenceFile)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这行看起来简单，但背后做了很多事：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">读取配置</span><br><span class="line">读取 URDF</span><br><span class="line">构造机器人动力学模型</span><br><span class="line">构造代价函数</span><br><span class="line">构造约束</span><br><span class="line">构造 reference manager</span><br><span class="line">构造 rollout</span><br><span class="line">构造 initializer</span><br></pre></td></tr></table></figure>
+<p>可以把 <code>interface</code> 理解成“四足机器人最优控制问题生成器”。</p>
+<p>第三段：创建 gait receiver。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> gaitReceiverPtr = std::<span class="built_in">make_shared</span>&lt;GaitReceiver&gt;(</span><br><span class="line">    nodeHandle,</span><br><span class="line">    interface.<span class="built_in">getSwitchedModelReferenceManagerPtr</span>()-&gt;<span class="built_in">getGaitSchedule</span>(),</span><br><span class="line">    robotName);</span><br></pre></td></tr></table></figure>
+<p>腿式机器人和普通机械臂不一样，它有接触模式切换：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">哪只脚支撑？</span><br><span class="line">哪只脚摆动？</span><br><span class="line">什么时候换脚？</span><br></pre></td></tr></table></figure>
+<p><code>GaitReceiver</code> 就是用来接收步态命令，并把 gait schedule 同步给求解器。</p>
+<p>第四段：创建 ROS ReferenceManager。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> rosReferenceManagerPtr = std::<span class="built_in">make_shared</span>&lt;RosReferenceManager&gt;(</span><br><span class="line">    robotName,</span><br><span class="line">    interface.<span class="built_in">getReferenceManagerPtr</span>());</span><br><span class="line">rosReferenceManagerPtr-&gt;<span class="built_in">subscribe</span>(nodeHandle);</span><br></pre></td></tr></table></figure>
+<p><code>ReferenceManager</code> 管理：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">目标轨迹 TargetTrajectories</span><br><span class="line">模式调度 ModeSchedule</span><br></pre></td></tr></table></figure>
+<p>比如你给机器人发送目标速度或目标位姿，这些参考信息最终要进入最优控制问题的 cost / constraints。</p>
+<p>第五段：创建 MPC。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">GaussNewtonDDP_MPC <span class="title">mpc</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    interface.mpcSettings(),</span></span></span><br><span class="line"><span class="params"><span class="function">    interface.ddpSettings(),</span></span></span><br><span class="line"><span class="params"><span class="function">    interface.getRollout(),</span></span></span><br><span class="line"><span class="params"><span class="function">    interface.getOptimalControlProblem(),</span></span></span><br><span class="line"><span class="params"><span class="function">    interface.getInitializer())</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这行代码把前面准备好的组件全部交给 MPC：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">mpcSettings       → MPC 时间窗口、频率、冷/热启动</span><br><span class="line">DDP settings      → SLQ/iLQR 求解参数</span><br><span class="line">rollout           → 向前模拟动力学</span><br><span class="line">OptimalControlProblem → 动力学 + 代价 + 约束</span><br><span class="line">initializer       → 初始轨迹/控制初始化</span><br></pre></td></tr></table></figure>
+<p>第六段：把 reference manager 和 gait receiver 挂到 solver 上。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">mpc.<span class="built_in">getSolverPtr</span>()-&gt;<span class="built_in">setReferenceManager</span>(rosReferenceManagerPtr);</span><br><span class="line">mpc.<span class="built_in">getSolverPtr</span>()-&gt;<span class="built_in">addSynchronizedModule</span>(gaitReceiverPtr);</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>getSolverPtr()</code> 返回底层 solver，比如 SLQ/iLQR solver。</p>
+<p>这两句的意思是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">求解前后，solver 要同步最新参考轨迹和步态信息。</span><br></pre></td></tr></table></figure>
+<p>第七段：启动 ROS MPC node。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">MPC_ROS_Interface <span class="title">mpcNode</span><span class="params">(mpc, robotName)</span></span>;</span><br><span class="line">mpcNode.<span class="built_in">launchNodes</span>(nodeHandle);</span><br></pre></td></tr></table></figure>
+<p><code>MPC_ROS_Interface</code> 负责：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">订阅当前机器人状态 observation</span><br><span class="line">  ↓</span><br><span class="line">触发 mpc.run()</span><br><span class="line">  ↓</span><br><span class="line">获取优化结果 primal solution</span><br><span class="line">  ↓</span><br><span class="line">发布 flattened controller 给 MRT/控制端</span><br></pre></td></tr></table></figure>
+<p>所以整个 <code>main()</code> 可以浓缩成：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">读参数</span><br><span class="line">  ↓</span><br><span class="line">构造机器人最优控制问题</span><br><span class="line">  ↓</span><br><span class="line">构造 MPC solver</span><br><span class="line">  ↓</span><br><span class="line">挂接参考轨迹和步态</span><br><span class="line">  ↓</span><br><span class="line">启动 ROS 通信</span><br></pre></td></tr></table></figure>
 <h1>8. SQP 版本 MPC：LeggedRobotSqpMpcNode</h1>
 <p>代码位置：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ocs2_robotic_examples/ocs2_legged_robot_ros/src/LeggedRobotSqpMpcNode.cpp</span><br></pre></td></tr></table></figure>
@@ -692,7 +863,71 @@
 <blockquote>
 <p>OCS2 的 MPC 不是简单开环播放轨迹，而是可以输出带反馈的控制策略。</p>
 </blockquote>
-<h1>11. SLQ / iLQR 大概在做什么</h1>
+<h1>11. ROS 接口代码：MPC_ROS_Interface</h1>
+<p>代码位置：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ocs2_ros_interfaces/include/ocs2_ros_interfaces/mpc/MPC_ROS_Interface.h</span><br><span class="line">ocs2_ros_interfaces/src/mpc/MPC_ROS_Interface.cpp</span><br></pre></td></tr></table></figure>
+<p><code>MPC_ROS_Interface</code> 是 MPC 和 ROS 系统之间的桥。它自己不负责求解最优控制问题，而是负责通信和触发。</p>
+<p>头文件里有几个关键成员：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">MPC_BASE&amp; mpc_;</span><br><span class="line"></span><br><span class="line">::ros::Subscriber mpcObservationSubscriber_;</span><br><span class="line">::ros::Subscriber mpcTargetTrajectoriesSubscriber_;</span><br><span class="line">::ros::Publisher mpcPolicyPublisher_;</span><br><span class="line">::ros::ServiceServer mpcResetServiceServer_;</span><br></pre></td></tr></table></figure>
+<p>这些成员对应：</p>
+<table>
+<thead>
+<tr>
+<th>成员</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mpc_</code></td>
+<td>真正的 MPC 对象，比如 <code>GaussNewtonDDP_MPC</code></td>
+</tr>
+<tr>
+<td><code>mpcObservationSubscriber_</code></td>
+<td>订阅机器人当前观测</td>
+</tr>
+<tr>
+<td><code>mpcTargetTrajectoriesSubscriber_</code></td>
+<td>订阅目标轨迹</td>
+</tr>
+<tr>
+<td><code>mpcPolicyPublisher_</code></td>
+<td>发布优化得到的控制策略</td>
+</tr>
+<tr>
+<td><code>mpcResetServiceServer_</code></td>
+<td>提供重置 MPC 的 ROS service</td>
+</tr>
+</tbody>
+</table>
+<h2 id="11-1-接收-observation-后怎么触发-MPC">11.1 接收 observation 后怎么触发 MPC</h2>
+<p>最关键的回调函数是：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">MPC_ROS_Interface::mpcObservationCallback</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> ocs2_msgs::mpc_observation::ConstPtr&amp; msg)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> <span class="keyword">auto</span> currentObservation =</span><br><span class="line">      ros_msg_conversions::<span class="built_in">readObservationMsg</span>(*msg);</span><br><span class="line"></span><br><span class="line">  <span class="type">bool</span> controllerIsUpdated =</span><br><span class="line">      mpc_.<span class="built_in">run</span>(currentObservation.time, currentObservation.state);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!controllerIsUpdated) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">copyToBuffer</span>(currentObservation);</span><br><span class="line"></span><br><span class="line">  readyToPublish_ = <span class="literal">true</span>;</span><br><span class="line">  msgReady_.<span class="built_in">notify_one</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码非常关键，它说明 OCS2 MPC 的触发源是 observation：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">收到当前状态 observation</span><br><span class="line">  ↓</span><br><span class="line">读取 current time 和 current state</span><br><span class="line">  ↓</span><br><span class="line">调用 mpc_.run(time, state)</span><br><span class="line">  ↓</span><br><span class="line">MPC 重新优化</span><br><span class="line">  ↓</span><br><span class="line">把结果复制到 buffer</span><br><span class="line">  ↓</span><br><span class="line">通知发布线程发布策略</span><br></pre></td></tr></table></figure>
+<p>也就是说，真实运行时不是某个 while 循环直接不停调用 MPC，而是 ROS observation callback 在驱动 MPC 更新。</p>
+<h2 id="11-2-优化结果怎么发布出去">11.2 优化结果怎么发布出去</h2>
+<p>MPC 求解完成后，会调用：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">copyToBuffer</span>(currentObservation);</span><br></pre></td></tr></table></figure>
+<p>其中核心逻辑是：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">scalar_t</span> finalTime = mpcInitObservation.time + mpc_.<span class="built_in">settings</span>().solutionTimeWindow_;</span><br><span class="line"><span class="keyword">if</span> (mpc_.<span class="built_in">settings</span>().solutionTimeWindow_ &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  finalTime = mpc_.<span class="built_in">getSolverPtr</span>()-&gt;<span class="built_in">getFinalTime</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mpc_.<span class="built_in">getSolverPtr</span>()-&gt;<span class="built_in">getPrimalSolution</span>(</span><br><span class="line">    finalTime,</span><br><span class="line">    bufferPrimalSolutionPtr_.<span class="built_in">get</span>());</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>PrimalSolution</code> 可以理解为 MPC 的主要优化结果，里面通常包含：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">timeTrajectory</span><br><span class="line">stateTrajectory</span><br><span class="line">inputTrajectory</span><br><span class="line">controllerPtr</span><br><span class="line">modeSchedule</span><br></pre></td></tr></table></figure>
+<p>然后发布线程会调用：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">createMpcPolicyMsg</span>(</span><br><span class="line">    *publisherPrimalSolutionPtr_,</span><br><span class="line">    *publisherCommandPtr_,</span><br><span class="line">    *publisherPerformanceIndicesPtr_);</span><br></pre></td></tr></table></figure>
+<p>这个函数会把 C++ 内部数据打包成 ROS 消息：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ocs2_msgs::mpc_flattened_controller</span><br></pre></td></tr></table></figure>
+<p>其中包括：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">initObservation</span><br><span class="line">planTargetTrajectories</span><br><span class="line">modeSchedule</span><br><span class="line">performanceIndices</span><br><span class="line">timeTrajectory</span><br><span class="line">stateTrajectory</span><br><span class="line">inputTrajectory</span><br><span class="line">controller data</span><br></pre></td></tr></table></figure>
+<p>最后：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">mpcPolicyPublisher_.<span class="built_in">publish</span>(mpcPolicyMsg);</span><br></pre></td></tr></table></figure>
+<p>所以 MPC 的输出链路是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">solver 内部 PrimalSolution</span><br><span class="line">  ↓</span><br><span class="line">copyToBuffer()</span><br><span class="line">  ↓</span><br><span class="line">createMpcPolicyMsg()</span><br><span class="line">  ↓</span><br><span class="line">mpc_flattened_controller ROS message</span><br><span class="line">  ↓</span><br><span class="line">MRT / 控制端订阅并执行</span><br></pre></td></tr></table></figure>
+<p>这部分代码对于理解 OCS2 很重要，因为它回答了一个工程问题：</p>
+<blockquote>
+<p>MPC 求解器算出来的 C++ 对象，怎么变成控制端能用的 ROS 消息？</p>
+</blockquote>
+<h1>12. SLQ / iLQR 大概在做什么</h1>
 <p>SLQ / iLQR / DDP 的核心思想是：</p>
 <blockquote>
 <p>把非线性最优控制问题，在当前轨迹附近近似成一系列时变 LQR 问题，然后迭代改进轨迹。</p>
@@ -722,7 +957,26 @@ P^T &amp; R
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>δ</mi><mi>u</mi><mo>=</mo><mi>k</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>+</mo><mi>K</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mi>δ</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\delta u = k(t)+K(t)\delta x
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mord mathnormal">u</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mord mathnormal">x</span></span></span></span></span></p>
 <p>在 MPC 语境里，求解器每次都在当前状态附近重新做这个过程。</p>
-<h1>12. 学习时应该优先读哪些文件</h1>
+<h1>13. SolverBase：求解器统一接口</h1>
+<p>代码位置：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ocs2_oc/include/ocs2_oc/oc_solver/SolverBase.h</span><br></pre></td></tr></table></figure>
+<p><code>SolverBase</code> 是底层求解器的统一接口。MPC 不直接关心 SLQ、SQP、IPM 的所有细节，而是通过这个接口拿结果。</p>
+<p>几个重要函数：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">run</span><span class="params">(<span class="type">scalar_t</span> initTime,</span></span></span><br><span class="line"><span class="params"><span class="function">         <span class="type">const</span> <span class="type">vector_t</span>&amp; initState,</span></span></span><br><span class="line"><span class="params"><span class="function">         <span class="type">scalar_t</span> finalTime)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这是求解器主入口。MPC 最终会调用到这里。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="type">scalar_t</span> <span class="title">getFinalTime</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>返回当前 solver 优化到的最终时间。<code>MPC_BASE::run()</code> 会用它检查当前时间是否已经超过已有策略覆盖范围。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">getPrimalSolution</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">scalar_t</span> finalTime,</span></span></span><br><span class="line"><span class="params"><span class="function">    PrimalSolution* primalSolutionPtr)</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>获取优化结果。ROS 接口发布策略时会调用它。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">setReferenceManager</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    std::shared_ptr&lt;ReferenceManagerInterface&gt; referenceManagerPtr)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置参考轨迹管理器。四足机器人例子里就是：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">mpc.<span class="built_in">getSolverPtr</span>()-&gt;<span class="built_in">setReferenceManager</span>(rosReferenceManagerPtr);</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addSynchronizedModule</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    std::shared_ptr&lt;SolverSynchronizedModule&gt; synchronizedModule)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>添加需要和 solver 同步的模块，例如 gait receiver。</p>
+<p>所以 <code>SolverBase</code> 在架构里的角色是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">MPC_BASE</span><br><span class="line">  ↓ 调用 run()</span><br><span class="line">SolverBase</span><br><span class="line">  ↓ 具体实现</span><br><span class="line">SLQ / ILQR / SQP / IPM</span><br></pre></td></tr></table></figure>
+<p>从工程角度看，这种接口设计让 ROS 层、MPC 层和具体 solver 层解耦。</p>
+<h1>14. 学习时应该优先读哪些文件</h1>
 <p>我建议按层次读。</p>
 <h2 id="第一层：MPC-外壳">第一层：MPC 外壳</h2>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ocs2_mpc/include/ocs2_mpc/MPC_BASE.h</span><br><span class="line">ocs2_mpc/src/MPC_BASE.cpp</span><br><span class="line">ocs2_mpc/include/ocs2_mpc/MPC_Settings.h</span><br></pre></td></tr></table></figure>
@@ -738,7 +992,7 @@ P^T &amp; R
 <p>重点找：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">LeggedRobotInterface</span><br><span class="line">OptimalControlProblem</span><br><span class="line">dynamics</span><br><span class="line">cost</span><br><span class="line">constraint</span><br><span class="line">reference manager</span><br><span class="line">gait schedule</span><br></pre></td></tr></table></figure>
 <p>目标：理解机器人问题如何变成 OCS2 可以求解的 optimal control problem。</p>
-<h1>13. 一个推荐的理解顺序</h1>
+<h1>15. 一个推荐的理解顺序</h1>
 <p>如果你刚开始学，我建议不要一上来就钻 Riccati 方程。可以先从代码结构入手：</p>
 <h2 id="第一步：看-MPC-BASE-run">第一步：看 <code>MPC_BASE::run()</code></h2>
 <p>记住一句话：</p>
