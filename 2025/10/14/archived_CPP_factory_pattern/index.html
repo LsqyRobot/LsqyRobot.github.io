@@ -224,10 +224,10 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="--post-cover-image: url(/img/postImg/18_CPP/logo/cyberpunk-city-7415576_1280_used.jpg);" >
+            <div class ="post_page_title_img" style="--post-cover-image: url(/img/postImg/18_CPP/logo/2024-11-11-11-13-39-1152x768_used.jpg);" >
                 <div class="post_page_title_blur"></div>
                 <div class="post_page_title_main"></div>
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >多线程编程学习笔记（一）</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >工厂模式</h2></a>
             </div>
 
             <div class="post-content-shell">
@@ -432,57 +432,74 @@
                 <div class="typo post-article-content" style="padding: 3rem;">
                     <!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
-<li><a href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">多线程的基本概念</a></li>
-<li><a href="#%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B">创建线程</a></li>
-<li><a href="#%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE">线程同步与共享数据</a>
+<li><a href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E6%8A%8A%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E9%80%BB%E8%BE%91%E4%BB%8E%E4%B8%9A%E5%8A%A1%E4%BB%A3%E7%A0%81%E9%87%8C%E6%8B%86%E5%87%BA%E6%9D%A5">工厂模式：把对象创建逻辑从业务代码里拆出来</a>
 <ul>
-<li><a href="#%E4%BD%BF%E7%94%A8mutex%E8%BF%9B%E8%A1%8C%E5%90%8C%E6%AD%A5">使用mutex进行同步</a></li>
-</ul>
-</li>
-<li><a href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C">线程的常见操作</a>
-<ul>
-<li><a href="#detach">detach</a></li>
-<li><a href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC">线程的返回值</a></li>
-</ul>
-</li>
+<li><a href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%9B%AE%E7%9A%84">工厂模式的目的</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%80%82%E5%90%88%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F">什么时候适合用工厂模式</a></li>
+<li><a href="#c-%E7%A4%BA%E4%BE%8B%E6%A0%B9%E6%8D%AE%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%9B%E5%BB%BA%E4%B8%8D%E5%90%8C%E6%9C%BA%E5%99%A8%E4%BA%BA">C++ 示例：根据字符串创建不同机器人</a></li>
+<li><a href="#python-%E7%A4%BA%E4%BE%8B%E6%A0%B9%E6%8D%AE%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%9B%E5%BB%BA%E4%B8%8D%E5%90%8C%E6%9C%BA%E5%99%A8%E4%BA%BA">Python 示例：根据字符串创建不同机器人</a></li>
+<li><a href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E6%80%8E%E4%B9%88%E9%85%8D%E5%90%88">工厂模式和策略模式怎么配合</a></li>
 <li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
-<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
 </ul>
 <!-- vim-markdown-toc -->
-<h1>前言</h1>
-<p>个人想了解这块内容，文章中所提及的，来源于 chatGPT, 若后面了解的过程中发现其所表述有误的话，再做修正吧。</p>
-<h1>多线程的基本概念</h1>
-<p>在计算机中，线程是进程中的一个执行单元。一个程序可以由多个线程组成，线程间共享程序的资源（例如内存），但每个线程有自己的执行路径。通常，会创建多个线程并发执行不同的任务，从而实现并行计算。</p>
-<p>线程的基本结构：</p>
-<p>• 进程：一个运行中的程序，每个进程有自己的地址空间、资源等。</p>
-<p>• 线程：进程中的最小执行单元，每个线程有自己的栈空间，多个线程共享进程的资源（例如内存、文件描述符等）。</p>
-<h1>创建线程</h1>
-<p>C++11引入了对多线程的支持，提供了<thread>库来方便地创建和管理线程。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个简单的函数，将被线程执行</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello from thread!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建并启动一个线程</span></span><br><span class="line">    <span class="function">std::thread <span class="title">t</span><span class="params">(hello)</span></span>;  <span class="comment">// 传递hello函数给线程t</span></span><br><span class="line">    t.<span class="built_in">join</span>();  <span class="comment">// 等待线程完成</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>解释：</p>
-<p>• <code>std::thread t(hello);</code>:创建一个线程t，并让它执行hello函数。</p>
-<p>• <code>t.join();</code>: join()方法用于等待线程执行完毕。如果没有调用join()或detach()，程序可能会在主线程结束时直接退出，导致子线程未执行完毕。</p>
-<h1>线程同步与共享数据</h1>
-<p>多个线程同时访问共享数据时，会发生<code>数据竞争</code>，即多个线程同时修改数据，导致不一致的结果。因此，需要使用同步机制来避免这种情况。</p>
-<h2 id="使用mutex进行同步">使用mutex进行同步</h2>
-<p>C++提供了<code>std::mutex</code>来保证同一时刻只有一个线程能够访问共享资源。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;mutex&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::mutex mtx;  <span class="comment">// 定义一个互斥锁</span></span><br><span class="line"><span class="type">int</span> shared_data = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">increment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(mtx)</span></span>;  <span class="comment">// 自动加锁，作用域结束后自动解锁</span></span><br><span class="line">    ++shared_data;  <span class="comment">// 访问共享数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::thread <span class="title">t1</span><span class="params">(increment)</span></span>;</span><br><span class="line">    <span class="function">std::thread <span class="title">t2</span><span class="params">(increment)</span></span>;</span><br><span class="line"></span><br><span class="line">    t<span class="number">1.</span><span class="built_in">join</span>();</span><br><span class="line">    t<span class="number">2.</span><span class="built_in">join</span>();</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Shared data: &quot;</span> &lt;&lt; shared_data &lt;&lt; std::endl;  <span class="comment">// 应该输出 2</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1>线程的常见操作</h1>
-<h2 id="detach">detach</h2>
-<p><code>detach():</code> 将线程与主线程分离，主线程退出时，分离线程将继续执行。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::thread <span class="title">t</span><span class="params">(hello)</span></span>;</span><br><span class="line">t.<span class="built_in">detach</span>();  <span class="comment">// 线程将独立执行，不需要等待</span></span><br></pre></td></tr></table></figure>
-<h2 id="线程的返回值">线程的返回值</h2>
-<p>可以让线程返回结果，可以通过<code>std::future</code>和<code>std::promise</code>实现。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;future&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::future&lt;<span class="type">int</span>&gt; result = std::<span class="built_in">async</span>(std::launch::async, add, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Result: &quot;</span> &lt;&lt; result.<span class="built_in">get</span>() &lt;&lt; std::endl;  <span class="comment">// 输出 7</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>std::async():</code> 异步启动一个线程来执行add函数，并返回一个<code>std::future</code>对象，稍后可以通过result.get()获取返回值。</p>
-<h1>总结</h1>
-<p>• 创建线程：使用std::thread类。</p>
-<p>• 线程同步：使用std::mutex来保护共享资源。</p>
-<p>• 线程间通信：使用std::future和std::promise来实现线程之间的通信和获取返回值。</p>
-<p>• 线程生命周期管理：使用join()等待线程结束，detach()让线程与主线程分离。</p>
-<h1>参考</h1>
-<p>[1] chatGPT</p>
+<h1>工厂模式：把对象创建逻辑从业务代码里拆出来</h1>
+<h2 id="工厂模式的目的">工厂模式的目的</h2>
+<p>工厂模式（Factory Pattern）的核心目的：<strong>把对象创建逻辑封装起来，让使用者不用关心具体创建哪个类、怎么创建。</strong></p>
+<p>简单说：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">不要到处写 if/else + new 具体类，</span><br><span class="line">而是把创建逻辑集中放到 Factory 里。</span><br></pre></td></tr></table></figure>
+<p>适合场景：</p>
+<ol>
+<li>根据配置、字符串、枚举创建不同对象。</li>
+<li>对象创建过程比较复杂。</li>
+<li>希望业务代码只依赖抽象接口，而不是依赖一堆具体类。</li>
+<li>后续可能扩展新类型，比如新增一种机器人、传感器、控制器、算法。</li>
+</ol>
+<p>和策略模式的关系也很近：<strong>策略模式负责“算法可以互换”，工厂模式负责“帮你创建具体策略对象”。</strong></p>
+<h2 id="什么时候适合用工厂模式">什么时候适合用工厂模式</h2>
+<p>如果一个对象的创建逻辑很简单，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">Robot robot;</span><br></pre></td></tr></table></figure>
+<p>那通常没必要引入工厂模式。</p>
+<p>但如果创建对象需要根据配置、字符串、枚举、平台类型、传感器类型来决定，或者构造过程包含很多参数、校验、资源初始化，那么工厂模式就会变得有用。</p>
+<p>它的目标不是“让代码看起来高级”，而是让业务代码更干净：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">业务代码：我要一个 robot。</span><br><span class="line">工厂代码：我来决定具体创建 SpotRobot 还是 UnitreeRobot。</span><br></pre></td></tr></table></figure>
+<h2 id="C-示例：根据字符串创建不同机器人">C++ 示例：根据字符串创建不同机器人</h2>
+<p>下面这个例子里，业务代码只使用 <code>Robot</code> 接口。具体创建 <code>SpotRobot</code> 还是 <code>UnitreeRobot</code>，交给 <code>RobotFactory</code> 决定。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象产品：统一接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Robot</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Robot</span>() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">walk</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体产品 1</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SpotRobot</span> : <span class="keyword">public</span> Robot &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">walk</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Spot robot is walking.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体产品 2</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UnitreeRobot</span> : <span class="keyword">public</span> Robot &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">walk</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Unitree robot is walking.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 工厂：集中管理对象创建逻辑</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RobotFactory</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> std::unique_ptr&lt;Robot&gt; <span class="title">createRobot</span><span class="params">(<span class="type">const</span> std::string&amp; type)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="string">&quot;spot&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> std::<span class="built_in">make_unique</span>&lt;SpotRobot&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="string">&quot;unitree&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> std::<span class="built_in">make_unique</span>&lt;UnitreeRobot&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> std::<span class="built_in">invalid_argument</span>(<span class="string">&quot;Unknown robot type: &quot;</span> + type);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> robot = RobotFactory::<span class="built_in">createRobot</span>(<span class="string">&quot;spot&quot;</span>);</span><br><span class="line">    robot-&gt;<span class="built_in">walk</span>();</span><br><span class="line"></span><br><span class="line">    robot = RobotFactory::<span class="built_in">createRobot</span>(<span class="string">&quot;unitree&quot;</span>);</span><br><span class="line">    robot-&gt;<span class="built_in">walk</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个结构里：</p>
+<ul>
+<li><code>Robot</code> 是抽象接口。</li>
+<li><code>SpotRobot</code> / <code>UnitreeRobot</code> 是具体类。</li>
+<li><code>RobotFactory</code> 负责根据类型创建对象。</li>
+<li><code>main()</code> 不需要直接写 <code>new SpotRobot()</code> 或 <code>new UnitreeRobot()</code>。</li>
+</ul>
+<h2 id="Python-示例：根据字符串创建不同机器人">Python 示例：根据字符串创建不同机器人</h2>
+<p>Python 里写起来更轻量，可以用字典代替长串 <code>if/elif</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Robot</span>(<span class="title class_ inherited__">ABC</span>):</span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">walk</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SpotRobot</span>(<span class="title class_ inherited__">Robot</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">walk</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Spot robot is walking.&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UnitreeRobot</span>(<span class="title class_ inherited__">Robot</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">walk</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Unitree robot is walking.&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RobotFactory</span>:</span><br><span class="line">    _registry = &#123;</span><br><span class="line">        <span class="string">&quot;spot&quot;</span>: SpotRobot,</span><br><span class="line">        <span class="string">&quot;unitree&quot;</span>: UnitreeRobot,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_robot</span>(<span class="params">cls, robot_type: <span class="built_in">str</span></span>) -&gt; Robot:</span><br><span class="line">        robot_cls = cls._registry.get(robot_type)</span><br><span class="line">        <span class="keyword">if</span> robot_cls <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">f&quot;Unknown robot type: <span class="subst">&#123;robot_type&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> robot_cls()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    robot = RobotFactory.create_robot(<span class="string">&quot;spot&quot;</span>)</span><br><span class="line">    robot.walk()</span><br><span class="line"></span><br><span class="line">    robot = RobotFactory.create_robot(<span class="string">&quot;unitree&quot;</span>)</span><br><span class="line">    robot.walk()</span><br></pre></td></tr></table></figure>
+<p>如果后面要新增机器人类型，只需要新增类，并注册到 <code>_registry</code>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BittleRobot</span>(<span class="title class_ inherited__">Robot</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">walk</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Bittle robot is walking.&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RobotFactory._registry[<span class="string">&quot;bittle&quot;</span>] = BittleRobot</span><br></pre></td></tr></table></figure>
+<h2 id="工厂模式和策略模式怎么配合">工厂模式和策略模式怎么配合</h2>
+<p>策略模式常见写法是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Context 持有 Strategy 接口</span><br><span class="line">不同 ConcreteStrategy 实现不同算法</span><br></pre></td></tr></table></figure>
+<p>但如果策略很多，业务代码里可能会变成：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (name == <span class="string">&quot;add&quot;</span>) &#123;</span><br><span class="line">    context.<span class="built_in">setStrategy</span>(std::<span class="built_in">make_shared</span>&lt;AddStrategy&gt;());</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (name == <span class="string">&quot;sub&quot;</span>) &#123;</span><br><span class="line">    context.<span class="built_in">setStrategy</span>(std::<span class="built_in">make_shared</span>&lt;SubStrategy&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时就可以用工厂模式把创建策略的逻辑收起来：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">StrategyFactory.create(&quot;add&quot;) -&gt; AddStrategy</span><br><span class="line">StrategyFactory.create(&quot;sub&quot;) -&gt; SubStrategy</span><br></pre></td></tr></table></figure>
+<p>这样业务代码只关心：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">我要哪个策略名字。</span><br></pre></td></tr></table></figure>
+<p>不关心：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">这个策略对应哪个具体类、怎么 new、构造参数是什么。</span><br></pre></td></tr></table></figure>
+<p>一句话总结：</p>
+<blockquote>
+<p>策略模式解决“行为怎么替换”，工厂模式解决“对象怎么创建”。</p>
+</blockquote>
+<h2 id="总结">总结</h2>
+<p>工厂模式的核心不是“工厂”这个名字，而是这件事：</p>
+<blockquote>
+<p>把对象创建逻辑集中管理，让业务代码依赖抽象接口，而不是到处依赖具体类。</p>
+</blockquote>
+<p>它特别适合用在机器人、传感器、控制器、算法模块这类“类型会变多、创建逻辑会变复杂”的场景里。</p>
 
                 </div>
             </div>
