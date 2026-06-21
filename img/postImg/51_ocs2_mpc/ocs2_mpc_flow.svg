@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/></marker>
+    <style>
+      .title{font:700 26px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .label{font:700 17px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .small{font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#374151}
+      .tiny{font:13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#6b7280}
+      .box{stroke-width:2;rx:14}
+      .input{fill:#eff6ff;stroke:#60a5fa}
+      .interface{fill:#f0fdf4;stroke:#22c55e}
+      .problem{fill:#fff7ed;stroke:#fb923c}
+      .solver{fill:#fdf2f8;stroke:#f472b6}
+      .ros{fill:#f5f3ff;stroke:#a78bfa}
+      .ctrl{fill:#ecfeff;stroke:#06b6d4}
+      .arrow{stroke:#4b5563;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+      .dash{stroke:#9ca3af;stroke-width:2;fill:none;stroke-dasharray:6 6;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <text class="title" x="40" y="46">OCS2 MPC 运行结构：建模接口 → MPC 外壳 → 求解器 → ROS/MRT 执行</text>
+
+  <rect class="box input" x="50" y="100" width="190" height="120" rx="14"/>
+  <text class="label" x="92" y="135">配置与模型</text>
+  <text class="small" x="82" y="164">taskFile</text>
+  <text class="small" x="82" y="188">urdfFile</text>
+  <text class="small" x="82" y="212">referenceFile</text>
+
+  <path class="arrow" d="M250 160 H320"/>
+
+  <rect class="box interface" x="330" y="90" width="220" height="140" rx="14"/>
+  <text class="label" x="376" y="126">LeggedRobotInterface</text>
+  <text class="small" x="360" y="158">加载机器人模型</text>
+  <text class="small" x="360" y="182">创建 rollout / initializer</text>
+  <text class="small" x="360" y="206">组装最优控制问题</text>
+
+  <path class="arrow" d="M560 160 H630"/>
+
+  <rect class="box problem" x="640" y="72" width="250" height="176" rx="14"/>
+  <text class="label" x="688" y="108">OptimalControlProblem</text>
+  <text class="small" x="674" y="140">dynamics: ẋ=f(x,u,t)</text>
+  <text class="small" x="674" y="166">cost: tracking / input</text>
+  <text class="small" x="674" y="192">constraints: contact / friction</text>
+  <text class="small" x="674" y="218">reference manager / gait</text>
+
+  <path class="arrow" d="M765 250 V315"/>
+
+  <rect class="box solver" x="540" y="320" width="450" height="130" rx="14"/>
+  <text class="label" x="650" y="356">MPC_BASE::run(currentTime, currentState)</text>
+  <text class="small" x="590" y="386">finalTime = currentTime + timeHorizon</text>
+  <text class="small" x="590" y="412">calculateController() → SLQ / iLQR / SQP / IPM</text>
+  <text class="tiny" x="590" y="438">输出 state/input trajectory + feedback policy</text>
+
+  <path class="arrow" d="M530 385 H430"/>
+
+  <rect class="box ros" x="190" y="315" width="230" height="140" rx="14"/>
+  <text class="label" x="246" y="350">ROS 接口</text>
+  <text class="small" x="220" y="382">MPC_ROS_Interface</text>
+  <text class="small" x="220" y="406">订阅当前状态</text>
+  <text class="small" x="220" y="430">发布优化策略</text>
+
+  <path class="arrow" d="M305 460 V520 H665 V456"/>
+  <text class="tiny" x="390" y="545">下一次 MPC 用最新状态再次滚动求解</text>
+
+  <path class="arrow" d="M990 385 H1040 V520 H820 V456"/>
+  <rect class="box ctrl" x="760" y="490" width="270" height="88" rx="14"/>
+  <text class="label" x="826" y="525">MRT / 控制循环</text>
+  <text class="small" x="792" y="552">高频插值并执行 u = u* + K(x-x*)</text>
+
+  <path class="dash" d="M805 490 C850 470,895 460,930 450"/>
+</svg>
