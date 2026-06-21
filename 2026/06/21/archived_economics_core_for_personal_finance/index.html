@@ -1,0 +1,1278 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
+    <link rel="stylesheet" href="/css/lsqy_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/dytitle.js"></script>
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+    <script src="/js/codeBlockFuction.js"></script>
+    <script src="/js/cursor-heart.js"></script>
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<body class="is-loading">
+    <div id="wrapper" class="fade-in">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1"><img src="/img/folder.png"></a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/CPP/">CPP</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/ISAAC-LAB/">ISAAC LAB</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/RL/">RL</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a></li><li><a class="category-link" href="/categories/robotics/">robotics</a>
+	                    </ul>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="--post-cover-image: url(/img/postImg/40_usefulTools/logo/hourglass-1938677_1280.jpg);" >
+                <div class="post_page_title_blur"></div>
+                <div class="post_page_title_main"></div>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >经济学核心概念：如何帮助自己更好地理财</h2></a>
+            </div>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                
+                    <aside class="post-floating-tags" aria-label="Site tags">
+                        <div class="post-floating-tags-card">
+                            <div class="post-floating-tags-title">标签</div>
+                            <div id="postTagSphere" class="post-tag-sphere">
+                                
+                                
+                                    
+                                    <a href="/tags/work/" style="font-size: 17.00px; color: rgb(149,225,211)" title="work：27 篇">work</a>
+                                
+                                    
+                                    <a href="/tags/linux/" style="font-size: 14.36px; color: rgb(94,210,223)" title="linux：16 篇">linux</a>
+                                
+                                    
+                                    <a href="/tags/tools/" style="font-size: 14.12px; color: rgb(89,209,224)" title="tools：15 篇">tools</a>
+                                
+                                    
+                                    <a href="/tags/ros/" style="font-size: 13.40px; color: rgb(74,205,228)" title="ros：12 篇">ros</a>
+                                
+                                    
+                                    <a href="/tags/cpp/" style="font-size: 13.16px; color: rgb(69,203,229)" title="cpp：11 篇">cpp</a>
+                                
+                                    
+                                    <a href="/tags/life/" style="font-size: 12.92px; color: rgb(64,202,230)" title="life：10 篇">life</a>
+                                
+                                    
+                                    <a href="/tags/dots/" style="font-size: 12.44px; color: rgb(54,199,232)" title="dots：8 篇">dots</a>
+                                
+                                    
+                                    <a href="/tags/memory/" style="font-size: 12.20px; color: rgb(49,198,233)" title="memory：7 篇">memory</a>
+                                
+                                    
+                                    <a href="/tags/python/" style="font-size: 12.20px; color: rgb(49,198,233)" title="python：7 篇">python</a>
+                                
+                                    
+                                    <a href="/tags/vim/" style="font-size: 11.96px; color: rgb(44,196,235)" title="vim：6 篇">vim</a>
+                                
+                                    
+                                    <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 11.96px; color: rgb(44,196,235)" title="强化学习：6 篇">强化学习</a>
+                                
+                                    
+                                    <a href="/tags/control/" style="font-size: 11.72px; color: rgb(39,195,236)" title="control：5 篇">control</a>
+                                
+                                    
+                                    <a href="/tags/math/" style="font-size: 11.72px; color: rgb(39,195,236)" title="math：5 篇">math</a>
+                                
+                                    
+                                    <a href="/tags/ppo/" style="font-size: 11.72px; color: rgb(39,195,236)" title="ppo：5 篇">ppo</a>
+                                
+                                    
+                                    <a href="/tags/robotics/" style="font-size: 11.72px; color: rgb(39,195,236)" title="robotics：5 篇">robotics</a>
+                                
+                                    
+                                    <a href="/tags/algorithms/" style="font-size: 11.48px; color: rgb(34,194,237)" title="algorithms：4 篇">algorithms</a>
+                                
+                                    
+                                    <a href="/tags/robot/" style="font-size: 11.48px; color: rgb(34,194,237)" title="robot：4 篇">robot</a>
+                                
+                                    
+                                    <a href="/tags/ros2/" style="font-size: 11.48px; color: rgb(34,194,237)" title="ros2：4 篇">ros2</a>
+                                
+                                    
+                                    <a href="/tags/git/" style="font-size: 11.24px; color: rgb(29,192,238)" title="git：3 篇">git</a>
+                                
+                                    
+                                    <a href="/tags/isaac-gym/" style="font-size: 11.24px; color: rgb(29,192,238)" title="isaac gym：3 篇">isaac gym</a>
+                                
+                                    
+                                    <a href="/tags/legged-locomotion/" style="font-size: 11.24px; color: rgb(29,192,238)" title="legged locomotion：3 篇">legged locomotion</a>
+                                
+                                    
+                                    <a href="/tags/matlab/" style="font-size: 11.24px; color: rgb(29,192,238)" title="matlab：3 篇">matlab</a>
+                                
+                                    
+                                    <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 11.24px; color: rgb(29,192,238)" title="四足机器人：3 篇">四足机器人</a>
+                                
+                                    
+                                    <a href="/tags/isaaclab/" style="font-size: 11.00px; color: rgb(24,191,239)" title="isaaclab：2 篇">isaaclab</a>
+                                
+                                    
+                                    <a href="/tags/kdl/" style="font-size: 11.00px; color: rgb(24,191,239)" title="kdl：2 篇">kdl</a>
+                                
+                                    
+                                    <a href="/tags/latex/" style="font-size: 11.00px; color: rgb(24,191,239)" title="latex：2 篇">latex</a>
+                                
+                                    
+                                    <a href="/tags/learning-notes/" style="font-size: 11.00px; color: rgb(24,191,239)" title="learning-notes：2 篇">learning-notes</a>
+                                
+                                    
+                                    <a href="/tags/motor/" style="font-size: 11.00px; color: rgb(24,191,239)" title="motor：2 篇">motor</a>
+                                
+                                    
+                                    <a href="/tags/simulation/" style="font-size: 11.00px; color: rgb(24,191,239)" title="simulation：2 篇">simulation</a>
+                                
+                                    
+                                    <a href="/tags/thread/" style="font-size: 11.00px; color: rgb(24,191,239)" title="thread：2 篇">thread</a>
+                                
+                                    
+                                    <a href="/tags/ubuntu/" style="font-size: 11.00px; color: rgb(24,191,239)" title="ubuntu：2 篇">ubuntu</a>
+                                
+                                    
+                                    <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 11.00px; color: rgb(24,191,239)" title="配置类：2 篇">配置类</a>
+                                
+                            </div>
+                        </div>
+                    </aside>
+                    <script>
+                        (function () {
+                            function startPostTagSphere() {
+                                var sphere = document.getElementById('postTagSphere');
+                                if (!sphere || sphere.dataset.ready === 'true') {
+                                    return;
+                                }
+
+                                var links = Array.from(sphere.querySelectorAll('a'));
+                                if (!links.length) {
+                                    return;
+                                }
+
+                                sphere.dataset.ready = 'true';
+                                sphere.classList.add('is-ready');
+                                var floatingCard = sphere.closest('.post-floating-tags-card');
+                                if (floatingCard) {
+                                    floatingCard.classList.add('is-sphere-ready');
+                                }
+
+                                var radius = Math.min(sphere.clientWidth || 200, sphere.clientHeight || 200) * 0.38;
+                                var angleX = 0;
+                                var angleY = 0;
+                                var speedX = 0.0017;
+                                var speedY = 0.0025;
+                                var paused = false;
+
+                                links.forEach(function (link, index) {
+                                    var k = -1 + (2 * (index + 0.5)) / links.length;
+                                    var phi = Math.acos(k);
+                                    var theta = Math.sqrt(links.length * Math.PI) * phi;
+                                    link.dataset.x = radius * Math.cos(theta) * Math.sin(phi);
+                                    link.dataset.y = radius * Math.sin(theta) * Math.sin(phi);
+                                    link.dataset.z = radius * Math.cos(phi);
+                                    link.classList.add('post-tag-sphere-item');
+                                });
+
+                                sphere.addEventListener('mouseenter', function () { paused = true; });
+                                sphere.addEventListener('mouseleave', function () { paused = false; });
+
+                                function render() {
+                                    if (!paused) {
+                                        angleX += speedX;
+                                        angleY += speedY;
+                                    }
+
+                                    var sinX = Math.sin(angleX);
+                                    var cosX = Math.cos(angleX);
+                                    var sinY = Math.sin(angleY);
+                                    var cosY = Math.cos(angleY);
+
+                                    links.forEach(function (link) {
+                                        var x = parseFloat(link.dataset.x);
+                                        var y = parseFloat(link.dataset.y);
+                                        var z = parseFloat(link.dataset.z);
+                                        var y1 = y * cosX - z * sinX;
+                                        var z1 = z * cosX + y * sinX;
+                                        var x2 = x * cosY - z1 * sinY;
+                                        var z2 = z1 * cosY + x * sinY;
+                                        var scale = 0.68 + ((z2 + radius) / (2 * radius)) * 0.55;
+                                        var opacity = 0.38 + ((z2 + radius) / (2 * radius)) * 0.62;
+
+                                        link.style.transform = 'translate3d(' + x2 + 'px,' + y1 + 'px,0) translate(-50%, -50%) scale(' + scale + ')';
+                                        link.style.opacity = opacity.toFixed(3);
+                                        link.style.zIndex = Math.round(1000 + z2);
+                                    });
+
+                                    window.requestAnimationFrame(render);
+                                }
+
+                                render();
+                            }
+
+                            if (document.readyState === 'loading') {
+                                document.addEventListener('DOMContentLoaded', startPostTagSphere);
+                            } else {
+                                startPostTagSphere();
+                            }
+                            window.addEventListener('load', startPostTagSphere);
+                            window.setTimeout(startPostTagSphere, 300);
+                        })();
+                    </script>
+                
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2">写在前面</a></li>
+<li><a href="#%E5%85%88%E8%AE%B0%E4%BD%8F%E4%B8%80%E5%BC%A0%E6%80%BB%E8%A1%A8">先记住一张总表</a></li>
+<li><a href="#1-%E7%A8%80%E7%BC%BA%E6%80%A7%E9%92%B1%E6%97%B6%E9%97%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E9%83%BD%E6%9C%89%E9%99%90">1. 稀缺性：钱、时间、注意力都有限</a></li>
+<li><a href="#2-%E6%9C%BA%E4%BC%9A%E6%88%90%E6%9C%AC%E4%B9%B0%E4%BA%86-a%E5%B0%B1%E6%94%BE%E5%BC%83%E4%BA%86-b">2. 机会成本：买了 A，就放弃了 B</a></li>
+<li><a href="#3-%E8%BE%B9%E9%99%85%E6%80%9D%E7%BB%B4%E7%9C%8B%E5%A4%9A%E4%B8%80%E5%8D%95%E4%BD%8D%E7%9A%84%E6%94%B6%E7%9B%8A%E5%92%8C%E6%88%90%E6%9C%AC">3. 边际思维：看“多一单位”的收益和成本</a></li>
+<li><a href="#4-%E5%A4%8D%E5%88%A9%E6%97%B6%E9%97%B4%E6%98%AF%E7%90%86%E8%B4%A2%E9%87%8C%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E5%8F%98%E9%87%8F%E4%B9%8B%E4%B8%80">4. 复利：时间是理财里最重要的变量之一</a></li>
+<li><a href="#5-%E9%80%9A%E8%B4%A7%E8%86%A8%E8%83%80%E7%8E%B0%E9%87%91%E4%B8%8D%E6%98%AF%E5%AE%8C%E5%85%A8%E5%AE%89%E5%85%A8%E7%9A%84">5. 通货膨胀：现金不是完全安全的</a></li>
+<li><a href="#6-%E9%A3%8E%E9%99%A9%E4%B8%8E%E6%94%B6%E7%9B%8A%E9%AB%98%E6%94%B6%E7%9B%8A%E9%80%9A%E5%B8%B8%E4%B8%8D%E4%BC%9A%E5%85%8D%E8%B4%B9%E5%87%BA%E7%8E%B0">6. 风险与收益：高收益通常不会免费出现</a></li>
+<li><a href="#7-%E5%88%86%E6%95%A3%E5%8C%96%E4%B8%8D%E8%A6%81%E8%AE%A9%E5%8D%95%E4%B8%80%E9%A3%8E%E9%99%A9%E5%86%B3%E5%AE%9A%E4%BD%A0%E7%9A%84%E5%91%BD%E8%BF%90">7. 分散化：不要让单一风险决定你的命运</a></li>
+<li><a href="#8-%E6%B5%81%E5%8A%A8%E6%80%A7%E8%83%BD%E4%B8%8D%E8%83%BD%E5%8F%8A%E6%97%B6%E5%8F%98%E6%88%90%E7%8E%B0%E9%87%91%E4%B9%9F%E5%BE%88%E9%87%8D%E8%A6%81">8. 流动性：能不能及时变成现金也很重要</a></li>
+<li><a href="#9-%E8%B5%84%E4%BA%A7%E4%B8%8E%E8%B4%9F%E5%80%BA%E7%9C%9F%E6%AD%A3%E9%87%8D%E8%A6%81%E7%9A%84%E6%98%AF%E7%8E%B0%E9%87%91%E6%B5%81">9. 资产与负债：真正重要的是现金流</a></li>
+<li><a href="#10-%E6%9D%A0%E6%9D%86%E6%94%BE%E5%A4%A7%E6%94%B6%E7%9B%8A%E4%B9%9F%E6%94%BE%E5%A4%A7%E9%A3%8E%E9%99%A9">10. 杠杆：放大收益，也放大风险</a></li>
+<li><a href="#11-%E5%91%A8%E6%9C%9F%E5%A5%BD%E6%97%B6%E5%80%99%E4%B8%8D%E8%A6%81%E5%A4%AA%E4%B9%90%E8%A7%82%E5%9D%8F%E6%97%B6%E5%80%99%E4%B8%8D%E8%A6%81%E5%A4%AA%E6%82%B2%E8%A7%82">11. 周期：好时候不要太乐观，坏时候不要太悲观</a></li>
+<li><a href="#12-%E4%BF%A1%E6%81%AF%E4%B8%8D%E5%AF%B9%E7%A7%B0%E4%BD%A0%E7%9C%8B%E5%88%B0%E7%9A%84%E6%94%B6%E7%9B%8A%E5%88%AB%E4%BA%BA%E5%8F%AF%E8%83%BD%E5%B7%B2%E7%BB%8F%E7%AE%97%E8%BF%87%E9%A3%8E%E9%99%A9">12. 信息不对称：你看到的收益，别人可能已经算过风险</a></li>
+<li><a href="#13-%E8%A1%8C%E4%B8%BA%E7%BB%8F%E6%B5%8E%E5%AD%A6%E7%90%86%E8%B4%A2%E6%9C%80%E5%A4%A7%E7%9A%84%E6%95%8C%E4%BA%BA%E5%B8%B8%E5%B8%B8%E6%98%AF%E8%87%AA%E5%B7%B1">13. 行为经济学：理财最大的敌人常常是自己</a></li>
+<li><a href="#14-%E4%B8%80%E4%B8%AA%E5%AE%9E%E7%94%A8%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%B4%A2%E6%A1%86%E6%9E%B6">14. 一个实用的个人理财框架</a></li>
+<li><a href="#15-%E6%88%91%E5%BA%94%E8%AF%A5%E5%85%88%E5%AD%A6%E4%BB%80%E4%B9%88">15. 我应该先学什么</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+<!-- vim-markdown-toc -->
+<h1>写在前面</h1>
+<p>这篇不是投资建议，也不推荐具体股票、基金或产品。它更像一份基础地图：</p>
+<blockquote>
+<p>学几个最核心的经济学概念，让自己在赚钱、花钱、存钱、投资时少踩坑。</p>
+</blockquote>
+<p>对个人理财来说，很多高深理论不一定马上用得上。真正高频、有用的反而是这些基础概念：</p>
+<ul>
+<li>机会成本</li>
+<li>复利</li>
+<li>通胀</li>
+<li>风险收益</li>
+<li>资产配置</li>
+<li>流动性</li>
+<li>杠杆</li>
+<li>周期</li>
+<li>行为偏差</li>
+</ul>
+<p>如果能把这些概念想清楚，理财决策会稳很多。</p>
+<h1>先记住一张总表</h1>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>核心问题</th>
+<th>理财里的作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>稀缺性</td>
+<td>资源有限，必须取舍</td>
+<td>钱不能同时满足所有目标</td>
+</tr>
+<tr>
+<td>机会成本</td>
+<td>选 A 放弃了什么</td>
+<td>买房、消费、投资都要比较替代方案</td>
+</tr>
+<tr>
+<td>边际思维</td>
+<td>多一单位值不值</td>
+<td>判断继续投入是否划算</td>
+</tr>
+<tr>
+<td>复利</td>
+<td>收益再产生收益</td>
+<td>越早开始越有优势</td>
+</tr>
+<tr>
+<td>通胀</td>
+<td>钱的购买力下降</td>
+<td>现金长期会被稀释</td>
+</tr>
+<tr>
+<td>风险收益</td>
+<td>收益来自承担风险</td>
+<td>高收益要问风险在哪里</td>
+</tr>
+<tr>
+<td>分散化</td>
+<td>不押单一结果</td>
+<td>降低单点失败风险</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td>能否快速变现</td>
+<td>应急资金不能全拿去长期投资</td>
+</tr>
+<tr>
+<td>杠杆</td>
+<td>借钱放大结果</td>
+<td>既放大收益，也放大亏损</td>
+</tr>
+<tr>
+<td>周期</td>
+<td>经济会波动</td>
+<td>不要用短期情绪做长期决策</td>
+</tr>
+<tr>
+<td>行为偏差</td>
+<td>人会非理性</td>
+<td>防止追涨杀跌、过度自信</td>
+</tr>
+</tbody>
+</table>
+<h1>1. 稀缺性：钱、时间、注意力都有限</h1>
+<p>经济学最基础的出发点是：<strong>资源是稀缺的</strong>。</p>
+<p>对个人来说，稀缺的不只是钱，还有：</p>
+<ol>
+<li>时间。</li>
+<li>精力。</li>
+<li>注意力。</li>
+<li>风险承受能力。</li>
+<li>未来收入的不确定性。</li>
+</ol>
+<p>所以理财的本质不是“我要赚最多的钱”，而是：</p>
+<blockquote>
+<p>在有限资源下，安排现在和未来的生活。</p>
+</blockquote>
+<p>比如同样一笔钱，可以用于：</p>
+<ul>
+<li>消费。</li>
+<li>学习。</li>
+<li>应急储备。</li>
+<li>买房首付。</li>
+<li>投资。</li>
+<li>还债。</li>
+</ul>
+<p>每个选择都有代价。理财的第一步，就是承认不可能什么都要。</p>
+<h1>2. 机会成本：买了 A，就放弃了 B</h1>
+<p>机会成本是最重要的经济学概念之一。</p>
+<p>它的意思是：</p>
+<blockquote>
+<p>你做出一个选择时，放弃的最佳替代方案就是机会成本。</p>
+</blockquote>
+<p>比如花 1 万元买一个新设备，表面成本是 1 万元。但机会成本可能是：</p>
+<ol>
+<li>这 1 万元本来可以作为应急资金。</li>
+<li>本来可以用于学习提升收入。</li>
+<li>本来可以投资。</li>
+<li>本来可以减少负债。</li>
+</ol>
+<p>所以理财时不要只问：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">这个东西我买不买得起？</span><br></pre></td></tr></table></figure>
+<p>更应该问：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">如果我把钱用在这里，我放弃了什么？</span><br></pre></td></tr></table></figure>
+<p>机会成本特别适合用于判断大额消费：</p>
+<ul>
+<li>买车。</li>
+<li>买房。</li>
+<li>装修。</li>
+<li>换设备。</li>
+<li>报课程。</li>
+<li>投资某个项目。</li>
+</ul>
+<p>它能让你从“价格思维”转向“取舍思维”。</p>
+<h1>3. 边际思维：看“多一单位”的收益和成本</h1>
+<p>边际思维关心的是：</p>
+<blockquote>
+<p>再多投入一点，额外带来的收益是否值得？</p>
+</blockquote>
+<p>比如健身、学习、投资、消费都可以用边际思维看。</p>
+<p>例子：</p>
+<ul>
+<li>第一个显示器可能大幅提高效率。</li>
+<li>第二个显示器还有帮助。</li>
+<li>第三个显示器的提升可能就很小。</li>
+</ul>
+<p>这就是边际收益递减。</p>
+<p>理财中的应用：</p>
+<ol>
+<li>继续加班赚钱，是否损害健康和长期学习？</li>
+<li>继续追求更高收益，是否承担了过高风险？</li>
+<li>多买一点保险，是否真的覆盖关键风险，还是重复购买？</li>
+<li>再省一点钱，是否明显降低生活质量？</li>
+</ol>
+<p>很多决策不是“好或坏”，而是：</p>
+<blockquote>
+<p>到这个程度以后，还值不值？</p>
+</blockquote>
+<h1>4. 复利：时间是理财里最重要的变量之一</h1>
+<p>复利的核心是：<strong>收益也会继续产生收益</strong>。</p>
+<p>如果本金是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span></span></span></span>，年化收益率是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span></span></span></span>，投资 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 年，最终金额大概是：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mi>V</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">FV=P(1+r)^n
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>其中：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span></span></span></span> 是本金。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span></span></span></span> 是收益率。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 是时间。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">FV</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span></span></span></span> 是未来价值。</li>
+</ul>
+<p>例如 10 万元，年化 5%，30 年后：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>100000</mn><mo>×</mo><mo stretchy="false">(</mo><mn>1.05</mn><msup><mo stretchy="false">)</mo><mn>30</mn></msup><mo>≈</mo><mn>432000</mn></mrow><annotation encoding="application/x-tex">100000\times(1.05)^{30}\approx432000
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">100000</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1.05</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">432000</span></span></span></span></span></p>
+<p>复利给个人理财的启发：</p>
+<ol>
+<li>越早开始，时间越有利。</li>
+<li>稳定收益长期累积会很可观。</li>
+<li>亏损也会复利，所以长期高波动不一定舒服。</li>
+<li>频繁中断，会破坏复利过程。</li>
+</ol>
+<p>但是要注意：复利不是魔法。它需要几个前提：</p>
+<ul>
+<li>有本金。</li>
+<li>有正收益。</li>
+<li>时间足够长。</li>
+<li>中途不被大亏损打断。</li>
+</ul>
+<p>所以复利的关键不是幻想暴富，而是建立长期、稳定、可持续的系统。</p>
+<h1>5. 通货膨胀：现金不是完全安全的</h1>
+<p>通货膨胀可以简单理解为：</p>
+<blockquote>
+<p>同样的钱，未来能买到的东西变少了。</p>
+</blockquote>
+<p>如果通胀率是 3%，那么 100 元一年后的购买力大概相当于今天的：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mn>100</mn><mn>1.03</mn></mfrac><mo>≈</mo><mn>97.1</mn></mrow><annotation encoding="application/x-tex">\frac{100}{1.03}\approx97.1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1.03</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">100</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">97.1</span></span></span></span></span></p>
+<p>现金的优点是：</p>
+<ol>
+<li>稳定。</li>
+<li>流动性强。</li>
+<li>能应急。</li>
+</ol>
+<p>现金的问题是：</p>
+<ol>
+<li>长期购买力可能下降。</li>
+<li>如果利率低于通胀，实际收益为负。</li>
+</ol>
+<p>所以现金不是没用，而是要分清用途：</p>
+<ul>
+<li>短期生活费：应该有现金或高流动资产。</li>
+<li>应急资金：应该安全、流动。</li>
+<li>长期财富增长：完全放现金可能不够。</li>
+</ul>
+<p>一个重要概念是实际收益率：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>实际收益率</mtext><mo>≈</mo><mtext>名义收益率</mtext><mo>−</mo><mtext>通胀率</mtext></mrow><annotation encoding="application/x-tex">实际收益率 \approx 名义收益率 - 通胀率
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord cjk_fallback">实际收益率</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord cjk_fallback">名义收益率</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord cjk_fallback">通胀率</span></span></span></span></span></p>
+<p>比如理财产品名义收益 2%，通胀 3%，实际购买力可能还是下降。</p>
+<h1>6. 风险与收益：高收益通常不会免费出现</h1>
+<p>金融市场里有一句很重要的话：</p>
+<blockquote>
+<p>没有免费的高收益。</p>
+</blockquote>
+<p>如果一个产品承诺高收益，就要问：</p>
+<ol>
+<li>风险在哪里？</li>
+<li>谁承担亏损？</li>
+<li>收益来自哪里？</li>
+<li>能否提前退出？</li>
+<li>最坏情况是什么？</li>
+</ol>
+<p>风险不只是“会不会亏钱”，还包括：</p>
+<ul>
+<li>价格波动风险。</li>
+<li>流动性风险。</li>
+<li>信用风险。</li>
+<li>汇率风险。</li>
+<li>利率风险。</li>
+<li>政策风险。</li>
+<li>平台或产品结构风险。</li>
+</ul>
+<p>理财时不要只看收益率，要看风险调整后的收益。</p>
+<p>粗略说：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">好投资 ≠ 收益最高</span><br><span class="line">好投资 = 在自己能承受的风险下，长期期望收益合理</span><br></pre></td></tr></table></figure>
+<h1>7. 分散化：不要让单一风险决定你的命运</h1>
+<p>分散化的核心是：</p>
+<blockquote>
+<p>不要把未来押在单一资产、单一行业、单一公司、单一国家或单一收入来源上。</p>
+</blockquote>
+<p>如果所有钱都押在一个资产上，结果会高度依赖单一判断。</p>
+<p>分散化可以降低非系统性风险。</p>
+<p>比如：</p>
+<ul>
+<li>单只股票风险很高。</li>
+<li>一篮子股票可以分散公司风险。</li>
+<li>不同资产类别可以分散市场环境风险。</li>
+</ul>
+<p>常见资产类别包括：</p>
+<ol>
+<li>现金 / 货币基金。</li>
+<li>债券。</li>
+<li>股票 / 指数基金。</li>
+<li>房产。</li>
+<li>黄金等商品。</li>
+<li>自己的人力资本，例如技能和收入能力。</li>
+</ol>
+<p>分散化不是随便买很多东西，而是让资产之间不要高度同涨同跌。</p>
+<h1>8. 流动性：能不能及时变成现金也很重要</h1>
+<p>流动性指的是：</p>
+<blockquote>
+<p>一个资产能不能快速、低成本地变成现金。</p>
+</blockquote>
+<p>现金流动性最好，房产流动性通常较差。</p>
+<p>理财里经常出问题的地方是：</p>
+<ul>
+<li>账面资产很多。</li>
+<li>但短期现金不够。</li>
+<li>一遇到失业、疾病、家庭支出，就被迫卖资产。</li>
+</ul>
+<p>所以应急资金很重要。</p>
+<p>一个常见思路是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">先准备 3-6 个月生活费作为应急资金，</span><br><span class="line">再考虑长期投资。</span><br></pre></td></tr></table></figure>
+<p>具体多少取决于：</p>
+<ul>
+<li>工作稳定性。</li>
+<li>家庭负担。</li>
+<li>是否有房贷车贷。</li>
+<li>是否有老人小孩。</li>
+<li>医疗保障情况。</li>
+</ul>
+<p>流动性不是收益最高的部分，但它能防止你在最糟糕的时点被迫卖出长期资产。</p>
+<h1>9. 资产与负债：真正重要的是现金流</h1>
+<p>很多人把“拥有的东西”都叫资产，但从理财角度要更严格一点。</p>
+<p>可以粗略理解：</p>
+<ul>
+<li>资产：能带来未来现金流，或有较高保值增值可能。</li>
+<li>负债：需要持续消耗现金流。</li>
+</ul>
+<p>比如一套自住房，它有居住价值，也可能升值，但它不一定产生现金流；如果还有房贷，它还会消耗现金流。</p>
+<p>真正重要的是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">每月收入 - 每月固定支出 = 可自由分配现金流</span><br></pre></td></tr></table></figure>
+<p>如果固定支出太高，人会变得非常脆弱。</p>
+<p>所以理财不只是看资产规模，还要看：</p>
+<ol>
+<li>每月现金流是否健康。</li>
+<li>债务利率是否过高。</li>
+<li>固定支出占收入比例是否过高。</li>
+<li>收入中断时能撑多久。</li>
+</ol>
+<h1>10. 杠杆：放大收益，也放大风险</h1>
+<p>杠杆就是借钱投资或消费。</p>
+<p>比如你有 20 万本金，借 80 万，买 100 万资产。资产上涨 10%，变成 110 万。扣掉 80 万债务，你的权益从 20 万变成 30 万，收益率是 50%。</p>
+<p>但反过来，如果资产下跌 10%，变成 90 万。扣掉 80 万债务，你的权益从 20 万变成 10 万，亏损率是 50%。</p>
+<p>所以杠杆的本质是：</p>
+<blockquote>
+<p>它不会提高你判断正确的概率，只会放大判断结果。</p>
+</blockquote>
+<p>杠杆适合非常谨慎地使用，尤其要注意：</p>
+<ol>
+<li>利率是否固定。</li>
+<li>现金流能否覆盖还款。</li>
+<li>资产价格下跌时会不会被迫卖出。</li>
+<li>收入下降时还能不能承受。</li>
+<li>有没有极端情况预案。</li>
+</ol>
+<p>对普通人来说，最大的杠杆往往是房贷。房贷不是绝对好或坏，关键在于收入稳定性、负债比例、利率和家庭现金流。</p>
+<h1>11. 周期：好时候不要太乐观，坏时候不要太悲观</h1>
+<p>经济和市场都有周期。</p>
+<p>常见周期包括：</p>
+<ul>
+<li>经济增长周期。</li>
+<li>利率周期。</li>
+<li>房地产周期。</li>
+<li>股市估值周期。</li>
+<li>行业景气周期。</li>
+</ul>
+<p>周期会影响资产价格，也会影响就业、收入和信心。</p>
+<p>理财上的启发：</p>
+<ol>
+<li>在市场很热时，不要以为高收益会永远持续。</li>
+<li>在市场很差时，也不要以为坏情况会永远持续。</li>
+<li>不要用短期行情判断长期价值。</li>
+<li>不要在情绪极端时做重大决策。</li>
+</ol>
+<p>周期思维能帮你避免两个极端：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">上涨时过度乐观，下跌时过度悲观。</span><br></pre></td></tr></table></figure>
+<h1>12. 信息不对称：你看到的收益，别人可能已经算过风险</h1>
+<p>信息不对称是指交易双方掌握的信息不一样。</p>
+<p>在理财里，如果某个产品或项目只强调收益，不解释风险，就要警惕。</p>
+<p>你需要问：</p>
+<ol>
+<li>对方为什么把这个机会给我？</li>
+<li>对方赚什么钱？</li>
+<li>如果真的低风险高收益，为什么不是大资金先买完？</li>
+<li>有没有我看不到的限制条件？</li>
+<li>有没有退出成本？</li>
+</ol>
+<p>很多坑不是因为数学复杂，而是因为信息披露不充分。</p>
+<p>所以理财里一个朴素但很有用的原则是：</p>
+<blockquote>
+<p>看不懂的钱，不赚。</p>
+</blockquote>
+<h1>13. 行为经济学：理财最大的敌人常常是自己</h1>
+<p>人不是完全理性的。</p>
+<p>常见行为偏差包括：</p>
+<h2 id="损失厌恶">损失厌恶</h2>
+<p>亏 100 元带来的痛苦，通常大于赚 100 元带来的快乐。</p>
+<p>这会导致：</p>
+<ul>
+<li>赚钱时太早卖。</li>
+<li>亏损时死扛。</li>
+</ul>
+<h2 id="过度自信">过度自信</h2>
+<p>人容易高估自己的判断力。</p>
+<p>这会导致：</p>
+<ul>
+<li>频繁交易。</li>
+<li>重仓单一资产。</li>
+<li>低估最坏情况。</li>
+</ul>
+<h2 id="从众心理">从众心理</h2>
+<p>看到别人赚钱，就想追进去。</p>
+<p>这会导致：</p>
+<ul>
+<li>高位追涨。</li>
+<li>低位恐慌卖出。</li>
+</ul>
+<h2 id="近因偏差">近因偏差</h2>
+<p>最近发生的事情会被过度重视。</p>
+<p>比如最近市场一直涨，就觉得以后还会涨；最近一直跌，就觉得永远没希望。</p>
+<p>理财中，控制行为比预测市场更重要。</p>
+<h1>14. 一个实用的个人理财框架</h1>
+<p>可以按这个顺序整理自己的财务：</p>
+<h2 id="第一步：现金流体检">第一步：现金流体检</h2>
+<p>记录每月：</p>
+<ol>
+<li>税后收入。</li>
+<li>固定支出。</li>
+<li>弹性消费。</li>
+<li>债务还款。</li>
+<li>可储蓄金额。</li>
+</ol>
+<p>先知道钱去哪了。</p>
+<h2 id="第二步：建立应急资金">第二步：建立应急资金</h2>
+<p>一般可以先准备 3-6 个月生活费。</p>
+<p>这笔钱的目标不是高收益，而是安全和流动。</p>
+<h2 id="第三步：处理高息负债">第三步：处理高息负债</h2>
+<p>如果有高息负债，优先级通常很高。</p>
+<p>因为还掉高息负债，相当于获得一个确定收益。</p>
+<h2 id="第四步：配置保障">第四步：配置保障</h2>
+<p>保险的本质不是投资，而是风险转移。</p>
+<p>优先考虑能防止家庭财务崩溃的风险，例如重大疾病、意外、家庭主要收入来源中断等。</p>
+<h2 id="第五步：长期投资">第五步：长期投资</h2>
+<p>长期投资前先问：</p>
+<ol>
+<li>这笔钱多久不用？</li>
+<li>最多能承受多大回撤？</li>
+<li>是否理解投资对象？</li>
+<li>是否能坚持长期计划？</li>
+<li>是否已经分散风险？</li>
+</ol>
+<h2 id="第六步：定期复盘">第六步：定期复盘</h2>
+<p>每隔一段时间检查：</p>
+<ol>
+<li>收入是否变化。</li>
+<li>支出是否失控。</li>
+<li>应急资金是否足够。</li>
+<li>资产配置是否偏离太多。</li>
+<li>风险承受能力是否变化。</li>
+</ol>
+<h1>15. 我应该先学什么</h1>
+<p>如果只是为了个人理财，不建议一开始就钻太复杂的金融工程。更建议先按这个顺序学：</p>
+<ol>
+<li>基础经济学：机会成本、边际、供需、通胀。</li>
+<li>个人财务：现金流、资产负债表、应急资金。</li>
+<li>金融基础：利率、债券、股票、基金、指数。</li>
+<li>风险管理：分散化、流动性、杠杆、回撤。</li>
+<li>行为经济学：损失厌恶、过度自信、从众心理。</li>
+<li>税务和法律常识：不同地区规则不同，需要按实际情况了解。</li>
+</ol>
+<p>最重要的不是一下子学很多，而是建立几个稳定的判断习惯：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">我放弃了什么？</span><br><span class="line">最坏情况是什么？</span><br><span class="line">这个收益来自哪里？</span><br><span class="line">我能不能长期承受？</span><br><span class="line">如果明天失业，我还能撑多久？</span><br></pre></td></tr></table></figure>
+<h1>总结</h1>
+<p>经济学对个人理财最有用的地方，不是让人预测市场，而是让人更清楚地做取舍。</p>
+<p>最核心的几句话：</p>
+<ol>
+<li>钱是稀缺资源，理财本质是取舍。</li>
+<li>每个选择都有机会成本。</li>
+<li>复利需要时间和稳定性。</li>
+<li>通胀会侵蚀现金购买力。</li>
+<li>高收益通常对应高风险或隐藏约束。</li>
+<li>分散化能降低单点失败风险。</li>
+<li>流动性能让你在坏时候不被迫卖出。</li>
+<li>杠杆会放大结果，不会提高胜率。</li>
+<li>周期会反复出现，不要被短期情绪控制。</li>
+<li>理财最大的敌人常常不是市场，而是自己的行为偏差。</li>
+</ol>
+<p>如果只记一句话，我会记：</p>
+<blockquote>
+<p>理财不是追求每次都赚最多，而是在长期里让自己活得更稳、更自由、更有选择权。</p>
+</blockquote>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        if (img.closest('.post-image-frame')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+</div>
+
+   <div class="tag-cloud-tags">
+    <a href="/tags/algorithms/" style="font-size: 12.31px; color: #dd9794">algorithms</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/cnn/" style="font-size: 10px; color: #f38181">cnn</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 13.08px; color: #d69f9a">control</a> <a href="/tags/cpp/" style="font-size: 16.92px; color: #b2c3ba">cpp</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/data-struct/" style="font-size: 10px; color: #f38181">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/dots/" style="font-size: 15.38px; color: #c0b5ad">dots</a> <a href="/tags/economics/" style="font-size: 10px; color: #f38181">economics</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/finance/" style="font-size: 10px; color: #f38181">finance</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fov/" style="font-size: 10px; color: #f38181">fov</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.54px; color: #e5908e">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 11.54px; color: #e5908e">isaac gym</a> <a href="/tags/isaaclab/" style="font-size: 10.77px; color: #ec8887">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.77px; color: #ec8887">kdl</a> <a href="/tags/latex/" style="font-size: 10.77px; color: #ec8887">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/learning-notes/" style="font-size: 10.77px; color: #ec8887">learning-notes</a> <a href="/tags/legged-locomotion/" style="font-size: 11.54px; color: #e5908e">legged locomotion</a> <a href="/tags/life/" style="font-size: 16.15px; color: #b9bcb3">life</a> <a href="/tags/linux/" style="font-size: 19.23px; color: #9cdacd">linux</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 13.08px; color: #d69f9a">math</a> <a href="/tags/matlab/" style="font-size: 11.54px; color: #e5908e">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 14.62px; color: #c8ada7">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/money/" style="font-size: 10px; color: #f38181">money</a> <a href="/tags/motor/" style="font-size: 10.77px; color: #ec8887">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/network/" style="font-size: 10px; color: #f38181">network</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/personal-finance/" style="font-size: 10px; color: #f38181">personal-finance</a> <a href="/tags/ppo/" style="font-size: 13.08px; color: #d69f9a">ppo</a> <a href="/tags/python/" style="font-size: 14.62px; color: #c8ada7">python</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/rnn/" style="font-size: 10px; color: #f38181">rnn</a> <a href="/tags/robot/" style="font-size: 12.31px; color: #dd9794">robot</a> <a href="/tags/robotics/" style="font-size: 13.08px; color: #d69f9a">robotics</a> <a href="/tags/ros/" style="font-size: 17.69px; color: #abcbc0">ros</a> <a href="/tags/ros2/" style="font-size: 12.31px; color: #dd9794">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/security/" style="font-size: 10px; color: #f38181">security</a> <a href="/tags/shell/" style="font-size: 10px; color: #f38181">shell</a> <a href="/tags/simulation/" style="font-size: 10.77px; color: #ec8887">simulation</a> <a href="/tags/stl/" style="font-size: 10px; color: #f38181">stl</a> <a href="/tags/thread/" style="font-size: 10.77px; color: #ec8887">thread</a> <a href="/tags/tools/" style="font-size: 18.46px; color: #a3d2c6">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 10.77px; color: #ec8887">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/vae/" style="font-size: 10px; color: #f38181">vae</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 13.85px; color: #cfa6a1">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/wifi/" style="font-size: 10px; color: #f38181">wifi</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 11.54px; color: #e5908e">四足机器人</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 13.85px; color: #cfa6a1">强化学习</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%A7%86%E8%A7%89/" style="font-size: 10px; color: #f38181">机器人视觉</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 10px; color: #f38181">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA/" style="font-size: 10px; color: #f38181">深度相机</a> <a href="/tags/%E7%82%B9%E4%BA%91/" style="font-size: 10px; color: #f38181">点云</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px; color: #f38181">神经网络</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.77px; color: #ec8887">配置类</a>
+</div>
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" alt="知识共享许可协议">
+
+
+
+        </div>
+    </div>
+</body>
+
+
+</html>
