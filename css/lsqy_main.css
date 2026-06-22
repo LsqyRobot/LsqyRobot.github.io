@@ -6103,3 +6103,39 @@ pre[class*="language-"] {
 	background: rgba(148, 163, 184, 0.45);
 	border-radius: 999px;
 }
+
+/* ========== KaTeX robustness fixes ==========
+   The theme typography/reset CSS is loaded after KaTeX on post pages.
+   Re-assert KaTeX's box/font behavior so formulas render correctly even
+   when external CDN CSS is unavailable or later typography rules touch
+   sub/sup/span defaults. */
+.post-article-content .katex {
+	font: normal 1.21em KaTeX_Main, Times New Roman, serif;
+	line-height: 1.2;
+	text-indent: 0;
+	text-rendering: auto;
+}
+
+.post-article-content .katex * {
+	box-sizing: content-box;
+}
+
+.post-article-content .katex .katex-html {
+	display: inline-block;
+}
+
+.post-article-content .katex .katex-mathml {
+	position: absolute;
+	clip: rect(1px, 1px, 1px, 1px);
+	padding: 0;
+	border: 0;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+.post-article-content .katex-display {
+	display: block;
+	margin: 1em 0;
+	text-align: center;
+}
