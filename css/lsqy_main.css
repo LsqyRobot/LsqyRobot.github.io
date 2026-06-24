@@ -6139,3 +6139,18 @@ pre[class*="language-"] {
 	margin: 1em 0;
 	text-align: center;
 }
+
+/* Display formulas need their own layout rules.  The generic KaTeX
+   robustness rule above keeps inline math stable, but display math should
+   remain centered while allowing horizontal scrolling for long equations. */
+.post-article-content .katex-display > .katex {
+	display: inline-block;
+	max-width: none;
+	text-align: initial;
+	white-space: nowrap;
+}
+
+.post-article-content .katex-display > .katex > .katex-html {
+	display: inline-block;
+	position: relative;
+}
