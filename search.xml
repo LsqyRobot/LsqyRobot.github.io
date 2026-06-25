@@ -202,6 +202,39 @@
     
     
     <entry>
+      <title>四足机器人强化学习系列 03：Observation 里面到底放什么</title>
+      <link href="/2026/06/20/archived_quadruped_rl_03_observation/"/>
+      <url>/2026/06/20/archived_quadruped_rl_03_observation/</url>
+      
+        <content type="html"><![CDATA[<h1>一句话</h1><p>Observation 是 policy 真正能看到的信息。它决定机器人“凭什么做判断”。</p><h1>常见 observation</h1><p>四足 locomotion 里经常包含：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机身角速度</span><br><span class="line">重力方向在机身坐标系下的投影</span><br><span class="line">速度命令</span><br><span class="line">关节角相对默认姿态的偏差</span><br><span class="line">关节速度</span><br><span class="line">上一帧 action</span><br></pre></td></tr></table></figure><p>如果是复杂地形，还可能加入：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">周围地形高度采样</span><br><span class="line">足端接触状态</span><br><span class="line">估计的身体线速度</span><br></pre></td></tr></table></figure><h1>为什么不直接给所有信息</h1><p>因为真机上很多量并不容易准确获得。</p><p>比如：</p><ul><li>真实地面摩擦不知道。</li><li>足端真实接触力可能没有传感器。</li><li>机身速度可能只能估计。</li></ul><p>所以训练时的 obs 要尽量贴近真机可获得信息。</p><h1>projected gravity 为什么常见</h1><p>projected gravity 可以告诉策略：机器人身体现在相对重力方向是歪的还是正的。</p><p>它比直接给 roll/pitch 有时更稳定，也常见于 legged locomotion 工程。</p><h1>obs 顺序很重要</h1><p>部署时 obs 顺序必须和训练完全一致。</p><p>如果训练时是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">角速度 → 重力方向 → 命令 → 关节角 → 关节速度</span><br></pre></td></tr></table></figure><p>部署时写成：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">命令 → 角速度 → 关节角 → 重力方向</span><br></pre></td></tr></table></figure><p>策略会直接乱掉。这是真机部署里非常致命的错误。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ppo </tag>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> legged locomotion </tag>
+            
+            <tag> isaac gym </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>四足机器人强化学习系列 02：用四足机器人理解 MDP</title>
       <link href="/2026/06/20/archived_quadruped_rl_02_mdp/"/>
       <url>/2026/06/20/archived_quadruped_rl_02_mdp/</url>
