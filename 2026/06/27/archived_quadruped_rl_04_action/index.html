@@ -225,10 +225,10 @@
 
 
         <div id="main" >
-            <div class ="post_page_title_img" style="--post-cover-image: url(/img/postImg/6_Git/logo/git_branch_compare_used.jpg);" >
+            <div class ="post_page_title_img" style="--post-cover-image: url(/img/postImg/49_quadruped_rl/quadruped_rl_series_map.svg);" >
                 <div class="post_page_title_blur"></div>
                 <div class="post_page_title_main"></div>
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Git功能分支代码差异比较完全指南</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >四足机器人强化学习系列 04：Action 为什么常用关节位置目标</h2></a>
             </div>
 
             <div class="post-content-shell">
@@ -431,156 +431,28 @@
                 
 
                 <div class="typo post-article-content" style="padding: 3rem;">
-                    <!-- vim-markdown-toc GFM -->
-<ul>
-<li><a href="#git%E5%8A%9F%E8%83%BD%E5%88%86%E6%94%AF%E4%BB%A3%E7%A0%81%E5%B7%AE%E5%BC%82%E6%AF%94%E8%BE%83%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97">Git功能分支代码差异比较完全指南</a>
-<ul>
-<li><a href="#%E6%A0%B8%E5%BF%83%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5">核心命令速查</a>
-<ul>
-<li><a href="#1-%E7%9B%B4%E6%8E%A5%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E5%88%86%E6%94%AF">1. 直接比较两个分支</a></li>
-<li><a href="#2-%E6%AF%94%E8%BE%83%E5%88%86%E6%94%AF%E4%B8%8E%E5%85%B1%E5%90%8C%E7%A5%96%E5%85%88">2. 比较分支与共同祖先</a></li>
-<li><a href="#3-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2%E5%B7%AE%E5%BC%82">3. 查看提交历史差异</a></li>
-<li><a href="#4-%E8%AF%A6%E7%BB%86%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90">4. 详细差异分析</a></li>
-<li><a href="#5-%E4%BD%BF%E7%94%A8commit-id%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83">5. 使用Commit ID进行比较</a></li>
-<li><a href="#6-commit-id%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7">6. Commit ID相关的实用技巧</a></li>
-</ul>
-</li>
-<li><a href="#%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF">实际使用场景</a>
-<ul>
-<li><a href="#%E5%9C%BA%E6%99%AF1code-review%E5%89%8D%E7%9A%84%E8%87%AA%E6%A3%80">场景1：Code Review前的自检</a></li>
-<li><a href="#%E5%9C%BA%E6%99%AF2%E6%AF%94%E8%BE%83%E4%B8%8D%E5%90%8C%E5%8A%9F%E8%83%BD%E5%88%86%E6%94%AF%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88">场景2：比较不同功能分支的实现方案</a></li>
-<li><a href="#%E5%9C%BA%E6%99%AF3%E5%90%88%E5%B9%B6%E5%86%B2%E7%AA%81%E9%A2%84%E6%A3%80%E6%9F%A5">场景3：合并冲突预检查</a></li>
-<li><a href="#%E5%9C%BA%E6%99%AF4%E7%89%88%E6%9C%AC%E5%9B%9E%E6%BB%9A%E5%92%8C%E5%8E%86%E5%8F%B2%E5%88%86%E6%9E%90">场景4：版本回滚和历史分析</a></li>
-<li><a href="#%E5%9C%BA%E6%99%AF5cherry-pick%E5%89%8D%E7%9A%84%E9%A2%84%E8%A7%88">场景5：Cherry-pick前的预览</a></li>
-</ul>
-</li>
-<li><a href="#%E8%AF%AD%E6%B3%95%E8%A7%A3%E9%87%8A">语法解释</a>
-<ul>
-<li><a href="#%E4%B8%A4%E7%82%B9-vs-%E4%B8%89%E7%82%B9%E8%AF%AD%E6%B3%95">两点 vs 三点语法</a></li>
-<li><a href="#%E6%8F%90%E4%BA%A4%E8%8C%83%E5%9B%B4%E8%AF%AD%E6%B3%95">提交范围语法</a></li>
-</ul>
-</li>
-<li><a href="#%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7">高级技巧</a>
-<ul>
-<li><a href="#1-%E5%88%9B%E5%BB%BA%E5%B7%AE%E5%BC%82%E8%A1%A5%E4%B8%81">1. 创建差异补丁</a></li>
-<li><a href="#2-%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7">2. 可视化工具</a></li>
-<li><a href="#3-%E5%BF%BD%E7%95%A5%E7%89%B9%E5%AE%9A%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%B7%AE%E5%BC%82">3. 忽略特定类型的差异</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B8%B8%E8%A7%81%E9%99%B7%E9%98%B1%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">常见陷阱与注意事项</a>
-<ul>
-<li><a href="#-%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF">⚠️ 常见错误</a></li>
-<li><a href="#-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">🔧 最佳实践</a></li>
-<li><a href="#-%E5%88%AB%E5%90%8D%E6%8E%A8%E8%8D%90">📝 别名推荐</a></li>
-</ul>
-</li>
-<li><a href="#%E6%80%BB%E7%BB%93">总结</a>
-<ul>
-<li><a href="#%E5%88%86%E6%94%AF%E6%AF%94%E8%BE%83">分支比较</a></li>
-<li><a href="#commit-id%E6%AF%94%E8%BE%83">Commit ID比较</a></li>
-<li><a href="#%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BEcommit-id">快速查找Commit ID</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- vim-markdown-toc -->
-<h1>Git功能分支代码差异比较完全指南</h1>
-<h2 id="核心命令速查">核心命令速查</h2>
-<h3 id="1-直接比较两个分支">1. 直接比较两个分支</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较两个分支的所有差异</span></span><br><span class="line">git diff feature-branch-a feature-branch-b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较特定文件在两个分支中的差异</span></span><br><span class="line">git diff feature-branch-a feature-branch-b -- path/to/file.js</span><br></pre></td></tr></table></figure>
-<h3 id="2-比较分支与共同祖先">2. 比较分支与共同祖先</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看feature-branch相对于master的变化（三点语法）</span></span><br><span class="line">git diff master...feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价于下面的命令组合</span></span><br><span class="line">git diff $(git merge-base master feature-branch) feature-branch</span><br></pre></td></tr></table></figure>
-<h3 id="3-查看提交历史差异">3. 查看提交历史差异</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看在feature-branch中但不在master中的提交</span></span><br><span class="line">git <span class="built_in">log</span> master..feature-branch --oneline</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看两个分支的图形化提交历史</span></span><br><span class="line">git <span class="built_in">log</span> --oneline --graph --decorate master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看分支分歧点</span></span><br><span class="line">git merge-base master feature-branch</span><br></pre></td></tr></table></figure>
-<h3 id="4-详细差异分析">4. 详细差异分析</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 显示文件统计信息</span></span><br><span class="line">git diff --<span class="built_in">stat</span> master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示每个文件的修改行数</span></span><br><span class="line">git diff --numstat master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只显示文件名列表</span></span><br><span class="line">git diff --name-only master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示新增、删除、修改的文件分类</span></span><br><span class="line">git diff --name-status master feature-branch</span><br></pre></td></tr></table></figure>
-<h3 id="5-使用Commit-ID进行比较">5. 使用Commit ID进行比较</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较两个特定的提交</span></span><br><span class="line">git diff abc1234 def5678</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较一个提交与当前状态</span></span><br><span class="line">git diff abc1234 HEAD</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较一个提交与工作目录（未提交的修改）</span></span><br><span class="line">git diff abc1234</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看某个提交的详细信息</span></span><br><span class="line">git show abc1234</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看某个提交引入的变化</span></span><br><span class="line">git show abc1234 --<span class="built_in">stat</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较某个提交与其父提交</span></span><br><span class="line">git diff abc1234^ abc1234</span><br><span class="line"><span class="comment"># 或者使用</span></span><br><span class="line">git show abc1234</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较某个提交与它的前N个提交</span></span><br><span class="line">git diff abc1234~3 abc1234</span><br></pre></td></tr></table></figure>
-<h3 id="6-Commit-ID相关的实用技巧">6. Commit ID相关的实用技巧</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查找包含特定内容的提交</span></span><br><span class="line">git <span class="built_in">log</span> -S <span class="string">&quot;function_name&quot;</span> --oneline</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过提交信息搜索</span></span><br><span class="line">git <span class="built_in">log</span> --grep=<span class="string">&quot;bug fix&quot;</span> --oneline</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取简短的commit hash</span></span><br><span class="line">git rev-parse --short abc1234</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取完整的commit hash</span></span><br><span class="line">git rev-parse abc1234</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看两个提交之间的所有提交</span></span><br><span class="line">git <span class="built_in">log</span> abc1234..def5678 --oneline</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看某个文件在特定提交中的内容</span></span><br><span class="line">git show abc1234:path/to/file.js</span><br></pre></td></tr></table></figure>
-<h2 id="实际使用场景">实际使用场景</h2>
-<h3 id="场景1：Code-Review前的自检">场景1：Code Review前的自检</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 检查当前功能分支相对于主分支的所有变化</span></span><br><span class="line">git diff master...HEAD</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看即将合并的提交列表</span></span><br><span class="line">git <span class="built_in">log</span> master..HEAD --oneline</span><br></pre></td></tr></table></figure>
-<h3 id="场景2：比较不同功能分支的实现方案">场景2：比较不同功能分支的实现方案</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较两个功能分支的实现差异</span></span><br><span class="line">git diff feature/user-auth feature/oauth-integration</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只查看特定目录的差异</span></span><br><span class="line">git diff feature/user-auth feature/oauth-integration -- src/auth/</span><br></pre></td></tr></table></figure>
-<h3 id="场景3：合并冲突预检查">场景3：合并冲突预检查</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看两个分支的差异文件</span></span><br><span class="line">git diff --name-only feature-a feature-b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模拟合并查看潜在冲突</span></span><br><span class="line">git merge-tree $(git merge-base feature-a feature-b) feature-a feature-b</span><br></pre></td></tr></table></figure>
-<h3 id="场景4：版本回滚和历史分析">场景4：版本回滚和历史分析</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较当前版本与上个发布版本</span></span><br><span class="line">git diff v1.2.0 HEAD</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看特定版本引入的Bug</span></span><br><span class="line">git diff abc1234^ abc1234</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分析某个提交到现在的所有变化</span></span><br><span class="line">git diff abc1234 HEAD --<span class="built_in">stat</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看两个版本标签之间的差异</span></span><br><span class="line">git diff v1.1.0 v1.2.0 --name-status</span><br></pre></td></tr></table></figure>
-<h3 id="场景5：Cherry-pick前的预览">场景5：Cherry-pick前的预览</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 预览要cherry-pick的提交会带来什么变化</span></span><br><span class="line">git show abc1234</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较cherry-pick目标提交与当前分支</span></span><br><span class="line">git diff HEAD abc1234</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看提交在原分支上下文中的位置</span></span><br><span class="line">git <span class="built_in">log</span> --oneline --graph abc1234~3..abc1234^</span><br></pre></td></tr></table></figure>
-<h2 id="语法解释">语法解释</h2>
-<h3 id="两点-vs-三点语法">两点 vs 三点语法</h3>
-<ul>
-<li><code>git diff A..B</code> 等价于 <code>git diff A B</code> - 比较两个分支的当前状态</li>
-<li><code>git diff A...B</code> - 比较A和B的共同祖先与B的差异</li>
-</ul>
-<h3 id="提交范围语法">提交范围语法</h3>
-<ul>
-<li><code>master..feature</code> - 在feature中但不在master中的提交</li>
-<li><code>feature..master</code> - 在master中但不在feature中的提交</li>
-<li><code>master...feature</code> - 两个分支的对称差异（mutual exclusive commits）</li>
-</ul>
-<h2 id="高级技巧">高级技巧</h2>
-<h3 id="1-创建差异补丁">1. 创建差异补丁</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 生成补丁文件</span></span><br><span class="line">git diff master feature-branch &gt; feature.patch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用补丁</span></span><br><span class="line">git apply feature.patch</span><br></pre></td></tr></table></figure>
-<h3 id="2-可视化工具">2. 可视化工具</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用配置的diff工具</span></span><br><span class="line">git difftool master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用特定的可视化工具</span></span><br><span class="line">git difftool --tool=vimdiff master feature-branch</span><br></pre></td></tr></table></figure>
-<h3 id="3-忽略特定类型的差异">3. 忽略特定类型的差异</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 忽略空白字符差异</span></span><br><span class="line">git diff -w master feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略行尾差异</span></span><br><span class="line">git diff --ignore-cr-at-eol master feature-branch</span><br></pre></td></tr></table></figure>
-<h2 id="常见陷阱与注意事项">常见陷阱与注意事项</h2>
-<h3 id="⚠️-常见错误">⚠️ 常见错误</h3>
-<ol>
-<li>
-<p><strong>混淆两点和三点语法</strong></p>
-<ul>
-<li>使用错误的语法可能看到不相关的差异</li>
-<li>记住：三点语法用于查看分支特有的变化</li>
-</ul>
-</li>
-<li>
-<p><strong>忘记指定基准分支</strong></p>
-<ul>
-<li><code>git diff feature</code> 比较的是工作区与feature分支</li>
-<li>应该使用 <code>git diff master feature</code></li>
-</ul>
-</li>
-<li>
-<p><strong>大文件差异性能问题</strong></p>
-<ul>
-<li>使用 <code>--stat</code> 先查看概览</li>
-<li>对于大型二进制文件，考虑使用 <code>--name-only</code></li>
-</ul>
-</li>
-</ol>
-<h3 id="🔧-最佳实践">🔧 最佳实践</h3>
-<ul>
-<li>在合并前总是检查 <code>git diff master...feature-branch</code></li>
-<li>使用 <code>--stat</code> 快速了解变化规模</li>
-<li>结合 <code>git log</code> 理解变化的上下文</li>
-<li>对于复杂差异，使用可视化工具</li>
-</ul>
-<h3 id="📝-别名推荐">📝 别名推荐</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在 ~/.gitconfig 中添加</span></span><br><span class="line">[<span class="built_in">alias</span>]</span><br><span class="line">    <span class="built_in">df</span> = diff</span><br><span class="line">    dfs = diff --<span class="built_in">stat</span></span><br><span class="line">    dfn = diff --name-only</span><br><span class="line">    branch-diff = <span class="string">&quot;!f() &#123; git diff <span class="variable">$1</span>...<span class="variable">$2</span>; &#125;; f&quot;</span></span><br><span class="line">    feature-diff = diff master...HEAD</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Commit ID 相关别名</span></span><br><span class="line">    commit-diff = <span class="string">&quot;!f() &#123; git diff <span class="variable">$1</span> <span class="variable">$2</span>; &#125;; f&quot;</span></span><br><span class="line">    show-stat = show --<span class="built_in">stat</span></span><br><span class="line">    last = <span class="built_in">log</span> -1 HEAD --<span class="built_in">stat</span></span><br><span class="line">    find-commit = <span class="string">&quot;!f() &#123; git log -S <span class="variable">$1</span> --oneline; &#125;; f&quot;</span></span><br><span class="line">    search-commit = <span class="string">&quot;!f() &#123; git log --grep=<span class="variable">$1</span> --oneline; &#125;; f&quot;</span></span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<p>Git提供了灵活的分支和提交比较功能，关键是理解不同语法的含义：</p>
-<h3 id="分支比较">分支比较</h3>
-<ul>
-<li>直接比较：<code>git diff branchA branchB</code></li>
-<li>基于共同祖先：<code>git diff branchA...branchB</code></li>
-<li>提交范围：<code>git log branchA..branchB</code></li>
-</ul>
-<h3 id="Commit-ID比较">Commit ID比较</h3>
-<ul>
-<li>两个提交：<code>git diff commit1 commit2</code></li>
-<li>提交与当前：<code>git diff commit HEAD</code></li>
-<li>单个提交变化：<code>git show commit</code></li>
-<li>提交与父提交：<code>git diff commit^ commit</code></li>
-</ul>
-<h3 id="快速查找Commit-ID">快速查找Commit ID</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看最近的提交</span></span><br><span class="line">git <span class="built_in">log</span> --oneline -10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过内容查找</span></span><br><span class="line">git <span class="built_in">log</span> -S <span class="string">&quot;关键字&quot;</span> --oneline</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过提交信息查找</span></span><br><span class="line">git <span class="built_in">log</span> --grep=<span class="string">&quot;提交信息&quot;</span> --oneline</span><br></pre></td></tr></table></figure>
-<p>选择合适的命令和参数，可以精确了解不同功能分支或特定提交之间的代码差异，无论是用于代码审查、版本回滚还是历史分析。</p>
+                    <p>上一篇整理：<a href="/2026/06/20/archived_quadruped_rl_03_observation/"><strong>03：Observation 里面到底放什么</strong></a></p>
+<h1>一句话</h1>
+<p>四足 RL 的 action 通常不是“迈左脚”，而是每个关节的低层控制目标。</p>
+<h1>常见 action 形式</h1>
+<h2 id="1-关节位置目标">1. 关节位置目标</h2>
+<p>policy 输出每个关节的目标位置。</p>
+<h2 id="2-关节位置偏移">2. 关节位置偏移</h2>
+<p>更常见的是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">target_q = default_q + action_scale * action</span><br></pre></td></tr></table></figure>
+<p>也就是在默认站立姿态附近加一个偏移。</p>
+<h2 id="3-关节力矩">3. 关节力矩</h2>
+<p>policy 直接输出 torque。这个更自由，但真机风险更高，也更难稳定。</p>
+<h1>为什么常用位置目标 + PD</h1>
+<p>因为它比较稳。</p>
+<p>底层可以用 PD：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">torque = Kp * (target_q - q) - Kd * dq</span><br></pre></td></tr></table></figure>
+<p>policy 不需要直接控制电机力矩，只需要给出目标姿态偏移。</p>
+<h1>action_scale 很关键</h1>
+<p>action_scale 决定动作幅度。</p>
+<p>太小：机器人动不起来。</p>
+<p>太大：动作暴力，容易抖或摔。</p>
+<p>训练和部署时 action_scale 必须一致，否则真机表现会明显变差。</p>
 
                 </div>
             </div>
