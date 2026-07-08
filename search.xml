@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>四足机器人教师网络如何设计：从 Privileged Policy 到可蒸馏的鲁棒运动能力</title>
+      <link href="/2026/07/08/archived_quadruped_teacher_network_design/"/>
+      <url>/2026/07/08/archived_quadruped_teacher_network_design/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>对四足机器人来说，好的教师网络不是“越大越强”就好，而是要服务于最终学生策略的可迁移性。教师应在仿真中利用特权信息学会稳定、鲁棒、可解释的运动能力；学生再从有限真实可观测信息中蒸馏出可落地策略。</p></blockquote><!-- vim-markdown-toc GFM --><ul><li><a href="#%E4%B8%80%E5%85%88%E6%98%8E%E7%A1%AE-teacher-%E7%9A%84%E8%A7%92%E8%89%B2">一、先明确 teacher 的角色</a></li><li><a href="#%E4%BA%8Cteacher-%E8%BE%93%E5%85%A5%E5%8F%AF%E4%BB%A5%E5%A4%9A%E4%BD%86%E4%B8%8D%E8%83%BD%E4%BD%9C%E5%BC%8A%E8%BF%87%E5%BA%A6">二、Teacher 输入：可以多，但不能作弊过度</a></li><li><a href="#%E4%B8%89%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E7%A8%B3%E5%AE%9A%E4%BC%98%E5%85%88%E4%B8%8D%E8%A6%81%E8%BF%87%E5%BA%A6%E5%A4%8D%E6%9D%82">三、网络结构：稳定优先，不要过度复杂</a></li><li><a href="#%E5%9B%9Breward-%E8%AE%BE%E8%AE%A1%E6%AF%94%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E6%9B%B4%E9%87%8D%E8%A6%81">四、Reward 设计比网络结构更重要</a></li><li><a href="#%E4%BA%94%E8%AE%A9-teacher-%E8%BE%93%E5%87%BA%E5%8F%AF%E5%AD%A6%E7%94%9F%E5%8C%96%E7%9A%84%E4%B8%AD%E9%97%B4%E8%A1%A8%E5%BE%81">五、让 teacher 输出可学生化的中间表征</a></li><li><a href="#%E5%85%AD%E6%8E%A8%E8%8D%90%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B">六、推荐训练流程</a></li><li><a href="#%E4%B8%83%E7%94%A8%E4%BA%8E%E5%AF%BC%E8%88%AA%E6%97%B6teacher-%E9%9C%80%E8%A6%81%E5%88%86%E5%B1%82">七、用于导航时，teacher 需要分层</a></li><li><a href="#%E5%85%AB%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA-teacher-%E6%98%AF%E5%90%A6%E8%B6%B3%E5%A4%9F%E5%A5%BD">八、如何判断一个 teacher 是否足够好</a></li><li><a href="#%E4%B9%9D%E6%80%BB%E7%BB%93%E5%BB%BA%E8%AE%AE">九、总结建议</a></li></ul><!-- vim-markdown-toc --><hr><h1>一、先明确 teacher 的角色</h1><p>四足机器人里的 teacher 常见有三种：</p><h2 id="1-Privileged-teacher">1. Privileged teacher</h2><p>输入包含真实机器人部署时拿不到、或者很难直接拿到的信息，例如：</p><ul><li>地形高度图；</li><li>足端接触状态；</li><li>摩擦系数；</li><li>外力扰动；</li><li>精确机体速度；</li><li>质量、惯量、电机能力等动力学参数。</li></ul><p>这种 teacher 的目标是：先在仿真中学出强策略，再把能力蒸馏给 student。</p><h2 id="2-MoCap-trajectory-teacher">2. MoCap / trajectory teacher</h2><p>teacher 学习或提供动物运动、人工设计轨迹、轨迹优化结果等参考动作。</p><p>它适合：</p><ul><li>agile locomotion；</li><li>跳跃；</li><li>快速转身；</li><li>跑步；</li><li>风格化 gait。</li></ul><h2 id="3-Planner-MPC-teacher">3. Planner / MPC teacher</h2><p>teacher 不一定是神经网络，也可以是：</p><ul><li>MPC；</li><li>WBC；</li><li>轨迹优化器；</li><li>启发式 gait planner。</li></ul><p>学生策略学习它输出的动作、目标关节角、足端轨迹或隐变量。</p><p>如果任务是四足强化学习导航或鲁棒运动控制，我更推荐：</p><blockquote><p>privileged teacher + student distillation + teacher latent adaptation</p></blockquote><hr><h1>二、Teacher 输入：可以多，但不能作弊过度</h1><p>teacher 可以使用比 student 更丰富的信息，但一个关键原则是：</p><blockquote><p>teacher 可以看得更多，但这些信息最好能被 student 通过历史观测、视觉、IMU、足端反馈间接推断。</p></blockquote><p>比较合理的 teacher observation 包括：</p><h2 id="本体状态">本体状态</h2><ul><li>base linear velocity；</li><li>base angular velocity；</li><li>gravity vector in body frame；</li><li>joint position；</li><li>joint velocity；</li><li>previous action；</li><li>command velocity。</li></ul><h2 id="地形信息">地形信息</h2><ul><li>local height scan；</li><li>local height map；</li><li>foot terrain height；</li><li>terrain normal。</li></ul><h2 id="动力学特权信息">动力学特权信息</h2><ul><li>body mass variation；</li><li>motor strength；</li><li>friction coefficient；</li><li>action latency；</li><li>external push。</li></ul><h2 id="接触信息">接触信息</h2><ul><li>foot contact state；</li><li>foot slip velocity；</li><li>contact force。</li></ul><p>但需要避免 teacher 直接拿到过强的信息，例如：</p><ul><li>未来完整地形答案；</li><li>精确全局路径，而 student 只有局部感知；</li><li>仿真内部 reward 相关变量；</li><li>真实部署时无法估计、也无法通过历史观测推断的隐变量。</li></ul><p>如果 teacher 依赖了学生永远无法推断的信息，teacher 可能很强，但 student 蒸馏会很差。</p><hr><h1>三、网络结构：稳定优先，不要过度复杂</h1><p>四足低层控制通常需要高频、稳定、低延迟。因此 teacher 网络不一定要很大，反而应该优先保证训练稳定和可迁移性。</p><p>一个实用结构是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">proprioception encoder</span><br><span class="line">        +</span><br><span class="line">privileged encoder / terrain encoder</span><br><span class="line">        ↓</span><br><span class="line">     latent z</span><br><span class="line">        ↓</span><br><span class="line">   policy MLP</span><br><span class="line">        ↓</span><br><span class="line">   action</span><br></pre></td></tr></table></figure><p>具体可以这样设计：</p><ul><li>proprioception encoder：MLP；</li><li>terrain height map encoder：MLP / 1D CNN / small CNN；</li><li>privileged dynamics encoder：MLP；</li><li>policy head：MLP；</li><li>output：关节目标、PD target offset 或 residual action。</li></ul><p>常见规模：</p><ul><li>encoder：2-3 层，hidden size 128/256；</li><li>policy：3 层，hidden size 256；</li><li>activation：ELU / ReLU；</li><li>action：12 维关节目标，或者 12 维 residual joint target。</li></ul><p>不建议一开始就使用很大的 Transformer。对四足低层 locomotion 来说，MLP/CNN 往往更稳、更容易 sim-to-real。</p><hr><h1>四、Reward 设计比网络结构更重要</h1><p>一个好的 teacher，核心通常不是网络结构，而是 reward 和训练分布。</p><p>推荐把 reward 分成几类。</p><h2 id="1-任务奖励">1. 任务奖励</h2><ul><li>tracking linear velocity；</li><li>tracking angular velocity；</li><li>heading tracking；</li><li>navigation progress；</li><li>goal progress。</li></ul><h2 id="2-稳定性奖励">2. 稳定性奖励</h2><ul><li>base height；</li><li>roll/pitch penalty；</li><li>orientation stability；</li><li>no fall bonus。</li></ul><h2 id="3-运动质量奖励">3. 运动质量奖励</h2><ul><li>energy penalty；</li><li>torque penalty；</li><li>action rate penalty；</li><li>joint acceleration penalty；</li><li>foot slip penalty；</li><li>foot clearance；</li><li>gait regularity。</li></ul><h2 id="4-安全约束">4. 安全约束</h2><ul><li>collision penalty；</li><li>joint limit penalty；</li><li>excessive contact force penalty；</li><li>body-ground contact penalty。</li></ul><p>一个重要判断是：</p><blockquote><p>teacher 不应该只追速度，而应该学会稳定、节能、少打滑、可蒸馏的动作。</p></blockquote><p>如果 teacher 动作过于激进，student 学起来会困难，真机部署也更危险。</p><hr><h1>五、让 teacher 输出可学生化的中间表征</h1><p>如果 teacher 只是输出 action，student 往往很难学。</p><p>更好的方式是让 teacher 产生一个 latent：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">z_privileged = encoder(privileged info)</span><br><span class="line">action = policy(proprioception, z_privileged)</span><br></pre></td></tr></table></figure><p>然后 student 学习：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">z_student = history_encoder(proprioception history / vision)</span><br><span class="line">action = policy(proprioception, z_student)</span><br></pre></td></tr></table></figure><p>这样 student 不是直接硬模仿动作，而是在学习估计 teacher 的隐变量。</p><p>这种结构很适合四足机器人：</p><ul><li>teacher 用真实 friction、mass、terrain 信息；</li><li>student 用过去几十帧 proprioception 推断这些隐变量；</li><li>最终部署时，student 可以根据机体反馈适应不同地面和动力学变化。</li></ul><hr><h1>六、推荐训练流程</h1><p>一个比较稳的训练流程是：</p><h2 id="1-训练-privileged-teacher">1. 训练 privileged teacher</h2><p>使用 PPO / SAC / AMP 等算法，在仿真中使用 privileged observation 训练 teacher。</p><p>同时加入大量 domain randomization：</p><ul><li>friction；</li><li>mass；</li><li>motor strength；</li><li>latency；</li><li>terrain；</li><li>sensor noise；</li><li>external push。</li></ul><h2 id="2-冻结-teacher-的-policy-backbone">2. 冻结 teacher 的 policy backbone</h2><p>保留 teacher 中 latent-conditioned policy 的主体结构。</p><h2 id="3-训练-student-encoder">3. 训练 student encoder</h2><p>student 输入：</p><ul><li>history proprioception；</li><li>IMU；</li><li>joint history；</li><li>depth / height scan，可选。</li></ul><p>训练目标可以是：</p><ul><li>预测 teacher latent；</li><li>模仿 teacher action；</li><li>同时做 latent loss + action distillation loss。</li></ul><h2 id="4-student-RL-fine-tuning">4. student RL fine-tuning</h2><p>让 student 在没有 privileged info 的情况下继续 PPO fine-tuning。</p><p>这个阶段 reward 可以和 teacher 类似，但应更强调：</p><ul><li>安全；</li><li>动作平滑；</li><li>扰动恢复；</li><li>真实部署可接受的运动幅度。</li></ul><h2 id="5-sim-to-real-检查">5. sim-to-real 检查</h2><p>部署前重点检查：</p><ul><li>latency randomization；</li><li>friction randomization；</li><li>motor strength randomization；</li><li>IMU noise；</li><li>joint encoder noise；</li><li>action delay；</li><li>action clipping；</li><li>torque limit。</li></ul><hr><h1>七、用于导航时，teacher 需要分层</h1><p>如果目标是导航，不建议让一个 teacher 同时负责全局导航和底层运动。</p><p>更可靠的系统结构是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">global planner / local planner</span><br><span class="line">        ↓</span><br><span class="line">velocity command / foothold command</span><br><span class="line">        ↓</span><br><span class="line">locomotion teacher</span><br><span class="line">        ↓</span><br><span class="line">student locomotion policy</span><br><span class="line">        ↓</span><br><span class="line">PD controller / torque control</span><br></pre></td></tr></table></figure><p>teacher 主要负责：</p><ul><li>接受速度命令；</li><li>在复杂地形上稳定跟踪；</li><li>处理扰动；</li><li>保持身体稳定；</li><li>必要时调整 gait。</li></ul><p>导航高层单独处理：</p><ul><li>obstacle avoidance；</li><li>waypoint following；</li><li>terrain cost；</li><li>exploration；</li><li>global path planning。</li></ul><p>这样的分层系统更容易调试，也更容易做安全约束。</p><hr><h1>八、如何判断一个 teacher 是否足够好</h1><p>我会用这些指标判断 teacher 的质量：</p><ul><li>同样 command 下动作稳定，不抖；</li><li>不依赖单一 gait，能随速度自然切换；</li><li>受到 push 后可以恢复；</li><li>地形变化时 foot slip 少；</li><li>torque 和 action rate 不爆；</li><li>rollout 长时间不发散；</li><li>student 蒸馏后性能下降不大；</li><li>在 domain randomization 下仍稳定；</li><li>真机部署前动作看起来保守但有力。</li></ul><p>如果 teacher 在仿真里很强，但动作高频抖动、力矩很大、依赖精确地形答案，那么它不是一个好的 teacher，而只是一个过拟合的仿真策略。</p><hr><h1>九、总结建议</h1><p>如果现在要设计四足机器人的教师网络，我会选择：</p><blockquote><p>PPO 训练 privileged teacher；<br>teacher 输入 proprioception + terrain height scan + dynamics randomization parameters + contact info；<br>网络使用 MLP/CNN encoder + latent-conditioned policy；<br>student 用历史 proprioception / 视觉去预测 teacher latent；<br>teacher 不直接做全局导航，而是做鲁棒 locomotion skill。</p></blockquote><p>最关键的一句话是：</p><p><strong>teacher 要强，但不能强到学生无法模仿；要聪明，但动作必须保守、平滑、可迁移。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 强化学习 </tag>
+            
+            <tag> 四足机器人 </tag>
+            
+            <tag> teacher policy </tag>
+            
+            <tag> privileged learning </tag>
+            
+            <tag> sim-to-real </tag>
+            
+            <tag> 机器人控制 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2026 年四足机器人强化学习最新范式综述</title>
       <link href="/2026/07/05/archived_rl_quadruped_2026_paradigms/"/>
       <url>/2026/07/05/archived_rl_quadruped_2026_paradigms/</url>
@@ -24,11 +59,11 @@
             
             <tag> 四足机器人 </tag>
             
-            <tag> legged robotics </tag>
-            
             <tag> sim-to-real </tag>
             
             <tag> 机器人控制 </tag>
+            
+            <tag> legged robotics </tag>
             
         </tags>
       
@@ -2301,9 +2336,9 @@
             
             <tag> linux </tag>
             
-            <tag> ubuntu </tag>
-            
             <tag> ros </tag>
+            
+            <tag> ubuntu </tag>
             
         </tags>
       
