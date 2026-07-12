@@ -4,6 +4,45 @@
   
     
     <entry>
+      <title>Ubuntu 上适合让 Codex 生成 STL 模型的开源工具</title>
+      <link href="/2026/07/12/ubuntu-codex-stl-opensource-tools/"/>
+      <url>/2026/07/12/ubuntu-codex-stl-opensource-tools/</url>
+      
+        <content type="html"><![CDATA[<p>如果想让 Codex 这类 AI 工具“用代码画 STL”，在 Ubuntu 里最适合选择那些<strong>脚本化、参数化、命令行友好</strong>的开源建模工具。</p><p>相比传统鼠标交互式 CAD，代码建模更适合 AI：模型可以被文本描述、版本控制、反复修改，也方便自动导出 STL。</p><p>下面整理几个适合 Ubuntu 环境的开源方案。</p><hr><h1>1. OpenSCAD：最推荐的入门选择</h1><p>官网：<a href="https://openscad.org/">https://openscad.org/</a></p><p>OpenSCAD 是一个典型的“代码建模”工具。它不是用鼠标拖拽模型，而是用类似脚本的方式描述几何体。</p><p>例如：</p><figure class="highlight scad"><table><tr><td class="code"><pre><span class="line"><span class="built_in">difference</span>() &#123;</span><br><span class="line">    <span class="built_in">cube</span>([<span class="number">60</span>, <span class="number">40</span>, <span class="number">20</span>], center=<span class="literal">true</span>);</span><br><span class="line">    <span class="built_in">cylinder</span>(h=<span class="number">30</span>, r=<span class="number">8</span>, center=<span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这段代码表示：</p><ul><li>先创建一个长方体；</li><li>再用圆柱从中间挖一个孔；</li><li>最终得到一个带孔的零件。</li></ul><p>OpenSCAD 非常适合让 Codex 生成，因为它语法简单、结构清楚、修改成本低。</p><h2 id="优点">优点</h2><ul><li>完全开源；</li><li>Ubuntu 安装方便；</li><li>很适合 AI 生成和修改；</li><li>适合支架、外壳、孔位板、连接件等机械零件；</li><li>支持参数化建模；</li><li>可以命令行导出 STL。</li></ul><h2 id="安装">安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install openscad</span><br></pre></td></tr></table></figure><h2 id="命令行导出-STL">命令行导出 STL</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openscad -o model.stl model.scad</span><br></pre></td></tr></table></figure><p>如果目标是“让 Codex 快速画一个可 3D 打印的零件”，OpenSCAD 是最稳妥的首选。</p><hr><h1>2. CadQuery：Python 版参数化 CAD</h1><p>官网：<a href="https://cadquery.readthedocs.io/">https://cadquery.readthedocs.io/</a></p><p>CadQuery 是一个用 Python 写 CAD 模型的工具。它比 OpenSCAD 更接近现代工程 CAD 的思路，适合做更复杂的机械结构。</p><p>示例：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cadquery <span class="keyword">as</span> cq</span><br><span class="line"></span><br><span class="line">result = (</span><br><span class="line">    cq.Workplane(<span class="string">&quot;XY&quot;</span>)</span><br><span class="line">    .box(<span class="number">60</span>, <span class="number">40</span>, <span class="number">20</span>)</span><br><span class="line">    .faces(<span class="string">&quot;&gt;Z&quot;</span>)</span><br><span class="line">    .workplane()</span><br><span class="line">    .hole(<span class="number">8</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cq.exporters.export(result, <span class="string">&quot;model.stl&quot;</span>)</span><br></pre></td></tr></table></figure><h2 id="优点-2">优点</h2><ul><li>使用 Python，Codex 很擅长生成；</li><li>适合工程零件；</li><li>支持拉伸、倒角、圆角、布尔运算等操作；</li><li>可以导出 STL、STEP 等格式；</li><li>适合后续做更复杂的机器人结构件。</li></ul><h2 id="缺点">缺点</h2><ul><li>环境比 OpenSCAD 稍复杂；</li><li>对初学者来说，没有 OpenSCAD 那么直观。</li></ul><p>推荐用 conda 或 mamba 安装：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda install -c conda-forge cadquery</span><br></pre></td></tr></table></figure><p>如果后续要做机械臂连接件、四足机器人支架、传感器安装座等比较工程化的结构，CadQuery 很值得学。</p><hr><h1>3. FreeCAD Python API：功能最完整</h1><p>官网：<a href="https://www.freecad.org/">https://www.freecad.org/</a></p><p>FreeCAD 是完整的开源 CAD 软件，也可以通过 Python 脚本控制建模，并导出 STL。</p><p>它适合以下情况：</p><ul><li>模型比较复杂；</li><li>需要 GUI 检查和手动修改；</li><li>需要 STEP 文件；</li><li>需要草图、约束、装配等 CAD 功能；</li><li>后续可能人工继续编辑。</li></ul><p>Ubuntu 安装：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install freecad</span><br></pre></td></tr></table></figure><p>FreeCAD 的能力很强，但 Python API 相对啰嗦。Codex 可以写 FreeCAD 脚本，不过调试成本通常比 OpenSCAD 和 CadQuery 高。</p><p>所以它更适合作为“检查、编辑、转换格式”的工具，而不一定是 AI 直接生成模型的第一选择。</p><hr><h1>4. Blender Python：适合艺术模型，不适合精密机械</h1><p>官网：<a href="https://www.blender.org/">https://www.blender.org/</a></p><p>Blender 也可以用 Python 创建模型并导出 STL。</p><p>它更适合：</p><ul><li>外观件；</li><li>装饰件；</li><li>有机曲面；</li><li>角色或雕塑类模型；</li><li>非精密 3D 打印模型。</li></ul><p>不太适合：</p><ul><li>精确孔位；</li><li>工程尺寸；</li><li>参数化机械结构；</li><li>需要严格装配关系的零件。</li></ul><p>安装：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install blender</span><br></pre></td></tr></table></figure><p>命令行运行脚本：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">blender --background --python script.py</span><br></pre></td></tr></table></figure><p>如果目标是机器人结构件、安装座、连接板，通常不建议优先用 Blender。它更适合外观和艺术方向。</p><hr><h1>5. Build123d：较新的 Python CAD 选择</h1><p>项目地址：<a href="https://github.com/gumyr/build123d">https://github.com/gumyr/build123d</a></p><p>Build123d 是一个较新的 Python 参数化 CAD 库，风格比 CadQuery 更现代一些。</p><h2 id="优点-3">优点</h2><ul><li>Python 写法清晰；</li><li>适合 AI 生成；</li><li>面向工程建模；</li><li>可以做参数化零件。</li></ul><h2 id="缺点-2">缺点</h2><ul><li>社区和资料比 OpenSCAD、FreeCAD 少；</li><li>遇到问题时，搜索到的现成答案可能没那么多。</li></ul><p>如果已经熟悉 Python，并且愿意尝试新工具，可以关注 Build123d。</p><hr><h1>推荐选择</h1><p>如果按使用场景来选，可以这样判断：</p><table><thead><tr><th>需求</th><th>推荐工具</th></tr></thead><tbody><tr><td>快速让 Codex 生成 STL</td><td>OpenSCAD</td></tr><tr><td>做机械零件、机器人结构件</td><td>CadQuery / Build123d</td></tr><tr><td>需要 GUI 检查和后续手动编辑</td><td>FreeCAD</td></tr><tr><td>做艺术模型、外观件、有机曲面</td><td>Blender Python</td></tr></tbody></table><p>我个人更推荐的组合是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">OpenSCAD + CadQuery + FreeCAD</span><br></pre></td></tr></table></figure><p>日常流程可以是：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Codex 生成 .scad 或 .py</span><br><span class="line">↓</span><br><span class="line">本地渲染 / 导出 STL</span><br><span class="line">↓</span><br><span class="line">用 FreeCAD 或切片软件检查模型</span><br><span class="line">↓</span><br><span class="line">3D 打印</span><br></pre></td></tr></table></figure><hr><h1>简单结论</h1><p>如果只是想在 Ubuntu 上让 Codex 帮你“画 STL”，建议先从 <strong>OpenSCAD</strong> 开始。</p><p>它简单、稳定、命令行友好，非常适合 AI 生成和迭代。</p><p>如果后面开始做更复杂的机器人结构件，再逐步引入 <strong>CadQuery</strong> 或 <strong>Build123d</strong>。而 <strong>FreeCAD</strong> 可以作为检查、修改和格式转换的辅助工具。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 3D建模 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> stl </tag>
+            
+            <tag> ubuntu </tag>
+            
+            <tag> 3d打印 </tag>
+            
+            <tag> openscad </tag>
+            
+            <tag> cadquery </tag>
+            
+            <tag> freecad </tag>
+            
+            <tag> blender </tag>
+            
+            <tag> ai辅助设计 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>AprilTag 视觉标识系统：机器人定位、相机标定与自主回充中的应用笔记</title>
       <link href="/2026/07/10/archived_apriltag_robot_docking_visual_fiducial/"/>
       <url>/2026/07/10/archived_apriltag_robot_docking_visual_fiducial/</url>
