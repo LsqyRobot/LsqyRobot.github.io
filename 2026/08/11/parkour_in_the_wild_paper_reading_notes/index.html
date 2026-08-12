@@ -1,0 +1,1604 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <link rel="stylesheet" href="/css/katex.min.css" />
+    <link rel="stylesheet" href="/css/lsqy_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/dytitle.js"></script>
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+    <script src="/js/codeBlockFuction.js"></script>
+    <script src="/js/cursor-heart.js"></script>
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<link rel="stylesheet" href="/css/katex.min.css" />
+<body class="is-loading">
+    <div id="wrapper" class="fade-in">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1"><img src="/img/folder.png"></a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/3D%E5%BB%BA%E6%A8%A1/">3D建模</a></li><li><a class="category-link" href="/categories/ALGORITHM/">ALGORITHM</a></li><li><a class="category-link" href="/categories/C/">C++</a></li><li><a class="category-link" href="/categories/CONFIG/">CONFIG</a></li><li><a class="category-link" href="/categories/CONTROL/">CONTROL</a></li><li><a class="category-link" href="/categories/CPP/">CPP</a></li><li><a class="category-link" href="/categories/GIT/">GIT</a></li><li><a class="category-link" href="/categories/HEXO/">HEXO</a></li><li><a class="category-link" href="/categories/ISAAC-LAB/">ISAAC LAB</a></li><li><a class="category-link" href="/categories/LATEX/">LATEX</a></li><li><a class="category-link" href="/categories/LIFE/">LIFE</a></li><li><a class="category-link" href="/categories/LINUX/">LINUX</a></li><li><a class="category-link" href="/categories/MAC-BOOK/">MAC BOOK</a></li><li><a class="category-link" href="/categories/MATLAB/">MATLAB</a></li><li><a class="category-link" href="/categories/PYTHON/">PYTHON</a></li><li><a class="category-link" href="/categories/RL/">RL</a></li><li><a class="category-link" href="/categories/ROBOTICS/">ROBOTICS</a></li><li><a class="category-link" href="/categories/ROS/">ROS</a></li><li><a class="category-link" href="/categories/Robot/">Robot</a></li><li><a class="category-link" href="/categories/Robotics/">Robotics</a></li><li><a class="category-link" href="/categories/TOOLS/">TOOLS</a></li><li><a class="category-link" href="/categories/dataStruct/">dataStruct</a></li><li><a class="category-link" href="/categories/robotics/">robotics</a>
+	                    </ul>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="--post-cover-image: url();" >
+                <div class="post_page_title_blur"></div>
+                <div class="post_page_title_main"></div>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >论文精读：Parkour in the Wild——多专家蒸馏与 RL 微调如何得到通用敏捷运动策略</h2></a>
+            </div>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="Article table of contents">
+                    <div class="post-toc-card">
+                        <div class="post-toc-title">目录</div>
+                        <nav class="post-toc-nav"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </div>
+                </aside>
+
+                
+                    <aside class="post-floating-tags" aria-label="Site tags">
+                        <div class="post-floating-tags-card">
+                            <div class="post-floating-tags-title">标签</div>
+                            <div id="postTagSphere" class="post-tag-sphere">
+                                
+                                
+                                    
+                                    <a href="/tags/work/" style="font-size: 17.00px; color: rgb(149,225,211)" title="work：27 篇">work</a>
+                                
+                                    
+                                    <a href="/tags/linux/" style="font-size: 14.84px; color: rgb(104,213,221)" title="linux：18 篇">linux</a>
+                                
+                                    
+                                    <a href="/tags/tools/" style="font-size: 14.36px; color: rgb(94,210,223)" title="tools：16 篇">tools</a>
+                                
+                                    
+                                    <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 14.36px; color: rgb(94,210,223)" title="强化学习：16 篇">强化学习</a>
+                                
+                                    
+                                    <a href="/tags/cpp/" style="font-size: 13.64px; color: rgb(79,206,227)" title="cpp：13 篇">cpp</a>
+                                
+                                    
+                                    <a href="/tags/ros/" style="font-size: 13.40px; color: rgb(74,205,228)" title="ros：12 篇">ros</a>
+                                
+                                    
+                                    <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 13.40px; color: rgb(74,205,228)" title="四足机器人：12 篇">四足机器人</a>
+                                
+                                    
+                                    <a href="/tags/life/" style="font-size: 12.92px; color: rgb(64,202,230)" title="life：10 篇">life</a>
+                                
+                                    
+                                    <a href="/tags/legged-locomotion/" style="font-size: 12.68px; color: rgb(59,201,231)" title="legged locomotion：9 篇">legged locomotion</a>
+                                
+                                    
+                                    <a href="/tags/dots/" style="font-size: 12.44px; color: rgb(54,199,232)" title="dots：8 篇">dots</a>
+                                
+                                    
+                                    <a href="/tags/ppo/" style="font-size: 12.44px; color: rgb(54,199,232)" title="ppo：8 篇">ppo</a>
+                                
+                                    
+                                    <a href="/tags/python/" style="font-size: 12.44px; color: rgb(54,199,232)" title="python：8 篇">python</a>
+                                
+                                    
+                                    <a href="/tags/control/" style="font-size: 12.20px; color: rgb(49,198,233)" title="control：7 篇">control</a>
+                                
+                                    
+                                    <a href="/tags/isaac-gym/" style="font-size: 12.20px; color: rgb(49,198,233)" title="isaac gym：7 篇">isaac gym</a>
+                                
+                                    
+                                    <a href="/tags/memory/" style="font-size: 12.20px; color: rgb(49,198,233)" title="memory：7 篇">memory</a>
+                                
+                                    
+                                    <a href="/tags/robotics/" style="font-size: 12.20px; color: rgb(49,198,233)" title="robotics：7 篇">robotics</a>
+                                
+                                    
+                                    <a href="/tags/vim/" style="font-size: 12.20px; color: rgb(49,198,233)" title="vim：7 篇">vim</a>
+                                
+                                    
+                                    <a href="/tags/ros2/" style="font-size: 11.96px; color: rgb(44,196,235)" title="ros2：6 篇">ros2</a>
+                                
+                                    
+                                    <a href="/tags/%E9%A3%9E%E6%8E%A7/" style="font-size: 11.96px; color: rgb(44,196,235)" title="飞控：6 篇">飞控</a>
+                                
+                                    
+                                    <a href="/tags/math/" style="font-size: 11.72px; color: rgb(39,195,236)" title="math：5 篇">math</a>
+                                
+                                    
+                                    <a href="/tags/sim-to-real/" style="font-size: 11.72px; color: rgb(39,195,236)" title="sim-to-real：5 篇">sim-to-real</a>
+                                
+                                    
+                                    <a href="/tags/algorithms/" style="font-size: 11.48px; color: rgb(34,194,237)" title="algorithms：4 篇">algorithms</a>
+                                
+                                    
+                                    <a href="/tags/pixhawk-6c/" style="font-size: 11.48px; color: rgb(34,194,237)" title="pixhawk 6c：4 篇">pixhawk 6c</a>
+                                
+                                    
+                                    <a href="/tags/px4/" style="font-size: 11.48px; color: rgb(34,194,237)" title="px4：4 篇">px4</a>
+                                
+                                    
+                                    <a href="/tags/qgroundcontrol/" style="font-size: 11.48px; color: rgb(34,194,237)" title="qgroundcontrol：4 篇">qgroundcontrol</a>
+                                
+                                    
+                                    <a href="/tags/robot/" style="font-size: 11.48px; color: rgb(34,194,237)" title="robot：4 篇">robot</a>
+                                
+                                    
+                                    <a href="/tags/git/" style="font-size: 11.24px; color: rgb(29,192,238)" title="git：3 篇">git</a>
+                                
+                                    
+                                    <a href="/tags/learning-notes/" style="font-size: 11.24px; color: rgb(29,192,238)" title="learning-notes：3 篇">learning-notes</a>
+                                
+                                    
+                                    <a href="/tags/matlab/" style="font-size: 11.24px; color: rgb(29,192,238)" title="matlab：3 篇">matlab</a>
+                                
+                                    
+                                    <a href="/tags/simulation/" style="font-size: 11.24px; color: rgb(29,192,238)" title="simulation：3 篇">simulation</a>
+                                
+                                    
+                                    <a href="/tags/stl/" style="font-size: 11.24px; color: rgb(29,192,238)" title="stl：3 篇">stl</a>
+                                
+                                    
+                                    <a href="/tags/ubuntu/" style="font-size: 11.24px; color: rgb(29,192,238)" title="ubuntu：3 篇">ubuntu</a>
+                                
+                                    
+                                    <a href="/tags/anymal/" style="font-size: 11.00px; color: rgb(24,191,239)" title="anymal：2 篇">anymal</a>
+                                
+                                    
+                                    <a href="/tags/dagger/" style="font-size: 11.00px; color: rgb(24,191,239)" title="dagger：2 篇">dagger</a>
+                                
+                                    
+                                    <a href="/tags/data-struct/" style="font-size: 11.00px; color: rgb(24,191,239)" title="data_struct：2 篇">data_struct</a>
+                                
+                                    
+                                    <a href="/tags/isaac-lab/" style="font-size: 11.00px; color: rgb(24,191,239)" title="isaac lab：2 篇">isaac lab</a>
+                                
+                                    
+                                    <a href="/tags/isaaclab/" style="font-size: 11.00px; color: rgb(24,191,239)" title="isaaclab：2 篇">isaaclab</a>
+                                
+                                    
+                                    <a href="/tags/kdl/" style="font-size: 11.00px; color: rgb(24,191,239)" title="kdl：2 篇">kdl</a>
+                                
+                                    
+                                    <a href="/tags/latex/" style="font-size: 11.00px; color: rgb(24,191,239)" title="latex：2 篇">latex</a>
+                                
+                                    
+                                    <a href="/tags/motor/" style="font-size: 11.00px; color: rgb(24,191,239)" title="motor：2 篇">motor</a>
+                                
+                            </div>
+                        </div>
+                    </aside>
+                    <script>
+                        (function () {
+                            function startPostTagSphere() {
+                                var sphere = document.getElementById('postTagSphere');
+                                if (!sphere || sphere.dataset.ready === 'true') {
+                                    return;
+                                }
+
+                                var links = Array.from(sphere.querySelectorAll('a'));
+                                if (!links.length) {
+                                    return;
+                                }
+
+                                sphere.dataset.ready = 'true';
+                                sphere.classList.add('is-ready');
+                                var floatingCard = sphere.closest('.post-floating-tags-card');
+                                if (floatingCard) {
+                                    floatingCard.classList.add('is-sphere-ready');
+                                }
+
+                                var radius = Math.min(sphere.clientWidth || 200, sphere.clientHeight || 200) * 0.38;
+                                var angleX = 0;
+                                var angleY = 0;
+                                var speedX = 0.0017;
+                                var speedY = 0.0025;
+                                var paused = false;
+
+                                links.forEach(function (link, index) {
+                                    var k = -1 + (2 * (index + 0.5)) / links.length;
+                                    var phi = Math.acos(k);
+                                    var theta = Math.sqrt(links.length * Math.PI) * phi;
+                                    link.dataset.x = radius * Math.cos(theta) * Math.sin(phi);
+                                    link.dataset.y = radius * Math.sin(theta) * Math.sin(phi);
+                                    link.dataset.z = radius * Math.cos(phi);
+                                    link.classList.add('post-tag-sphere-item');
+                                });
+
+                                sphere.addEventListener('mouseenter', function () { paused = true; });
+                                sphere.addEventListener('mouseleave', function () { paused = false; });
+
+                                function render() {
+                                    if (!paused) {
+                                        angleX += speedX;
+                                        angleY += speedY;
+                                    }
+
+                                    var sinX = Math.sin(angleX);
+                                    var cosX = Math.cos(angleX);
+                                    var sinY = Math.sin(angleY);
+                                    var cosY = Math.cos(angleY);
+
+                                    links.forEach(function (link) {
+                                        var x = parseFloat(link.dataset.x);
+                                        var y = parseFloat(link.dataset.y);
+                                        var z = parseFloat(link.dataset.z);
+                                        var y1 = y * cosX - z * sinX;
+                                        var z1 = z * cosX + y * sinX;
+                                        var x2 = x * cosY - z1 * sinY;
+                                        var z2 = z1 * cosY + x * sinY;
+                                        var scale = 0.68 + ((z2 + radius) / (2 * radius)) * 0.55;
+                                        var opacity = 0.38 + ((z2 + radius) / (2 * radius)) * 0.62;
+
+                                        link.style.transform = 'translate3d(' + x2 + 'px,' + y1 + 'px,0) translate(-50%, -50%) scale(' + scale + ')';
+                                        link.style.opacity = opacity.toFixed(3);
+                                        link.style.zIndex = Math.round(1000 + z2);
+                                    });
+
+                                    window.requestAnimationFrame(render);
+                                }
+
+                                render();
+                            }
+
+                            if (document.readyState === 'loading') {
+                                document.addEventListener('DOMContentLoaded', startPostTagSphere);
+                            } else {
+                                startPostTagSphere();
+                            }
+                            window.addEventListener('load', startPostTagSphere);
+                            window.setTimeout(startPostTagSphere, 300);
+                        })();
+                    </script>
+                
+
+                <div class="typo post-article-content" style="padding: 3rem;">
+                    <h1>论文信息</h1>
+<ul>
+<li>题目：<strong>Parkour in the Wild: Learning a General and Extensible Agile Locomotion Policy Using Multi-expert Distillation and RL Fine-tuning</strong></li>
+<li>作者：Nikita Rudin、Junzhe He、Joshua Aurand、Marco Hutter</li>
+<li>机构：ETH Zürich Robotic Systems Lab；第一作者同时隶属 NVIDIA Switzerland</li>
+<li>预印本：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.11164">arXiv:2505.11164</a></li>
+<li>期刊记录：<em>The International Journal of Robotics Research</em> <a target="_blank" rel="noopener" href="https://doi.org/10.1177/02783649261455067">OnlineFirst</a>，2026 年 6 月 3 日首次在线发表；尚未编入正式卷期</li>
+<li>实验平台：ANYmal D 四足机器人</li>
+<li>关键词：多专家策略、策略蒸馏、DAgger、强化学习微调、视觉运动控制、持续扩展、Sim-to-Real</li>
+</ul>
+<blockquote>
+<p>说明：本文以公开的 arXiv 全文为主要技术依据。期刊版本的书目信息已更新，但正文分析对应公开版本；如果两个版本未来出现参数差异，应以最终期刊正文为准。</p>
+</blockquote>
+<h1>一句话结论</h1>
+<p><strong>这篇论文的关键不是发明一种新的 PPO，而是设计了一条能扩展的训练路线：先把困难的多技能探索拆成九个可独立调好的专家，再通过 DAgger 把专家知识压入一个以深度图为输入的统一策略，最后用 RL 直接优化任务成功率，修复蒸馏中的动作冲突、感知差异和分布偏移。</strong></p>
+<p>最简流程如下：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">九种地形分别训练专家</span><br><span class="line">        ↓</span><br><span class="line">DAgger 多专家蒸馏</span><br><span class="line">        ↓</span><br><span class="line">得到“会一些但还不够稳”的 foundation policy</span><br><span class="line">        ↓</span><br><span class="line">在旧地形 + 新地形 + 真实场景扫描模型上做 RL fine-tuning</span><br><span class="line">        ↓</span><br><span class="line">得到单一、视觉驱动、可继续扩展的 generalist policy</span><br><span class="line">        ↓</span><br><span class="line">部署到 ANYmal D，50 Hz 输出控制动作</span><br></pre></td></tr></table></figure>
+<p><img src="figure1-deployment.jpg" alt="ANYmal D 使用单一策略通过多种真实非结构化障碍"></p>
+<p><em>原论文图 1：单一通用策略在真实环境中组合不同运动能力。图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.11164">Rudin et al., 2025 公开论文</a>。</em></p>
+<h1>1. 论文真正想解决什么问题</h1>
+<p>四足机器人已经可以针对单一任务学会非常强的动作，例如跳跃、攀爬、钻过低矮空间或踩踏脚石。但“每种障碍一个策略”离真实部署还有很大距离。</p>
+<p>真实世界不会提前告诉机器人：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">前方 2 米是楼梯，请切换 climb policy；</span><br><span class="line">接下来是窄梁，请切换 beam policy；</span><br><span class="line">随后是碎石，请切换 rock policy。</span><br></pre></td></tr></table></figure>
+<p>实际需要的是同一个控制器根据当前观测自行决定：</p>
+<ul>
+<li>眼前是什么地形；</li>
+<li>该调用哪类运动能力；</li>
+<li>是否需要把多种能力连续组合；</li>
+<li>遇到训练时没有见过的混合障碍时如何调整动作；</li>
+<li>未来发现新失败案例时，能否把新能力加入而不忘掉旧能力。</li>
+</ul>
+<p>因此，论文的目标不是单纯追求某一个 parkour 动作的极限，而是同时追求四点：</p>
+<ol>
+<li><strong>General</strong>：一个策略覆盖多种地形和动作。</li>
+<li><strong>Agile</strong>：策略仍保留专家的跳跃、攀爬等动态能力。</li>
+<li><strong>Extensible</strong>：遇到新地形后可以继续微调，而不是从头训练。</li>
+<li><strong>Deployable</strong>：使用真机可获得的深度图，并能经受感知噪声与现实扰动。</li>
+</ol>
+<h1>2. 为什么“把所有地形放进 PPO 一起训练”不够</h1>
+<p>直觉上最简单的办法是把所有地形混在一起，然后从随机初始化开始训练一个大策略。但作者观察到明显的多任务探索失败：</p>
+<ul>
+<li>不同地形所需动作模式差异很大；</li>
+<li>训练早期，一些容易任务更快产生正回报；</li>
+<li>数据和梯度逐渐被这些任务主导；</li>
+<li>策略收敛到少数运动模式；</li>
+<li>对其他任务几乎不再探索；</li>
+<li>即使能过多种地形，也可能只学到一种“到处勉强能用”的折中动作。</li>
+</ul>
+<p>可以把它理解为：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>多任务 RL</mtext><mo mathvariant="normal">≠</mo><munder><mo>∑</mo><mi>i</mi></munder><mtext>单任务 RL 的最优能力</mtext></mrow><annotation encoding="application/x-tex">\text{多任务 RL} \neq \sum_i \text{单任务 RL 的最优能力}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord cjk_fallback">多任务</span><span class="mord"> RL</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mspace nobreak"></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.3277em;vertical-align:-1.2777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord cjk_fallback">单任务</span><span class="mord"> RL </span><span class="mord cjk_fallback">的最优能力</span></span></span></span></span></span></p>
+<p>因为策略参数共享后，各任务梯度会互相影响；更根本的是，训练数据由当前策略自己采集，一旦某项技能在早期没有被发现，它就很难获得足够的成功轨迹来翻身。</p>
+<p>论文采用的工程思想是：<strong>先分治，再合并，最后联合优化。</strong></p>
+<h1>3. 三阶段训练框架总览</h1>
+<p><img src="figure2-training-pipeline.png" alt="九个专家训练、多专家蒸馏与强化学习微调的完整流程"></p>
+<p><em>原论文图 2（核心方法图）：第一阶段在 9 类地形上分别训练专家，第二阶段用 DAgger 蒸馏到深度图策略，第三阶段加入新地形与真实扫描地形做 RL 微调。图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.11164">Rudin et al., 2025</a>。</em></p>
+<h2 id="3-1-第一阶段：九个地形专家">3.1 第一阶段：九个地形专家</h2>
+<p>作者分别训练九个专家策略：</p>
+<table>
+<thead>
+<tr>
+<th>专家</th>
+<th>主要能力</th>
+<th>典型难点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Walk</td>
+<td>普通行走</td>
+<td>基础稳定性与目标跟踪</td>
+</tr>
+<tr>
+<td>Climb</td>
+<td>向上攀爬</td>
+<td>前腿搭接、重心抬升</td>
+</tr>
+<tr>
+<td>Climb down</td>
+<td>向下攀爬</td>
+<td>视觉遮挡、落脚冲击</td>
+</tr>
+<tr>
+<td>Jump</td>
+<td>跳跃/越沟</td>
+<td>起跳时机、腾空与落地</td>
+</tr>
+<tr>
+<td>Tables / Crouch</td>
+<td>从桌面等低矮障碍下通过</td>
+<td>身体高度与碰撞约束</td>
+</tr>
+<tr>
+<td>Rock pile</td>
+<td>攀爬石堆</td>
+<td>不规则接触与连续姿态调整</td>
+</tr>
+<tr>
+<td>Low wall</td>
+<td>越过矮墙</td>
+<td>需要攀爬与跳跃式动作</td>
+</tr>
+<tr>
+<td>Beams</td>
+<td>通过窄梁</td>
+<td>极高的落脚精度</td>
+</tr>
+<tr>
+<td>Stepping stones</td>
+<td>踩踏脚石</td>
+<td>稀疏可落脚区域与步序规划</td>
+</tr>
+</tbody>
+</table>
+<p>前五类能力来自作者团队之前的 ANYmal Parkour 系统，本文再增加低墙、脚石、窄梁和石堆四类技能。</p>
+<p>每个专家可以有自己的：</p>
+<ul>
+<li>地形课程；</li>
+<li>reward 权重；</li>
+<li>termination 条件；</li>
+<li>初始化方式；</li>
+<li>训练技巧。</li>
+</ul>
+<p>例如论文提到，低墙专家从攀爬专家的权重开始训练。这样虽然前期调参成本仍高，但每个问题相对单纯，且训练好的专家可以被冻结并反复使用。</p>
+<h2 id="3-2-第二阶段：多专家-DAgger-蒸馏">3.2 第二阶段：多专家 DAgger 蒸馏</h2>
+<p>九个专家最终必须合并为一个 student policy。目标可写为：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>π</mi><mtext>student</mtext></msub><mo stretchy="false">(</mo><msubsup><mi>o</mi><mi>t</mi><mi>s</mi></msubsup><mo stretchy="false">)</mo><mo>≈</mo><msub><mi>π</mi><mrow><mtext>expert</mtext><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo stretchy="false">(</mo><msubsup><mi>o</mi><mi>t</mi><mi>e</mi></msubsup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\pi_{\text{student}}(o_t^{s})
+\approx
+\pi_{\text{expert},i}(o_t^{e})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">student</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">expert</span></span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span> 是当前地形对应的专家。Student 实际上同时在学习两个隐含任务：</p>
+<ol>
+<li>从自己的深度视觉与本体观测中判断当前地形需要哪类行为；</li>
+<li>模仿对应专家的动作。</li>
+</ol>
+<p>作者使用与 DAgger 相似的在线数据聚合方式：</p>
+<ol>
+<li>在并行仿真中把机器人分配到九类地形；</li>
+<li>由 <strong>student 的动作</strong> 推进环境；</li>
+<li>在 student 真正到达的状态上查询对应 expert；</li>
+<li>保存 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msubsup><mi>o</mi><mi>t</mi><mi>s</mi></msubsup><mo separator="true">,</mo><msubsup><mi>a</mi><mi>t</mi><mi>e</mi></msubsup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(o_t^s,a_t^e)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">e</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>；</li>
+<li>用动作均方误差更新 student；</li>
+<li>重复采集和训练。</li>
+</ol>
+<p>监督损失为：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="script">L</mi><mtext>distill</mtext></msub><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msubsup><mrow><mo fence="true">∥</mo><msub><mi>π</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msubsup><mi>o</mi><mi>t</mi><mi>s</mi></msubsup><mo stretchy="false">)</mo><mo>−</mo><msubsup><mi>a</mi><mi>t</mi><mi>e</mi></msubsup><mo fence="true">∥</mo></mrow><mn>2</mn><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\mathcal{L}_{\text{distill}}(\theta)
+=
+\sum_{t=1}^{N}
+\left\|
+\pi_{\theta}(o_t^s)-a_t^e
+\right\|_2^2
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">distill</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0278em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.0954em;vertical-align:-1.2671em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283em;"><span style="top:-1.8829em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.109em;">N</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2671em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;">∥</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">e</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">∥</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.954em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>它和普通行为克隆的关键区别是：数据分布来自 student，而不是只来自 expert。</p>
+<p>如果只记录 expert 的成功轨迹，student 一旦产生小误差，就可能进入 expert 数据没有覆盖的状态。此时错误会继续积累。DAgger 让 expert 给 student 自己访问到的状态重新标注动作，因此能缓解 covariate shift。</p>
+<p>数据采集时，作者还给 student 动作加入零均值高斯噪声：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>a</mi><mi>t</mi><mi>s</mi></msubsup><mo>=</mo><msub><mi>π</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msubsup><mi>o</mi><mi>t</mi><mi>s</mi></msubsup><mo stretchy="false">)</mo><mo>+</mo><mi>ϵ</mi><mo separator="true">,</mo><mspace width="2em"/><mi>ϵ</mi><mo>∼</mo><mi mathvariant="script">N</mi><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">a_t^s=\pi_{\theta}(o_t^s)+\epsilon,
+\qquad
+\epsilon\sim\mathcal{N}(0,\sigma^2)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9614em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">ϵ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">ϵ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.1474em;">N</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>这个细节有两个作用：</p>
+<ul>
+<li>让蒸馏策略覆盖专家轨迹附近更多状态，增强恢复能力；</li>
+<li>让策略提前适应 RL 阶段用于探索的动作噪声，减少从监督学习切到 RL 时的性能崩塌。</li>
+</ul>
+<h2 id="3-3-第三阶段：RL-fine-tuning">3.3 第三阶段：RL fine-tuning</h2>
+<p>蒸馏结束后，student 已经有“能完成大部分技能”的行为先验，但它还不是最终答案：</p>
+<ul>
+<li>多专家在相似状态可能给出不同动作，MSE 会学到不合理的平均动作；</li>
+<li>student 和 expert 使用不同感知输入，student 未必拥有完整判断依据；</li>
+<li>模仿优化的是“像专家”，不是“任务是否成功”；</li>
+<li>expert 没见过的组合地形无法直接提供标签。</li>
+</ul>
+<p>因此作者取消 expert 监督，直接用任务 reward 做 RL 微调。微调地形包括：</p>
+<ul>
+<li>原九类专家地形；</li>
+<li>一条由箱子、沟、桌面、楼梯、坡面组成的 parkour line；</li>
+<li>15 个由搜索救援设施实景扫描得到的新地形模型。</li>
+</ul>
+<p>这一阶段的意义是把优化目标从：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>“复制某个专家动作”</mtext></mrow><annotation encoding="application/x-tex">\text{“复制某个专家动作”}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">“</span><span class="mord cjk_fallback">复制某个专家动作</span><span class="mord">”</span></span></span></span></span></span></p>
+<p>切换到：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>“无论使用哪种动作，只要稳定、低代价地到达目标”</mtext></mrow><annotation encoding="application/x-tex">\text{“无论使用哪种动作，只要稳定、低代价地到达目标”}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">“</span><span class="mord cjk_fallback">无论使用哪种动作，只要稳定、低代价地到达目标</span><span class="mord">”</span></span></span></span></span></span></p>
+<h1>4. 策略究竟看到了什么</h1>
+<h2 id="4-1-任务命令">4.1 任务命令</h2>
+<p>策略不是接受传统的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>v</mi><mi>x</mi></msub><mo separator="true">,</mo><msub><mi>v</mi><mi>y</mi></msub><mo separator="true">,</mo><msub><mi>ω</mi><mi>z</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(v_x,v_y,\omega_z)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0359em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 速度命令，而是位置式任务描述：</p>
+<ul>
+<li>目标基座位置 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold">r</mi><mo lspace="0em" rspace="0em">∗</mo></msup></mrow><annotation encoding="application/x-tex">\mathbf{r}^{*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6887em;"></span><span class="mord"><span class="mord mathbf">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6887em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span>；</li>
+<li>目标朝向 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>ψ</mi><mo lspace="0em" rspace="0em">∗</mo></msup></mrow><annotation encoding="application/x-tex">\psi^{*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">ψ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6887em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span>；</li>
+<li>到达目标的剩余时间 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>t</mi><mo lspace="0em" rspace="0em">∗</mo></msup></mrow><annotation encoding="application/x-tex">t^{*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6887em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6887em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span>。</li>
+</ul>
+<p>这使策略同时承担局部导航和敏捷运动：它需要在指定时间内移动到目标位姿，而不是只跟踪瞬时速度。</p>
+<h2 id="4-2-本体观测">4.2 本体观测</h2>
+<p>所有 actor 使用的 proprioception 包括：</p>
+<ul>
+<li>基座线速度 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">v</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{v}_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf" style="margin-right:0.016em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.016em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>；</li>
+<li>基座角速度 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold-italic">ω</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">\boldsymbol{\omega}_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right:0.037em;">ω</span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>；</li>
+<li>基座坐标系中的重力方向 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">g</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{g}_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathbf" style="margin-right:0.016em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.016em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>；</li>
+<li>12 个关节位置 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">q</mi></mrow><annotation encoding="application/x-tex">\mathbf{q}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathbf">q</span></span></span></span>；</li>
+<li>12 个关节速度 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">q</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">\dot{\mathbf{q}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8757em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6813em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">q</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1389em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span>；</li>
+<li>上一步动作。</li>
+</ul>
+<p>这些信息回答的是“机器人自己现在是什么状态”。</p>
+<h2 id="4-3-外部感知：expert-与-student-不同">4.3 外部感知：expert 与 student 不同</h2>
+<p>专家看到的是机器人周围的局部 elevation map。它接近仿真里的特权信息：地形高度清楚、不会因机器人俯仰而改变，也不受遮挡影响。</p>
+<p>Student 则使用四张机载深度图：</p>
+<ul>
+<li>两个前向深度相机；</li>
+<li>两个后向深度相机。</li>
+</ul>
+<p>这意味着蒸馏不只是 policy compression，也是 <strong>cross-modal distillation</strong>：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">expert: elevation map + proprioception</span><br><span class="line">                ↓ action label</span><br><span class="line">student: raw depth images + proprioception + memory</span><br></pre></td></tr></table></figure>
+<p>这也是问题变难的主要来源之一。同一障碍可能已经在 elevation map 中完整可见，却只在深度相机里露出局部，甚至暂时离开视野。</p>
+<h2 id="4-4-非对称-actor-critic">4.4 非对称 actor-critic</h2>
+<p>论文的观测表显示，critic 在微调时拥有比 actor 更丰富的信息：</p>
+<ul>
+<li>actor/student：本体观测 + 四张深度图；</li>
+<li>critic：本体观测 + 细粒度局部 elevation map + 大范围粗粒度 elevation map + 水平 LiDAR-like scan；</li>
+<li>expert：本体观测 + 小范围 elevation map。</li>
+</ul>
+<p>这属于 asymmetric actor-critic：部署时 actor 只依赖真实可得传感器，训练时 critic 用特权地形信息更准确地估值，从而降低策略梯度方差。</p>
+<h1>5. 网络结构</h1>
+<p>Student/fine-tuned actor 的数据流是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">4 × depth image</span><br><span class="line">  │ 每张图独立经过 CNN</span><br><span class="line">  │ 3 层 convolution + max pooling</span><br><span class="line">  │ 再经过 2 层全连接</span><br><span class="line">  │ 每张图输出 64 维 feature</span><br><span class="line">  ▼</span><br><span class="line">拼接 4 路视觉 feature + proprioception</span><br><span class="line">  ▼</span><br><span class="line">2 层 LSTM</span><br><span class="line">  ▼</span><br><span class="line">拼接 LSTM 输出 + proprioception + task command</span><br><span class="line">  ▼</span><br><span class="line">3 层 ELU MLP</span><br><span class="line">  ▼</span><br><span class="line">12 维关节动作</span><br></pre></td></tr></table></figure>
+<p>这里有两个容易忽略的设计：</p>
+<ol>
+<li>task command 在 LSTM 后再次进入 MLP，记忆模块主要负责融合视觉历史和机器人状态；</li>
+<li>proprioception 既进入 LSTM，又通过后级拼接直接送给 MLP，当前状态不必完全经过 recurrent bottleneck。</li>
+</ol>
+<h2 id="为什么需要-LSTM">为什么需要 LSTM</h2>
+<p>深度相机存在遮挡、近距离盲区和有限视场。机器人接近障碍时，先前看见的障碍顶部可能从当前图像消失，但控制仍需使用这段历史信息。</p>
+<p>论文比较了：</p>
+<ul>
+<li>elevation map + MLP；</li>
+<li>elevation map + LSTM；</li>
+<li>depth images + MLP；</li>
+<li>depth images + LSTM。</li>
+</ul>
+<p>结果表明 elevation map 下两类网络都能较好蒸馏；深度图输入下，LSTM 对得到有效策略非常关键。即便加入 LSTM，深度图的重建误差仍更高，因为某些障碍在动作早期本来就视觉歧义，例如薄墙与箱子在开始攀爬前可能难以区分。</p>
+<h1>6. RL 微调的奖励函数</h1>
+<p>论文给出了微调阶段的完整 reward。为方便理解，我把它分成四组。</p>
+<h2 id="6-1-完成任务">6.1 完成任务</h2>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>含义</th>
+<th style="text-align:right">权重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Track position</td>
+<td>最后 1 秒内跟踪目标平面位置</td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td>Track heading</td>
+<td>最后 1 秒内跟踪目标朝向</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td>Don’t wait</td>
+<td>基座速度小于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.2</mn><mtext> </mtext><mtext>m/s</mtext></mrow><annotation encoding="application/x-tex">0.2\,\text{m/s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0.2</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">m/s</span></span></span></span></span> 时惩罚</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td>Stand at target</td>
+<td>到达目标后偏离默认站姿的惩罚</td>
+<td style="text-align:right">-0.5</td>
+</tr>
+</tbody>
+</table>
+<p>位置与朝向奖励只在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>t</mi><mo lspace="0em" rspace="0em">∗</mo></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t^{*}&lt;1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0391em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6887em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> 时开启。这说明策略并非每一步都被局部轨迹牵引，而是主要对时限结束时的目标状态负责，因而保留了选择不同动作序列的自由。</p>
+<p>“Don’t wait” 则防止策略利用这种稀疏目标结构在前期原地不动。</p>
+<h2 id="6-2-平滑与能耗">6.2 平滑与能耗</h2>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>表达式概念</th>
+<th style="text-align:right">权重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joint velocity</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi mathvariant="bold">q</mi><mo>˙</mo></mover><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">|\dot{\mathbf q}|^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6813em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">q</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1389em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align:right"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-10^{-3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td>Torque</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi mathvariant="bold-italic">τ</mi><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">|\boldsymbol\tau|^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right:0.1347em;">τ</span></span></span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align:right"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-10^{-5}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td>Base acceleration</td>
+<td>线加速度平方 + 0.02 × 角加速度平方</td>
+<td style="text-align:right"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-10^{-3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td>Feet acceleration</td>
+<td>四足加速度范数之和</td>
+<td style="text-align:right"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>2</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-2\times10^{-3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td>Action rate</td>
+<td>相邻目标关节位置变化平方</td>
+<td style="text-align:right"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-10^{-2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+<p>这些项限制高频抖动、过大动作变化和不必要的动力消耗，但权重必须足够小，否则策略会偏向“安全但不动”。</p>
+<h2 id="6-3-硬件与接触安全">6.3 硬件与接触安全</h2>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>触发条件</th>
+<th style="text-align:right">权重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joint velocity limit</td>
+<td>超出关节速度限制的部分</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td>Torque limit</td>
+<td>超出力矩限制的部分</td>
+<td style="text-align:right">-0.2</td>
+</tr>
+<tr>
+<td>Feet force</td>
+<td>足端力超过 700 N 的平方惩罚</td>
+<td style="text-align:right"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-10^{-5}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td>Collision</td>
+<td>膝部或小腿碰撞</td>
+<td style="text-align:right">-1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-4-失败终止">6.4 失败终止</h2>
+<p>当机身 z 轴与重力的夹角超过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>135</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">135^\circ</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6741em;"></span><span class="mord">13</span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6741em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∘</span></span></span></span></span></span></span></span></span></span></span>，或关节速度超过限制时，给予 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>2000</mn></mrow><annotation encoding="application/x-tex">-2000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">2000</span></span></span></span> 的终止惩罚。</p>
+<p>这是一项远大于普通 shaping reward 的惩罚，作用是清楚地区分“动作不够漂亮”和“进入危险状态”。</p>
+<h1>7. 为什么从蒸馏切换到 RL 容易崩</h1>
+<p>论文指出，直接对蒸馏策略施加 RL loss，性能往往会持续下降。原因可以从三个分布变化理解：</p>
+<ol>
+<li><strong>动作分布变化</strong>：确定性模仿输出变成带方差的随机策略；</li>
+<li><strong>状态分布变化</strong>：探索噪声把机器人推到蒸馏数据较少覆盖的状态；</li>
+<li><strong>优化目标变化</strong>：MSE 的局部几何与 policy gradient 的更新方向完全不同。</li>
+</ol>
+<p>作者给出三项关键稳定措施：</p>
+<ol>
+<li>蒸馏时加入动作噪声，先把 foundation policy 训练得足够鲁棒；</li>
+<li>RL 开始时使用较小的策略分布标准差，并保守设置超参数；</li>
+<li>先冻结 actor，只训练 critic；critic 足够准确后再更新 actor。</li>
+</ol>
+<p>第三点尤其重要。如果刚开始的 value estimate 很差，advantage 的符号和尺度都可能不可靠，一个原本可用的 actor 会被错误梯度迅速破坏。</p>
+<p>可以把训练切换写成：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">阶段 A：冻结 actor，rollout 当前蒸馏策略，预训练 critic</span><br><span class="line">阶段 B：critic 稳定后，以低探索方差启动 actor update</span><br><span class="line">阶段 C：在全地形分布上联合优化 actor 与 critic</span><br></pre></td></tr></table></figure>
+<h1>8. 深度图 Sim-to-Real</h1>
+<h2 id="8-1-为什么不能直接使用仿真真值深度">8.1 为什么不能直接使用仿真真值深度</h2>
+<p>ANYmal D 的 RealSense D435i 通过双目匹配与红外投影估计深度。真实图像会出现：</p>
+<ul>
+<li>物体边缘缺失；</li>
+<li>某些表面无法匹配；</li>
+<li>近场无效；</li>
+<li>左右视差造成局部盲区；</li>
+<li>距离越远，精度越差；</li>
+<li>反光、阳光等因素导致退化。</li>
+</ul>
+<p>理想渲染深度没有这些问题。如果在理想图像上训练，policy 很容易依赖现实中不存在的细节。</p>
+<h2 id="8-2-仿真图像退化流程">8.2 仿真图像退化流程</h2>
+<p>论文先渲染 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>48</mn><mo>×</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">48\times32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">48</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> 的低分辨率深度图，然后做以下处理：</p>
+<ol>
+<li><strong>Clip</strong>：最大深度截到 2 m；小于 0.15 m 的像素也设为 2 m，模拟近场无效；</li>
+<li><strong>Edge noise</strong>：通过深度梯度找边缘，将边缘附近像素随机清空或与邻居打乱；</li>
+<li><strong>Holes</strong>：用缓慢变化的 Perlin noise 生成缺失区域，使空洞具有时间连续性；</li>
+<li><strong>Blind spot</strong>：随机去掉最左侧 1～5 列，模拟近距离双目盲区；</li>
+<li><strong>Gaussian blur</strong>：模糊全图，去掉过于理想的小细节。</li>
+</ol>
+<p>真实图像则执行相同的裁剪、降采样和高斯模糊，使真实与仿真在共同的“低质量域”中更接近。</p>
+<p>这里的策略不是让模拟器精确复现 D435i 的全部成像物理，而是主动丢弃无法稳定迁移的信息。</p>
+<h1>9. 实验结果怎么读</h1>
+<p>所有表格成功率来自仿真中 1000 次 rollout，地形在最大训练难度的 90% 附近随机化。</p>
+<h2 id="9-1-蒸馏保留了技能，但仍有明显损失">9.1 蒸馏保留了技能，但仍有明显损失</h2>
+<table>
+<thead>
+<tr>
+<th>地形</th>
+<th style="text-align:right">对应专家</th>
+<th style="text-align:right">仅蒸馏</th>
+<th style="text-align:right">RL 微调后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Walk</td>
+<td style="text-align:right">94.6</td>
+<td style="text-align:right">99.3</td>
+<td style="text-align:right">100.0</td>
+</tr>
+<tr>
+<td>Climb</td>
+<td style="text-align:right">98.8</td>
+<td style="text-align:right">98.1</td>
+<td style="text-align:right">99.5</td>
+</tr>
+<tr>
+<td>Climb down</td>
+<td style="text-align:right">99.9</td>
+<td style="text-align:right">84.3</td>
+<td style="text-align:right">99.7</td>
+</tr>
+<tr>
+<td>Jump</td>
+<td style="text-align:right">98.4</td>
+<td style="text-align:right">93.5</td>
+<td style="text-align:right">98.0</td>
+</tr>
+<tr>
+<td>Tables</td>
+<td style="text-align:right">99.4</td>
+<td style="text-align:right">78.9</td>
+<td style="text-align:right">100.0</td>
+</tr>
+<tr>
+<td>Rock pile</td>
+<td style="text-align:right">92.2</td>
+<td style="text-align:right">82.6</td>
+<td style="text-align:right">96.5</td>
+</tr>
+<tr>
+<td>Low wall</td>
+<td style="text-align:right">84.8</td>
+<td style="text-align:right">77.0</td>
+<td style="text-align:right">99.9</td>
+</tr>
+<tr>
+<td>Beams</td>
+<td style="text-align:right">97.3</td>
+<td style="text-align:right">85.2</td>
+<td style="text-align:right">99.5</td>
+</tr>
+<tr>
+<td>Stepping stones</td>
+<td style="text-align:right">98.8</td>
+<td style="text-align:right">73.0</td>
+<td style="text-align:right">98.8</td>
+</tr>
+</tbody>
+</table>
+<p>蒸馏后相对对应专家平均下降 10.4%。下降最明显的地方有两类：</p>
+<ul>
+<li><strong>技能歧义</strong>：Tables 与 Climb、Climb down 与 Jump 的类似状态可能对应不同专家动作；</li>
+<li><strong>精确感知</strong>：窄梁和脚石要求精确落脚，而 student 从 elevation map 换成了有噪声深度图。</li>
+</ul>
+<p>一个有趣的反例是 Walk：蒸馏策略达到 99.3%，反而超过 Walk 专家 94.6%。这说明共享参数不只有负迁移；从复杂技能获得的恢复与跨越动作也可能增强简单行走。</p>
+<h2 id="9-2-RL-微调真正带来了泛化">9.2 RL 微调真正带来了泛化</h2>
+<table>
+<thead>
+<tr>
+<th>新/未见地形</th>
+<th style="text-align:right">仅蒸馏</th>
+<th style="text-align:right">RL 微调后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parkour line（微调见过）</td>
+<td style="text-align:right">5.8</td>
+<td style="text-align:right">98.5</td>
+</tr>
+<tr>
+<td>Scanned meshes train</td>
+<td style="text-align:right">11.9</td>
+<td style="text-align:right">99.1</td>
+</tr>
+<tr>
+<td>Scanned meshes test（未见）</td>
+<td style="text-align:right">14.9</td>
+<td style="text-align:right">94.9</td>
+</tr>
+<tr>
+<td>Arranged rocks（未见）</td>
+<td style="text-align:right">62.9</td>
+<td style="text-align:right">93.2</td>
+</tr>
+<tr>
+<td>Gap-climb（未见技能组合）</td>
+<td style="text-align:right">10.2</td>
+<td style="text-align:right">82.0</td>
+</tr>
+<tr>
+<td>Climb down on stones（未见技能组合）</td>
+<td style="text-align:right">11.3</td>
+<td style="text-align:right">54.4</td>
+</tr>
+</tbody>
+</table>
+<p>微调策略在九类专家地形上平均比对应专家高 3.1%，并在未见过的扫描模型上达到 94.9%。</p>
+<p>但“Climb down on stones” 只有 54.4%，这是论文很诚实的一项结果：会下台阶、也会踩石头，不代表一定会把两者组合好。组合泛化不是把技能名称相加，而是需要在新的接触序列里重新协调全身动作。</p>
+<h2 id="9-3-持续微调能否加入新能力">9.3 持续微调能否加入新能力</h2>
+<p>作者专门把 “Climb down on stones” 作为新任务再训练：</p>
+<ul>
+<li>从随机初始化训练：找不到可用解；</li>
+<li>从 distilled policy 开始：能获得非平凡性能；</li>
+<li>从已 RL fine-tuned policy 开始：学习更快、最终更好；</li>
+<li>新旧所有地形混合训练：新地形最终成功率最高。</li>
+</ul>
+<p>Repeated fine-tuning 后该地形从 54.4% 提升到 92.4%，同时旧地形性能基本没有显著变化。</p>
+<p>最值得注意的是：新地形只占采样的 <strong>3%</strong>，混合旧地形反而比只训练新地形更好。可能的解释是：</p>
+<ul>
+<li>旧地形维持了运动先验，降低灾难性遗忘；</li>
+<li>多样数据起到了正则化作用；</li>
+<li>新任务需要复用旧技能，而不是完全重写 policy；</li>
+<li>只在一个难地形上更新容易过拟合局部动作与地形几何。</li>
+</ul>
+<p>作者也明确说，这只证明几十种地形范围内可行，不足以证明无限扩展不会遇到容量与技能干扰瓶颈。</p>
+<h1>10. 为什么 distillation + fine-tuning 优于其他组合方式</h1>
+<p>论文比较了三类方案。</p>
+<h2 id="10-1-Hierarchical-skill-selector">10.1 Hierarchical skill selector</h2>
+<p>高层策略每步选择一个专家并修改其命令。</p>
+<p>优点：</p>
+<ul>
+<li>专家本身保持冻结；</li>
+<li>技能边界清楚；</li>
+<li>理论上易解释。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>硬切换难以连续融合动作；</li>
+<li>技能从五个增加到九个后，高层策略会完全放弃部分技能；</li>
+<li>Gap-climb 需要同时融合 jump 与 climb，而不是二选一。</li>
+</ul>
+<h2 id="10-2-VAE-latent-skill-space">10.2 VAE latent skill space</h2>
+<p>先把专家动作编码到共享 latent space，冻结 decoder，再训练策略输出 latent。</p>
+<p>优点：</p>
+<ul>
+<li>latent action space 比原始关节动作更容易探索；</li>
+<li>从随机初始化训练时优于标准 end-to-end RL；</li>
+<li>对两个已知技能之间的插值有帮助。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>decoder 的动作流形由旧专家数据决定；</li>
+<li>新地形需要的全新动作可能不在这个流形中；</li>
+<li>训练步骤和组件更多；</li>
+<li>技能、地形规模继续增加后效率下降。</li>
+</ul>
+<h2 id="10-3-Distillation-RL-fine-tuning">10.3 Distillation + RL fine-tuning</h2>
+<p>蒸馏提供一个覆盖多个成功模式的参数初始化，RL 又没有冻结 decoder 或专家边界，因此可以修改和创造动作。</p>
+<p>它的核心优势可以概括为：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">比从零 RL 更容易探索</span><br><span class="line">+ 比层级切换更容易融合技能</span><br><span class="line">+ 比冻结 VAE decoder 更容易超出旧技能动作流形</span><br></pre></td></tr></table></figure>
+<h1>11. 一个很重要的涌现行为：Active Perception</h1>
+<table>
+<thead>
+<tr>
+<th>仅蒸馏策略</th>
+<th>RL 微调后策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="figure8a-distilled.jpg" alt="蒸馏策略贴近障碍后再攀爬"></td>
+<td><img src="figure8b-finetuned.jpg" alt="微调策略主动保持观测距离"></td>
+</tr>
+</tbody>
+</table>
+<p><em>原论文图 8：仅蒸馏策略复制 expert 的贴近动作；RL 微调后，策略为了让箱顶留在深度相机视场内，会主动离障碍更远。图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.11164">Rudin et al., 2025</a>。</em></p>
+<p>攀爬专家使用理想 elevation map，因此它可以贴近箱子后再抬腿。但 student 的相机固定在机身上：离箱子太近时，箱顶会离开视场。</p>
+<p>蒸馏阶段要求 student 模仿 expert，所以 student 也倾向于贴近障碍，靠 LSTM 记住之前看见的箱顶。这种动作在无扰动时可行，但可靠性较低。</p>
+<p>RL 微调后，策略出现了新的动作：</p>
+<ul>
+<li>在离箱子更远的位置停下；</li>
+<li>调整机身俯仰；</li>
+<li>让箱顶重新进入深度相机视场；</li>
+<li>看清后再触碰和攀爬。</li>
+</ul>
+<p>这是 active perception：策略不仅“根据图像运动”，还主动改变身体姿态来改善下一时刻的图像。</p>
+<p>这个例子也解释了为什么最后必须有 RL：expert 的动作对 expert 的传感器最优，却不一定对 student 的传感器最优。纯模仿无法主动背离老师，而任务 reward 可以。</p>
+<h1>12. 真机部署</h1>
+<p><img src="figure9-deployment.jpg" alt="ANYmal D 在搜救训练场的真机连续动作"></p>
+<p><em>原论文图 9（局部）：微调后的策略在训练时未见的真实搜救场地中部署。图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.11164">Rudin et al., 2025</a>。</em></p>
+<p>部署使用标准 ANYmal D：</p>
+<ul>
+<li>使用六个深度相机中的四个；</li>
+<li>不使用机载 LiDAR；</li>
+<li>不使用外部传感器；</li>
+<li>全部推理在机载 CPU 上完成；</li>
+<li>policy 控制频率 50 Hz；</li>
+<li>深度输入更新频率 15 Hz；</li>
+<li>相机内部以 60 Hz 发布 ROS message；</li>
+<li>每次直接使用各相机最近一帧，不做显式同步。</li>
+</ul>
+<p>训练时随机化每个相机的延迟，因此部署时可以容忍不同相机时间戳不完全一致。</p>
+<p>论文报告的真机能力包括：</p>
+<ul>
+<li>室内孤立障碍与混合障碍；</li>
+<li>搜索救援设施中的碎石和模拟坍塌建筑；</li>
+<li>跳跃、攀爬等动态动作；</li>
+<li>湿滑或移动地面；</li>
+<li>脚卡进裂缝或钢丝；</li>
+<li>高草视觉干扰；</li>
+<li>反光表面与阳光造成的深度退化。</li>
+</ul>
+<p>需要注意：论文主要给出真机定性展示，完整的数值成功率表来自仿真，不能把仿真 94.9% 直接解释成现实场景成功率。</p>
+<h1>13. 论文的局限性</h1>
+<h2 id="13-1-多专家蒸馏本质上是病态监督问题">13.1 多专家蒸馏本质上是病态监督问题</h2>
+<p>不同专家可能在相似观测下输出不同动作。MSE 会倾向平均这些动作，但动作平均不等于行为平均：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false">(</mo><msub><mi>a</mi><mtext>jump</mtext></msub><mo>+</mo><msub><mi>a</mi><mtext>climb</mtext></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac{1}{2}(a_{\text{jump}}+a_{\text{climb}})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3175em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">jump</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">climb</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>可能既不能跳，也不能爬。论文靠 RL 后处理缓解冲突，但并未从根本上解决多模态监督目标。</p>
+<p>未来可考虑：</p>
+<ul>
+<li>mixture density policy；</li>
+<li>显式 skill token 或可学习路由；</li>
+<li>advantage-weighted distillation；</li>
+<li>按 teacher confidence 加权；</li>
+<li>diffusion / autoregressive action modeling。</li>
+</ul>
+<h2 id="13-2-仍需要大量人工设计">13.2 仍需要大量人工设计</h2>
+<p>九个专家分别需要 curriculum、reward 和初始化调试；微调阶段还要重新统一不同专家的 reward 与 termination。论文的训练路线降低了全任务联合调参难度，但没有消除调参。</p>
+<h2 id="13-3-视觉精度仍不足">13.3 视觉精度仍不足</h2>
+<p>在窄梁和脚石上，策略会先踩错再恢复；遇到桌面悬空结构时，有时需要先碰到障碍才开始下蹲。强恢复能力掩盖了感知和落脚规划不够准确的问题。</p>
+<h2 id="13-4-“安全通过”可能以硬件磨损为代价">13.4 “安全通过”可能以硬件磨损为代价</h2>
+<p>微调策略在攀爬和跳跃时比专家更常使用膝部接触。这能提高成功率，却带来电机冲击和机械磨损。训练 reward 中虽然有膝/小腿碰撞惩罚，但真实行为表明这项约束还不够。</p>
+<h2 id="13-5-LSTM-的长期记忆会稀释">13.5 LSTM 的长期记忆会稀释</h2>
+<p>机器人看见箱子后，如果马上前进，它会正确攀爬；若原地等待几秒再前进，它可能撞上箱子。因为 LSTM hidden state 每步更新，即使没有新信息，旧障碍信息也会逐渐消失。</p>
+<p>作者建议未来考虑 attention/Transformer，使策略能选择性保留关键历史观测。</p>
+<h2 id="13-6-端到端策略难诊断">13.6 端到端策略难诊断</h2>
+<p>一旦出现失足，很难判断是：</p>
+<ul>
+<li>深度噪声导致障碍没看清；</li>
+<li>CNN 特征提取失败；</li>
+<li>LSTM 忘记历史；</li>
+<li>locomotion 本身落脚错误；</li>
+<li>reward 鼓励了高风险恢复行为。</li>
+</ul>
+<p>模块化系统接口会损失信息，但端到端系统也牺牲可解释性和独立调试能力。</p>
+<h1>14. 我认为这篇论文最有价值的三点</h1>
+<h2 id="14-1-Distillation-不是终点，而是-RL-的探索先验">14.1 Distillation 不是终点，而是 RL 的探索先验</h2>
+<p>很多工作把蒸馏成功定义为“student 尽可能复制 teacher”。本文更实用的观点是：即使 student 比 expert 差，只要它已经进入多个技能的可行解附近，就能作为后续 RL 的 foundation policy。</p>
+<p>因此评价蒸馏模型时，除了 imitation accuracy，还应问：</p>
+<ul>
+<li>它是否覆盖所有行为模式？</li>
+<li>加探索噪声后是否仍能恢复？</li>
+<li>从它开始做 RL 是否比从零更快？</li>
+<li>它是否为新任务提供有用的 state visitation distribution？</li>
+</ul>
+<h2 id="14-2-感知与控制必须共同优化">14.2 感知与控制必须共同优化</h2>
+<p>专家的最优动作依赖其感知接口。更换传感器后，动作也应改变。Active perception 说明 end-to-end RL 的价值不只是少写一个建图模块，而是让运动本身适应感知限制。</p>
+<h2 id="14-3-持续学习未必只靠复杂的-anti-forgetting-算法">14.3 持续学习未必只靠复杂的 anti-forgetting 算法</h2>
+<p>本文没有使用 EWC、replay buffer 专用损失或参数隔离，而是让新地形只占小部分样本，同时持续混入全部旧地形。至少在当前规模上，这种简单 rehearsal 就能维持旧技能并提升新技能。</p>
+<h1>15. 如果我要复现，建议怎么拆</h1>
+<p>这篇工作完整复现的门槛很高，不建议第一步就实现九专家 + 四相机 + 真机。可以按以下层级推进。</p>
+<h2 id="Level-1：两专家动作蒸馏">Level 1：两专家动作蒸馏</h2>
+<p>先选择两个差异明确的任务，例如：</p>
+<ul>
+<li>flat walk；</li>
+<li>stair climb。</li>
+</ul>
+<p>保持 expert 和 student 都使用 height scan，先验证：</p>
+<ul>
+<li>student rollout + expert relabel；</li>
+<li>DAgger dataset 聚合；</li>
+<li>动作 MSE；</li>
+<li>每个 terrain 分开统计成功率；</li>
+<li>加噪声与不加噪声的恢复能力。</li>
+</ul>
+<h2 id="Level-2：验证感知跨模态">Level 2：验证感知跨模态</h2>
+<p>将 student 输入改为 depth image，expert 仍用 height scan：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">teacher: privileged height scan</span><br><span class="line">student: depth CNN + proprioception</span><br></pre></td></tr></table></figure>
+<p>分别测试 MLP 和 LSTM，制造相机遮挡，确认记忆是否真正有用。</p>
+<h2 id="Level-3：蒸馏后-RL-微调">Level 3：蒸馏后 RL 微调</h2>
+<p>先只在原有两类地形上微调，重点验证稳定切换：</p>
+<ol>
+<li>distillation checkpoint 的确定性成功率；</li>
+<li>加不同动作噪声后的成功率；</li>
+<li>actor 冻结期间 critic loss 与 explained variance；</li>
+<li>解冻 actor 后各任务成功率是否瞬间下降；</li>
+<li>标准差、learning rate、clip range 对遗忘的影响。</li>
+</ol>
+<h2 id="Level-4：加入组合地形">Level 4：加入组合地形</h2>
+<p>构造必须连续使用两个技能的新障碍，例如：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">平地 → 缺口 → 高台 → 下台阶</span><br></pre></td></tr></table></figure>
+<p>比较：</p>
+<ul>
+<li>从零 RL；</li>
+<li>仅蒸馏；</li>
+<li>蒸馏 + RL；</li>
+<li>已微调策略再次 fine-tune。</li>
+</ul>
+<h2 id="Level-5：视觉-Sim-to-Real">Level 5：视觉 Sim-to-Real</h2>
+<p>最后再加入：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>48</mn><mo>×</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">48\times32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">48</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> 深度图；</li>
+<li>near/far clipping；</li>
+<li>edge dropout；</li>
+<li>temporal Perlin holes；</li>
+<li>blind columns；</li>
+<li>blur；</li>
+<li>camera latency randomization；</li>
+<li>非同步多相机输入。</li>
+</ul>
+<h1>16. 复现时建议记录的指标</h1>
+<p>只看总 reward 不足以解释多技能训练。至少应按地形分别记录：</p>
+<ul>
+<li>success rate；</li>
+<li>episode termination reason；</li>
+<li>target position/heading error；</li>
+<li>每米能耗或 torque integral；</li>
+<li>joint velocity/torque limit violation；</li>
+<li>knee/shank collision count；</li>
+<li>peak foot contact force；</li>
+<li>action rate；</li>
+<li>teacher-student action MSE；</li>
+<li>critic explained variance；</li>
+<li>policy entropy / action standard deviation；</li>
+<li>每类地形的采样比例与梯度贡献；</li>
+<li>新任务训练前后旧任务性能变化。</li>
+</ul>
+<p>尤其要画一个 task × checkpoint 矩阵，否则平均成功率可能掩盖某个技能已经被完全遗忘。</p>
+<h1>17. 读论文时容易产生的误解</h1>
+<h2 id="误解-1：一个策略成功，是因为网络足够大">误解 1：一个策略成功，是因为网络足够大</h2>
+<p>论文真正强调的是训练分布和初始化。没有专家蒸馏时，标准 RL 会卡在部分任务；网络结构本身不能自动解决多模态探索。</p>
+<h2 id="误解-2：DAgger-后已经得到通用策略">误解 2：DAgger 后已经得到通用策略</h2>
+<p>仅蒸馏策略在 Parkour line 上只有 5.8%，在未见扫描地形上只有 14.9%。它主要提供技能覆盖和初始化，真正的新地形能力来自 RL 微调。</p>
+<h2 id="误解-3：RL-微调只是小幅抛光">误解 3：RL 微调只是小幅抛光</h2>
+<p>Parkour line 从 5.8% 到 98.5%，训练扫描地形从 11.9% 到 99.1%。这不是简单去噪，而是显著重构行为。</p>
+<h2 id="误解-4：泛化意味着任意技能组合都能完成">误解 4：泛化意味着任意技能组合都能完成</h2>
+<p>初次面对 Climb down on stones 时只有 54.4%。论文证明了较强但有限的组合泛化，并没有证明系统已经拥有抽象符号式技能组合能力。</p>
+<h2 id="误解-5：真机不需要状态估计">误解 5：真机不需要状态估计</h2>
+<p>论文说深度图输入降低了对精确地形建图与状态估计的依赖，不代表控制系统完全没有机器人状态估计。本体速度、重力方向等观测仍需估计。</p>
+<h1>18. 与我已有四足 RL 知识的连接</h1>
+<p>这篇论文可以放进下面这条知识链：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">MDP / observation / action</span><br><span class="line">        ↓</span><br><span class="line">单地形 PPO 与 curriculum</span><br><span class="line">        ↓</span><br><span class="line">privileged learning 与 asymmetric critic</span><br><span class="line">        ↓</span><br><span class="line">teacher-student / DAgger</span><br><span class="line">        ↓</span><br><span class="line">视觉 encoder + recurrent memory</span><br><span class="line">        ↓</span><br><span class="line">多专家动作冲突</span><br><span class="line">        ↓</span><br><span class="line">RL fine-tuning 与持续扩展</span><br><span class="line">        ↓</span><br><span class="line">depth Sim-to-Real 与真机部署</span><br></pre></td></tr></table></figure>
+<p>它也把之前容易分开理解的几个概念串了起来：</p>
+<ul>
+<li>expert 的 elevation map 是 privileged information；</li>
+<li>student 的 LSTM hidden state 是 terrain/history latent；</li>
+<li>DAgger 解决 student rollout 的分布偏移；</li>
+<li>asymmetric critic 提升视觉 actor 的 RL 训练效率；</li>
+<li>action noise 同时连接蒸馏鲁棒性与 RL exploration；</li>
+<li>old-terrain rehearsal 缓解 repeated fine-tuning 的遗忘；</li>
+<li>active perception 是 perception-action closed loop 的涌现结果。</li>
+</ul>
+<h1>19. 最终评价</h1>
+<p>这篇论文最强的地方，是它没有把“通用运动策略”包装成一次训练即可得到的魔法模型，而是正面承认：</p>
+<ul>
+<li>专家训练费力；</li>
+<li>多专家动作存在冲突；</li>
+<li>蒸馏会损失性能；</li>
+<li>视觉跨模态让模仿更难；</li>
+<li>RL 从零探索会模式坍塌；</li>
+<li>监督学习切到 RL 会不稳定；</li>
+<li>未见技能组合仍会失败；</li>
+<li>真机高成功率动作不一定对硬件友好。</li>
+</ul>
+<p>它给出的答案也非常工程化：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">用专家解决“先找到成功动作”的问题；</span><br><span class="line">用 DAgger 解决 student 状态分布的问题；</span><br><span class="line">用动作噪声解决策略脆弱和 RL 切换的问题；</span><br><span class="line">用 critic 预训练解决初始 advantage 不可靠的问题；</span><br><span class="line">用 RL 解决多专家冲突和新地形无标签的问题；</span><br><span class="line">用深度退化解决视觉 Sim-to-Real 的问题；</span><br><span class="line">用旧新地形混合采样解决持续扩展中的遗忘问题。</span><br></pre></td></tr></table></figure>
+<p>因此，我认为本文最值得复用的不是某一个 reward 数值，而是这套分阶段思维：</p>
+<blockquote>
+<p><strong>先让策略拥有多种可行行为，再让任务目标决定这些行为应该如何融合、修改和扩展。</strong></p>
+</blockquote>
+<h1>参考资料</h1>
+<ol>
+<li>Rudin, N., He, J., Aurand, J., &amp; Hutter, M. <a target="_blank" rel="noopener" href="https://arxiv.org/html/2505.11164">Parkour in the Wild: Learning a General and Extensible Agile Locomotion Policy Using Multi-expert Distillation and RL Fine-tuning</a>. arXiv:2505.11164, 2025.</li>
+<li>Rudin, N., et al. <a target="_blank" rel="noopener" href="https://doi.org/10.1177/02783649261455067">期刊版本 DOI 页面</a>. <em>The International Journal of Robotics Research</em>, OnlineFirst, 2026.</li>
+<li>Ross, S., Gordon, G. J., &amp; Bagnell, J. A. <a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v15/ross11a.html">A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning</a>. AISTATS, 2011.</li>
+<li>Hoeller, D., Rudin, N., Sako, D., &amp; Hutter, M. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.14874">ANYmal Parkour: Learning Agile Navigation for Quadrupedal Robots</a>. 2023.</li>
+<li>Rudin, N., Hoeller, D., Reist, P., &amp; Hutter, M. <a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v164/rudin22a.html">Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning</a>. CoRL, 2022.</li>
+</ol>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    scheduleResync();
+                                });
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        if (img.closest('.post-image-frame')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+</div>
+
+   <div class="tag-cloud-tags">
+    <a href="/tags/3d%E6%89%93%E5%8D%B0/" style="font-size: 10px; color: #f38181">3d打印</a> <a href="/tags/ai%E8%BE%85%E5%8A%A9%E8%AE%BE%E8%AE%A1/" style="font-size: 10px; color: #f38181">ai辅助设计</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 12.14px; color: #df9693">algorithms</a> <a href="/tags/anymal/" style="font-size: 10.71px; color: #ec8887">anymal</a> <a href="/tags/apriltag/" style="font-size: 10px; color: #f38181">apriltag</a> <a href="/tags/ardupilot/" style="font-size: 10px; color: #f38181">ardupilot</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bang-bang/" style="font-size: 10px; color: #f38181">bang-bang</a> <a href="/tags/blender/" style="font-size: 10px; color: #f38181">blender</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/cadquery/" style="font-size: 10px; color: #f38181">cadquery</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/camera-calibration/" style="font-size: 10px; color: #f38181">camera calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/cnn/" style="font-size: 10px; color: #f38181">cnn</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 14.29px; color: #cbaaa4">control</a> <a href="/tags/cpp/" style="font-size: 17.86px; color: #a9ccc1">cpp</a> <a href="/tags/cpu/" style="font-size: 10px; color: #f38181">cpu</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/dagger/" style="font-size: 10.71px; color: #ec8887">dagger</a> <a href="/tags/data-struct/" style="font-size: 10.71px; color: #ec8887">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/design-pattern/" style="font-size: 10px; color: #f38181">design-pattern</a> <a href="/tags/dots/" style="font-size: 15px; color: #c4b1aa">dots</a> <a href="/tags/economics/" style="font-size: 10px; color: #f38181">economics</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/factory-pattern/" style="font-size: 10px; color: #f38181">factory-pattern</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/fiducial-marker/" style="font-size: 10px; color: #f38181">fiducial marker</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/finance/" style="font-size: 10px; color: #f38181">finance</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fov/" style="font-size: 10px; color: #f38181">fov</a> <a href="/tags/freecad/" style="font-size: 10px; color: #f38181">freecad</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.43px; color: #e68f8d">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/hardware/" style="font-size: 10px; color: #f38181">hardware</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/imu/" style="font-size: 10px; color: #f38181">imu</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 14.29px; color: #cbaaa4">isaac gym</a> <a href="/tags/isaac-lab/" style="font-size: 10.71px; color: #ec8887">isaac lab</a> <a href="/tags/isaaclab/" style="font-size: 10.71px; color: #ec8887">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.71px; color: #ec8887">kdl</a> <a href="/tags/latent-variable/" style="font-size: 10px; color: #f38181">latent variable</a> <a href="/tags/latex/" style="font-size: 10.71px; color: #ec8887">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/learning-notes/" style="font-size: 11.43px; color: #e68f8d">learning-notes</a> <a href="/tags/legged-locomotion/" style="font-size: 15.71px; color: #bdb8b0">legged locomotion</a> <a href="/tags/legged-robotics/" style="font-size: 10px; color: #f38181">legged robotics</a> <a href="/tags/legged-robot/" style="font-size: 10px; color: #f38181">legged-robot</a> <a href="/tags/life/" style="font-size: 16.43px; color: #b7bfb6">life</a> <a href="/tags/linux/" style="font-size: 19.29px; color: #9cdacd">linux</a> <a href="/tags/linux-kernel/" style="font-size: 10px; color: #f38181">linux-kernel</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 12.86px; color: #d89c98">math</a> <a href="/tags/matlab/" style="font-size: 11.43px; color: #e68f8d">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 14.29px; color: #cbaaa4">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/money/" style="font-size: 10px; color: #f38181">money</a> <a href="/tags/motion-control/" style="font-size: 10px; color: #f38181">motion-control</a> <a href="/tags/motor/" style="font-size: 10.71px; color: #ec8887">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/mpc/" style="font-size: 10px; color: #f38181">mpc</a> <a href="/tags/mujoco/" style="font-size: 10.71px; color: #ec8887">mujoco</a> <a href="/tags/network/" style="font-size: 10.71px; color: #ec8887">network</a> <a href="/tags/ocs2/" style="font-size: 10px; color: #f38181">ocs2</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/openscad/" style="font-size: 10px; color: #f38181">openscad</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/optimal-control/" style="font-size: 10px; color: #f38181">optimal-control</a> <a href="/tags/perf/" style="font-size: 10px; color: #f38181">perf</a> <a href="/tags/performance/" style="font-size: 10px; color: #f38181">performance</a> <a href="/tags/personal-finance/" style="font-size: 10px; color: #f38181">personal-finance</a> <a href="/tags/pixhawk/" style="font-size: 10px; color: #f38181">pixhawk</a> <a href="/tags/pixhawk-6c/" style="font-size: 12.14px; color: #df9693">pixhawk 6c</a> <a href="/tags/policy-distillation/" style="font-size: 10px; color: #f38181">policy distillation</a> <a href="/tags/ppo/" style="font-size: 15px; color: #c4b1aa">ppo</a> <a href="/tags/privileged-learning/" style="font-size: 10.71px; color: #ec8887">privileged learning</a> <a href="/tags/profiling/" style="font-size: 10px; color: #f38181">profiling</a> <a href="/tags/px4/" style="font-size: 12.14px; color: #df9693">px4</a> <a href="/tags/python/" style="font-size: 15px; color: #c4b1aa">python</a> <a href="/tags/qgroundcontrol/" style="font-size: 12.14px; color: #df9693">qgroundcontrol</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/quadrotor/" style="font-size: 10.71px; color: #ec8887">quadrotor</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/reinforcement-learning/" style="font-size: 10px; color: #f38181">reinforcement learning</a> <a href="/tags/representation-learning/" style="font-size: 10px; color: #f38181">representation learning</a> <a href="/tags/reward-tuning/" style="font-size: 10.71px; color: #ec8887">reward tuning</a> <a href="/tags/rnn/" style="font-size: 10px; color: #f38181">rnn</a> <a href="/tags/robot/" style="font-size: 12.14px; color: #df9693">robot</a> <a href="/tags/robotics/" style="font-size: 14.29px; color: #cbaaa4">robotics</a> <a href="/tags/ros/" style="font-size: 17.14px; color: #b0c6bc">ros</a> <a href="/tags/ros2/" style="font-size: 13.57px; color: #d1a39e">ros2</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/security/" style="font-size: 10px; color: #f38181">security</a> <a href="/tags/shell/" style="font-size: 10.71px; color: #ec8887">shell</a> <a href="/tags/sim-to-real/" style="font-size: 12.86px; color: #d89c98">sim-to-real</a> <a href="/tags/simulation/" style="font-size: 11.43px; color: #e68f8d">simulation</a> <a href="/tags/socket/" style="font-size: 10px; color: #f38181">socket</a> <a href="/tags/stairs/" style="font-size: 10px; color: #f38181">stairs</a> <a href="/tags/stl/" style="font-size: 11.43px; color: #e68f8d">stl</a> <a href="/tags/stm32/" style="font-size: 10px; color: #f38181">stm32</a> <a href="/tags/tcp-ip/" style="font-size: 10px; color: #f38181">tcp-ip</a> <a href="/tags/teacher-policy/" style="font-size: 10px; color: #f38181">teacher policy</a> <a href="/tags/teacher-student/" style="font-size: 10px; color: #f38181">teacher-student</a> <a href="/tags/temporal-convolution/" style="font-size: 10px; color: #f38181">temporal convolution</a> <a href="/tags/thread/" style="font-size: 10.71px; color: #ec8887">thread</a> <a href="/tags/tools/" style="font-size: 18.57px; color: #a2d3c7">tools</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 11.43px; color: #e68f8d">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/unitree/" style="font-size: 10px; color: #f38181">unitree</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/vae/" style="font-size: 10px; color: #f38181">vae</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 14.29px; color: #cbaaa4">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/wifi/" style="font-size: 10px; color: #f38181">wifi</a> <a href="/tags/wiring/" style="font-size: 10px; color: #f38181">wiring</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%9B%9B%E6%97%8B%E7%BF%BC/" style="font-size: 10px; color: #f38181">四旋翼</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 17.14px; color: #b0c6bc">四足机器人</a> <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%8A%E6%96%AD/" style="font-size: 10px; color: #f38181">实验诊断</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 18.57px; color: #a2d3c7">强化学习</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10px; color: #f38181">机器人</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8E%A7%E5%88%B6/" style="font-size: 10.71px; color: #ec8887">机器人控制</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%A7%86%E8%A7%89/" style="font-size: 10px; color: #f38181">机器人视觉</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 10px; color: #f38181">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA/" style="font-size: 10px; color: #f38181">深度相机</a> <a href="/tags/%E7%82%B9%E4%BA%91/" style="font-size: 10px; color: #f38181">点云</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px; color: #f38181">神经网络</a> <a href="/tags/%E8%87%AA%E4%B8%BB%E5%9B%9E%E5%85%85/" style="font-size: 10px; color: #f38181">自主回充</a> <a href="/tags/%E8%88%AA%E6%A8%A1/" style="font-size: 10px; color: #f38181">航模</a> <a href="/tags/%E8%A7%86%E8%A7%89%E5%AE%9A%E4%BD%8D/" style="font-size: 10px; color: #f38181">视觉定位</a> <a href="/tags/%E8%AE%AD%E7%BB%83%E6%9B%B2%E7%BA%BF/" style="font-size: 10px; color: #f38181">训练曲线</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.71px; color: #ec8887">配置类</a> <a href="/tags/%E9%87%87%E8%B4%AD%E8%AE%B0%E5%BD%95/" style="font-size: 10px; color: #f38181">采购记录</a> <a href="/tags/%E9%A3%9E%E6%8E%A7/" style="font-size: 13.57px; color: #d1a39e">飞控</a>
+</div>
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" alt="知识共享许可协议">
+
+
+
+        </div>
+    </div>
+</body>
+
+
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DH 与 MDH 连杆参数、坐标系和齐次变换检查工具页面大纲。">
+  <title>DH / MDH 变换检查 · Robotics Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <script src="/js/tools-common.js" defer></script>
+</head>
+<body class="robot-tool-page">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页"><span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span><span>Robotics Workbench</span></a>
+    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
+  </header>
+
+  <main class="rt-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>DH / MDH 变换检查</span></nav>
+    <section class="rt-hero">
+      <div><span class="rt-kicker">Tool 04 · modeling</span><h1>DH / MDH<br>变换检查</h1><p>集中检查连杆参数表、坐标系放置与矩阵乘法顺序，逐步展开每一节齐次变换和末端位姿。当前先完成参数入口和输出结构，符号及数值计算待接入。</p></div>
+      <div class="rt-status-stack" aria-label="工具状态"><div class="rt-status-row"><span>interface</span><strong class="is-ready">ready</strong></div><div class="rt-status-row"><span>math core</span><strong>pending</strong></div><div class="rt-status-row"><span>version</span><strong>0.1 outline</strong></div></div>
+    </section>
+
+    <section class="rt-workspace" aria-label="DH MDH 检查工作区">
+      <div class="rt-panel">
+        <div class="rt-panel-head"><h2>参数约定</h2><span class="rt-panel-index">01 / INPUT</span></div>
+        <form>
+          <div class="rt-form-grid">
+            <div class="rt-field rt-field-full"><span class="rt-field-label">参数来源</span><label class="rt-file-drop"><input type="file" accept=".csv,.json,.yaml,.yml" data-file-input><span class="rt-file-copy"><span class="rt-file-icon">＋</span><strong data-file-title data-default-text="导入连杆参数表">导入连杆参数表</strong><span data-file-detail data-default-text="CSV / JSON / YAML；后续支持页面内直接编辑">CSV / JSON / YAML；后续支持页面内直接编辑</span></span></label></div>
+            <div class="rt-field rt-field-full"><span class="rt-field-label">建模约定</span><div class="rt-segmented" data-segmented style="--segments: 2"><button class="is-active" type="button" data-value="dh" aria-pressed="true">Standard DH</button><button type="button" data-value="mdh" aria-pressed="false">Modified DH</button></div><input type="hidden" name="convention" value="dh"></div>
+            <div class="rt-field"><label for="transform-angle">角度单位</label><select id="transform-angle"><option>rad</option><option>deg</option></select></div>
+            <div class="rt-field"><label for="transform-length">长度单位</label><select id="transform-length"><option>m</option><option>mm</option></select></div>
+            <div class="rt-field"><label for="transform-joint">关节变量示例</label><input id="transform-joint" type="text" value="0, 0, 0, 0, 0, 0"></div>
+            <div class="rt-field"><label for="transform-output">输出形式</label><select id="transform-output"><option>数值矩阵</option><option>符号矩阵</option><option>两者同时</option></select></div>
+          </div>
+          <div class="rt-form-actions"><button class="rt-primary-button" type="button" data-preview-flow>预览变换链 →</button><button class="rt-secondary-button" type="button" data-reset-form>重置</button><span class="rt-form-hint">不会执行矩阵运算</span></div>
+        </form>
+      </div>
+
+      <div class="rt-panel rt-preview">
+        <div class="rt-preview-card">
+          <div class="rt-preview-visual" aria-hidden="true"><span class="rt-preview-glyph"><svg viewBox="0 0 48 48"><path d="M10 38V12M10 12l-3 5M10 12l5 3M10 38h26M36 38l-5-3M36 38l-4 4M15 31l9-8 10 4M24 23V10M24 10l-3 5M24 10l5 3"/><circle cx="15" cy="31" r="2.5"/><circle cx="24" cy="23" r="2.5"/><circle cx="34" cy="27" r="2.5"/></svg></span></div>
+          <div class="rt-preview-title"><strong>坐标变换链</strong><span class="rt-preview-state" data-preview-state>AWAITING INPUT</span></div>
+          <ol class="rt-process-list"><li><span class="rt-process-dot"></span><span>读取参数列与关节类型</span><code>TABLE</code></li><li><span class="rt-process-dot"></span><span>按约定生成单节变换矩阵</span><code>A_i</code></li><li><span class="rt-process-dot"></span><span>累乘基座到各连杆位姿</span><code>T_0_i</code></li><li><span class="rt-process-dot"></span><span>检查正交性、单位与约定冲突</span><code>AUDIT</code></li></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="rt-outline">
+      <div class="rt-section-heading"><div><span class="rt-kicker">Implementation outline</span><h2>把坐标系问题显式化</h2></div><p>输出不仅给最终矩阵，还保留每一节变换和约定说明，便于定位“数值正确但坐标系不同”的问题。</p></div>
+      <div class="rt-outline-grid">
+        <article class="rt-outline-card"><span>01 / TABLE</span><h3>参数表编辑</h3><ul><li>a、alpha、d、theta 与 offset</li><li>旋转 / 移动关节和变量绑定</li><li>CSV 导入、行编辑与格式校验</li></ul></article>
+        <article class="rt-outline-card"><span>02 / MATH</span><h3>逐节变换</h3><ul><li>Standard DH 与 Modified DH</li><li>数值 / 符号齐次矩阵</li><li>正运动学、坐标轴和中间结果</li></ul></article>
+        <article class="rt-outline-card"><span>03 / EXPORT</span><h3>对比与导出</h3><ul><li>DH / MDH 结果并排检查</li><li>LaTeX、NumPy、MATLAB 代码</li><li>参数约定说明和模型摘要</li></ul></article>
+      </div>
+    </section>
+
+    <section class="rt-roadmap"><div><span class="rt-kicker">Roadmap</span><h2>实现顺序</h2></div><ol class="rt-roadmap-list"><li><span>可编辑参数表和格式校验</span><small>next</small></li><li><span>数值 DH / MDH 正运动学</span><small>planned</small></li><li><span>符号计算和坐标系可视化</span><small>planned</small></li><li><span>代码与 LaTeX 导出</span><small>planned</small></li></ol></section>
+    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 04</span><a href="/tools/inertia-validator/">下一个：惯量参数体检 →</a></footer>
+  </main>
+</body>
+</html>

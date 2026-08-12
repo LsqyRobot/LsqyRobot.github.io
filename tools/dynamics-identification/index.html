@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="面向工业、四足和人形机器人的动力学参数辨识工具页面大纲。">
+  <title>动力学参数辨识 · Robotics Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <script src="/js/tools-common.js" defer></script>
+</head>
+<body class="robot-tool-page">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页"><span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span><span>Robotics Workbench</span></a>
+    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
+  </header>
+
+  <main class="rt-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>动力学参数辨识</span></nav>
+    <section class="rt-hero">
+      <div><span class="rt-kicker">Tool 02 · dynamics</span><h1>动力学<br>参数辨识</h1><p>为工业、四足和人形机器人规划统一的模型入口、数据预处理、最小参数集求解和物理一致性投影流程。支持从 DH、MDH 或 URDF 出发，后续可扩展固定基与浮动基算法。</p></div>
+      <div class="rt-status-stack" aria-label="工具状态"><div class="rt-status-row"><span>interface</span><strong class="is-ready">ready</strong></div><div class="rt-status-row"><span>regressor</span><strong>pending</strong></div><div class="rt-status-row"><span>version</span><strong>0.1 outline</strong></div></div>
+    </section>
+
+    <section class="rt-workspace" aria-label="动力学参数辨识工作区">
+      <div class="rt-panel">
+        <div class="rt-panel-head"><h2>辨识配置</h2><span class="rt-panel-index">01 / INPUT</span></div>
+        <form>
+          <div class="rt-form-grid">
+            <div class="rt-field rt-field-full"><span class="rt-field-label">机器人模型</span><label class="rt-file-drop"><input type="file" accept=".urdf,.xacro,.csv,.json,.yaml,.yml" data-file-input><span class="rt-file-copy"><span class="rt-file-icon">＋</span><strong data-file-title data-default-text="选择模型文件">选择模型文件</strong><span data-file-detail data-default-text="DH / MDH 参数表，或 URDF / Xacro">DH / MDH 参数表，或 URDF / Xacro</span></span></label></div>
+            <div class="rt-field rt-field-full"><span class="rt-field-label">机器人类型</span><div class="rt-segmented" data-segmented style="--segments: 3"><button class="is-active" type="button" data-value="industrial" aria-pressed="true">工业</button><button type="button" data-value="quadruped" aria-pressed="false">四足</button><button type="button" data-value="humanoid" aria-pressed="false">人形</button></div><input type="hidden" name="robot_type" value="industrial"></div>
+            <div class="rt-field rt-field-full"><span class="rt-field-label">建模来源</span><div class="rt-segmented" data-segmented style="--segments: 3"><button class="is-active" type="button" data-value="dh" aria-pressed="true">DH</button><button type="button" data-value="mdh" aria-pressed="false">MDH</button><button type="button" data-value="urdf" aria-pressed="false">URDF</button></div><input type="hidden" name="model_source" value="dh"></div>
+            <div class="rt-field"><label for="dynamics-base">基座形式</label><select id="dynamics-base"><option>固定基</option><option>浮动基</option></select></div>
+            <div class="rt-field"><label for="dynamics-friction">摩擦模型</label><select id="dynamics-friction"><option>黏性 + 库仑</option><option>仅黏性</option><option>Stribeck</option><option>暂不辨识</option></select></div>
+            <div class="rt-field"><label for="dynamics-rate">采样频率 / Hz</label><input id="dynamics-rate" type="number" min="1" value="1000"></div>
+            <div class="rt-field"><label for="dynamics-method">求解策略</label><select id="dynamics-method"><option>加权最小二乘</option><option>约束最小二乘</option><option>贝叶斯估计</option></select></div>
+          </div>
+          <div class="rt-form-actions"><button class="rt-primary-button" type="button" data-preview-flow>预览处理流程 →</button><button class="rt-secondary-button" type="button" data-reset-form>重置</button><span class="rt-form-hint">不会执行实际辨识</span></div>
+        </form>
+      </div>
+
+      <div class="rt-panel rt-preview">
+        <div class="rt-preview-card">
+          <div class="rt-preview-visual" aria-hidden="true"><span class="rt-preview-glyph"><svg viewBox="0 0 48 48"><path d="M8 35c6-16 12-16 18 0s10 3 14-10M8 13h9M12.5 8.5v9M34 10v9M29.5 14.5h9"/><circle cx="27" cy="35" r="3"/></svg></span></div>
+          <div class="rt-preview-title"><strong>辨识管线</strong><span class="rt-preview-state" data-preview-state>AWAITING INPUT</span></div>
+          <ol class="rt-process-list"><li><span class="rt-process-dot"></span><span>解析拓扑、惯性与关节数据</span><code>MODEL</code></li><li><span class="rt-process-dot"></span><span>滤波并估计速度、加速度</span><code>FILTER</code></li><li><span class="rt-process-dot"></span><span>构造回归矩阵与最小参数集</span><code>REGRESSOR</code></li><li><span class="rt-process-dot"></span><span>约束求解、验证与模型回写</span><code>IDENTIFY</code></li></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="rt-outline">
+      <div class="rt-section-heading"><div><span class="rt-kicker">Implementation outline</span><h2>统一辨识框架</h2></div><p>先共用数据和物理参数层，再分别为固定基工业机器人和浮动基腿式机器人实现回归矩阵。</p></div>
+      <div class="rt-outline-grid">
+        <article class="rt-outline-card"><span>01 / DATA</span><h3>模型与实验数据</h3><ul><li>DH / MDH / URDF 拓扑与惯性</li><li>q、dq、ddq、力矩、电流及外力</li><li>滤波、重采样、时延与符号校准</li></ul></article>
+        <article class="rt-outline-card"><span>02 / KERNEL</span><h3>动力学回归</h3><ul><li>固定基与浮动基回归矩阵</li><li>QR / SVD 最小参数集提取</li><li>摩擦、转子惯量和外载辨识</li></ul></article>
+        <article class="rt-outline-card"><span>03 / RESULT</span><h3>物理一致性结果</h3><ul><li>质量、质心与惯量张量投影</li><li>训练 / 验证力矩重构误差</li><li>URDF 参数回写与报告导出</li></ul></article>
+      </div>
+    </section>
+
+    <section class="rt-roadmap"><div><span class="rt-kicker">Roadmap</span><h2>实现顺序</h2></div><ol class="rt-roadmap-list"><li><span>统一日志格式与 URDF 解析</span><small>next</small></li><li><span>固定基最小参数集辨识</span><small>planned</small></li><li><span>四足 / 人形浮动基回归</span><small>planned</small></li><li><span>物理约束投影及模型回写</span><small>planned</small></li></ol></section>
+    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 02</span><a href="/tools/urdf-joint-viewer/">下一个：URDF 关节范围预览 →</a></footer>
+  </main>
+</body>
+</html>

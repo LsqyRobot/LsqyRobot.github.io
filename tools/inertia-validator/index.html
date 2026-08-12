@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="机器人质量、质心和惯量张量物理一致性检查工具页面大纲。">
+  <title>惯量参数体检 · Robotics Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <script src="/js/tools-common.js" defer></script>
+</head>
+<body class="robot-tool-page">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页"><span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span><span>Robotics Workbench</span></a>
+    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
+  </header>
+
+  <main class="rt-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>惯量参数体检</span></nav>
+    <section class="rt-hero">
+      <div><span class="rt-kicker">Tool 05 · dynamics audit</span><h1>惯量参数<br>体检</h1><p>检查质量、质心与惯量张量是否满足基本物理约束，并定位 URDF 中常见的单位、坐标系和非正定问题。当前先呈现检查规则与报告结构，数值判定待接入。</p></div>
+      <div class="rt-status-stack" aria-label="工具状态"><div class="rt-status-row"><span>interface</span><strong class="is-ready">ready</strong></div><div class="rt-status-row"><span>validator</span><strong>pending</strong></div><div class="rt-status-row"><span>version</span><strong>0.1 outline</strong></div></div>
+    </section>
+
+    <section class="rt-workspace" aria-label="惯量参数检查工作区">
+      <div class="rt-panel">
+        <div class="rt-panel-head"><h2>检查输入</h2><span class="rt-panel-index">01 / INPUT</span></div>
+        <form>
+          <div class="rt-form-grid">
+            <div class="rt-field rt-field-full"><span class="rt-field-label">输入方式</span><div class="rt-segmented" data-segmented style="--segments: 2"><button class="is-active" type="button" data-value="urdf" aria-pressed="true">导入 URDF</button><button type="button" data-value="manual" aria-pressed="false">手动参数</button></div><input type="hidden" name="input_mode" value="urdf"></div>
+            <div class="rt-field rt-field-full"><span class="rt-field-label">模型文件</span><label class="rt-file-drop"><input type="file" accept=".urdf,.xacro,.json,.yaml,.yml" data-file-input><span class="rt-file-copy"><span class="rt-file-icon">＋</span><strong data-file-title data-default-text="选择模型或惯量参数文件">选择模型或惯量参数文件</strong><span data-file-detail data-default-text="URDF / Xacro / JSON / YAML，仅在本地解析">URDF / Xacro / JSON / YAML，仅在本地解析</span></span></label></div>
+            <div class="rt-field"><label for="inertia-unit">长度单位</label><select id="inertia-unit"><option>m</option><option>mm</option></select></div>
+            <div class="rt-field"><label for="inertia-mass-unit">质量单位</label><select id="inertia-mass-unit"><option>kg</option><option>g</option></select></div>
+            <div class="rt-field"><label for="inertia-tolerance">数值容差</label><input id="inertia-tolerance" type="text" value="1e-9"></div>
+            <div class="rt-field"><label for="inertia-repair">修复建议</label><select id="inertia-repair"><option>仅报告，不修改</option><option>给出最近可行参数</option><option>生成修复后 URDF</option></select></div>
+          </div>
+          <div class="rt-form-actions"><button class="rt-primary-button" type="button" data-preview-flow>预览检查流程 →</button><button class="rt-secondary-button" type="button" data-reset-form>重置</button><span class="rt-form-hint">不会修改原始文件</span></div>
+        </form>
+      </div>
+
+      <div class="rt-panel rt-preview">
+        <div class="rt-preview-card">
+          <div class="rt-preview-visual" aria-hidden="true"><span class="rt-preview-glyph"><svg viewBox="0 0 48 48"><path d="M10 35h28M14 35l4-18h12l4 18M18 17l6-7 6 7M17 27h14M24 10v25"/><path d="m34 13 3 3 6-7"/></svg></span></div>
+          <div class="rt-preview-title"><strong>物理一致性检查</strong><span class="rt-preview-state" data-preview-state>AWAITING INPUT</span></div>
+          <ol class="rt-process-list"><li><span class="rt-process-dot"></span><span>读取各 link 质量、质心和惯量</span><code>PARSE</code></li><li><span class="rt-process-dot"></span><span>统一单位并变换到质心坐标系</span><code>FRAME</code></li><li><span class="rt-process-dot"></span><span>检查特征值、三角不等式与对称性</span><code>CHECK</code></li><li><span class="rt-process-dot"></span><span>汇总风险并生成修复建议</span><code>REPORT</code></li></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="rt-outline">
+      <div class="rt-section-heading"><div><span class="rt-kicker">Implementation outline</span><h2>可解释的物理检查</h2></div><p>每条告警都关联到具体 link、参数和判定规则，避免只给“模型不稳定”而无法定位原因。</p></div>
+      <div class="rt-outline-grid">
+        <article class="rt-outline-card"><span>01 / BASIC</span><h3>基础一致性</h3><ul><li>质量为正、矩阵对称与有限数值</li><li>单位量级和质心偏移异常</li><li>inertial origin 坐标系检查</li></ul></article>
+        <article class="rt-outline-card"><span>02 / PHYSICS</span><h3>刚体物理约束</h3><ul><li>惯量张量半正定 / 正定</li><li>主惯量三角不等式</li><li>质心平移与平行轴定理复核</li></ul></article>
+        <article class="rt-outline-card"><span>03 / REPORT</span><h3>风险与修复</h3><ul><li>按 link 聚合错误、警告和提示</li><li>最近物理可行惯量参数建议</li><li>修复 diff、URDF 和 JSON 报告</li></ul></article>
+      </div>
+    </section>
+
+    <section class="rt-roadmap"><div><span class="rt-kicker">Roadmap</span><h2>实现顺序</h2></div><ol class="rt-roadmap-list"><li><span>URDF inertial 字段解析</span><small>next</small></li><li><span>特征值与三角不等式检查</span><small>planned</small></li><li><span>坐标变换和量级启发式</span><small>planned</small></li><li><span>可行参数投影与 diff 导出</span><small>planned</small></li></ol></section>
+    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 05</span><a href="/tools/">返回全部工具 →</a></footer>
+  </main>
+</body>
+</html>

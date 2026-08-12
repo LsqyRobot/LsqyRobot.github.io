@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="URDF 机器人模型与关节范围预览工具页面大纲。">
+  <title>URDF 关节范围预览 · Robotics Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <script src="/js/tools-common.js" defer></script>
+</head>
+<body class="robot-tool-page">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页"><span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span><span>Robotics Workbench</span></a>
+    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
+  </header>
+
+  <main class="rt-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>URDF 关节范围预览</span></nav>
+    <section class="rt-hero">
+      <div><span class="rt-kicker">Tool 03 · visualization</span><h1>URDF 关节<br>范围预览</h1><p>在浏览器中加载机器人模型，逐关节播放 lower / upper 限位，快速检查零位、旋转方向、mesh 尺寸、碰撞体和关节命名。当前页面先定义加载方式与检查面板，3D 渲染器待接入。</p></div>
+      <div class="rt-status-stack" aria-label="工具状态"><div class="rt-status-row"><span>interface</span><strong class="is-ready">ready</strong></div><div class="rt-status-row"><span>3d viewer</span><strong>pending</strong></div><div class="rt-status-row"><span>version</span><strong>0.1 outline</strong></div></div>
+    </section>
+
+    <section class="rt-workspace" aria-label="URDF 预览工作区">
+      <div class="rt-panel">
+        <div class="rt-panel-head"><h2>模型加载</h2><span class="rt-panel-index">01 / INPUT</span></div>
+        <form>
+          <div class="rt-form-grid">
+            <div class="rt-field rt-field-full"><span class="rt-field-label">模型包</span><label class="rt-file-drop"><input type="file" accept=".urdf,.xacro,.zip" data-file-input><span class="rt-file-copy"><span class="rt-file-icon">＋</span><strong data-file-title data-default-text="选择 URDF 或模型压缩包">选择 URDF 或模型压缩包</strong><span data-file-detail data-default-text=".urdf / .xacro / .zip（含 meshes），仅在本地解析">.urdf / .xacro / .zip（含 meshes），仅在本地解析</span></span></label></div>
+            <div class="rt-field rt-field-full"><span class="rt-field-label">播放模式</span><div class="rt-segmented" data-segmented style="--segments: 3"><button class="is-active" type="button" data-value="single" aria-pressed="true">逐关节</button><button type="button" data-value="sweep" aria-pressed="false">全范围扫描</button><button type="button" data-value="loop" aria-pressed="false">循环播放</button></div><input type="hidden" name="play_mode" value="single"></div>
+            <div class="rt-field"><label for="urdf-root">固定根连杆</label><select id="urdf-root"><option>自动检测</option><option>base_link</option><option>world</option></select></div>
+            <div class="rt-field"><label for="urdf-speed">播放速度</label><select id="urdf-speed"><option>0.5 ×</option><option selected>1.0 ×</option><option>2.0 ×</option></select></div>
+            <div class="rt-field"><label for="urdf-geometry">显示几何</label><select id="urdf-geometry"><option>Visual + Collision</option><option>仅 Visual</option><option>仅 Collision</option></select></div>
+            <div class="rt-field"><label for="urdf-axis">辅助标记</label><select id="urdf-axis"><option>关节轴 + 坐标系</option><option>仅关节轴</option><option>全部隐藏</option></select></div>
+          </div>
+          <div class="rt-form-actions"><button class="rt-primary-button" type="button" data-preview-flow>预览加载流程 →</button><button class="rt-secondary-button" type="button" data-reset-form>重置</button><span class="rt-form-hint">3D 模型暂不渲染</span></div>
+        </form>
+      </div>
+
+      <div class="rt-panel rt-preview">
+        <div class="rt-preview-card">
+          <div class="rt-preview-visual" aria-hidden="true"><span class="rt-preview-glyph"><svg viewBox="0 0 48 48"><path d="M11 36h26M16 36V25l8-5 8 5v11M24 20V9M18 12l6-3 6 3M19 28h10M24 28v8"/><circle cx="24" cy="20" r="2.5"/><path d="M36 13a6 6 0 0 1 0 8M38 10a10 10 0 0 1 0 14"/></svg></span></div>
+          <div class="rt-preview-title"><strong>模型加载管线</strong><span class="rt-preview-state" data-preview-state>AWAITING INPUT</span></div>
+          <ol class="rt-process-list"><li><span class="rt-process-dot"></span><span>展开模型包并解析 XML</span><code>PARSE</code></li><li><span class="rt-process-dot"></span><span>构建 link / joint 拓扑树</span><code>GRAPH</code></li><li><span class="rt-process-dot"></span><span>解析 mesh、材质和坐标变换</span><code>ASSET</code></li><li><span class="rt-process-dot"></span><span>生成关节滑条与限位动画</span><code>VIEW</code></li></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="rt-outline">
+      <div class="rt-section-heading"><div><span class="rt-kicker">Implementation outline</span><h2>模型检查面板</h2></div><p>所有解析在浏览器本地完成，不上传机器人模型；优先保证 URDF 和 mesh 路径错误能被清楚定位。</p></div>
+      <div class="rt-outline-grid">
+        <article class="rt-outline-card"><span>01 / PARSER</span><h3>模型解析</h3><ul><li>link、joint、limit 与 mimic</li><li>package:// 和相对 mesh 路径</li><li>连续、旋转、移动和固定关节</li></ul></article>
+        <article class="rt-outline-card"><span>02 / VIEWER</span><h3>三维交互</h3><ul><li>逐关节滑条和全范围动画</li><li>Visual / Collision 一键切换</li><li>关节轴、坐标系与透明模式</li></ul></article>
+        <article class="rt-outline-card"><span>03 / AUDIT</span><h3>自动检查</h3><ul><li>无效限位、断链与重复命名</li><li>零位穿模和尺度异常提示</li><li>截图、关节表和检查报告导出</li></ul></article>
+      </div>
+    </section>
+
+    <section class="rt-roadmap"><div><span class="rt-kicker">Roadmap</span><h2>实现顺序</h2></div><ol class="rt-roadmap-list"><li><span>URDF XML 与拓扑树解析</span><small>next</small></li><li><span>Three.js mesh 加载与基础控制</span><small>planned</small></li><li><span>关节限位滑条和范围动画</span><small>planned</small></li><li><span>碰撞、截图与检查报告</span><small>planned</small></li></ol></section>
+    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 03</span><a href="/tools/dh-mdh-transform/">下一个：DH / MDH 变换检查 →</a></footer>
+  </main>
+</body>
+</html>

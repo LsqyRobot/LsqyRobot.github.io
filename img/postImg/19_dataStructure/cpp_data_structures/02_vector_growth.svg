@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430" role="img" aria-labelledby="title desc">
+  <title id="title">vector 扩容动画</title><desc id="desc">vector 容量不足时申请更大的连续空间，搬移元素，再释放旧空间。</desc>
+  <style>
+    text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#253746}.h{font-size:27px;font-weight:700}.s{font-size:17px}.cell{fill:#e7f2ff;stroke:#397fb8;stroke-width:2}.new{fill:#eaf9ef;stroke:#429466;stroke-width:2}.ghost{fill:#f4f5f6;stroke:#9aa8b3;stroke-width:2;stroke-dasharray:7 5}.item{font-size:21px;font-weight:700}
+    .moving{animation:move 6s ease-in-out infinite}.fade{animation:fade 6s ease-in-out infinite}.mark{animation:mark 6s ease-in-out infinite}
+    @keyframes move{0%,18%{transform:translate(0,0);opacity:1}42%,75%{transform:translate(0,178px);opacity:1}88%,100%{transform:translate(0,178px);opacity:0}}
+    @keyframes fade{0%,48%{opacity:1}62%,100%{opacity:.18}}
+    @keyframes mark{0%,48%{opacity:0}58%,82%{opacity:1}92%,100%{opacity:0}}
+  </style>
+  <rect width="1000" height="430" rx="24" fill="#fbfdff"/><text x="500" y="46" text-anchor="middle" class="h">vector：容量满时的扩容与搬移</text>
+  <text x="50" y="102" class="s">旧空间：size = 4，capacity = 4</text>
+  <g class="fade"><rect class="cell" x="50" y="120" width="120" height="66"/><rect class="cell" x="170" y="120" width="120" height="66"/><rect class="cell" x="290" y="120" width="120" height="66"/><rect class="cell" x="410" y="120" width="120" height="66"/></g>
+  <g class="moving"><text x="110" y="162" text-anchor="middle" class="item">10</text><text x="230" y="162" text-anchor="middle" class="item">20</text><text x="350" y="162" text-anchor="middle" class="item">30</text><text x="470" y="162" text-anchor="middle" class="item">40</text></g>
+  <path d="M580 151h120" stroke="#687d8d" stroke-width="3" marker-end="url(#a)"/><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3 0 6z" fill="#687d8d"/></marker></defs><text x="640" y="135" text-anchor="middle" class="s">push_back(50)</text>
+  <text x="50" y="280" class="s">新空间：capacity 增大（增长倍率由实现决定）</text>
+  <g><rect class="new" x="50" y="298" width="110" height="66"/><rect class="new" x="160" y="298" width="110" height="66"/><rect class="new" x="270" y="298" width="110" height="66"/><rect class="new" x="380" y="298" width="110" height="66"/><rect class="new" x="490" y="298" width="110" height="66"/><rect class="ghost" x="600" y="298" width="110" height="66"/><rect class="ghost" x="710" y="298" width="110" height="66"/><rect class="ghost" x="820" y="298" width="110" height="66"/></g>
+  <g class="mark"><text x="105" y="340" text-anchor="middle" class="item">10</text><text x="215" y="340" text-anchor="middle" class="item">20</text><text x="325" y="340" text-anchor="middle" class="item">30</text><text x="435" y="340" text-anchor="middle" class="item">40</text><text x="545" y="340" text-anchor="middle" class="item" fill="#247849">50</text></g>
+  <text x="500" y="405" text-anchor="middle" class="s">旧迭代器、指针和引用可能全部失效</text>
+</svg>
