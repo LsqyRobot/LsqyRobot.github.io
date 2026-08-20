@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">视场角与距离覆盖范围动态图</title>
+  <desc id="desc">固定水平视场角时，离相机越远，视野横向覆盖越宽。动画中的光点从相机向远处移动，三个截面依次亮起。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#eef7ff"/></linearGradient>
+    <linearGradient id="cone" x1="0" y1=".5" x2="1" y2=".5"><stop stop-color="#38bdf8" stop-opacity=".30"/><stop offset="1" stop-color="#38bdf8" stop-opacity=".06"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#16345b" flood-opacity=".10"/></filter>
+    <style>
+      text{font-family:Inter,Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#17324d}.title{font-size:28px;font-weight:700}.subtitle{font-size:16px;fill:#58708a}.label{font-size:15px;font-weight:700}.small{font-size:14px;fill:#58708a}.panel{fill:#fff;stroke:#dbe7f4;stroke-width:1.5}
+      .beam{stroke-dasharray:8 9;animation:beam 1.2s linear infinite}.traveler{transform-box:fill-box;transform-origin:center;animation:travel 6s ease-in-out infinite}.p1{animation:pulse1 6s ease-in-out infinite}.p2{animation:pulse2 6s ease-in-out infinite}.p3{animation:pulse3 6s ease-in-out infinite}
+      @keyframes beam{to{stroke-dashoffset:-34}}@keyframes travel{0%,8%{transform:translateX(0)}46%{transform:translateX(323px)}88%,100%{transform:translateX(646px)}}
+      @keyframes pulse1{0%,24%,100%{opacity:1;stroke-width:5}32%,92%{opacity:.3;stroke-width:3}}@keyframes pulse2{0%,28%,72%,100%{opacity:.3;stroke-width:3}40%,60%{opacity:1;stroke-width:5}}@keyframes pulse3{0%,68%{opacity:.3;stroke-width:3}82%,100%{opacity:1;stroke-width:5}}
+      @media(prefers-reduced-motion:reduce){.beam,.traveler,.p1,.p2,.p3{animation:none!important}.p1,.p2,.p3{opacity:1}}
+    </style>
+  </defs>
+  <rect width="960" height="520" rx="24" fill="url(#bg)"/>
+  <text x="38" y="45" class="title">FOV 固定时：距离越远，画面覆盖的实际宽度越大</text>
+  <text x="38" y="70" class="subtitle">角度没有变，变的是视锥在不同距离处的横截面</text>
+  <rect x="30" y="96" width="900" height="304" rx="22" class="panel" filter="url(#shadow)"/>
+  <polygon points="126,248 856,116 856,380" fill="url(#cone)"/>
+  <line x1="126" y1="248" x2="856" y2="116" stroke="#0ea5e9" stroke-width="2.5" class="beam"/>
+  <line x1="126" y1="248" x2="856" y2="380" stroke="#0ea5e9" stroke-width="2.5" class="beam"/>
+  <line x1="126" y1="248" x2="878" y2="248" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 7"/>
+  <path d="M178 218 A59 59 0 0 1 178 278" fill="none" stroke="#0284c7" stroke-width="3"/>
+  <text x="176" y="208" class="label" fill="#0284c7">HFOV = 87°</text>
+  <g>
+    <rect x="67" y="216" width="74" height="64" rx="14" fill="#1e293b"/>
+    <circle cx="126" cy="248" r="12" fill="#7dd3fc" stroke="#fff" stroke-width="3"/>
+    <text x="70" y="306" class="small">相机光心</text>
+  </g>
+  <g class="traveler"><circle cx="206" cy="248" r="8" fill="#f59e0b"/><circle cx="206" cy="248" r="16" fill="none" stroke="#f59e0b" stroke-opacity=".35" stroke-width="4"/></g>
+  <g class="p1">
+    <line x1="286" y1="219" x2="286" y2="277" stroke="#8b5cf6" stroke-width="5" stroke-linecap="round"/>
+    <text x="252" y="199" class="label" fill="#7c3aed">0.5 m</text><text x="245" y="302" class="small">约 0.95 m 宽</text>
+  </g>
+  <g class="p2">
+    <line x1="529" y1="175" x2="529" y2="321" stroke="#ec4899" stroke-width="5" stroke-linecap="round"/>
+    <text x="506" y="155" class="label" fill="#be185d">1 m</text><text x="483" y="346" class="small">约 1.90 m 宽</text>
+  </g>
+  <g class="p3">
+    <line x1="852" y1="118" x2="852" y2="378" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+    <text x="830" y="102" class="label" fill="#b45309">2 m</text><text x="803" y="394" class="small">约 3.80 m 宽</text>
+  </g>
+  <rect x="30" y="424" width="900" height="67" rx="18" fill="#fff" stroke="#dbe7f4" filter="url(#shadow)"/>
+  <text x="58" y="451" font-size="20" font-weight="700">width = 2 × distance × tan(HFOV / 2)</text>
+  <text x="58" y="476" class="small">因此距离翻倍时，覆盖宽度也翻倍；这能直接帮助估算机器人在某个距离能看见多宽。</text>
+</svg>

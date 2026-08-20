@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" role="img" aria-labelledby="title desc">
+  <title id="title">刚性连接的单惯量模型</title>
+  <desc id="desc">电机转动惯量和负载转动惯量由刚性轴连接，可合并为一个总转动惯量。下方给出从合力矩到转速和位置的等效框图。</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0284c7"/>
+    </marker>
+    <style>
+      text { font-family: FZLT, "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
+      .math { font-family: "KaTeX_Main", "Times New Roman", serif; font-style: italic; }
+      .small { fill: #64748b; font-size: 15px; }
+    </style>
+  </defs>
+  <rect x="1" y="1" width="1098" height="518" rx="24" fill="#f8fafc" stroke="#dbe3ee" stroke-width="2"/>
+  <text x="46" y="54" fill="#0f172a" font-size="27" font-weight="700">单惯量模型</text>
+  <text x="46" y="82" class="small">理想刚性连接：电机与负载没有相对扭转</text>
+
+  <g filter="url(#shadow)">
+    <rect x="74" y="119" width="952" height="205" rx="22" fill="#ffffff" stroke="#dbe3ee"/>
+  </g>
+
+  <!-- Torque input and motor inertia -->
+  <path d="M 112 218 H 204" stroke="#0284c7" stroke-width="5" marker-end="url(#arrow-blue)"/>
+  <text x="150" y="195" text-anchor="middle" fill="#0369a1" font-size="17">电磁转矩</text>
+  <text x="150" y="242" text-anchor="middle" class="math" fill="#0369a1" font-size="20">T<tspan baseline-shift="sub" font-size="14">e</tspan></text>
+
+  <g transform="translate(280 220)">
+    <circle r="68" fill="#e0f2fe" stroke="#0284c7" stroke-width="4"/>
+    <circle r="27" fill="#ffffff" stroke="#0284c7" stroke-width="3"/>
+    <path d="M -14 -40 A 43 43 0 0 1 37 -18" fill="none" stroke="#0284c7" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    <text x="0" y="7" text-anchor="middle" fill="#075985" font-size="23" font-weight="700">电机</text>
+    <text x="0" y="100" text-anchor="middle" class="math" fill="#334155" font-size="19">J<tspan baseline-shift="sub" font-size="13">M</tspan></text>
+  </g>
+
+  <!-- Rigid shaft -->
+  <path d="M 348 220 H 652" stroke="#475569" stroke-width="13" stroke-linecap="round"/>
+  <path d="M 348 220 H 652" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/>
+  <rect x="451" y="181" width="98" height="35" rx="17" fill="#eef2f7"/>
+  <text x="500" y="204" text-anchor="middle" fill="#475569" font-size="15" font-weight="700">刚性轴</text>
+  <text x="500" y="260" text-anchor="middle" class="small">θ<tspan baseline-shift="sub" font-size="11">M</tspan> = θ<tspan baseline-shift="sub" font-size="11">L</tspan>，ω<tspan baseline-shift="sub" font-size="11">M</tspan> = ω<tspan baseline-shift="sub" font-size="11">L</tspan></text>
+
+  <!-- Load inertia and disturbance -->
+  <g transform="translate(720 220)">
+    <circle r="68" fill="#ccfbf1" stroke="#0f766e" stroke-width="4"/>
+    <circle r="27" fill="#ffffff" stroke="#0f766e" stroke-width="3"/>
+    <text x="0" y="7" text-anchor="middle" fill="#0f766e" font-size="23" font-weight="700">负载</text>
+    <text x="0" y="100" text-anchor="middle" class="math" fill="#334155" font-size="19">J<tspan baseline-shift="sub" font-size="13">L</tspan></text>
+  </g>
+  <path d="M 930 218 H 797" stroke="#ea580c" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="868" y="195" text-anchor="middle" fill="#c2410c" font-size="17">负载转矩 T<tspan baseline-shift="sub" font-size="12">L</tspan></text>
+  <text x="868" y="243" text-anchor="middle" class="small">与运动方向相反</text>
+
+  <path d="M 236 335 H 764" stroke="#8b5cf6" stroke-width="2"/>
+  <path d="M 236 326 V 344 M 764 326 V 344" stroke="#8b5cf6" stroke-width="2"/>
+  <rect x="375" y="318" width="250" height="38" rx="19" fill="#f3e8ff"/>
+  <text x="500" y="343" text-anchor="middle" fill="#6d28d9" font-size="17" font-weight="700">等效总惯量 J = J<tspan baseline-shift="sub" font-size="12">M</tspan> + J<tspan baseline-shift="sub" font-size="12">L</tspan></text>
+
+  <!-- Equivalent control block -->
+  <text x="75" y="401" fill="#334155" font-size="18" font-weight="700">等效控制对象</text>
+  <text x="75" y="445" class="math" fill="#334155" font-size="19">T<tspan baseline-shift="sub" font-size="13">e</tspan> − T<tspan baseline-shift="sub" font-size="13">L</tspan></text>
+  <path d="M 170 438 H 245" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="247" y="393" width="180" height="90" rx="14" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="337" y="426" text-anchor="middle" class="math" fill="#0f172a" font-size="20">1</text>
+  <path d="M 287 435 H 387" stroke="#0f172a" stroke-width="2"/>
+  <text x="337" y="462" text-anchor="middle" class="math" fill="#0f172a" font-size="20">Js + B</text>
+  <path d="M 427 438 H 511" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="478" y="424" class="math" fill="#334155" font-size="20">ω</text>
+  <rect x="513" y="403" width="140" height="70" rx="14" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="583" y="430" text-anchor="middle" class="math" fill="#0f172a" font-size="20">1</text>
+  <path d="M 552 438 H 614" stroke="#0f172a" stroke-width="2"/>
+  <text x="583" y="461" text-anchor="middle" class="math" fill="#0f172a" font-size="20">s</text>
+  <path d="M 653 438 H 738" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="765" y="445" class="math" fill="#334155" font-size="20">θ</text>
+  <rect x="824" y="403" width="202" height="70" rx="14" fill="#eef2f7"/>
+  <text x="925" y="430" text-anchor="middle" class="small">B：等效黏性阻尼</text>
+  <text x="925" y="454" text-anchor="middle" class="small">轴系没有弹性模态</text>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">深度像素反投影为三维坐标动态图</title>
+  <desc id="desc">图像上的像素坐标 u、v 与深度 Z，结合内参 fx、fy、cx、cy，可以计算相机坐标系下的 X、Y、Z。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#eef7ff"/></linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dbeafe"/><stop offset="1" stop-color="#eff6ff"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#16345b" flood-opacity=".10"/></filter>
+    <marker id="redArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#ef4444"/></marker>
+    <marker id="greenArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#22c55e"/></marker>
+    <marker id="blueArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#3b82f6"/></marker>
+    <marker id="flowArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b5cf6"/></marker>
+    <style>
+      text{font-family:Inter,Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#17324d}.title{font-size:28px;font-weight:700}.subtitle{font-size:16px;fill:#58708a}.label{font-size:16px;font-weight:700}.small{font-size:14px;fill:#58708a}.panel{fill:#fff;stroke:#dbe7f4;stroke-width:1.5}
+      .flow{stroke-dasharray:7 8;animation:flow 1.2s linear infinite}.sample{transform-box:fill-box;transform-origin:center;animation:sample 3s ease-in-out infinite}.ray{stroke-dasharray:420;stroke-dashoffset:420;animation:ray 3s ease-in-out infinite}.coordinate{animation:coordinate 3s ease-in-out infinite}
+      @keyframes flow{to{stroke-dashoffset:-30}}@keyframes sample{0%,100%{transform:scale(.8);opacity:.6}45%,75%{transform:scale(1.25);opacity:1}}@keyframes ray{0%,18%{stroke-dashoffset:420}60%,100%{stroke-dashoffset:0}}@keyframes coordinate{0%,35%{opacity:.25}65%,100%{opacity:1}}
+      @media(prefers-reduced-motion:reduce){.flow,.sample,.ray,.coordinate{animation:none!important}.ray{stroke-dashoffset:0}.coordinate{opacity:1}}
+    </style>
+  </defs>
+  <rect width="960" height="540" rx="24" fill="url(#bg)"/>
+  <text x="38" y="45" class="title">一个深度像素，怎样变成空间中的 3D 点？</text>
+  <text x="38" y="70" class="subtitle">这一步叫反投影（deprojection）：从图像坐标系回到相机坐标系</text>
+
+  <rect x="30" y="100" width="355" height="330" rx="22" class="panel" filter="url(#shadow)"/>
+  <text x="56" y="137" class="label">① 图像坐标系：找到像素</text>
+  <rect x="72" y="165" width="270" height="190" rx="13" fill="url(#screen)" stroke="#93c5fd"/>
+  <g stroke="#bfdbfe" stroke-width="1"><path d="M126 165V355M180 165V355M234 165V355M288 165V355"/><path d="M72 203H342M72 241H342M72 279H342M72 317H342"/></g>
+  <line x1="207" y1="165" x2="207" y2="355" stroke="#64748b" stroke-dasharray="5 5"/><line x1="72" y1="260" x2="342" y2="260" stroke="#64748b" stroke-dasharray="5 5"/>
+  <circle cx="207" cy="260" r="7" fill="#64748b"/><text x="216" y="253" class="small">主点 (cx, cy)</text>
+  <circle cx="277" cy="214" r="12" fill="#8b5cf6" stroke="#fff" stroke-width="4" class="sample"/>
+  <line x1="207" y1="214" x2="277" y2="214" stroke="#8b5cf6" stroke-width="2"/><line x1="277" y1="214" x2="277" y2="260" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="238" y="204" class="small" fill="#7c3aed">u − cx</text><text x="285" y="242" class="small" fill="#7c3aed">v − cy</text>
+  <text x="72" y="385" class="small">查深度图得到：depth[v, u] = Z</text>
+  <rect x="72" y="397" width="270" height="17" rx="8" fill="#ede9fe"/><rect x="72" y="397" width="174" height="17" rx="8" fill="#8b5cf6"/>
+
+  <line x1="397" y1="265" x2="449" y2="265" stroke="#8b5cf6" stroke-width="3" marker-end="url(#flowArrow)" class="flow"/>
+
+  <rect x="462" y="100" width="468" height="330" rx="22" class="panel" filter="url(#shadow)"/>
+  <text x="488" y="137" class="label">② 相机坐标系：沿视线放到深度 Z</text>
+  <g transform="translate(530 343)">
+    <line x1="0" y1="0" x2="274" y2="0" stroke="#ef4444" stroke-width="3" marker-end="url(#redArrow)"/>
+    <line x1="0" y1="0" x2="0" y2="-178" stroke="#22c55e" stroke-width="3" marker-end="url(#greenArrow)"/>
+    <line x1="0" y1="0" x2="225" y2="-130" stroke="#3b82f6" stroke-width="3" marker-end="url(#blueArrow)"/>
+    <text x="282" y="7" class="label" fill="#dc2626">X</text><text x="-17" y="-188" class="label" fill="#16a34a">Y</text><text x="234" y="-136" class="label" fill="#2563eb">Z</text>
+    <path d="M0 0 L185 -108" fill="none" stroke="#8b5cf6" stroke-width="4" class="ray"/>
+    <g class="coordinate">
+      <circle cx="185" cy="-108" r="13" fill="#8b5cf6" stroke="#fff" stroke-width="4"/>
+      <line x1="185" y1="-108" x2="185" y2="0" stroke="#94a3b8" stroke-dasharray="5 5"/><line x1="185" y1="-108" x2="0" y2="-108" stroke="#94a3b8" stroke-dasharray="5 5"/>
+      <rect x="199" y="-130" width="109" height="44" rx="11" fill="#ede9fe" stroke="#c4b5fd"/>
+      <text x="210" y="-104" class="label" fill="#6d28d9">P(X, Y, Z)</text>
+    </g>
+    <circle cx="0" cy="0" r="11" fill="#1e293b" stroke="#fff" stroke-width="3"/><text x="-26" y="25" class="small">光心</text>
+  </g>
+
+  <rect x="78" y="458" width="804" height="56" rx="17" fill="#fff" stroke="#dbe7f4"/>
+  <text x="108" y="493" font-size="18" font-weight="650">X = (u − cx) × Z / fx　　Y = (v − cy) × Z / fy　　Z = depth</text>
+</svg>

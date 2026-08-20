@@ -1,18 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">中心裁剪后的视场角动态图</title>
+  <desc id="desc">原图宽度从 848 像素中心裁剪为 424 像素后，视场角从 87 度变为约 50.9 度，而不是简单减半为 43.5 度。</desc>
   <defs>
-    <style>.bg{fill:#fbfbfd}.txt{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#222}.title{font-size:30px;font-weight:700}.small{font-size:18px;fill:#444}.axis{stroke:#333;stroke-width:3}.fov{fill:rgba(91,141,239,0.18);stroke:#5b8def;stroke-width:3}.crop{fill:rgba(231,111,81,0.22);stroke:#e76f51;stroke-width:3}.screen{fill:#fff;stroke:#333;stroke-width:2}.formula{font-size:22px;fill:#111}</style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#eef7ff"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#16345b" flood-opacity=".10"/></filter>
+    <style>
+      text{font-family:Inter,Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#17324d}.title{font-size:28px;font-weight:700}.subtitle{font-size:16px;fill:#58708a}.label{font-size:16px;font-weight:700}.small{font-size:14px;fill:#58708a}.panel{fill:#fff;stroke:#dbe7f4;stroke-width:1.5}
+      .crop-cone,.crop-roi,.crop-label{animation:crop 4.5s ease-in-out infinite}.outer{animation:outer 4.5s ease-in-out infinite}
+      @keyframes crop{0%,18%,100%{opacity:.22}45%,82%{opacity:1}}@keyframes outer{0%,18%,100%{opacity:1}45%,82%{opacity:.42}}
+      @media(prefers-reduced-motion:reduce){.crop-cone,.crop-roi,.crop-label,.outer{animation:none!important}.crop-cone,.crop-roi,.crop-label,.outer{opacity:1}}
+    </style>
   </defs>
-  <rect class="bg" width="960" height="520"/>
-  <text x="40" y="50" class="txt title">裁剪后 FOV：不是简单按比例乘，而是按焦距/角度关系计算</text>
-  <line x1="150" y1="400" x2="150" y2="120" class="axis"/>
-  <line x1="150" y1="400" x2="700" y2="400" class="axis"/>
-  <polygon points="150,400 650,150 650,400" class="fov"/>
-  <polygon points="150,400 650,245 650,400" class="crop"/>
-  <text x="172" y="138" class="txt small">原始垂直 FOV</text>
-  <text x="370" y="238" class="txt small">裁剪后的垂直 FOV</text>
-  <rect x="720" y="125" width="180" height="250" class="screen"/>
-  <rect x="750" y="205" width="120" height="90" class="crop"/>
-  <text x="727" y="410" class="txt small">图像中心裁剪</text>
-  <text x="65" y="455" class="txt formula">FOV_crop = 2 × atan( crop / full × tan(FOV_full / 2) )</text>
-  <text x="65" y="488" class="txt small">例如：848 宽裁成 424 宽，水平 FOV 不是 87°/2，而约为 47°。</text>
+  <rect width="960" height="520" rx="24" fill="url(#bg)"/>
+  <text x="38" y="45" class="title">中心裁剪：像素宽度减半，FOV 为什么不直接减半？</text>
+  <text x="38" y="70" class="subtitle">像素位置与观察角度通过 tan() 相连，因此两者不是线性比例</text>
+
+  <rect x="30" y="100" width="585" height="310" rx="22" class="panel" filter="url(#shadow)"/>
+  <g class="outer">
+    <polygon points="104,256 535,123 535,389" fill="#38bdf8" fill-opacity=".16" stroke="#0ea5e9" stroke-width="2.5"/>
+    <text x="342" y="139" class="label" fill="#0284c7">原始 HFOV = 87°</text>
+  </g>
+  <g class="crop-cone">
+    <polygon points="104,256 535,193 535,319" fill="#f59e0b" fill-opacity=".28" stroke="#f59e0b" stroke-width="3"/>
+    <path d="M164 238 A64 64 0 0 1 164 274" fill="none" stroke="#d97706" stroke-width="3"/>
+    <text x="282" y="211" class="label" fill="#b45309">裁剪后 HFOV ≈ 50.9°</text>
+  </g>
+  <rect x="70" y="226" width="69" height="60" rx="14" fill="#1e293b"/><circle cx="104" cy="256" r="12" fill="#7dd3fc" stroke="#fff" stroke-width="3"/>
+  <line x1="104" y1="256" x2="565" y2="256" stroke="#94a3b8" stroke-dasharray="6 7"/>
+  <text x="70" y="314" class="small">相机光心</text>
+  <text x="64" y="376" class="small">原始画面 848 px</text><text x="392" y="376" class="small crop-label" fill="#b45309">保留中间 424 px</text>
+
+  <rect x="643" y="100" width="287" height="310" rx="22" class="panel" filter="url(#shadow)"/>
+  <text x="671" y="137" class="label">图像平面上的中心裁剪</text>
+  <rect x="681" y="160" width="210" height="126" rx="10" fill="#dbeafe" stroke="#0ea5e9" stroke-width="3" class="outer"/>
+  <path d="M707 160V286M733 160V286M759 160V286M785 160V286M811 160V286M837 160V286M863 160V286" stroke="#bfdbfe"/>
+  <rect x="733.5" y="160" width="105" height="126" fill="#fed7aa" fill-opacity=".75" stroke="#f59e0b" stroke-width="3" class="crop-roi"/>
+  <text x="705" y="314" class="small">848 px</text><text x="755" y="338" class="small crop-label" fill="#b45309">424 px</text>
+  <line x1="671" y1="353" x2="902" y2="353" stroke="#e2e8f0"/>
+  <text x="671" y="383" class="small">错误直觉：87° × 1/2 = 43.5°</text>
+  <text x="671" y="404" class="small" fill="#15803d">正确结果：2·atan(0.5·tan(43.5°))</text>
+
+  <rect x="58" y="438" width="844" height="52" rx="16" fill="#fff" stroke="#dbe7f4"/>
+  <text x="83" y="470" font-size="18" font-weight="650">FOV_crop = 2 × atan(crop / full × tan(FOV_full / 2))</text>
 </svg>

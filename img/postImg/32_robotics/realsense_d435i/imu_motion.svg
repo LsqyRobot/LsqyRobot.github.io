@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500" role="img" aria-labelledby="title desc">
+  <title id="title">IMU 加速度计与陀螺仪动态图</title>
+  <desc id="desc">加速度计感受相机的线性加速度与重力方向，陀螺仪感受绕三个轴的角速度。IMU 描述相机自身运动，不直接生成深度图。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#eef7ff"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#16345b" flood-opacity=".10"/></filter>
+    <marker id="red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ef4444"/></marker>
+    <marker id="green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#22c55e"/></marker>
+    <marker id="blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#3b82f6"/></marker>
+    <marker id="orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#f59e0b"/></marker>
+    <style>
+      text{font-family:Inter,Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#17324d}.title{font-size:28px;font-weight:700}.subtitle{font-size:16px;fill:#58708a}.label{font-size:17px;font-weight:700}.small{font-size:14px;fill:#58708a}.panel{fill:#fff;stroke:#dbe7f4;stroke-width:1.5}
+      .camera{transform-box:fill-box;transform-origin:center;animation:camera 5s ease-in-out infinite}.linear{animation:linear 5s ease-in-out infinite}.rotate{stroke-dasharray:8 8;animation:rotate 1.2s linear infinite}
+      @keyframes camera{0%,100%{transform:translate(0,0) rotate(-3deg)}45%{transform:translate(24px,-12px) rotate(7deg)}72%{transform:translate(-8px,5px) rotate(-5deg)}}@keyframes linear{0%,100%{opacity:.25}35%,62%{opacity:1}}@keyframes rotate{to{stroke-dashoffset:-32}}
+      @media(prefers-reduced-motion:reduce){.camera,.linear,.rotate{animation:none!important}.linear{opacity:1}}
+    </style>
+  </defs>
+  <rect width="960" height="500" rx="24" fill="url(#bg)"/>
+  <text x="38" y="45" class="title">IMU：感受相机自己怎样动，而不是物体离多远</text>
+  <text x="38" y="70" class="subtitle">D435i 中的加速度计与陀螺仪互补描述平移、重力方向与旋转</text>
+  <rect x="30" y="100" width="575" height="340" rx="22" class="panel" filter="url(#shadow)"/>
+  <g transform="translate(296 282)">
+    <line x1="0" y1="0" x2="205" y2="0" stroke="#ef4444" stroke-width="3" marker-end="url(#red)"/><line x1="0" y1="0" x2="0" y2="-145" stroke="#22c55e" stroke-width="3" marker-end="url(#green)"/><line x1="0" y1="0" x2="142" y2="102" stroke="#3b82f6" stroke-width="3" marker-end="url(#blue)"/>
+    <text x="213" y="7" class="label" fill="#dc2626">x</text><text x="-17" y="-154" class="label" fill="#16a34a">y</text><text x="151" y="111" class="label" fill="#2563eb">z</text>
+    <path d="M-64 -17 C-87 -89 -31 -135 38 -121" fill="none" stroke="#f59e0b" stroke-width="3" marker-end="url(#orange)" class="rotate"/>
+    <text x="-112" y="-111" class="small" fill="#b45309">角速度 ω</text>
+    <g class="camera">
+      <rect x="-88" y="-42" width="176" height="84" rx="17" fill="#1e293b"/>
+      <circle cx="-48" cy="0" r="20" fill="#7dd3fc" stroke="#fff" stroke-width="4"/><circle cx="18" cy="0" r="20" fill="#7dd3fc" stroke="#fff" stroke-width="4"/><rect x="53" y="-19" width="22" height="38" rx="8" fill="#f59e0b"/>
+    </g>
+    <g class="linear"><line x1="-42" y1="70" x2="42" y2="70" stroke="#8b5cf6" stroke-width="4" marker-end="url(#orange)"/><text x="-39" y="96" class="small" fill="#7c3aed">线性加速度 a</text></g>
+  </g>
+  <rect x="636" y="100" width="294" height="340" rx="22" class="panel" filter="url(#shadow)"/>
+  <rect x="664" y="130" width="238" height="100" rx="16" fill="#f0fdf4" stroke="#bbf7d0"/>
+  <text x="684" y="159" class="label" fill="#15803d">加速度计</text><text x="684" y="186" class="small">线性加速度 + 重力方向</text><text x="684" y="210" class="small">单位常见：m/s²</text>
+  <rect x="664" y="246" width="238" height="100" rx="16" fill="#fff7ed" stroke="#fed7aa"/>
+  <text x="684" y="275" class="label" fill="#c2410c">陀螺仪</text><text x="684" y="302" class="small">绕 x / y / z 轴的角速度</text><text x="684" y="326" class="small">单位常见：rad/s</text>
+  <rect x="664" y="362" width="238" height="52" rx="14" fill="#fef2f2" stroke="#fecaca"/>
+  <text x="684" y="385" class="small" fill="#b91c1c">注意：IMU 不直接输出深度图</text><text x="684" y="404" class="small" fill="#b91c1c">它用于运动估计与辅助融合</text>
+</svg>

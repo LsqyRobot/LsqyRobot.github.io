@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">三环串级控制的数据流与环路频率</title>
+  <desc id="desc">位置指令依次经过位置、速度和电流控制器，驱动功率级、电机与负载。位置、速度和电流反馈构成由外到内的三个闭环，示例更新率分别为一千赫兹、四千赫兹和十六千赫兹。</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-position" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrow-speed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrow-current" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/>
+    </marker>
+
+    <path id="position-forward" d="M 50 270 H 130 M 150 270 H 185 M 305 270 H 350"/>
+    <path id="speed-forward" d="M 370 270 H 405 M 525 270 H 570"/>
+    <path id="current-forward" d="M 590 270 H 625 M 745 270 H 790 H 925"/>
+    <path id="plant-output" d="M 1100 270 H 1160"/>
+    <path id="current-feedback-motion" d="M 1070 334 V 410 H 580 V 280"/>
+    <path id="speed-feedback-motion" d="M 1120 334 V 500 H 360 V 280"/>
+    <path id="position-feedback-motion" d="M 1160 270 V 590 H 140 V 280"/>
+
+    <style>
+      text { font-family: FZLT, "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
+      .label { fill: #334155; font-size: 17px; }
+      .small { fill: #64748b; font-size: 14px; }
+      .symbol { fill: #0f172a; font-family: "KaTeX_Main", "Times New Roman", serif; font-size: 18px; font-style: italic; }
+      .flow { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .feedback { stroke-dasharray: 9 10; }
+      .position-dash { animation: dash-position 1.6s linear infinite; }
+      .speed-dash { animation: dash-speed .4s linear infinite; }
+      .current-dash { animation: dash-current .1s linear infinite; }
+      .pulse-position { animation: pulse 1.6s ease-out infinite; }
+      .pulse-speed { animation: pulse .4s ease-out infinite; }
+      .pulse-current { animation: pulse .1s ease-out infinite; }
+      @keyframes dash-position { to { stroke-dashoffset: -38; } }
+      @keyframes dash-speed { to { stroke-dashoffset: -38; } }
+      @keyframes dash-current { to { stroke-dashoffset: -38; } }
+      @keyframes pulse { 0% { opacity: .95; } 55%, 100% { opacity: .12; } }
+      @media (prefers-reduced-motion: reduce) {
+        .position-dash, .speed-dash, .current-dash, .pulse-position, .pulse-speed, .pulse-current { animation: none; }
+        .particle { display: none; }
+      }
+    </style>
+  </defs>
+
+  <rect x="1" y="1" width="1198" height="718" rx="26" fill="#f8fafc" stroke="#dbe3ee" stroke-width="2"/>
+  <circle cx="1100" cy="64" r="135" fill="#e0f2fe" opacity="0.48"/>
+  <circle cx="1144" cy="105" r="76" fill="#ede9fe" opacity="0.58"/>
+
+  <text x="52" y="57" fill="#0f172a" font-size="28" font-weight="700">三环串级控制：数据如何流动</text>
+  <text x="52" y="87" class="small">外环给内环设定值，内环以更高频率快速消除误差</text>
+  <text x="1137" y="88" class="small" text-anchor="end">示例更新率 · 实际值依驱动器而异</text>
+
+  <!-- Frequency badges -->
+  <g transform="translate(185 112)">
+    <rect width="120" height="62" rx="13" fill="#f3e8ff" stroke="#c4b5fd"/>
+    <rect class="pulse-position" x="1" y="1" width="118" height="60" rx="12" fill="none" stroke="#7c3aed" stroke-width="3"/>
+    <text x="60" y="25" text-anchor="middle" fill="#6d28d9" font-size="15" font-weight="700">位置环</text>
+    <text x="60" y="48" text-anchor="middle" fill="#7c3aed" font-size="14">1 kHz · 1 ms</text>
+  </g>
+  <g transform="translate(405 112)">
+    <rect width="120" height="62" rx="13" fill="#e0f2fe" stroke="#7dd3fc"/>
+    <rect class="pulse-speed" x="1" y="1" width="118" height="60" rx="12" fill="none" stroke="#0284c7" stroke-width="3"/>
+    <text x="60" y="25" text-anchor="middle" fill="#0369a1" font-size="15" font-weight="700">速度环</text>
+    <text x="60" y="48" text-anchor="middle" fill="#0284c7" font-size="14">4 kHz · 250 μs</text>
+  </g>
+  <g transform="translate(625 112)">
+    <rect width="120" height="62" rx="13" fill="#fff1e6" stroke="#fdba74"/>
+    <rect class="pulse-current" x="1" y="1" width="118" height="60" rx="12" fill="none" stroke="#ea580c" stroke-width="3"/>
+    <text x="60" y="25" text-anchor="middle" fill="#c2410c" font-size="15" font-weight="700">电流环</text>
+    <text x="60" y="48" text-anchor="middle" fill="#ea580c" font-size="14">16 kHz · 62.5 μs</text>
+  </g>
+
+  <!-- Forward path -->
+  <text x="50" y="242" class="label" text-anchor="middle">位置指令</text>
+  <text x="50" y="292" class="symbol" text-anchor="middle">θ*</text>
+  <path d="M 50 270 H 128" class="flow" stroke="#7c3aed" stroke-width="4" marker-end="url(#arrow-position)"/>
+
+  <g transform="translate(140 270)">
+    <circle r="13" fill="#fff" stroke="#7c3aed" stroke-width="3"/>
+    <path d="M -7 0 H 7 M 0 -7 V 7" stroke="#7c3aed" stroke-width="2"/>
+    <text x="-22" y="-11" fill="#7c3aed" font-size="15">+</text>
+    <text x="-21" y="24" fill="#7c3aed" font-size="17">−</text>
+  </g>
+  <path d="M 153 270 H 183" class="flow" stroke="#7c3aed" stroke-width="4" marker-end="url(#arrow-position)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="185" y="218" width="120" height="104" rx="18" fill="#ffffff" stroke="#8b5cf6" stroke-width="3"/>
+    <rect x="185" y="218" width="120" height="10" rx="5" fill="#8b5cf6"/>
+    <text x="245" y="260" text-anchor="middle" fill="#5b21b6" font-size="26" font-weight="700">APR</text>
+    <text x="245" y="289" text-anchor="middle" class="small">位置调节器</text>
+  </g>
+  <text x="328" y="242" class="label" text-anchor="middle">速度给定</text>
+  <text x="328" y="292" class="symbol" text-anchor="middle">ω*</text>
+  <path d="M 305 270 H 348" class="flow" stroke="#7c3aed" stroke-width="4" marker-end="url(#arrow-position)"/>
+
+  <g transform="translate(360 270)">
+    <circle r="13" fill="#fff" stroke="#0284c7" stroke-width="3"/>
+    <path d="M -7 0 H 7 M 0 -7 V 7" stroke="#0284c7" stroke-width="2"/>
+    <text x="-22" y="-11" fill="#0284c7" font-size="15">+</text>
+    <text x="-21" y="24" fill="#0284c7" font-size="17">−</text>
+  </g>
+  <path d="M 373 270 H 403" class="flow" stroke="#0284c7" stroke-width="4" marker-end="url(#arrow-speed)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="405" y="218" width="120" height="104" rx="18" fill="#ffffff" stroke="#0ea5e9" stroke-width="3"/>
+    <rect x="405" y="218" width="120" height="10" rx="5" fill="#0ea5e9"/>
+    <text x="465" y="260" text-anchor="middle" fill="#075985" font-size="26" font-weight="700">ASR</text>
+    <text x="465" y="289" text-anchor="middle" class="small">速度调节器</text>
+  </g>
+  <text x="548" y="242" class="label" text-anchor="middle">电流给定</text>
+  <text x="548" y="292" class="symbol" text-anchor="middle">i<tspan baseline-shift="sub" font-size="13">q</tspan>*</text>
+  <path d="M 525 270 H 568" class="flow" stroke="#0284c7" stroke-width="4" marker-end="url(#arrow-speed)"/>
+
+  <g transform="translate(580 270)">
+    <circle r="13" fill="#fff" stroke="#ea580c" stroke-width="3"/>
+    <path d="M -7 0 H 7 M 0 -7 V 7" stroke="#ea580c" stroke-width="2"/>
+    <text x="-22" y="-11" fill="#ea580c" font-size="15">+</text>
+    <text x="-21" y="24" fill="#ea580c" font-size="17">−</text>
+  </g>
+  <path d="M 593 270 H 623" class="flow" stroke="#ea580c" stroke-width="4" marker-end="url(#arrow-current)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="625" y="218" width="120" height="104" rx="18" fill="#ffffff" stroke="#f97316" stroke-width="3"/>
+    <rect x="625" y="218" width="120" height="10" rx="5" fill="#f97316"/>
+    <text x="685" y="260" text-anchor="middle" fill="#9a3412" font-size="26" font-weight="700">ACR</text>
+    <text x="685" y="289" text-anchor="middle" class="small">电流调节器</text>
+  </g>
+  <path d="M 745 270 H 788" class="flow" stroke="#ea580c" stroke-width="4" marker-end="url(#arrow-current)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="790" y="228" width="110" height="84" rx="16" fill="#fff7ed" stroke="#fb923c" stroke-width="2"/>
+    <text x="845" y="263" text-anchor="middle" fill="#9a3412" font-size="19" font-weight="700">功率级</text>
+    <text x="845" y="288" text-anchor="middle" class="small">PWM / 逆变器</text>
+  </g>
+  <path d="M 900 270 H 923" class="flow" stroke="#ea580c" stroke-width="4" marker-end="url(#arrow-current)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="925" y="205" width="175" height="129" rx="20" fill="#ecfeff" stroke="#14b8a6" stroke-width="3"/>
+    <circle cx="974" cy="265" r="28" fill="#ffffff" stroke="#0f766e" stroke-width="3"/>
+    <text x="974" y="273" text-anchor="middle" fill="#0f766e" font-size="23" font-weight="700">M</text>
+    <path d="M 1002 265 H 1033" stroke="#0f766e" stroke-width="5"/>
+    <rect x="1033" y="239" width="43" height="52" rx="8" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+    <text x="1012" y="315" text-anchor="middle" fill="#0f766e" font-size="15">电机 + 负载</text>
+  </g>
+  <path d="M 1100 270 H 1157" class="flow" stroke="#0f766e" stroke-width="4" marker-end="url(#arrow-slate)"/>
+  <text x="1158" y="242" class="label" text-anchor="middle">输出</text>
+  <text x="1158" y="292" class="symbol" text-anchor="middle">θ, ω</text>
+
+  <!-- Feedback paths -->
+  <circle cx="1070" cy="334" r="6" fill="#ea580c"/>
+  <path d="M 1070 334 V 410 H 580 V 285" class="flow feedback current-dash" stroke="#ea580c" stroke-width="3" marker-end="url(#arrow-current)"/>
+  <rect x="795" y="389" width="148" height="41" rx="20" fill="#fff7ed" stroke="#fed7aa"/>
+  <text x="869" y="415" text-anchor="middle" fill="#c2410c" font-size="15" font-weight="700">电流反馈 i<tspan baseline-shift="sub" font-size="11">q</tspan> · 最内环</text>
+
+  <circle cx="1120" cy="334" r="6" fill="#0284c7"/>
+  <path d="M 1120 334 V 500 H 360 V 285" class="flow feedback speed-dash" stroke="#0284c7" stroke-width="3" marker-end="url(#arrow-speed)"/>
+  <rect x="577" y="479" width="148" height="41" rx="20" fill="#f0f9ff" stroke="#bae6fd"/>
+  <text x="651" y="505" text-anchor="middle" fill="#0369a1" font-size="15" font-weight="700">速度反馈 ω · 中间环</text>
+
+  <circle cx="1160" cy="270" r="6" fill="#7c3aed"/>
+  <path d="M 1160 270 V 590 H 140 V 285" class="flow feedback position-dash" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow-position)"/>
+  <rect x="355" y="569" width="148" height="41" rx="20" fill="#faf5ff" stroke="#ddd6fe"/>
+  <text x="429" y="595" text-anchor="middle" fill="#6d28d9" font-size="15" font-weight="700">位置反馈 θ · 最外环</text>
+
+  <!-- Animated particles: movement speed is proportional, not real-time. -->
+  <g class="particle">
+    <circle r="6" fill="#7c3aed"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath xlink:href="#position-forward"/></animateMotion></circle>
+    <circle r="5" fill="#0284c7"><animateMotion dur=".4s" repeatCount="indefinite"><mpath xlink:href="#speed-forward"/></animateMotion></circle>
+    <circle r="5" fill="#ea580c"><animateMotion dur=".1s" repeatCount="indefinite"><mpath xlink:href="#current-forward"/></animateMotion></circle>
+    <circle r="5" fill="#0f766e"><animateMotion dur=".5s" repeatCount="indefinite"><mpath xlink:href="#plant-output"/></animateMotion></circle>
+    <circle r="5" fill="#ea580c"><animateMotion dur=".1s" repeatCount="indefinite"><mpath xlink:href="#current-feedback-motion"/></animateMotion></circle>
+    <circle r="5" fill="#0284c7"><animateMotion dur=".4s" repeatCount="indefinite"><mpath xlink:href="#speed-feedback-motion"/></animateMotion></circle>
+    <circle r="6" fill="#7c3aed"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath xlink:href="#position-feedback-motion"/></animateMotion></circle>
+  </g>
+
+  <g transform="translate(52 652)">
+    <rect width="1096" height="42" rx="13" fill="#eef2f7"/>
+    <text x="20" y="27" fill="#475569" font-size="15">
+      读图顺序：位置误差 → 速度给定 → 电流 / 转矩给定 → 功率级 → 电机；反馈则由内向外逐层闭合。
+    </text>
+  </g>
+</svg>

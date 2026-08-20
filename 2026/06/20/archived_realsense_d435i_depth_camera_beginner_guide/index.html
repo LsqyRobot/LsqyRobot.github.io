@@ -483,6 +483,7 @@
 <li><a href="#d435i-%E5%B8%B8%E7%94%A8%E5%85%AC%E5%BC%80%E8%A7%84%E6%A0%BC%E9%80%9F%E6%9F%A5">D435i 常用公开规格速查</a></li>
 <li><a href="#fov-%E6%98%AF%E4%BB%80%E4%B9%88%E8%A7%86%E5%9C%BA%E8%A7%92%E4%B8%8D%E6%98%AF%E7%94%BB%E9%9D%A2%E5%A4%A7%E5%B0%8F%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95">FOV 是什么：视场角不是画面大小那么简单</a>
 <ul>
+<li><a href="#%E7%84%A6%E8%B7%9D%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E4%BC%9A%E5%BD%B1%E5%93%8D-FOV">焦距是什么：为什么它会影响 FOV</a></li>
 <li><a href="#%E6%B0%B4%E5%B9%B3-fov%E5%9E%82%E7%9B%B4-fov%E5%AF%B9%E8%A7%92-fov">水平 FOV、垂直 FOV、对角 FOV</a></li>
 <li><a href="#d435i-%E5%B8%B8%E8%A7%81-fov-%E6%95%B0%E5%80%BC">D435i 常见 FOV 数值</a></li>
 <li><a href="#fov-%E4%B8%8E%E8%B7%9D%E7%A6%BB%E7%9A%84%E5%85%B3%E7%B3%BB1-%E7%B1%B3%E5%A4%96%E8%83%BD%E7%9C%8B%E5%88%B0%E5%A4%9A%E5%AE%BD">FOV 与距离的关系：1 米外能看到多宽</a></li>
@@ -536,6 +537,7 @@
 <li>能用 Python / ROS2 读到深度图、彩色图、点云。</li>
 <li>知道实际使用中哪些地方最容易出问题。</li>
 </ol>
+<p>文中的动态图使用循环 GIF。看图时不必一次记住所有标注，先跟着高亮部分观察“什么量变大、什么量变小”；每轮动画结束后会自动从头播放。</p>
 <h1>先用一句话理解深度相机</h1>
 <p><strong>普通相机只能告诉你“这个像素是什么颜色”；深度相机还能告诉你“这个像素对应的物体离相机有多远”。</strong></p>
 <p>也就是说，普通 RGB 图像大概是这样：</p>
@@ -554,7 +556,7 @@
 <li>IMU 数据，也就是加速度计和陀螺仪数据</li>
 <li>点云 Point Cloud，通常由 SDK 或 ROS 节点根据深度图计算出来</li>
 </ol>
-<p><img src="/img/postImg/32_robotics/realsense_d435i/d435i_stereo_principle.svg" alt="D435i 主动双目原理"></p>
+<p><img src="/img/postImg/32_robotics/realsense_d435i/d435i_stereo_principle.gif" alt="D435i 主动双目原理"></p>
 <h2 id="D435i-上面大概有哪些传感器">D435i 上面大概有哪些传感器</h2>
 <p>从功能上理解，可以把 D435i 看成几个模块组合在一起：</p>
 <table>
@@ -649,6 +651,8 @@
 <p>这个公式不需要一开始就死记，只要记住：</p>
 <p><strong>视差 d 越大，距离 Z 越小；视差 d 越小，距离 Z 越大。</strong></p>
 <p>也就是说，近处物体在左右相机里“错开得更多”，远处物体“错开得更少”。</p>
+<p><img src="/img/postImg/32_robotics/realsense_d435i/stereo_disparity.gif" alt="双目视差、基线与深度关系 GIF 动图"></p>
+<p><em>读图顺序：先看空间点在近处/远处切换，再看下方左右图像标记的间距 d。近处 d 大、远处 d 小；基线 B 是两台红外相机之间的固定距离。</em></p>
 <h2 id="D435i-不是-ToF-相机">D435i 不是 ToF 相机</h2>
 <p>深度相机常见路线有几种：</p>
 <table>
@@ -750,6 +754,10 @@
 <h1>FOV 是什么：视场角不是画面大小那么简单</h1>
 <p>FOV 是 Field of View，中文通常叫视场角。</p>
 <p>可以把 FOV 理解成相机“张开眼睛”的角度。FOV 越大，同样距离下看到的范围越宽；FOV 越小，画面越像长焦镜头，看到的范围更窄。</p>
+<h2 id="焦距是什么：为什么它会影响-FOV">焦距是什么：为什么它会影响 FOV</h2>
+<p>焦距 <code>f</code> 可以先直观理解为“镜头把空间角度映射到图像平面的尺度”。在相机内参中，<code>fx</code>、<code>fy</code> 通常以 pixel 为单位：相同分辨率下，它们越大，画面越像被放大，FOV 通常越窄；它们越小，FOV 通常越宽。</p>
+<p><img src="/img/postImg/32_robotics/realsense_d435i/focal_length_fov.gif" alt="焦距与视场角关系 GIF 动图"></p>
+<p><em>图中传感器尺寸保持不变，只切换焦距。记忆方法：短焦“看得宽”，长焦“看得远处更大、但范围更窄”。严格来说，毫米焦距还需要结合像素尺寸才能换算成 pixel 焦距；SDK 内参直接给出的 <code>fx</code>、<code>fy</code> 更适合参与本文公式。</em></p>
 <h2 id="水平-FOV、垂直-FOV、对角-FOV">水平 FOV、垂直 FOV、对角 FOV</h2>
 <table>
 <thead>
@@ -797,12 +805,14 @@
 <p>同理，垂直方向：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">height = 2 × 1.0 × tan(58° / 2)</span><br><span class="line">       ≈ 1.11 m</span><br></pre></td></tr></table></figure>
 <p>这对机器人安装非常有用。例如你把相机装在机器人胸前，希望看到地面、台阶、前方障碍物，就要估算不同距离下画面能覆盖多大范围。</p>
+<p><img src="/img/postImg/32_robotics/realsense_d435i/fov_distance_coverage.gif" alt="FOV 与距离覆盖范围关系 GIF 动图"></p>
+<p><em>图里的 HFOV 始终保持 87°，只有测量截面的距离在变化。因此 0.5 m、1 m、2 m 处的覆盖宽度约为 0.95 m、1.90 m、3.80 m。</em></p>
 <h1>裁剪后的 FOV 怎么算</h1>
 <p>这是很多人容易搞错的地方。</p>
 <p>假设原始图像是 848×480，水平 FOV 是 87°。如果我只取中间 424 像素宽，也就是宽度裁掉一半，新的水平 FOV 是不是 87° 的一半，也就是 43.5°？</p>
 <p><strong>不是。</strong></p>
 <p>因为 FOV 是角度，图像宽度和角度之间不是线性关系，而是通过 <code>tan()</code> 联系起来。</p>
-<p><img src="/img/postImg/32_robotics/realsense_d435i/fov_crop.svg" alt="裁剪后 FOV 计算"></p>
+<p><img src="/img/postImg/32_robotics/realsense_d435i/fov_crop.gif" alt="裁剪后 FOV 计算 GIF 动图"></p>
 <h2 id="为什么不能简单地用比例乘-FOV">为什么不能简单地用比例乘 FOV</h2>
 <p>相机成像可以近似看成针孔模型：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">图像半宽 / 焦距 = tan(水平 FOV / 2)</span><br></pre></td></tr></table></figure>
@@ -841,6 +851,8 @@
 <p>输出大概类似：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">HFOV crop: 50.88</span><br><span class="line">VFOV crop: 30.99</span><br><span class="line">HFOV crop 640: 71.62</span><br><span class="line">VFOV crop 480: 58.00</span><br></pre></td></tr></table></figure>
 <h1>深度图、彩色图、点云：它们分别是什么</h1>
+<p><img src="/img/postImg/32_robotics/realsense_d435i/depth_rgb_pointcloud.gif" alt="RGB、深度图与点云之间的关系 GIF 动图"></p>
+<p><em>先分清数据里“每个元素存的是什么”：RGB 像素存颜色，Depth 像素存距离，Point Cloud 中的点存三维坐标。点云通常由深度图结合相机内参反投影得到。</em></p>
 <h2 id="深度图">深度图</h2>
 <p>深度图看起来像一张灰度图，但它每个像素保存的是距离，而不是颜色。</p>
 <p>例如：</p>
@@ -893,6 +905,8 @@
 </tr>
 </tbody>
 </table>
+<p><img src="/img/postImg/32_robotics/realsense_d435i/pixel_to_3d.gif" alt="从深度像素反投影到三维坐标 GIF 动图"></p>
+<p><em>主点 <code>(cx, cy)</code> 可以理解为光轴落在图像上的位置。像素 <code>(u, v)</code> 偏离主点多少，决定射线朝哪个方向；深度 <code>Z</code> 决定沿这条射线走多远。</em></p>
 <p>针孔模型公式：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">X = (u - cx) × Z / fx</span><br><span class="line">Y = (v - cy) × Z / fy</span><br><span class="line">Z = depth</span><br></pre></td></tr></table></figure>
 <p>Python 示例：</p>
@@ -904,6 +918,8 @@
 <li>加速度计 accelerometer</li>
 <li>陀螺仪 gyroscope</li>
 </ol>
+<p><img src="/img/postImg/32_robotics/realsense_d435i/imu_motion.gif" alt="IMU 加速度计与陀螺仪 GIF 动图"></p>
+<p><em>加速度计描述线性加速度与重力方向，陀螺仪描述绕各轴的角速度。两者感知的是相机自身运动，不是场景深度。</em></p>
 <p>它可以告诉你相机自身的运动趋势，比如：</p>
 <ul>
 <li>有没有震动</li>
@@ -1154,6 +1170,11 @@
 <td>左右相机之间的距离</td>
 </tr>
 <tr>
+<td>Focal Length</td>
+<td>焦距</td>
+<td>将空间角度映射到图像平面的尺度；内参中常见为 fx、fy</td>
+</tr>
+<tr>
 <td>FOV</td>
 <td>视场角</td>
 <td>相机能看到的角度范围</td>
@@ -1182,6 +1203,16 @@
 <td>Intrinsics</td>
 <td>内参</td>
 <td>fx、fy、cx、cy 等相机内部参数</td>
+</tr>
+<tr>
+<td>Principal Point</td>
+<td>主点</td>
+<td>光轴与图像平面的交点，常写作 (cx, cy)</td>
+</tr>
+<tr>
+<td>Deprojection</td>
+<td>反投影</td>
+<td>用像素、深度和内参恢复三维点</td>
 </tr>
 <tr>
 <td>Extrinsics</td>

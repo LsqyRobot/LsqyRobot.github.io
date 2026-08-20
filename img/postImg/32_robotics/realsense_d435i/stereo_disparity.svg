@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">双目视差与深度关系动态图</title>
+  <desc id="desc">空间点在近处时，左右相机图像中的位置差较大；点在远处时，位置差较小。深度等于焦距乘基线再除以视差。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#eef7ff"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#16345b" flood-opacity=".1"/></filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#8b5cf6"/></marker>
+    <style>
+      text{font-family:Inter,Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#17324d}.title{font-size:28px;font-weight:700}.subtitle{font-size:16px;fill:#58708a}.label{font-size:16px;font-weight:700}.small{font-size:14px;fill:#58708a}.panel{fill:#fff;stroke:#dbe7f4;stroke-width:1.5}
+      .near{opacity:1;animation:nearState 8s ease-in-out infinite}.far{opacity:0;animation:farState 8s ease-in-out infinite}.flow{stroke-dasharray:7 8;animation:flow 1.2s linear infinite}
+      .near-pill{animation:nearPill 8s ease-in-out infinite}.far-pill{animation:farPill 8s ease-in-out infinite}
+      @keyframes nearState{0%,42%,100%{opacity:1}50%,92%{opacity:0}}@keyframes farState{0%,42%,100%{opacity:0}50%,92%{opacity:1}}
+      @keyframes nearPill{0%,42%,100%{fill:#c4b5fd}50%,92%{fill:#e2e8f0}}@keyframes farPill{0%,42%,100%{fill:#e2e8f0}50%,92%{fill:#7dd3fc}}
+      @keyframes flow{to{stroke-dashoffset:-30}}
+      @media(prefers-reduced-motion:reduce){.near,.far,.flow,.near-pill,.far-pill{animation:none!important}.near{opacity:1}.far{opacity:0}}
+    </style>
+  </defs>
+  <rect width="960" height="560" rx="24" fill="url(#bg)"/>
+  <text x="38" y="45" class="title">视差 d：同一个点在左右图像中“错开”了多少</text>
+  <text x="38" y="70" class="subtitle">动画在近处 / 远处之间切换；观察下方紫色与蓝色标记的间距</text>
+
+  <rect x="30" y="93" width="600" height="305" rx="22" class="panel" filter="url(#shadow)"/>
+  <line x1="102" y1="340" x2="558" y2="340" stroke="#cbd5e1" stroke-width="2"/>
+  <g>
+    <rect x="118" y="320" width="118" height="48" rx="12" fill="#1e293b"/>
+    <circle cx="177" cy="344" r="14" fill="#7dd3fc" stroke="#fff" stroke-width="3"/>
+    <text x="146" y="389" class="small">左相机</text>
+    <rect x="424" y="320" width="118" height="48" rx="12" fill="#1e293b"/>
+    <circle cx="483" cy="344" r="14" fill="#7dd3fc" stroke="#fff" stroke-width="3"/>
+    <text x="452" y="389" class="small">右相机</text>
+    <line x1="177" y1="300" x2="483" y2="300" stroke="#64748b" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <text x="279" y="290" class="label">基线 B</text>
+  </g>
+  <g class="near">
+    <line x1="177" y1="320" x2="330" y2="186" stroke="#8b5cf6" stroke-width="2.5" class="flow"/>
+    <line x1="483" y1="320" x2="330" y2="186" stroke="#8b5cf6" stroke-width="2.5" class="flow"/>
+    <circle cx="330" cy="186" r="20" fill="#8b5cf6" stroke="#fff" stroke-width="5"/>
+    <text x="355" y="180" class="label" fill="#7c3aed">近处：Z 小</text>
+    <text x="355" y="202" class="small">两条观察射线夹角更大</text>
+  </g>
+  <g class="far">
+    <line x1="177" y1="320" x2="330" y2="116" stroke="#0ea5e9" stroke-width="2.5" class="flow"/>
+    <line x1="483" y1="320" x2="330" y2="116" stroke="#0ea5e9" stroke-width="2.5" class="flow"/>
+    <circle cx="330" cy="116" r="17" fill="#0ea5e9" stroke="#fff" stroke-width="5"/>
+    <text x="355" y="110" class="label" fill="#0284c7">远处：Z 大</text>
+    <text x="355" y="132" class="small">两条观察射线逐渐接近平行</text>
+  </g>
+
+  <rect x="654" y="93" width="276" height="305" rx="22" class="panel" filter="url(#shadow)"/>
+  <text x="682" y="132" class="label">核心关系</text>
+  <text x="682" y="179" font-size="32" font-weight="750" fill="#172554">Z = f × B / d</text>
+  <line x1="682" y1="201" x2="901" y2="201" stroke="#e2e8f0"/>
+  <circle cx="696" cy="232" r="7" fill="#8b5cf6"/><text x="714" y="238" class="small">d 大 → Z 小（近）</text>
+  <circle cx="696" cy="266" r="7" fill="#0ea5e9"/><text x="714" y="272" class="small">d 小 → Z 大（远）</text>
+  <rect x="682" y="298" width="220" height="65" rx="13" fill="#fff7ed" stroke="#fed7aa"/>
+  <text x="697" y="322" class="small" fill="#9a3412">f、B 由相机结构 / 标定决定</text>
+  <text x="697" y="346" class="small" fill="#9a3412">匹配左右图像后测得 d</text>
+
+  <rect x="30" y="421" width="900" height="108" rx="20" class="panel" filter="url(#shadow)"/>
+  <text x="54" y="451" class="small">将左右图像叠到同一个水平坐标轴（示意）</text>
+  <line x1="85" y1="492" x2="875" y2="492" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+  <g class="near">
+    <circle cx="349" cy="492" r="13" fill="#8b5cf6"/><circle cx="611" cy="492" r="13" fill="#0ea5e9"/>
+    <line x1="367" y1="492" x2="593" y2="492" stroke="#8b5cf6" stroke-width="2.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <text x="424" y="483" class="label" fill="#7c3aed">d 大</text>
+  </g>
+  <g class="far">
+    <circle cx="443" cy="492" r="13" fill="#8b5cf6"/><circle cx="517" cy="492" r="13" fill="#0ea5e9"/>
+    <line x1="461" y1="492" x2="499" y2="492" stroke="#0ea5e9" stroke-width="2.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <text x="456" y="477" class="label" fill="#0284c7">d 小</text>
+  </g>
+  <rect x="70" y="463" width="74" height="24" rx="12" class="near-pill"/><text x="86" y="480" font-size="13" font-weight="700">近处</text>
+  <rect x="816" y="463" width="74" height="24" rx="12" class="far-pill"/><text x="832" y="480" font-size="13" font-weight="700">远处</text>
+</svg>
