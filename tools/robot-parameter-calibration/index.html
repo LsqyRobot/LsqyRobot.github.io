@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="工业机器人几何参数标定工具页面大纲，支持 DH、MDH 与 URDF 模型入口。">
-  <title>工业机器人参数标定 · Robotics Workbench</title>
+  <meta name="description" content="基于 URDF、标准 DH 或 Craig MDH 模型的工业机器人参数标定与通用逆运动学工具。">
+  <title>工业机器人参数标定与 IK · Robotics Workbench</title>
   <link rel="icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="/css/toolkit.css">
   <script src="/js/tools-common.js" defer></script>
+  <script src="/js/robot-parameter-calibration.js" defer></script>
 </head>
-<body class="robot-tool-page">
+<body class="robot-tool-page rc-page">
   <header class="rt-sitebar">
     <a class="rt-brand" href="/" aria-label="返回网站首页">
       <span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span>
@@ -23,95 +24,335 @@
 
     <section class="rt-hero">
       <div>
-        <span class="rt-kicker">Tool 01 · calibration</span>
+        <span class="rt-kicker">Tool 01 · C++ calibration / IK</span>
         <h1>工业机器人<br>参数标定</h1>
-        <p>组织名义模型、关节采样和末端测量数据，形成“误差建模—参数求解—交叉验证—补偿回写”的完整标定入口。当前版本展示数据契约与计算流程，尚不执行数值求解。</p>
+        <p>从 URDF、标准 DH 或 Craig MDH 名义模型出发，辨识关节零偏、杆长和法兰到工具的位姿修正；也可输入目标位姿，以 C++ 多起点数值求解器计算受关节限位约束的通用 IK。</p>
       </div>
       <div class="rt-status-stack" aria-label="工具状态">
-        <div class="rt-status-row"><span>interface</span><strong class="is-ready">ready</strong></div>
-        <div class="rt-status-row"><span>solver</span><strong>pending</strong></div>
-        <div class="rt-status-row"><span>version</span><strong>0.1 outline</strong></div>
+        <div class="rt-status-row"><span>backend</span><strong data-rc-health-state>checking</strong></div>
+        <div class="rt-status-row"><span>models</span><strong class="is-ready">URDF / DH / MDH</strong></div>
+        <div class="rt-status-row"><span>engine</span><strong>C++ CLI</strong></div>
       </div>
     </section>
 
-    <section class="rt-workspace" aria-label="参数标定工作区">
+    <noscript><div class="rc-message rc-message-error">此工具需要 JavaScript 才能读取本地文件并调用 Docker 标定服务。</div></noscript>
+    <div class="rc-message" data-rc-message role="status" aria-live="polite" tabindex="-1" hidden></div>
+
+    <section class="rt-workspace rc-workspace" aria-label="工业机器人参数标定工作区">
       <div class="rt-panel">
-        <div class="rt-panel-head"><h2>标定输入</h2><span class="rt-panel-index">01 / INPUT</span></div>
-        <form>
-          <div class="rt-form-grid">
-            <div class="rt-field rt-field-full">
+        <div class="rt-panel-head"><h2>模型、数据与求解设置</h2><span class="rt-panel-index">01 / INPUT</span></div>
+        <form id="robot-calibration-form" novalidate>
+          <fieldset class="rc-choice-fieldset">
+            <legend id="rc-mode-label">任务模式</legend>
+            <div class="rt-segmented rc-segmented" role="group" aria-labelledby="rc-mode-label" style="--segments: 3">
+              <button class="is-active" type="button" data-rc-mode="measured" aria-pressed="true">实测标定</button>
+              <button type="button" data-rc-mode="closed-loop" aria-pressed="false">合成闭环</button>
+              <button type="button" data-rc-mode="ik" aria-pressed="false">通用 IK</button>
+            </div>
+            <small class="rc-field-help" data-rc-mode-help>使用外部设备测得的末端位置或完整位姿进行标定。</small>
+          </fieldset>
+
+          <fieldset class="rc-choice-fieldset">
+            <legend id="rc-model-type-label">名义模型约定</legend>
+            <div class="rt-segmented rc-segmented" role="group" aria-labelledby="rc-model-type-label" style="--segments: 3">
+              <button class="is-active" type="button" data-rc-model-type="dh" aria-pressed="true">标准 DH</button>
+              <button type="button" data-rc-model-type="mdh" aria-pressed="false">Craig MDH</button>
+              <button type="button" data-rc-model-type="urdf" aria-pressed="false">URDF</button>
+            </div>
+          </fieldset>
+
+          <div class="rc-file-grid">
+            <div class="rt-field">
               <span class="rt-field-label">名义机器人模型</span>
-              <label class="rt-file-drop">
-                <input type="file" accept=".urdf,.xacro,.csv,.json,.yaml,.yml" data-file-input>
+              <label class="rt-file-drop rc-file-drop" data-rc-drop-zone="model">
+                <input id="rc-model-file" type="file" accept=".csv,text/csv" data-rc-upload-input="model">
                 <span class="rt-file-copy">
-                  <span class="rt-file-icon">＋</span>
-                  <strong data-file-title data-default-text="选择模型文件">选择模型文件</strong>
-                  <span data-file-detail data-default-text="URDF / Xacro / CSV / JSON，暂不上传服务器">URDF / Xacro / CSV / JSON，暂不上传服务器</span>
+                  <span class="rt-file-icon" aria-hidden="true">＋</span>
+                  <strong data-rc-upload-title="model">拖入或选择 DH 参数 CSV</strong>
+                  <span data-rc-upload-detail="model">标准 DH；一行对应一个关节</span>
                 </span>
               </label>
             </div>
-            <div class="rt-field rt-field-full">
-              <span class="rt-field-label">模型约定</span>
-              <div class="rt-segmented" data-segmented style="--segments: 3">
-                <button class="is-active" type="button" data-value="dh" aria-pressed="true">DH</button>
-                <button type="button" data-value="mdh" aria-pressed="false">MDH</button>
-                <button type="button" data-value="urdf" aria-pressed="false">URDF</button>
-              </div>
-              <input type="hidden" name="model_convention" value="dh">
-            </div>
-            <div class="rt-field">
-              <label for="calibration-measurement">测量方式</label>
-              <select id="calibration-measurement"><option>激光跟踪仪</option><option>视觉 / AprilTag</option><option>球杆仪</option><option>手工导入位姿</option></select>
-            </div>
-            <div class="rt-field">
-              <label for="calibration-target">待辨识参数</label>
-              <select id="calibration-target"><option>关节零偏 + 几何参数</option><option>仅关节零偏</option><option>完整几何误差集</option><option>自定义参数掩码</option></select>
-            </div>
-            <div class="rt-field">
-              <label for="calibration-unit">长度单位</label>
-              <select id="calibration-unit"><option>mm</option><option>m</option></select>
-            </div>
-            <div class="rt-field">
-              <label for="calibration-split">验证集比例</label>
-              <input id="calibration-split" type="number" min="0" max="50" value="20">
+            <div class="rt-field" data-rc-measured-panel>
+              <span class="rt-field-label">关节与末端测量 · CSV</span>
+              <label class="rt-file-drop rc-file-drop" data-rc-drop-zone="data">
+                <input id="rc-measurement-file" type="file" accept=".csv,text/csv" data-rc-upload-input="data">
+                <span class="rt-file-copy">
+                  <span class="rt-file-icon" aria-hidden="true">＋</span>
+                  <strong data-rc-upload-title="data">拖入或选择测量 CSV</strong>
+                  <span data-rc-upload-detail="data">q_&lt;joint&gt;、位置以及可选的 qx qy qz qw</span>
+                </span>
+              </label>
             </div>
           </div>
-          <div class="rt-form-actions">
-            <button class="rt-primary-button" type="button" data-preview-flow>预览处理流程 →</button>
-            <button class="rt-secondary-button" type="button" data-reset-form>重置</button>
-            <span class="rt-form-hint">不会执行实际标定</span>
+
+          <div class="rc-example-row" data-rc-calibration-only>
+            <button class="rt-secondary-button" type="button" data-rc-load-example>载入六轴标准 DH 示例</button>
+            <span>同时载入模型与测量文件，用于验证预检、求解和结果下载。</span>
+          </div>
+
+          <div class="rc-example-row">
+            <button class="rt-secondary-button" type="button" data-rc-run-abb-demo>运行 ABB IRB 120 全闭环示例</button>
+            <span>一键执行 URDF 预检、隐藏参数辨识、独立留出集验证，以及补偿前后 FK / IK 物理回放。</span>
+          </div>
+
+          <div class="rt-form-grid rc-config-grid">
+            <div class="rt-field" data-rc-tip-field hidden>
+              <label for="rc-tip-link">URDF 末端 link</label>
+              <input id="rc-tip-link" type="text" placeholder="留空时由后端自动选择">
+              <small class="rc-field-help">树状模型建议明确填写法兰或工具 link；修改后需重新预检。</small>
+            </div>
+            <div class="rt-field">
+              <label for="rc-length-unit">长度单位</label>
+              <select id="rc-length-unit"><option value="m" selected>m</option><option value="mm">mm</option></select>
+              <small class="rc-field-help">DH/MDH 模型、工具 XYZ 与测量位置使用该单位；URDF 模型本身固定为 SI。</small>
+            </div>
+            <div class="rt-field">
+              <label for="rc-angle-unit">角度单位</label>
+              <select id="rc-angle-unit"><option value="rad" selected>rad</option><option value="deg">deg</option></select>
+              <small class="rc-field-help">DH/MDH 模型、工具 RPY 与旋转关节 q 使用该单位；URDF 模型本身固定为 SI。</small>
+            </div>
+            <div class="rt-field" data-rc-calibration-only>
+              <label for="rc-validation-ratio">验证集比例</label>
+              <input id="rc-validation-ratio" type="number" min="0" max="0.79" step="0.05" value="0.2">
+              <small class="rc-field-help">合成闭环至少保留 8 个独立验证点；实测模式可设为 0。</small>
+            </div>
+            <div class="rt-field" data-rc-calibration-only>
+              <label for="rc-orientation-weight">姿态残差权重</label>
+              <input id="rc-orientation-weight" type="number" min="0" step="any" value="0.2">
+              <small class="rc-field-help">单位 m/rad；位置-only 数据可设为 0。姿态残差用旋转对数，不直接相减 RPY。</small>
+            </div>
+            <div class="rt-field" data-rc-calibration-only>
+              <label for="rc-huber-delta">Huber 阈值</label>
+              <input id="rc-huber-delta" type="number" min="0.000000001" step="any" value="0.003">
+              <small class="rc-field-help">单位为 m 等效残差；默认 0.003。</small>
+            </div>
+            <div class="rt-field" data-rc-calibration-only>
+              <label for="rc-max-iterations">最大迭代次数</label>
+              <input id="rc-max-iterations" type="number" min="1" max="200" step="1" value="60">
+            </div>
+          </div>
+
+          <fieldset class="rc-target-fieldset" data-rc-calibration-only>
+            <legend>待标定参数</legend>
+            <div class="rc-target-grid">
+              <label><input type="checkbox" value="zero" data-rc-target checked><span><strong>关节零偏</strong><small>旋转关节为角度，移动关节为长度</small></span></label>
+              <label><input type="checkbox" value="length" data-rc-target checked><span><strong>杆长 / 几何平移</strong><small>DH/MDH 的名义非零 a、d；URDF origin 沿名义方向</small></span></label>
+              <label><input type="checkbox" value="tool-translation" data-rc-target checked><span><strong>工具平移</strong><small>法兰到 TCP / 测量靶标的 xyz</small></span></label>
+              <label><input type="checkbox" value="tool-rotation" data-rc-target><span><strong>工具旋转</strong><small>需要完整位姿测量和充分姿态变化</small></span></label>
+            </div>
+          </fieldset>
+
+          <section class="rc-mode-panel" data-rc-ik-panel hidden aria-labelledby="rc-ik-target-title">
+            <fieldset class="rc-vector-fieldset">
+              <legend id="rc-ik-target-title">IK 目标位姿</legend>
+              <div class="rc-vector-row">
+                <span>XYZ</span>
+                <div class="rc-vector-inputs">
+                  <label><span>X</span><input type="number" step="any" data-rc-ik-target-xyz="0" aria-label="IK 目标 X"></label>
+                  <label><span>Y</span><input type="number" step="any" data-rc-ik-target-xyz="1" aria-label="IK 目标 Y"></label>
+                  <label><span>Z</span><input type="number" step="any" data-rc-ik-target-xyz="2" aria-label="IK 目标 Z"></label>
+                </div>
+              </div>
+              <div class="rc-vector-row">
+                <span>XYZW</span>
+                <div class="rc-vector-inputs rc-vector-inputs-four">
+                  <label><span>QX</span><input type="number" step="any" data-rc-ik-target-quaternion="0" aria-label="IK 四元数 QX"></label>
+                  <label><span>QY</span><input type="number" step="any" data-rc-ik-target-quaternion="1" aria-label="IK 四元数 QY"></label>
+                  <label><span>QZ</span><input type="number" step="any" data-rc-ik-target-quaternion="2" aria-label="IK 四元数 QZ"></label>
+                  <label><span>QW</span><input type="number" step="any" data-rc-ik-target-quaternion="3" aria-label="IK 四元数 QW"></label>
+                </div>
+              </div>
+              <small class="rc-field-help">XYZ 必填并使用当前长度单位。四元数按 XYZW 顺序；四项同时留空时只约束位置。</small>
+            </fieldset>
+
+            <div class="rt-form-grid rc-config-grid">
+              <div class="rt-field">
+                <label for="rc-ik-seed">关节初值 q（可选）</label>
+                <input id="rc-ik-seed" type="text" autocomplete="off" placeholder="例如：0, -1.57, 0, 0, 0, 0">
+                <small class="rc-field-help">按模型活动关节顺序填写，逗号或空格分隔；转动 / 移动关节分别使用当前角度 / 长度单位。</small>
+              </div>
+              <div class="rt-field">
+                <label for="rc-ik-strategy">解排序策略</label>
+                <select id="rc-ik-strategy"><option value="distance" selected>distance · 优先接近 seed</option><option value="speed">speed · 找够即停</option></select>
+              </div>
+              <div class="rt-field">
+                <label for="rc-ik-max-solutions">最多返回解数</label>
+                <input id="rc-ik-max-solutions" type="number" min="1" max="16" step="1" value="4">
+              </div>
+              <div class="rt-field">
+                <label for="rc-ik-restarts">多起点次数</label>
+                <input id="rc-ik-restarts" type="number" min="1" max="64" step="1" value="32">
+              </div>
+              <div class="rt-field">
+                <label for="rc-ik-max-iterations">每个起点最大迭代</label>
+                <input id="rc-ik-max-iterations" type="number" min="1" max="200" step="1" value="120">
+              </div>
+              <div class="rt-field">
+                <label for="rc-ik-position-tolerance">位置收敛容差</label>
+                <input id="rc-ik-position-tolerance" type="number" min="0" step="any" value="0.00001">
+                <small class="rc-field-help">使用当前长度单位。</small>
+              </div>
+              <div class="rt-field">
+                <label for="rc-ik-orientation-tolerance">姿态收敛容差</label>
+                <input id="rc-ik-orientation-tolerance" type="number" min="0" step="any" value="0.0001">
+                <small class="rc-field-help">使用当前角度单位；位置-only 目标不会检查该项。</small>
+              </div>
+              <div class="rt-field">
+                <label for="rc-ik-orientation-weight">姿态残差权重</label>
+                <input id="rc-ik-orientation-weight" type="number" min="0" max="10000" step="any" value="0.2">
+              </div>
+              <div class="rt-field">
+                <label for="rc-ik-solution-tolerance">重复解判定容差</label>
+                <input id="rc-ik-solution-tolerance" type="number" min="0" max="1" step="any" value="0.001">
+              </div>
+              <div class="rt-field">
+                <label for="rc-ik-random-seed">多起点随机种子</label>
+                <input id="rc-ik-random-seed" type="number" min="0" max="4294967295" step="1" value="42">
+              </div>
+            </div>
+
+            <div class="rc-target-grid">
+              <label><input id="rc-ik-allow-assumed-limits" type="checkbox"><span><strong>允许临时搜索范围</strong><small>仅在非连续关节缺少物理限位时使用保守假设范围；工业机器人建议补齐真实限位。</small></span></label>
+            </div>
+            <div class="rc-runtime-note">
+              <strong>IK 安全边界</strong>
+              <p>这里只求解单个末端目标的关节位置，不进行自碰撞 / 环境碰撞、轨迹连续性、速度、加速度或力矩检查。下发机器人前必须另行验证。</p>
+            </div>
+          </section>
+
+          <fieldset class="rc-vector-fieldset">
+            <legend>名义工具位姿（可选）</legend>
+            <div class="rc-vector-row">
+              <span>XYZ</span>
+              <div class="rc-vector-inputs">
+                <label><span>X</span><input type="number" step="any" data-rc-tool-xyz="0" aria-label="工具 X"></label>
+                <label><span>Y</span><input type="number" step="any" data-rc-tool-xyz="1" aria-label="工具 Y"></label>
+                <label><span>Z</span><input type="number" step="any" data-rc-tool-xyz="2" aria-label="工具 Z"></label>
+              </div>
+            </div>
+            <div class="rc-vector-row">
+              <span>RPY</span>
+              <div class="rc-vector-inputs">
+                <label><span>R</span><input type="number" step="any" data-rc-tool-rpy="0" aria-label="工具 Roll"></label>
+                <label><span>P</span><input type="number" step="any" data-rc-tool-rpy="1" aria-label="工具 Pitch"></label>
+                <label><span>Y</span><input type="number" step="any" data-rc-tool-rpy="2" aria-label="工具 Yaw"></label>
+              </div>
+            </div>
+            <small class="rc-field-help">三项需同时填写或同时留空；分别使用当前长度和角度单位。</small>
+          </fieldset>
+
+          <div class="rt-form-grid rc-mode-panel" data-rc-closed-loop-panel hidden>
+            <div class="rt-field">
+              <label for="rc-samples">合成样本数</label>
+              <input id="rc-samples" type="number" min="20" max="20000" step="1" value="500">
+            </div>
+            <div class="rt-field">
+              <label for="rc-seed">随机种子</label>
+              <input id="rc-seed" type="number" min="0" max="4294967295" step="1" value="42">
+            </div>
+            <div class="rt-field">
+              <label for="rc-noise-position">位置噪声</label>
+              <input id="rc-noise-position" type="number" min="0" step="any" value="0">
+              <small class="rc-field-help">标准差，使用当前长度单位。</small>
+            </div>
+            <div class="rt-field">
+              <label for="rc-noise-orientation">姿态噪声</label>
+              <input id="rc-noise-orientation" type="number" min="0" step="any" value="0">
+              <small class="rc-field-help">标准差，使用当前角度单位。</small>
+            </div>
+          </div>
+
+          <div class="rt-form-actions rc-form-actions">
+            <button class="rt-primary-button" type="submit" data-rc-run disabled>开始实测标定 →</button>
+            <button class="rt-secondary-button" type="button" data-rc-inspect disabled>预检模型</button>
+            <button class="rt-secondary-button" type="button" data-rc-reset>清空</button>
+            <span class="rt-form-hint">组合请求上限 12 MB</span>
           </div>
         </form>
       </div>
 
-      <div class="rt-panel rt-preview">
-        <div class="rt-preview-card">
-          <div class="rt-preview-visual" aria-hidden="true">
-            <span class="rt-preview-glyph"><svg viewBox="0 0 48 48"><path d="M9 38h30M15 38V27l7-6 6 4 7-10M13 27h8M22 21l-4-8M35 15l4 4M30 29l6 5"/><circle cx="18" cy="13" r="3"/><circle cx="35" cy="15" r="3"/></svg></span>
-          </div>
-          <div class="rt-preview-title"><strong>标定管线</strong><span class="rt-preview-state" data-preview-state>AWAITING INPUT</span></div>
-          <ol class="rt-process-list">
-            <li><span class="rt-process-dot"></span><span>解析名义模型与参数掩码</span><code>MODEL</code></li>
-            <li><span class="rt-process-dot"></span><span>对齐关节采样和末端测量</span><code>PAIR</code></li>
-            <li><span class="rt-process-dot"></span><span>构造误差雅可比与可观测集</span><code>JACOBIAN</code></li>
-            <li><span class="rt-process-dot"></span><span>求解、交叉验证并生成补偿量</span><code>SOLVE</code></li>
+      <div class="rt-panel rt-preview rc-runtime-panel">
+        <div class="rt-preview-card rc-runtime-card">
+          <div class="rt-preview-title"><strong>Docker 标定链路</strong><span class="rt-preview-state" data-rc-runtime-state>CHECKING BACKEND</span></div>
+          <ol class="rt-process-list rc-process-list">
+            <li data-rc-process="backend"><span class="rt-process-dot"></span><span>连接 Docker :4010 标定 API</span><code>API</code></li>
+            <li data-rc-process="model"><span class="rt-process-dot"></span><span>解析模型、链路与关节范围</span><code>INSPECT</code></li>
+            <li data-rc-process="data"><span class="rt-process-dot"></span><span data-rc-data-process-copy>对齐关节列与外部末端测量</span><code data-rc-data-process-code>DATA</code></li>
+            <li data-rc-process="solver"><span class="rt-process-dot"></span><span data-rc-solver-process-copy>构造误差雅可比并迭代求解</span><code data-rc-solver-process-code>LM / SVD</code></li>
+            <li data-rc-process="result"><span class="rt-process-dot"></span><span data-rc-result-process-copy>留出集评估与参数诊断</span><code data-rc-result-process-code>VERIFY</code></li>
           </ol>
+
+          <section class="rc-inspection" data-rc-inspection hidden aria-labelledby="rc-inspection-title">
+            <div class="rc-inspection-head"><strong id="rc-inspection-title">模型预检</strong><span data-rc-inspection-state>VALID</span></div>
+            <p data-rc-inspection-summary>模型解析完成。</p>
+            <dl data-rc-inspection-list></dl>
+            <ul data-rc-inspection-warnings hidden></ul>
+          </section>
+
+          <div class="rc-runtime-note">
+            <strong data-rc-formula-title>标准 DH 约定</strong>
+            <p><code data-rc-model-formula>Aᵢ = Rz(θᵢ) · Tz(dᵢ) · Tx(aᵢ) · Rx(αᵢ)</code></p>
+          </div>
+          <div class="rc-runtime-note" data-rc-calibration-note>
+            <strong>末端测量 CSV</strong>
+            <p>关节列使用 q_&lt;joint&gt;；位置列使用 px、py、pz，完整姿态固定使用四元数 <code>qx, qy, qz, qw</code>（XYZW 顺序）。测量应来自独立外部设备，而不是控制器用同一名义模型计算的末端位姿。</p>
+          </div>
+          <button class="rc-health-retry" type="button" data-rc-health-retry>重新检查后端</button>
         </div>
       </div>
     </section>
 
-    <section class="rt-outline">
-      <div class="rt-section-heading"><div><span class="rt-kicker">Implementation outline</span><h2>未来计算内核的大纲</h2></div><p>页面字段将保持稳定，后续优先补充解析与验证，再逐步接入可观测性分析和稳健求解器。</p></div>
-      <div class="rt-outline-grid">
-        <article class="rt-outline-card"><span>01 / DATA</span><h3>输入与预处理</h3><ul><li>DH / MDH 表或 URDF 模型</li><li>关节角、末端位置与姿态测量</li><li>单位、时间戳、坐标系一致性检查</li></ul></article>
-        <article class="rt-outline-card"><span>02 / KERNEL</span><h3>误差模型与求解</h3><ul><li>微分运动学误差模型</li><li>SVD 可观测性与参数合并</li><li>加权 / 稳健最小二乘迭代</li></ul></article>
-        <article class="rt-outline-card"><span>03 / RESULT</span><h3>评估与导出</h3><ul><li>补偿前后位置、姿态误差对比</li><li>残差分布与异常样本标记</li><li>参数表、补偿配置与分析报告</li></ul></article>
+    <section class="rc-results" data-rc-results hidden aria-labelledby="rc-results-title">
+      <div class="rt-section-heading rc-results-heading">
+        <div><span class="rt-kicker" data-rc-result-kicker>Calibration result</span><h2 id="rc-results-title" tabindex="-1">求解结果</h2><p data-rc-result-summary>求解完成。</p></div>
+        <button class="rt-secondary-button" type="button" data-rc-download disabled>下载 JSON</button>
+      </div>
+
+      <div class="rc-result-warnings" data-rc-result-warnings hidden role="status">
+        <strong>求解与结果警告</strong>
+        <ul data-rc-result-warning-list></ul>
+      </div>
+
+      <div class="rc-summary-grid" data-rc-calibration-summary aria-label="标定前后核心误差">
+        <article><span>标定前 · 位置 RMSE（m）</span><strong data-rc-summary-value="before-position">—</strong></article>
+        <article><span>标定后 · 位置 RMSE（m）</span><strong data-rc-summary-value="after-position">—</strong><small data-rc-summary-improvement="position"></small></article>
+        <article><span>标定前 · 姿态 RMSE（rad）</span><strong data-rc-summary-value="before-orientation">—</strong></article>
+        <article><span>标定后 · 姿态 RMSE（rad）</span><strong data-rc-summary-value="after-orientation">—</strong><small data-rc-summary-improvement="orientation"></small></article>
+      </div>
+
+      <div class="rc-result-grid">
+        <article class="rc-table-card" data-rc-calibration-metrics>
+          <div class="rc-table-head"><h3>误差与验证指标</h3><span data-rc-metric-count>0 items</span></div>
+          <div class="rc-table-scroll"><table><caption>训练集、验证集以及闭环误差指标</caption><thead><tr><th scope="col">指标</th><th scope="col">数值</th></tr></thead><tbody data-rc-metrics-body></tbody></table></div>
+        </article>
+        <article class="rc-table-card" data-rc-calibration-parameters>
+          <div class="rc-table-head"><h3>参数修正</h3><span data-rc-parameter-count>0 items</span></div>
+          <div class="rc-table-scroll"><table><caption>名义参数、辨识增量与标定后参数</caption><thead><tr><th scope="col">参数</th><th scope="col">名义值</th><th scope="col">增量</th><th scope="col">标定值 / 诊断</th></tr></thead><tbody data-rc-parameters-body></tbody></table></div>
+        </article>
+        <article class="rc-table-card rc-diagnostics-card" data-rc-ik-solutions-card hidden>
+          <div class="rc-table-head"><h3>IK 候选解</h3><span data-rc-ik-solution-count>0 solutions</span></div>
+          <div class="rc-table-scroll"><table><caption>满足目标位姿与关节限位的逆运动学候选解</caption><thead><tr><th scope="col">候选 / 回放</th><th scope="col">关节位置 q</th><th scope="col">位置误差（m）</th><th scope="col">姿态误差（rad）</th><th scope="col">迭代</th><th scope="col">起点</th></tr></thead><tbody data-rc-ik-solutions-body></tbody></table></div>
+        </article>
+        <article class="rc-table-card rc-diagnostics-card">
+          <div class="rc-table-head"><h3>秩与求解诊断</h3><span data-rc-diagnostic-count>0 items</span></div>
+          <div class="rc-table-scroll"><table><caption>雅可比数值秩、条件数、迭代状态与奇异值</caption><thead><tr><th scope="col">诊断项</th><th scope="col">数值</th></tr></thead><tbody data-rc-diagnostics-body></tbody></table></div>
+        </article>
+      </div>
+      <details class="rc-raw-result"><summary>查看原始 JSON</summary><pre data-rc-raw-result></pre></details>
+    </section>
+
+    <section class="rc-contract" aria-labelledby="rc-contract-title">
+      <div><span class="rt-kicker">Conventions</span><h2 id="rc-contract-title">输入和闭环约定</h2></div>
+      <div class="rc-contract-grid">
+        <article><span>STANDARD DH</span><h3>标准 DH</h3><p><code>Rz(θ) · Tz(d) · Tx(a) · Rx(α)</code>。旋转关节把 q 加到 θ，移动关节把 q 加到 d；关节零偏不与 θ/d 偏置重复建列。</p></article>
+        <article><span>CRAIG MDH</span><h3>Craig Modified DH</h3><p><code>Tx(aᵢ₋₁) · Rx(αᵢ₋₁) · Rz(θᵢ) · Tz(dᵢ)</code>。这里只支持该明确约定，不自动猜测厂商表格的坐标系定义。</p></article>
+        <article><span>CLOSED LOOP</span><h3>独立真值闭环</h3><p>合成模式会在名义模型之外注入真值误差，再生成训练和留出点。它验证代码与参数恢复，不替代激光跟踪仪、视觉靶标等真实外部测量。</p></article>
+        <article><span>ABB IRB 120</span><h3>经典六轴验收样例</h3><p>仓库内置 ROS-Industrial IRB 120-3/0.58 的纯运动学派生模型与固定验收阈值。该社区模型不受 ABB 官方认证，也不包含碰撞、轨迹或控制器安全配置。</p></article>
       </div>
     </section>
 
-    <section class="rt-roadmap"><div><span class="rt-kicker">Roadmap</span><h2>实现顺序</h2></div><ol class="rt-roadmap-list"><li><span>DH / MDH 与采样 CSV 解析</span><small>next</small></li><li><span>位置误差的线性最小二乘</span><small>planned</small></li><li><span>姿态误差与稳健迭代</span><small>planned</small></li><li><span>补偿模型导出及报告</span><small>planned</small></li></ol></section>
-
-    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 01</span><a href="/tools/dynamics-identification/">下一个：动力学参数辨识 →</a></footer>
+    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 01</span><span class="rc-footer-links"><a href="/tools/dynamics-identification/">动力学参数辨识</a><a href="/tools/trajectory-planning/">把模型用于轨迹规划 →</a></span></footer>
   </main>
 </body>
 </html>

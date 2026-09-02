@@ -3,60 +3,114 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="URDF 机器人模型与关节范围预览工具页面大纲。">
+  <meta name="description" content="在浏览器本地加载 URDF 与 mesh，检查机器人关节限位、零位、轴方向和 visual/collision 几何。">
   <title>URDF 关节范围预览 · Robotics Workbench</title>
   <link rel="icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="/css/toolkit.css">
+  <link rel="stylesheet" href="/css/urdf-joint-viewer.css">
   <script src="/js/tools-common.js" defer></script>
+  <script src="/js/urdf-joint-viewer.js" defer></script>
 </head>
-<body class="robot-tool-page">
+<body class="robot-tool-page ujv-page">
   <header class="rt-sitebar">
     <a class="rt-brand" href="/" aria-label="返回网站首页"><span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span><span>Robotics Workbench</span></a>
     <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
   </header>
 
-  <main class="rt-page">
+  <main class="rt-page" data-ujv-root>
     <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>URDF 关节范围预览</span></nav>
+
     <section class="rt-hero">
-      <div><span class="rt-kicker">Tool 03 · visualization</span><h1>URDF 关节<br>范围预览</h1><p>在浏览器中加载机器人模型，逐关节播放 lower / upper 限位，快速检查零位、旋转方向、mesh 尺寸、碰撞体和关节命名。当前页面先定义加载方式与检查面板，3D 渲染器待接入。</p></div>
-      <div class="rt-status-stack" aria-label="工具状态"><div class="rt-status-row"><span>interface</span><strong class="is-ready">ready</strong></div><div class="rt-status-row"><span>3d viewer</span><strong>pending</strong></div><div class="rt-status-row"><span>version</span><strong>0.1 outline</strong></div></div>
+      <div>
+        <span class="rt-kicker">Tool 03 · browser WebGL</span>
+        <h1>URDF 关节<br>范围预览</h1>
+        <p>加载已展开的 URDF、模型目录或 ZIP，在浏览器里逐关节检查 lower / zero / upper、旋转方向、mesh 尺寸以及 visual 与 collision 的差异。文件只留在当前页面，不会上传。</p>
+      </div>
+      <div class="rt-status-stack" aria-label="工具状态">
+        <div class="rt-status-row"><span>viewer</span><strong data-ujv-health>starting</strong></div>
+        <div class="rt-status-row"><span>privacy</span><strong>browser local</strong></div>
+        <div class="rt-status-row"><span>version</span><strong>1.0</strong></div>
+      </div>
     </section>
 
-    <section class="rt-workspace" aria-label="URDF 预览工作区">
-      <div class="rt-panel">
-        <div class="rt-panel-head"><h2>模型加载</h2><span class="rt-panel-index">01 / INPUT</span></div>
-        <form>
-          <div class="rt-form-grid">
-            <div class="rt-field rt-field-full"><span class="rt-field-label">模型包</span><label class="rt-file-drop"><input type="file" accept=".urdf,.xacro,.zip" data-file-input><span class="rt-file-copy"><span class="rt-file-icon">＋</span><strong data-file-title data-default-text="选择 URDF 或模型压缩包">选择 URDF 或模型压缩包</strong><span data-file-detail data-default-text=".urdf / .xacro / .zip（含 meshes），仅在本地解析">.urdf / .xacro / .zip（含 meshes），仅在本地解析</span></span></label></div>
-            <div class="rt-field rt-field-full"><span class="rt-field-label">播放模式</span><div class="rt-segmented" data-segmented style="--segments: 3"><button class="is-active" type="button" data-value="single" aria-pressed="true">逐关节</button><button type="button" data-value="sweep" aria-pressed="false">全范围扫描</button><button type="button" data-value="loop" aria-pressed="false">循环播放</button></div><input type="hidden" name="play_mode" value="single"></div>
-            <div class="rt-field"><label for="urdf-root">固定根连杆</label><select id="urdf-root"><option>自动检测</option><option>base_link</option><option>world</option></select></div>
-            <div class="rt-field"><label for="urdf-speed">播放速度</label><select id="urdf-speed"><option>0.5 ×</option><option selected>1.0 ×</option><option>2.0 ×</option></select></div>
-            <div class="rt-field"><label for="urdf-geometry">显示几何</label><select id="urdf-geometry"><option>Visual + Collision</option><option>仅 Visual</option><option>仅 Collision</option></select></div>
-            <div class="rt-field"><label for="urdf-axis">辅助标记</label><select id="urdf-axis"><option>关节轴 + 坐标系</option><option>仅关节轴</option><option>全部隐藏</option></select></div>
-          </div>
-          <div class="rt-form-actions"><button class="rt-primary-button" type="button" data-preview-flow>预览加载流程 →</button><button class="rt-secondary-button" type="button" data-reset-form>重置</button><span class="rt-form-hint">3D 模型暂不渲染</span></div>
-        </form>
-      </div>
+    <noscript><div class="ujv-message is-error">此工具需要 JavaScript 与 WebGL 2 才能解析并显示机器人模型。</div></noscript>
+    <div class="ujv-message" data-ujv-message role="status" aria-live="polite" hidden></div>
 
-      <div class="rt-panel rt-preview">
-        <div class="rt-preview-card">
-          <div class="rt-preview-visual" aria-hidden="true"><span class="rt-preview-glyph"><svg viewBox="0 0 48 48"><path d="M11 36h26M16 36V25l8-5 8 5v11M24 20V9M18 12l6-3 6 3M19 28h10M24 28v8"/><circle cx="24" cy="20" r="2.5"/><path d="M36 13a6 6 0 0 1 0 8M38 10a10 10 0 0 1 0 14"/></svg></span></div>
-          <div class="rt-preview-title"><strong>模型加载管线</strong><span class="rt-preview-state" data-preview-state>AWAITING INPUT</span></div>
-          <ol class="rt-process-list"><li><span class="rt-process-dot"></span><span>展开模型包并解析 XML</span><code>PARSE</code></li><li><span class="rt-process-dot"></span><span>构建 link / joint 拓扑树</span><code>GRAPH</code></li><li><span class="rt-process-dot"></span><span>解析 mesh、材质和坐标变换</span><code>ASSET</code></li><li><span class="rt-process-dot"></span><span>生成关节滑条与限位动画</span><code>VIEW</code></li></ol>
+    <section class="ujv-workspace" aria-label="URDF 预览工作区">
+      <aside class="rt-panel ujv-input-panel">
+        <div class="rt-panel-head"><h2>模型输入</h2><span class="rt-panel-index">01 / LOCAL</span></div>
+        <div class="ujv-drop-zone" data-ujv-drop>
+          <span class="ujv-drop-icon" aria-hidden="true">⌁</span>
+          <strong>拖入 URDF、模型目录文件或 ZIP</strong>
+          <span>支持 primitive 与本地 STL / DAE；外部网络资源默认阻止</span>
         </div>
-      </div>
+        <div class="ujv-load-actions">
+          <button class="rt-primary-button" type="button" data-ujv-load-example>加载教学机器人</button>
+          <label class="rt-secondary-button ujv-file-button">选择 URDF<input type="file" accept=".urdf,.xacro" data-ujv-model-input></label>
+          <label class="rt-secondary-button ujv-file-button">选择模型目录<input type="file" multiple webkitdirectory directory data-ujv-folder-input></label>
+          <label class="rt-secondary-button ujv-file-button">选择 ZIP<input type="file" accept=".zip,application/zip" data-ujv-zip-input></label>
+        </div>
+        <p class="ujv-input-note"><strong>Xacro 边界：</strong>宏、include 与 package 查找需要完整 ROS 环境。请先执行 <code>xacro model.xacro &gt; model.urdf</code>，再加载生成结果。</p>
+
+        <div class="ujv-model-summary" aria-label="模型摘要">
+          <dl><div><dt>robot</dt><dd data-ujv-stat="name">—</dd></div><div><dt>source</dt><dd data-ujv-stat="source">—</dd></div><div><dt>links</dt><dd data-ujv-stat="links">0</dd></div><div><dt>joints</dt><dd data-ujv-stat="joints">0</dd></div><div><dt>visual</dt><dd data-ujv-stat="visual">0</dd></div><div><dt>collision</dt><dd data-ujv-stat="collision">0</dd></div></dl>
+        </div>
+      </aside>
+
+      <section class="rt-panel ujv-viewer-panel" aria-labelledby="ujv-viewer-title">
+        <div class="ujv-viewer-head">
+          <div><span class="rt-panel-index">02 / VIEWER</span><h2 id="ujv-viewer-title">三维模型与关节方向</h2></div>
+          <span class="ujv-viewer-state" data-ujv-viewer-state>INITIALIZING</span>
+        </div>
+        <div class="ujv-stage">
+          <canvas data-ujv-canvas tabindex="0" role="application" aria-roledescription="交互式三维机器人视图" aria-label="URDF 机器人三维视图；可拖动旋转、滚轮或双指缩放，方向键微调当前关节" aria-describedby="ujv-viewer-help" aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Home End Space"></canvas>
+          <span class="sr-only" data-ujv-live aria-live="polite" aria-atomic="true"></span>
+          <span class="ujv-stage-badge">Z-UP · WEBGL 2 · LOCAL FILES</span>
+          <div class="ujv-stage-legend" aria-hidden="true"><span><i class="is-visual"></i>Visual</span><span><i class="is-collision"></i>Collision</span><span><i class="is-axis"></i>Joint axis</span></div>
+        </div>
+        <p class="ujv-viewer-help" id="ujv-viewer-help">鼠标左键或单指旋转，滚轮或双指缩放；选中关节后可用方向键微调、Home / End 跳到限位。视图仅用于建模检查，不执行物理仿真或精确碰撞检测。</p>
+        <div class="ujv-viewer-toolbar">
+          <label><span>几何</span><select data-ujv-geometry><option value="visual">仅 Visual</option><option value="both">Visual + Collision</option><option value="collision">仅 Collision</option></select></label>
+          <label><span>辅助标记</span><select data-ujv-axes><option value="axis">轴线 + 骨架</option><option value="frames">轴线 + 坐标系</option><option value="none">全部隐藏</option></select></label>
+          <button class="rt-secondary-button" type="button" data-ujv-reset-camera>适配视角</button>
+          <button class="rt-secondary-button" type="button" data-ujv-screenshot>保存 PNG</button>
+        </div>
+      </section>
     </section>
 
-    <section class="rt-outline">
-      <div class="rt-section-heading"><div><span class="rt-kicker">Implementation outline</span><h2>模型检查面板</h2></div><p>所有解析在浏览器本地完成，不上传机器人模型；优先保证 URDF 和 mesh 路径错误能被清楚定位。</p></div>
-      <div class="rt-outline-grid">
-        <article class="rt-outline-card"><span>01 / PARSER</span><h3>模型解析</h3><ul><li>link、joint、limit 与 mimic</li><li>package:// 和相对 mesh 路径</li><li>连续、旋转、移动和固定关节</li></ul></article>
-        <article class="rt-outline-card"><span>02 / VIEWER</span><h3>三维交互</h3><ul><li>逐关节滑条和全范围动画</li><li>Visual / Collision 一键切换</li><li>关节轴、坐标系与透明模式</li></ul></article>
-        <article class="rt-outline-card"><span>03 / AUDIT</span><h3>自动检查</h3><ul><li>无效限位、断链与重复命名</li><li>零位穿模和尺度异常提示</li><li>截图、关节表和检查报告导出</li></ul></article>
+    <section class="rt-panel ujv-motion-panel" aria-labelledby="ujv-motion-title">
+      <div class="rt-panel-head"><h2 id="ujv-motion-title">关节限位与播放</h2><span class="rt-panel-index">03 / JOINTS</span></div>
+      <div class="ujv-motion-toolbar">
+        <div class="ujv-mode-group" role="group" aria-label="关节播放模式">
+          <button class="is-active" type="button" data-ujv-play-mode="single" aria-pressed="true">当前关节</button>
+          <button type="button" data-ujv-play-mode="sequence" aria-pressed="false">逐关节扫描</button>
+          <button type="button" data-ujv-play-mode="loop" aria-pressed="false">全部循环</button>
+        </div>
+        <label class="ujv-inline-field"><span>当前关节</span><select data-ujv-active-joint disabled><option>等待模型</option></select></label>
+        <label class="ujv-inline-field"><span>速度</span><select data-ujv-speed><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+        <button class="rt-primary-button" type="button" data-ujv-play aria-pressed="false" disabled>播放限位</button>
+        <button class="rt-secondary-button" type="button" data-ujv-zero>全部归零</button>
       </div>
+      <div class="ujv-joint-list" data-ujv-joint-list></div>
+      <p class="ujv-empty-state" data-ujv-joint-empty>加载模型后，这里会按 URDF 顺序生成关节滑条与 lower / zero / upper 快捷检查。</p>
     </section>
 
-    <section class="rt-roadmap"><div><span class="rt-kicker">Roadmap</span><h2>实现顺序</h2></div><ol class="rt-roadmap-list"><li><span>URDF XML 与拓扑树解析</span><small>next</small></li><li><span>Three.js mesh 加载与基础控制</span><small>planned</small></li><li><span>关节限位滑条和范围动画</span><small>planned</small></li><li><span>碰撞、截图与检查报告</span><small>planned</small></li></ol></section>
+    <section class="ujv-audit-grid">
+      <article class="rt-panel ujv-audit-panel">
+        <div class="rt-panel-head"><h2>模型检查报告</h2><span class="rt-panel-index">04 / AUDIT</span></div>
+        <ul class="ujv-diagnostics" data-ujv-diagnostics aria-live="polite"><li class="ujv-diagnostic is-info"><span class="ujv-diagnostic-level">WAIT</span><span>正在等待模型。</span></li></ul>
+        <div class="ujv-audit-actions"><button class="rt-secondary-button" type="button" data-ujv-export>导出 JSON 报告</button></div>
+      </article>
+      <article class="rt-panel ujv-boundary-panel">
+        <div class="rt-panel-head"><h2>执行边界</h2><span class="rt-panel-index">HOST / DOCKER</span></div>
+        <div class="ujv-boundary-flow">
+          <div><strong>主机 Hexo</strong><span>页面构建与静态预览</span></div><i aria-hidden="true">→</i><div><strong>浏览器</strong><span>URDF / mesh 解析与 WebGL</span></div>
+          <div><strong>Docker :4010</strong><span>标定、辨识、轨迹等 C++ 计算</span></div><i aria-hidden="true">→</i><div><strong>JSON 结果</strong><span>回到工具页展示</span></div>
+        </div>
+        <p>本工具的 3D 预览不需要启动计算容器。Tool 01、02、06 以及后续重计算模块统一使用本机 Docker API，Hexo 仍按原来的基础命令在主机运行。</p>
+      </article>
+    </section>
+
     <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 03</span><a href="/tools/dh-mdh-transform/">下一个：DH / MDH 变换检查 →</a></footer>
   </main>
 </body>

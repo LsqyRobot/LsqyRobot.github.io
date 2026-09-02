@@ -4555,9 +4555,13 @@
 	}
 	.post_page_title_img{
 		position: relative;
+		background-color: rgba(20, 24, 28, 0.96);
+		overflow: hidden;
+	}
+	.post-page-cover-media{
+		position: relative;
 		min-height: 18rem;
 		height: clamp(18rem, 38vw, 24rem);
-		background-color: rgba(20, 24, 28, 0.96);
 		overflow: hidden;
 	}
 	.post_page_title_blur,
@@ -4578,16 +4582,7 @@
 		background-size: contain;
 		z-index: 1;
 	}
-	.post_page_title_img a{
-		position:absolute;
-		text-shadow:6px 5px 10px #000;
-		padding-top: 20%;
-		border-bottom:none; 
-		left: 0;
-		right: 0;
-		z-index: 3;
-	}
-	.post_page_title_img::before{
+	.post-page-cover-media::before{
 		content: "";
 		position: absolute;
 		inset: 0;
@@ -4599,9 +4594,24 @@
 		z-index: 2;
 		pointer-events: none;
 	}
-	.post_page_title_img a > h2{
-		font-size: 3rem;
+	.post-page-title{
+		position: relative;
+		z-index: 3;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 5vw, 4rem);
+		background: linear-gradient(135deg, rgba(8, 15, 24, 0.98), rgba(17, 31, 49, 0.96));
 		color: #fff;
+		font-size: clamp(1.65rem, 3.5vw, 2.65rem);
+		font-weight: 700;
+		line-height: 1.25;
+		letter-spacing: 0.01em;
+		text-align: center;
+		text-transform: none;
+		overflow-wrap: anywhere;
+		text-shadow: 0 3px 14px rgba(0, 0, 0, 0.72);
 	}
 
 	.post-content-shell {
@@ -4817,11 +4827,8 @@
 		.post-image-main img{
 			max-height: 28rem;
 		}
-		.post_page_title_img{
+		.post-page-cover-media{
 			min-height: 15rem;
-		}
-		.post_page_title_img a{
-			padding-top: 30%;
 		}
 	}
 	@media screen and (max-width: 600px) {
@@ -4839,23 +4846,21 @@
 			max-height: 20rem;
 			border-radius: 8px;
 		}
-		.post_page_title_img{
+		.post-page-cover-media{
 			min-height: 13rem;
 			height: clamp(13rem, 44vw, 16rem);
 		}
-		.post_page_title_img a{
-			padding-top: 40%;
+		.post-page-title{
+			padding: 0.9rem 1rem;
+			font-size: clamp(1.35rem, 6vw, 1.75rem);
 		}
-		.post_page_title_img a > h2{
-			font-size: 2.2rem;
+		.post-article-content.typo{
+			padding: 2rem 1.25rem !important;
 		}
 	}
-	@media screen and (max-width: 400px) {
-		.post_page_title_img a{
-			padding-top: 50%;
-		}
-		.post_page_title_img a > h2{
-			font-size: 1.8rem;
+	@media screen and (max-width: 736px) {
+		#main > .post_page_title_img{
+			padding: 0;
 		}
 	}
 
@@ -6150,11 +6155,10 @@ pre[class*="language-"] {
 	border-radius: 999px;
 }
 
-/* ========== KaTeX robustness fixes ==========
-   The theme typography/reset CSS is loaded after KaTeX on post pages.
-   Re-assert KaTeX's box/font behavior so formulas render correctly even
-   when external CDN CSS is unavailable or later typography rules touch
-   sub/sup/span defaults. */
+/* ========== KaTeX theme integration ==========
+   The complete KaTeX stylesheet is loaded after the theme and typography
+   styles and remains the primary source of formula styling. The narrow
+   vlist safety net below protects script geometry in hostile previews. */
 .post-article-content .katex {
 	font: normal 1.21em KaTeX_Main, Times New Roman, serif;
 	line-height: 1.2;
@@ -6166,8 +6170,56 @@ pre[class*="language-"] {
 	box-sizing: content-box;
 }
 
-.post-article-content .katex .katex-html {
-	display: inline-block;
+/* KaTeX 0.16.45 critical vlist geometry.
+   Superscripts, subscripts, fractions and operator limits all depend on the
+   inline `top` values of these positioned spans. The declarations are also
+   mirrored inline in layout.ejs so either the theme CSS or the page itself
+   can recover the formula layout. */
+.post-article-content .katex .vlist-t {
+	border-collapse: collapse !important;
+	display: inline-table !important;
+	table-layout: fixed !important;
+}
+
+.post-article-content .katex .vlist-r {
+	display: table-row !important;
+}
+
+.post-article-content .katex .vlist {
+	display: table-cell !important;
+	position: relative !important;
+	vertical-align: bottom !important;
+}
+
+.post-article-content .katex .vlist > span {
+	display: block !important;
+	height: 0 !important;
+	position: relative !important;
+}
+
+.post-article-content .katex .vlist > span > span {
+	display: inline-block !important;
+}
+
+.post-article-content .katex .vlist > span > .pstrut {
+	overflow: hidden !important;
+	width: 0 !important;
+}
+
+.post-article-content .katex .vlist-t2 {
+	margin-right: -2px !important;
+}
+
+.post-article-content .katex .vlist-s {
+	display: table-cell !important;
+	font-size: 1px !important;
+	min-width: 2px !important;
+	vertical-align: bottom !important;
+	width: 2px !important;
+}
+
+.post-article-content .katex .msupsub {
+	text-align: left !important;
 }
 
 .post-article-content .katex .katex-mathml {
@@ -6184,19 +6236,4 @@ pre[class*="language-"] {
 	display: block;
 	margin: 1em 0;
 	text-align: center;
-}
-
-/* Display formulas need their own layout rules.  The generic KaTeX
-   robustness rule above keeps inline math stable, but display math should
-   remain centered while allowing horizontal scrolling for long equations. */
-.post-article-content .katex-display > .katex {
-	display: inline-block;
-	max-width: none;
-	text-align: initial;
-	white-space: nowrap;
-}
-
-.post-article-content .katex-display > .katex > .katex-html {
-	display: inline-block;
-	position: relative;
 }

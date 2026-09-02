@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="基于 URDF、DH 或 MDH 模型的工业机器人关节与笛卡尔多路径点轨迹规划，支持逐拐点 blend、速度和加速度约束，以及 JSON / CSV 导出。">
+  <title>工业机器人轨迹规划 · Robotics Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <script src="/js/tools-common.js" defer></script>
+  <script src="/js/trajectory-viewer.js" defer></script>
+  <script src="/js/trajectory-planning.js" defer></script>
+</head>
+<body class="robot-tool-page tp-page">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页">
+      <span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span>
+      <span>Robotics Workbench</span>
+    </a>
+    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
+  </header>
+
+  <main class="rt-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>工业机器人轨迹规划</span></nav>
+
+    <section class="rt-hero">
+      <div>
+        <span class="rt-kicker">Tool 06 · C++ path / timing</span>
+        <h1>工业机器人<br>轨迹规划</h1>
+        <p>一次提交整条关节或笛卡尔多路径点路径，在中间点设置独立 blend 半径，并统一完成路径几何、连续 IK、速度与加速度时间参数化及约束回放。</p>
+      </div>
+      <div class="rt-status-stack" aria-label="工具状态">
+        <div class="rt-status-row"><span>backend</span><strong data-tp-health-state>checking</strong></div>
+        <div class="rt-status-row"><span>spaces</span><strong class="is-ready">JOINT / CARTESIAN</strong></div>
+        <div class="rt-status-row"><span>engine</span><strong>DOCKER C++</strong></div>
+      </div>
+    </section>
+
+    <noscript><div class="rc-message rc-message-error">此工具需要 JavaScript 才能读取本地文件并调用 Docker 轨迹规划服务。</div></noscript>
+    <div class="rc-message" data-tp-message role="status" aria-live="polite" tabindex="-1" hidden></div>
+
+    <section class="tp-safety-boundary" aria-labelledby="tp-safety-title">
+      <strong id="tp-safety-title">安全边界 · 离线通用轨迹，不是控制器程序</strong>
+      <p>当前检查关节位置、速度、加速度和运动学回放，不进行自碰撞、环境碰撞、jerk、奇异性规避、负载 / 力矩、制动距离或厂商控制器插补验证。结果不能直接下发实机；必须结合真实机器人、工具、工件、控制器和安全系统再次验证。</p>
+    </section>
+
+    <section class="rt-workspace tp-workspace" aria-label="工业机器人轨迹规划工作区">
+      <div class="rt-panel">
+        <div class="rt-panel-head"><h2>模型、路径点与规划设置</h2><span class="rt-panel-index">01 / INPUT</span></div>
+        <form id="trajectory-planning-form" novalidate>
+          <fieldset class="rc-choice-fieldset">
+            <legend id="tp-space-label">路径空间</legend>
+            <div class="rt-segmented rc-segmented" role="group" aria-labelledby="tp-space-label" style="--segments: 2">
+              <button class="is-active" type="button" data-tp-space="joint" aria-pressed="true">关节路径</button>
+              <button type="button" data-tp-space="cartesian" aria-pressed="false">笛卡尔路径</button>
+            </div>
+            <small class="rc-field-help" data-tp-space-help>CSV 中每行给出所有活动关节位置；中间点可设置关节空间 blend_radius。</small>
+          </fieldset>
+
+          <fieldset class="rc-choice-fieldset">
+            <legend id="tp-model-type-label">名义模型约定</legend>
+            <div class="rt-segmented rc-segmented" role="group" aria-labelledby="tp-model-type-label" style="--segments: 3">
+              <button type="button" data-tp-model-type="dh" aria-pressed="false">标准 DH</button>
+              <button type="button" data-tp-model-type="mdh" aria-pressed="false">Craig MDH</button>
+              <button class="is-active" type="button" data-tp-model-type="urdf" aria-pressed="true">URDF</button>
+            </div>
+          </fieldset>
+
+          <div class="tp-file-grid">
+            <div class="rt-field">
+              <span class="rt-field-label">机器人模型</span>
+              <label class="rt-file-drop rc-file-drop" data-tp-drop-zone="model">
+                <input id="tp-model-file" type="file" accept=".urdf,application/xml,text/xml" data-tp-upload-input="model">
+                <span class="rt-file-copy">
+                  <span class="rt-file-icon" aria-hidden="true">＋</span>
+                  <strong data-tp-upload-title="model">拖入或选择已展开 URDF</strong>
+                  <span data-tp-upload-detail="model">固定基串联链；不解析 Xacro</span>
+                </span>
+              </label>
+            </div>
+            <div class="rt-field">
+              <span class="rt-field-label">整条路径点 CSV</span>
+              <label class="rt-file-drop rc-file-drop" data-tp-drop-zone="waypoints">
+                <input id="tp-waypoints-file" type="file" accept=".csv,text/csv" data-tp-upload-input="waypoints">
+                <span class="rt-file-copy">
+                  <span class="rt-file-icon" aria-hidden="true">＋</span>
+                  <strong data-tp-upload-title="waypoints">拖入或选择关节路径点 CSV</strong>
+                  <span data-tp-upload-detail="waypoints">一行一个路径点，含 blend_radius / stop</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="rc-example-row tp-example-row">
+            <button class="rt-secondary-button" type="button" data-tp-run-abb-joint>运行 ABB 关节路径示例</button>
+            <button class="rt-secondary-button" type="button" data-tp-run-abb-cartesian>运行 ABB 笛卡尔路径示例</button>
+            <span>使用仓库内 IRB 120 纯运动学模型和多拐点路径，自动预检并完成整条路径规划。</span>
+          </div>
+
+          <div class="rt-field tp-waypoints-editor-field">
+            <label for="tp-waypoints-editor">路径点 CSV · 可直接编辑</label>
+            <textarea id="tp-waypoints-editor" class="tp-textarea" spellcheck="false" placeholder="waypoint_id,q_joint_1,...,blend_radius,stop"></textarea>
+            <small class="rc-field-help" data-tp-waypoint-contract>关节模式必须提供 q_&lt;joint&gt;...；waypoint_id、blend_radius、stop 可选。首尾点自动停车且半径须为 0；非零半径绕过中间拐点，零半径的非共线拐点停车。</small>
+          </div>
+
+          <div class="rt-form-grid rc-config-grid">
+            <div class="rt-field" data-tp-tip-field>
+              <label for="tp-tip-link">URDF 末端 link</label>
+              <input id="tp-tip-link" type="text" value="tool0" placeholder="例如 tool0">
+            </div>
+            <div class="rt-field">
+              <label for="tp-length-unit">长度单位</label>
+              <select id="tp-length-unit"><option value="m" selected>m</option><option value="mm">mm</option></select>
+            </div>
+            <div class="rt-field">
+              <label for="tp-angle-unit">角度单位</label>
+              <select id="tp-angle-unit"><option value="rad" selected>rad</option><option value="deg">deg</option></select>
+            </div>
+            <div class="rt-field">
+              <label for="tp-sample-period">输出采样周期（s）</label>
+              <input id="tp-sample-period" type="number" min="0.001" max="1" step="any" value="0.02">
+            </div>
+            <div class="rt-field" data-tp-cartesian-only hidden>
+              <label for="tp-path-step">笛卡尔位置离散步长</label>
+              <input id="tp-path-step" type="number" min="0.000001" step="any" value="0.003">
+              <small class="rc-field-help" data-tp-path-step-help>仅用于笛卡尔连续 IK 的 TCP 几何采样，使用当前长度单位；关节路径采用解析几何。</small>
+            </div>
+            <div class="rt-field" data-tp-cartesian-only hidden>
+              <label for="tp-orientation-step">姿态离散步长</label>
+              <input id="tp-orientation-step" type="number" min="0.000001" step="any" value="0.04">
+              <small class="rc-field-help">使用当前角度单位。</small>
+            </div>
+            <div class="rt-field">
+              <label for="tp-maximum-output-samples">最大输出样本</label>
+              <input id="tp-maximum-output-samples" type="number" min="3" max="10000" step="1" value="5000">
+            </div>
+          </div>
+
+          <fieldset class="rc-vector-fieldset tp-limit-fieldset">
+            <legend>关节运动约束</legend>
+            <div class="rt-form-grid rc-config-grid">
+              <div class="rt-field">
+                <label for="tp-max-velocity">最大速度向量（可选）</label>
+                <input id="tp-max-velocity" type="text" autocomplete="off" placeholder="例如：3, 3, 3, 5, 5, 7">
+                <small class="rc-field-help">按活动关节顺序；旋转 / 移动关节分别使用当前角度 / 长度单位每秒。留空时尝试读取模型。</small>
+              </div>
+              <div class="rt-field">
+                <label for="tp-max-acceleration">最大加速度向量</label>
+                <input id="tp-max-acceleration" type="text" autocomplete="off" value="4, 4, 4, 8, 8, 10">
+                <small class="rc-field-help">按活动关节顺序；单位为当前关节单位每秒平方。</small>
+              </div>
+              <div class="rt-field">
+                <label for="tp-joint-metric-scale">关节路径 metric scale（可选）</label>
+                <input id="tp-joint-metric-scale" type="text" autocomplete="off" placeholder="混合旋转/移动关节时建议显式填写">
+                <small class="rc-field-help">定义关节空间距离与 blend_radius 的每轴尺度；纯六转动机器人通常可留空。</small>
+              </div>
+            </div>
+            <div class="rc-target-grid tp-option-checks">
+              <label><input id="tp-clamp-blends" type="checkbox"><span><strong>允许缩小不可行 blend</strong><small>关闭时过大半径直接失败；开启后必须检查 requested / applied 差异。</small></span></label>
+              <label><input id="tp-assume-dynamic-limits" type="checkbox"><span><strong>允许假设动态限制</strong><small>仅用于演示；工业机器人应显式提供真实速度与加速度上限。</small></span></label>
+              <label data-tp-joint-only><input id="tp-assume-position-limits" type="checkbox"><span><strong>允许假设关节位置范围</strong><small>仅用于关节路径离线演示；不能把 simulation-only 临时范围当作机器人规格。</small></span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="rc-vector-fieldset" data-tp-cartesian-only hidden>
+            <legend>笛卡尔连续 IK</legend>
+            <div class="rt-form-grid rc-config-grid">
+              <div class="rt-field rt-field-full">
+                <label for="tp-ik-seed">首路径点 IK seed</label>
+                <input id="tp-ik-seed" type="text" autocomplete="off" value="0, -0.8, 0.5, 0, -0.4, 0">
+                <small class="rc-field-help">后续离散点以前一点关节解继续求解，以减少 IK 分支跳变。</small>
+              </div>
+              <div class="rt-field"><label for="tp-ik-restarts">IK 多起点次数</label><input id="tp-ik-restarts" type="number" min="1" max="64" step="1" value="32"></div>
+              <div class="rt-field"><label for="tp-ik-max-iterations">每点最大迭代</label><input id="tp-ik-max-iterations" type="number" min="1" max="200" step="1" value="120"></div>
+              <div class="rt-field"><label for="tp-ik-position-tolerance">位置容差</label><input id="tp-ik-position-tolerance" type="number" min="0.000000001" step="any" value="0.00001"></div>
+              <div class="rt-field"><label for="tp-ik-orientation-tolerance">姿态容差</label><input id="tp-ik-orientation-tolerance" type="number" min="0.000000001" step="any" value="0.0001"></div>
+              <div class="rt-field"><label for="tp-ik-orientation-weight">姿态残差权重</label><input id="tp-ik-orientation-weight" type="number" min="0.000000001" step="any" value="0.2"></div>
+              <div class="rt-field"><label for="tp-ik-random-seed">IK 随机种子</label><input id="tp-ik-random-seed" type="number" min="0" max="4294967295" step="1" value="42"></div>
+            </div>
+            <div class="rc-target-grid tp-option-checks">
+              <label><input id="tp-ik-allow-assumed-limits" type="checkbox"><span><strong>允许 IK 临时关节范围</strong><small>仅用于模型缺失关节限位的离线演示。</small></span></label>
+            </div>
+          </fieldset>
+
+          <details class="tp-advanced-inputs">
+            <summary>工具位姿与标定修正量</summary>
+            <div class="rt-form-grid rc-config-grid">
+              <div class="rt-field"><label for="tp-tool-xyz">名义工具 XYZ（可选）</label><input id="tp-tool-xyz" type="text" placeholder="例如：0, 0, 0.1"></div>
+              <div class="rt-field"><label for="tp-tool-rpy">名义工具 RPY（可选）</label><input id="tp-tool-rpy" type="text" placeholder="例如：0, 0, 0"></div>
+              <div class="rt-field rt-field-full">
+                <label for="tp-corrections">标定修正 JSON（可选）</label>
+                <textarea id="tp-corrections" class="tp-textarea tp-textarea-small" spellcheck="false" placeholder='[{"name":"joint_1.zero","deltaSi":0.001}]'></textarea>
+                <small class="rc-field-help">接受显式 corrections 数组，也接受本工具标定结果 JSON，并自动提取 parameters 中的 name + delta。</small>
+              </div>
+            </div>
+          </details>
+
+          <div class="rt-form-actions rc-form-actions">
+            <button class="rt-primary-button" type="submit" data-tp-run disabled>规划整条关节路径 →</button>
+            <button class="rt-secondary-button" type="button" data-tp-inspect disabled>预检模型</button>
+            <button class="rt-secondary-button" type="button" data-tp-reset>清空</button>
+            <span class="rt-form-hint">模型 1 MB · 路径点 10 MB · 组合请求 12 MB</span>
+          </div>
+        </form>
+      </div>
+
+      <div class="rt-panel rt-preview tp-runtime-panel">
+        <div class="rt-preview-card rc-runtime-card">
+          <div class="rt-preview-title"><strong>Docker 轨迹规划链路</strong><span class="rt-preview-state" data-tp-runtime-state>CHECKING BACKEND</span></div>
+          <ol class="rt-process-list rc-process-list">
+            <li data-tp-process="backend"><span class="rt-process-dot"></span><span>连接 Docker :4010 轨迹 API</span><code>API</code></li>
+            <li data-tp-process="model"><span class="rt-process-dot"></span><span>解析模型、目标链与关节范围</span><code>INSPECT</code></li>
+            <li data-tp-process="path"><span class="rt-process-dot"></span><span>解析整条路径与逐点 blend</span><code>PATH</code></li>
+            <li data-tp-process="solver"><span class="rt-process-dot"></span><span data-tp-solver-copy>关节路径圆角与统一时间参数化</span><code>PLAN</code></li>
+            <li data-tp-process="result"><span class="rt-process-dot"></span><span>回放 FK 并检查速度 / 加速度约束</span><code>VERIFY</code></li>
+          </ol>
+
+          <section class="rc-inspection" data-tp-inspection hidden aria-labelledby="tp-inspection-title">
+            <div class="rc-inspection-head"><strong id="tp-inspection-title">模型预检</strong><span data-tp-inspection-state>VALID</span></div>
+            <p data-tp-inspection-summary>模型解析完成。</p>
+            <dl data-tp-inspection-list></dl>
+            <ul data-tp-inspection-warnings hidden></ul>
+          </section>
+
+          <div class="rc-runtime-note">
+            <strong data-tp-path-contract-title>关节路径 CSV</strong>
+            <p data-tp-path-contract-copy>整条路径在一次请求内规划。首尾点固定停止；中间点 stop=true 会停车，零半径的非共线拐点也会停车，非零半径会连续绕过拐点。</p>
+          </div>
+          <div class="rc-runtime-note">
+            <strong>blend 并不等于“必经该点”</strong>
+            <p>圆角轨迹在相邻线段的切点之间通过，不会精确抵达原拐点。结果会同时给出请求半径、实际半径、切线距离和路径点偏差。</p>
+          </div>
+          <button class="rc-health-retry" type="button" data-tp-health-retry>重新检查后端</button>
+        </div>
+
+        <section class="tp-viewer" data-tp-viewer-root aria-labelledby="tp-viewer-title">
+          <div class="tp-viewer-head">
+            <div>
+              <span>Browser kinematic viewport</span>
+              <strong id="tp-viewer-title">轨迹与机器人运动学回放</strong>
+            </div>
+            <span class="tp-viewer-state" data-tp-viewer-state>AWAITING MODEL</span>
+          </div>
+          <div class="tp-viewer-stage">
+            <canvas data-tp-viewer-canvas aria-label="机器人骨架、路径点与规划轨迹三维运动学视图"></canvas>
+            <span class="tp-viewer-boundary">KINEMATIC ONLY · NO PHYSICS / COLLISION</span>
+            <div class="tp-viewer-legend" aria-hidden="true">
+              <span><i class="is-trajectory"></i>规划 TCP</span>
+              <span><i class="is-waypoint"></i>名义路径点</span>
+            </div>
+          </div>
+          <div class="tp-viewer-controls">
+            <button class="rt-secondary-button" type="button" data-tp-viewer-play disabled>播放</button>
+            <label class="tp-viewer-timeline"><span class="sr-only">回放时间</span><input type="range" min="0" max="0" step="0.001" value="0" data-tp-viewer-time></label>
+            <output data-tp-viewer-time-label>0.000 / 0.000 s</output>
+            <label class="tp-viewer-speed"><span>速度</span><select data-tp-viewer-speed><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+            <button class="rt-secondary-button" type="button" data-tp-viewer-reset-camera>重置视角</button>
+          </div>
+          <p class="tp-viewer-note">类似仿真器的交互视口，但这里只按 FK 回放规划样本：拖动旋转、滚轮缩放。它不加载 mesh，也不计算接触、动力学、碰撞或控制器跟踪误差；使用标定修正时，青色 TCP / 轨迹以后端回放为准，骨架主要表达名义串联结构。</p>
+        </section>
+      </div>
+    </section>
+
+    <section class="rc-results tp-results" data-tp-results hidden aria-labelledby="tp-results-title">
+      <div class="rt-section-heading rc-results-heading tp-results-heading">
+        <div><span class="rt-kicker">Trajectory result</span><h2 id="tp-results-title" tabindex="-1">整条路径规划结果</h2><p data-tp-result-summary>规划完成。</p></div>
+        <div class="tp-download-actions"><button class="rt-secondary-button" type="button" data-tp-download-json disabled>下载 JSON</button><button class="rt-secondary-button" type="button" data-tp-download-csv disabled>下载采样 CSV</button></div>
+      </div>
+
+      <div class="rc-result-warnings" data-tp-result-warnings hidden role="status"><strong>规划与安全警告</strong><ul data-tp-result-warning-list></ul></div>
+
+      <div class="rc-summary-grid tp-summary-grid" aria-label="轨迹核心指标">
+        <article><span>总时长（s）</span><strong data-tp-summary="duration">—</strong></article>
+        <article><span>输出采样</span><strong data-tp-summary="samples">—</strong></article>
+        <article><span>最高速度利用率</span><strong data-tp-summary="velocity">—</strong></article>
+        <article><span>最高加速度利用率</span><strong data-tp-summary="acceleration">—</strong></article>
+      </div>
+
+      <div class="rc-result-grid tp-result-grid">
+        <article class="rc-table-card">
+          <div class="rc-table-head"><h3>路径点与 blend</h3><span data-tp-blend-count>0 items</span></div>
+          <div class="rc-table-scroll"><table><caption>各中间路径点请求和实际应用的圆角</caption><thead><tr><th>路径点</th><th>请求半径</th><th>实际半径</th><th>转角</th><th>切线距离</th><th>偏差</th><th>状态</th></tr></thead><tbody data-tp-blends-body></tbody></table></div>
+        </article>
+        <article class="rc-table-card">
+          <div class="rc-table-head"><h3>逐关节约束利用率</h3><span data-tp-usage-count>0 items</span></div>
+          <div class="rc-table-scroll"><table><caption>各关节速度和加速度峰值与限制</caption><thead><tr><th>关节</th><th>速度峰值 / 限制</th><th>速度比</th><th>加速度峰值 / 限制</th><th>加速度比</th><th>来源</th></tr></thead><tbody data-tp-usage-body></tbody></table></div>
+        </article>
+        <article class="rc-table-card rc-diagnostics-card tp-samples-card">
+          <div class="rc-table-head"><h3>轨迹采样预览</h3><span data-tp-sample-count>0 samples</span></div>
+          <div class="rc-table-scroll"><table><caption>最多显示两百个等距抽样点，下载文件包含完整轨迹</caption><thead><tr><th>t（s）</th><th>s</th><th>section</th><th>q</th><th>dq</th><th>ddq</th><th>TCP XYZ（m）</th><th>TCP XYZW</th></tr></thead><tbody data-tp-samples-body></tbody></table></div>
+        </article>
+      </div>
+      <details class="rc-raw-result" data-tp-raw-details><summary>查看结果元数据 JSON（采样数组省略）</summary><pre data-tp-raw-result></pre></details>
+    </section>
+
+    <section class="rc-contract tp-contract" aria-labelledby="tp-contract-title">
+      <div><span class="rt-kicker">Conventions</span><h2 id="tp-contract-title">路径与验证约定</h2></div>
+      <div class="rc-contract-grid">
+        <article><span>WHOLE PATH</span><h3>整条路径一次求解</h3><p>所有路径点、圆角和限制一次提交。时间参数化在完整几何路径上统一完成，不把多点任务退化为逐段 PTP 后拼接。</p></article>
+        <article><span>JOINT BLEND</span><h3>关节空间半径</h3><p>纯旋转 / 纯移动链按当前单位解释；混合关节链应提供 joint metric scale，避免直接混合 rad 与 m。</p></article>
+        <article><span>CARTESIAN BLEND</span><h3>笛卡尔圆角</h3><p>位置采用线段与圆弧切接，姿态采用最短弧 SLERP；连续 IK 以前一点解为种子，但仍需检查奇异区与分支变化。</p></article>
+        <article><span>LIMITS</span><h3>离散速度 / 加速度</h3><p>结果报告每轴峰值和约束来源；当前不是 jerk-limited 规划，也不代表厂商控制器能够以完全相同方式跟踪。</p></article>
+      </div>
+    </section>
+
+    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 06</span><a href="/tools/robot-parameter-calibration/">参数标定与 IK →</a></footer>
+  </main>
+</body>
+</html>

@@ -29,11 +29,11 @@
       <div>
         <span class="rt-kicker">Personal robotics utilities</span>
         <h1>把重复工作，<br>变成可复用工具。</h1>
-        <p>这里收纳机器人建模、标定、辨识与可视化过程中反复使用的小工具。当前先搭好稳定的页面结构和数据流，计算内核会随实际项目逐步接入。</p>
+        <p>这里收纳机器人建模、标定、辨识、轨迹与可视化过程中反复使用的小工具。Hexo 主站承载界面与笔记，URDF 预览直接在浏览器本地运行；标定、辨识和轨迹规划则调用 Docker 在 4010 端口提供的 C++ 计算服务。</p>
       </div>
       <div class="rt-index-count" aria-label="当前工具数量">
-        <strong>05</strong>
-        <span>tool outlines</span>
+        <strong>06</strong>
+        <span>workbench tools</span>
       </div>
     </section>
 
@@ -41,6 +41,7 @@
       <button class="rt-filter-button is-active" type="button" data-tool-filter="all" aria-pressed="true">全部</button>
       <button class="rt-filter-button" type="button" data-tool-filter="calibration" aria-pressed="false">标定</button>
       <button class="rt-filter-button" type="button" data-tool-filter="dynamics" aria-pressed="false">动力学</button>
+      <button class="rt-filter-button" type="button" data-tool-filter="planning" aria-pressed="false">轨迹</button>
       <button class="rt-filter-button" type="button" data-tool-filter="modeling" aria-pressed="false">建模</button>
       <button class="rt-filter-button" type="button" data-tool-filter="visualization" aria-pressed="false">可视化</button>
     </div>
@@ -49,12 +50,12 @@
       <a class="rt-tool-card" href="/tools/robot-parameter-calibration/" data-tool-categories="calibration modeling">
         <div class="rt-tool-card-top">
           <span class="rt-tool-card-number">TOOL / 01</span>
-          <span class="rt-tool-card-state">OUTLINE</span>
+          <span class="rt-tool-card-state">DOCKER :4010</span>
         </div>
         <div class="rt-tool-card-body">
           <h2>工业机器人参数标定</h2>
-          <p>从名义模型、测量位姿到几何误差参数与补偿模型，预留完整的标定数据管线。</p>
-          <div class="rt-tool-card-tags"><span>DH / MDH</span><span>几何误差</span><span>最小二乘</span></div>
+          <p>预检 URDF / DH / MDH，利用外部末端位姿辨识零偏、杆长与工具增量，并用留出点报告闭环误差和数值秩。</p>
+          <div class="rt-tool-card-tags"><span>URDF / DH / MDH</span><span>C++ LM</span><span>闭环验证</span></div>
         </div>
         <span class="rt-tool-card-arrow" aria-hidden="true">↗</span>
       </a>
@@ -62,12 +63,12 @@
       <a class="rt-tool-card" href="/tools/dynamics-identification/" data-tool-categories="dynamics modeling">
         <div class="rt-tool-card-top">
           <span class="rt-tool-card-number">TOOL / 02</span>
-          <span class="rt-tool-card-state">OUTLINE</span>
+          <span class="rt-tool-card-state">DOCKER :4010</span>
         </div>
         <div class="rt-tool-card-body">
           <h2>动力学参数辨识</h2>
-          <p>面向工业、四足与人形机器人，统一规划 DH、MDH、URDF 三类模型入口和参数回写流程。</p>
-          <div class="rt-tool-card-tags"><span>工业 / 四足 / 人形</span><span>Base parameters</span><span>URDF</span></div>
+          <p>上传固定基 URDF 与 q / dq / ddq / tau 日志，由 Docker 计算服务中的 C++ RNEA 回归器完成辨识并报告验证误差与数值秩。</p>
+          <div class="rt-tool-card-tags"><span>固定基</span><span>C++ RNEA</span><span>URDF + CSV</span></div>
         </div>
         <span class="rt-tool-card-arrow" aria-hidden="true">↗</span>
       </a>
@@ -75,12 +76,12 @@
       <a class="rt-tool-card" href="/tools/urdf-joint-viewer/" data-tool-categories="visualization modeling">
         <div class="rt-tool-card-top">
           <span class="rt-tool-card-number">TOOL / 03</span>
-          <span class="rt-tool-card-state">OUTLINE</span>
+          <span class="rt-tool-card-state">BROWSER 3D</span>
         </div>
         <div class="rt-tool-card-body">
           <h2>URDF 关节范围预览</h2>
-          <p>加载 URDF 与 mesh，在浏览器中播放关节范围，检查零位、方向、限位与碰撞几何。</p>
-          <div class="rt-tool-card-tags"><span>URDF / Xacro</span><span>Joint limits</span><span>3D viewer</span></div>
+          <p>加载已展开的 URDF 或带 mesh 的 ZIP，在浏览器本地播放关节范围，检查零位、方向、限位与碰撞几何。</p>
+          <div class="rt-tool-card-tags"><span>URDF / ZIP</span><span>Joint limits</span><span>Browser 3D</span></div>
         </div>
         <span class="rt-tool-card-arrow" aria-hidden="true">↗</span>
       </a>
@@ -110,6 +111,19 @@
         </div>
         <span class="rt-tool-card-arrow" aria-hidden="true">↗</span>
       </a>
+
+      <a class="rt-tool-card" href="/tools/trajectory-planning/" data-tool-categories="planning visualization modeling">
+        <div class="rt-tool-card-top">
+          <span class="rt-tool-card-number">TOOL / 06</span>
+          <span class="rt-tool-card-state">DOCKER :4010</span>
+        </div>
+        <div class="rt-tool-card-body">
+          <h2>工业机器人轨迹规划</h2>
+          <p>一次规划关节或笛卡尔多路径点路径，设置逐拐点圆角半径，统一完成连续 IK、速度 / 加速度时间参数化和浏览器运动学回放。</p>
+          <div class="rt-tool-card-tags"><span>Waypoint blend</span><span>JOINT / CARTESIAN</span><span>3D 回放</span></div>
+        </div>
+        <span class="rt-tool-card-arrow" aria-hidden="true">↗</span>
+      </a>
     </section>
 
     <section class="rt-roadmap" aria-labelledby="collection-roadmap-title">
@@ -118,10 +132,10 @@
         <h2 id="collection-roadmap-title">工具集演进路线</h2>
       </div>
       <ol class="rt-roadmap-list">
-        <li><span>页面、字段与数据契约</span><small>current</small></li>
-        <li><span>本地文件解析与格式校验</span><small>next</small></li>
-        <li><span>数值计算内核与可视化</span><small>planned</small></li>
-        <li><span>示例数据、导出与版本记录</span><small>planned</small></li>
+        <li><span>页面、字段与数据契约</span><small>ready</small></li>
+        <li><span>动力学辨识与运动学标定 C++ 内核</span><small>current</small></li>
+        <li><span>模型导出、轴线误差与真实测量适配</span><small>next</small></li>
+        <li><span>版本记录与高级物理约束</span><small>planned</small></li>
       </ol>
     </section>
 

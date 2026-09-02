@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="860" viewBox="0 0 1280 860" role="img" aria-labelledby="family-title family-desc">
+  <title id="family-title">傅里叶变换、拉普拉斯变换、Z 变换与 DTFT 的关系图</title>
+  <desc id="family-desc">左侧展示拉普拉斯变换的 s 平面，虚轴位于收敛域时，沿虚轴取值得到傅里叶变换。右侧展示 Z 变换的 z 平面，单位圆位于收敛域时，沿单位圆取值得到离散时间傅里叶变换。中间用 z 等于 e 的 sT 次方连接两个平面，并展示左半 s 平面映射到单位圆内部、虚轴映射到单位圆以及频率周期折叠。动画让 s 平面上的扫频点与 z 平面单位圆上的旋转点同步运动；减少动态效果时显示等价静态图。</desc>
+  <defs>
+    <linearGradient id="family-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7fbfa"/>
+      <stop offset="1" stop-color="#edf6f4"/>
+    </linearGradient>
+    <linearGradient id="family-s-panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f4f8ff"/>
+    </linearGradient>
+    <linearGradient id="family-z-panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f1fbf8"/>
+    </linearGradient>
+    <linearGradient id="family-map-gradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5e9ff7"/>
+      <stop offset="1" stop-color="#31bda2"/>
+    </linearGradient>
+    <linearGradient id="family-frequency-gradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f6d28d"/>
+      <stop offset=".5" stop-color="#e59a55"/>
+      <stop offset="1" stop-color="#f6d28d"/>
+    </linearGradient>
+    <pattern id="family-grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#315260" stroke-opacity=".075" stroke-width="1"/>
+    </pattern>
+    <pattern id="family-roc-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="12" height="12" fill="#67d7bf" fill-opacity=".1"/>
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#2db197" stroke-opacity=".25" stroke-width="3"/>
+    </pattern>
+    <filter id="family-shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#163744" flood-opacity=".1"/>
+    </filter>
+    <filter id="family-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="family-s-clip">
+      <rect x="67" y="266" width="476" height="248" rx="15"/>
+    </clipPath>
+    <clipPath id="family-z-clip">
+      <rect x="737" y="266" width="476" height="248" rx="15"/>
+    </clipPath>
+    <marker id="family-arrow-blue" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0L9 4.5 0 9Z" fill="#4d91ea"/>
+    </marker>
+    <marker id="family-arrow-mint" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0L9 4.5 0 9Z" fill="#249b86"/>
+    </marker>
+    <style>
+      .family-title-text{font:800 32px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#10212b}
+      .family-subtitle{font:400 17px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#637681}
+      .family-chip-text{font:700 14px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#31515d}
+      .family-panel-title{font:800 21px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#10212b}
+      .family-panel-subtitle{font:500 14px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#6b7d86}
+      .family-formula{font:700 19px "Times New Roman","Noto Serif SC",serif;fill:#173441}
+      .family-formula-small{font:700 15px "Times New Roman","Noto Serif SC",serif;fill:#32505b}
+      .family-axis-label{font:700 14px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#536b75}
+      .family-plane-note{font:600 13px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#536b75}
+      .family-roc-label{font:700 13px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#147c6a}
+      .family-special-title{font:800 16px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#7b4a16}
+      .family-special-note{font:500 13px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#775b3c}
+      .family-map-kicker{font:800 12px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.12em;fill:#287d70}
+      .family-map-formula{font:700 18px "Times New Roman","Noto Serif SC",serif;fill:#173d47}
+      .family-map-small{font:600 12px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#5d737b}
+      .family-bottom-title{font:800 17px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#10212b}
+      .family-bottom-text{font:500 14px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#536b75}
+      .family-bottom-formula{font:700 16px "Times New Roman","Noto Serif SC",serif;fill:#21424c}
+      .family-panel{stroke-width:1.5;filter:url(#family-shadow)}
+      .family-plot{fill:#fbfdfd;stroke:#d9e7e7;stroke-width:1.4}
+      .family-axis{fill:none;stroke:#738992;stroke-width:1.5}
+      .family-bound{fill:none;stroke:#7fa6b4;stroke-opacity:.55;stroke-width:1.2;stroke-dasharray:5 6}
+      .family-imaginary{fill:none;stroke:#e59a55;stroke-width:4;stroke-linecap:round;filter:url(#family-glow)}
+      .family-unit{fill:none;stroke:#e59a55;stroke-width:4;stroke-dasharray:8 7;filter:url(#family-glow)}
+      .family-s-scan{animation:familySSweep 8s linear infinite;filter:url(#family-glow)}
+      .family-z-orbit{transform-box:view-box;transform-origin:975px 399px;animation:familyZOrbit 8s linear infinite;filter:url(#family-glow)}
+      .family-flow{animation:familyFlow 2.8s linear infinite}
+      .family-pulse{animation:familyPulse 2.8s ease-in-out infinite}
+      @keyframes familySSweep{from{transform:translateY(96px)}to{transform:translateY(-96px)}}
+      @keyframes familyZOrbit{from{transform:rotate(-180deg)}to{transform:rotate(180deg)}}
+      @keyframes familyFlow{to{stroke-dashoffset:-48}}
+      @keyframes familyPulse{0%,100%{opacity:.42}50%{opacity:1}}
+      @media (prefers-reduced-motion:reduce){.family-s-scan,.family-z-orbit,.family-flow,.family-pulse{animation:none!important}}
+    </style>
+  </defs>
+
+  <rect width="1280" height="860" rx="24" fill="url(#family-bg)"/>
+  <rect x="1" y="1" width="1278" height="858" rx="23" fill="none" stroke="#cfe1df" stroke-width="2"/>
+
+  <g aria-label="标题和核心结论">
+    <text class="family-title-text" x="42" y="52">一张图看懂：傅里叶、拉普拉斯与 Z 变换</text>
+    <text class="family-subtitle" x="43" y="82">它们都在用复指数“试探”信号；区别主要在时间是连续还是离散，以及从复平面的哪条路径读取频率响应。</text>
+    <g transform="translate(42 105)">
+      <rect width="333" height="40" rx="20" fill="#fff5e7" stroke="#efc17b" stroke-opacity=".75"/>
+      <circle cx="21" cy="20" r="5" fill="#e59a55"/>
+      <text class="family-chip-text" x="35" y="26">Fourier = Laplace 在虚轴上的切片</text>
+    </g>
+    <g transform="translate(388 105)">
+      <rect width="325" height="40" rx="20" fill="#eef9f6" stroke="#67d7bf" stroke-opacity=".72"/>
+      <circle cx="21" cy="20" r="5" fill="#31bda2"/>
+      <text class="family-chip-text" x="35" y="26">DTFT = Z 变换在单位圆上的切片</text>
+    </g>
+    <g transform="translate(726 105)">
+      <rect width="512" height="40" rx="20" fill="#eef5ff" stroke="#77acf3" stroke-opacity=".72"/>
+      <circle cx="21" cy="20" r="5" fill="#5e9ff7"/>
+      <text class="family-chip-text" x="35" y="26">前提：被读取的路径必须落在收敛域 ROC 内</text>
+    </g>
+  </g>
+
+  <g aria-label="拉普拉斯变换与傅里叶变换">
+    <rect class="family-panel" x="30" y="166" width="548" height="468" rx="24" fill="url(#family-s-panel)" stroke="#ccdcf3"/>
+    <g transform="translate(60 190)">
+      <rect width="88" height="27" rx="13.5" fill="#5e9ff7" fill-opacity=".14"/>
+      <text class="family-panel-subtitle" x="44" y="19" text-anchor="middle" fill="#397bcf">连续时间</text>
+    </g>
+    <text class="family-panel-title" x="162" y="211">Laplace 变换：整个 s 平面</text>
+    <text class="family-formula" x="60" y="248">X(s) = ∫ x(t)e<tspan baseline-shift="super" font-size="12">−st</tspan>dt，s = σ + jω</text>
+
+    <rect class="family-plot" x="67" y="266" width="476" height="248" rx="15"/>
+    <rect x="67" y="266" width="476" height="248" rx="15" fill="url(#family-grid)"/>
+    <g clip-path="url(#family-s-clip)">
+      <rect x="213" y="266" width="330" height="248" fill="url(#family-roc-hatch)" class="family-pulse"/>
+      <line class="family-bound" x1="213" y1="271" x2="213" y2="509"/>
+      <line class="family-bound" x1="75" y1="303" x2="536" y2="303"/>
+      <line class="family-bound" x1="75" y1="495" x2="536" y2="495"/>
+    </g>
+    <line class="family-axis" x1="86" y1="399" x2="530" y2="399" marker-end="url(#family-arrow-blue)"/>
+    <line class="family-axis" x1="315" y1="503" x2="315" y2="278" marker-end="url(#family-arrow-blue)"/>
+    <line class="family-imaginary" x1="315" y1="288" x2="315" y2="500"/>
+    <g transform="translate(213 399)" stroke="#db5c52" stroke-width="4" stroke-linecap="round" aria-label="极点位于负 a">
+      <path d="M-7-7L7 7M7-7L-7 7"/>
+    </g>
+    <g class="family-s-scan" aria-label="沿虚轴移动的扫频点">
+      <circle cx="315" cy="399" r="14" fill="#e59a55" fill-opacity=".19" class="family-pulse"/>
+      <circle cx="315" cy="399" r="6" fill="#f1aa5f"/>
+    </g>
+    <g transform="translate(374 281)">
+      <rect width="154" height="30" rx="15" fill="#e8f7f3" stroke="#67d7bf" stroke-opacity=".7"/>
+      <text class="family-roc-label" x="77" y="20" text-anchor="middle">ROC：Re(s) &gt; −a</text>
+    </g>
+    <text class="family-axis-label" x="516" y="389">σ</text>
+    <text class="family-axis-label" x="326" y="291">jω</text>
+    <text class="family-plane-note" x="191" y="421">−a</text>
+    <text class="family-plane-note" x="326" y="320">+jπ/T</text>
+    <text class="family-plane-note" x="326" y="491">−jπ/T</text>
+    <text class="family-plane-note" x="83" y="292">极点外的阴影区域收敛</text>
+
+    <g aria-label="傅里叶变换是虚轴切片">
+      <rect x="67" y="529" width="476" height="81" rx="16" fill="#fff8ed" stroke="#efc581"/>
+      <circle cx="93" cy="553" r="7" fill="#e59a55"/>
+      <text class="family-special-title" x="110" y="558">令 σ = 0，也就是 s = jω</text>
+      <text class="family-special-note" x="86" y="587">虚轴 ∈ ROC 时，X(jω) 就是连续时间 Fourier 变换</text>
+      <path d="M390 584C415 573 430 553 449 557S477 594 503 565 523 561 531 567" fill="none" stroke="url(#family-frequency-gradient)" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <g aria-label="Z 变换与离散时间傅里叶变换">
+    <rect class="family-panel" x="702" y="166" width="548" height="468" rx="24" fill="url(#family-z-panel)" stroke="#c9e5de"/>
+    <g transform="translate(732 190)">
+      <rect width="88" height="27" rx="13.5" fill="#67d7bf" fill-opacity=".18"/>
+      <text class="family-panel-subtitle" x="44" y="19" text-anchor="middle" fill="#147c6a">离散时间</text>
+    </g>
+    <text class="family-panel-title" x="834" y="211">Z 变换：整个 z 平面</text>
+    <text class="family-formula" x="732" y="248">X(z) = Σ x[n]z<tspan baseline-shift="super" font-size="12">−n</tspan>，z = re<tspan baseline-shift="super" font-size="12">jΩ</tspan></text>
+
+    <rect class="family-plot" x="737" y="266" width="476" height="248" rx="15"/>
+    <rect x="737" y="266" width="476" height="248" rx="15" fill="url(#family-grid)"/>
+    <g clip-path="url(#family-z-clip)">
+      <path d="M737 266H1213V514H737Z M975 399m-63 0a63 63 0 1 0 126 0 63 63 0 1 0-126 0" fill="url(#family-roc-hatch)" fill-rule="evenodd" class="family-pulse"/>
+      <circle class="family-bound" cx="975" cy="399" r="63"/>
+    </g>
+    <line class="family-axis" x1="755" y1="399" x2="1199" y2="399" marker-end="url(#family-arrow-mint)"/>
+    <line class="family-axis" x1="975" y1="503" x2="975" y2="278" marker-end="url(#family-arrow-mint)"/>
+    <circle class="family-unit" cx="975" cy="399" r="96"/>
+    <g transform="translate(1038 399)" stroke="#db5c52" stroke-width="4" stroke-linecap="round" aria-label="极点位于 a">
+      <path d="M-7-7L7 7M7-7L-7 7"/>
+    </g>
+    <g class="family-z-orbit" aria-label="沿单位圆旋转的扫频点">
+      <circle cx="1071" cy="399" r="14" fill="#e59a55" fill-opacity=".19" class="family-pulse"/>
+      <circle cx="1071" cy="399" r="6" fill="#f1aa5f"/>
+    </g>
+    <g transform="translate(1047 281)">
+      <rect width="151" height="30" rx="15" fill="#e8f7f3" stroke="#67d7bf" stroke-opacity=".7"/>
+      <text class="family-roc-label" x="75.5" y="20" text-anchor="middle">ROC：|z| &gt; |a|</text>
+    </g>
+    <text class="family-axis-label" x="1177" y="389">Re</text>
+    <text class="family-axis-label" x="987" y="291">Im</text>
+    <text class="family-plane-note" x="1046" y="421">a</text>
+    <text class="family-plane-note" x="1061" y="326">|z| = 1</text>
+    <text class="family-plane-note" x="755" y="292">因果序列在极点外收敛</text>
+
+    <g aria-label="离散时间傅里叶变换是单位圆切片">
+      <rect x="737" y="529" width="476" height="81" rx="16" fill="#fff8ed" stroke="#efc581"/>
+      <circle cx="763" cy="553" r="7" fill="#e59a55"/>
+      <text class="family-special-title" x="780" y="558">令 r = 1，也就是 z = e<tspan baseline-shift="super" font-size="10">jΩ</tspan></text>
+      <text class="family-special-note" x="756" y="587">单位圆 ∈ ROC 时得到 DTFT；若 X = H，它才表示数字频响</text>
+      <path d="M1064 584C1085 581 1098 576 1110 561S1130 547 1143 569 1166 588 1197 558" fill="none" stroke="url(#family-frequency-gradient)" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <g aria-label="从 s 平面到 z 平面的采样映射">
+    <rect x="587" y="244" width="106" height="228" rx="24" fill="#f8fcfb" stroke="#9ed9cf" stroke-width="1.5" filter="url(#family-shadow)"/>
+    <text class="family-map-kicker" x="640" y="274" text-anchor="middle">SAMPLING</text>
+    <text class="family-map-small" x="640" y="296" text-anchor="middle">采样周期 T</text>
+    <rect x="598" y="314" width="84" height="48" rx="14" fill="#eaf7f4" stroke="#66cbb7"/>
+    <text class="family-map-formula" x="640" y="345" text-anchor="middle">z=e<tspan baseline-shift="super" font-size="12">sT</tspan></text>
+    <text class="family-map-formula" x="640" y="391" text-anchor="middle">|z|=e<tspan baseline-shift="super" font-size="11">σT</tspan></text>
+    <text class="family-map-formula" x="640" y="420" text-anchor="middle">∠z=ωT</text>
+    <text class="family-map-small" x="640" y="446" text-anchor="middle">角度按 2π 折叠</text>
+    <path d="M572 487C606 505 670 505 707 487" fill="none" stroke="url(#family-map-gradient)" stroke-width="3" stroke-dasharray="8 8" marker-end="url(#family-arrow-mint)" class="family-flow"/>
+    <circle cx="640" cy="499" r="5" fill="#50c7b0" class="family-pulse"/>
+  </g>
+
+  <g aria-label="采样映射的三个工程结论">
+    <rect x="30" y="660" width="1220" height="168" rx="24" fill="#ffffff" stroke="#d5e4e3" stroke-width="1.5" filter="url(#family-shadow)"/>
+    <text class="family-bottom-title" x="58" y="695">把 z = e<tspan baseline-shift="super" font-size="11">sT</tspan> 拆开看，三个工程结论就很直观</text>
+    <line x1="437" y1="716" x2="437" y2="806" stroke="#d9e7e7"/>
+    <line x1="840" y1="716" x2="840" y2="806" stroke="#d9e7e7"/>
+
+    <g transform="translate(58 722)">
+      <circle cx="17" cy="18" r="17" fill="#5e9ff7" fill-opacity=".15"/>
+      <text x="17" y="24" text-anchor="middle" font-family="Inter,'PingFang SC','Microsoft YaHei',sans-serif" font-size="16" font-weight="800" fill="#397bcf">1</text>
+      <text class="family-bottom-formula" x="47" y="18">σ &lt; 0 ⇔ |z| &lt; 1</text>
+      <text class="family-bottom-text" x="47" y="43">连续系统左半平面映射到单位圆内。</text>
+      <text class="family-bottom-text" x="47" y="68">所以稳定连续极点会变成稳定离散极点。</text>
+    </g>
+
+    <g transform="translate(463 722)">
+      <circle cx="17" cy="18" r="17" fill="#e59a55" fill-opacity=".16"/>
+      <text x="17" y="24" text-anchor="middle" font-family="Inter,'PingFang SC','Microsoft YaHei',sans-serif" font-size="16" font-weight="800" fill="#a96525">2</text>
+      <text class="family-bottom-formula" x="47" y="18">σ = 0 ⇔ |z| = 1</text>
+      <text class="family-bottom-text" x="47" y="43">s 平面的虚轴恰好映射为 z 平面的单位圆。</text>
+      <text class="family-bottom-text" x="47" y="68">这就是 Fourier、DTFT 与两种复变换的接缝。</text>
+    </g>
+
+    <g transform="translate(866 722)">
+      <circle cx="17" cy="18" r="17" fill="#67d7bf" fill-opacity=".2"/>
+      <text x="17" y="24" text-anchor="middle" font-family="Inter,'PingFang SC','Microsoft YaHei',sans-serif" font-size="16" font-weight="800" fill="#147c6a">3</text>
+      <text class="family-bottom-formula" x="47" y="18">ω 与 ω + 2πk/T → 同一个 z</text>
+      <text class="family-bottom-text" x="47" y="43">采样会让相差整数倍采样角频率的分量重合。</text>
+      <text class="family-bottom-text" x="47" y="68">这正是频谱周期化与混叠的几何来源。</text>
+    </g>
+  </g>
+</svg>

@@ -1,6 +1,63 @@
 (function () {
   "use strict";
 
+  function normalizeApiBase(value) {
+    if (typeof value !== "string" || !value.trim()) {
+      return "";
+    }
+
+    try {
+      var url = new URL(value.trim(), window.location.href);
+      if (url.protocol !== "http:" && url.protocol !== "https:") {
+        return "";
+      }
+      url.search = "";
+      url.hash = "";
+      return url.href.replace(/\/+$/, "");
+    } catch (_error) {
+      return "";
+    }
+  }
+
+  function apiBase() {
+    var meta = document.querySelector('meta[name="robotics-api-base"]');
+    var candidates = [
+      meta && meta.getAttribute("content"),
+      window.ROBOTICS_WORKBENCH_API_BASE
+    ];
+
+    for (var index = 0; index < candidates.length; index += 1) {
+      var configured = normalizeApiBase(candidates[index]);
+      if (configured) {
+        return configured;
+      }
+    }
+
+    if (window.location.port === "4010") {
+      var currentOrigin = normalizeApiBase(window.location.origin);
+      if (currentOrigin) {
+        return currentOrigin;
+      }
+    }
+    return "http://127.0.0.1:4010";
+  }
+
+  function apiUrl(path) {
+    var normalizedPath = path === undefined || path === null
+      ? ""
+      : String(path).replace(/^\/+/, "");
+    var base = apiBase();
+    return normalizedPath ? base + "/" + normalizedPath : base;
+  }
+
+  var roboticsWorkbench = window.RoboticsWorkbench;
+  if (!roboticsWorkbench ||
+      (typeof roboticsWorkbench !== "object" && typeof roboticsWorkbench !== "function")) {
+    roboticsWorkbench = {};
+  }
+  roboticsWorkbench.apiUrl = apiUrl;
+  window.RoboticsWorkbench = roboticsWorkbench;
+
   function initializeSegments() {
     document.querySelectorAll("[data-segmented]").forEach(function (group) {
       var buttons = Array.from(group.querySelectorAll("button[data-value]"));

@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">从公式走进 rsl_rl 与 legged_gym 的 PPO 训练闭环</title>
+  <desc id="desc">并行四足机器人环境、rollout buffer、GAE 和 PPO clipped update 组成的数据流示意图。</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071426"/>
+      <stop offset="0.55" stop-color="#0b1f38"/>
+      <stop offset="1" stop-color="#06111f"/>
+    </linearGradient>
+    <radialGradient id="blueGlow" cx="0.18" cy="0.08" r="0.72">
+      <stop offset="0" stop-color="#3d8df4" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#3d8df4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cyanGlow" cx="0.87" cy="0.14" r="0.58">
+      <stop offset="0" stop-color="#38d8c1" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#38d8c1" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#66aaff"/>
+      <stop offset="1" stop-color="#58e3d1"/>
+    </linearGradient>
+    <linearGradient id="robotBody" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#234e7e"/>
+      <stop offset="1" stop-color="#142e4d"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#020811" flood-opacity="0.55"/>
+    </filter>
+    <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" stroke="#8bb4e4" stroke-opacity="0.07"/>
+    </pattern>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0L9 4.5L0 9Z" fill="#68b4ff"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <rect width="1600" height="900" fill="url(#blueGlow)"/>
+  <rect width="1600" height="900" fill="url(#cyanGlow)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <circle cx="1410" cy="755" r="285" fill="none" stroke="#57e3d0" stroke-opacity="0.07" stroke-width="2"/>
+  <circle cx="1410" cy="755" r="220" fill="none" stroke="#57e3d0" stroke-opacity="0.05" stroke-width="30"/>
+
+  <g font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+    <text x="105" y="112" fill="#67e1d0" fill-opacity="0.8" font-size="22" font-weight="800" letter-spacing="7">QUADRUPED RL · 08</text>
+    <path d="M105 146H405" stroke="url(#accent)" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+
+    <g transform="translate(120 450) scale(0.72)" filter="url(#shadow)">
+      <rect width="365" height="364" rx="28" fill="#0b1a2f" stroke="#6aa8ec" stroke-opacity="0.3"/>
+      <text x="28" y="48" fill="#6fdccb" font-size="18" font-weight="800" letter-spacing="2">LEGGED_GYM</text>
+      <text x="28" y="78" fill="#8ea9c6" font-size="16">N 个并行物理环境</text>
+
+      <g transform="translate(40 122)">
+        <g fill="url(#robotBody)" stroke="#79b7f5" stroke-width="5">
+          <rect x="70" y="20" width="145" height="64" rx="22"/>
+          <circle cx="94" cy="52" r="8" fill="#5be0cf" stroke="none"/>
+          <path d="M92 78L62 128L34 166M122 82L108 137L91 184M190 80L213 135L205 184M215 70L253 116L276 157" fill="none"/>
+        </g>
+        <g fill="#5be0cf">
+          <circle cx="62" cy="128" r="8"/><circle cx="108" cy="137" r="8"/>
+          <circle cx="213" cy="135" r="8"/><circle cx="253" cy="116" r="8"/>
+        </g>
+        <g fill="#f4c85e">
+          <rect x="18" y="165" width="34" height="7" rx="3"/>
+          <rect x="75" y="183" width="34" height="7" rx="3"/>
+          <rect x="190" y="183" width="34" height="7" rx="3"/>
+          <rect x="264" y="155" width="34" height="7" rx="3"/>
+        </g>
+      </g>
+
+      <g transform="translate(28 315)" font-size="14" font-weight="700">
+        <rect width="74" height="28" rx="14" fill="#163355"/><text x="37" y="19" text-anchor="middle" fill="#bcd5f0">obs</text>
+        <rect x="86" width="74" height="28" rx="14" fill="#163355"/><text x="123" y="19" text-anchor="middle" fill="#bcd5f0">reward</text>
+        <rect x="172" width="74" height="28" rx="14" fill="#163355"/><text x="209" y="19" text-anchor="middle" fill="#bcd5f0">done</text>
+        <rect x="258" width="74" height="28" rx="14" fill="#163355"/><text x="295" y="19" text-anchor="middle" fill="#bcd5f0">reset</text>
+      </g>
+    </g>
+
+    <g transform="translate(565 450) scale(0.72)" filter="url(#shadow)">
+      <rect width="380" height="364" rx="28" fill="#0b1a2f" stroke="#6aa8ec" stroke-opacity="0.3"/>
+      <text x="28" y="48" fill="#6fdccb" font-size="18" font-weight="800" letter-spacing="2">ROLLOUT STORAGE</text>
+      <text x="28" y="78" fill="#8ea9c6" font-size="16">[T, N, ...] → B = T × N</text>
+      <g transform="translate(30 108)">
+        <g fill="#17385e" stroke="#6daef1" stroke-opacity="0.58">
+          <rect width="70" height="43" rx="8"/><rect x="78" width="70" height="43" rx="8"/><rect x="156" width="70" height="43" rx="8"/><rect x="234" width="70" height="43" rx="8"/>
+          <rect y="51" width="70" height="43" rx="8"/><rect x="78" y="51" width="70" height="43" rx="8"/><rect x="156" y="51" width="70" height="43" rx="8" fill="#48283b" stroke="#ff8499"/><rect x="234" y="51" width="70" height="43" rx="8"/>
+          <rect y="102" width="70" height="43" rx="8"/><rect x="78" y="102" width="70" height="43" rx="8"/><rect x="156" y="102" width="70" height="43" rx="8"/><rect x="234" y="102" width="70" height="43" rx="8" fill="#4b4026" stroke="#f4c85e"/>
+        </g>
+        <g fill="#b8d3ef" font-size="12" font-weight="700" text-anchor="middle">
+          <text x="35" y="27">t0</text><text x="113" y="27">t1</text><text x="191" y="27">t2</text><text x="269" y="27">t3</text>
+          <text x="35" y="78">E1</text><text x="113" y="78">E1</text><text x="191" y="78" fill="#ff9aac">terminal</text><text x="269" y="78">new ep.</text>
+          <text x="35" y="129">E2</text><text x="113" y="129">E2</text><text x="191" y="129">E2</text><text x="269" y="129" fill="#ffdc83">timeout</text>
+        </g>
+      </g>
+      <g transform="translate(30 280)" fill="#98b4d1" font-size="15" font-weight="650">
+        <text y="0">obs · action · r · done</text>
+        <text y="28">V · log π_old · μ · σ</text>
+        <text y="56" fill="#f4ca68">旧策略数据在 update 中保持冻结</text>
+      </g>
+    </g>
+
+    <g transform="translate(1025 450) scale(0.72)" filter="url(#shadow)">
+      <rect width="485" height="364" rx="28" fill="#0b1a2f" stroke="#68d8c9" stroke-opacity="0.35"/>
+      <text x="28" y="48" fill="#6fdccb" font-size="18" font-weight="800" letter-spacing="2">RSL_RL · PPO UPDATE</text>
+      <g transform="translate(29 94)">
+        <rect width="427" height="70" rx="15" fill="#132b47" stroke="#66aaff" stroke-opacity="0.55"/>
+        <text x="22" y="29" fill="#8fb0d1" font-size="14">GAE · 信用分配</text>
+        <text x="22" y="54" fill="#e9f3ff" font-size="21" font-weight="700">Aₜ = δₜ + γλcₜ Aₜ₊₁</text>
+      </g>
+      <g transform="translate(29 179)">
+        <rect width="427" height="70" rx="15" fill="#132b47" stroke="#a99cff" stroke-opacity="0.55"/>
+        <text x="22" y="29" fill="#8fb0d1" font-size="14">Probability ratio · 新旧策略</text>
+        <text x="22" y="54" fill="#e9f3ff" font-size="21" font-weight="700">rₜ = exp(log πθ − log πold)</text>
+      </g>
+      <g transform="translate(29 264)">
+        <rect width="427" height="70" rx="15" fill="#17372f" stroke="#58e3d1" stroke-opacity="0.62"/>
+        <text x="22" y="29" fill="#91c7bc" font-size="14">Clipped surrogate · 受约束更新</text>
+        <text x="22" y="54" fill="#f2fbf9" font-size="20" font-weight="700">min(rₜAₜ, clip(rₜ)Aₜ)</text>
+      </g>
+    </g>
+
+    <path d="M408 581H545" fill="none" stroke="#68b4ff" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M860 581H1005" fill="none" stroke="#68b4ff" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M1199 705C1199 758 251 758 251 716" fill="none" stroke="#57e3d0" stroke-opacity="0.68" stroke-width="4" stroke-dasharray="10 12" marker-end="url(#arrow)"/>
+  </g>
+</svg>

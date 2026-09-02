@@ -1,0 +1,134 @@
+/* Article reading progress: fixed, unobtrusive and isolated from theme layout. */
+.reading-progress {
+	--reading-progress-color: hsl(195 84% 49%);
+	--reading-progress-shadow: hsl(195 84% 49% / 0.38);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	z-index: 9999;
+	pointer-events: none;
+	color: var(--reading-progress-color);
+}
+
+.reading-progress[hidden] {
+	display: none !important;
+}
+
+.reading-progress-track {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background: rgba(15, 23, 42, 0.16);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.reading-progress-fill {
+	width: 100%;
+	height: 100%;
+	transform: scaleX(0);
+	transform-origin: left center;
+	background: linear-gradient(90deg, #18bfef 0%, var(--reading-progress-color) 100%);
+	box-shadow: 0 0 12px 1px var(--reading-progress-shadow);
+	will-change: transform, background-color;
+	transition: transform 90ms linear, background-color 180ms linear, box-shadow 180ms linear;
+}
+
+.reading-progress-label {
+	position: absolute;
+	top: calc(env(safe-area-inset-top, 0px) + 0.58rem);
+	right: max(0.58rem, env(safe-area-inset-right, 0px));
+	min-width: 3.15rem;
+	padding: 0.26rem 0.54rem;
+	border: 1px solid color-mix(in srgb, var(--reading-progress-color) 36%, transparent);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.9);
+	box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.48) inset;
+	backdrop-filter: blur(9px);
+	-webkit-backdrop-filter: blur(9px);
+	color: #172033;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.34rem;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-size: 0.72rem;
+	font-weight: 750;
+	font-variant-numeric: tabular-nums;
+	line-height: 1;
+	letter-spacing: 0.02em;
+	text-align: center;
+	text-shadow: none;
+	transition: color 180ms linear, border-color 180ms linear, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.reading-progress-label::before {
+	content: "";
+	width: 0.43rem;
+	height: 0.43rem;
+	flex: 0 0 auto;
+	border-radius: 50%;
+	background: var(--reading-progress-color);
+	box-shadow: 0 0 0 3px var(--reading-progress-shadow);
+	transition: background-color 180ms linear, box-shadow 180ms linear, transform 180ms ease;
+}
+
+.reading-progress.is-complete .reading-progress-label {
+	border-color: var(--reading-progress-color);
+	background: rgba(255, 255, 255, 0.94);
+	box-shadow: 0 7px 20px var(--reading-progress-shadow);
+	color: #172033;
+	font-weight: 800;
+}
+
+.reading-progress.is-complete .reading-progress-label::before {
+	transform: scale(1.14);
+}
+
+@media screen and (max-width: 980px) {
+	.reading-progress-label {
+		top: calc(env(safe-area-inset-top, 0px) + 0.46rem);
+		left: max(0.42rem, env(safe-area-inset-left, 0px));
+		right: auto;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.reading-progress-label {
+		min-width: 2.75rem;
+		padding: 0.23rem 0.42rem;
+		font-size: 0.66rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.reading-progress-fill,
+	.reading-progress-label {
+		transition: none;
+	}
+}
+
+@media (forced-colors: active) {
+	.reading-progress-track {
+		background: Canvas;
+	}
+
+	.reading-progress-fill {
+		background: Highlight;
+		box-shadow: none;
+	}
+
+	.reading-progress-label {
+		border: 1px solid CanvasText;
+		background: Canvas;
+		color: CanvasText;
+		box-shadow: none;
+	}
+}
+
+@media print {
+	.reading-progress {
+		display: none !important;
+	}
+}
