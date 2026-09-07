@@ -1,0 +1,352 @@
+(function () {
+  'use strict';
+
+  // Preserve the existing collection; pause automatic changes while reading.
+  const sayings = [
+"Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work, and the only way to do great work is to love what you do.  --Steve Jobs",
+"那些再也没法弥补的遗憾，你只能配着酒和曾经围绕在那个故事旁边的人，偶尔说一说。 --  David Bowie",
+"当怒火欲水正在腾沸处，明明知得，又明明犯著。知的是谁，犯的又是谁?此处能猛然转念，邪魔便为真君矣。 --《菜根谭》",
+" 涉世浅,点染亦浅;历事深,机械亦深。故君子与其练达,不若朴鲁;与其曲谨,不若疏狂。 --《菜根谭》",
+"攻人之恶毋太严，要思其堪受；教人之善毋过高，当使其可从。--《菜根谭》",
+"势力纷华，不近者为洁，近之而不染者尤洁；智械机巧，不知者为高，知而不用者为尤高。--《菜根谭》",
+"耳中常闻逆耳之言，心中常有拂心之事，才是进修德行的砥石。若言言悦耳，事事快心，便把此生埋在鸩毒中矣。--《菜根谭》",
+"天地寂然不动，而气机无息稍停；日月尽夜奔驰，而贞明万古不易；故君子闲时要有吃紧的心思，忙处要有悠闲的趣味。--《菜根谭》",
+"处世不必邀功，无过便是功；与人不求感德，无怨便是德。-《菜根谭》",
+"真廉无廉名，立名者正所以为贪；大巧无巧术，用术者乃所以为拙。-《菜根谭》",
+"小事必纵弛;处明庭检饬者,暗室必放逸。君子只是一个念头持到底,自然临小事如临大敌,坐密室若坐通衢。-《菜根谭》",
+"业精于勤，荒于嬉；行成于思，毁于随。 --韩愈 ",
+"夫君子之行，静以修身，俭以养德。非淡泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。--诸葛亮",
+"人是要长大的，有天你也会推着婴儿车幸福地在街上行走，而曾经的喜欢，不管曾经怎样，都会幻化成风，消失在时光的隧道。所以向前走，向前走，无须回头。--《猫的报恩》",
+"In my younger and more vulnerable years my father gave me some advice that I’ve been turning over in my mind ever since.  “Whenever you feel like criticizing any one,” he told me, “just remember that all the people in this world haven’t had the advantages that you’ve had. --《The Great Gatsby》 ",
+"那些曾经以为念念不忘的事情就在我们念念不忘的过程里，被我们遗忘了。--出处不详",
+"我表现得不喜欢任何事物，是因为从来没得到过我想要的。--《破产姐妹》",
+"你其实可以不用这么冷淡，我也没有想过再纠缠。--出处不详" ,
+"我们的生命因为各种各样的机遇，而变得更有意义，甚至那些我们错过的。--《返老还童》",
+"不顺心的时候，你可以像疯狗那样疯狂，你可以破口大骂，诅咒命运，但到头来，还是得放手。 --《返老还童》",
+"我们命中注定要失去所爱之人，不然我们怎么知道，他们在我们生命中有多重要？ --《返老还童》",
+" 有些时候我觉得很可笑，那些在我们记忆力占据着很小一部分的人们，却往往给我们留下了最深刻的印象。 --《返老还童》",
+"慎重则必成，轻发则多败。--苏轼",
+"古之立大事者，不惟有超世之材，亦必有坚忍不拨之志。--苏轼",
+"论事易，作事难；作事易，成事难。--苏轼",
+"人生如逆旅，我亦是行人。--苏轼",
+"人生到处知何似，应似飞鸿踏雪泥。 --苏轼",
+"小舟从此逝，江海寄余生。--苏轼",
+"世事一场大梦，人生几度秋凉？夜来风叶已鸣廊。看取眉头鬓上。 酒贱常愁客少，月明多被云妨。中秋谁与共孤光。把盏凄然北望。--苏轼",
+"凡学之不勤，必其志之尚未笃也。--王阳明",
+"天下之事，其得之不难，则其失之必易；其积之不久，则其发之必不宏。--王阳明",
+"人之间的友谊，并非由于说不尽的好处，倒是说不出的要好。--钱钟书",
+"好东西不用你去记，它自会留下很深的印象。--钱钟书",
+"爱情多半是不成功的，要么苦于终成眷属的厌倦，要么苦于未能终成眷属的悲哀。--钱钟书",
+"目光放远，万事皆悲。 --钱钟书",
+"把忍受变成享受，是精神对于物质的最大胜利，灵魂可以自主，也可以自欺。--钱钟书",
+"我们彼此来往也如此、相知不深的陌生人。--钱钟书",
+"为什么爱情会減少ー个人心灵的抵抗力，使人変得软弱，被摆布呢？--钱钟书 ",
+"一心想要得到，得到了又不珍惜。一心想要放弃，放弃了又觉可惜。--钱钟书",
+"这些墙很有趣。刚入狱的时候，你痛恨周围的高墙；慢慢地，你习惯了生活在其中；最终你会发现自己不得不依靠它而生存。这就叫体制化。--《肖申克的救赎》",
+"生而为人，一定要善良，像关门轻一点，对服务员说谢谢，不评论别人喜欢的东西，借的东西一定要还，就像我对你的好，你要知道只是我愿意，不是我应该。 --《生而为人》",
+" 人们感到痛苦的不是他们用笑声代替了思考，而是他们不知道自己为什么笑以及为什么不再思考。 --《娱乐至死》",
+"你问人问题，她若答非所问，便已是答了，毋需再问。--木心",
+"人生那个东西，也许只是在一段刻骨铭心之后才算是真正的开始，但有时候想想，徒留遗憾罢了。--《大鼻子情圣》",
+"以前我认为那句话很重要，因为我觉得有些话说出来就是一生一世，现在想一想，说不说也没有什么分别，有些事会变的。--《东邪西毒》",
+"我们读诗写诗，并不是因为它们好玩，而是因为我们是人类的一份子，而人类是充满激情的。没错，医学、法律、商业、工程，这些都是崇高的追求，足以支撑人的一生，但诗歌、美丽、浪漫、爱情，这些才是我们活着的意义。--《死亡诗社》",
+"你每天都在做很多看起来毫无意义的决定，但某天你的某个决定就能改变你的一生。--《西雅图不眠夜》",
+"一个人总要走陌生的路，看陌生的风景，听陌生的歌，然后在某个不经意的瞬间，你会发现，原本是费尽心机想要忘记的事情真的就那么忘记了。--《蓝莓之夜》",
+"不要恨你的对手，那样会影响你的判断力，永远不要让别人知道你在想什么。--《教父》",
+"人生与电影不同，人生……辛苦多了。--《天堂电影院》",
+"有时我们身不由己，不能言所欲言，有时是因为那样不合适。--《唐顿庄园》",
+"The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it. --Steve Jobs",
+" Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma - which is living with the results of other people's thinking. Don't let the noise of other's opinions drown out your own inner voice. And most important, have the courage to follow your heart and intuition. They somehow already know what you truly want to become. Everything else is secondary.--Steve Jobs",
+"世事洞明皆学问，人情练达亦文章。--曹雪芹",
+"成人不自在，自在不成人。--曹雪芹",
+"Some people never worked a day in their life, don't know what work even means. --Bob Dylan",
+"I can see for myself that the sun is sinking. How I wish you were here to see. Tell me now, am I wrong in thinking. That you have forgotten me? --Bob Dylan",
+"生存是规则，而不是你的选择。--五月天",
+"少年易老学难成，一寸光阴不可轻。--朱熹",
+"问渠哪得清如许，为有源头活水来。--朱熹",
+"路漫漫其修远兮，吾将上下而求索。--屈原",
+"亦余心之所善兮，虽九死其犹未悔。--屈原",
+"长太息以掩涕兮，哀民生之多艰。--屈原",
+"老骥伏枥，志在千里；烈士暮年，壮心不已。--曹操",
+"山不厌高，海不厌深。周公吐哺，天下归心。--曹操",
+"青，取之于蓝，而青于蓝；冰，水为之，而寒于水。--荀子",
+"不积跬步，无以至千里；不积小流，无以成江海。--荀子",
+"临渊羡鱼，不如退而结网。--《汉书》",
+"若要功夫深，铁杵磨成针。--曹学佺",
+"宝剑锋从磨砺出，梅花香自苦寒来。--古诗",
+"天行健，君子以自强不息。地势坤，君子以厚德载物。--《易经》",
+"知己知彼，百战不殆。--孙子",
+"兵者，国之大事，死生之地，存亡之道，不可不察也。--孙子",
+"富贵不能淫，贫贱不能移，威武不能屈。--孟子",
+"生于忧患，死于安乐。--孟子",
+"民为贵，社稷次之，君为轻。--孟子",
+"学而时习之，不亦说乎？有朋自远方来，不亦乐乎？--孔子",
+"知之为知之，不知为不知，是知也。--孔子",
+"三人行，必有我师焉。择其善者而从之，其不善者而改之。--孔子",
+"己所不欲，勿施于人。--孔子",
+"见贤思齐焉，见不贤而内自省也。--孔子",
+"学而不思则罔，思而不学则殆。--孔子",
+"温故而知新，可以为师矣。--孔子",
+"The unexamined life is not worth living. --Socrates",
+"I know that I know nothing. --Socrates",
+"The only true wisdom is in knowing you know nothing. --Socrates",
+"Life must be understood backward. But it must be lived forward. --Kierkegaard",
+"The most painful thing is losing yourself in the process of loving someone too much, and forgetting that you are special too. --Ernest Hemingway",
+"There is nothing noble in being superior to your fellow man; true nobility is being superior to your former self. --Ernest Hemingway",
+"All good books are alike in that they are truer than if they had really happened. --Ernest Hemingway",
+"The world breaks everyone, and afterward, some are strong at the broken places. --Ernest Hemingway",
+"It is not the mountain we conquer but ourselves. --Sir Edmund Hillary",
+"The greatest glory in living lies not in never falling, but in rising every time we fall. --Nelson Mandela",
+"Education is the most powerful weapon which you can use to change the world. --Nelson Mandela",
+"It always seems impossible until it's done. --Nelson Mandela",
+"Be yourself; everyone else is already taken. --Oscar Wilde",
+"We are all in the gutter, but some of us are looking at the stars. --Oscar Wilde",
+"I can resist everything except temptation. --Oscar Wilde",
+"Experience is merely the name men gave to their mistakes. --Oscar Wilde",
+"Two things are infinite: the universe and human stupidity; and I'm not sure about the universe. --Albert Einstein",
+"Imagination is more important than knowledge. --Albert Einstein",
+"Try not to become a person of success, but rather try to become a person of value. --Albert Einstein",
+"The important thing is not to stop questioning. --Albert Einstein",
+"Life is what happens to you while you're busy making other plans. --John Lennon",
+"A dream you dream alone is only a dream. A dream you dream together is reality. --John Lennon",
+"Time you enjoy wasting is not wasted time. --John Lennon",
+"Yesterday is history, tomorrow is a mystery, today is a gift of God, which is why we call it the present. --Bill Keane",
+"The best time to plant a tree was 20 years ago. The second best time is now. --Chinese Proverb",
+"If you want to go fast, go alone. If you want to go far, go together. --African Proverb",
+"不经一番寒彻骨，怎得梅花扑鼻香。--黄蘖禅师",
+"落红不是无情物，化作春泥更护花。--龚自珍",
+"海纳百川，有容乃大；壁立千仞，无欲则刚。--林则徐",
+"苟利国家生死以，岂因祸福避趋之。--林则徐",
+"横眉冷对千夫指，俯首甘为孺子牛。--鲁迅",
+"时间就像海绵里的水，只要愿挤，总还是有的。--鲁迅",
+"真的猛士，敢于直面惨淡的人生，敢于正视淋漓的鲜血。--鲁迅",
+"世上本没有路，走的人多了，也便成了路。--鲁迅",
+"数风流人物，还看今朝。--毛泽东",
+"恰同学少年，风华正茂；书生意气，挥斥方遒。--毛泽东",
+"为有牺牲多壮志，敢教日月换新天。--毛泽东",
+"雄关漫道真如铁，而今迈步从头越。--毛泽东",
+"The way to get started is to quit talking and begin doing. --Walt Disney",
+"Innovation distinguishes between a leader and a follower. --Steve Jobs",
+"Stay hungry, stay foolish. --Steve Jobs",
+"The future belongs to those who believe in the beauty of their dreams. --Eleanor Roosevelt",
+"It is during our darkest moments that we must focus to see the light. --Aristotle",
+"Success is not final, failure is not fatal: it is the courage to continue that counts. --Winston Churchill",
+"The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty. --Winston Churchill",
+"We make a living by what we get, but we make a life by what we give. --Winston Churchill",
+"In the end, we will remember not the words of our enemies, but the silence of our friends. --Martin Luther King Jr.",
+"Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that. --Martin Luther King Jr.",
+"The time is always right to do what is right. --Martin Luther King Jr.",
+"If you can't fly then run, if you can't run then walk, if you can't walk then crawl, but whatever you do you have to keep moving forward. --Martin Luther King Jr.",
+"What does not kill me, makes me stronger. --Nietzsche",
+"He who has a why to live can bear almost any how. --Nietzsche",
+"God is dead. God remains dead. And we have killed him. --Nietzsche",
+"Without music, life would be a mistake. --Nietzsche",
+"That which is done out of love always takes place beyond good and evil. --Nietzsche",
+"The individual has always had to struggle not to be overwhelmed by the tribe. --Nietzsche",
+"In every real man a child is hidden that wants to play. --Nietzsche",
+"One must have chaos within oneself to give birth to a dancing star. --Nietzsche",
+"Battle not with monsters, lest ye become a monster, and if you gaze into the abyss, the abyss gazes also into you. --Nietzsche",
+"A casual stroll through the lunatic asylum shows that faith does not prove anything. --Nietzsche",
+"Whoever fights monsters should see to it that in the process he does not become a monster. --Nietzsche",
+"The man of knowledge must be able not only to love his enemies but also to hate his friends. --Nietzsche",
+"All things are subject to interpretation. Whichever interpretation prevails at a given time is a function of power and not truth. --Nietzsche",
+"A man's worth is measured by the extent to which he can bear loneliness. --Schopenhauer",
+"Every man takes the limits of his own field of vision for the limits of the world. --Schopenhauer",
+"The two enemies of human happiness are pain and boredom. --Schopenhauer",
+"All truth passes through three stages. First, it is ridiculed. Second, it is violently opposed. Third, it is accepted as being self-evident. --Schopenhauer",
+"A person can be himself only so long as he is alone. --Schopenhauer",
+"We forfeit three-fourths of ourselves in order to be like other people. --Schopenhauer",
+"Talent hits a target no one else can hit; genius hits a target no one else can see. --Schopenhauer",
+"The greatest of follies is to sacrifice health for any other kind of happiness. --Schopenhauer",
+"Compassion is the basis of morality. --Schopenhauer",
+"The wise have always said the same things, and fools, who are the majority, have always done just the opposite. --Schopenhauer",
+"Religion is the masterpiece of the art of animal training, for it trains people as to how they shall think. --Schopenhauer",
+"I think, therefore I am. --Descartes",
+"If you would be a real seeker after truth, it is necessary that at least once in your life you doubt, as far as possible, all things. --Descartes",
+"The reading of all good books is like a conversation with the finest minds of past centuries. --Descartes",
+"Divide each difficulty into as many parts as is feasible and necessary to resolve it. --Descartes",
+"Common sense is the most widely shared commodity in the world, for every man is convinced that he is well supplied with it. --Descartes",
+"Hell is other people. --Sartre",
+"Man is condemned to be free; because once thrown into the world, he is responsible for everything he does. --Sartre",
+"In freedom man loses all excuse. --Sartre",
+"Every existing thing is born without reason, prolongs itself out of weakness, and dies by chance. --Sartre",
+"If you're lonely when you're alone, you're in bad company. --Sartre",
+"Freedom is what you do with what's been done to you. --Sartre",
+"Three o'clock is always too late or too early for anything you want to do. --Sartre",
+"The existentialist says at once that man is anguish. --Sartre",
+"I rebel; therefore we exist. --Camus",
+"The struggle itself toward the heights is enough to fill a man's heart. --Camus",
+"There is but one truly serious philosophical problem, and that is suicide. --Camus",
+"In the midst of winter, I found there was, within me, an invincible summer. --Camus",
+"Don't walk behind me; I may not lead. Don't walk in front of me; I may not follow. Just walk beside me and be my friend. --Camus",
+"The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion. --Camus",
+"Real generosity toward the future lies in giving all to the present. --Camus",
+"You will never be happy if you continue to search for what happiness consists of. --Camus",
+"Man is the only creature who refuses to be what he is. --Camus",
+"The absurd is the essential concept and the first truth. --Camus",
+"We are what we repeatedly do. Excellence, then, is not an act, but a habit. --Aristotle",
+"Knowing yourself is the beginning of all wisdom. --Aristotle",
+"The whole is greater than the sum of its parts. --Aristotle",
+"Happiness depends upon ourselves. --Aristotle",
+"No great mind has ever existed without a touch of madness. --Aristotle",
+"Pleasure in the job puts perfection in the work. --Aristotle",
+"Educating the mind without educating the heart is no education at all. --Aristotle",
+"The roots of education are bitter, but the fruit is sweet. --Aristotle",
+"Hope is a waking dream. --Aristotle",
+"Quality is not an act, it is a habit. --Aristotle",
+"The only true wisdom is in knowing you know nothing. --Socrates",
+"An unexamined life is not worth living. --Socrates",
+"I cannot teach anybody anything. I can only make them think. --Socrates",
+"Wonder is the beginning of wisdom. --Socrates",
+"To find yourself, think for yourself. --Socrates",
+"Be kind, for everyone you meet is fighting a hard battle. --Plato",
+"Wise men speak because they have something to say; fools because they have to say something. --Plato",
+"The measure of a man is what he does with power. --Plato",
+"Courage is knowing what not to fear. --Plato",
+"Opinion is the medium between knowledge and ignorance. --Plato",
+"Music is a moral law. It gives soul to the universe, wings to the mind, flight to the imagination. --Plato",
+"The price good men pay for indifference to public affairs is to be ruled by evil men. --Plato",
+"At the touch of love everyone becomes a poet. --Plato",
+"We can easily forgive a child who is afraid of the dark; the real tragedy of life is when men are afraid of the light. --Plato",
+"Only the dead have seen the end of war. --Plato",
+];
+
+  function splitSaying(value) {
+    const separators = Array.from(value.matchAll(/\s*(?:--+|—|-(?=《))\s*/g));
+    const last = separators[separators.length - 1];
+    if (!last) return { text: value.trim(), author: '' };
+    return {
+      text: value.slice(0, last.index).trim(),
+      author: value.slice(last.index + last[0].length).trim()
+    };
+  }
+
+  function initQuotePage() {
+    const reading = document.getElementById('quote-reading');
+    const text = document.getElementById('quote-text');
+    const full = document.getElementById('quote-full');
+    const visible = document.getElementById('quote-visible');
+    const typed = document.getElementById('quote-typed');
+    const pending = document.getElementById('quote-pending');
+    const author = document.getElementById('quote-author');
+    if (!reading || !text || !full || !visible || !typed || !pending || !author || reading.dataset.ready === 'true') return;
+    reading.dataset.ready = 'true';
+    const TYPE_DELAY = 36;
+    const HOLD_DELAY = 5000;
+    const motion = typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    const segmenter = typeof Intl !== 'undefined' && typeof Intl.Segmenter === 'function'
+      ? new Intl.Segmenter(undefined, { granularity: 'grapheme' }) : null;
+    const initial = { text: full.textContent.trim(), author: author.textContent.trim() };
+    let current = sayings.find((value) => splitSaying(value).text === initial.text) || '';
+    let timer = null;
+    let hovered = false;
+    let focused = false;
+    let pageActive = true;
+    let phase = 'holding';
+    let selected = initial;
+    let characters = [];
+    let position = 0;
+
+    function renderTyping() {
+      typed.textContent = characters.slice(0, position).join('');
+      pending.textContent = characters.slice(position).join('');
+      author.hidden = phase === 'typing' || !selected.author;
+    }
+
+    function finishTyping() {
+      position = characters.length;
+      phase = 'holding';
+      renderTyping();
+    }
+
+    function startSaying(value) {
+      selected = value;
+      characters = segmenter
+        ? Array.from(segmenter.segment(value.text), (part) => part.segment)
+        : Array.from(value.text);
+      position = motion && motion.matches ? characters.length : Math.min(1, characters.length);
+      phase = position < characters.length ? 'typing' : 'holding';
+      // Keep a complete accessible quote and an invisible suffix for stable line wrapping.
+      full.textContent = value.text;
+      text.lang = /[\u3400-\u9fff]/.test(selected.text) ? 'zh-CN' : 'en';
+      author.textContent = value.author;
+      reading.dataset.enhanced = 'true';
+      visible.hidden = false;
+      renderTyping();
+      scheduleNext();
+    }
+
+    function isPaused() {
+      return hovered || focused || document.hidden || !pageActive;
+    }
+
+    function scheduleNext() {
+      if (timer !== null) clearTimeout(timer);
+      timer = null;
+      if (isPaused()) return;
+      timer = setTimeout(function () {
+        timer = null;
+        if (isPaused()) return;
+        if (phase === 'typing') {
+          position += 1;
+          if (position >= characters.length) finishTyping();
+          else renderTyping();
+          scheduleNext();
+        } else {
+          const available = sayings.filter((value) => value !== current);
+          if (!available.length) {
+            scheduleNext();
+            return;
+          }
+          current = available[Math.floor(Math.random() * available.length)];
+          startSaying(splitSaying(current));
+        }
+      }, phase === 'typing' ? TYPE_DELAY : HOLD_DELAY);
+    }
+
+    function updateReadingPause() {
+      // Show the whole sentence when the reader hovers, selects or focuses it.
+      if ((hovered || focused) && phase === 'typing') finishTyping();
+      scheduleNext();
+    }
+
+    reading.addEventListener('mouseenter', function () {
+      hovered = true;
+      updateReadingPause();
+    });
+    reading.addEventListener('mouseleave', function () {
+      hovered = false;
+      updateReadingPause();
+    });
+    reading.addEventListener('focusin', function () {
+      focused = true;
+      updateReadingPause();
+    });
+    reading.addEventListener('focusout', function () {
+      focused = false;
+      updateReadingPause();
+    });
+    document.addEventListener('visibilitychange', scheduleNext);
+    window.addEventListener('pagehide', function () {
+      pageActive = false;
+      scheduleNext();
+    });
+    window.addEventListener('pageshow', function () {
+      pageActive = true;
+      scheduleNext();
+    });
+    if (motion && typeof motion.addEventListener === 'function') {
+      motion.addEventListener('change', function () {
+        if (motion.matches && phase === 'typing') finishTyping();
+        scheduleNext();
+      });
+    }
+    startSaying(initial);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initQuotePage, { once: true });
+  } else {
+    initQuotePage();
+  }
+})();

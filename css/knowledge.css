@@ -14,6 +14,54 @@ body.knowledge-page::before { display: none; }
     background: #fff;
 }
 
+/* The signature is selectable text. Scope typography to this profile so the
+ * theme's decorative headings and italic paragraphs cannot distort the copy.
+ */
+#home-profile #me .home-profile-name,
+#home-profile #me .home-profile-description {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+#home-profile #me .home-profile-name {
+    font-size: clamp(30px, 3.2vw, 46px);
+    font-weight: 600;
+    color: #1e252d;
+}
+#home-profile #me .home-profile-description {
+    font-size: clamp(18px, 1.8vw, 26px);
+    font-weight: 400;
+    color: #4b5563;
+}
+#home-profile .home-profile-description[data-typewriter-ready="true"] .home-profile-character {
+    position: relative;
+    opacity: 0;
+}
+#home-profile .home-profile-description[data-typewriter-ready="true"] .home-profile-character.is-visible {
+    opacity: 1;
+}
+#home-profile .home-profile-character.is-cursor::after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: .08em;
+    height: 1em;
+    border-left: 2px solid currentColor;
+    pointer-events: none;
+}
+#home-profile .home-profile-description:focus-visible {
+    outline: 2px solid #61716b;
+    outline-offset: 5px;
+}
+@media (prefers-reduced-motion: reduce) {
+    #home-profile .home-profile-description[data-typewriter-ready="true"] .home-profile-character { opacity: 1; }
+    #home-profile .home-profile-character.is-cursor::after { display: none; }
+}
+
 #main.knowledge-main {
     width: calc(100% - 4rem);
     max-width: 72rem;
@@ -47,9 +95,20 @@ body.knowledge-page::before { display: none; }
     line-height: 1.7;
 }
 
-.knowledge-breadcrumb li { min-width: 0; overflow-wrap: anywhere; }
+/* The legacy theme forces every `ol li` to show decimal markers with
+ * !important. Reset the items themselves, not only their parent list, and keep
+ * this override inside breadcrumbs so article step numbers stay unchanged.
+ */
+.knowledge-breadcrumb ol > li {
+    list-style: none !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
 .knowledge-breadcrumb li + li::before { content: "/"; margin: 0 .7rem; color: #84918d; }
-.knowledge-breadcrumb a { color: #d4ded9; }
+.knowledge-breadcrumb a { color: #d4ded9; border-bottom: 0; text-decoration: none; }
 .knowledge-breadcrumb [aria-current="page"] { color: #fff; }
 
 #main.knowledge-main .knowledge-heading { margin-bottom: 2rem; }

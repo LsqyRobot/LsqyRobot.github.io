@@ -29,14 +29,17 @@
     </style>
 
 	
-	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260827-katex2" />
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260905-no-tag-sphere" />
 	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
 	
 	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
 	
 	
 	<link rel="stylesheet" href="/css/prism_coy.css" />
 	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260906-wide-2" />
 	
 	
 	
@@ -155,19 +158,23 @@
 			text-align: center !important;
 		}
 	</style>
+	
 	    <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery.scrollex.min.js"></script>
     <script src="/js/jquery.scrolly.min.js"></script>
     <script src="/js/skel.min.js"></script>
     <script src="/js/util.js"></script>
     <script src="/js/main.js"></script>
+    
     <script src="/js/dytitle.js"></script>
     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
     <script type="text/javascript" src="/js/fireworks.js"></script>
     <script src="/js/codeBlockFuction.js"></script>
     <script src="/js/cursor-heart.js"></script>
+    
 
+	
 <meta name="generator" content="Hexo 8.1.1"></head>
 		
 
@@ -192,7 +199,7 @@
 		<span class="reading-progress-label" aria-hidden="true">0%</span>
 	</div>
 	
-    <div id="wrapper" class="fade-in">
+    <div id="wrapper" class="fade-in post-page-wrapper">
         <header id="header">
     <a href="/" class="logo">
         <span id="typewriter-text"></span>
@@ -303,6 +310,8 @@
 	                        
 	                        <li><a href="/knowledge/robotics/">机器人学</a></li>
 	                        
+	                        <li><a href="/knowledge/computer-vision/">计算机视觉</a></li>
+	                        
 	                        <li><a href="/knowledge/reinforcement-learning/">强化学习</a></li>
 	                        
 	                        <li><a href="/knowledge/ros-simulation/">ROS 与仿真</a></li>
@@ -388,334 +397,586 @@
 </nav>
 
 
-        <div id="main" >
+        <div id="main" class="post-page-main">
             <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/5_docker/docker.png);">
                 <div class="post-page-cover-media" aria-hidden="true">
                     <div class="post_page_title_blur"></div>
                     <div class="post_page_title_main"></div>
                 </div>
-                <h1 class="post-page-title">docker</h1>
+                <h1 class="post-page-title">Docker：镜像、容器与可复现环境</h1>
             </header>
 
             <div class="post-content-shell">
-                <aside class="post-toc-sidebar" aria-label="Article table of contents">
-                    <div class="post-toc-card">
-                        <div class="post-toc-title">目录</div>
-                        <nav class="post-toc-nav"></nav>
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
                         <button type="button" class="post-toc-top-button">回顶部</button>
-                    </div>
+                    </details>
                 </aside>
 
-                
-                    <aside class="post-floating-tags" aria-label="Site tags">
-                        <div class="post-floating-tags-card">
-                            <div class="post-floating-tags-title">标签</div>
-                            <div id="postTagSphere" class="post-tag-sphere">
-                                
-                                
-                                    
-                                    <a href="/tags/work/" style="font-size: 17.00px; color: rgb(149,225,211)" title="work：27 篇">work</a>
-                                
-                                    
-                                    <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 16.04px; color: rgb(129,220,215)" title="强化学习：23 篇">强化学习</a>
-                                
-                                    
-                                    <a href="/tags/linux/" style="font-size: 14.12px; color: rgb(89,209,224)" title="linux：15 篇">linux</a>
-                                
-                                    
-                                    <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 14.12px; color: rgb(89,209,224)" title="四足机器人：15 篇">四足机器人</a>
-                                
-                                    
-                                    <a href="/tags/cpp/" style="font-size: 13.64px; color: rgb(79,206,227)" title="cpp：13 篇">cpp</a>
-                                
-                                    
-                                    <a href="/tags/tools/" style="font-size: 13.64px; color: rgb(79,206,227)" title="tools：13 篇">tools</a>
-                                
-                                    
-                                    <a href="/tags/ros/" style="font-size: 13.40px; color: rgb(74,205,228)" title="ros：12 篇">ros</a>
-                                
-                                    
-                                    <a href="/tags/legged-locomotion/" style="font-size: 13.16px; color: rgb(69,203,229)" title="legged locomotion：11 篇">legged locomotion</a>
-                                
-                                    
-                                    <a href="/tags/life/" style="font-size: 12.92px; color: rgb(64,202,230)" title="life：10 篇">life</a>
-                                
-                                    
-                                    <a href="/tags/sim-to-real/" style="font-size: 12.92px; color: rgb(64,202,230)" title="sim-to-real：10 篇">sim-to-real</a>
-                                
-                                    
-                                    <a href="/tags/ppo/" style="font-size: 12.68px; color: rgb(59,201,231)" title="ppo：9 篇">ppo</a>
-                                
-                                    
-                                    <a href="/tags/control/" style="font-size: 12.44px; color: rgb(54,199,232)" title="control：8 篇">control</a>
-                                
-                                    
-                                    <a href="/tags/dots/" style="font-size: 12.44px; color: rgb(54,199,232)" title="dots：8 篇">dots</a>
-                                
-                                    
-                                    <a href="/tags/python/" style="font-size: 12.44px; color: rgb(54,199,232)" title="python：8 篇">python</a>
-                                
-                                    
-                                    <a href="/tags/isaac-gym/" style="font-size: 12.20px; color: rgb(49,198,233)" title="isaac gym：7 篇">isaac gym</a>
-                                
-                                    
-                                    <a href="/tags/memory/" style="font-size: 12.20px; color: rgb(49,198,233)" title="memory：7 篇">memory</a>
-                                
-                                    
-                                    <a href="/tags/robotics/" style="font-size: 12.20px; color: rgb(49,198,233)" title="robotics：7 篇">robotics</a>
-                                
-                                    
-                                    <a href="/tags/ros2/" style="font-size: 11.96px; color: rgb(44,196,235)" title="ros2：6 篇">ros2</a>
-                                
-                                    
-                                    <a href="/tags/%E9%A3%9E%E6%8E%A7/" style="font-size: 11.96px; color: rgb(44,196,235)" title="飞控：6 篇">飞控</a>
-                                
-                                    
-                                    <a href="/tags/anymal/" style="font-size: 11.72px; color: rgb(39,195,236)" title="anymal：5 篇">anymal</a>
-                                
-                                    
-                                    <a href="/tags/learning-notes/" style="font-size: 11.72px; color: rgb(39,195,236)" title="learning-notes：5 篇">learning-notes</a>
-                                
-                                    
-                                    <a href="/tags/math/" style="font-size: 11.72px; color: rgb(39,195,236)" title="math：5 篇">math</a>
-                                
-                                    
-                                    <a href="/tags/algorithms/" style="font-size: 11.48px; color: rgb(34,194,237)" title="algorithms：4 篇">algorithms</a>
-                                
-                                    
-                                    <a href="/tags/attention/" style="font-size: 11.48px; color: rgb(34,194,237)" title="attention：4 篇">attention</a>
-                                
-                                    
-                                    <a href="/tags/pixhawk-6c/" style="font-size: 11.48px; color: rgb(34,194,237)" title="pixhawk 6c：4 篇">pixhawk 6c</a>
-                                
-                                    
-                                    <a href="/tags/privileged-learning/" style="font-size: 11.48px; color: rgb(34,194,237)" title="privileged learning：4 篇">privileged learning</a>
-                                
-                                    
-                                    <a href="/tags/px4/" style="font-size: 11.48px; color: rgb(34,194,237)" title="px4：4 篇">px4</a>
-                                
-                                    
-                                    <a href="/tags/qgroundcontrol/" style="font-size: 11.48px; color: rgb(34,194,237)" title="qgroundcontrol：4 篇">qgroundcontrol</a>
-                                
-                                    
-                                    <a href="/tags/robot/" style="font-size: 11.48px; color: rgb(34,194,237)" title="robot：4 篇">robot</a>
-                                
-                                    
-                                    <a href="/tags/vim/" style="font-size: 11.48px; color: rgb(34,194,237)" title="vim：4 篇">vim</a>
-                                
-                                    
-                                    <a href="/tags/dagger/" style="font-size: 11.24px; color: rgb(29,192,238)" title="dagger：3 篇">dagger</a>
-                                
-                                    
-                                    <a href="/tags/git/" style="font-size: 11.24px; color: rgb(29,192,238)" title="git：3 篇">git</a>
-                                
-                                    
-                                    <a href="/tags/matlab/" style="font-size: 11.24px; color: rgb(29,192,238)" title="matlab：3 篇">matlab</a>
-                                
-                                    
-                                    <a href="/tags/perceptive-locomotion/" style="font-size: 11.24px; color: rgb(29,192,238)" title="perceptive locomotion：3 篇">perceptive locomotion</a>
-                                
-                                    
-                                    <a href="/tags/policy-distillation/" style="font-size: 11.24px; color: rgb(29,192,238)" title="policy distillation：3 篇">policy distillation</a>
-                                
-                                    
-                                    <a href="/tags/simulation/" style="font-size: 11.24px; color: rgb(29,192,238)" title="simulation：3 篇">simulation</a>
-                                
-                                    
-                                    <a href="/tags/stl/" style="font-size: 11.24px; color: rgb(29,192,238)" title="stl：3 篇">stl</a>
-                                
-                                    
-                                    <a href="/tags/ubuntu/" style="font-size: 11.24px; color: rgb(29,192,238)" title="ubuntu：3 篇">ubuntu</a>
-                                
-                                    
-                                    <a href="/tags/data-struct/" style="font-size: 11.00px; color: rgb(24,191,239)" title="data_struct：2 篇">data_struct</a>
-                                
-                                    
-                                    <a href="/tags/elevation-map/" style="font-size: 11.00px; color: rgb(24,191,239)" title="elevation map：2 篇">elevation map</a>
-                                
-                            </div>
-                        </div>
-                    </aside>
-                    <script>
-                        (function () {
-                            function startPostTagSphere() {
-                                var sphere = document.getElementById('postTagSphere');
-                                if (!sphere || sphere.dataset.ready === 'true') {
-                                    return;
-                                }
-
-                                var links = Array.from(sphere.querySelectorAll('a'));
-                                if (!links.length) {
-                                    return;
-                                }
-
-                                sphere.dataset.ready = 'true';
-                                sphere.classList.add('is-ready');
-                                var floatingCard = sphere.closest('.post-floating-tags-card');
-                                if (floatingCard) {
-                                    floatingCard.classList.add('is-sphere-ready');
-                                }
-
-                                var radius = Math.min(sphere.clientWidth || 200, sphere.clientHeight || 200) * 0.38;
-                                var angleX = 0;
-                                var angleY = 0;
-                                var speedX = 0.0017;
-                                var speedY = 0.0025;
-                                var paused = false;
-
-                                links.forEach(function (link, index) {
-                                    var k = -1 + (2 * (index + 0.5)) / links.length;
-                                    var phi = Math.acos(k);
-                                    var theta = Math.sqrt(links.length * Math.PI) * phi;
-                                    link.dataset.x = radius * Math.cos(theta) * Math.sin(phi);
-                                    link.dataset.y = radius * Math.sin(theta) * Math.sin(phi);
-                                    link.dataset.z = radius * Math.cos(phi);
-                                    link.classList.add('post-tag-sphere-item');
-                                });
-
-                                sphere.addEventListener('mouseenter', function () { paused = true; });
-                                sphere.addEventListener('mouseleave', function () { paused = false; });
-
-                                function render() {
-                                    if (!paused) {
-                                        angleX += speedX;
-                                        angleY += speedY;
-                                    }
-
-                                    var sinX = Math.sin(angleX);
-                                    var cosX = Math.cos(angleX);
-                                    var sinY = Math.sin(angleY);
-                                    var cosY = Math.cos(angleY);
-
-                                    links.forEach(function (link) {
-                                        var x = parseFloat(link.dataset.x);
-                                        var y = parseFloat(link.dataset.y);
-                                        var z = parseFloat(link.dataset.z);
-                                        var y1 = y * cosX - z * sinX;
-                                        var z1 = z * cosX + y * sinX;
-                                        var x2 = x * cosY - z1 * sinY;
-                                        var z2 = z1 * cosY + x * sinY;
-                                        var scale = 0.68 + ((z2 + radius) / (2 * radius)) * 0.55;
-                                        var opacity = 0.38 + ((z2 + radius) / (2 * radius)) * 0.62;
-
-                                        link.style.transform = 'translate3d(' + x2 + 'px,' + y1 + 'px,0) translate(-50%, -50%) scale(' + scale + ')';
-                                        link.style.opacity = opacity.toFixed(3);
-                                        link.style.zIndex = Math.round(1000 + z2);
-                                    });
-
-                                    window.requestAnimationFrame(render);
-                                }
-
-                                render();
-                            }
-
-                            if (document.readyState === 'loading') {
-                                document.addEventListener('DOMContentLoaded', startPostTagSphere);
-                            } else {
-                                startPostTagSphere();
-                            }
-                            window.addEventListener('load', startPostTagSphere);
-                            window.setTimeout(startPostTagSphere, 300);
-                        })();
-                    </script>
-                
-
                 <div class="typo post-article-content">
-                    <!-- vim-markdown-toc GFM -->
+                    <h1>前言</h1>
+<p>最初学习 Docker，是因为不想每换一台电脑，就重新折腾一遍软件配置、依赖版本和开发环境。顺便也想多用命令行，逼自己弄明白程序到底是怎么运行的——当年的笔记把这叫作“自虐”。这个初衷现在仍然成立。</p>
+<p>但回头看，原来的记录更像几段命令摘抄，也混淆了“重启容器”和“重新创建容器”。这次结合网站里的 ROS 开发环境、MuJoCo 仿真和 C++ 计算服务，把它补成一条完整的线：<strong>环境怎么描述，程序怎么运行，数据放在哪里，修改怎么验证，升级失败怎么退回去。</strong></p>
+<p>先记住三个结论：</p>
 <ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
-<li><a href="#%E5%88%9D%E8%AF%86">初识</a>
-<ul>
-<li><a href="#%E9%95%9C%E5%83%8F">镜像</a></li>
-<li><a href="#%E5%AE%B9%E5%99%A8">容器</a></li>
-<li><a href="#%E4%BB%93%E5%BA%93">仓库</a></li>
+<li>镜像是可重复使用的运行材料；容器是基于这些材料创建的一次运行实例。</li>
+<li>重启同一个容器，不等于重新创建容器，更不等于重新构建镜像。</li>
+<li>Docker 降低环境差异，但不会自动证明算法正确、设备兼容或长期运行稳定。</li>
 </ul>
-</li>
-<li><a href="#%E5%AE%89%E8%A3%85ubuntu-%E5%92%8C-debian">安装Ubuntu 和 Debian</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8-docker-%E9%95%9C%E5%83%8F">使用 Docker 镜像</a>
-<ul>
-<li><a href="#%E8%BF%90%E8%A1%8C">运行</a></li>
-<li><a href="#%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F">列出镜像</a>
-<ul>
-<li><a href="#%E5%88%97%E5%87%BA%E9%83%A8%E5%88%86%E9%95%9C%E5%83%8F">列出部分镜像</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E5%88%A9%E7%94%A8-commit-%E7%90%86%E8%A7%A3%E9%95%9C%E5%83%8F%E6%9E%84%E6%88%90">利用 commit 理解镜像构成</a></li>
-<li><a href="#%E8%BF%90%E8%A1%8Cwindows-%E4%B8%8B">运行(windows 下)</a></li>
-<li><a href="#%E4%BF%9D%E5%AD%98%E4%BF%AE%E6%94%B9%E5%90%8E%E7%9A%84%E9%95%9C%E5%83%8F">保存修改后的镜像</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8-dockerfile-%E5%AE%9A%E5%88%B6%E9%95%9C%E5%83%8F">使用 Dockerfile 定制镜像</a></li>
-<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
-</ul>
-<!-- vim-markdown-toc -->
-<h1>前言</h1>
-<p>不想换个电脑重新配置下参数,这个配置可以说是相当的繁琐,比如说各种软件的配置,模块的兼容等等,以及交互式的界面对于提高自己的编程水平感觉并不高,因此有时需要一个无界面的命令行,强迫自己去使用纯命令行,简而言之,就是自虐。。。。。后来在学习过程中发现了个有意思的工具,没错,就是本文打算入坑的一个虚拟机。是一个属于<strong>Linux 容器的一种封装</strong>。不同操作系统的安装不太一样,这个过程比较简单,可以自行搜索。由于 Docker 确保了执行环境的一致性,使得应用的迁移更加容易。在很多平台上运行,无论是物理机、虚拟机、公有云、私有云,甚至是笔记本,其运行结果是一致的,不用担心运行环境的变化导致应用无法正常运行的情况,就像后来为什么喜欢上了overleaf那样。。。。。,另外一点,这种虚拟机的性能,接近于原生,这就很爽了。。。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/docker-notes.css">
 <h1>初识</h1>
-<p>Docker 包括三个基本概念,镜像(<code>Image</code>) 容器(<code>Container</code>) 仓库(<code>Repository</code>)</p>
 <h2 id="镜像">镜像</h2>
-<p>Docker 镜像是一个特殊的文件系统,除了提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数(如匿名卷、环境 变量、用户等)。镜像不包含任何动态数据,其内容在构建之后也不会被改变。</p>
+<p>镜像（Image）包含程序、运行库、文件，以及默认命令、环境变量、用户等配置。镜像内容按层组织，已有镜像内容不会被运行中的容器原地改写；内容变化后形成新镜像，内容一致的缓存构建则可能仍对应同一个 Image ID。</p>
+<p>“镜像不包含动态数据”容易误导。镜像当然可以装数据集、模型权重，甚至误装密钥；准确的说法是：<strong>运行中新产生的修改，默认写入容器自己的可写层，而不是回写原镜像。</strong> 镜像是否应该包含某份数据，是组织和安全问题。</p>
 <h2 id="容器">容器</h2>
-<p>镜像(Image)和容器(Container)的关系,就像是面向对象程序设计中的类和实例 一样,镜像是静态的定义,容器是镜像运行时的实体。容器可以被 创建、启动、停止、删除、暂停等。</p>
-<p>容器的实质是进程,但与直接在宿主执行的进程不同,容器进程运行于属于自己的<code>独立的</code>命名空间。因此容器可以拥有自己的 root 文件系统、自己的网络配置、 自己的进程空间,甚至自己的用户 ID 空间。容器内的进程是运行在一个隔离的环 境里,使用起来,就好像是在一个独立于宿主的系统下操作一样。这种特性使得容 器封装的应用比直接在宿主运行更加安全。也因为这种隔离的特性,很多人初学 Docker 时常常会把容器和虚拟机搞混。容器存储层的生存周期和容器一样,容器消亡时,容器存储层也随之消亡。因此, 任何保存于容器存储层的信息都会随容器删除而丢失。</p>
+<p>容器（Container）可以类比镜像的实例，但它不只是一个文件夹：还包括进程、网络、挂载、资源限制和运行状态。一个镜像可以同时创建多个容器，它们默认各有自己的可写层。</p>
+<p>原文把 Docker 叫作“一个虚拟机”，不够准确。Linux 容器本质上是受隔离和约束的进程，多个容器共享承载它们的 Linux 内核；完整虚拟机则拥有自己的客体内核。在 macOS 的 Docker Desktop 中，Linux 容器运行在背后的 Linux 虚拟机里，不是直接使用 macOS 内核运行 Linux 程序。<a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/">Docker 官方：容器与虚拟机</a>、<a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/features/networking/">Docker Desktop 网络与虚拟机边界</a>。</p>
+<p>所以，“Ubuntu 22.04 容器”主要说明其用户空间的发行版和软件环境，不代表我又启动了一台完整 Ubuntu 电脑。它也不会天然拥有 systemd、桌面、GPU、相机或实时内核。</p>
 <h2 id="仓库">仓库</h2>
-<p>一个 Docker Registry 中可以包含多个仓库(Repository)；每个仓库可以包含多 个标签(Tag)；每个标签对应一个镜像。通常,一个仓库会包含同一个软件不同版本的镜像,而标签就常用于对应该软件的 各个版本。我们可以通过 &lt;仓库名&gt;:&lt;标签&gt; 的格式来指定具体是这个软件哪个版 本的镜像。如果不给出标签,将以 latest 作为默认标签。仓库名经常以 两段式路径 形式出现,比如 jwilder/nginx-proxy ,前者往往意 味着 Docker Registry 多用户环境下的用户名,后者则往往是对应的软件名。但这 并非绝对,取决于所使用的具体 Docker Registry 的软件或服务。</p>
+<p>以前统称“仓库”的几个词，最好分开：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>回答的问题</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registry，镜像注册服务</td>
+<td>从哪台服务下载或上传？</td>
+<td>Docker Hub 的 <code>docker.io</code></td>
+</tr>
+<tr>
+<td>Repository，镜像仓库</td>
+<td>哪一组镜像？</td>
+<td><code>library/ubuntu</code></td>
+</tr>
+<tr>
+<td>Tag，标签</td>
+<td>这组镜像的哪个名字？</td>
+<td><code>22.04</code>、<code>local</code>、<code>hardening-check</code></td>
+</tr>
+<tr>
+<td>Digest，摘要</td>
+<td>远端引用精确指向哪份内容？</td>
+<td><code>ubuntu@sha256:…</code></td>
+</tr>
+<tr>
+<td>本地 Image ID</td>
+<td>本机保存的具体镜像对象是谁？</td>
+<td><code>docker image inspect</code> 的 <code>Id</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>ubuntu:22.04</code> 通常是 <code>docker.io/library/ubuntu:22.04</code> 的简写。标签是可移动的名称：今天和下个月拉取同一个标签，底层镜像可能不同。<code>latest</code> 也只是默认标签名，不是 Docker 自动选出的“版本号最大值”。要求精确重现时，应记录完整摘要、本地镜像 ID、源码版本和构建参数；不要把本地 Image ID 直接当作远端 repository digest 使用。<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/image/pull/">Docker 官方：按标签或摘要拉取镜像</a>。</p>
+<p>另外，<code>docker tag</code> 只是增加或移动本地名称引用，<strong>不会上传镜像，也不会让正在运行的容器换版本</strong>。Git 仓库存源码，镜像仓库存构建产物，<code>git push</code> 与 <code>docker push</code> 是两件事。</p>
 <h1>安装Ubuntu 和 Debian</h1>
-<p>官方为了简化安装流程,提供了一套安装脚本,Ubuntu 和 Debian 系统可 以使用这套脚本安装：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">curl -sSL https://<span class="built_in">get</span>.docker.<span class="keyword">com</span>/ | <span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
-<p>由于墙的原因,可能会存在安装不上的原因,可使用阿里云来进行安装</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-<span class="keyword">cn</span>-hangzhou.aliyuncs.<span class="keyword">com</span>/ docker-engine/internet | <span class="keyword">sh</span> -</span><br></pre></td></tr></table></figure>
+<p>保留这个旧章节名，但先纠正含义：这里说的是“在 Ubuntu / Debian 上安装 Docker Engine”，不是“安装一个 Ubuntu / Debian 容器”。</p>
+<p>安装入口按宿主机选择：</p>
+<ul>
+<li>Linux：使用对应发行版的官方安装步骤，核对发行版代号、架构及已有软件包冲突。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/">Ubuntu 安装</a>、<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/debian/">Debian 安装</a>。</li>
+<li>macOS / Windows：按所用系统和硬件安装 Docker Desktop；本文后续默认运行 Linux 容器。<a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/setup/install/mac-install/">macOS 安装</a>、<a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/setup/install/windows-install/">Windows 安装</a>。</li>
+</ul>
+<p>原文中年代久远的 HTTP 镜像脚本与直接管道执行安装脚本已移除。安装会改变宿主机软件源和系统服务，不能当成普通学习命令随手运行；Docker 官方也要求先审阅下载脚本，并将便捷脚本主要用于开发、测试环境。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script">便捷安装脚本的限制</a>。</p>
+<p>已有环境先检查，不要因为 <code>docker</code> 报错就重装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker version</span><br><span class="line">docker compose version</span><br><span class="line">docker context show</span><br><span class="line">docker context <span class="built_in">ls</span></span><br><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<p><code>Client</code> 有版本而连接 <code>Server</code> 失败，常见原因是 Docker Desktop 未启动、context 指向别处或权限不对。<code>context</code> 决定命令发给哪个 Docker daemon；当前 context 看不到某个镜像，不代表所有 context 和远端机器上都没有它。</p>
 <h1>使用 Docker 镜像</h1>
-<p>Docker 运行容器前需要本地存在对应的镜像,如果镜像不存在本地,Docker 会从 镜像仓库下载(默认是 Docker Hub 公共注册服务器中的仓库)。</p>
-<p>从 Docker Registry 获取镜像的命令是 <code>docker pull</code> 。其命令格式为：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">docker pull [选项] [Docker Registry地址]<span class="tag">&lt;<span class="name">仓库名</span>&gt;</span>:<span class="tag">&lt;<span class="name">标签</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Docker Registry地址：地址的格式一般是 &lt;域名/IP&gt;[端口号]。默认地址是 Docker Hub。仓库名是两段式名称,既 &lt;用户名&gt;/&lt;软件名&gt; 。 对于 Docker Hub,如果不给出用户名,则默认为 library ,也就是官方镜像。</p>
-<p>比如</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull ubuntu:<span class="number">14</span>.<span class="number">04</span></span><br></pre></td></tr></table></figure>
+<p>下面的 Ubuntu 22.04 只是与本项目 ROS 环境一致的学习示例，不代表它是“最新 Ubuntu”。<code>pull</code> 会访问网络并占用磁盘；第一次 <code>run</code> 在镜像不存在时也可能触发拉取。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull ubuntu:22.04</span><br></pre></td></tr></table></figure>
 <h2 id="运行">运行</h2>
-<p>有了镜像后,我们就可以以这个镜像为基础启动一个容器来运行。以上面的 ubuntu:14.04 为例,如果我们打算启动里面的 bash 并且进行交互式操作的话,可以执行下面的命令。</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span> <span class="comment">--rm ubuntu:14.04 bash</span></span><br></pre></td></tr></table></figure>
-<p><code>docker run</code> 就是运行容器的命令,-it ：这是两个参数,一个是-i：交互式操作,一个是 -t:终端。–rm ：这个参数是说容器退出后随之将其删除。默认情况下,为了排障需<br>
-求,退出的容器并不会立即删除,除非手动 docker rm 。</p>
+<p>先做一次临时交互：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --<span class="built_in">rm</span> -it ubuntu:22.04 bash</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>-i</code> 保持标准输入，<code>-t</code> 分配终端，<code>--rm</code> 在容器退出后自动删除容器。输入 <code>exit</code> 结束的不是“退出 Docker 软件”，而是结束这次容器的主命令 <code>bash</code>。</p>
+<p>不加 <code>--rm</code> 时，主进程退出后的容器一般会以 stopped 状态保留。<code>docker ps</code> 看运行中的容器，<code>docker ps -a</code> 也看停止的容器。容器不是“只要创建就永远开机”的机器；主进程结束，容器运行也就结束。</p>
 <h2 id="列出镜像">列出镜像</h2>
-<p>要想列出已经下载下来的镜像,可以使用<code>docker images</code>命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker image <span class="built_in">ls</span></span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p>这两条分别查看“材料”和“实例”，不要把镜像列表当作正在运行的服务列表。</p>
 <h3 id="列出部分镜像">列出部分镜像</h3>
-<p>不加任何参数的情况下, docker images 会列出所有顶级镜像,但是有时候我们 只希望列出部分镜像。 docker images 有好几个参数可以帮助做到这个事情。 根据仓库名列出镜像</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker images ubuntu</span></span><br></pre></td></tr></table></figure>
-<p>列出特定的某个镜像,也就是说指定仓库名和标签</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> images ubuntu:<span class="number">16</span>.<span class="number">04</span></span><br></pre></td></tr></table></figure>
-<h1>利用 commit 理解镜像构成</h1>
-<p>镜像是容器的基础,每次执行 <code>docker run</code> 的时候都会指定哪个镜像作为容器运 行的基础。在之前的例子中,我们所使用的都是来自于 Docker Hub 的镜像。直接使用这些镜像是可以满足一定的需求,而当这些镜像无法直接满足需求时,我们就需要定制这些镜像。镜像是多层存储,每一层是在前一层的基础上进行的修改；而容器同样也是多层存储,是在以镜像为基础层,在其基础上加一层作为容器运行时的存储层。</p>
-<p>定制一个 Web 服务器为例子,来讲解镜像是如何构建的。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run --name webserver -d -p <span class="number">80</span>:<span class="number">80</span> nginx</span><br></pre></td></tr></table></figure>
-<p>这条命令会用 <code>nginx</code> 镜像启动一个容器,命名为 webserver ,并且映射了 80 端口,这样我们可以用浏览器去访问这个 nginx 服务器。</p>
-<p>如果是在 Linux 本机运行的 Docker,或者如果使用的是 Docker for Mac、Docker for Windows,那么可以直接访问：<a target="_blank" rel="noopener" href="http://localhost">http://localhost</a>；如果使用的是 Docker Toolbox,或者是在虚拟机、云服务器上安装的 Docker,则需要将 localhost 换为虚拟机地址或者实际云服务器地址。</p>
-<p>当运行一个容器的时候(如果不使用卷的话),做的任何文件修改都会被记录于容器存储层里。而 Docker 提供了一个 docker commit 命令,可以将容器的存储层保存下来成为镜像。换句话说,就是在原有镜像的基础上,再叠加上容器的存储层,并构成新的镜像。以后我们运行这个新镜像的时候,就会拥有原有容器最后的文件变化。</p>
-<p><code>docker commit</code> 的语法格式为：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">docker commit [选项] <span class="tag">&lt;<span class="name">容器ID或容器名</span>&gt;</span> [<span class="tag">&lt;<span class="name">仓库名</span>&gt;</span>[:<span class="tag">&lt;<span class="name">标签</span>&gt;</span>]]</span><br></pre></td></tr></table></figure>
-<p>可以在 docker images 中看到这个新定制的镜像,新的镜像定制好后,可以来运行这个镜像。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run --name web2 -d -p <span class="number">81</span>:<span class="number">80</span> nginx:v2</span><br></pre></td></tr></table></figure>
-<p>这里命名为新的服务为 web2 ,并且映射到 81 端口。如果是 Docker for Mac/Windows 或 Linux 桌面的话,我们就可以直接访问 <a target="_blank" rel="noopener" href="http://localhost:81">http://localhost:81</a> 看到结果,其内容应该和之前修改后的 webserver 一样。</p>
-<p>除当前层外,之前的每一层都是不会发生改变的,换句话说,任何修改的结果仅仅是在当前层进行标记、添 加、修改,而不会改动上一层。如果使用 docker commit 制作镜像,以及后期修改的话,每一次修改都会让镜像更加臃肿一次,所删除的上一层的东西并不会丢失,会一直如影随形的跟着这个镜像,即使根本无法访问到。这会让镜像更加臃肿。</p>
-<p>docker commit 命令除了学习之外,还有一些特殊的应用场合,比如被入侵后保存现场等。但是,不要使用 docker commit 定制镜像,定制行为应该使用 Dockerfile 来完成。</p>
-<h1>运行(windows 下)</h1>
-<p>如何在Windows下运行,可以首先使用docker images看看自己的镜像,然后在powershell里面输入类似的语法即可：</p>
-<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">docker run -it lsqy_ubuntu:laster <span class="comment">//bin/bash</span></span><br></pre></td></tr></table></figure>
-<p>对于喜欢linux风格的,可以在git bash 下输入</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">winpty docker <span class="built_in">run</span> -<span class="keyword">it</span> lsqy_ubuntu:latest bash</span><br></pre></td></tr></table></figure>
-<p>一开始也想通过powershell的方式,输入的,结果报了这样的错误<code>the input device is not a TTY.  If you are using mintty, try prefixing the comma</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker image <span class="built_in">ls</span> ubuntu</span><br><span class="line">docker image <span class="built_in">ls</span> ubuntu:22.04</span><br></pre></td></tr></table></figure>
+<p><code>docker images</code> 是 <code>docker image ls</code> 的常用别名。同一个 Image ID 出现在多个标签下，并不代表完整镜像在磁盘上复制了多份。</p>
 <h1>保存修改后的镜像</h1>
-<p>一开始很费解,为什么在里面安装了一些软件后,比如配置好了一些环境变量,再次打开的时候,发现之前修改的都不存在了。可以将容器打包成镜像,需要指定要提交保存容器的ID,类似于</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> commit <span class="number">214</span>e52618d54 lsqyrobot/lsqy_ubuntu:latest</span><br></pre></td></tr></table></figure>
-<p>这里的<code>214e52618d54</code>就是制定要提交保存的容器ID, 当然,从上面所说的 <code>利用 commit 理解镜像构成</code> 那部分内容,也容易理解为什么做了些修改后,再次重启就不复存在了,这当然有很多好处,比如自己在机器人上开发一些功能,开发后与开发前提升了哪些性能,当然是与开发前相比了,所以每次开机都会恢复成最初的状态,以便于对比和检查更新前后的差别,反复确保没有问题后,方可更新。</p>
+<p>这一节先纠正原文最重要的误解：<strong>同一个容器 stop / start 或 restart，普通可写层里的文件仍然保留；删除容器后再 run，才是另一份实例。</strong> 但内存、进程中的环境变量、仿真会话以及 tmpfs 数据不会因此保留。普通文件与进程状态必须分开看。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/storage/">Docker 存储模型</a>。</p>
+<h2 id="生命周期：到底换了什么">生命周期：到底换了什么</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>是否新容器</th>
+<th>普通可写层文件</th>
+<th>是否自动采用新镜像</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker exec</code></td>
+<td>否，只加一个进程</td>
+<td>保留</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>docker stop</code> 后 <code>docker start</code></td>
+<td>否</td>
+<td>保留</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>docker restart</code></td>
+<td>否</td>
+<td>保留</td>
+<td>否</td>
+</tr>
+<tr>
+<td>再次 <code>docker run</code> 同一镜像</td>
+<td>是</td>
+<td>从镜像起步，不继承旧可写层</td>
+<td>使用这次指定的镜像</td>
+</tr>
+<tr>
+<td><code>docker compose up</code> 触发 recreate</td>
+<td>是</td>
+<td>旧可写层不继承，挂载数据另算</td>
+<td>按解析后的配置和镜像创建</td>
+</tr>
+<tr>
+<td><code>docker run --rm</code> 退出</td>
+<td>该容器被删除</td>
+<td>随容器删除</td>
+<td>不涉及升级</td>
+</tr>
+</tbody>
+</table>
+<p>一个最小练习：以下命令会创建名为 <code>docker-note-lifecycle</code> 的学习容器，先确认没有同名容器；它不使用宿主目录或数据卷。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --name docker-note-lifecycle -it ubuntu:22.04 bash</span><br></pre></td></tr></table></figure>
+<p>在容器内执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> /tmp/docker-note-marker</span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+<p>回到宿主终端，再进入同一个容器：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker start -ai docker-note-lifecycle</span><br></pre></td></tr></table></figure>
+<p>再在容器内运行 <code>ls /tmp/docker-note-marker</code>，文件应仍在。此处 <code>/tmp</code> 是该 Ubuntu 学习容器的普通可写层目录，<strong>没有配置 tmpfs</strong>。不要把这个结果套到本项目显式使用 tmpfs 的 API 容器上。</p>
+<p>用完后先 <code>exit</code>；后面的 commit 练习仍会用到这个停止容器。全部练习结束、确认不需要里面的记录后，再删除这个确切的学习容器即可，不需要全局清理。</p>
+<h2 id="要保存的到底是什么">要保存的到底是什么</h2>
+<ul>
+<li>想保存“以后每次都要装的软件”：写进 Dockerfile，重新构建镜像。</li>
+<li>想保存“源码和配置”：放在版本控制中，按用途 COPY 入镜像或以 bind mount 挂载。</li>
+<li>想保存“程序产生的业务数据”：设计 volume / bind mount，并另外做备份。</li>
+<li>想保留“当前内存中的仿真进度”：需要应用提供导出、序列化或 checkpoint；保存镜像不能代替它。</li>
+</ul>
+<p>在一个 shell 里执行 <code>export SOME_OPTION=value</code>，只改变该进程及其后代环境。它不是 Dockerfile 的 <code>ENV</code>，也不会变成以后所有 <code>docker exec</code> 进程的共同配置。这也是“明明配置过，怎么又不见了”的另一类原因。</p>
+<h1>数据持久化：volume、bind mount、tmpfs</h1>
+<p>目录都长得像 <code>/data</code>，背后的生命周期却可能完全不同：</p>
+<table>
+<thead>
+<tr>
+<th>存放位置</th>
+<th>谁管理</th>
+<th>容器删除后</th>
+<th>适合放什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>容器可写层</td>
+<td>该容器</td>
+<td>一并删除</td>
+<td>可丢弃的小量运行文件</td>
+</tr>
+<tr>
+<td>Named volume</td>
+<td>Docker daemon</td>
+<td>默认仍保留，除非另行删除卷</td>
+<td>需要跨容器重建保留的数据</td>
+</tr>
+<tr>
+<td>Bind mount</td>
+<td>明确的宿主路径</td>
+<td>宿主文件仍在</td>
+<td>源码、输入文件、需要直接查看的输出</td>
+</tr>
+<tr>
+<td>tmpfs</td>
+<td>Linux 内存文件系统</td>
+<td>停止或重启就丢失</td>
+<td>临时中间文件、短期缓存</td>
+</tr>
+</tbody>
+</table>
+<p>卷的生命周期独立于容器；匿名卷虽然也可能保留，但新建容器不会自动找回“上一次那个随机名称”，与 <code>--rm</code> 组合时还有自动删除规则。需要长期关联数据时，把卷显式命名并记录用途。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/storage/volumes/">Docker 官方：卷的生命周期</a>。</p>
+<h2 id="三种挂载的写法">三种挂载的写法</h2>
+<p>下面只展示 <code>docker run</code> 的参数片段，不是需要依次执行的命令：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">--mount type=volume,source=robot-data,target=/data</span><br><span class="line">--mount type=bind,source=/absolute/path/to/dataset,target=/data,readonly</span><br><span class="line">--tmpfs /tmp:rw,nosuid,nodev,size=128m</span><br></pre></td></tr></table></figure>
+<p>路径 <code>/absolute/path/to/dataset</code> 是占位符，必须替换为自己的、已经存在的目录。只读取数据时用 <code>readonly</code>；可写 bind mount 会让容器直接修改宿主文件，容器里删除文件也可能是在删除宿主文件。使用 <code>--mount</code> 挂载不存在的 bind source，默认会报错，能帮助发现路径拼写问题。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/storage/bind-mounts/">Docker 官方：bind mount</a>。</p>
+<p>还要注意三件容易“看起来像丢数据”的事：</p>
+<ol>
+<li>挂载会遮住目标路径原有的内容。例如把空宿主目录挂到 <code>/app</code>，镜像内的程序可能暂时“消失”，并不是被镜像删掉了。</li>
+<li>新空卷挂载到镜像里已有内容的目录时，默认可能复制初始内容到卷中；它不是以后每次镜像升级都同步覆盖卷。</li>
+<li>在 Docker Desktop 下，Docker 管理的卷位于其 Linux 环境中，不应把 <code>docker volume inspect</code> 显示的 Linux 路径，当作 macOS 上可直接打开的普通目录。</li>
+</ol>
+<p>tmpfs 不是备份位置，也不是“数据绝不落盘”的安全保证：宿主配置了 swap 时，内存页面可能被交换到磁盘。它解决的是短生命周期写入，不负责持久化。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/storage/tmpfs/">Docker 官方：tmpfs 限制</a>。</p>
+<h1>利用 commit 理解镜像构成</h1>
+<p>运行容器时，镜像层是基础，上面叠着容器可写层。<code>docker commit</code> 可以把该容器的文件系统变更及部分配置形成一个新镜像，而不改变旧镜像。</p>
+<p>以前面已经退出、仍保留 marker 的学习容器为例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker diff docker-note-lifecycle</span><br><span class="line">docker commit docker-note-lifecycle docker-note-ubuntu:marker</span><br><span class="line">docker run --<span class="built_in">rm</span> docker-note-ubuntu:marker <span class="built_in">test</span> -f /tmp/docker-note-marker</span><br></pre></td></tr></table></figure>
+<p>最后一条命令正常退出且没有输出，表示新镜像确实包含 marker。这里保留 <code>commit</code>，是为了理解“容器可写层可以变成新的镜像层”，不是把它当成长期维护环境的主方法。</p>
+<p>它的边界很重要：</p>
+<ul>
+<li><code>commit</code> <strong>不包含挂载卷里的数据</strong>，也不是进程内存快照。</li>
+<li>对运行中容器执行时，默认会暂停其进程以减少不一致风险，因此它也不是完全无影响的检查操作。</li>
+<li>它难以说明“为什么装了这个包、用了哪个下载地址、手工改过哪些步骤”。发布环境应优先记录 Dockerfile 和可复现的构建输入。<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/container/commit/">Docker 官方：container commit</a>。</li>
+</ul>
+<p>镜像分层还带来一个后果：后续层删除文件，通常只是让合并视图不再显示该文件，不能把旧层里的敏感内容抹掉。密钥不应该先 COPY 进镜像、再靠下一条 RUN 删除；构建时需要凭据，应使用专门的构建 secret 挂载。<a target="_blank" rel="noopener" href="https://docs.docker.com/build/building/secrets/">Docker 官方：构建 secrets</a>。</p>
+<h2 id="commit、save、export-不是一回事">commit、save、export 不是一回事</h2>
+<p><code>commit</code> 是“容器变更 → 新镜像”；<code>docker image save</code> / <code>docker image load</code> 是镜像归档和导入，适合离线搬运镜像；<code>docker container export</code> 是容器文件系统导出，不等于保留镜像层次和完整运行配置，也不包含挂载卷数据。备份数据库或机器人实验数据，仍需单独设计数据备份与恢复校验。<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/image/save/">image save</a>、<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/container/export/">container export</a>。</p>
 <h1>使用 Dockerfile 定制镜像</h1>
-<p>从  <code>docker commit</code> 的学习可以了解到,镜像的定制实际上就是定制每一层所添加的配置、文件。如果我们可以把每一层修改、安装、构建、操作 的命令都写入一个脚本,用这个脚本来构建、定制镜像,那么之前提及的无法重复的问题、镜像构建透明性的问题、体积的问题就都会解决。这个脚本就是 Dockerfile。Dockerfile 是一个文本文件,其内包含了一条条的指令(Instruction),每一条指令构建一层,因此每一条指令的内容,就是描述该层应当如何构建。以 nginx 镜像为例,使用 Dockerfile 来定制。 在一个空白目录中,建立一个文本文件,并命名为 Dockerfile ：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> mynginx</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> mynginx</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">touch</span> Dockerfile</span></span><br></pre></td></tr></table></figure>
-<p>其内容为：</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx <span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&#x27;&lt;h1&gt;Hello, Docker!&lt;/h1&gt;&#x27;</span> &gt; /usr/share/nginx/html/index .html</span></span><br></pre></td></tr></table></figure>
+<p>Dockerfile 描述“构建时怎么得到运行材料”，不是容器启动之后一直执行的安装脚本。</p>
+<h2 id="一个完整的最小例子">一个完整的最小例子</h2>
+<p>在独立学习目录中，用编辑器创建 <code>Dockerfile</code> 和 <code>index.html</code>。不要放进本项目 Docker 服务目录里混着构建。</p>
+<p><code>Dockerfile</code>：</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx:stable</span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> index.html /usr/share/nginx/html/index.html</span></span><br></pre></td></tr></table></figure>
+<p><code>index.html</code>：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Docker 学习页<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, Docker!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>从这个学习目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker build -t docker-note-nginx:v1 .</span><br><span class="line">docker run --<span class="built_in">rm</span> --name docker-note-web -p 127.0.0.1:8080:80 docker-note-nginx:v1</span><br></pre></td></tr></table></figure>
+<p>在本机浏览器打开 <code>http://127.0.0.1:8080</code>。这是前台学习服务，终端按 Ctrl+C 停止后，<code>--rm</code> 会删除这个学习容器。它不是本项目加固后的部署配置。</p>
+<p>原来的 <code>FROM nginx RUN ...</code> 写在同一行不合法；指令应分行。这里使用 <code>COPY</code>，也避免了 shell 引号与文件路径空格造成的混乱。<code>nginx:stable</code> 用于易读演示；正式固定版本时应选择并记录已验证的 digest，且安排后续安全更新。</p>
+<h2 id="常用指令分别发生在什么时候">常用指令分别发生在什么时候</h2>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FROM</code></td>
+<td>选择基础镜像，并开始一个构建阶段</td>
+</tr>
+<tr>
+<td><code>WORKDIR</code></td>
+<td>设置后续指令与默认运行工作目录</td>
+</tr>
+<tr>
+<td><code>COPY</code></td>
+<td>从构建上下文或指定阶段复制文件</td>
+</tr>
+<tr>
+<td><code>RUN</code></td>
+<td>构建时执行命令，例如安装、编译、测试</td>
+</tr>
+<tr>
+<td><code>ARG</code></td>
+<td>构建参数；不自动成为运行容器的环境变量</td>
+</tr>
+<tr>
+<td><code>ENV</code></td>
+<td>配置镜像中的默认环境变量，可在运行时覆盖</td>
+</tr>
+<tr>
+<td><code>USER</code></td>
+<td>设置后续 RUN 和默认运行用户</td>
+</tr>
+<tr>
+<td><code>ENTRYPOINT</code> / <code>CMD</code></td>
+<td>组合定义启动程序和默认参数；不是构建时执行</td>
+</tr>
+<tr>
+<td><code>EXPOSE</code></td>
+<td>记录程序使用的端口，不负责发布宿主端口</td>
+</tr>
+<tr>
+<td><code>HEALTHCHECK</code></td>
+<td>定义容器启动后周期执行的健康探针</td>
+</tr>
+</tbody>
+</table>
+<p>不是每条 Dockerfile 指令都新增一个有文件内容的层，有些改变的是镜像元数据。<code>CMD</code> / <code>ENTRYPOINT</code> 的覆盖行为与 exec / shell 写法有关，需要参数组合时看官方规则，不能只凭“最后一行是什么”来猜。<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/dockerfile/">Dockerfile 指令参考</a>。</p>
+<h2 id="构建上下文与缓存">构建上下文与缓存</h2>
+<p><code>docker build -f docker/mujoco-playground/Dockerfile .</code> 中，<code>-f</code> 指定 Dockerfile；末尾的 <code>.</code> 才是构建上下文。这表示普通 <code>COPY apps/...</code> 从仓库根目录取文件，不是从 Dockerfile 所在目录取文件。</p>
+<p><code>.dockerignore</code> 在文件进入构建上下文前排除不需要的内容；它与 <code>.gitignore</code> 不通用。本项目还使用 Dockerfile 专属的 <code>.dockerignore</code>，不要只检查仓库根目录那一份。既要防止 <code>.git</code>、本地依赖、秘密文件误入，也不能误排除 C++ 测试真正需要的 URDF、CSV 和许可证。<a target="_blank" rel="noopener" href="https://docs.docker.com/build/concepts/context/">Docker 官方：构建上下文与忽略规则</a>。</p>
+<p>缓存可以理解成“输入和指令没有相关变化，就复用上次结果”。实践中，把变化少的依赖安装放在前面，把经常变化的源码复制放在后面，通常更省时间。需要区别：</p>
+<ul>
+<li><code>--no-cache</code>：不复用构建步骤缓存。</li>
+<li><code>--pull</code>：检查并拉取基础镜像的新版本。</li>
+<li>Dockerfile 中相同的下载 URL、未固定的软件包版本，并不保证远端内容永远相同。</li>
+</ul>
+<p>所以“禁用缓存构建了一次”和“从全新基础依赖完整重建过”也不是完全同一份证据。<a target="_blank" rel="noopener" href="https://docs.docker.com/build/building/best-practices/">Docker 官方：构建最佳实践</a>。</p>
+<h2 id="多阶段构建：开发工具不必留在运行镜像">多阶段构建：开发工具不必留在运行镜像</h2>
+<p>本项目 Workbench 的思路是：构建阶段安装 C++ 工具链，编译并执行 CTest；运行阶段只复制两个 CLI、API 程序及必要运行库。MuJoCo 也把模型获取、ONNX Runtime 获取、C++ worker 构建和最终运行阶段分开。</p>
+<p>这样做不只是减小体积，还能明确“运行服务需要什么”。测试夹具、编译器和源码可以参与构建验收，但不必全部随服务运行。<a target="_blank" rel="noopener" href="https://docs.docker.com/build/building/multi-stage/">Docker 官方：多阶段构建</a>。</p>
+<p>注意：构建最终镜像时，中间测试需要位于其实际依赖路径上才会参与构建；孤立地写一个从未被使用的 <code>test</code> 阶段，不等于每次构建都验收，除非另外显式构建该测试目标。复用测试步骤缓存也应如实记录，不要写成刚刚无缓存重跑了一遍。</p>
+<h1>Docker Compose：把“怎么启动”也记录下来</h1>
+<p>Dockerfile 管“造镜像”；Compose 管“用哪些镜像，按什么端口、环境变量、挂载和权限组成服务”。两者互补，不是二选一。</p>
+<p>例如前面的学习目录可以增加 <code>compose.yaml</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">docker-note-nginx:v1</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;127.0.0.1:8080:80&quot;</span></span><br></pre></td></tr></table></figure>
+<p>先停止之前占用 8080 的学习容器，再在该目录运行 <code>docker compose -p docker-note up -d --build</code>。<code>-p docker-note</code> 给学习项目一个独立名称；<code>-d</code> 放到后台。这条命令会创建容器，不是只检查配置。</p>
+<h2 id="build、up、restart-的区别">build、up、restart 的区别</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>核心作用</th>
+<th>不能顺便推断什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker compose config</code></td>
+<td>解析、合并、检查配置</td>
+<td>不代表服务已启动；输出可能含环境变量值</td>
+</tr>
+<tr>
+<td><code>docker compose build</code></td>
+<td>构建服务镜像</td>
+<td>不会自动替换现有容器</td>
+</tr>
+<tr>
+<td><code>docker compose pull</code></td>
+<td>拉取配置引用的镜像</td>
+<td>不会自动替换现有容器</td>
+</tr>
+<tr>
+<td><code>docker compose up -d</code></td>
+<td>创建/启动，并按需重新创建服务</td>
+<td>不等于每次强制重新构建源码</td>
+</tr>
+<tr>
+<td><code>docker compose up -d --build</code></td>
+<td>启动前构建，再按需更新服务</td>
+<td>不等于业务数据已备份</td>
+</tr>
+<tr>
+<td><code>docker compose restart</code></td>
+<td>重启已有服务容器</td>
+<td>不应用刚改的 Compose 环境变量，也不换镜像</td>
+</tr>
+<tr>
+<td><code>docker compose down</code></td>
+<td>停止并移除项目容器与相应网络</td>
+<td>不是普通 restart；容器可写层随之消失</td>
+</tr>
+</tbody>
+</table>
+<p>如果只改了 <code>Dockerfile</code>，随后只执行 <code>restart</code>，程序仍可能使用旧镜像。<code>up</code> 发现配置或镜像变化时会重新创建服务；<code>restart</code> 不会替你应用配置变更。<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/compose/up/">Compose up</a>、<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/compose/restart/">Compose restart</a>。</p>
+<p>对于已经验收、存在于本地的候选镜像，切换时使用 <code>--no-build --pull never</code> 能避免顺手构建或拉取另一份内容；再核对实际容器的 Image ID，才知道自己到底运行了什么。</p>
+<h1>网络：localhost 到底是谁</h1>
+<p><code>127.0.0.1:4020:8000</code> 分成三段：<strong>宿主绑定地址 : 宿主端口 : 容器端口</strong>。本项目 MuJoCo 正是把本机 4020 转到容器 8000。</p>
+<table>
+<thead>
+<tr>
+<th>发起访问的位置</th>
+<th><code>localhost</code> 指向</th>
+<th>本项目例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本机浏览器 / 宿主终端</td>
+<td>这台开发电脑</td>
+<td>访问 <code>127.0.0.1:4020</code></td>
+</tr>
+<tr>
+<td>MuJoCo 容器内部</td>
+<td>该容器自己的网络空间</td>
+<td>健康探针访问 <code>127.0.0.1:8000</code></td>
+</tr>
+<tr>
+<td>另一个普通容器内部</td>
+<td>另一个容器自身</td>
+<td>不能用它的 localhost 当作 MuJoCo</td>
+</tr>
+<tr>
+<td>访问已发布博客的其他读者浏览器</td>
+<td>读者自己的电脑</td>
+<td>不会自动连接作者电脑上的 API</td>
+</tr>
+</tbody>
+</table>
+<p>最后一行尤其重要：Hexo 静态网页发布成功，不等于 Docker 后端也被发布了。本地工具页能连上 4010 / 4020，只说明当前电脑有对应服务。</p>
+<p>容器内服务通常需要监听 <code>0.0.0.0</code>，才能接收端口转发来的连接；宿主发布地址仍可以只绑定 <code>127.0.0.1</code>。这两处 <code>HOST</code> 不是同一层，不能为了“安全”把两边都机械改成 localhost。</p>
+<p><code>-p 8080:80</code> 默认发布到所有宿主接口，可能让局域网甚至更外部访问；本地学习明确写 <code>127.0.0.1:8080:80</code>。loopback 也不是万能防线：Docker 官方记录了旧版本的同网段访问例外，应维护宿主 Docker 版本并核对实际网络边界。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/network/port-publishing/">Docker 官方：端口发布与安全提示</a>。</p>
+<p>同一个 Compose 网络内，服务可以按服务名和容器端口互访；本项目两个后端属于不同 Compose 项目，不能默认认为已在同一网络。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/network/">Docker 网络基础</a>。Docker Desktop 容器访问宿主服务时可使用 <code>host.docker.internal</code>，但目标程序的监听地址和防火墙仍需允许连接，Linux 原生 Engine 的配置也不能照搬。<a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/features/networking/">Docker Desktop 网络说明</a>。</p>
+<h1>我的三个 Docker 环境分别是什么</h1>
+<p>以下是 <strong>2026-09-05 的仓库与验收快照</strong>，不是“Docker 里所有东西都属于 Ubuntu 22.04”。持续维护的详细清单在源码仓库的 <code>docker/README.md</code>，各环境目录还有专项 README / TODO。</p>
+<table>
+<thead>
+<tr>
+<th>环境</th>
+<th>系统与主要内容</th>
+<th>当前边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker/ros2-humble-dev</code></td>
+<td>Ubuntu 22.04、ROS 2 Humble、C/C++、Python、CMake、GDB、Zsh、tmux 等开发工具</td>
+<td>已有构建定义；当前受检 context 尚无对应镜像/容器，不能称已完成构建验收</td>
+</tr>
+<tr>
+<td><code>docker/mujoco-playground</code></td>
+<td>Debian 12、Python 3.12、MuJoCo 3.12、OSMesa、C++ worker、ONNX Runtime CPU</td>
+<td>本机 4020；六机器人模型不等于六个学习控制策略</td>
+</tr>
+<tr>
+<td><code>docker/robotics-workbench</code></td>
+<td>Debian 12、Node 24、动力学与标定/轨迹的两个 C++ CLI</td>
+<td>本机 4010；宿主不必安装这套 C++ 运行环境</td>
+</tr>
+<tr>
+<td>Hexo 静态站点</td>
+<td>宿主机 Node 24 与项目依赖</td>
+<td>不在以上三个计算镜像里</td>
+</tr>
+</tbody>
+</table>
+<p>当天 21:26（Asia/Shanghai），两个 API 按确认过的升级安排切换到通过验收的候选镜像，随后在现役 4020 / 4010 端口复跑功能 smoke 并通过；旧镜像保留 <code>rollback-20260905-2119</code> 标签。这是这次部署的记录，不表示以后看到同名标签就无需重新核对。</p>
+<p>因此，“再加一些计算机视觉笔记”只涉及站点源码；“后端要调用 OpenCV / 深度处理算法”才需要设计对应计算依赖；“读取相机、雷达或者使用 GPU”还要处理设备、驱动、架构和权限。不能只向某个万能 Ubuntu 容器里不停安装软件。</p>
+<h2 id="开发容器与服务容器，安全边界不同">开发容器与服务容器，安全边界不同</h2>
+<p>两个 API 的 Compose 当前使用只读根文件系统、非 root 运行用户、<code>cap_drop: ALL</code>、<code>no-new-privileges</code>、loopback 端口和有限 tmpfs。MuJoCo 有 2 GiB 内存上限；Workbench 尚未设置容器总内存 / CPU 配额。</p>
+<p>只读根文件系统不代表整个容器完全不可写：tmpfs 或单独声明的可写挂载仍可以写。当前两套 API 没有持久数据卷，运行内存中的会话也不会因为保留旧镜像而恢复。</p>
+<p>ROS 开发容器则为了编辑和调试，挂载了可写源码，提供 sudo，并开启调试相关 capabilities、放宽 seccomp。它服务于开发便利，不能直接继承 API 服务“已按同样边界加固”的结论。不要用 <code>--privileged</code> 或挂载 Docker socket 作为不明权限错误的通用修复。</p>
+<h2 id="arm64-通过，不代表-amd64-或真机通过">arm64 通过，不代表 amd64 或真机通过</h2>
+<p>这次本机验证的计算镜像是 Linux / arm64。镜像的 CPU 架构、C++ 二进制架构和 ONNX Runtime 归档必须匹配；macOS arm64 二进制不能直接当作 Linux arm64 二进制使用。</p>
+<p><code>--platform linux/amd64</code> 不是把所有依赖自动变成兼容版本的魔法。多架构可以依赖原生节点、交叉编译或模拟执行，模拟可能显著影响构建和运行性能；本项目原生 amd64 与真实设备验收应单独记录。<a target="_blank" rel="noopener" href="https://docs.docker.com/build/building/multi-platform/">Docker 官方：多平台构建</a>。</p>
+<h1>怎样判断“当前环境稳固”</h1>
+<p>不要把所有绿色状态压成一个“完成”。最好按证据逐层回答：</p>
+<table>
+<thead>
+<tr>
+<th>检查层次</th>
+<th>能说明什么</th>
+<th>不能说明什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dockerfile / Compose 写好了</td>
+<td>配置已有描述</td>
+<td>尚未证明能构建、能启动</td>
+</tr>
+<tr>
+<td>镜像构建成功</td>
+<td>选定构建条件下生成了镜像</td>
+<td>未证明所有功能或全新依赖重建通过</td>
+</tr>
+<tr>
+<td>容器 <code>running</code></td>
+<td>主进程仍存在</td>
+<td>未证明 HTTP 可用</td>
+</tr>
+<tr>
+<td><code>healthy</code></td>
+<td>已配置的健康探针通过</td>
+<td>未证明每个算法、模型与异常恢复正确</td>
+</tr>
+<tr>
+<td>C++ / 协议单测通过</td>
+<td>已列出的断言成立</td>
+<td>未覆盖完整浏览器路径</td>
+</tr>
+<tr>
+<td>API smoke 通过</td>
+<td>指定接口流程可运行</td>
+<td>未证明长期稳定、所有输入正确</td>
+</tr>
+<tr>
+<td>浏览器检查通过</td>
+<td>页面、交互与后端连接可用</td>
+<td>未证明长时间、满负载或真机安全</td>
+</tr>
+</tbody>
+</table>
+<p>本项目的健康检查是短请求；MuJoCo 的真实控制、PNG / MJPEG、watchdog 和 worker 恢复需要额外测试。C++ 工程也要确保 CTest <strong>确实发现并运行了测试</strong>，而不是“零测试、退出码为零”。</p>
+<p>这次验收已经区分了协议回归、真实 MuJoCo 自测、C++ 数值测试与候选 / 现役 API smoke。Workbench 候选还记录了 Docker Hub 超时后复用本地运行基础的构建条件，不能改写成“默认基础镜像从头拉取验证完成”。长期稳定性、浏览器完整回归、原生 amd64 和 ROS 开发镜像构建等仍需按清单继续验收。</p>
+<p><code>healthy</code> 也不等于 Docker 一定会自动修复业务故障；探针状态、进程退出时的 restart policy、应用自己的 worker 恢复机制，是不同层次。本项目两个 API 的 Compose 当前都没有设置自动重启策略，不能把 worker 恢复测试通过当作服务自动重启已验收。<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/dockerfile/#healthcheck">Dockerfile：HEALTHCHECK</a>。</p>
+<h1>日常检查与排障</h1>
+<p>从仓库根目录开始，先看事实，不急着重启：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker context show</span><br><span class="line">docker compose -f docker/mujoco-playground/compose.yaml ps</span><br><span class="line">docker compose -f docker/robotics-workbench/compose.yaml ps</span><br><span class="line">docker compose -f docker/mujoco-playground/compose.yaml logs --<span class="built_in">tail</span> 80 mujoco-api</span><br><span class="line">docker stats --no-stream</span><br></pre></td></tr></table></figure>
+<p>查看镜像配置和实际运行对象是否一致，尤其留意标签相同却 ID 不同：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker image inspect lsqy-mujoco-playground:<span class="built_in">local</span></span><br><span class="line">docker inspect mujoco-playground-mujoco-api-1</span><br></pre></td></tr></table></figure>
+<p>第一条读取镜像的 <code>Id</code>；第二条读取容器的 <code>Image</code>，二者应对应。容器的 <code>State.Health</code>、<code>State.ExitCode</code>、<code>State.OOMKilled</code>、<code>Mounts</code>、<code>HostConfig</code> 则分别帮助检查健康、退出、内存终止、挂载和运行限制。</p>
+<p>完整 <code>inspect</code>、Compose 配置和日志可能带路径、环境变量或业务信息，分享前要脱敏，不要为排障把整份秘密配置贴出去。</p>
+<h2 id="常见现象，先排哪一层">常见现象，先排哪一层</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>优先检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cannot connect to Docker daemon</td>
+<td>Desktop / daemon 是否运行、context 与权限</td>
+</tr>
+<tr>
+<td>改了源码，网页功能没变化</td>
+<td>源码是否 COPY 入镜像、是否重建并 recreate、浏览器是否缓存</td>
+</tr>
+<tr>
+<td>容器 healthy，浏览器请求失败</td>
+<td>浏览器所在电脑、API URL、宿主端口、Origin / CORS</td>
+</tr>
+<tr>
+<td>Permission denied / Read-only file system</td>
+<td>实际用户 UID/GID、目标目录挂载类型、只读配置</td>
+</tr>
+<tr>
+<td>容器突然退出</td>
+<td>日志、退出码、OOMKilled、内存与 PID 限制；不能只凭 137 就断言 OOM</td>
+</tr>
+<tr>
+<td>exec format error</td>
+<td>Linux / macOS 与 arm64 / amd64 是否混用</td>
+</tr>
+<tr>
+<td>构建 COPY 找不到测试文件</td>
+<td>构建上下文、对应 Dockerfile 的 ignore 规则</td>
+</tr>
+<tr>
+<td>拉取镜像超时</td>
+<td>Registry 连接、代理、认证服务；与源码编译错误分开处理</td>
+</tr>
+</tbody>
+</table>
+<p><code>docker exec</code> 是进入已有运行容器启动一个额外进程。它适合读取配置和诊断，不应把现场 <code>apt install</code> 当作修复完成；已经确认的依赖修改要回写 Dockerfile，才能在下次重新创建时保留。</p>
+<h1>升级与回滚：先把退路准备好</h1>
+<p>本项目的 <code>local</code> 是现役引用，<code>hardening-check</code> 是候选引用，二者只是约定的标签名，不自带“稳定”或“已验收”的属性。即使两个标签现在指向同一个 Image ID，以后也可以再次分开。</p>
+<p>安全更新按这个顺序做：</p>
+<ol>
+<li>记录源码版本、构建参数、实际容器 Image ID、端口、挂载与资源限制；明确会中断哪些会话。</li>
+<li>为旧的确切 Image ID 留一个不覆盖的回退标签；必要时额外保存镜像归档。标签不是异机备份。</li>
+<li>用独立候选标签构建，在临时 loopback 端口上验收完整镜像；源码挂载测试与无挂载镜像测试分开记。</li>
+<li>候选通过后再安排切换，把现役引用指向已验收的精确镜像，然后只重新创建目标服务。</li>
+<li>切换后核对容器实际 ID、健康状态、接口功能、安全边界；测试失败则恢复旧引用并重新创建服务。</li>
+<li>数据迁移另做备份和兼容性设计。退回程序镜像，不能自动撤销数据库格式变化，也不能找回已结束的仿真会话。</li>
+</ol>
+<p><strong>不要只移动标签、执行 restart，然后宣布升级完成。</strong> 旧容器仍然关联创建它时的镜像。也不要在候选验收阶段不经确认就对现役服务执行 <code>compose up</code>。</p>
+<p>本文不固化一条带过期镜像 ID 的“万能回滚命令”。具体候选 ID、旧镜像回退标签和本次切换结果，以仓库 <code>docker/README.md</code> 的部署记录为准；执行前还要与本机实际 <code>inspect</code> 对照。</p>
+<h1>清理之前，先知道会删掉什么</h1>
+<p>空间不足先看 <code>docker system df</code>、<code>docker image ls</code>、<code>docker ps -a</code> 和 <code>docker volume ls</code>。旧镜像、停止的学习容器、构建缓存和持久卷不是同一类东西。</p>
+<ul>
+<li>删除容器会删除它的普通可写层，重要文件先导出。</li>
+<li><code>docker compose down</code> 会移除项目容器；加 <code>--volumes</code> / <code>-v</code> 还可能删除项目声明的命名卷及附着的匿名卷，external 卷另有规则。<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/compose/down/">Compose down</a>。</li>
+<li>带 <code>-a</code> 的镜像清理可能删掉没有被容器引用、却专门留着回退的带标签镜像。“暂未运行”不等于“没用”。</li>
+<li>prune 会按对应对象和选项扩大删除范围。先列出、确认归属、核对备份，再删除确切对象；不要把全局 prune 当作日常故障修复按钮。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/manage-resources/pruning/">Docker 官方：清理未使用对象</a>。</li>
+</ul>
+<h1>运行(windows 下)</h1>
+<p>原文中 <code>laster</code> 是拼写错误，不能代替 <code>latest</code>；也不需要普遍把 <code>/bin/bash</code> 写成 <code>//bin/bash</code>。</p>
+<p>在 Docker Desktop 已切换到 Linux 容器且正常运行的前提下，PowerShell / Windows Terminal 可使用：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">docker run <span class="literal">--rm</span> <span class="literal">-it</span> ubuntu:<span class="number">22.04</span> bash</span><br></pre></td></tr></table></figure>
+<p>早年的 Git Bash / mintty 可能出现 <code>the input device is not a TTY</code>，<code>winpty</code> 是那类终端适配问题的历史处理方式，不是所有 Windows Docker 命令都要加的前缀。遇到这个问题，先用 PowerShell 或 Windows Terminal 验证，再区分终端交互与镜像本身的问题。</p>
 <h1>参考</h1>
-<p>[1]  <a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html">Docker 入门教程——阮一峰</a></p>
-<p>[2] 《docker 从入门到实践》–杨宝华等</p>
+<p>正文中的官方链接用于核对现在的 Docker 行为；下面保留最初入门时读过的材料，旧文中的安装命令和默认行为需要结合官方文档再确认：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html">Docker 入门教程——阮一峰（2018）</a>。</li>
+<li>《Docker 从入门到实践》，杨宝华等。</li>
+</ul>
+<p>下次给环境增加内容时，先问自己四句：<strong>它属于哪个服务？构建输入写在哪里？状态保存在哪里？怎样证明新版本能用且可以退回去？</strong> 能答清楚这四句，比记住更多 <code>docker run</code> 参数更有用。</p>
 
                 </div>
             </div>
@@ -868,11 +1129,15 @@
                         } else {
                             var tocList = document.createElement('ul');
                             tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
 
                             tocHeadings.forEach(function (heading) {
                                 var item = document.createElement('li');
                                 var level = parseInt(heading.tagName.slice(1), 10);
                                 item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
 
                                 var anchor = document.createElement('a');
                                 anchor.className = 'post-toc-link';
@@ -886,6 +1151,25 @@
 
                             tocNav.appendChild(tocList);
 
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
                             var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
                             var activeTocLink = null;
                             var activeHeadingId = '';
@@ -896,6 +1180,10 @@
 
                             var keepActiveLinkInView = function (link) {
                                 if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
                                     return;
                                 }
 
@@ -983,8 +1271,17 @@
                                 link.addEventListener('click', function () {
                                     var targetId = link.getAttribute('data-target-id');
                                     updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
                                     scheduleResync();
                                 });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
                             });
 
                             window.addEventListener('scroll', handleScroll, { passive: true });
@@ -1010,7 +1307,7 @@
                         backToTopButton.addEventListener('click', function () {
                             window.scrollTo({
                                 top: 0,
-                                behavior: 'smooth'
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
                             });
                         });
                     }
@@ -1062,7 +1359,7 @@
     </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/3d%E6%89%93%E5%8D%B0/" style="font-size: 10px; color: #f38181">3d打印</a> <a href="/tags/actor-critic/" style="font-size: 10px; color: #f38181">actor-critic</a> <a href="/tags/adaptive-sampling/" style="font-size: 10px; color: #f38181">adaptive sampling</a> <a href="/tags/ai%E8%BE%85%E5%8A%A9%E8%AE%BE%E8%AE%A1/" style="font-size: 10px; color: #f38181">ai辅助设计</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 12px; color: #e09491">algorithms</a> <a href="/tags/anymal/" style="font-size: 12.67px; color: #da9b97">anymal</a> <a href="/tags/apriltag/" style="font-size: 10px; color: #f38181">apriltag</a> <a href="/tags/ardupilot/" style="font-size: 10px; color: #f38181">ardupilot</a> <a href="/tags/atlas/" style="font-size: 10px; color: #f38181">atlas</a> <a href="/tags/attention/" style="font-size: 12px; color: #e09491">attention</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bang-bang/" style="font-size: 10px; color: #f38181">bang-bang</a> <a href="/tags/belief-encoder/" style="font-size: 10px; color: #f38181">belief encoder</a> <a href="/tags/blender/" style="font-size: 10px; color: #f38181">blender</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/cadquery/" style="font-size: 10px; color: #f38181">cadquery</a> <a href="/tags/calibration/" style="font-size: 10px; color: #f38181">calibration</a> <a href="/tags/camera-calibration/" style="font-size: 10px; color: #f38181">camera calibration</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/cnn/" style="font-size: 10px; color: #f38181">cnn</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 14.67px; color: #c7aea7">control</a> <a href="/tags/cpp/" style="font-size: 18px; color: #a8cec3">cpp</a> <a href="/tags/cpu/" style="font-size: 10px; color: #f38181">cpu</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/dagger/" style="font-size: 11.33px; color: #e68e8c">dagger</a> <a href="/tags/data-struct/" style="font-size: 10.67px; color: #ed8786">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth camera</a> <a href="/tags/design-pattern/" style="font-size: 10px; color: #f38181">design-pattern</a> <a href="/tags/direct-collocation/" style="font-size: 10px; color: #f38181">direct collocation</a> <a href="/tags/dots/" style="font-size: 14.67px; color: #c7aea7">dots</a> <a href="/tags/economics/" style="font-size: 10px; color: #f38181">economics</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/elevation-map/" style="font-size: 10.67px; color: #ed8786">elevation map</a> <a href="/tags/factory-pattern/" style="font-size: 10px; color: #f38181">factory-pattern</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/fiducial-marker/" style="font-size: 10px; color: #f38181">fiducial marker</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/finance/" style="font-size: 10px; color: #f38181">finance</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fourier/" style="font-size: 10px; color: #f38181">fourier</a> <a href="/tags/fov/" style="font-size: 10px; color: #f38181">fov</a> <a href="/tags/freecad/" style="font-size: 10px; color: #f38181">freecad</a> <a href="/tags/gae/" style="font-size: 10px; color: #f38181">gae</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/git/" style="font-size: 11.33px; color: #e68e8c">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/gru/" style="font-size: 10px; color: #f38181">gru</a> <a href="/tags/guitar/" style="font-size: 10px; color: #f38181">guitar</a> <a href="/tags/hardware/" style="font-size: 10px; color: #f38181">hardware</a> <a href="/tags/humanoid/" style="font-size: 10px; color: #f38181">humanoid</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/imu/" style="font-size: 10px; color: #f38181">imu</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 14px; color: #cda7a2">isaac gym</a> <a href="/tags/isaac-lab/" style="font-size: 10.67px; color: #ed8786">isaac lab</a> <a href="/tags/isaaclab/" style="font-size: 10.67px; color: #ed8786">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.67px; color: #ed8786">kdl</a> <a href="/tags/laplace/" style="font-size: 10px; color: #f38181">laplace</a> <a href="/tags/latent-variable/" style="font-size: 10px; color: #f38181">latent variable</a> <a href="/tags/latex/" style="font-size: 10.67px; color: #ed8786">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/learning-notes/" style="font-size: 12.67px; color: #da9b97">learning-notes</a> <a href="/tags/legged-locomotion/" style="font-size: 16.67px; color: #b4c1b8">legged locomotion</a> <a href="/tags/legged-robotics/" style="font-size: 10px; color: #f38181">legged robotics</a> <a href="/tags/legged-robot/" style="font-size: 10px; color: #f38181">legged-robot</a> <a href="/tags/legged-gym/" style="font-size: 10px; color: #f38181">legged_gym</a> <a href="/tags/life/" style="font-size: 16px; color: #bbbbb2">life</a> <a href="/tags/linux/" style="font-size: 18.67px; color: #a2d4c8">linux</a> <a href="/tags/linux-kernel/" style="font-size: 10px; color: #f38181">linux-kernel</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 12.67px; color: #da9b97">math</a> <a href="/tags/matlab/" style="font-size: 11.33px; color: #e68e8c">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 14px; color: #cda7a2">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/money/" style="font-size: 10px; color: #f38181">money</a> <a href="/tags/motion-imitation/" style="font-size: 10px; color: #f38181">motion imitation</a> <a href="/tags/motion-control/" style="font-size: 10px; color: #f38181">motion-control</a> <a href="/tags/motor/" style="font-size: 10.67px; color: #ed8786">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/mpc/" style="font-size: 10px; color: #f38181">mpc</a> <a href="/tags/mujoco/" style="font-size: 10.67px; color: #ed8786">mujoco</a> <a href="/tags/music-theory/" style="font-size: 10px; color: #f38181">music-theory</a> <a href="/tags/network/" style="font-size: 10.67px; color: #ed8786">network</a> <a href="/tags/neural-mapping/" style="font-size: 10px; color: #f38181">neural mapping</a> <a href="/tags/ocs2/" style="font-size: 10px; color: #f38181">ocs2</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/openscad/" style="font-size: 10px; color: #f38181">openscad</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/optimal-control/" style="font-size: 10px; color: #f38181">optimal-control</a> <a href="/tags/perceptive-locomotion/" style="font-size: 11.33px; color: #e68e8c">perceptive locomotion</a> <a href="/tags/perf/" style="font-size: 10px; color: #f38181">perf</a> <a href="/tags/performance/" style="font-size: 10px; color: #f38181">performance</a> <a href="/tags/personal-finance/" style="font-size: 10px; color: #f38181">personal-finance</a> <a href="/tags/piano/" style="font-size: 10px; color: #f38181">piano</a> <a href="/tags/pixhawk/" style="font-size: 10px; color: #f38181">pixhawk</a> <a href="/tags/pixhawk-6c/" style="font-size: 12px; color: #e09491">pixhawk 6c</a> <a href="/tags/policy-distillation/" style="font-size: 11.33px; color: #e68e8c">policy distillation</a> <a href="/tags/ppo/" style="font-size: 15.33px; color: #c1b4ad">ppo</a> <a href="/tags/privileged-learning/" style="font-size: 12px; color: #e09491">privileged learning</a> <a href="/tags/profiling/" style="font-size: 10px; color: #f38181">profiling</a> <a href="/tags/px4/" style="font-size: 12px; color: #e09491">px4</a> <a href="/tags/python/" style="font-size: 14.67px; color: #c7aea7">python</a> <a href="/tags/qgroundcontrol/" style="font-size: 12px; color: #e09491">qgroundcontrol</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/quadrotor/" style="font-size: 10.67px; color: #ed8786">quadrotor</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/reinforcement-learning/" style="font-size: 10px; color: #f38181">reinforcement learning</a> <a href="/tags/representation-learning/" style="font-size: 10px; color: #f38181">representation learning</a> <a href="/tags/reward-tuning/" style="font-size: 10.67px; color: #ed8786">reward tuning</a> <a href="/tags/rnn/" style="font-size: 10px; color: #f38181">rnn</a> <a href="/tags/robot/" style="font-size: 12px; color: #e09491">robot</a> <a href="/tags/robot-parkour/" style="font-size: 10px; color: #f38181">robot parkour</a> <a href="/tags/robotics/" style="font-size: 14px; color: #cda7a2">robotics</a> <a href="/tags/ros/" style="font-size: 17.33px; color: #aec7bd">ros</a> <a href="/tags/ros2/" style="font-size: 13.33px; color: #d4a19c">ros2</a> <a href="/tags/rsl-rl/" style="font-size: 10px; color: #f38181">rsl_rl</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/security/" style="font-size: 10px; color: #f38181">security</a> <a href="/tags/shell/" style="font-size: 10.67px; color: #ed8786">shell</a> <a href="/tags/signal-processing/" style="font-size: 10px; color: #f38181">signal-processing</a> <a href="/tags/sim-to-real/" style="font-size: 16px; color: #bbbbb2">sim-to-real</a> <a href="/tags/simulation/" style="font-size: 11.33px; color: #e68e8c">simulation</a> <a href="/tags/socket/" style="font-size: 10px; color: #f38181">socket</a> <a href="/tags/soft-dynamics-constraints/" style="font-size: 10px; color: #f38181">soft dynamics constraints</a> <a href="/tags/spot/" style="font-size: 10px; color: #f38181">spot</a> <a href="/tags/stairs/" style="font-size: 10px; color: #f38181">stairs</a> <a href="/tags/stl/" style="font-size: 11.33px; color: #e68e8c">stl</a> <a href="/tags/stm32/" style="font-size: 10px; color: #f38181">stm32</a> <a href="/tags/tcp-ip/" style="font-size: 10px; color: #f38181">tcp-ip</a> <a href="/tags/teacher-policy/" style="font-size: 10px; color: #f38181">teacher policy</a> <a href="/tags/teacher-student/" style="font-size: 10.67px; color: #ed8786">teacher student</a> <a href="/tags/teacher-student/" style="font-size: 10.67px; color: #ed8786">teacher-student</a> <a href="/tags/temporal-convolution/" style="font-size: 10px; color: #f38181">temporal convolution</a> <a href="/tags/terrain-reconstruction/" style="font-size: 10px; color: #f38181">terrain reconstruction</a> <a href="/tags/thread/" style="font-size: 10.67px; color: #ed8786">thread</a> <a href="/tags/tools/" style="font-size: 18px; color: #a8cec3">tools</a> <a href="/tags/tron1/" style="font-size: 10px; color: #f38181">tron1</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 11.33px; color: #e68e8c">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/uncertainty/" style="font-size: 10px; color: #f38181">uncertainty</a> <a href="/tags/unitree/" style="font-size: 10.67px; color: #ed8786">unitree</a> <a href="/tags/unitree-g1/" style="font-size: 10px; color: #f38181">unitree g1</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/vae/" style="font-size: 10px; color: #f38181">vae</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 12px; color: #e09491">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/wifi/" style="font-size: 10px; color: #f38181">wifi</a> <a href="/tags/wiring/" style="font-size: 10px; color: #f38181">wiring</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/workflow/" style="font-size: 10px; color: #f38181">workflow</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/z-transform/" style="font-size: 10px; color: #f38181">z-transform</a> <a href="/tags/zero-shot-transfer/" style="font-size: 10px; color: #f38181">zero-shot transfer</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BA%BA%E5%BD%A2%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10.67px; color: #ed8786">人形机器人</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%9B%9B%E6%97%8B%E7%BF%BC/" style="font-size: 10px; color: #f38181">四旋翼</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 18.67px; color: #a2d4c8">四足机器人</a> <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%8A%E6%96%AD/" style="font-size: 10px; color: #f38181">实验诊断</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 19.33px; color: #9bdbce">强化学习</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10px; color: #f38181">机器人</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8E%A7%E5%88%B6/" style="font-size: 10.67px; color: #ed8786">机器人控制</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%A7%86%E8%A7%89/" style="font-size: 10px; color: #f38181">机器人视觉</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 10px; color: #f38181">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA/" style="font-size: 10px; color: #f38181">深度相机</a> <a href="/tags/%E7%82%B9%E4%BA%91/" style="font-size: 10px; color: #f38181">点云</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px; color: #f38181">神经网络</a> <a href="/tags/%E8%87%AA%E4%B8%BB%E5%9B%9E%E5%85%85/" style="font-size: 10px; color: #f38181">自主回充</a> <a href="/tags/%E8%88%AA%E6%A8%A1/" style="font-size: 10px; color: #f38181">航模</a> <a href="/tags/%E8%A7%86%E8%A7%89%E5%AE%9A%E4%BD%8D/" style="font-size: 10px; color: #f38181">视觉定位</a> <a href="/tags/%E8%AE%AD%E7%BB%83%E6%9B%B2%E7%BA%BF/" style="font-size: 10px; color: #f38181">训练曲线</a> <a href="/tags/%E8%B6%B3%E5%BC%8F%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10.67px; color: #ed8786">足式机器人</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%B3%95/" style="font-size: 10px; color: #f38181">输入法</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E7%B1%BB/" style="font-size: 10.67px; color: #ed8786">配置类</a> <a href="/tags/%E9%87%87%E8%B4%AD%E8%AE%B0%E5%BD%95/" style="font-size: 10px; color: #f38181">采购记录</a> <a href="/tags/%E9%9F%B3%E4%B9%90/" style="font-size: 10px; color: #f38181">音乐</a> <a href="/tags/%E9%A3%9E%E6%8E%A7/" style="font-size: 13.33px; color: #d4a19c">飞控</a>
+    <a href="/tags/3d%E6%89%93%E5%8D%B0/" style="font-size: 10px; color: #f38181">3d打印</a> <a href="/tags/actor-critic/" style="font-size: 10px; color: #f38181">actor-critic</a> <a href="/tags/adaptive-sampling/" style="font-size: 10px; color: #f38181">adaptive sampling</a> <a href="/tags/ai%E8%BE%85%E5%8A%A9%E8%AE%BE%E8%AE%A1/" style="font-size: 10px; color: #f38181">ai辅助设计</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 12px; color: #e09491">algorithms</a> <a href="/tags/anymal/" style="font-size: 12.67px; color: #da9b97">anymal</a> <a href="/tags/apriltag/" style="font-size: 10px; color: #f38181">apriltag</a> <a href="/tags/ardupilot/" style="font-size: 10px; color: #f38181">ardupilot</a> <a href="/tags/atlas/" style="font-size: 10px; color: #f38181">atlas</a> <a href="/tags/attention/" style="font-size: 12px; color: #e09491">attention</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bang-bang/" style="font-size: 10px; color: #f38181">bang-bang</a> <a href="/tags/belief-encoder/" style="font-size: 10px; color: #f38181">belief encoder</a> <a href="/tags/blender/" style="font-size: 10px; color: #f38181">blender</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/cadquery/" style="font-size: 10px; color: #f38181">cadquery</a> <a href="/tags/calibration/" style="font-size: 10.67px; color: #ed8786">calibration</a> <a href="/tags/camera-calibration/" style="font-size: 10px; color: #f38181">camera calibration</a> <a href="/tags/camera-intrinsics/" style="font-size: 10.67px; color: #ed8786">camera-intrinsics</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/cnn/" style="font-size: 10px; color: #f38181">cnn</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/computer-vision/" style="font-size: 10px; color: #f38181">computer-vision</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 14.67px; color: #c7aea7">control</a> <a href="/tags/controller-manager/" style="font-size: 10px; color: #f38181">controller_manager</a> <a href="/tags/cpp/" style="font-size: 18px; color: #a8cec3">cpp</a> <a href="/tags/cpu/" style="font-size: 10px; color: #f38181">cpu</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/dagger/" style="font-size: 11.33px; color: #e68e8c">dagger</a> <a href="/tags/data-struct/" style="font-size: 10.67px; color: #ed8786">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth camera</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth-camera</a> <a href="/tags/design-pattern/" style="font-size: 10px; color: #f38181">design-pattern</a> <a href="/tags/direct-collocation/" style="font-size: 10px; color: #f38181">direct collocation</a> <a href="/tags/dots/" style="font-size: 14.67px; color: #c7aea7">dots</a> <a href="/tags/dtof/" style="font-size: 10px; color: #f38181">dtof</a> <a href="/tags/economics/" style="font-size: 10px; color: #f38181">economics</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/elevation-map/" style="font-size: 10.67px; color: #ed8786">elevation map</a> <a href="/tags/executor/" style="font-size: 10px; color: #f38181">executor</a> <a href="/tags/factory-pattern/" style="font-size: 10px; color: #f38181">factory-pattern</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/fiducial-marker/" style="font-size: 10px; color: #f38181">fiducial marker</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/finance/" style="font-size: 10px; color: #f38181">finance</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fourier/" style="font-size: 10px; color: #f38181">fourier</a> <a href="/tags/fov/" style="font-size: 10.67px; color: #ed8786">fov</a> <a href="/tags/freecad/" style="font-size: 10px; color: #f38181">freecad</a> <a href="/tags/gae/" style="font-size: 10px; color: #f38181">gae</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/geometry/" style="font-size: 10px; color: #f38181">geometry</a> <a href="/tags/git/" style="font-size: 11.33px; color: #e68e8c">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/gru/" style="font-size: 10px; color: #f38181">gru</a> <a href="/tags/guitar/" style="font-size: 10px; color: #f38181">guitar</a> <a href="/tags/hardware/" style="font-size: 10px; color: #f38181">hardware</a> <a href="/tags/humanoid/" style="font-size: 10px; color: #f38181">humanoid</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/imu/" style="font-size: 10px; color: #f38181">imu</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 14px; color: #cda7a2">isaac gym</a> <a href="/tags/isaac-lab/" style="font-size: 10.67px; color: #ed8786">isaac lab</a> <a href="/tags/isaaclab/" style="font-size: 10.67px; color: #ed8786">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.67px; color: #ed8786">kdl</a> <a href="/tags/laplace/" style="font-size: 10px; color: #f38181">laplace</a> <a href="/tags/latent-variable/" style="font-size: 10px; color: #f38181">latent variable</a> <a href="/tags/latex/" style="font-size: 10.67px; color: #ed8786">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/learning-notes/" style="font-size: 12.67px; color: #da9b97">learning-notes</a> <a href="/tags/legged-locomotion/" style="font-size: 16.67px; color: #b4c1b8">legged locomotion</a> <a href="/tags/legged-robotics/" style="font-size: 10px; color: #f38181">legged robotics</a> <a href="/tags/legged-robot/" style="font-size: 10px; color: #f38181">legged-robot</a> <a href="/tags/legged-gym/" style="font-size: 10px; color: #f38181">legged_gym</a> <a href="/tags/life/" style="font-size: 16px; color: #bbbbb2">life</a> <a href="/tags/linux/" style="font-size: 18.67px; color: #a2d4c8">linux</a> <a href="/tags/linux-kernel/" style="font-size: 10px; color: #f38181">linux-kernel</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 12.67px; color: #da9b97">math</a> <a href="/tags/matlab/" style="font-size: 11.33px; color: #e68e8c">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 14px; color: #cda7a2">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/money/" style="font-size: 10px; color: #f38181">money</a> <a href="/tags/motion-imitation/" style="font-size: 10px; color: #f38181">motion imitation</a> <a href="/tags/motion-control/" style="font-size: 10px; color: #f38181">motion-control</a> <a href="/tags/motor/" style="font-size: 10.67px; color: #ed8786">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/mpc/" style="font-size: 10px; color: #f38181">mpc</a> <a href="/tags/mujoco/" style="font-size: 10.67px; color: #ed8786">mujoco</a> <a href="/tags/music-theory/" style="font-size: 10px; color: #f38181">music-theory</a> <a href="/tags/network/" style="font-size: 10.67px; color: #ed8786">network</a> <a href="/tags/neural-mapping/" style="font-size: 10px; color: #f38181">neural mapping</a> <a href="/tags/ocs2/" style="font-size: 10px; color: #f38181">ocs2</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/openscad/" style="font-size: 10px; color: #f38181">openscad</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/optimal-control/" style="font-size: 10px; color: #f38181">optimal-control</a> <a href="/tags/perceptive-locomotion/" style="font-size: 11.33px; color: #e68e8c">perceptive locomotion</a> <a href="/tags/perf/" style="font-size: 10px; color: #f38181">perf</a> <a href="/tags/performance/" style="font-size: 10px; color: #f38181">performance</a> <a href="/tags/personal-finance/" style="font-size: 10px; color: #f38181">personal-finance</a> <a href="/tags/piano/" style="font-size: 10px; color: #f38181">piano</a> <a href="/tags/pinhole-camera/" style="font-size: 10px; color: #f38181">pinhole-camera</a> <a href="/tags/pinocchio/" style="font-size: 13.33px; color: #d4a19c">pinocchio</a> <a href="/tags/pixhawk/" style="font-size: 10px; color: #f38181">pixhawk</a> <a href="/tags/pixhawk-6c/" style="font-size: 12px; color: #e09491">pixhawk 6c</a> <a href="/tags/point-cloud/" style="font-size: 10px; color: #f38181">point-cloud</a> <a href="/tags/policy-distillation/" style="font-size: 11.33px; color: #e68e8c">policy distillation</a> <a href="/tags/ppo/" style="font-size: 15.33px; color: #c1b4ad">ppo</a> <a href="/tags/privileged-learning/" style="font-size: 12px; color: #e09491">privileged learning</a> <a href="/tags/profiling/" style="font-size: 10px; color: #f38181">profiling</a> <a href="/tags/px4/" style="font-size: 12px; color: #e09491">px4</a> <a href="/tags/python/" style="font-size: 14.67px; color: #c7aea7">python</a> <a href="/tags/qgroundcontrol/" style="font-size: 12px; color: #e09491">qgroundcontrol</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/quadrotor/" style="font-size: 10.67px; color: #ed8786">quadrotor</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/reinforcement-learning/" style="font-size: 10px; color: #f38181">reinforcement learning</a> <a href="/tags/representation-learning/" style="font-size: 10px; color: #f38181">representation learning</a> <a href="/tags/reward-tuning/" style="font-size: 10.67px; color: #ed8786">reward tuning</a> <a href="/tags/rnn/" style="font-size: 10px; color: #f38181">rnn</a> <a href="/tags/robot/" style="font-size: 12px; color: #e09491">robot</a> <a href="/tags/robot-parkour/" style="font-size: 10px; color: #f38181">robot parkour</a> <a href="/tags/robotics/" style="font-size: 15.33px; color: #c1b4ad">robotics</a> <a href="/tags/ros/" style="font-size: 17.33px; color: #aec7bd">ros</a> <a href="/tags/ros2/" style="font-size: 14px; color: #cda7a2">ros2</a> <a href="/tags/ros2-control/" style="font-size: 10px; color: #f38181">ros2_control</a> <a href="/tags/rsl-rl/" style="font-size: 10px; color: #f38181">rsl_rl</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/security/" style="font-size: 10px; color: #f38181">security</a> <a href="/tags/sensor-fusion/" style="font-size: 10px; color: #f38181">sensor-fusion</a> <a href="/tags/shell/" style="font-size: 10.67px; color: #ed8786">shell</a> <a href="/tags/signal-processing/" style="font-size: 10px; color: #f38181">signal-processing</a> <a href="/tags/sim-to-real/" style="font-size: 16px; color: #bbbbb2">sim-to-real</a> <a href="/tags/simulation/" style="font-size: 11.33px; color: #e68e8c">simulation</a> <a href="/tags/socket/" style="font-size: 10px; color: #f38181">socket</a> <a href="/tags/soft-dynamics-constraints/" style="font-size: 10px; color: #f38181">soft dynamics constraints</a> <a href="/tags/spot/" style="font-size: 10px; color: #f38181">spot</a> <a href="/tags/stairs/" style="font-size: 10px; color: #f38181">stairs</a> <a href="/tags/stl/" style="font-size: 11.33px; color: #e68e8c">stl</a> <a href="/tags/stm32/" style="font-size: 10px; color: #f38181">stm32</a> <a href="/tags/tcp-ip/" style="font-size: 10px; color: #f38181">tcp-ip</a> <a href="/tags/teacher-policy/" style="font-size: 10px; color: #f38181">teacher policy</a> <a href="/tags/teacher-student/" style="font-size: 10.67px; color: #ed8786">teacher student</a> <a href="/tags/teacher-student/" style="font-size: 10.67px; color: #ed8786">teacher-student</a> <a href="/tags/temporal-convolution/" style="font-size: 10px; color: #f38181">temporal convolution</a> <a href="/tags/terrain-reconstruction/" style="font-size: 10px; color: #f38181">terrain reconstruction</a> <a href="/tags/thread/" style="font-size: 10.67px; color: #ed8786">thread</a> <a href="/tags/tools/" style="font-size: 18px; color: #a8cec3">tools</a> <a href="/tags/tron1/" style="font-size: 10px; color: #f38181">tron1</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 11.33px; color: #e68e8c">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/uncertainty/" style="font-size: 10px; color: #f38181">uncertainty</a> <a href="/tags/unitree/" style="font-size: 10.67px; color: #ed8786">unitree</a> <a href="/tags/unitree-g1/" style="font-size: 10px; color: #f38181">unitree g1</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/vae/" style="font-size: 10px; color: #f38181">vae</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 12px; color: #e09491">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/wifi/" style="font-size: 10px; color: #f38181">wifi</a> <a href="/tags/wiring/" style="font-size: 10px; color: #f38181">wiring</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/workflow/" style="font-size: 10px; color: #f38181">workflow</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/z-transform/" style="font-size: 10px; color: #f38181">z-transform</a> <a href="/tags/zero-shot-transfer/" style="font-size: 10px; color: #f38181">zero-shot transfer</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BA%BA%E5%BD%A2%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10.67px; color: #ed8786">人形机器人</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">动力学</a> <a href="/tags/%E5%9B%9B%E6%97%8B%E7%BF%BC/" style="font-size: 10px; color: #f38181">四旋翼</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 18.67px; color: #a2d4c8">四足机器人</a> <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%8A%E6%96%AD/" style="font-size: 10px; color: #f38181">实验诊断</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 19.33px; color: #9bdbce">强化学习</a> <a href="/tags/%E6%8E%A5%E8%A7%A6%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">接触动力学</a> <a href="/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/" style="font-size: 10px; color: #f38181">数值计算</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10px; color: #f38181">机器人</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8E%A7%E5%88%B6/" style="font-size: 10.67px; color: #ed8786">机器人控制</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%A7%86%E8%A7%89/" style="font-size: 10px; color: #f38181">机器人视觉</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E6%B5%AE%E5%8A%A8%E5%9F%BA/" style="font-size: 13.33px; color: #d4a19c">浮动基</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 10px; color: #f38181">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA/" style="font-size: 10px; color: #f38181">深度相机</a> <a href="/tags/%E7%82%B9%E4%BA%91/" style="font-size: 10px; color: #f38181">点云</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a>
 </div>
 
 

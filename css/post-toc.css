@@ -1,0 +1,147 @@
+/* Article-only navigation. A real grid column reserves space for the TOC;
+ * widening a fixed rail outside the old centered #main would cover the text.
+ */
+#wrapper.post-page-wrapper {
+  /* clip, unlike hidden, does not create a scroll container that traps sticky. */
+  overflow: visible;
+  overflow-x: clip;
+}
+
+/* Override the theme's #main > * padding without giving display a stronger
+ * selector than the desktop grid rule below. Keep both display rules scoped
+ * consistently so the sidebar always has its own column when it is sticky.
+ */
+#main.post-page-main > .post-content-shell { padding: 0; }
+.post-page-main .post-content-shell { display: block; }
+.post-page-main .post-toc-sidebar {
+  display: block;
+  position: static;
+  inset: auto;
+  width: auto;
+  min-width: 0;
+  max-height: none;
+  margin: 20px 20px 0;
+  overflow: visible;
+  z-index: auto;
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.post-page-main .post-toc-sidebar[hidden] { display: none !important; }
+.post-page-main .post-toc-card {
+  display: block;
+  padding: 0;
+  border: 1px solid #dce4e7;
+  border-radius: 8px;
+  background: #f8fafb;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.post-page-main .post-toc-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  margin: 0;
+  padding: 12px 14px;
+  color: #263b46;
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: normal;
+  list-style: none;
+  cursor: pointer;
+}
+.post-page-main .post-toc-title::-webkit-details-marker { display: none; }
+.post-page-main .post-toc-toggle-label { color: #657780; font-size: 12px; font-weight: 400; }
+.post-page-main .post-toc-toggle-label::after { content: "展开 ＋"; }
+.post-page-main .post-toc-card[open] .post-toc-toggle-label::after { content: "收起 −"; }
+.post-page-main .post-toc-nav {
+  min-height: 0;
+  max-height: min(52vh, 420px);
+  padding: 0 8px 4px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #aebfc7 transparent;
+}
+.post-page-main .post-toc-list { margin: 0; padding: 0; list-style: none; }
+.post-page-main .post-toc-item { margin: 0; padding: 0; }
+.post-page-main .post-toc-item[data-depth="1"] { padding-left: 12px; }
+.post-page-main .post-toc-item[data-depth="2"] { padding-left: 24px; }
+.post-page-main .post-toc-link {
+  display: block;
+  min-width: 0;
+  margin: 2px 0;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 4px;
+  color: #4b606b;
+  font: inherit;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: normal;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  text-decoration: none;
+  transform: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.post-page-main .post-toc-link:hover { background: #eaf0f4; color: #254d64; transform: none; }
+.post-page-main .post-toc-link.is-active {
+  background: #e3f0f5;
+  color: #125879;
+  font-weight: 500;
+  box-shadow: inset 3px 0 0 #3786a9;
+}
+.post-page-main .post-toc-top-button {
+  display: block;
+  position: static;
+  width: auto;
+  max-width: calc(100% - 24px);
+  height: auto;
+  min-height: 36px;
+  margin: 8px 12px 12px auto;
+  padding: 6px 10px;
+  border: 1px solid #d2dee4;
+  border-radius: 4px;
+  background: #fff;
+  color: #4c6675;
+  box-shadow: none;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-transform: none;
+  cursor: pointer;
+  transform: none;
+}
+.post-page-main .post-toc-top-button:hover { background: #eaf0f4; color: #254d64 !important; box-shadow: none; transform: none; }
+.post-page-main :is(.post-toc-title, .post-toc-nav, .post-toc-link, .post-toc-top-button):focus-visible { outline: 2px solid #3786a9; outline-offset: 2px; }
+
+@media (min-width: 1180px) {
+  #main.post-page-main.has-post-toc,
+  #wrapper.post-page-wrapper.has-post-toc > #nav {
+    width: calc(100% - 48px);
+    max-width: calc(72rem + 340px);
+  }
+  .post-page-main .post-content-shell.has-post-toc {
+    display: grid;
+    grid-template-columns: calc(clamp(280px, 22vw, 320px) + 20px) minmax(0, 1fr);
+    align-items: start;
+  }
+  .post-page-main .post-toc-sidebar {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    margin: 24px 0 24px 20px;
+  }
+  .post-page-main .post-toc-nav {
+    max-height: calc(100vh - 160px);
+    max-height: calc(100dvh - 160px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-page-main .post-toc-link { transition: none; }
+}
