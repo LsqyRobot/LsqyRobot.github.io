@@ -1,0 +1,148 @@
+/* Replace the original picture lettering with selectable, animated text. */
+body.home-hero-page { background: #000; }
+body.home-hero-page::before { display: none; }
+
+#intro.home-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    margin: 0;
+    padding: clamp(56px, 7vh, 100px) 4vw 30px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+    pointer-events: auto;
+}
+
+#intro.home-hero .intro-text { width: 100%; max-width: 1320px; }
+#intro.home-hero h1 {
+    margin: 0 0 clamp(48px, 9vh, 110px);
+    color: #fff;
+    font-family: "Xingkai SC", "STXingkai", "Kaiti SC", "STKaiti", "KaiTi", serif;
+    font-size: clamp(38px, 6.2vw, 88px);
+    font-weight: 400;
+    letter-spacing: .12em;
+    line-height: 1.4;
+    text-transform: none;
+    white-space: nowrap;
+}
+#intro.home-hero .intro-character { display: inline-block; white-space: pre; }
+#intro.home-hero .intro-quote { margin: 0; }
+
+#intro.home-hero .intro-quote-line {
+    margin: 0;
+    color: #fff;
+    font-family: "Snell Roundhand", "Savoye LET", "Apple Chancery", "Brush Script MT", cursive;
+    font-size: clamp(26px, 3.5vw, 51px);
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.7;
+    text-align: center;
+    overflow-wrap: break-word;
+}
+#intro.home-hero .intro-quote-line + .intro-quote-line { margin-top: 15px; }
+#intro.home-hero .intro-quote cite {
+    display: inline-block;
+    margin-left: 14px;
+    color: inherit;
+    font: inherit;
+    white-space: nowrap;
+}
+
+#intro.home-hero .intro-motto { margin: 20px auto 0; width: fit-content; max-width: 100%; }
+#intro.home-hero .intro-motto p {
+    margin: 0;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(29px, 5.3vw, 78px);
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: -.035em;
+    text-align: center;
+}
+#intro.home-hero .intro-motto p > span { display: inline-block; white-space: nowrap; }
+#intro.home-hero .intro-motto cite {
+    display: block;
+    margin: 4px 8px 0 0;
+    color: #aaa;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(18px, 2.5vw, 36px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: right;
+}
+
+#intro.home-hero .intro-continue {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 78px;
+    height: 78px;
+    margin: 20px 0 0;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color .2s;
+}
+#intro.home-hero .intro-continue:hover { color: #fff !important; background: #ffffff18; }
+#intro.home-hero .intro-replay {
+    display: block;
+    min-height: 36px;
+    height: auto;
+    margin: 8px 0 0;
+    padding: 6px 12px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    color: #aaa !important;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+#intro.home-hero .intro-replay[hidden] { display: none; }
+#intro.home-hero .intro-replay:hover { box-shadow: none; color: #fff !important; }
+#intro.home-hero a:focus-visible,
+#intro.home-hero button:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+
+/* Neutralize the old image intro's overlapping header and loading fade. */
+#intro.home-hero + #header { margin-top: 0; height: 12rem; padding-bottom: 5rem; }
+#intro.home-hero + #header .logo { opacity: 1; visibility: visible; transform: none; }
+body.is-loading #intro.home-hero,
+body.is-loading #intro.home-hero + #header + #nav { opacity: 1; transform: none; }
+.home-hero-page #wrapper.fade-in::before { display: none; }
+
+@media (max-width: 736px) {
+    #intro.home-hero { padding: 76px 20px 24px; }
+    #intro.home-hero h1 { margin-bottom: 46px; font-size: clamp(34px, 8.5vw, 60px); letter-spacing: .08em; }
+    #intro.home-hero .intro-quote-line { font-size: clamp(26px, 4.8vw, 35px); line-height: 1.55; }
+    #intro.home-hero .intro-quote-line + .intro-quote-line { margin-top: 20px; }
+    #intro.home-hero .intro-quote cite { margin-left: 8px; }
+    #intro.home-hero .intro-motto { margin-top: 28px; }
+    #intro.home-hero .intro-motto p { font-size: clamp(29px, 5.3vw, 39px); line-height: 1.35; }
+    #intro.home-hero .intro-motto cite { margin-top: 8px; font-size: 18px; }
+    #intro.home-hero .intro-continue { width: 62px; height: 62px; margin-top: 28px; }
+    #intro.home-hero + #header { height: 10rem; padding-bottom: 4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #intro.home-hero *, #intro.home-hero *::before, #intro.home-hero *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

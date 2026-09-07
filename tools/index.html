@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="lsqyRobot 的机器人学在线工具集：参数标定、动力学辨识、URDF 预览与模型检查。">
+  <meta name="description" content="lsqyRobot 的机器人学在线工具集：参数标定、动力学辨识、URDF 预览、轨迹规划与 Docker MuJoCo 回放。">
   <title>Robotics Workbench · 工具集</title>
   <link rel="icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="/css/toolkit.css">
@@ -29,10 +29,10 @@
       <div>
         <span class="rt-kicker">Personal robotics utilities</span>
         <h1>把重复工作，<br>变成可复用工具。</h1>
-        <p>这里收纳机器人建模、标定、辨识、轨迹与可视化过程中反复使用的小工具。Hexo 主站承载界面与笔记，URDF 预览直接在浏览器本地运行；标定、辨识和轨迹规划则调用 Docker 在 4010 端口提供的 C++ 计算服务。</p>
+        <p>这里收纳机器人建模、标定、辨识、轨迹与可视化过程中反复使用的小工具。Hexo 主站承载界面与笔记；标定、辨识和轨迹规划调用 Docker :4010 的 C++ 服务，MuJoCo 模型与无头回放由独立的 Docker :4020 服务完成。</p>
       </div>
       <div class="rt-index-count" aria-label="当前工具数量">
-        <strong>06</strong>
+        <strong>07</strong>
         <span>workbench tools</span>
       </div>
     </section>
@@ -44,6 +44,7 @@
       <button class="rt-filter-button" type="button" data-tool-filter="planning" aria-pressed="false">轨迹</button>
       <button class="rt-filter-button" type="button" data-tool-filter="modeling" aria-pressed="false">建模</button>
       <button class="rt-filter-button" type="button" data-tool-filter="visualization" aria-pressed="false">可视化</button>
+      <button class="rt-filter-button" type="button" data-tool-filter="simulation" aria-pressed="false">仿真</button>
     </div>
 
     <section class="rt-tool-grid" aria-label="工具列表">
@@ -124,6 +125,19 @@
         </div>
         <span class="rt-tool-card-arrow" aria-hidden="true">↗</span>
       </a>
+
+      <a class="rt-tool-card" href="/tools/mujoco-playground/" data-tool-categories="simulation dynamics visualization modeling">
+        <div class="rt-tool-card-top">
+          <span class="rt-tool-card-number">TOOL / 07</span>
+          <span class="rt-tool-card-state">DOCKER :4020</span>
+        </div>
+        <div class="rt-tool-card-body">
+          <h2>MuJoCo 模型与回放</h2>
+          <p>从容器内常用四足、人形和机械臂 MJCF 模型库选择机器人，由 Docker 持续执行接触动力学与 CPU 无头渲染，并把实时画面投射到网页。</p>
+          <div class="rt-tool-card-tags"><span>MuJoCo 3.12</span><span>Menagerie</span><span>Live MJPEG</span></div>
+        </div>
+        <span class="rt-tool-card-arrow" aria-hidden="true">↗</span>
+      </a>
     </section>
 
     <section class="rt-roadmap" aria-labelledby="collection-roadmap-title">
@@ -133,9 +147,9 @@
       </div>
       <ol class="rt-roadmap-list">
         <li><span>页面、字段与数据契约</span><small>ready</small></li>
-        <li><span>动力学辨识与运动学标定 C++ 内核</span><small>current</small></li>
-        <li><span>模型导出、轴线误差与真实测量适配</span><small>next</small></li>
-        <li><span>版本记录与高级物理约束</span><small>planned</small></li>
+        <li><span>动力学辨识、标定与 MuJoCo 容器回放</span><small>current</small></li>
+        <li><span>策略 / 轨迹上传与实时传感器曲线</span><small>next</small></li>
+        <li><span>双向控制通道、多路传感器与高级物理约束</span><small>planned</small></li>
       </ol>
     </section>
 
