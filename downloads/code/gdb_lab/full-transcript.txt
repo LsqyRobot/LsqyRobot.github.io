@@ -1,0 +1,275 @@
+===== conditional =====
+LAB STEP 0 BEGIN
+LAB COMMAND: break check_output if actual != expected
+Breakpoint 1 at 0x1560: file /lab/debug_lab.cpp, line 18.
+LAB STEP 0 END
+LAB STEP 1 BEGIN
+LAB COMMAND: run
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, check_output (tick=tick@entry=3, expected=expected@entry=20, actual=-20) at /lab/debug_lab.cpp:18
+18	    asm volatile("" : : "r"(tick), "r"(expected), "r"(actual) : "memory");
+LAB STEP 1 END
+LAB STEP 2 BEGIN
+LAB COMMAND: info args
+tick = 3
+expected = 20
+actual = -20
+LAB COMMAND: bt 3
+#0  check_output (tick=tick@entry=3, expected=expected@entry=20, actual=-20) at /lab/debug_lab.cpp:18
+#1  0x0000aaaaaaaa15b0 in conditional_case () at /lab/debug_lab.cpp:31
+#2  0x0000aaaaaaaa1954 in main (argc=2, argv=<optimized out>) at /lab/debug_lab.cpp:84
+LAB STEP 2 END
+LAB STEP 3 BEGIN
+LAB COMMAND: up
+#1  0x0000aaaaaaaa15b0 in conditional_case () at /lab/debug_lab.cpp:31
+31	        check_output(tick, 20, actual);
+LAB COMMAND: list
+26	
+27	NOINLINE void conditional_case() {
+28	    for (int tick = 0; tick < 6; ++tick) {
+29	        const int demand = 10;
+30	        const int actual = apply_gain(tick, demand);
+31	        check_output(tick, 20, actual);
+32	    }
+33	}
+34	
+35	NOINLINE void watch_checkpoint() { asm volatile("" ::: "memory"); }
+LAB STEP 3 END
+
+===== watchpoint =====
+LAB STEP 0 BEGIN
+LAB COMMAND: break watch_checkpoint
+Breakpoint 1 at 0x15c8: file /lab/debug_lab.cpp, line 35.
+LAB COMMAND: run
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, watch_checkpoint () at /lab/debug_lab.cpp:35
+35	NOINLINE void watch_checkpoint() { asm volatile("" ::: "memory"); }
+LAB COMMAND: watch -l account.balance
+Hardware watchpoint 2: -location account.balance
+LAB STEP 0 END
+LAB STEP 1 BEGIN
+LAB COMMAND: continue
+
+Hardware watchpoint 2: -location account.balance
+
+Old value = 100
+New value = 125
+0x0000aaaaaaaa15dc in apply_deposit (amount=amount@entry=25) at /lab/debug_lab.cpp:36
+36	NOINLINE void apply_deposit(int amount) { account.balance += amount; }
+LAB STEP 1 END
+LAB STEP 2 BEGIN
+LAB COMMAND: continue
+
+Hardware watchpoint 2: -location account.balance
+
+Old value = 125
+New value = -999
+0x0000aaaaaaaa15ec in buggy_fee () at /lab/debug_lab.cpp:37
+37	NOINLINE void buggy_fee() { account.balance = -999; }  // Wrong business write.
+LAB STEP 2 END
+LAB STEP 3 BEGIN
+LAB COMMAND: bt 3
+#0  0x0000aaaaaaaa15ec in buggy_fee () at /lab/debug_lab.cpp:37
+#1  0x0000aaaaaaaa1608 in watchpoint_case () at /lab/debug_lab.cpp:41
+#2  0x0000aaaaaaaa1960 in main (argc=2, argv=<optimized out>) at /lab/debug_lab.cpp:85
+LAB COMMAND: print account.balance
+$1 = -999
+LAB STEP 3 END
+
+===== threads =====
+LAB STEP 0 BEGIN
+LAB COMMAND: break threads_checkpoint
+Breakpoint 1 at 0x1610: file /lab/debug_lab.cpp, line 56.
+LAB COMMAND: run
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+[New Thread 0xfffff7b0f100 (LWP 66)]
+[New Thread 0xfffff72ff100 (LWP 67)]
+
+Thread 1 "debug_lab" hit Breakpoint 1, threads_checkpoint () at /lab/debug_lab.cpp:56
+56	NOINLINE void threads_checkpoint() { asm volatile("" ::: "memory"); }
+LAB STEP 0 END
+LAB STEP 1 BEGIN
+LAB COMMAND: info threads
+  Id   Target Id                                  Frame 
+* 1    Thread 0xfffff7ff1a20 (LWP 64) "debug_lab" threads_checkpoint () at /lab/debug_lab.cpp:56
+  2    Thread 0xfffff7b0f100 (LWP 66) "debug_lab" 0x0000fffff7c2cba8 in ?? () from /lib/aarch64-linux-gnu/libc.so.6
+  3    Thread 0xfffff72ff100 (LWP 67) "debug_lab" 0x0000fffff7c2cba8 in ?? () from /lib/aarch64-linux-gnu/libc.so.6
+LAB STEP 1 END
+LAB STEP 2 BEGIN
+LAB COMMAND: thread apply all bt 8
+
+Thread 3 (Thread 0xfffff72ff100 (LWP 67) "debug_lab"):
+#0  0x0000fffff7c2cba8 in ?? () from /lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fffff7c2f6c4 in pthread_cond_wait () from /lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000aaaaaaaa149c in std::condition_variable::wait<wait_for_job(int)::<lambda()> > (__p=<optimized out>, __lock=@0xfffff72fe7b8: {_M_device = 0xaaaaaaab3030 <queue_mutex>, _M_owns = true}, this=0xaaaaaaab3068 <queue_ready>) at /usr/include/c++/11/condition_variable:103
+#3  wait_for_job (worker_id=2) at /lab/debug_lab.cpp:52
+#4  0x0000aaaaaaaa19d0 in std::__invoke_impl<void, void (*)(int), int> (__f=<optimized out>) at /usr/include/c++/11/bits/invoke.h:61
+#5  std::__invoke<void (*)(int), int> (__fn=<optimized out>) at /usr/include/c++/11/bits/invoke.h:96
+#6  std::thread::_Invoker<std::tuple<void (*)(int), int> >::_M_invoke<0ul, 1ul> (this=<optimized out>) at /usr/include/c++/11/bits/std_thread.h:259
+#7  std::thread::_Invoker<std::tuple<void (*)(int), int> >::operator() (this=<optimized out>) at /usr/include/c++/11/bits/std_thread.h:266
+
+Thread 2 (Thread 0xfffff7b0f100 (LWP 66) "debug_lab"):
+#0  0x0000fffff7c2cba8 in ?? () from /lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fffff7c2f6c4 in pthread_cond_wait () from /lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000aaaaaaaa149c in std::condition_variable::wait<wait_for_job(int)::<lambda()> > (__p=<optimized out>, __lock=@0xfffff7b0e7b8: {_M_device = 0xaaaaaaab3030 <queue_mutex>, _M_owns = true}, this=0xaaaaaaab3068 <queue_ready>) at /usr/include/c++/11/condition_variable:103
+#3  wait_for_job (worker_id=1) at /lab/debug_lab.cpp:52
+#4  0x0000aaaaaaaa19d0 in std::__invoke_impl<void, void (*)(int), int> (__f=<optimized out>) at /usr/include/c++/11/bits/invoke.h:61
+#5  std::__invoke<void (*)(int), int> (__fn=<optimized out>) at /usr/include/c++/11/bits/invoke.h:96
+#6  std::thread::_Invoker<std::tuple<void (*)(int), int> >::_M_invoke<0ul, 1ul> (this=<optimized out>) at /usr/include/c++/11/bits/std_thread.h:259
+#7  std::thread::_Invoker<std::tuple<void (*)(int), int> >::operator() (this=<optimized out>) at /usr/include/c++/11/bits/std_thread.h:266
+
+Thread 1 (Thread 0xfffff7ff1a20 (LWP 64) "debug_lab"):
+#0  threads_checkpoint () at /lab/debug_lab.cpp:56
+#1  0x0000aaaaaaaa1828 in threads_case () at /lab/debug_lab.cpp:62
+#2  0x0000aaaaaaaa196c in main (argc=2, argv=<optimized out>) at /lab/debug_lab.cpp:86
+LAB STEP 2 END
+LAB STEP 3 BEGIN
+LAB COMMAND: print waiting_workers
+$1 = std::atomic<int> = { 2 }
+LAB COMMAND: print release_workers
+$2 = false
+LAB STEP 3 END
+
+===== exception =====
+LAB STEP 0 BEGIN
+LAB COMMAND: catch throw
+Catchpoint 1 (throw)
+LAB STEP 0 END
+LAB STEP 1 BEGIN
+LAB COMMAND: run
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+
+Catchpoint 1 (exception thrown), 0x0000fffff7e32e4c in __cxa_throw () from /lib/aarch64-linux-gnu/libstdc++.so.6
+LAB STEP 1 END
+LAB STEP 2 BEGIN
+LAB COMMAND: bt 4
+#0  0x0000fffff7e32e4c in __cxa_throw () from /lib/aarch64-linux-gnu/libstdc++.so.6
+#1  0x0000aaaaaaaa1658 in parse_duration (seconds=seconds@entry=-1) at /lab/debug_lab.cpp:70
+#2  0x0000aaaaaaaa167c in exception_case () at /lab/debug_lab.cpp:75
+#3  0x0000aaaaaaaa1978 in main (argc=2, argv=<optimized out>) at /lab/debug_lab.cpp:87
+LAB COMMAND: up
+#1  0x0000aaaaaaaa1658 in parse_duration (seconds=seconds@entry=-1) at /lab/debug_lab.cpp:70
+70	    if (seconds < 0) throw std::runtime_error("negative trajectory duration");
+LAB COMMAND: info args
+seconds = -1
+LAB STEP 2 END
+LAB STEP 3 BEGIN
+LAB COMMAND: continue
+[Inferior 1 (process 78) exited normally]
+LAB STEP 3 END
+
+===== core =====
+LAB STEP 0 BEGIN
+LAB COMMAND: run
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+
+Program received signal SIGSEGV, Segmentation fault.
+store_target (target=target@entry=0x0, command=command@entry=47) at /lab/debug_lab.cpp:79
+79	NOINLINE void store_target(int* target, int command) { *target = command; }
+LAB STEP 0 END
+LAB STEP 1 BEGIN
+LAB COMMAND: bt 3
+#0  store_target (target=target@entry=0x0, command=command@entry=47) at /lab/debug_lab.cpp:79
+#1  0x0000aaaaaaaa16b8 in core_case () at /lab/debug_lab.cpp:80
+#2  0x0000aaaaaaaa1948 in main (argc=2, argv=<optimized out>) at /lab/debug_lab.cpp:88
+LAB COMMAND: info args
+target = 0x0
+command = 47
+LAB STEP 1 END
+LAB STEP 2 BEGIN
+LAB COMMAND: generate-core-file /work/out/crash.core
+warning: target file /proc/90/cmdline contained unexpected null characters
+Saved corefile /work/out/crash.core
+LAB COMMAND: kill
+[Inferior 1 (process 90) killed]
+LAB STEP 2 END
+LAB STEP 3 BEGIN
+LAB COMMAND: core-file /work/out/crash.core
+[New LWP 90]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+Core was generated by `/work/debug_lab core'.
+Program terminated with signal SIGSEGV, Segmentation fault.
+#0  store_target (target=target@entry=0x0, command=command@entry=47) at /lab/debug_lab.cpp:79
+79	NOINLINE void store_target(int* target, int command) { *target = command; }
+LAB COMMAND: bt 3
+#0  store_target (target=target@entry=0x0, command=command@entry=47) at /lab/debug_lab.cpp:79
+#1  0x0000aaaaaaaa16b8 in core_case () at /lab/debug_lab.cpp:80
+#2  0x0000aaaaaaaa1948 in main (argc=2, argv=<optimized out>) at /lab/debug_lab.cpp:88
+LAB COMMAND: info args
+target = 0x0
+command = 47
+LAB STEP 3 END
+
+===== python =====
+LAB STEP 0 BEGIN
+LAB COMMAND: source /lab/python_breakpoint.py
+Breakpoint 1 at 0x1560: file /lab/debug_lab.cpp, line 18.
+LAB STEP 0 END
+LAB STEP 1 BEGIN
+LAB COMMAND: run
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+Python filter accepted: tick=3, actual=-20
+
+Breakpoint 1, check_output (tick=tick@entry=3, expected=expected@entry=20, actual=-20) at /lab/debug_lab.cpp:18
+18	    asm volatile("" : : "r"(tick), "r"(expected), "r"(actual) : "memory");
+LAB STEP 1 END
+LAB STEP 2 BEGIN
+LAB COMMAND: info args
+tick = 3
+expected = 20
+actual = -20
+LAB COMMAND: bt 3
+#0  check_output (tick=tick@entry=3, expected=expected@entry=20, actual=-20) at /lab/debug_lab.cpp:18
+#1  0x0000aaaaaaaa15b0 in conditional_case () at /lab/debug_lab.cpp:31
+#2  0x0000aaaaaaaa1954 in main (argc=2, argv=<optimized out>) at /lab/debug_lab.cpp:84
+LAB STEP 2 END
+
+===== reverse =====
+LAB STEP 0 BEGIN
+LAB COMMAND: break reverse_begin
+Breakpoint 1 at 0x714: file /lab/reverse_demo.cpp, line 3.
+LAB COMMAND: break reverse_end
+Breakpoint 2 at 0x71c: file /lab/reverse_demo.cpp, line 4.
+LAB COMMAND: run
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, reverse_begin () at /lab/reverse_demo.cpp:3
+3	__attribute__((noinline)) void reverse_begin() { asm volatile("" ::: "memory"); }
+LAB COMMAND: finish
+main () at /lab/reverse_demo.cpp:7
+7	    counter = 1;
+LAB STEP 0 END
+LAB STEP 1 BEGIN
+LAB COMMAND: record full
+LAB STEP 1 END
+LAB STEP 2 BEGIN
+LAB COMMAND: continue
+
+Breakpoint 2, reverse_end () at /lab/reverse_demo.cpp:4
+4	__attribute__((noinline)) void reverse_end() { asm volatile("" ::: "memory"); }
+LAB COMMAND: print counter
+$1 = 2
+LAB STEP 2 END
+LAB STEP 3 BEGIN
+LAB COMMAND: reverse-next
+main () at /lab/reverse_demo.cpp:9
+9	    reverse_end();
+LAB COMMAND: print counter
+$2 = 2
+LAB STEP 3 END
+LAB STEP 4 BEGIN
+LAB COMMAND: reverse-next
+8	    counter = 2;
+LAB COMMAND: print counter
+$3 = 1
+LAB STEP 4 END

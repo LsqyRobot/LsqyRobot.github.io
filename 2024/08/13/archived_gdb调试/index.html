@@ -29,8 +29,9 @@
     </style>
 
 	
-	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260905-no-tag-sphere" />
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
 	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
 	
 	
 	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
@@ -39,7 +40,7 @@
 	<link rel="stylesheet" href="/css/prism_coy.css" />
 	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
 	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
-	<link rel="stylesheet" href="/css/post-toc.css?v=20260906-wide-2" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
 	
 	
 	
@@ -166,12 +167,10 @@
     <script src="/js/util.js"></script>
     <script src="/js/main.js"></script>
     
-    <script src="/js/dytitle.js"></script>
-    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
-    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
-    <script type="text/javascript" src="/js/fireworks.js"></script>
+    
+    
+    
     <script src="/js/codeBlockFuction.js"></script>
-    <script src="/js/cursor-heart.js"></script>
     
 
 	
@@ -179,7 +178,7 @@
 		
 
 
-<body class="is-loading">
+<body class="reading-page">
 	
 	<div
 		id="readingProgress"
@@ -199,7 +198,7 @@
 		<span class="reading-progress-label" aria-hidden="true">0%</span>
 	</div>
 	
-    <div id="wrapper" class="fade-in post-page-wrapper">
+    <div id="wrapper" class="post-page-wrapper">
         <header id="header">
     <a href="/" class="logo">
         <span id="typewriter-text"></span>
@@ -416,182 +415,371 @@
                 </aside>
 
                 <div class="typo post-article-content">
-                    <!-- vim-markdown-toc GFM -->
-<pre><code>	* [编译时启用调试信息](#编译时启用调试信息)
-	* [使用断点（Breakpoints）](#使用断点breakpoints)
-	* [运行和继续执行程序](#运行和继续执行程序)
-	* [检查变量值和内存](#检查变量值和内存)
-	* [逐行调试](#逐行调试)
-	* [查看调用栈](#查看调用栈)
-	* [导航调用栈](#导航调用栈)
-	* [修改变量值](#修改变量值)
-	* [使用 Watchpoints](#使用-watchpoints)
-	* [记录与回放（Reverse Debugging）](#记录与回放reverse-debugging)
-	* [自动化脚本（GDB 脚本）](#自动化脚本gdb-脚本)
-	* [使用 TUI 模式](#使用-tui-模式)
-	* [记录调试日志](#记录调试日志)
-	* [使用 GDB GUI 前端](#使用-gdb-gui-前端)
-	* [GDB 与 Valgrind 联合使用](#gdb-与-valgrind-联合使用)
-</code></pre>
+                    <p>GDB 最有价值的地方，不是把 <code>printf</code> 换成 <code>print</code>，而是把一个很大的问题缩成一个可以验证的命题：<strong>哪次输入第一次违反约束？谁最后写坏了这个状态？当前线程到底在等谁？崩溃现场和我手里的源码是不是同一个版本？</strong></p>
+<p>这次在原笔记上补成一条实战路线：先建立调试现场，再用条件断点和观察点找原因，接着处理异常、多线程和离线 core，最后把重复分析做成脚本，并迁移到 ROS 2 工程。</p>
+<p>本文保留原文章地址和历史章节锚点。侧边目录就是导航，不再放一份手写目录占据正文。</p>
+<h2 id="先看实验与边界">先看实验与边界</h2>
+<p>示例程序故意包含几个彼此独立的小问题，避免直接在几万行机器人代码里练习所有命令：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>要回答的问题</th>
+<th>关键工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conditional</code></td>
+<td>六次输出中，哪一次符号反了？</td>
+<td>条件断点、参数、调用栈</td>
+</tr>
+<tr>
+<td><code>watchpoint</code></td>
+<td>余额在何处被写成了错误值？</td>
+<td>硬件观察点、写入位置</td>
+</tr>
+<tr>
+<td><code>threads</code></td>
+<td>工作线程为什么都不再推进？</td>
+<td>所有线程栈、等待条件</td>
+</tr>
+<tr>
+<td><code>exception</code></td>
+<td>异常被上层吞掉之前在哪里抛出？</td>
+<td><code>catch throw</code>、<code>up</code></td>
+</tr>
+<tr>
+<td><code>core</code></td>
+<td>进程不在了，还能看到什么？</td>
+<td>core、符号、源码映射</td>
+</tr>
+<tr>
+<td>Python 过滤</td>
+<td>能否让断点自动筛出异常状态？</td>
+<td>GDB Python API</td>
+</tr>
+<tr>
+<td><code>reverse</code></td>
+<td>能否回到前一次整数写入？</td>
+<td><code>record full</code>、反向单步</td>
+</tr>
+</tbody>
+</table>
+<p>操作动画来自实验命令的真实输出，经过取舍、分帧和排版，<strong>属于教学动画，不是桌面录屏</strong>。地址、进程号和线程号会随运行变化，不应该拿 GIF 中的地址作为自己的命令参数。静态说明包含同样的关键结论；系统开启减少动态效果时显示静态图片。</p>
+<p>实验材料：<a href="/downloads/code/gdb_lab/debug_lab.cpp">源码</a>、<a href="/downloads/code/gdb_lab/README.md">复现说明</a>、<a href="/downloads/code/gdb_lab/recorded-sessions.json">会话记录</a>、<a href="/downloads/code/gdb_lab/validation.json">验证状态</a>。判断某项是否在当前机器上跑通，以验证状态和原始记录为准。文中的远程调试、ROS 2、rr、Sanitizer 等工程扩展不是这几个小实验的测试覆盖范围。</p>
+<p>本次记录环境为 ARM64 / Ubuntu 22.04 / GDB 12.1，上述七组实验的 18 项断言通过。这个结论只覆盖随文程序与记录中的命令，不等于所有高级功能、其他架构或所有实际工程都已测试。</p>
+<h3 id="使用隔离环境">使用隔离环境</h3>
+<p>在网站源码仓库根目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash docker/gdb-lab/run.sh build</span><br><span class="line">bash docker/gdb-lab/run.sh <span class="built_in">test</span></span><br><span class="line">bash docker/gdb-lab/run.sh shell</span><br></pre></td></tr></table></figure>
+<p>前两步构建 Ubuntu 22.04 实验镜像并执行检查；第三步进入交互容器。源码只读挂载到 <code>/lab</code>，临时可执行文件放在 <code>/work</code>，测试输出保存在宿主机的 <code>build/gdb-lab/</code>。</p>
+<p>进入交互容器后，先编译本文的主实验：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">g++ -std=c++17 -g3 -Og -fno-omit-frame-pointer \</span><br><span class="line">  -pthread /lab/debug_lab.cpp -o /work/debug_lab</span><br></pre></td></tr></table></figure>
+<p>每个实验建议重新启动一个 GDB 会话，避免上个实验的断点、观察点和参数残留。<code>--nx</code> 不加载个人初始化文件，使复现不依赖某个人的 <code>.gdbinit</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb --quiet --nx --args /work/debug_lab conditional</span><br></pre></td></tr></table></figure>
+<p>容器为 <code>ptrace</code> 调试显式放开了相应权限，但无网络、无宿主 PID 共享、无 Docker socket 挂载。这里的权限组合是临时教学环境的选择，不要直接复制到生产服务。实验程序会故意挂起、抛异常或触发空指针崩溃，只在隔离容器内运行。</p>
+<h2 id="符号与现场">符号与现场</h2>
+<p><span id="编译时启用调试信息"></span></p>
+<h3 id="为什么已经有源码，还需要-g">为什么已经有源码，还需要 -g</h3>
+<p>CPU 执行的是机器指令，不知道哪一行是 <code>controller.update()</code>。调试信息把指令地址关联回源文件、行号、类型、变量位置等信息。它不是把源码解释执行，也不是一个“所有变量永远可见”的保证。</p>
+<p>三个常用构建目标要分开：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 本文实验：保留调试信息，同时进行适合调试的优化</span></span><br><span class="line">g++ -g3 -Og -fno-omit-frame-pointer \</span><br><span class="line">  -pthread /lab/debug_lab.cpp -o /work/debug_lab</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对照实验：更直观地观察逐行/逐指令对应关系</span></span><br><span class="line">g++ -g3 -O0 -fno-omit-frame-pointer \</span><br><span class="line">  -pthread /lab/debug_lab.cpp -o /work/debug_lab_o0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接近发布行为：保留优化，也保留调试信息</span></span><br><span class="line">g++ -g -O2 -pthread \</span><br><span class="line">  /lab/debug_lab.cpp -o /work/debug_lab_o2</span><br></pre></td></tr></table></figure>
+<p><code>-g3</code> 比通常的 <code>-g</code> 多保留宏等信息；<code>-Og</code> 面向编辑—编译—调试循环。GCC 明确建议在没有其他优化选项时考虑 <code>-Og</code> 配合 <code>-g</code>，不能简单认定 <code>-O0</code> 在所有方面都更适合调试。<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html">GCC 调试选项</a></p>
+<p>对于实验，<code>-O0</code> 很适合减少初学者看到的行号跳跃；对于只在发布构建出现的问题，应该保留出问题的优化条件。把 <code>-O2</code> 改成 <code>-O0</code> 后问题消失，只说明复现条件改变了，不等于找到了原因。</p>
+<p>看到 <code>&lt;optimized out&gt;</code> 时，可能是变量已经被消除、合并，或者在当前位置没有可用的位置描述。看到“下一步跳过了某行”，可能是多行共享指令、内联或重排。先记录编译参数，再看 <code>disassemble /s</code>，不要立即归因于 GDB 出错。</p>
+<h3 id="先确认调试的是哪一个文件">先确认调试的是哪一个文件</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">show version</span><br><span class="line">info files</span><br><span class="line">info source</span><br><span class="line">info sharedlibrary</span><br><span class="line">show args</span><br><span class="line">show environment LD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
+<p>一个常见错位是：修改了 <code>build/</code> 里的程序，却启动了 <code>install/</code> 里另一份程序；或者可执行文件正确，但加载了旧版本共享库。源码窗口出现熟悉的文件名，并不能证明二进制和源码一致。</p>
+<p>在容器或 CI 中，还应记录编译器、GDB、标准库、目标架构、构建提交和实际编译命令。本文实验把这些信息写入实验产物，后续迁移时优先比较这些事实，而不是只比较“都是 Ubuntu 22.04”。</p>
+<p><span id="运行和继续执行程序"></span><br>
+<span id="逐行调试"></span></p>
+<h3 id="建立最小操作闭环">建立最小操作闭环</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">start</span><br><span class="line">list</span><br><span class="line">next</span><br><span class="line">step</span><br><span class="line">finish</span><br><span class="line">continue</span><br></pre></td></tr></table></figure>
+<p><code>start</code> 启动并在 <code>main</code> 附近停住；<code>next</code> 推进当前栈帧的一行，<code>step</code> 尝试进入可调试的被调用函数，<code>finish</code> 运行到当前函数返回，<code>continue</code> 则继续到下一个停止事件。这些都是“运行程序”，不是静态浏览代码。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Continuing-and-Stepping.html">GDB 继续与单步</a></p>
+<p>在当前停止状态下，源代码高亮行通常指即将执行的语句。观察赋值结果时，先确认该语句有没有执行，必要时再 <code>next</code> 一次。</p>
+<p>特别注意：<code>frame</code> 是改变观察视角，<code>next</code> 才会推进执行；两者不是同一类操作。在并发程序里，<code>next</code> 也不等于“整个进程只有这一行发生变化”，后面的线程章节会解释。</p>
+<h2 id="只停在异常那一次">只停在异常那一次</h2>
+<p><span id="使用断点（Breakpoints）"></span></p>
+<h3 id="实验：找出反号输出">实验：找出反号输出</h3>
+<p>程序在六次循环中都向 <code>check_output(tick, expected, actual)</code> 传入结果，但只有一次实际值与期望值不一致。先不要逐行跟六遍循环，直接把业务约束写成断点条件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb --quiet --nx --args /work/debug_lab conditional</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">break check_output if actual != expected</span><br><span class="line">run</span><br><span class="line">info args</span><br><span class="line">bt</span><br><span class="line">up</span><br><span class="line">list</span><br></pre></td></tr></table></figure>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/18_CPP/gdb/conditional.png">
+  <img src="/img/postImg/18_CPP/gdb/conditional.gif" alt="GDB 条件断点跳过正常循环，在实际输出与期望值不同时查看参数和调用栈" width="960" height="600" loading="lazy">
+</picture>
+<p><a href="/img/postImg/18_CPP/gdb/conditional.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/gdb_lab/recorded-sessions.json">完整会话</a></p>
+<p>观察重点是 <code>tick</code>、<code>expected</code>、<code>actual</code> 三个参数，而不是断点编号。示例在 <code>tick == 3</code> 时反转输出符号，因此应检查到期望值 <code>20</code> 与实际值 <code>-20</code> 的差异；随后顺着调用方回看 <code>apply_gain</code> 的输入和分支。这是“先定位违反约束的时刻，再向上找原因”的流程。</p>
+<p>条件表达式必须在断点位置可见。在 <code>main</code> 上写 <code>actual &lt; 0</code> 没有意义，因为这个局部参数不属于 <code>main</code> 的作用域。表达式最好只读取简单状态，避免在条件里调用有副作用、可能加锁的业务函数。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Conditions.html">GDB 条件断点</a></p>
+<h3 id="将断点变成有策略的探针">将断点变成有策略的探针</h3>
+<p>下面是独立的用法，不需要全部叠加到同一个会话；示例中的断点编号 <code>1</code> 以 <code>info breakpoints</code> 实际输出为准：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">info breakpoints</span><br><span class="line">condition 1 tick == 3</span><br><span class="line">condition 1</span><br><span class="line">ignore 1 100</span><br><span class="line">disable 1</span><br><span class="line">enable 1</span><br><span class="line">delete 1</span><br></pre></td></tr></table></figure>
+<p><code>condition 1</code> 不带表达式会清掉条件。<code>ignore 1 100</code> 是忽略接下来的 100 次命中，不是“第 100 帧才命中”；有 ignore 计数时，条件不会像平常一样逐次判断。程序重启、调用频率变化之后，次数也未必对应同一个业务时刻。</p>
+<p>一次性停车点、函数族和晚加载插件则适合下面这些策略：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tbreak check_output</span><br><span class="line">rbreak ^apply_</span><br><span class="line">set breakpoint pending on</span><br><span class="line">break &#x27;RobotController::update&#x27;</span><br><span class="line">info breakpoints</span><br></pre></td></tr></table></figure>
+<p><code>tbreak</code> 命中一次后自动删除；<code>rbreak</code> 用正则匹配函数名，可能创建很多断点；pending 断点允许符号暂未加载，适合 <code>dlopen</code>、pluginlib 等场景，但函数名写错也可能一直 pending。因此插件加载后必须再次检查解析状态，而不是把 <code>&lt;PENDING&gt;</code> 当成已成功。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Set-Breaks.html">GDB 设置断点</a></p>
+<p><code>rbreak</code> 不会像 pending 单个断点那样自动代表所有未来才出现的函数集合。模板、重载和内联函数还可能对应多个位置，要用 <code>info breakpoints</code> 看清最终设置在哪里。</p>
+<h3 id="不重新编译，临时补日志">不重新编译，临时补日志</h3>
+<p>在一个新的 <code>conditional</code> 会话中，设置断点后立即定义命令列表：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">break check_output</span><br><span class="line">commands</span><br><span class="line">  silent</span><br><span class="line">  printf &quot;tick=%d expected=%d actual=%d\n&quot;, tick, expected, actual</span><br><span class="line">  continue</span><br><span class="line">end</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<p><code>commands</code> 不写编号时针对最后创建的断点。<code>silent</code> 必须在命令列表开头；<code>continue</code> 会恢复程序，因此放在它后面的列表命令不会按直觉继续执行。这个例子会自动记录每次输出，再自动放行。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Break-Commands.html">GDB 断点命令列表</a></p>
+<p>只需要一条格式化日志时，可用更短的动态打印：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set dprintf-style gdb</span><br><span class="line">dprintf check_output,&quot;tick=%d actual=%d\n&quot;,tick,actual</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<p>这里显式选用由 GDB 打印的模式。<code>dprintf</code> 不是免费的在线埋点：它仍可能通过断点与调试器往返影响运行时序，尤其是远程、高频控制循环。其他打印模式和目标端代理支持也有额外条件，不能把这个命令等同于无暂停 tracing。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Dynamic-Printf.html">GDB Dynamic Printf</a></p>
+<h2 id="找到谁写坏了状态">找到谁写坏了状态</h2>
+<p><span id="使用-Watchpoints"></span></p>
+<h3 id="实验：余额为什么突然变负">实验：余额为什么突然变负</h3>
+<p><code>watchpoint</code> 模式先把余额从 <code>100</code> 加到 <code>125</code>，随后某个函数错误地写入 <code>-999</code>。这里故意使用合法地址上的错误业务写入，不是依赖未定义行为的数组越界。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb --quiet --nx --args /work/debug_lab watchpoint</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">break watch_checkpoint</span><br><span class="line">run</span><br><span class="line">print account.balance</span><br><span class="line">watch -location account.balance</span><br><span class="line">continue</span><br><span class="line">bt</span><br><span class="line">continue</span><br><span class="line">bt</span><br></pre></td></tr></table></figure>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/18_CPP/gdb/watchpoint.png">
+  <img src="/img/postImg/18_CPP/gdb/watchpoint.gif" alt="GDB 观察余额地址，先识别正常入账，再停在把余额改成负数的错误写入" width="960" height="600" loading="lazy">
+</picture>
+<p><a href="/img/postImg/18_CPP/gdb/watchpoint.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/gdb_lab/recorded-sessions.json">完整会话</a></p>
+<p>第一次变化是正常入账，第二次变化才是要追踪的错误。观察点的关键价值在于：<strong>先知道“哪个状态坏了”，不必先猜“哪个函数写坏了它”</strong>。停住之后再看写入附近的指令、源码和调用栈，错误写入路径就具体了。</p>
+<h3 id="三种观察点不能混为一谈">三种观察点不能混为一谈</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">watch account.balance</span><br><span class="line">rwatch account.balance</span><br><span class="line">awatch account.balance</span><br><span class="line">info watchpoints</span><br></pre></td></tr></table></figure>
+<p><code>watch</code> 关心写入后表达式的值变化；<code>rwatch</code> 关心读取；<code>awatch</code> 关心读或写。写入相同数值通常不会表现成 <code>watch</code> 所关心的值变化。后两种需要目标支持硬件观察点，不能假设软件回退能模拟它们。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Set-Watchpoints.html">GDB 观察点</a></p>
+<h3 id="地址与生命周期才是难点">地址与生命周期才是难点</h3>
+<p>假设当前函数里有 <code>State* state</code>，并且已经确认它指向有效对象，可以这样固定要看的内存位置：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">print state</span><br><span class="line">print *state</span><br><span class="line">set $watched = &amp;state-&gt;mode</span><br><span class="line">watch -location *$watched</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>$watched</code> 是 GDB 的便利变量，不是给程序新增的 C++ 变量。<code>watch state</code> 看的是指针本身；<code>watch *state</code> 看的是它指向的对象；<code>watch -location state-&gt;mode</code> 则固定当前求值所得字段地址。三个问题并不相同。</p>
+<p>固定地址不代表延长对象寿命。对象销毁、<code>vector</code> 扩容、内存池复用后，那个地址可能已属于另一个对象；局部变量离开作用域也可能让普通表达式观察点失效。再次 <code>run</code> 后还要重新建立依赖局部对象的观察点。</p>
+<p>硬件观察点的数量、可覆盖宽度和对齐约束依目标而异。一个大结构体可能需要多个硬件资源；软件观察点通过频繁单步比较值，代价很大，对多线程也有明显限制。如果继续运行时报无法插入观察点，先缩小范围和数量，不要直接开启更宽的权限。</p>
+<p>对于机器人状态，优先盯住真正的异常字段，例如 <code>mode</code>、<code>sequence</code>、<code>valid</code> 或某个元素，通常比盯住整个大型矩阵更有用。观察点回答“哪次写入”，但不会自动证明这次写入在业务上不该发生；这个判断仍来自你的约束。</p>
+<h2 id="读懂栈和对象">读懂栈和对象</h2>
+<p><span id="查看调用栈"></span><br>
+<span id="导航调用栈"></span></p>
+<h3 id="栈帧是观察上下文">栈帧是观察上下文</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bt</span><br><span class="line">bt full</span><br><span class="line">frame 0</span><br><span class="line">info args</span><br><span class="line">info locals</span><br><span class="line">up</span><br><span class="line">down</span><br></pre></td></tr></table></figure>
+<p><code>#0</code> 是当前执行位置，<code>#1</code> 是它的调用者，编号向更外层增加。崩溃发生在 <code>memcpy</code> 或标准库内部，不意味着标准库就是根因；应继续看业务调用者传入了什么参数。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Backtrace.html">GDB Backtrace</a></p>
+<p>切换到 <code>frame 2</code> 后，<code>info locals</code> 和 <code>print</code> 按第 2 帧的作用域解释名字；它不会把程序退回到两次函数调用之前。同名的 <code>state</code> 在不同栈帧里可能是不同对象。</p>
+<p>调用栈也不是执行历史：已经返回的函数通常不在栈上。看到的只有当前仍未返回的调用链，要追踪先前的写入需要观察点、日志或事先开启的记录回放。</p>
+<p><span id="检查变量值和内存"></span></p>
+<h3 id="从语义对象到原始字节">从语义对象到原始字节</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">print account</span><br><span class="line">ptype /o Account</span><br><span class="line">print sizeof(Account)</span><br><span class="line">print &amp;account.balance</span><br><span class="line">x/1dw &amp;account.balance</span><br><span class="line">x/4xb &amp;account.balance</span><br></pre></td></tr></table></figure>
+<p><code>print</code> 按类型解释对象；<code>ptype /o</code> 帮助查看布局和偏移；<code>x</code> 直接查看内存。<code>x/4xb</code> 表示四个字节、十六进制，<code>x/1dw</code> 表示一个 word、十进制。这里 GDB 的 <code>w</code> 是四字节单位，不是“当前 CPU 字长”。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html">GDB 检查内存</a></p>
+<p>对于已确认有效的数组指针 <code>samples</code>，<code>print *samples@8</code> 可查看连续八个元素；但不能因此证明分配了八个元素。类型转换只影响调试器如何解释地址，不会修复无效指针。</p>
+<p>遇到看似合理、实际上很异常的浮点值，还要核对单位、坐标系、更新时间和数组尺寸。GDB 能告诉你“这里是 57.3”，不会自动告诉你本该使用弧度还是角度。</p>
+<h3 id="STL-和-Eigen-不必一直看内部指针">STL 和 Eigen 不必一直看内部指针</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set print pretty on</span><br><span class="line">set print elements 24</span><br><span class="line">info pretty-printer</span><br><span class="line">info auto-load python-scripts</span><br></pre></td></tr></table></figure>
+<p>发行版的 libstdc++ 调试支持通常包含 Python pretty-printer，可以把 <code>std::vector</code>、<code>std::map</code> 等内部布局转换为可读内容。先检查是否已经加载，再决定是否配置匹配当前标准库版本的打印器，不要从不同 GCC 版本随意复制一份。<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/libstdc++/manual/debug.html">libstdc++ 调试支持</a></p>
+<p>Eigen、自定义消息和业务状态也可使用适配其版本的 pretty-printer；未加载时，先看 <code>ptype</code>、维度和实际数据布局，别默认所有矩阵都行主序。打印器是可执行的 Python 扩展，不是纯显示配置。</p>
+<p>如果 GDB 因安全路径拒绝自动加载脚本，应审查脚本并只信任所需目录。不要为图省事设置“整个文件系统都是安全路径”。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Auto_002dloading-safe-path.html">GDB 自动加载安全路径</a></p>
+<p><span id="修改变量值"></span></p>
+<h3 id="临时修改用于验证假设">临时修改用于验证假设</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set variable account.balance = 125</span><br><span class="line">print account.balance</span><br></pre></td></tr></table></figure>
+<p><code>set variable</code> 能临时改变被调试程序的状态，适合验证“如果这个字段正常，后续路径会不会恢复”。它不修改源码，也不能代替修复和回归测试；还可能绕过对象不变量和同步机制。</p>
+<p>类似 <code>print object.refresh()</code> 的表达式可能真的调用目标函数，引起 I/O、分配、加锁甚至异常。看起来是在“打印”，实际上已经干预现场。优先读取字段；确需调用时，明确其副作用，特别不要在死锁现场随意调用需要锁的方法。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Calling.html">GDB 调用程序函数</a></p>
+<h2 id="在异常被吞掉前停住">在异常被吞掉前停住</h2>
+<h3 id="实验：向负时长追溯">实验：向负时长追溯</h3>
+<p><code>exception</code> 模式向 <code>parse_duration</code> 传入负数；函数抛出异常，上层却捕获后什么也不做。只观察进程退出码或最后一行日志，很容易错过真正的错误入口。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb --quiet --nx --args /work/debug_lab exception</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">catch throw</span><br><span class="line">run</span><br><span class="line">bt</span><br><span class="line">up</span><br><span class="line">info args</span><br><span class="line">list</span><br></pre></td></tr></table></figure>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/18_CPP/gdb/exception.png">
+  <img src="/img/postImg/18_CPP/gdb/exception.gif" alt="GDB 在 C++ 抛出异常时停止，返回业务栈帧查看负数时长参数" width="960" height="600" loading="lazy">
+</picture>
+<p><a href="/img/postImg/18_CPP/gdb/exception.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/gdb_lab/recorded-sessions.json">完整会话</a></p>
+<p>通常会先停在异常运行库中，再通过 <code>bt</code> 找业务帧、用 <code>up</code> 或 <code>frame</code> 切换。不要机械记住业务函数永远是 <code>frame 1</code>，不同编译器和库版本可能有不同的中间层。</p>
+<p><code>catch throw</code> 关心“开始抛出”，<code>catch catch</code> 关心“被捕获”，<code>catch rethrow</code> 关心“重新抛出”。异常类型正则过滤和 <code>$_exception</code> 依赖 C++ ABI 及运行库探针支持，且异常便利变量有效期有限，不宜当成各平台通用接口。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Set-Catchpoints.html">GDB Catchpoints</a></p>
+<p>在实际工程中，有些异常是正常控制流程。第一次用 <code>catch throw</code> 可以建立全貌，随后应按类型、业务入口或断点条件缩小范围，避免把每次异常都认成崩溃。</p>
+<p>崩溃信号则是另一类停止原因：<code>SIGSEGV</code>、<code>SIGABRT</code> 与 C++ <code>throw</code> 不能混为一谈。不要为了让程序“继续跑”就把真正的错误信号全部设成忽略。</p>
+<h2 id="线程为什么不再推进">线程为什么不再推进</h2>
+<h3 id="实验：检查工作线程的等待条件">实验：检查工作线程的等待条件</h3>
+<p>线程实验启动两个 worker，让它们等待同一个条件变量，但故意不发布能够满足条件的工作。为了得到稳定现场，主线程在专用检查点停住。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb --quiet --nx --args /work/debug_lab threads</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">break threads_checkpoint</span><br><span class="line">run</span><br><span class="line">info threads</span><br><span class="line">thread apply all bt</span><br><span class="line">print waiting_workers</span><br><span class="line">print release_workers</span><br></pre></td></tr></table></figure>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/18_CPP/gdb/threads.png">
+  <img src="/img/postImg/18_CPP/gdb/threads.gif" alt="GDB 展开全部线程调用栈，识别两个工作线程都在等待同一个条件变量" width="960" height="600" loading="lazy">
+</picture>
+<p><a href="/img/postImg/18_CPP/gdb/threads.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/gdb_lab/recorded-sessions.json">完整会话</a></p>
+<p>这里应观察到 worker 已进入等待路径，而 <code>release_workers</code> 仍为假。<strong>这证明了等待状态，不是证明了互斥锁顺序死锁。</strong> 源码中既没有将条件改为真，也没有对应通知，所以恢复执行后主线程会等待 worker 结束。</p>
+<p>不能仅凭两个栈中都有 <code>futex</code> 就断言死锁。正常的线程池、DDS 收发线程、定时器线程也会等待。更有用的问题是：谁负责改变等待条件？是否仍有能推进它的线程或外部事件？<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Threads.html">GDB 线程检查</a></p>
+<h3 id="真正的死锁要建立等待关系">真正的死锁要建立等待关系</h3>
+<p>接近死锁的证据链应像这样：线程 A 已持有锁 L1，正在等 L2；线程 B 已持有 L2，正在等 L1。只有“都停在 lock”不够，还要结合锁所有权、调用路径、业务状态确认形成了循环等待。</p>
+<p>实际排查可先手动中断进程，再抓一个简洁的全线程快照：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set pagination off</span><br><span class="line">info threads</span><br><span class="line">thread apply all bt 12</span><br><span class="line">thread 2</span><br><span class="line">bt full</span><br><span class="line">frame 3</span><br><span class="line">info locals</span><br></pre></td></tr></table></figure>
+<p>其中线程号和栈帧号只是操作示意，必须替换成当前现场。<code>thread 2</code> 选择的是 GDB 显示的线程 ID，不要把 Linux 的 TID、PID 和 GDB 编号混用。</p>
+<p>若每次中断都停在不同计算行，程序可能只是慢；若长时间重复同一等待链，才更支持“无法推进”的假设。即使如此，也要排除正在等待外部设备、网络输入或人为暂停的情况。</p>
+<h3 id="scheduler-locking-会改变你观察的问题">scheduler-locking 会改变你观察的问题</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">show scheduler-locking</span><br><span class="line">set scheduler-locking step</span><br><span class="line">next</span><br><span class="line">set scheduler-locking off</span><br></pre></td></tr></table></figure>
+<p>默认的 all-stop 调试中，停止事件会暂停所有线程，但继续执行和普通单步时，其他线程通常也能运行。<code>scheduler-locking step</code> 在单步阶段限制其他线程，普通 <code>continue</code> 等操作则不按 <code>on</code> 的方式锁住它们；<code>on</code> 会在恢复时只允许运行当前线程。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/All_002dStop-Mode.html">GDB All-Stop 模式</a></p>
+<p>如果当前线程正在等待另一个被你冻结的线程，<code>on</code> 就能人为制造一个“调试器里的死锁”。所以不要把 scheduler-locking 永久写入通用配置；缩小单步范围后及时恢复，并记录修改过的调试状态。</p>
+<p>控制程序还有额外风险：你暂停一个进程时，设备、其他进程和外部时钟未必暂停。机器人实机上可能触发心跳超时、看门狗或安全停机。优先在仿真、离线数据和断开动力的环境中练习，不能把“GDB 能暂停”当成“系统可安全暂停”。</p>
+<h2 id="进程没了，读-core">进程没了，读 core</h2>
+<h3 id="实验：保存并重开崩溃现场">实验：保存并重开崩溃现场</h3>
+<p><code>core</code> 模式故意把空指针传给写入函数。下面让程序在 GDB 下触发错误，再由 GDB 主动保存 core，避免依赖宿主系统的 core 收集策略。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb --quiet --nx --args /work/debug_lab core</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">run</span><br><span class="line">bt full</span><br><span class="line">info args</span><br><span class="line">generate-core-file /work/out/crash.core</span><br><span class="line">kill</span><br><span class="line">core-file /work/out/crash.core</span><br><span class="line">bt</span><br><span class="line">frame 0</span><br><span class="line">info args</span><br></pre></td></tr></table></figure>
+<p><code>kill</code> 只针对这个故意崩溃的实验进程；交互模式下按提示确认。生成文件名若已存在，先另取一个名字保留旧现场，不要把生产 core 当临时缓存覆盖。</p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/18_CPP/gdb/core.png">
+  <img src="/img/postImg/18_CPP/gdb/core.gif" alt="GDB 保存空指针崩溃 core，结束实验进程后重新加载并检查调用栈与参数" width="960" height="600" loading="lazy">
+</picture>
+<p><a href="/img/postImg/18_CPP/gdb/core.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/gdb_lab/recorded-sessions.json">完整会话</a></p>
+<p>core 是某个时刻的内存与寄存器等现场，不是时间录像。重开后可以检查已保存的状态，但不能把一个普通 core 当成活进程 <code>continue</code>，也不能从中凭空恢复过去的所有写入。</p>
+<p>上面的手动命令是在同一个交互会话中重新加载。自动实验 <code>test</code> 还会将匹配的原始可执行文件一起保存为 <code>build/gdb-lab/debug_lab</code>，因此退出临时容器后，可以重新进入 <code>shell</code> 再打开这对产物：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 仓库根目录，宿主机执行</span></span><br><span class="line">bash docker/gdb-lab/run.sh shell</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新容器内执行：复制同一 ELF 恢复原路径，不重新编译</span></span><br><span class="line"><span class="built_in">cp</span> /work/out/debug_lab /work/debug_lab</span><br><span class="line">gdb --quiet --nx /work/debug_lab /work/out/crash.core</span><br></pre></td></tr></table></figure>
+<p><code>/work/debug_lab</code> 属于临时文件系统，退出容器即消失；<code>/work/out</code> 是持久输出挂载。若你另外手工编译并生成了新 core，也要保存那次编译的原始二进制，不能混用自动实验遗留的另一份 ELF。源码、动态库与调试符号也要匹配；核心产物只保存在本地，不随网页发布。</p>
+<p>复制同一 ELF 回原路径还能避免“找不到 <code>/work/debug_lab</code> 文件映射”的警告。直接指定持久目录中的同一 ELF 也已实测能读回参数，但这不代表可以忽略任意二进制或共享库不匹配警告。完整实测输出另有<a href="/downloads/code/gdb_lab/full-transcript.txt">纯文本日志</a>，不必从 GIF 中抄读。</p>
+<p>在有 systemd-coredump 的系统上，另有 <code>coredumpctl</code> 工作流；没有生成 core 时，要检查进程资源限制、收集服务和 <code>core_pattern</code>，不要假设文件一定在当前目录。本文只验证 GDB 主动生成的实验路径。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Files.html">GDB 文件与 core</a></p>
+<h3 id="二进制、符号和共享库要同一次构建">二进制、符号和共享库要同一次构建</h3>
+<p>“同一个分支”“同样的版本字符串”不足以保证地址对应。最可靠的交付是：保存出问题的可执行文件、对应的独立调试符号、运行时共享库或镜像标识，以及构建提交与参数。</p>
+<p>下面是对实验可执行文件制作发布副本的示例，不对原二进制执行裁剪：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> /work/debug_lab /work/debug_lab.release</span><br><span class="line">objcopy --only-keep-debug \</span><br><span class="line">  /work/debug_lab /work/debug_lab.release.debug</span><br><span class="line">strip --strip-debug /work/debug_lab.release</span><br><span class="line">objcopy \</span><br><span class="line">  --add-gnu-debuglink=/work/debug_lab.release.debug \</span><br><span class="line">  /work/debug_lab.release</span><br><span class="line">readelf -n /work/debug_lab.release</span><br><span class="line">readelf -n /work/debug_lab.release.debug</span><br></pre></td></tr></table></figure>
+<p>独立调试文件可通过 debug link 或 build ID 关联到相应二进制。build ID 是匹配构建产物的依据之一，不是拿另一份重新编译结果“强行对号入座”的开关。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Separate-Debug-Files.html">GDB 独立调试信息</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb /work/debug_lab.release /work/out/crash.core</span><br></pre></td></tr></table></figure>
+<p>如果 GDB 报 core 与可执行文件不匹配，先处理这个问题。用错符号可能仍能打印出看似合理的函数名，比完全没有符号更容易误导。</p>
+<h3 id="迁移路径：substitute-path-不等于-sysroot">迁移路径：substitute-path 不等于 sysroot</h3>
+<p>假设构建时源码在 <code>/ci/ws/src</code>，现在同一份源码放在 <code>/workspace/src</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set substitute-path /ci/ws/src /workspace/src</span><br><span class="line">show substitute-path</span><br><span class="line">list</span><br></pre></td></tr></table></figure>
+<p>这只改变源码查找路径，不重新编译，也不修复源码版本不一致。若仍显示错误行，检查是否真的是对应提交，而不仅是目录结构一样。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Source-Path.html">GDB 源码路径</a></p>
+<p>目标机器的运行库根目录则是另一件事：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set sysroot /opt/target-rootfs</span><br><span class="line">set debug-file-directory /opt/target-debug</span><br><span class="line">info sharedlibrary</span><br><span class="line">info files</span><br></pre></td></tr></table></figure>
+<p><code>sysroot</code> 用于定位目标库文件，<code>debug-file-directory</code> 用于独立调试信息。跨机器分析时，不应该随手用分析机自己的 libc 替代目标机器的 libc；栈展开、类型和符号可能因此不一致。</p>
+<p>core 往往包含口令、令牌、图像、网络缓冲区等内存数据。它是敏感产物，不应直接提交到笔记仓库。本文提供的是无敏感输入的教学日志，不发布整份 core。</p>
+<h2 id="远程与容器调试">远程与容器调试</h2>
+<h3 id="先把调试端口当成控制入口">先把调试端口当成控制入口</h3>
+<p>GDB 连接不是只读监控。调试器可以控制被调试程序、读写其内存，所以 <code>gdbserver</code> 不能暴露给不可信网络。</p>
+<p>更稳妥的远程示例是通过 SSH 的标准输入输出连接，不额外开放调试 TCP 端口。在本地加载与目标架构相容的 GDB，以及对应符号文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb-multiarch /opt/symbols/controller_node</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set sysroot /opt/target-rootfs</span><br><span class="line">target remote | ssh -T robot gdbserver - /opt/app/controller_node</span><br><span class="line">break main</span><br><span class="line">continue</span><br></pre></td></tr></table></figure>
+<p><code>robot</code> 是已经配置好的 SSH 主机别名；目标程序路径、参数和环境需要替换成实际值。SSH 连接依赖现有凭据和权限，本节不自动配置服务器，也不在实验容器中开放网络。</p>
+<p>stdio 连接的被调试程序标准输入是 <code>/dev/null</code>，标准输出和错误输出通过管道返回；它不是透明的交互终端。需要从终端读取输入的程序，要另外设计输入方式，不能直接照搬这个无交互节点示例。</p>
+<p>一个容易踩的坑：不能仅因为写了 <code>gdbserver 127.0.0.1:2345 ...</code> 就断言服务只绑定回环地址。GNU 手册明确说明其 <code>host:port</code> 形式中的 host 部分当前会被忽略。确实需要 TCP 时，应在受控网络命名空间中运行、限制端口可达性并检查实际监听地址；本地 SSH 转发端口也要限制在回环接口。SSH stdio 示例绕开了这一监听误区。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Server.html">GDBserver 官方说明与安全警告</a></p>
+<h3 id="远程机器上能跑，为什么本地看不懂">远程机器上能跑，为什么本地看不懂</h3>
+<p>依次核对四项：目标 ISA 和 ABI、本地 GDB 的目标架构支持、同一次构建的符号、目标共享库。<code>set architecture</code> 不是 CPU 模拟器，不能把一个不支持目标架构的调试器变成完整跨平台工具。</p>
+<p>对于 ARM 机器人上的 Linux 进程，通常选择匹配目标的交叉 GDB 或支持多架构的 GDB；对于裸机 MCU，连接方式和远程 stub 往往是 OpenOCD/J-Link 等，又是另一套目标约束。不要把 Linux <code>gdbserver</code> 示例直接当成飞控板裸机调试指南。</p>
+<p>容器中出现 <code>ptrace: Operation not permitted</code> 时，也不要第一步就换成 <code>--privileged</code>。应先看是否调试自己的子进程、用户权限、PID 命名空间、seccomp 和 ptrace 策略；尽量缩小放开的能力与作用范围。</p>
+<h2 id="反向执行不是时光机">反向执行不是时光机</h2>
+<p><span id="记录与回放（Reverse-Debugging）"></span></p>
+<h3 id="record-full-需要事先记录">record full 需要事先记录</h3>
+<p>独立示例 <a href="/downloads/code/gdb_lab/reverse_demo.cpp">reverse_demo.cpp</a> 尽量只包含简单计算，减少记录器碰到复杂运行库路径的机会。在交互容器内编译后再运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">g++ -g3 -O0 -fno-omit-frame-pointer \</span><br><span class="line">  /lab/reverse_demo.cpp -o /work/reverse_demo</span><br><span class="line">gdb --quiet --nx /work/reverse_demo</span><br></pre></td></tr></table></figure>
+<p>先停在两个整数写入之前，然后只记录这段小程序；下面与本次会话中的操作相对应：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">break reverse_begin</span><br><span class="line">break reverse_end</span><br><span class="line">run</span><br><span class="line">finish</span><br><span class="line">record full</span><br><span class="line">continue</span><br><span class="line">print counter</span><br><span class="line">reverse-next</span><br><span class="line">print counter</span><br><span class="line">reverse-next</span><br><span class="line">print counter</span><br></pre></td></tr></table></figure>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/18_CPP/gdb/reverse.png">
+  <img src="/img/postImg/18_CPP/gdb/reverse.gif" alt="GDB 先记录两个整数写入，再反向单步，将 counter 从 2 恢复到前一次写入后的 1" width="960" height="600" loading="lazy">
+</picture>
+<p><a href="/img/postImg/18_CPP/gdb/reverse.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/gdb_lab/recorded-sessions.json">完整会话</a></p>
+<p>本次在 ARM64 / GDB 12.1 中，第一次反向单步回到 <code>reverse_end()</code> 的调用位置，<code>counter</code> 仍为 <code>2</code>；第二次回到 <code>counter = 2</code> 尚未发生的状态，读到 <code>1</code>。这就是观察状态沿记录后退，而不仅是源码光标向上移动。</p>
+<p><strong>实测成功只针对 <code>reverse_demo.cpp</code> 这段受限的纯整数写入示例</strong>，不能推广为系统调用、SIMD、复杂多线程、rr 或硬件指令追踪也一定可用。迁移机器后先运行对应检查；若实际记录器报告不支持，就保留失败原因，不展示不存在的回放效果。</p>
+<p>从 <code>record full</code> 之后的可记录范围，才有机会向后走。没有事先记录就发生的错误，不能靠事后输入 <code>reverse-step</code> 复原。回放时寄存器和内存状态来自执行记录，不是让外部世界真的倒着运行。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Process-Record-and-Replay.html">GDB 记录与回放</a></p>
+<p>实际限制包括 GDB 版本、CPU 指令、系统调用、记录大小和运行模式。遇到不支持的指令时，先缩小记录区域并阅读具体错误；不要把忽略未记录状态当成仍然精确的回放。<code>record stop</code> 会清掉该记录目标的执行日志，必要时先用支持的保存机制存档。</p>
+<p>还要区分 <code>record btrace</code>：它偏重控制流轨迹，并不等同于完整数据历史。因此“能看到以前执行过哪段函数”不代表“能读取那一刻所有变量”。</p>
+<h3 id="rr-适合反复追同一个偶发现场">rr 适合反复追同一个偶发现场</h3>
+<p>在受支持的 Linux、CPU 与权限配置上，rr 可以先记录一次，再多次回放这一次执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rr record ./my_program</span><br><span class="line">rr replay</span><br></pre></td></tr></table></figure>
+<p>它的价值是把“每次重跑都不一定复现”变成“反复检查同一段执行”。回放时仍可以结合断点和反向执行分析，但 rr 是独立工具，不是任意 GDB 安装都自带的功能。</p>
+<p>不要沿用“rr 只支持 x86”这种过时的绝对结论；当前项目列出了部分 AArch64 微架构支持。也不能据此承诺 Apple Silicon 上的 Docker Desktop 一定能跑：Linux 内核、性能计数器、虚拟化暴露和具体 CPU 支持都需要核对。本文没有声称已在当前实验环境执行 rr。<a target="_blank" rel="noopener" href="https://github.com/rr-debugger/rr#system-requirements">rr 官方系统要求</a></p>
+<p>对于连接真实设备的程序，回放里的“成功发送”不是让设备再执行一次同样的动作。涉及硬件和实时控制时，应先把可重放的软件边界与外部系统边界分清。</p>
+<h2 id="把诊断做成脚本">把诊断做成脚本</h2>
+<p><span id="自动化脚本（GDB-脚本）"></span><br>
+<span id="记录调试日志"></span></p>
+<h3 id="一次性现场采集">一次性现场采集</h3>
+<p>将下面内容保存为自己工程里的 <code>capture.gdb</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set pagination off</span><br><span class="line">set print pretty on</span><br><span class="line">set print elements 32</span><br><span class="line">set logging file gdb-session.log</span><br><span class="line">set logging overwrite on</span><br><span class="line">set logging enabled on</span><br><span class="line">run</span><br><span class="line">info threads</span><br><span class="line">thread apply all bt full</span><br><span class="line">info registers</span><br><span class="line">set logging enabled off</span><br></pre></td></tr></table></figure>
+<p>运行方式：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb --quiet --nx --batch \</span><br><span class="line">  -x capture.gdb \</span><br><span class="line">  --args ./my_program --config config.yaml</span><br></pre></td></tr></table></figure>
+<p>这个脚本适合预期会因错误停住的程序；若程序正常退出，之后依赖活进程的命令可能报错。用于 CI 时应区分正常结束、信号终止、超时、GDB 自己失败四种结果，不要把“生成了日志文件”当成用例通过。</p>
+<p><code>set logging file</code> 只是选择文件，还需要显式启用记录。<code>overwrite on</code> 会覆盖同名日志，因此真实事故应使用独立的事件目录或不同文件名。旧版 GDB 的开关拼写可能不同，可先 <code>help set logging</code> 确认。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Logging-Output.html">GDB 日志输出</a></p>
+<h3 id="Python-断点：从条件表达式到业务规则">Python 断点：从条件表达式到业务规则</h3>
+<p>当筛选条件需要结构化逻辑时，可以让 GDB 执行 Python。以下是实验文件 <a href="/downloads/code/gdb_lab/python_breakpoint.py">python_breakpoint.py</a> 所采用的机制：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gdb</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NegativeResult</span>(gdb.Breakpoint):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">stop</span>(<span class="params">self</span>):</span><br><span class="line">        actual = <span class="built_in">int</span>(gdb.parse_and_eval(<span class="string">&quot;actual&quot;</span>))</span><br><span class="line">        <span class="keyword">if</span> actual &lt; <span class="number">0</span>:</span><br><span class="line">            tick = <span class="built_in">int</span>(gdb.parse_and_eval(<span class="string">&quot;tick&quot;</span>))</span><br><span class="line">            gdb.write(<span class="string">f&quot;Python filter accepted: tick=<span class="subst">&#123;tick&#125;</span>, actual=<span class="subst">&#123;actual&#125;</span>\n&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">negative_result = NegativeResult(<span class="string">&quot;check_output&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>在新的会话加载一次，然后运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb --quiet --nx --args /work/debug_lab conditional</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /lab/python_breakpoint.py</span><br><span class="line">run</span><br><span class="line">info args</span><br><span class="line">bt</span><br></pre></td></tr></table></figure>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/18_CPP/gdb/python.png">
+  <img src="/img/postImg/18_CPP/gdb/python.gif" alt="GDB Python 断点读取业务参数，自动放过正常结果并只在负输出时停止" width="960" height="600" loading="lazy">
+</picture>
+<p><a href="/img/postImg/18_CPP/gdb/python.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/gdb_lab/recorded-sessions.json">完整会话</a></p>
+<p><code>stop()</code> 返回 <code>True</code> 才停住，返回 <code>False</code> 自动继续。这个回调应读取状态并决定是否停止，不应在回调里再执行 <code>continue</code>、切换执行状态或操作断点列表。简单条件本来就能表达时，优先用普通条件断点；Python 的价值在更复杂、可维护的诊断逻辑。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Breakpoints-In-Python.html">GDB Python 断点 API</a></p>
+<h3 id="自定义一个快照命令">自定义一个快照命令</h3>
+<p>以下是可改造成工程脚本的模板，与上面的已录制 Python 过滤实验分开。保存为 <code>snapshot.py</code>，由 GDB 的 <code>source</code> 加载，不是用系统 <code>python3 snapshot.py</code> 运行：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gdb</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Snapshot</span>(gdb.Command):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;snapshot: print the selected frame&#x27;s arguments and locals.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(<span class="string">&quot;snapshot&quot;</span>, gdb.COMMAND_USER)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">invoke</span>(<span class="params">self, argument, from_tty</span>):</span><br><span class="line">        <span class="variable language_">self</span>.dont_repeat()</span><br><span class="line">        <span class="keyword">if</span> argument.strip():</span><br><span class="line">            <span class="keyword">raise</span> gdb.GdbError(<span class="string">&quot;usage: snapshot&quot;</span>)</span><br><span class="line">        frame = gdb.selected_frame()</span><br><span class="line">        gdb.write(<span class="string">f&quot;frame: <span class="subst">&#123;frame.name()&#125;</span>\n&quot;</span>)</span><br><span class="line">        gdb.execute(<span class="string">&quot;info args&quot;</span>)</span><br><span class="line">        gdb.execute(<span class="string">&quot;info locals&quot;</span>)</span><br><span class="line">        gdb.execute(<span class="string">&quot;bt 6&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Snapshot()</span><br></pre></td></tr></table></figure>
+<p><code>gdb.Command</code> 注册命令，<code>invoke</code> 是执行入口，<code>dont_repeat</code> 避免空回车意外重复。正式工程版还应处理无栈帧、目标退出、变量不可见、输出过大等情况。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/CLI-Commands-In-Python.html">GDB Python 命令 API</a></p>
+<p>工程上可以把“关节数量、输入维度、时间戳、模式、有效位”的检查封装为一个命令，但不要在打印器或断点回调里偷偷修正数据。先保证诊断是可解释的，再决定是否做可选的干预实验。</p>
+<h2 id="放到-ROS-2-工程里">放到 ROS 2 工程里</h2>
+<h3 id="用独立构建目录保留发布版本">用独立构建目录保留发布版本</h3>
+<p>以下示例面向 Ubuntu 22.04 / ROS 2 Humble 的普通 C++ 包，<code>my_controller_pkg</code> 和 <code>controller_node</code> 都要替换为自己的名称。这个实验镜像只负责 GDB 小程序，并不因此包含 ROS 2 工作空间。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /opt/ros/humble/setup.bash</span><br><span class="line"></span><br><span class="line">colcon --log-base log-debug build \</span><br><span class="line">  --build-base build-debug \</span><br><span class="line">  --install-base install-debug \</span><br><span class="line">  --packages-up-to my_controller_pkg \</span><br><span class="line">  --cmake-args \</span><br><span class="line">    -DCMAKE_BUILD_TYPE=Debug \</span><br><span class="line">    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> install-debug/setup.bash</span><br></pre></td></tr></table></figure>
+<p>独立目录让 Debug 产物不覆盖原来用于复现的发布构建。<code>--packages-up-to</code> 选择目标及其工作空间依赖，但不会给系统安装的二进制依赖凭空补出调试信息。<a target="_blank" rel="noopener" href="https://colcon.readthedocs.io/en/released/reference/verb/build.html">colcon 构建目录选项</a>、<a target="_blank" rel="noopener" href="https://colcon.readthedocs.io/en/released/reference/package-selection-arguments.html">包选择规则</a></p>
+<p>普通 CMake 工程可以使用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cmake -S . -B build-debug \</span><br><span class="line">  -DCMAKE_BUILD_TYPE=Debug \</span><br><span class="line">  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON</span><br><span class="line">cmake --build build-debug --parallel</span><br></pre></td></tr></table></figure>
+<p><code>CMAKE_BUILD_TYPE</code> 用于单配置生成器；多配置生成器要在构建时选择 <code>--config Debug</code>。<code>Debug</code>、<code>RelWithDebInfo</code> 的实际编译选项仍应查看生成的编译命令，项目可能额外覆盖它们，不能只根据名字断言一定是 <code>-O0</code> 或一定有想要的符号。<a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html">CMake 构建类型</a></p>
+<h3 id="调试-C-可执行文件，不是-ros2-脚本">调试 C++ 可执行文件，不是 ros2 脚本</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 run --prefix <span class="string">&#x27;gdb -q --args&#x27;</span> \</span><br><span class="line">  my_controller_pkg controller_node \</span><br><span class="line">  --ros-args \</span><br><span class="line">  --params-file /workspace/config/controller.yaml</span><br></pre></td></tr></table></figure>
+<p>进入 GDB 后先设置断点，再 <code>run</code>。参数、命名空间、重映射、环境和 <code>use_sim_time</code> 要与出问题的启动方式一致。单独拿出一个节点但漏了参数文件，得到的可能是另一个问题。<a target="_blank" rel="noopener" href="https://github.com/ros2/ros2_documentation/blob/humble/source/How-To-Guides/Getting-Backtraces-in-ROS-2.rst">ROS 2 官方回溯指南源码</a></p>
+<p>对于需要保持 launch 编排但只自动采集崩溃栈的情况，可给目标 <code>Node</code> 使用非交互 prefix；下面是独立模板，不直接当成一个可运行的完整 launch 文件：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> launch_ros.actions <span class="keyword">import</span> Node</span><br><span class="line"></span><br><span class="line">controller = Node(</span><br><span class="line">    package=<span class="string">&quot;my_controller_pkg&quot;</span>,</span><br><span class="line">    executable=<span class="string">&quot;controller_node&quot;</span>,</span><br><span class="line">    parameters=[<span class="string">&quot;/workspace/config/controller.yaml&quot;</span>],</span><br><span class="line">    prefix=[</span><br><span class="line">        <span class="string">&quot;gdb -q -batch &quot;</span></span><br><span class="line">        <span class="string">&quot;-ex &#x27;set pagination off&#x27; &quot;</span></span><br><span class="line">        <span class="string">&quot;-ex run &quot;</span></span><br><span class="line">        <span class="string">&quot;-ex &#x27;thread apply all bt full&#x27; --args&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    output=<span class="string">&quot;screen&quot;</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>交互调试更适合独立终端中的 <code>ros2 run --prefix</code>。launch 把输出放到屏幕上，不等于为每个子进程提供独立可交互终端；多个节点共享输出时，也很难看清属于谁的 GDB 提示符。</p>
+<h3 id="controller-manager-和-Executor-怎么看">controller manager 和 Executor 怎么看</h3>
+<p>先找对<strong>进程</strong>。组合式节点可能共用 component container；一个进程也可能同时有控制循环、Executor、DDS 后台线程。暂停该进程往往会影响其中所有组件，不只是当前选中的 ROS 节点。</p>
+<p>下面按 ros2_control 的读—更新—写循环和 ROS 2 回调调度机制，整理一套排查思路；它是诊断方法，不是某个尚未采集的真实故障结论。<a target="_blank" rel="noopener" href="https://control.ros.org/humble/doc/ros2_control/controller_manager/doc/userdoc.html">Controller Manager</a>、<a target="_blank" rel="noopener" href="https://github.com/ros2/ros2_documentation/blob/humble/source/How-To-Guides/Using-callback-groups.rst">ROS 2 Callback Groups 官方源码</a></p>
+<p>读取栈时，可以按工作角色判断：</p>
 <ul>
-<li><a href="#2025109-cgdb">2025.10.9 cgdb</a>
+<li>停在硬件 <code>read()</code>：检查驱动等待、I/O 超时、设备返回以及时间戳。</li>
+<li>停在控制器 <code>update()</code>：检查输入状态、周期、索引和矩阵尺寸是否满足前置条件。</li>
+<li>停在 <code>write()</code>：检查限幅、模式切换以及发往硬件的命令。</li>
+<li>停在 Executor 等待路径：可能是正常空闲，也可能是任务没有被唤醒，需要结合回调和业务条件。</li>
+<li>回调里同步等待另一个回调：进一步检查 callback group、Executor 可用线程和锁关系，不要只看到 MultiThreadedExecutor 就认为不可能互等。</li>
+</ul>
+<p>GDB 可以检查当时的调用链，但它不是实时性评估工具。单步得到的循环耗时没有正常运行意义；评估控制周期抖动、回调延迟，应在不被断点频繁中断的运行中使用 tracing、统计或性能工具。</p>
+<p>对动态加载的控制器，可以先设置 pending 断点，待库加载后用 <code>info sharedlibrary</code>、<code>info breakpoints</code> 确认。断点一直没命中时，同时检查控制器生命周期和实际执行路径，不能只检查符号。</p>
+<h2 id="TUI、cgdb-与检测工具">TUI、cgdb 与检测工具</h2>
+<p><span id="使用-TUI-模式"></span></p>
+<h3 id="TUI：把源码、汇编和命令放在一起">TUI：把源码、汇编和命令放在一起</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdb -tui --args /work/debug_lab conditional</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">start</span><br><span class="line">layout src</span><br><span class="line">layout split</span><br><span class="line">layout regs</span><br><span class="line">focus cmd</span><br></pre></td></tr></table></figure>
+<p><code>Ctrl-x</code> 再 <code>a</code> 切换 TUI，<code>Ctrl-x</code> 再 <code>o</code> 切换窗口焦点，<code>Ctrl-l</code> 刷新屏幕。方向键可能在滚动当前窗口而不是浏览命令历史，此时先把焦点放回命令窗口。优化代码对应关系不清楚时，源码与汇编并排比一直按 <code>next</code> 更有帮助。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/TUI-Keys.html">GDB TUI 按键</a></p>
+<p><span id="2025109-cgdb"></span><br>
+<span id="2025-10-9-cgdb"></span><br>
+<span id="安装"></span><br>
+<span id="启动调试"></span></p>
+<h3 id="cgdb：保留原来的终端习惯">cgdb：保留原来的终端习惯</h3>
+<p>原笔记在 2025.10.9 记录过 cgdb。它给 GDB 配上便于浏览源码的终端界面，核心断点、观察点和栈命令仍然属于 GDB，不是一套不同的调试语义。</p>
+<p>如果使用自己的 Ubuntu 开发环境，可通过发行版安装 <code>cgdb</code>；本文基础实验镜像是否包含它，以镜像文档为准，GIF 不代表已经验证交互界面：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install cgdb</span><br><span class="line">cgdb /work/debug_lab</span><br></pre></td></tr></table></figure>
+<p>进入 GDB 命令窗口后，使用同一个实验模式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set args conditional</span><br><span class="line">break check_output</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<p>源码窗口中可用类似 Vim 的移动和搜索；<code>Esc</code> 回到源码窗口，<code>i</code> 回到 GDB 命令窗口。常用操作是先在源码区定位，再切到 GDB 输入 <code>break</code>、<code>run</code>、<code>print</code>。不要把“当前浏览的源码行”和“当前程序执行位置”混为一谈。<a target="_blank" rel="noopener" href="https://cgdb.github.io/docs/cgdb.html">CGDB 官方手册</a></p>
+<p><span id="使用-GDB-GUI-前端"></span></p>
+<p>IDE、GUI 或 TUI 可以减少窗口切换，但当变量显示不出来时，仍应回到符号、作用域、优化和生命周期这些基本问题。换一个更漂亮的前端不会自动补回丢失的现场。</p>
+<p><span id="GDB-与-Valgrind-联合使用"></span></p>
+<h3 id="GDB-和检测工具各自负责什么">GDB 和检测工具各自负责什么</h3>
+<p>GDB 适合检查一个具体现场、控制执行并验证假设；ASan 擅长检测某些内存访问错误，TSan 用于数据竞争，Valgrind Memcheck 检查内存使用问题。它们互补，并非谁能替代全部其他工具。</p>
+<p>在自己工程的隔离测试构建中，可分别建立 Sanitizer 版本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 内存/部分未定义行为检查构建</span></span><br><span class="line">g++ -g -O1 -fno-omit-frame-pointer \</span><br><span class="line">  -fsanitize=address,undefined \</span><br><span class="line">  -pthread my_program.cpp -o my_program_asan</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据竞争检查构建：与 ASan 分开</span></span><br><span class="line">g++ -g -O1 -fno-omit-frame-pointer \</span><br><span class="line">  -fsanitize=thread \</span><br><span class="line">  -pthread my_program.cpp -o my_program_tsan</span><br></pre></td></tr></table></figure>
+<p>编译和最终链接都要带对应检测选项；ASan 与 TSan 不能合并成一个所谓“全能开关”。检测器同样会改变时间和内存行为，没报告也不是程序绝对安全的证明。<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">GCC 检测插桩选项</a></p>
+<p>本文的余额误写是合法地址上的错误业务值，ASan 未必会报错，这正是业务约束加观察点有价值的地方。数据竞争也不宜只靠断点抓：暂停和恢复可能把竞态窗口改变掉。</p>
+<p>Valgrind 与 GDB 可以连接使用。下面是另一个环境中的模板，不属于当前小实验的运行结果：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 终端一：先等待调试器连接</span></span><br><span class="line">valgrind --tool=memcheck --vgdb=<span class="built_in">yes</span> --vgdb-error=0 \</span><br><span class="line">  ./my_program</span><br><span class="line"></span><br><span class="line"><span class="comment"># 终端二：加载对应程序符号</span></span><br><span class="line">gdb ./my_program</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">target remote | vgdb</span><br><span class="line">continue</span><br></pre></td></tr></table></figure>
+<p>多个 Valgrind 进程同时运行时，需要根据其提示选择正确 PID。<code>--vgdb-error=0</code> 用于启动时等待；若希望在检测错误后停止，再按相应阈值配置。Memcheck 报告可帮助定位无效访问，GDB 再用于检查上下文。<a target="_blank" rel="noopener" href="https://valgrind.org/docs/manual/manual-core-adv.html">Valgrind 与 GDB 集成</a></p>
+<p>检测工具会带来开销，不能拿开启 Memcheck 的控制循环耗时直接评估实时性能；也不应把这些故意出错的实验放到连接动力系统的实机上。</p>
+<h2 id="自己完成一个排查闭环">自己完成一个排查闭环</h2>
+<h3 id="三个练习">三个练习</h3>
+<p>第一个练习：把 <code>conditional</code> 模式中错误出现的时刻从 <code>tick == 3</code> 改到另一个值，但不要改 GDB 的条件表达式。重新构建，确认断点仍能找到“实际值不等于期望值”，说明诊断依赖的是约束而不是记住某次循环编号。</p>
+<p>第二个练习：给余额再加一次合法入账，然后只在余额变成负数时停住。先比较无条件观察点与附加条件的行为，再检查如果某处写入相同值，会不会符合你对 <code>watch</code> 的预期。</p>
+<p>第三个练习：在源码副本里让线程实验正确发布结束条件并通知 worker，重新运行确认可以退出。要在持有对应互斥锁时改变条件，配合正确的通知，而不是在 GDB 里随便改一个布尔量就宣布修复了并发问题。</p>
+<p>练习修改应该写入自己的源码副本，不需要放开本文只读挂载。不要直接改动已经记录过的实验源码却仍拿旧日志声称验证有效。</p>
+<h3 id="一份能交给未来自己的调试记录">一份能交给未来自己的调试记录</h3>
 <ul>
-<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
-<li><a href="#%E5%90%AF%E5%8A%A8%E8%B0%83%E8%AF%95">启动调试</a></li>
+<li>问题：哪条业务约束被破坏，预期值与实际值是什么？</li>
+<li>环境：代码提交、镜像或系统、目标架构、编译器、GDB、构建选项。</li>
+<li>入口：完整启动参数、环境、参数文件、输入数据和复现概率。</li>
+<li>证据：停止原因、线程、业务栈帧、关键参数、观察点或检测器输出。</li>
+<li>推理：为什么这份证据支持当前原因，哪些替代解释还未排除？</li>
+<li>干预：是否修改过变量、信号策略、线程调度或环境；这些修改会影响什么？</li>
+<li>修复：源码改了什么，原始复现和相邻边界用例是否都通过？</li>
+<li>遗留：未测试的平台、远程权限、硬件、运行库与符号是否还缺失？</li>
 </ul>
-</li>
-</ul>
-<!-- vim-markdown-toc -->
-<p>使用 GDB（GNU 调试器）来调试 C/C++ 程序时，有许多有效的方法和技巧可以帮助你快速定位问题。以下是一些有助于提高 GDB 调试效率的方法和技巧(chatGPT回答)：</p>
-<h3 id="编译时启用调试信息">编译时启用调试信息</h3>
-<p>在编译程序时，使用 <code>-g</code> 选项来启用调试信息，这样 GDB 可以获得源代码级别的信息：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">g</span>++ -<span class="selector-tag">g</span> -o my_program my_program<span class="selector-class">.cpp</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用断点（Breakpoints）">使用断点（Breakpoints）</h3>
-<p>断点是调试中最基本但也是最有力的工具。通过设置断点，你可以在程序执行到特定位置时暂停。</p>
-<ul>
-<li>
-<p>设置断点：</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">break</span> main  <span class="comment"># 在 main 函数入口设置断点</span></span><br><span class="line">(gdb) <span class="keyword">break</span> <span class="title class_">MyClass</span><span class="symbol">:</span><span class="symbol">:myFunction</span>  <span class="comment"># 在特定类的方法上设置断点</span></span><br><span class="line">(gdb) <span class="keyword">break</span> my_program.<span class="symbol">cpp:</span><span class="number">25</span>  <span class="comment"># 在指定文件的第 25 行设置断点</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>条件断点：可以在某个条件为真时才触发断点，有助于避免不必要的暂停。</p>
-<figure class="highlight gml"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">break</span> my_function <span class="keyword">if</span> <span class="variable language_">x</span> &gt; <span class="number">5</span>  # 当变量 <span class="variable language_">x</span> 大于 <span class="number">5</span> 时触发断点</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="运行和继续执行程序">运行和继续执行程序</h3>
-<ul>
-<li>
-<p>启动程序：</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="built_in">run</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>继续执行到下一个断点：</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">continue</span>  <span class="comment"># 或简写为 (gdb) c</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="检查变量值和内存">检查变量值和内存</h3>
-<ul>
-<li>
-<p>打印变量值：</p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="built_in">print</span> my_object-&gt;member_variable  <span class="comment"># 打印对象成员变量的值</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>检查内存地址内容：</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">(gdb) x/<span class="number">4</span>xw <span class="variable">&amp;variable_name</span>  <span class="meta"># 打印 variable_name 开始的 4 个字的内存内容，以十六进制显示</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="逐行调试">逐行调试</h3>
-<ul>
-<li>
-<p>单步执行一行（会进入函数内部）：</p>
-<figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">step</span>  <span class="meta"># 或简写为 (gdb) s</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>单步执行一行（不会进入函数内部）：</p>
-<figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">next</span>  <span class="meta"># 或简写为 (gdb) n</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>执行直到函数返回：</p>
-<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">(gdb)</span> fi<span class="symbol">nish</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="查看调用栈">查看调用栈</h3>
-<ul>
-<li>
-<p>打印当前调用栈：</p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">backtrace </span> <span class="comment"># 或简写为 (gdb) bt</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>打印完整的调用栈信息（包括参数值）：</p>
-<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">(gdb)</span> backtrace full</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="导航调用栈">导航调用栈</h3>
-<ul>
-<li>
-<p>查看特定帧的信息：</p>
-<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">(gdb)</span> frame <span class="number">2</span>  <span class="attr"># 切换到第 2</span> 帧</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>查看当前帧的局部变量：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="built_in">info</span> locals</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="修改变量值">修改变量值</h3>
-<ul>
-<li>
-<p>修改变量值（用于测试修复问题）：</p>
-<figure class="highlight ceylon"><table><tr><td class="code"><pre><span class="line">(gdb) set <span class="keyword">variable</span><span class="number">_n</span>ame = <span class="keyword">new</span><span class="number">_</span><span class="keyword">value</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="使用-Watchpoints">使用 Watchpoints</h3>
-<ul>
-<li>
-<p>Watchpoints 允许你在变量值发生变化时暂停执行，非常适合调试内存写入错误或状态改变的问题。</p>
-<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">(</span>gdb<span class="punctuation">)</span> rwatch variable_name  <span class="meta"># 当 variable_name 被读取时暂停</span></span><br><span class="line"><span class="punctuation">(</span>gdb<span class="punctuation">)</span> awatch variable_name  <span class="meta"># 当 variable_name 被访问（读或写）时暂停</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="记录与回放（Reverse-Debugging）">记录与回放（Reverse Debugging）</h3>
-<ul>
-<li>
-<p>在某些版本的 GDB 中，可以使用记录与回放功能来跟踪程序执行路径并回溯错误的来源。</p>
-</li>
-<li>
-<p>开始记录：</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">record</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>回到前一步：</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">reverse</span>-<span class="keyword">step</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="自动化脚本（GDB-脚本）">自动化脚本（GDB 脚本）</h3>
-<ul>
-<li>
-<p>如果调试任务重复性强，可以编写 GDB 脚本来自动化调试过程。在调试会话中自动执行一系列命令。</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">(gdb) source <span class="keyword">script</span>.gdb</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>脚本示例 <code>script.gdb</code>：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="built_in">run</span></span><br><span class="line"><span class="built_in">print</span> variable_name</span><br><span class="line">continue</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="使用-TUI-模式">使用 TUI 模式</h3>
-<ul>
-<li>
-<p>GDB 提供了 TUI（Text User Interface）模式，可以直观地查看源代码和寄存器值。</p>
-<figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">(gdb) layout <span class="keyword">asm</span>  <span class="comment"># 显示汇编代码视图</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="记录调试日志">记录调试日志</h3>
-<ul>
-<li>
-<p>使用日志记录来跟踪 GDB 调试过程中发生的事件和命令输出。</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">(gdb) <span class="keyword">set</span> logging <span class="built_in">file</span> gdb_log.txt  <span class="comment"># 指定日志文件</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="使用-GDB-GUI-前端">使用 GDB GUI 前端</h3>
-<ul>
-<li>借助于图形用户界面（如 <code>gdbgui</code>、<code>ddd</code>、<code>kdbg</code>）可以提供更直观的调试体验。GUI 前端通常支持鼠标点击设置断点、查看变量等功能，简化了调试操作。</li>
-</ul>
-<h3 id="GDB-与-Valgrind-联合使用">GDB 与 Valgrind 联合使用</h3>
-<ul>
-<li>
-<p>当怀疑程序存在内存泄漏或非法内存访问问题时，可以使用 Valgrind 来检测，再结合 GDB 定位和分析问题。</p>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">valgrind <span class="params">--vgdb-error=0</span> <span class="string">./my_program</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1>2025.10.9 cgdb</h1>
-<p>cgdb（Console GDB）是一个基于 命令行界面 + Ncurses 界面 的调试器，它在 gdb 的基础上加上了类似 vim 的代码窗口和快捷操作。适合在终端下进行可视化调试。</p>
-<h2 id="安装">安装</h2>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install cgdb</span><br></pre></td></tr></table></figure>
-<h2 id="启动调试">启动调试</h2>
-<p>假设你有个程序 <code>test.cpp</code>:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">5</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> c = a + b;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;c = &quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>先用 <code>-g</code> 选项编译（带调试信息）：</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">g++ -g <span class="keyword">test</span>.cpp -o <span class="keyword">test</span></span><br></pre></td></tr></table></figure>
-<p>然后用 cgdb 调试：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cgdb ./test</span><br></pre></td></tr></table></figure>
+<p>最终目标不是收集更多命令，而是让每条命令都有一个要回答的问题。能从“结果不对”追到“第一次错误状态”，从“线程卡住”追到“等待条件无法成立”，再把这个过程保存成可复现材料，GDB 才真正成为工程工具。</p>
 
                 </div>
             </div>
@@ -942,7 +1130,11 @@
                     }
 
                     images.forEach(function (img) {
-                        if (img.closest('.post-image-frame')) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
                             return;
                         }
 
@@ -974,13 +1166,13 @@
     </div>
 
    <div class="tag-cloud-tags">
-    <a href="/tags/3d%E6%89%93%E5%8D%B0/" style="font-size: 10px; color: #f38181">3d打印</a> <a href="/tags/actor-critic/" style="font-size: 10px; color: #f38181">actor-critic</a> <a href="/tags/adaptive-sampling/" style="font-size: 10px; color: #f38181">adaptive sampling</a> <a href="/tags/ai%E8%BE%85%E5%8A%A9%E8%AE%BE%E8%AE%A1/" style="font-size: 10px; color: #f38181">ai辅助设计</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 12px; color: #e09491">algorithms</a> <a href="/tags/anymal/" style="font-size: 12.67px; color: #da9b97">anymal</a> <a href="/tags/apriltag/" style="font-size: 10px; color: #f38181">apriltag</a> <a href="/tags/ardupilot/" style="font-size: 10px; color: #f38181">ardupilot</a> <a href="/tags/atlas/" style="font-size: 10px; color: #f38181">atlas</a> <a href="/tags/attention/" style="font-size: 12px; color: #e09491">attention</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bang-bang/" style="font-size: 10px; color: #f38181">bang-bang</a> <a href="/tags/belief-encoder/" style="font-size: 10px; color: #f38181">belief encoder</a> <a href="/tags/blender/" style="font-size: 10px; color: #f38181">blender</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/cadquery/" style="font-size: 10px; color: #f38181">cadquery</a> <a href="/tags/calibration/" style="font-size: 10.67px; color: #ed8786">calibration</a> <a href="/tags/camera-calibration/" style="font-size: 10px; color: #f38181">camera calibration</a> <a href="/tags/camera-intrinsics/" style="font-size: 10.67px; color: #ed8786">camera-intrinsics</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/cnn/" style="font-size: 10px; color: #f38181">cnn</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/computer-vision/" style="font-size: 10px; color: #f38181">computer-vision</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 14.67px; color: #c7aea7">control</a> <a href="/tags/controller-manager/" style="font-size: 10px; color: #f38181">controller_manager</a> <a href="/tags/cpp/" style="font-size: 18px; color: #a8cec3">cpp</a> <a href="/tags/cpu/" style="font-size: 10px; color: #f38181">cpu</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/dagger/" style="font-size: 11.33px; color: #e68e8c">dagger</a> <a href="/tags/data-struct/" style="font-size: 10.67px; color: #ed8786">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth camera</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth-camera</a> <a href="/tags/design-pattern/" style="font-size: 10px; color: #f38181">design-pattern</a> <a href="/tags/direct-collocation/" style="font-size: 10px; color: #f38181">direct collocation</a> <a href="/tags/dots/" style="font-size: 14.67px; color: #c7aea7">dots</a> <a href="/tags/dtof/" style="font-size: 10px; color: #f38181">dtof</a> <a href="/tags/economics/" style="font-size: 10px; color: #f38181">economics</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/elevation-map/" style="font-size: 10.67px; color: #ed8786">elevation map</a> <a href="/tags/executor/" style="font-size: 10px; color: #f38181">executor</a> <a href="/tags/factory-pattern/" style="font-size: 10px; color: #f38181">factory-pattern</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/fiducial-marker/" style="font-size: 10px; color: #f38181">fiducial marker</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/finance/" style="font-size: 10px; color: #f38181">finance</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fourier/" style="font-size: 10px; color: #f38181">fourier</a> <a href="/tags/fov/" style="font-size: 10.67px; color: #ed8786">fov</a> <a href="/tags/freecad/" style="font-size: 10px; color: #f38181">freecad</a> <a href="/tags/gae/" style="font-size: 10px; color: #f38181">gae</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10px; color: #f38181">gdb</a> <a href="/tags/geometry/" style="font-size: 10px; color: #f38181">geometry</a> <a href="/tags/git/" style="font-size: 11.33px; color: #e68e8c">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/gru/" style="font-size: 10px; color: #f38181">gru</a> <a href="/tags/guitar/" style="font-size: 10px; color: #f38181">guitar</a> <a href="/tags/hardware/" style="font-size: 10px; color: #f38181">hardware</a> <a href="/tags/humanoid/" style="font-size: 10px; color: #f38181">humanoid</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/imu/" style="font-size: 10px; color: #f38181">imu</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 14px; color: #cda7a2">isaac gym</a> <a href="/tags/isaac-lab/" style="font-size: 10.67px; color: #ed8786">isaac lab</a> <a href="/tags/isaaclab/" style="font-size: 10.67px; color: #ed8786">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.67px; color: #ed8786">kdl</a> <a href="/tags/laplace/" style="font-size: 10px; color: #f38181">laplace</a> <a href="/tags/latent-variable/" style="font-size: 10px; color: #f38181">latent variable</a> <a href="/tags/latex/" style="font-size: 10.67px; color: #ed8786">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/learning-notes/" style="font-size: 12.67px; color: #da9b97">learning-notes</a> <a href="/tags/legged-locomotion/" style="font-size: 16.67px; color: #b4c1b8">legged locomotion</a> <a href="/tags/legged-robotics/" style="font-size: 10px; color: #f38181">legged robotics</a> <a href="/tags/legged-robot/" style="font-size: 10px; color: #f38181">legged-robot</a> <a href="/tags/legged-gym/" style="font-size: 10px; color: #f38181">legged_gym</a> <a href="/tags/life/" style="font-size: 16px; color: #bbbbb2">life</a> <a href="/tags/linux/" style="font-size: 18.67px; color: #a2d4c8">linux</a> <a href="/tags/linux-kernel/" style="font-size: 10px; color: #f38181">linux-kernel</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 12.67px; color: #da9b97">math</a> <a href="/tags/matlab/" style="font-size: 11.33px; color: #e68e8c">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 14px; color: #cda7a2">memory</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/money/" style="font-size: 10px; color: #f38181">money</a> <a href="/tags/motion-imitation/" style="font-size: 10px; color: #f38181">motion imitation</a> <a href="/tags/motion-control/" style="font-size: 10px; color: #f38181">motion-control</a> <a href="/tags/motor/" style="font-size: 10.67px; color: #ed8786">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/mpc/" style="font-size: 10px; color: #f38181">mpc</a> <a href="/tags/mujoco/" style="font-size: 10.67px; color: #ed8786">mujoco</a> <a href="/tags/music-theory/" style="font-size: 10px; color: #f38181">music-theory</a> <a href="/tags/network/" style="font-size: 10.67px; color: #ed8786">network</a> <a href="/tags/neural-mapping/" style="font-size: 10px; color: #f38181">neural mapping</a> <a href="/tags/ocs2/" style="font-size: 10px; color: #f38181">ocs2</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/openscad/" style="font-size: 10px; color: #f38181">openscad</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/optimal-control/" style="font-size: 10px; color: #f38181">optimal-control</a> <a href="/tags/perceptive-locomotion/" style="font-size: 11.33px; color: #e68e8c">perceptive locomotion</a> <a href="/tags/perf/" style="font-size: 10px; color: #f38181">perf</a> <a href="/tags/performance/" style="font-size: 10px; color: #f38181">performance</a> <a href="/tags/personal-finance/" style="font-size: 10px; color: #f38181">personal-finance</a> <a href="/tags/piano/" style="font-size: 10px; color: #f38181">piano</a> <a href="/tags/pinhole-camera/" style="font-size: 10px; color: #f38181">pinhole-camera</a> <a href="/tags/pinocchio/" style="font-size: 13.33px; color: #d4a19c">pinocchio</a> <a href="/tags/pixhawk/" style="font-size: 10px; color: #f38181">pixhawk</a> <a href="/tags/pixhawk-6c/" style="font-size: 12px; color: #e09491">pixhawk 6c</a> <a href="/tags/point-cloud/" style="font-size: 10px; color: #f38181">point-cloud</a> <a href="/tags/policy-distillation/" style="font-size: 11.33px; color: #e68e8c">policy distillation</a> <a href="/tags/ppo/" style="font-size: 15.33px; color: #c1b4ad">ppo</a> <a href="/tags/privileged-learning/" style="font-size: 12px; color: #e09491">privileged learning</a> <a href="/tags/profiling/" style="font-size: 10px; color: #f38181">profiling</a> <a href="/tags/px4/" style="font-size: 12px; color: #e09491">px4</a> <a href="/tags/python/" style="font-size: 14.67px; color: #c7aea7">python</a> <a href="/tags/qgroundcontrol/" style="font-size: 12px; color: #e09491">qgroundcontrol</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/quadrotor/" style="font-size: 10.67px; color: #ed8786">quadrotor</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/reinforcement-learning/" style="font-size: 10px; color: #f38181">reinforcement learning</a> <a href="/tags/representation-learning/" style="font-size: 10px; color: #f38181">representation learning</a> <a href="/tags/reward-tuning/" style="font-size: 10.67px; color: #ed8786">reward tuning</a> <a href="/tags/rnn/" style="font-size: 10px; color: #f38181">rnn</a> <a href="/tags/robot/" style="font-size: 12px; color: #e09491">robot</a> <a href="/tags/robot-parkour/" style="font-size: 10px; color: #f38181">robot parkour</a> <a href="/tags/robotics/" style="font-size: 15.33px; color: #c1b4ad">robotics</a> <a href="/tags/ros/" style="font-size: 17.33px; color: #aec7bd">ros</a> <a href="/tags/ros2/" style="font-size: 14px; color: #cda7a2">ros2</a> <a href="/tags/ros2-control/" style="font-size: 10px; color: #f38181">ros2_control</a> <a href="/tags/rsl-rl/" style="font-size: 10px; color: #f38181">rsl_rl</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/security/" style="font-size: 10px; color: #f38181">security</a> <a href="/tags/sensor-fusion/" style="font-size: 10px; color: #f38181">sensor-fusion</a> <a href="/tags/shell/" style="font-size: 10.67px; color: #ed8786">shell</a> <a href="/tags/signal-processing/" style="font-size: 10px; color: #f38181">signal-processing</a> <a href="/tags/sim-to-real/" style="font-size: 16px; color: #bbbbb2">sim-to-real</a> <a href="/tags/simulation/" style="font-size: 11.33px; color: #e68e8c">simulation</a> <a href="/tags/socket/" style="font-size: 10px; color: #f38181">socket</a> <a href="/tags/soft-dynamics-constraints/" style="font-size: 10px; color: #f38181">soft dynamics constraints</a> <a href="/tags/spot/" style="font-size: 10px; color: #f38181">spot</a> <a href="/tags/stairs/" style="font-size: 10px; color: #f38181">stairs</a> <a href="/tags/stl/" style="font-size: 11.33px; color: #e68e8c">stl</a> <a href="/tags/stm32/" style="font-size: 10px; color: #f38181">stm32</a> <a href="/tags/tcp-ip/" style="font-size: 10px; color: #f38181">tcp-ip</a> <a href="/tags/teacher-policy/" style="font-size: 10px; color: #f38181">teacher policy</a> <a href="/tags/teacher-student/" style="font-size: 10.67px; color: #ed8786">teacher student</a> <a href="/tags/teacher-student/" style="font-size: 10.67px; color: #ed8786">teacher-student</a> <a href="/tags/temporal-convolution/" style="font-size: 10px; color: #f38181">temporal convolution</a> <a href="/tags/terrain-reconstruction/" style="font-size: 10px; color: #f38181">terrain reconstruction</a> <a href="/tags/thread/" style="font-size: 10.67px; color: #ed8786">thread</a> <a href="/tags/tools/" style="font-size: 18px; color: #a8cec3">tools</a> <a href="/tags/tron1/" style="font-size: 10px; color: #f38181">tron1</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 11.33px; color: #e68e8c">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/uncertainty/" style="font-size: 10px; color: #f38181">uncertainty</a> <a href="/tags/unitree/" style="font-size: 10.67px; color: #ed8786">unitree</a> <a href="/tags/unitree-g1/" style="font-size: 10px; color: #f38181">unitree g1</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/vae/" style="font-size: 10px; color: #f38181">vae</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 12px; color: #e09491">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/wifi/" style="font-size: 10px; color: #f38181">wifi</a> <a href="/tags/wiring/" style="font-size: 10px; color: #f38181">wiring</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/workflow/" style="font-size: 10px; color: #f38181">workflow</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/z-transform/" style="font-size: 10px; color: #f38181">z-transform</a> <a href="/tags/zero-shot-transfer/" style="font-size: 10px; color: #f38181">zero-shot transfer</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BA%BA%E5%BD%A2%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10.67px; color: #ed8786">人形机器人</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">动力学</a> <a href="/tags/%E5%9B%9B%E6%97%8B%E7%BF%BC/" style="font-size: 10px; color: #f38181">四旋翼</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 18.67px; color: #a2d4c8">四足机器人</a> <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%8A%E6%96%AD/" style="font-size: 10px; color: #f38181">实验诊断</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 19.33px; color: #9bdbce">强化学习</a> <a href="/tags/%E6%8E%A5%E8%A7%A6%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">接触动力学</a> <a href="/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/" style="font-size: 10px; color: #f38181">数值计算</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10px; color: #f38181">机器人</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8E%A7%E5%88%B6/" style="font-size: 10.67px; color: #ed8786">机器人控制</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%A7%86%E8%A7%89/" style="font-size: 10px; color: #f38181">机器人视觉</a> <a href="/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" style="font-size: 10px; color: #f38181">构建系统</a> <a href="/tags/%E6%B5%AE%E5%8A%A8%E5%9F%BA/" style="font-size: 13.33px; color: #d4a19c">浮动基</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 10px; color: #f38181">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA/" style="font-size: 10px; color: #f38181">深度相机</a> <a href="/tags/%E7%82%B9%E4%BA%91/" style="font-size: 10px; color: #f38181">点云</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px; color: #f38181">版本控制</a>
+    <a href="/tags/3d%E6%89%93%E5%8D%B0/" style="font-size: 10px; color: #f38181">3d打印</a> <a href="/tags/actor-critic/" style="font-size: 10px; color: #f38181">actor-critic</a> <a href="/tags/adaptive-sampling/" style="font-size: 10px; color: #f38181">adaptive sampling</a> <a href="/tags/ai%E8%BE%85%E5%8A%A9%E8%AE%BE%E8%AE%A1/" style="font-size: 10px; color: #f38181">ai辅助设计</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 11.88px; color: #e19390">algorithms</a> <a href="/tags/anymal/" style="font-size: 12.5px; color: #dc9996">anymal</a> <a href="/tags/apriltag/" style="font-size: 10px; color: #f38181">apriltag</a> <a href="/tags/ardupilot/" style="font-size: 10px; color: #f38181">ardupilot</a> <a href="/tags/atlas/" style="font-size: 10px; color: #f38181">atlas</a> <a href="/tags/attention/" style="font-size: 11.88px; color: #e19390">attention</a> <a href="/tags/automation/" style="font-size: 10px; color: #f38181">automation</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bang-bang/" style="font-size: 10px; color: #f38181">bang-bang</a> <a href="/tags/belief-encoder/" style="font-size: 10px; color: #f38181">belief encoder</a> <a href="/tags/blender/" style="font-size: 10px; color: #f38181">blender</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/cadquery/" style="font-size: 10px; color: #f38181">cadquery</a> <a href="/tags/calibration/" style="font-size: 10.63px; color: #ed8786">calibration</a> <a href="/tags/camera-calibration/" style="font-size: 10px; color: #f38181">camera calibration</a> <a href="/tags/camera-intrinsics/" style="font-size: 10.63px; color: #ed8786">camera-intrinsics</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/cnn/" style="font-size: 10px; color: #f38181">cnn</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/computer-vision/" style="font-size: 10px; color: #f38181">computer-vision</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 14.38px; color: #caaba5">control</a> <a href="/tags/controller-manager/" style="font-size: 10px; color: #f38181">controller_manager</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/cpu/" style="font-size: 10px; color: #f38181">cpu</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/dagger/" style="font-size: 11.25px; color: #e78d8b">dagger</a> <a href="/tags/data-struct/" style="font-size: 10.63px; color: #ed8786">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth camera</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth-camera</a> <a href="/tags/design-pattern/" style="font-size: 10px; color: #f38181">design-pattern</a> <a href="/tags/diagnostics/" style="font-size: 10.63px; color: #ed8786">diagnostics</a> <a href="/tags/direct-collocation/" style="font-size: 10px; color: #f38181">direct collocation</a> <a href="/tags/dots/" style="font-size: 14.38px; color: #caaba5">dots</a> <a href="/tags/dtof/" style="font-size: 10px; color: #f38181">dtof</a> <a href="/tags/economics/" style="font-size: 10px; color: #f38181">economics</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/elevation-map/" style="font-size: 10.63px; color: #ed8786">elevation map</a> <a href="/tags/elf/" style="font-size: 10px; color: #f38181">elf</a> <a href="/tags/executor/" style="font-size: 10px; color: #f38181">executor</a> <a href="/tags/factory-pattern/" style="font-size: 10px; color: #f38181">factory-pattern</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/fiducial-marker/" style="font-size: 10px; color: #f38181">fiducial marker</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/finance/" style="font-size: 10px; color: #f38181">finance</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fourier/" style="font-size: 10px; color: #f38181">fourier</a> <a href="/tags/fov/" style="font-size: 10.63px; color: #ed8786">fov</a> <a href="/tags/freecad/" style="font-size: 10px; color: #f38181">freecad</a> <a href="/tags/gae/" style="font-size: 10px; color: #f38181">gae</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10.63px; color: #ed8786">gdb</a> <a href="/tags/geometry/" style="font-size: 10px; color: #f38181">geometry</a> <a href="/tags/git/" style="font-size: 11.25px; color: #e78d8b">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/gru/" style="font-size: 10px; color: #f38181">gru</a> <a href="/tags/guitar/" style="font-size: 10px; color: #f38181">guitar</a> <a href="/tags/hardware/" style="font-size: 10px; color: #f38181">hardware</a> <a href="/tags/humanoid/" style="font-size: 10px; color: #f38181">humanoid</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/imu/" style="font-size: 10px; color: #f38181">imu</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 13.75px; color: #d0a5a0">isaac gym</a> <a href="/tags/isaac-lab/" style="font-size: 10.63px; color: #ed8786">isaac lab</a> <a href="/tags/isaaclab/" style="font-size: 10.63px; color: #ed8786">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.63px; color: #ed8786">kdl</a> <a href="/tags/laplace/" style="font-size: 10px; color: #f38181">laplace</a> <a href="/tags/latent-variable/" style="font-size: 10px; color: #f38181">latent variable</a> <a href="/tags/latex/" style="font-size: 10.63px; color: #ed8786">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/learning-notes/" style="font-size: 12.5px; color: #dc9996">learning-notes</a> <a href="/tags/legged-locomotion/" style="font-size: 16.25px; color: #b8bdb4">legged locomotion</a> <a href="/tags/legged-robotics/" style="font-size: 10px; color: #f38181">legged robotics</a> <a href="/tags/legged-robot/" style="font-size: 10px; color: #f38181">legged-robot</a> <a href="/tags/legged-gym/" style="font-size: 10px; color: #f38181">legged_gym</a> <a href="/tags/life/" style="font-size: 15.63px; color: #beb7af">life</a> <a href="/tags/linux/" style="font-size: 18.75px; color: #a1d5c9">linux</a> <a href="/tags/linux-kernel/" style="font-size: 10px; color: #f38181">linux-kernel</a> <a href="/tags/linux-tools/" style="font-size: 12.5px; color: #dc9996">linux-tools</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 12.5px; color: #dc9996">math</a> <a href="/tags/matlab/" style="font-size: 11.25px; color: #e78d8b">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 13.75px; color: #d0a5a0">memory</a> <a href="/tags/mixture-of-experts/" style="font-size: 10px; color: #f38181">mixture of experts</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/money/" style="font-size: 10px; color: #f38181">money</a> <a href="/tags/motion-imitation/" style="font-size: 10px; color: #f38181">motion imitation</a> <a href="/tags/motion-control/" style="font-size: 10px; color: #f38181">motion-control</a> <a href="/tags/motor/" style="font-size: 10.63px; color: #ed8786">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/mpc/" style="font-size: 10px; color: #f38181">mpc</a> <a href="/tags/mujoco/" style="font-size: 11.25px; color: #e78d8b">mujoco</a> <a href="/tags/music-theory/" style="font-size: 10px; color: #f38181">music-theory</a> <a href="/tags/network/" style="font-size: 10.63px; color: #ed8786">network</a> <a href="/tags/neural-mapping/" style="font-size: 10px; color: #f38181">neural mapping</a> <a href="/tags/ocs2/" style="font-size: 10px; color: #f38181">ocs2</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/onnx/" style="font-size: 10px; color: #f38181">onnx</a> <a href="/tags/openscad/" style="font-size: 10px; color: #f38181">openscad</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/optimal-control/" style="font-size: 10px; color: #f38181">optimal-control</a> <a href="/tags/perceptive-locomotion/" style="font-size: 11.25px; color: #e78d8b">perceptive locomotion</a> <a href="/tags/perf/" style="font-size: 10px; color: #f38181">perf</a> <a href="/tags/performance/" style="font-size: 10.63px; color: #ed8786">performance</a> <a href="/tags/personal-finance/" style="font-size: 10px; color: #f38181">personal-finance</a> <a href="/tags/piano/" style="font-size: 10px; color: #f38181">piano</a> <a href="/tags/pinhole-camera/" style="font-size: 10px; color: #f38181">pinhole-camera</a> <a href="/tags/pinocchio/" style="font-size: 13.13px; color: #d69f9b">pinocchio</a> <a href="/tags/pixhawk/" style="font-size: 10px; color: #f38181">pixhawk</a> <a href="/tags/pixhawk-6c/" style="font-size: 11.88px; color: #e19390">pixhawk 6c</a> <a href="/tags/point-cloud/" style="font-size: 10px; color: #f38181">point-cloud</a> <a href="/tags/policy-distillation/" style="font-size: 11.25px; color: #e78d8b">policy distillation</a> <a href="/tags/ppo/" style="font-size: 15px; color: #c4b1aa">ppo</a> <a href="/tags/privileged-learning/" style="font-size: 11.88px; color: #e19390">privileged learning</a> <a href="/tags/profiling/" style="font-size: 10px; color: #f38181">profiling</a> <a href="/tags/px4/" style="font-size: 11.88px; color: #e19390">px4</a> <a href="/tags/python/" style="font-size: 14.38px; color: #caaba5">python</a> <a href="/tags/qgroundcontrol/" style="font-size: 11.88px; color: #e19390">qgroundcontrol</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/quadrotor/" style="font-size: 10.63px; color: #ed8786">quadrotor</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/reinforcement-learning/" style="font-size: 10px; color: #f38181">reinforcement learning</a> <a href="/tags/representation-learning/" style="font-size: 10px; color: #f38181">representation learning</a> <a href="/tags/reward-tuning/" style="font-size: 10.63px; color: #ed8786">reward tuning</a> <a href="/tags/rnn/" style="font-size: 10px; color: #f38181">rnn</a> <a href="/tags/robogauge/" style="font-size: 10px; color: #f38181">robogauge</a> <a href="/tags/robot/" style="font-size: 11.88px; color: #e19390">robot</a> <a href="/tags/robot-parkour/" style="font-size: 10px; color: #f38181">robot parkour</a> <a href="/tags/robotics/" style="font-size: 15px; color: #c4b1aa">robotics</a> <a href="/tags/ros/" style="font-size: 16.88px; color: #b2c3b9">ros</a> <a href="/tags/ros2/" style="font-size: 13.75px; color: #d0a5a0">ros2</a> <a href="/tags/ros2-control/" style="font-size: 10px; color: #f38181">ros2_control</a> <a href="/tags/rsl-rl/" style="font-size: 10px; color: #f38181">rsl_rl</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/security/" style="font-size: 10px; color: #f38181">security</a> <a href="/tags/sensor-fusion/" style="font-size: 10px; color: #f38181">sensor-fusion</a> <a href="/tags/shell/" style="font-size: 10.63px; color: #ed8786">shell</a> <a href="/tags/signal-processing/" style="font-size: 10px; color: #f38181">signal-processing</a> <a href="/tags/sim-to-real/" style="font-size: 16.25px; color: #b8bdb4">sim-to-real</a> <a href="/tags/simulation/" style="font-size: 11.25px; color: #e78d8b">simulation</a> <a href="/tags/socket/" style="font-size: 10px; color: #f38181">socket</a> <a href="/tags/soft-dynamics-constraints/" style="font-size: 10px; color: #f38181">soft dynamics constraints</a> <a href="/tags/spot/" style="font-size: 10px; color: #f38181">spot</a> <a href="/tags/ssh/" style="font-size: 10px; color: #f38181">ssh</a> <a href="/tags/stairs/" style="font-size: 10px; color: #f38181">stairs</a> <a href="/tags/stl/" style="font-size: 11.25px; color: #e78d8b">stl</a> <a href="/tags/stm32/" style="font-size: 10px; color: #f38181">stm32</a> <a href="/tags/tcp-ip/" style="font-size: 10px; color: #f38181">tcp-ip</a> <a href="/tags/teacher-policy/" style="font-size: 10px; color: #f38181">teacher policy</a> <a href="/tags/teacher-student/" style="font-size: 11.25px; color: #e78d8b">teacher student</a> <a href="/tags/teacher-student/" style="font-size: 10.63px; color: #ed8786">teacher-student</a> <a href="/tags/temporal-convolution/" style="font-size: 10px; color: #f38181">temporal convolution</a> <a href="/tags/terrain-reconstruction/" style="font-size: 10px; color: #f38181">terrain reconstruction</a> <a href="/tags/thread/" style="font-size: 10.63px; color: #ed8786">thread</a> <a href="/tags/tools/" style="font-size: 17.5px; color: #adc9bf">tools</a> <a href="/tags/tron1/" style="font-size: 10px; color: #f38181">tron1</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 11.25px; color: #e78d8b">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/uncertainty/" style="font-size: 10px; color: #f38181">uncertainty</a> <a href="/tags/unitree/" style="font-size: 10.63px; color: #ed8786">unitree</a> <a href="/tags/unitree-g1/" style="font-size: 10px; color: #f38181">unitree g1</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/vae/" style="font-size: 10px; color: #f38181">vae</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 11.88px; color: #e19390">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/wifi/" style="font-size: 10px; color: #f38181">wifi</a> <a href="/tags/wiring/" style="font-size: 10px; color: #f38181">wiring</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/workflow/" style="font-size: 10px; color: #f38181">workflow</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/z-transform/" style="font-size: 10px; color: #f38181">z-transform</a> <a href="/tags/zero-shot-transfer/" style="font-size: 10px; color: #f38181">zero-shot transfer</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BA%BA%E5%BD%A2%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10.63px; color: #ed8786">人形机器人</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">动力学</a> <a href="/tags/%E5%9B%9B%E6%97%8B%E7%BF%BC/" style="font-size: 10px; color: #f38181">四旋翼</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 18.13px; color: #a7cfc4">四足机器人</a> <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%8A%E6%96%AD/" style="font-size: 10px; color: #f38181">实验诊断</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 19.38px; color: #9bdbce">强化学习</a> <a href="/tags/%E6%8E%A5%E8%A7%A6%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">接触动力学</a> <a href="/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/" style="font-size: 10px; color: #f38181">数值计算</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10px; color: #f38181">机器人</a>
 </div>
 
 
 
 <div align="center"> 
-    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" alt="知识共享许可协议">
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
 
 
 

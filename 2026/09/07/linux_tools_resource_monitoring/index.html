@@ -1,0 +1,999 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	                    <ul class="submenu">
+	                        
+	                        <li><a href="/knowledge/robotics/">机器人学</a></li>
+	                        
+	                        <li><a href="/knowledge/computer-vision/">计算机视觉</a></li>
+	                        
+	                        <li><a href="/knowledge/reinforcement-learning/">强化学习</a></li>
+	                        
+	                        <li><a href="/knowledge/ros-simulation/">ROS 与仿真</a></li>
+	                        
+	                        <li><a href="/knowledge/programming/">编程与算法</a></li>
+	                        
+	                        <li><a href="/knowledge/control-math/">控制与数学</a></li>
+	                        
+	                        <li><a href="/knowledge/development/">系统与开发环境</a></li>
+	                        
+	                        <li><a href="/knowledge/tools-creation/">工具与创作</a></li>
+	                        
+	                        <li><a href="/knowledge/life/">生活与成长</a></li>
+	                        
+	                        <li><a href="/categories/">全部知识分类</a></li>
+	                        <li><a href="/archives/">按时间查看文章</a></li>
+	                    </ul>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/67_linux_tools/logo/paris-france-eiffel-tower-night-preview_used.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">Linux 工具实战：内存、CPU 与磁盘 I/O 监控</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>看到内存用了 90%、磁盘 <code>%util</code> 达到 100%，很容易立刻想加内存、换 SSD。但这些数字究竟描述谁、哪个时间窗口、什么单位？如果口径没对齐，优化可能只是把钱花在没有证据的猜测上。</p>
+<p>本文使用 <code>free</code>、<code>vmstat</code>、<code>iostat</code>、<code>sar</code> 建立从“当前状态”到“资源压力”再到“历史关联”的排障思路。它们用于提出和检验假设，不是四个自动诊断按钮。</p>
+<p>系列阅读：<a href="/2026/09/07/linux_tools_learning_map/">学习地图</a> · <a href="/2026/09/07/linux_tools_process_diagnostics/">进程与线程排障</a> · 本篇 · <a href="/2026/09/07/linux_tools_elf_linking/">ELF 与链接</a> · <a href="/2026/09/07/linux_tools_transfer_scheduling/">传输与任务调度</a>。Shell 管道基础可以回看 <a href="/2023/03/25/archived_shell/">原有 Shell 笔记</a>。</p>
+<h2 id="先统一观察口径">先统一观察口径</h2>
+<p>读一个监控数字前，先确定四件事：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>例子</th>
+<th>不核对会发生什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对象</td>
+<td>整机、虚拟机、容器、进程、某个设备</td>
+<td>把其他工作负载算到自己头上</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>即时状态、最近一秒、启动以来平均</td>
+<td>将历史均值误判成当前峰值</td>
+</tr>
+<tr>
+<td>单位</td>
+<td>B、KiB、MB/s、毫秒、百分比</td>
+<td>比较结果差几个数量级</td>
+</tr>
+<tr>
+<td>边界</td>
+<td>CPU 配额、内存上限、设备层级</td>
+<td>宿主有余量但容器已经被限制</td>
+</tr>
+</tbody>
+</table>
+<p>下面的 GIF 是实际命令输出的教学重排，不是屏幕录像。它们展示工具操作和字段关系，不是这台机器的性能基准，更不能证明某个资源已经构成瓶颈。每项实际验证状态见 <a href="/downloads/code/linux_tools_lab/validation.json">validation.json</a>，完整输入输出见 <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">recorded-sessions.json</a>。</p>
+<p>在完整网站源码仓库根目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash docker/linux-tools-lab/run.sh build</span><br><span class="line">bash docker/linux-tools-lab/run.sh <span class="built_in">test</span></span><br><span class="line">bash docker/linux-tools-lab/run.sh render</span><br><span class="line">bash docker/linux-tools-lab/run.sh snapshot</span><br></pre></td></tr></table></figure>
+<p>环境与产物契约见 <a href="/downloads/code/linux_tools_lab/README.md">实验 README</a>。本篇不要求在宿主机全局安装监控工具，也不要求为了演示制造 OOM 或大量写满磁盘。</p>
+<p><code>free</code>、<code>vmstat</code> 由 procps-ng 提供，<code>iostat</code>、<code>sar</code> 属于 sysstat。先记录版本，不能因为命令名字相同就默认字段定义永远不变：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">free --version</span><br><span class="line">vmstat --version</span><br><span class="line">iostat -V</span><br><span class="line">sar -V</span><br></pre></td></tr></table></figure>
+<p><a id="free"></a></p>
+<h2 id="free：内存少了，还是可回收缓存多了">free：内存少了，还是可回收缓存多了</h2>
+<h3 id="不要只盯-free-那一列">不要只盯 free 那一列</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">free -h</span><br><span class="line">free -w -m</span><br><span class="line">free -m -s 1 -c 3</span><br></pre></td></tr></table></figure>
+<p><code>-h</code> 便于快速阅读；<code>-m</code> 使用 MiB 量级输出，方便比较相邻样本；<code>-w</code> 把 buffers 与 cache 分列；<code>-s</code>、<code>-c</code> 给出重复采样间隔和次数。别在一次计算里混用自动缩放后的 GiB 与 MiB 数值。</p>
+<p><code>free</code> 从 <code>/proc/meminfo</code> 获取数据。<code>free</code> 列是当前未使用页，<code>available</code> 是不发生交换时可供新工作负载使用的估计，考虑了可回收部分，并不等于把所有 cache 原封不动加回去。<a target="_blank" rel="noopener" href="https://gitlab.com/procps-ng/procps/-/blob/master/man/free.1">procps-ng free 手册</a></p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/free.png">
+  <img src="/img/postImg/67_linux_tools/demos/free.gif" alt="free 比较空闲页、可用内存与缓存字段，避免把低 free 直接判断为内存不足" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/free.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>看动画时先比较 <code>free</code> 与 <code>available</code>，再看缓存和 swap。Linux 把暂时不用的内存用于缓存通常是正常策略；内存充足的机器也可能有很低的 <code>free</code>。</p>
+<h3 id="used-的等式有版本差异">used 的等式有版本差异</h3>
+<p>Ubuntu 22.04 所带旧版文档将 <code>used</code> 解释为 <code>total - free - buffers - cache</code>；较新的 procps-ng 手册使用 <code>total - available</code>。因此截图里的 <code>used</code> 不同，未必说明某个进程突然增加了占用。<a target="_blank" rel="noopener" href="https://manpages.ubuntu.com/manpages/jammy/man1/free.1.html">Ubuntu Jammy free 手册</a>、<a target="_blank" rel="noopener" href="https://gitlab.com/procps-ng/procps/-/blob/master/man/free.1">当前上游定义</a></p>
+<p>一个纯教学算例：某次相同口径快照中，total 为 16 GiB，free 为 1 GiB，buffers 与 cache 合计 5 GiB，available 为 4 GiB。旧式计算得到 used=10 GiB，较新式计算得到 used=12 GiB；两者表达的概念不同，不能只按名字判定数据错了。</p>
+<p><code>shared</code> 主要涉及 tmpfs 等共享内存统计，不是“所有进程 RSS 重复部分之和”。cache 中也有不同可回收程度的内容，所以把每一列都当互不重叠的集合相加，往往会得到矛盾。</p>
+<h3 id="它不能指出谁泄漏了">它不能指出谁泄漏了</h3>
+<p><code>free</code> 描述全局内存状态，不能直接证明哪个进程在泄漏。进一步回到 <code>ps</code>/<code>top</code> 找候选，再观察该进程 RSS、PSS、映射类型及增长过程。<a href="/2026/09/07/linux_tools_process_diagnostics/#ps">进程内存视角</a></p>
+<p>分配器保留、内存池、文件映射、缓存增长和真正丢失引用的泄漏，可能都表现为 RSS 上升。需要将增长与请求次数、数据量、对象生命周期联系起来，而不是看到一次大数就宣称泄漏。</p>
+<p>在更底层，可以对照：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rg <span class="string">&#x27;^(MemTotal|MemFree|MemAvailable|Buffers|Cached|Shmem|SwapTotal|SwapFree):&#x27;</span> \</span><br><span class="line">  /proc/meminfo</span><br></pre></td></tr></table></figure>
+<p>这些读取发生在不同时间点，系统也在持续变化，所以两次命令的数字不必逐字一致。保留时间、单位和变化趋势，比强求末位相等更合理。<a target="_blank" rel="noopener" href="https://docs.kernel.org/filesystems/proc.html">Linux /proc 内存统计</a></p>
+<h3 id="最小练习：不用制造内存耗尽">最小练习：不用制造内存耗尽</h3>
+<p>在实验容器中连续采三次，写下每次的 <code>free</code>、<code>available</code> 与 swap；解释它们分别回答什么问题。然后查看容器内存上限，确认工具展示的 total 是否等于这个上限。</p>
+<p>不要为了让 GIF 更明显而执行 <code>drop_caches</code>。清缓存会改变全局工作集与后续 I/O，属于干预实验，既不是常规释放内存的修复，也不应该在共享系统随意执行。</p>
+<p>Swap 已用量不为零，不代表此刻正在频繁换页。是否出现当前交换压力，需要看接下来 <code>vmstat</code> 的速率和业务延迟；“曾经换出过”和“现在正在抖动”不是同一个事实。</p>
+<p><a id="vmstat"></a></p>
+<h2 id="vmstat：看资源是否让任务等着">vmstat：看资源是否让任务等着</h2>
+<h3 id="先分清第一行">先分清第一行</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vmstat -w -t 1 4</span><br></pre></td></tr></table></figure>
+<p>第一份报告中，CPU 和许多速率字段反映启动以来的平均；之后才是采样间隔内变化。<strong>进程状态和内存字段即使在第一行仍是即时值</strong>，不能把整行笼统叫“都是开机平均”。支持 <code>-y</code> 的版本可跳过第一份报告；旧环境先用 <code>--help</code> 核对。<a target="_blank" rel="noopener" href="https://gitlab.com/procps-ng/procps/-/blob/master/man/vmstat.8">procps-ng vmstat 手册</a></p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/vmstat.png">
+  <img src="/img/postImg/67_linux_tools/demos/vmstat.gif" alt="vmstat 连续采样并区分首行启动以来速率与后续间隔统计，联合观察运行队列和交换" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/vmstat.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>阅读时不要孤立截取一个 <code>wa</code> 或 <code>r</code>。先确定这是不是间隔样本，再把运行队列、交换、块 I/O 和 CPU 分项放在同一行里比较。</p>
+<h3 id="用四组字段提出假设">用四组字段提出假设</h3>
+<p><code>r</code> 是可运行任务数量，含正在运行与等待 CPU；<code>b</code> 提示阻塞等待 I/O 的任务。若 <code>r</code> 持续大于实际可用 CPU 并且 CPU 时间繁忙，才更支持排队竞争；不能用一瞬间的尖峰定性。</p>
+<p><code>swpd</code> 是已使用 swap 的量，<code>si</code>、<code>so</code> 是交换读入/写出速率。持续交换并伴随延迟恶化，才是值得追查的组合；单独一个非零 <code>swpd</code> 没有相同含义。</p>
+<p><code>bi</code>、<code>bo</code> 描述块设备输入/输出速率，<code>in</code>、<code>cs</code> 是中断与上下文切换速率。更多并发连接、短任务和正常唤醒都可能提高 <code>cs</code>；不要直接把“上下文切换多”翻译成“锁有问题”。</p>
+<p><code>us</code>、<code>sy</code>、<code>id</code>、<code>wa</code>、<code>st</code> 分别帮助区分用户态、内核态、空闲、I/O 等待计量与虚拟化 steal。各版本可能显示更多字段，先读表头再写脚本，不要永远按固定第 13 列取 CPU 使用率。</p>
+<h3 id="iowait-不是某个进程的等待时长">iowait 不是某个进程的等待时长</h3>
+<p><code>wa</code> 是 CPU 统计口径里的 I/O 等待计量，不是所有任务阻塞时间的总和，也不是磁盘利用率。内核文档还明确提醒，多核归属和计数变化使 iowait 不能作为可靠的单一判据。<a target="_blank" rel="noopener" href="https://docs.kernel.org/filesystems/proc.html">Linux /proc/stat 的 iowait 说明</a></p>
+<p>例如 CPU 一边做别的计算、一边有任务等待磁盘，<code>wa</code> 未必很高；程序等待网络远端响应也不能简单用 <code>wa</code> 解释。要结合具体设备的延迟、业务调用栈和 I/O 路径。</p>
+<h3 id="使用反例校准判断">使用反例校准判断</h3>
+<p>如果 <code>r</code> 上升、<code>us</code> 上升、磁盘基本无变化，优先调查计算竞争；如果 <code>b</code>、设备延迟和业务读取耗时同时上升，才更支持 I/O 方向。它们是排查分支，不是严格等价关系。</p>
+<p>如果 <code>sy</code> 高，可能涉及系统调用、网络栈、内核同步等；需要 <code>strace</code> 或内核/CPU profiling 的进一步证据，不能直接建议“换更快 CPU”。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 只输出一次累计事件/内存概览，不能当一秒采样</span></span><br><span class="line">vmstat -s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 改内存显示单位，不代表所有列都随之换单位</span></span><br><span class="line">vmstat -S M 1 3</span><br></pre></td></tr></table></figure>
+<p><code>-S</code> 不改变所有块 I/O 字段的单位。分析时应保存实际工具版本和表头，尤其是在比较网上截图与自己的输出时。</p>
+<p>最小练习：在四份输出中标记哪一份不能拿来代表当前一秒；再找出瞬时数量与速率各两列。说明为什么 <code>swpd=非零</code> 与 <code>so=0</code> 完全可以同时成立。</p>
+<p><a id="iostat"></a></p>
+<h2 id="iostat：队列、延迟与吞吐一起看">iostat：队列、延迟与吞吐一起看</h2>
+<h3 id="先定位设备，再谈饱和">先定位设备，再谈饱和</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">iostat -dx -y 1 3</span><br><span class="line">iostat -dxm -y 1 3</span><br></pre></td></tr></table></figure>
+<p><code>-d</code> 关注设备，<code>-x</code> 显示扩展字段，<code>-y</code> 跳过启动以来的首份报告，<code>-m</code> 切换吞吐显示单位。设备可能是分区、逻辑卷、虚拟块设备或物理盘，不能把每一行都当独立硬盘。<a target="_blank" rel="noopener" href="https://github.com/sysstat/sysstat/blob/master/man/iostat.in">sysstat iostat 手册</a></p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/iostat.png">
+  <img src="/img/postImg/67_linux_tools/demos/iostat.gif" alt="iostat 查看间隔设备统计，联合比较请求速率、平均等待时间、队列和活跃比例" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/iostat.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>容器可能看不到任何有用设备，或者看到虚拟机共享的设备指标。空表、零 I/O 和其他工作负载带来的变化都是真实可能性；这里不人为补造一组“磁盘瓶颈”数值。</p>
+<h3 id="三个量分别回答不同问题">三个量分别回答不同问题</h3>
+<p><code>r/s</code>、<code>w/s</code> 反映合并后完成的请求速率；吞吐列反映字节速率。同样 1000 次请求，4 KiB 小块与 1 MiB 大块不是同样的吞吐和访问特征。</p>
+<p><code>await</code> 或分方向的 <code>r_await</code>、<code>w_await</code> 是平均请求完成耗时，包含队列等待和服务时间，不是纯硬件服务时间。它是平均数，不显示 P99；少量很慢请求可能被大量快请求稀释。</p>
+<p><code>aqu-sz</code> 是平均队列长度。它与延迟、请求速率一起看，帮助判断并发与积压；现代并行设备允许多个请求同时进行，队列不为零并不自动意味着系统病了。</p>
+<p>假设在一段足够稳定、统计范围一致的样本里，完成速率约 1000 请求/秒、平均耗时约 0.004 秒，平均在途请求量的量级可能约为 4。这是用稳定系统关系进行数量级检查，不是强求每一秒截图都严格满足等式，更不是从平均值推导尾延迟。</p>
+<h3 id="util-100-不等于-SSD-已到极限">%util=100% 不等于 SSD 已到极限</h3>
+<p><code>%util</code> 近似描述采样窗口中设备有 I/O 活动的时间比例。对串行处理请求的设备，接近 100% 常有参考价值；但对 RAID 和现代并行 SSD，它不是“已使用硬件最大能力百分比”，上游手册明确提醒不能据此判断性能极限。</p>
+<p>同样的 100%，可能来自一个很慢的串行请求，也可能来自许多高效并行请求。判断饱和要结合队列、延迟、吞吐、工作负载请求大小与设备能力，不应仅据一个字段决定换盘。</p>
+<p>设备计数来自内核块层。父设备与分区、device-mapper 与底层盘可能重复反映同一 I/O 路径，把所有行相加可能重复统计。计数器还可能在重启或设备重置后归零，做差时要识别重置。<a target="_blank" rel="noopener" href="https://docs.kernel.org/admin-guide/iostats.html">Linux 内核 I/O 统计</a></p>
+<h3 id="最小练习：比较两种读法">最小练习：比较两种读法</h3>
+<p>先运行不带 <code>-y</code> 的版本，再运行带 <code>-y</code> 的版本，指出哪一份含启动以来统计。观察设备名，说明你的容器看到的是哪一层，以及你还缺什么证据才能映射到宿主 SSD。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">iostat -dx 1 3</span><br><span class="line">iostat -dx -y 1 3</span><br></pre></td></tr></table></figure>
+<p>不要为演示执行对裸块设备的写入测试。需要受控 I/O 负载时，只在实验批准的独立文件中使用有限大小，明确缓存、文件系统与持久化语义；普通读命中页缓存时，没有明显设备 I/O 也是合理结果。</p>
+<p><a id="sar"></a></p>
+<h2 id="sar：把当前截图延伸成时间线">sar：把当前截图延伸成时间线</h2>
+<h3 id="安装工具不等于已经有历史">安装工具不等于已经有历史</h3>
+<p><code>sar</code> 能实时采样，也能读取之前由 sysstat 收集的数据。如果以前没启用采集，就不能在今天安装后询问“昨天 14 点发生了什么”。默认历史目录和调度方式随发行版配置而异，容器也常没有 systemd 或 cron 常驻采集器。<a target="_blank" rel="noopener" href="https://github.com/sysstat/sysstat">sysstat 项目说明</a></p>
+<p>实时采样可以先只看需要的维度：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sar -u 1 3</span><br><span class="line">sar -r 1 3</span><br><span class="line">sar -q 1 3</span><br><span class="line">sar -d 1 3</span><br><span class="line">sar -n DEV 1 3</span><br></pre></td></tr></table></figure>
+<p>CPU、内存、运行队列、设备和网卡分别回答不同问题。<code>-u</code> 的整机平均可能掩盖单核瓶颈，需要时再选 <code>-P ALL</code>；<code>-n DEV</code> 的吞吐也不等于丢包、重传和业务错误率。</p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/sar.png">
+  <img src="/img/postImg/67_linux_tools/demos/sar.gif" alt="sar 采集带时间戳的系统活动并查看记录，建立指标变化的时间关系" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/sar.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>观察重点是采样时间、间隔与字段，而不是一份稳定“答案”。演示采几个样本只证明采集流程，不代表已经开启长期历史监控。</p>
+<h3 id="自己保存一段受控记录">自己保存一段受控记录</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在实验可写目录保存本次记录，不覆盖已有事故文件</span></span><br><span class="line">sar -o /work/linux-tools-sample.sa 1 3</span><br><span class="line"></span><br><span class="line"><span class="comment"># 同一份记录，按不同维度读取已保存的活动</span></span><br><span class="line">sar -u -f /work/linux-tools-sample.sa</span><br><span class="line">sar -r -f /work/linux-tools-sample.sa</span><br></pre></td></tr></table></figure>
+<p><code>-o</code> 保存的是二进制活动文件，<code>-f</code> 用于读取；它不是把表格重定向到文本文件的同一件事。某类活动是否可读，取决于采集阶段是否保存了对应数据。迁移时还要关注 sysstat 文件格式兼容性和版本。<a target="_blank" rel="noopener" href="https://github.com/sysstat/sysstat/blob/master/man/sar.in">sar 上游手册</a></p>
+<p>历史分析时可以按时间范围裁出事故附近：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 时间只是示意；应替换为实际记录覆盖的窗口</span></span><br><span class="line">sar -u -f /work/linux-tools-sample.sa \</span><br><span class="line">  -s 14:00:00 -e 14:10:00</span><br></pre></td></tr></table></figure>
+<p>如果本次样本不在这个窗口，空输出是正常结果。分享记录时应同时记录日期、时区、主机身份和是否重启；只写“14:05 高了一下”无法对齐应用日志。</p>
+<h3 id="从相关性走到因果假设">从相关性走到因果假设</h3>
+<p>假设应用延迟在 14:05 上升，同时 <code>sar</code> 显示 swap-out 和设备延迟增加，这支持去检查内存压力与换页链路，但不能直接证明是应用泄漏造成的。还要找哪个进程增长、是否有并发任务、容器限额是否变化。</p>
+<p>平均一分钟一次的历史记录，可能完全抹平 200 毫秒的控制循环抖动。排查短暂问题时，采样频率必须能回答该时间尺度的问题；但盲目提高频率又会增加开销和数据量。</p>
+<p>最小练习：生成一份只含数个样本的二进制记录，换一个新终端读取 CPU 与内存字段。再选择不覆盖该记录的时间窗口，解释为什么“查不到”不等于系统在那段时间没有工作。</p>
+<h2 id="容器内的数字属于谁">容器内的数字属于谁</h2>
+<h3 id="proc-全局视图与-cgroup-限额分开">/proc 全局视图与 cgroup 限额分开</h3>
+<p>容器里的 <code>free</code>、<code>vmstat</code> 或 <code>iostat</code> 可能读取虚拟机或主机级内核统计，而进程实际受 cgroup 限制。Docker Desktop 还有一层 Linux 虚拟机：你看到的 Linux MemTotal，不必等于 macOS 物理内存，更不必等于单容器限额。</p>
+<p>先识别当前 cgroup 版本和路径：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/self/cgroup</span><br><span class="line"><span class="built_in">cat</span> /proc/self/mountinfo</span><br></pre></td></tr></table></figure>
+<p>在已经确认挂载根目录就是当前 cgroup 的 v2 容器中，可以只读查看：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /sys/fs/cgroup/memory.current</span><br><span class="line"><span class="built_in">cat</span> /sys/fs/cgroup/memory.max</span><br><span class="line"><span class="built_in">cat</span> /sys/fs/cgroup/memory.events</span><br><span class="line"><span class="built_in">cat</span> /sys/fs/cgroup/cpu.max</span><br><span class="line"><span class="built_in">cat</span> /sys/fs/cgroup/cpu.stat</span><br></pre></td></tr></table></figure>
+<p>其他挂载方式需要根据实际 cgroup 路径定位，不能把这些路径当成所有 Linux 的固定承诺。v1 接口不同，文件不存在不表示资源没有限制。</p>
+<p><code>memory.current</code> 是该组及其子组的使用计量，<code>memory.max</code> 是限制或 <code>max</code>；<code>memory.events</code> 可提供达到限制、OOM 等事件线索。<code>cpu.max</code> 的配额/周期与 <code>cpu.stat</code> 的节流计数，有助于解释“整机很空但本容器排队”。这不是把 <code>free</code> 的 total 简单替换成限额就完成所有计算。<a target="_blank" rel="noopener" href="https://docs.kernel.org/admin-guide/cgroup-v2.html">Linux cgroup v2 官方文档</a></p>
+<h3 id="配额也可以做一个小计算">配额也可以做一个小计算</h3>
+<p>假设某个 cgroup 的 <code>cpu.max</code> 是下面这个教学数值，而不是本次实验的固定输出：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">200000 100000</span><br></pre></td></tr></table></figure>
+<p>它表示每 100000 微秒周期允许合计使用 200000 微秒 CPU 时间，平均相当于 2 个 CPU 的时间预算。进程可以在多个 CPU 上并行消耗预算，然后在周期剩余时间受到节流；它不表示已经被固定绑到两个特定核心。</p>
+<p>因此，宿主显示有 16 个逻辑 CPU，并不能让这个 cgroup 自动获得 16 核预算。还需检查祖先 cgroup 的限制与 cpuset 等约束，不能只读一个叶子文件就宣布最终可用能力。</p>
+<p>练习时比较一段采样前后的节流计数增量，再对齐请求延迟。历史累计节流次数非零，只能说明以前发生过，不能证明当前这次延迟就是节流造成的。</p>
+<h3 id="PSI-补上“是否真的等资源”">PSI 补上“是否真的等资源”</h3>
+<p>若内核支持，可以查看压力指标：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/pressure/cpu</span><br><span class="line"><span class="built_in">cat</span> /proc/pressure/memory</span><br><span class="line"><span class="built_in">cat</span> /proc/pressure/io</span><br></pre></td></tr></table></figure>
+<p>PSI 的 <code>some</code> 描述至少部分任务因资源不足而停顿的时间比例；<code>full</code> 关注更严重的同时停顿情形，具体资源和系统层级的定义有差异。<code>avg10</code>、<code>avg60</code>、<code>avg300</code> 是相应时间窗口，<code>total</code> 为累计停顿时间。<a target="_blank" rel="noopener" href="https://docs.kernel.org/accounting/psi.html">内核 PSI 文档</a></p>
+<p>如果关心单个容器，应查看其 cgroup 对应的 pressure 文件，而不是拿整机 PSI 给某个容器直接定罪。文件或字段不可用时保留限制说明，不用补零伪装“没有压力”。</p>
+<h2 id="联合排障与练习">联合排障与练习</h2>
+<h3 id="场景一：内存看起来很多，却发生-OOM">场景一：内存看起来很多，却发生 OOM</h3>
+<p>先保存 <code>free</code>，再看 cgroup 内存使用、上限与 OOM 事件变化；核对进程退出原因及系统日志。若 cgroup 限额先触发，宿主还有大量 available 完全可能同时成立。</p>
+<p>下一步检查进程内存增长、映射类型与输入规模。只有确定生命周期问题，才进入泄漏检测；若是合法工作集超过配置，则应分析容量、批量大小或限额，不要一律称为内存泄漏。</p>
+<h3 id="场景二：CPU-不忙，控制节点却很慢">场景二：CPU 不忙，控制节点却很慢</h3>
+<p>用 <code>vmstat</code> 看间隔状态，用 <code>iostat</code> 看具体设备，用 <code>sar</code> 对齐历史；再回到 <a href="/2026/09/07/linux_tools_process_diagnostics/">进程排障</a> 的调用栈与系统调用，检查它是在等待数据、锁、设备还是外部服务。</p>
+<p>若只有 cgroup 节流计数持续增加，要优先分析 CPU 配额和工作负载；若设备延迟稳定、线程在条件变量里等待，则不应该因为曾看到一次 <code>wa</code> 就选择磁盘方向。</p>
+<h3 id="交付一份真正有用的监控记录">交付一份真正有用的监控记录</h3>
+<ul>
+<li>时间：日期、时区、采样起止、间隔、是否包含启动平均。</li>
+<li>对象：主机/虚拟机/容器、设备层级、cgroup 路径和限额。</li>
+<li>版本：工具版本、内核、字段表头及单位。</li>
+<li>业务：同时刻延迟、吞吐、错误率及输入规模。</li>
+<li>证据：哪些字段一起变化，哪些关键字段没有变化。</li>
+<li>推理：当前假设、反例、下一步最小验证以及未测边界。</li>
+</ul>
+<p>最终练习是拿同一段记录回答三个问题：资源用了多少？资源是否限制了任务推进？具体哪个工作负载导致了问题？四个工具提供的是不同层次的证据，不能用第一个问题的答案替代后两个。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+   <div class="tag-cloud-tags">
+    <a href="/tags/3d%E6%89%93%E5%8D%B0/" style="font-size: 10px; color: #f38181">3d打印</a> <a href="/tags/actor-critic/" style="font-size: 10px; color: #f38181">actor-critic</a> <a href="/tags/adaptive-sampling/" style="font-size: 10px; color: #f38181">adaptive sampling</a> <a href="/tags/ai%E8%BE%85%E5%8A%A9%E8%AE%BE%E8%AE%A1/" style="font-size: 10px; color: #f38181">ai辅助设计</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 11.88px; color: #e19390">algorithms</a> <a href="/tags/anymal/" style="font-size: 12.5px; color: #dc9996">anymal</a> <a href="/tags/apriltag/" style="font-size: 10px; color: #f38181">apriltag</a> <a href="/tags/ardupilot/" style="font-size: 10px; color: #f38181">ardupilot</a> <a href="/tags/atlas/" style="font-size: 10px; color: #f38181">atlas</a> <a href="/tags/attention/" style="font-size: 11.88px; color: #e19390">attention</a> <a href="/tags/automation/" style="font-size: 10px; color: #f38181">automation</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bang-bang/" style="font-size: 10px; color: #f38181">bang-bang</a> <a href="/tags/belief-encoder/" style="font-size: 10px; color: #f38181">belief encoder</a> <a href="/tags/blender/" style="font-size: 10px; color: #f38181">blender</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/cadquery/" style="font-size: 10px; color: #f38181">cadquery</a> <a href="/tags/calibration/" style="font-size: 10.63px; color: #ed8786">calibration</a> <a href="/tags/camera-calibration/" style="font-size: 10px; color: #f38181">camera calibration</a> <a href="/tags/camera-intrinsics/" style="font-size: 10.63px; color: #ed8786">camera-intrinsics</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/cnn/" style="font-size: 10px; color: #f38181">cnn</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/computer-vision/" style="font-size: 10px; color: #f38181">computer-vision</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 14.38px; color: #caaba5">control</a> <a href="/tags/controller-manager/" style="font-size: 10px; color: #f38181">controller_manager</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/cpu/" style="font-size: 10px; color: #f38181">cpu</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/dagger/" style="font-size: 11.25px; color: #e78d8b">dagger</a> <a href="/tags/data-struct/" style="font-size: 10.63px; color: #ed8786">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth camera</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth-camera</a> <a href="/tags/design-pattern/" style="font-size: 10px; color: #f38181">design-pattern</a> <a href="/tags/diagnostics/" style="font-size: 10.63px; color: #ed8786">diagnostics</a> <a href="/tags/direct-collocation/" style="font-size: 10px; color: #f38181">direct collocation</a> <a href="/tags/dots/" style="font-size: 14.38px; color: #caaba5">dots</a> <a href="/tags/dtof/" style="font-size: 10px; color: #f38181">dtof</a> <a href="/tags/economics/" style="font-size: 10px; color: #f38181">economics</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/elevation-map/" style="font-size: 10.63px; color: #ed8786">elevation map</a> <a href="/tags/elf/" style="font-size: 10px; color: #f38181">elf</a> <a href="/tags/executor/" style="font-size: 10px; color: #f38181">executor</a> <a href="/tags/factory-pattern/" style="font-size: 10px; color: #f38181">factory-pattern</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/fiducial-marker/" style="font-size: 10px; color: #f38181">fiducial marker</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/finance/" style="font-size: 10px; color: #f38181">finance</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fourier/" style="font-size: 10px; color: #f38181">fourier</a> <a href="/tags/fov/" style="font-size: 10.63px; color: #ed8786">fov</a> <a href="/tags/freecad/" style="font-size: 10px; color: #f38181">freecad</a> <a href="/tags/gae/" style="font-size: 10px; color: #f38181">gae</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10.63px; color: #ed8786">gdb</a> <a href="/tags/geometry/" style="font-size: 10px; color: #f38181">geometry</a> <a href="/tags/git/" style="font-size: 11.25px; color: #e78d8b">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/gru/" style="font-size: 10px; color: #f38181">gru</a> <a href="/tags/guitar/" style="font-size: 10px; color: #f38181">guitar</a> <a href="/tags/hardware/" style="font-size: 10px; color: #f38181">hardware</a> <a href="/tags/humanoid/" style="font-size: 10px; color: #f38181">humanoid</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/imu/" style="font-size: 10px; color: #f38181">imu</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 13.75px; color: #d0a5a0">isaac gym</a> <a href="/tags/isaac-lab/" style="font-size: 10.63px; color: #ed8786">isaac lab</a> <a href="/tags/isaaclab/" style="font-size: 10.63px; color: #ed8786">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.63px; color: #ed8786">kdl</a> <a href="/tags/laplace/" style="font-size: 10px; color: #f38181">laplace</a> <a href="/tags/latent-variable/" style="font-size: 10px; color: #f38181">latent variable</a> <a href="/tags/latex/" style="font-size: 10.63px; color: #ed8786">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/learning-notes/" style="font-size: 12.5px; color: #dc9996">learning-notes</a> <a href="/tags/legged-locomotion/" style="font-size: 16.25px; color: #b8bdb4">legged locomotion</a> <a href="/tags/legged-robotics/" style="font-size: 10px; color: #f38181">legged robotics</a> <a href="/tags/legged-robot/" style="font-size: 10px; color: #f38181">legged-robot</a> <a href="/tags/legged-gym/" style="font-size: 10px; color: #f38181">legged_gym</a> <a href="/tags/life/" style="font-size: 15.63px; color: #beb7af">life</a> <a href="/tags/linux/" style="font-size: 18.75px; color: #a1d5c9">linux</a> <a href="/tags/linux-kernel/" style="font-size: 10px; color: #f38181">linux-kernel</a> <a href="/tags/linux-tools/" style="font-size: 12.5px; color: #dc9996">linux-tools</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 12.5px; color: #dc9996">math</a> <a href="/tags/matlab/" style="font-size: 11.25px; color: #e78d8b">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 13.75px; color: #d0a5a0">memory</a> <a href="/tags/mixture-of-experts/" style="font-size: 10px; color: #f38181">mixture of experts</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/money/" style="font-size: 10px; color: #f38181">money</a> <a href="/tags/motion-imitation/" style="font-size: 10px; color: #f38181">motion imitation</a> <a href="/tags/motion-control/" style="font-size: 10px; color: #f38181">motion-control</a> <a href="/tags/motor/" style="font-size: 10.63px; color: #ed8786">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/mpc/" style="font-size: 10px; color: #f38181">mpc</a> <a href="/tags/mujoco/" style="font-size: 11.25px; color: #e78d8b">mujoco</a> <a href="/tags/music-theory/" style="font-size: 10px; color: #f38181">music-theory</a> <a href="/tags/network/" style="font-size: 10.63px; color: #ed8786">network</a> <a href="/tags/neural-mapping/" style="font-size: 10px; color: #f38181">neural mapping</a> <a href="/tags/ocs2/" style="font-size: 10px; color: #f38181">ocs2</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/onnx/" style="font-size: 10px; color: #f38181">onnx</a> <a href="/tags/openscad/" style="font-size: 10px; color: #f38181">openscad</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/optimal-control/" style="font-size: 10px; color: #f38181">optimal-control</a> <a href="/tags/perceptive-locomotion/" style="font-size: 11.25px; color: #e78d8b">perceptive locomotion</a> <a href="/tags/perf/" style="font-size: 10px; color: #f38181">perf</a> <a href="/tags/performance/" style="font-size: 10.63px; color: #ed8786">performance</a> <a href="/tags/personal-finance/" style="font-size: 10px; color: #f38181">personal-finance</a> <a href="/tags/piano/" style="font-size: 10px; color: #f38181">piano</a> <a href="/tags/pinhole-camera/" style="font-size: 10px; color: #f38181">pinhole-camera</a> <a href="/tags/pinocchio/" style="font-size: 13.13px; color: #d69f9b">pinocchio</a> <a href="/tags/pixhawk/" style="font-size: 10px; color: #f38181">pixhawk</a> <a href="/tags/pixhawk-6c/" style="font-size: 11.88px; color: #e19390">pixhawk 6c</a> <a href="/tags/point-cloud/" style="font-size: 10px; color: #f38181">point-cloud</a> <a href="/tags/policy-distillation/" style="font-size: 11.25px; color: #e78d8b">policy distillation</a> <a href="/tags/ppo/" style="font-size: 15px; color: #c4b1aa">ppo</a> <a href="/tags/privileged-learning/" style="font-size: 11.88px; color: #e19390">privileged learning</a> <a href="/tags/profiling/" style="font-size: 10px; color: #f38181">profiling</a> <a href="/tags/px4/" style="font-size: 11.88px; color: #e19390">px4</a> <a href="/tags/python/" style="font-size: 14.38px; color: #caaba5">python</a> <a href="/tags/qgroundcontrol/" style="font-size: 11.88px; color: #e19390">qgroundcontrol</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/quadrotor/" style="font-size: 10.63px; color: #ed8786">quadrotor</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/reinforcement-learning/" style="font-size: 10px; color: #f38181">reinforcement learning</a> <a href="/tags/representation-learning/" style="font-size: 10px; color: #f38181">representation learning</a> <a href="/tags/reward-tuning/" style="font-size: 10.63px; color: #ed8786">reward tuning</a> <a href="/tags/rnn/" style="font-size: 10px; color: #f38181">rnn</a> <a href="/tags/robogauge/" style="font-size: 10px; color: #f38181">robogauge</a> <a href="/tags/robot/" style="font-size: 11.88px; color: #e19390">robot</a> <a href="/tags/robot-parkour/" style="font-size: 10px; color: #f38181">robot parkour</a> <a href="/tags/robotics/" style="font-size: 15px; color: #c4b1aa">robotics</a> <a href="/tags/ros/" style="font-size: 16.88px; color: #b2c3b9">ros</a> <a href="/tags/ros2/" style="font-size: 13.75px; color: #d0a5a0">ros2</a> <a href="/tags/ros2-control/" style="font-size: 10px; color: #f38181">ros2_control</a> <a href="/tags/rsl-rl/" style="font-size: 10px; color: #f38181">rsl_rl</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/security/" style="font-size: 10px; color: #f38181">security</a> <a href="/tags/sensor-fusion/" style="font-size: 10px; color: #f38181">sensor-fusion</a> <a href="/tags/shell/" style="font-size: 10.63px; color: #ed8786">shell</a> <a href="/tags/signal-processing/" style="font-size: 10px; color: #f38181">signal-processing</a> <a href="/tags/sim-to-real/" style="font-size: 16.25px; color: #b8bdb4">sim-to-real</a> <a href="/tags/simulation/" style="font-size: 11.25px; color: #e78d8b">simulation</a> <a href="/tags/socket/" style="font-size: 10px; color: #f38181">socket</a> <a href="/tags/soft-dynamics-constraints/" style="font-size: 10px; color: #f38181">soft dynamics constraints</a> <a href="/tags/spot/" style="font-size: 10px; color: #f38181">spot</a> <a href="/tags/ssh/" style="font-size: 10px; color: #f38181">ssh</a> <a href="/tags/stairs/" style="font-size: 10px; color: #f38181">stairs</a> <a href="/tags/stl/" style="font-size: 11.25px; color: #e78d8b">stl</a> <a href="/tags/stm32/" style="font-size: 10px; color: #f38181">stm32</a> <a href="/tags/tcp-ip/" style="font-size: 10px; color: #f38181">tcp-ip</a> <a href="/tags/teacher-policy/" style="font-size: 10px; color: #f38181">teacher policy</a> <a href="/tags/teacher-student/" style="font-size: 11.25px; color: #e78d8b">teacher student</a> <a href="/tags/teacher-student/" style="font-size: 10.63px; color: #ed8786">teacher-student</a> <a href="/tags/temporal-convolution/" style="font-size: 10px; color: #f38181">temporal convolution</a> <a href="/tags/terrain-reconstruction/" style="font-size: 10px; color: #f38181">terrain reconstruction</a> <a href="/tags/thread/" style="font-size: 10.63px; color: #ed8786">thread</a> <a href="/tags/tools/" style="font-size: 17.5px; color: #adc9bf">tools</a> <a href="/tags/tron1/" style="font-size: 10px; color: #f38181">tron1</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 11.25px; color: #e78d8b">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/uncertainty/" style="font-size: 10px; color: #f38181">uncertainty</a> <a href="/tags/unitree/" style="font-size: 10.63px; color: #ed8786">unitree</a> <a href="/tags/unitree-g1/" style="font-size: 10px; color: #f38181">unitree g1</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/vae/" style="font-size: 10px; color: #f38181">vae</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 11.88px; color: #e19390">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/wifi/" style="font-size: 10px; color: #f38181">wifi</a> <a href="/tags/wiring/" style="font-size: 10px; color: #f38181">wiring</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/workflow/" style="font-size: 10px; color: #f38181">workflow</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/z-transform/" style="font-size: 10px; color: #f38181">z-transform</a> <a href="/tags/zero-shot-transfer/" style="font-size: 10px; color: #f38181">zero-shot transfer</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BA%BA%E5%BD%A2%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10.63px; color: #ed8786">人形机器人</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">动力学</a> <a href="/tags/%E5%9B%9B%E6%97%8B%E7%BF%BC/" style="font-size: 10px; color: #f38181">四旋翼</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 18.13px; color: #a7cfc4">四足机器人</a> <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%8A%E6%96%AD/" style="font-size: 10px; color: #f38181">实验诊断</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 19.38px; color: #9bdbce">强化学习</a> <a href="/tags/%E6%8E%A5%E8%A7%A6%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">接触动力学</a> <a href="/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/" style="font-size: 10px; color: #f38181">数值计算</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10px; color: #f38181">机器人</a>
+</div>
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

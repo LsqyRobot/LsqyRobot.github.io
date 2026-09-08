@@ -6,7 +6,6 @@
         if (!intro || intro.dataset.textReady === 'true') return;
         intro.dataset.textReady = 'true';
 
-        var replay = intro.querySelector('.intro-replay');
         var preference = window.matchMedia('(prefers-reduced-motion: reduce)');
         var animations = [];
 
@@ -57,12 +56,9 @@
         }
 
         function updatePreference() {
-            replay.hidden = preference.matches;
             if (preference.matches) clearAnimations();
         }
 
-        replay.hidden = preference.matches;
-        replay.addEventListener('click', play);
         if (preference.addEventListener) preference.addEventListener('change', updatePreference);
         else preference.addListener(updatePreference);
 

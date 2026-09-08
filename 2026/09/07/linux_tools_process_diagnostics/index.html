@@ -1,0 +1,983 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	                    <ul class="submenu">
+	                        
+	                        <li><a href="/knowledge/robotics/">机器人学</a></li>
+	                        
+	                        <li><a href="/knowledge/computer-vision/">计算机视觉</a></li>
+	                        
+	                        <li><a href="/knowledge/reinforcement-learning/">强化学习</a></li>
+	                        
+	                        <li><a href="/knowledge/ros-simulation/">ROS 与仿真</a></li>
+	                        
+	                        <li><a href="/knowledge/programming/">编程与算法</a></li>
+	                        
+	                        <li><a href="/knowledge/control-math/">控制与数学</a></li>
+	                        
+	                        <li><a href="/knowledge/development/">系统与开发环境</a></li>
+	                        
+	                        <li><a href="/knowledge/tools-creation/">工具与创作</a></li>
+	                        
+	                        <li><a href="/knowledge/life/">生活与成长</a></li>
+	                        
+	                        <li><a href="/categories/">全部知识分类</a></li>
+	                        <li><a href="/archives/">按时间查看文章</a></li>
+	                    </ul>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/67_linux_tools/logo/lights-christmas-luminaries-night-dark-preview_used.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">Linux 工具实战：进程、线程与系统调用排障</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>“程序卡住了”不是一个足够具体的结论。它可能在忙算、等锁、等网络、等磁盘，也可能已经退出，只剩父进程还没有回收的记录。真正有效的排查，是逐步回答：<strong>哪个进程？哪个线程？当前在做什么？它在等哪个对象？</strong></p>
+<p>这篇以 <code>ps</code>、<code>top</code>、<code>pstack</code>、<code>strace</code>、<code>lsof</code>、<code>ipcs</code> 六个工具建立这条证据链。工具清单的选题线索来自 <a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh-cn/latest/tool/pstack.html">Linux 工具快速教程的 pstack 入口</a>，以下组织、实验与判断方法独立编写，命令语义以各工具上游手册为准。</p>
+<p>系列阅读：<a href="/2026/09/07/linux_tools_learning_map/">学习地图</a> → 本篇 → <a href="/2026/09/07/linux_tools_resource_monitoring/">内存与 I/O 监控</a> → <a href="/2026/09/07/linux_tools_elf_linking/">ELF 与链接</a> → <a href="/2026/09/07/linux_tools_transfer_scheduling/">传输与任务调度</a>。需要源码级追踪时，接着看 <a href="/2024/08/13/archived_gdb%E8%B0%83%E8%AF%95/">GDB 实战</a>。</p>
+<h2 id="实验与观察边界">实验与观察边界</h2>
+<p>所有动画都是实验实际输出的分帧重排，不是屏幕录像，也不是伪造一段漂亮终端。进程号、地址、线程顺序及采样数值会变化；判断是否跑通，以 <a href="/downloads/code/linux_tools_lab/validation.json">验证状态</a> 和 <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">记录会话</a> 为准。</p>
+<p>在完整网站源码仓库根目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash docker/linux-tools-lab/run.sh build</span><br><span class="line">bash docker/linux-tools-lab/run.sh <span class="built_in">test</span></span><br><span class="line">bash docker/linux-tools-lab/run.sh render</span><br><span class="line">bash docker/linux-tools-lab/run.sh snapshot</span><br></pre></td></tr></table></figure>
+<p>具体环境、依赖和输出目录见 <a href="/downloads/code/linux_tools_lab/README.md">实验 README</a>。这里不假定宿主 macOS 上的同名命令等同于 Linux 版本，也不把容器内观察自动解释为宿主机全貌。</p>
+<p>实验的 <code>tool_demo worker</code> 提供可识别的线程、文件和本地 socket，<code>tool_demo once</code> 提供有限的文件访问和等待。程序由实验脚本在隔离环境构建，后文普通命令则展示迁移到自己工程时的使用方式，不要把示意 PID 当成固定产物。</p>
+<p>本文把两类操作分开：<code>ps</code>、<code>top</code>、<code>lsof</code> 等主要读取状态；GDB 附加和 <code>strace</code> 则会干预调度。即使不修改业务内存，暂停与额外开销也可能影响超时、控制周期和竞态。机器人实机上先确认允许暂停的边界。</p>
+<p>命令中的 <code>TARGET_PID=1234</code> 表示你已核对的目标，不是让你直接照抄 1234。检查所有者、启动时间和命令行，避免进程重启后 PID 被复用。</p>
+<p><a id="ps"></a></p>
+<h2 id="ps：确认到底是谁">ps：确认到底是谁</h2>
+<h3 id="它提供快照，不是实时曲线">它提供快照，不是实时曲线</h3>
+<p>先用明确的列建立进程清单，比看一屏默认输出更容易回答问题：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ps -eo pid,ppid,user,<span class="built_in">stat</span>,etime,pcpu,pmem,rss,<span class="built_in">comm</span> \</span><br><span class="line">  --<span class="built_in">sort</span>=-pcpu</span><br><span class="line"></span><br><span class="line">TARGET_PID=1234</span><br><span class="line">ps -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span> \</span><br><span class="line">  -o pid,ppid,lstart,etime,<span class="built_in">stat</span>,nlwp,pcpu,rss,args</span><br></pre></td></tr></table></figure>
+<p><code>pid</code> 定位进程，<code>ppid</code> 给出父进程，<code>lstart</code> 和 <code>etime</code> 核对这次启动；<code>nlwp</code> 是线程数量。<code>comm</code> 偏向执行名称，<code>args</code> 包含参数，二者不是同一种身份信息。命令行可能包含令牌或业务路径，分享前先脱敏。<a target="_blank" rel="noopener" href="https://gitlab.com/procps-ng/procps/-/blob/master/man/ps.1">procps-ng 的 ps 手册</a></p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/ps.png">
+  <img src="/img/postImg/67_linux_tools/demos/ps.gif" alt="使用 ps 从进程列表缩小到指定进程并查看线程和状态" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/ps.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>读这段操作时，先找目标身份，再比较状态和线程数量；不要先寻找某个“正确的 CPU 百分比”。同一条命令在空闲和繁忙机器上，本来就应该产生不同结果。</p>
+<h3 id="STAT-是方向提示">STAT 是方向提示</h3>
+<p>常见状态里，<code>R</code> 是运行或可运行，<code>S</code> 是可中断睡眠，<code>D</code> 是不可中断睡眠，<code>T</code> 是停止，<code>Z</code> 是僵尸。附加字母还会表示多线程、前台进程组等属性。</p>
+<p><code>S</code> 不等于异常，大多数等待工作到来的服务平时就在睡眠。<code>D</code> 常见于某些内核等待路径，但不能只凭一个字母断言磁盘坏了。<code>Z</code> 的进程执行已经结束，保留记录等待父进程回收；它不是仍在大量计算的“顽固进程”。</p>
+<p>继续查看线程和父子关系：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ps -L -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span> \</span><br><span class="line">  -o pid,tid,psr,<span class="built_in">stat</span>,pcpu,wchan:28,<span class="built_in">comm</span></span><br><span class="line"></span><br><span class="line">ps -eo pid,ppid,<span class="built_in">stat</span>,<span class="built_in">comm</span> --forest</span><br></pre></td></tr></table></figure>
+<p><code>tid</code> 是 Linux 线程标识；GDB 自己的线程编号是另一套编号。<code>wchan</code> 是内核等待位置线索，受权限和内核符号可见性影响，可能显示 <code>-</code> 或 <code>0</code>，也不能替代用户态完整调用栈。</p>
+<h3 id="CPU-与内存列的三个坑">CPU 与内存列的三个坑</h3>
+<p><code>ps</code> 的 <code>%CPU</code> 通常是累计 CPU 时间除以进程生存时间，偏向“出生以来平均”，不是最近一秒。一个运行很久、刚刚突然忙起来的服务，<code>ps</code> 数值可能还很低；这时应转到 <code>top</code> 的间隔采样。</p>
+<p>RSS 表示驻留页计数，通常以 KiB 显示；VSZ 是虚拟地址空间大小，不等于已经占用同样多的物理内存。多个进程映射同一批共享页，各自 RSS 里都可能计入，直接相加会重复计算。</p>
+<p>需要更细的归属时，可在权限允许的情况下看目标的汇总映射：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/<span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span>/smaps_rollup</span><br></pre></td></tr></table></figure>
+<p>PSS 把共享页按共享者比例分摊，比简单相加 RSS 更接近比例分摊后的占用；它也不是“杀掉这个进程就一定释放的字节数”。读取详细映射有额外开销，不应对大量进程每毫秒扫描。<a target="_blank" rel="noopener" href="https://docs.kernel.org/filesystems/proc.html">Linux 内核 /proc 内存接口</a></p>
+<h3 id="最小练习">最小练习</h3>
+<p>在实验容器里运行一个会自然退出的子进程，不需要对陌生 PID 发信号：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sleep</span> 20 &amp;</span><br><span class="line">LAB_PID=$!</span><br><span class="line">ps -p <span class="string">&quot;<span class="variable">$LAB_PID</span>&quot;</span> -o pid,ppid,<span class="built_in">stat</span>,etime,args</span><br><span class="line">ps -L -p <span class="string">&quot;<span class="variable">$LAB_PID</span>&quot;</span> -o pid,tid,<span class="built_in">stat</span>,<span class="built_in">comm</span></span><br></pre></td></tr></table></figure>
+<p>说明它为什么通常低 CPU、处于睡眠，却仍是正常运行中的进程。等它自然结束后再查询，区分“查询不到”“已退出未回收”和“进程还活着”。</p>
+<p><a id="top"></a></p>
+<h2 id="top：定位最近谁在忙">top：定位最近谁在忙</h2>
+<h3 id="先固定时间窗口">先固定时间窗口</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">top -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span></span><br><span class="line">top -H -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批量输出，采三个刷新样本</span></span><br><span class="line">top -b -d 1 -n 3 -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p><code>-H</code> 切到线程视角。交互界面里可用 <code>P</code> 按 CPU、<code>M</code> 按驻留内存排序，<code>1</code> 查看分 CPU，<code>H</code> 切换线程显示；具体显示和持久化配置以当前 procps-ng 版本为准。采样分析别只保留刚启动的第一屏，优先比较后续固定间隔刷新。<a target="_blank" rel="noopener" href="https://gitlab.com/procps-ng/procps/-/blob/master/man/top.1">procps-ng 的 top 手册</a></p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/top.png">
+  <img src="/img/postImg/67_linux_tools/demos/top.gif" alt="通过 top 的重复采样观察指定进程 CPU 与状态" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/top.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>动画教的是“比较刷新样本”，之后可用上面的线程模式继续缩小范围，不是拿演示机器的百分比作为性能基准。真实机器上短任务可能在两个样本之间已经结束，未出现在榜首不代表没有耗时。</p>
+<h3 id="100-到底意味着什么">100% 到底意味着什么</h3>
+<p>在常见 Irix 计量模式下，一个逻辑 CPU 的满占用对应约 100%，多线程进程可能超过 100%；Solaris 归一化模式会按 CPU 数量缩放。先确认模式，再比较截图，不能把 250% 判为工具坏了。</p>
+<p>举个只为说明口径的计算：采样间隔为 1 秒，进程各线程合计使用 2.5 秒 CPU 时间，则按单 CPU 归一的使用率是 250%。这不是说墙上时间过去了 2.5 秒，而是多个线程并行消耗了 CPU 时间。</p>
+<p>进程 CPU 高但整机总 CPU 不高，可能只是少数核心或单线程繁忙。反过来，整机繁忙不证明你的目标进程繁忙；虚拟机 steal、内核线程和其他租户工作都需要分开。</p>
+<h3 id="高负载不等于-CPU-满载">高负载不等于 CPU 满载</h3>
+<p>Linux load average 涉及可运行任务和特定不可中断等待，不是 CPU 使用率的另一种写法。不能把 8 核机器的 load=8 不加上下文地解释成“刚好 100%”，更不能用宿主 32 核掩盖容器只获 2 核配额的事实。</p>
+<p>针对“服务慢”，比较三组问题：CPU 使用是否持续高？可用 CPU 数及配额是什么？线程是在计算还是等待？这些问题分别需要 <code>top</code>、资源边界信息与调用栈，不是单看榜首能完成的。<a target="_blank" rel="noopener" href="https://docs.kernel.org/filesystems/proc.html">Linux /proc 统计接口</a></p>
+<h3 id="最小练习-2">最小练习</h3>
+<p>继续对前面的 <code>sleep</code> 子进程采样；若它已经退出，就重新创建一个：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">top -b -d 1 -n 3 -p <span class="string">&quot;<span class="variable">$LAB_PID</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>解释为什么进程存在却几乎不消耗 CPU。再运行实验 README 中的受控负载，比较进程与线程视角。不要为了做图在共享服务器上运行无限忙循环。</p>
+<p>如果已经定位到某个计算线程，但不知道哪段函数耗时，接着看 <a href="/2026/06/21/archived_linux_perf_cpu_profiling_tools/">perf CPU 分析笔记</a>。<code>top</code> 负责找对象，采样剖析负责找热点，两者并不重复。</p>
+<p><a id="pstack"></a></p>
+<h2 id="pstack：拍一张线程栈快照">pstack：拍一张线程栈快照</h2>
+<h3 id="先确认本机是什么实现">先确认本机是什么实现</h3>
+<p><code>pstack</code> 不是 Linux 内核提供的统一接口。同名工具的包、架构支持和实现可能不同，不能假定每个 Ubuntu ARM64 镜像都有相同程序；先检查命令来源：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">command</span> -V pstack</span><br><span class="line"><span class="built_in">command</span> -V gstack</span><br></pre></td></tr></table></figure>
+<p>上游 GDB 的 <code>gstack</code> 是附加进程、打印各线程栈再分离的脚本。某些发行版提供兼容名称，但若本机没有它，直接使用明确的 GDB 批处理操作更可复现。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/gstack-man.html">GNU gstack 手册</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 只有确认本机实现和目标权限之后，才使用对应工具</span></span><br><span class="line">pstack <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不依赖 pstack 包的等价目标：采集各线程栈后分离</span></span><br><span class="line">gdb --quiet --nx --batch \</span><br><span class="line">  -ex <span class="string">&#x27;set pagination off&#x27;</span> \</span><br><span class="line">  -ex <span class="string">&#x27;thread apply all bt 12&#x27;</span> \</span><br><span class="line">  -ex detach \</span><br><span class="line">  -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/pstack.png">
+  <img src="/img/postImg/67_linux_tools/demos/pstack.gif" alt="采集目标进程全部线程调用栈，识别等待位置，缺少 pstack 时使用明确的 GDB 替代" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/pstack.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>这里展示的是采栈能力；实际用了哪个可执行文件，以会话记录为准，不能把 GDB 替代命令伪装成系统已经安装原版 <code>pstack</code>。</p>
+<h3 id="看等待关系，而不是背函数名">看等待关系，而不是背函数名</h3>
+<p>从 <code>#0</code> 向业务调用者读：最内层在哪个库等待？业务上是谁发起的等待？另一个线程能否满足它？同一个 <code>futex</code> 既可能来自互斥锁，也可能来自条件变量或其他同步机制。</p>
+<p>两个线程长期停在相同位置，只证明抓到的样本相似；正常 worker 等待任务也会这样。宣称死锁需要进一步建立循环等待，例如 A 持有 L1 等 L2，B 持有 L2 等 L1。缺通知、任务饥饿、外部设备迟迟不返回是不同问题。</p>
+<p>只有地址或 <code>??</code> 时，先看二进制和库的符号、栈展开信息、架构以及目标版本。调用栈不是完整执行历史；已经返回的函数不会因为你抓栈就重新出现。</p>
+<h3 id="附加并非无侵入">附加并非无侵入</h3>
+<p>GDB 附加会停止目标，<code>detach</code> 后让它继续。加载大体积符号、遍历很多线程会延长暂停，频繁采栈也会改变时序。<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Attach.html">GDB 附加与分离</a></p>
+<p>容器中权限不足时，需检查用户、ptrace 策略、PID 命名空间、seccomp 和相关能力。不要为了采一张栈全局关闭安全策略，或默认使用 <code>--privileged</code>；实验只对隔离目标提供所需能力。</p>
+<p>最小练习是在实验容器中启动一个有等待线程的示例，采一次栈，说明哪个线程负责唤醒它。再对照源码确认等待条件。最后检查工具确已分离，目标继续运行；不能只验证日志文件出现了。</p>
+<p><a id="strace"></a></p>
+<h2 id="strace：看它向内核请求了什么">strace：看它向内核请求了什么</h2>
+<h3 id="系统调用是边界，不是每一个函数">系统调用是边界，不是每一个函数</h3>
+<p><code>strace</code> 追踪系统调用和信号。它能看到程序打开文件、读写 socket、等待事件，但不会直接告诉你 C++ 中每次矩阵乘法或普通函数调用的耗时。实现依赖 ptrace 等内核机制，目标会承受额外开销。<a target="_blank" rel="noopener" href="https://strace.io/">strace 官方说明</a></p>
+<p>启动时追踪通常比事后附加更适合排查初始化失败：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">strace -f -tt -T -s 160 \</span><br><span class="line">  -e trace=%file \</span><br><span class="line">  -o /work/open-trace.log \</span><br><span class="line">  /usr/bin/cat /work/missing-example.txt</span><br></pre></td></tr></table></figure>
+<p>这个最小练习应先确认测试路径不存在；<code>cat</code> 的非零退出是实验要观察的结果，不是宣称命令执行成功。看它实际访问了哪个路径、收到什么 errno，而不是只看最末尾中文报错。</p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/strace.png">
+  <img src="/img/postImg/67_linux_tools/demos/strace.gif" alt="strace 过滤文件系统调用，观察实际访问路径和失败返回值来解释程序错误" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/strace.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>一次系统调用可按“名称—参数—返回值—错误—时间”阅读。出现 <code>ENOENT</code> 通常意味着找不到某个路径元素，但程序也可能正常探测多个候选文件；<code>EAGAIN</code> 在非阻塞 I/O 里不必然是故障。要结合后续调用和业务终止点解释。</p>
+<h3 id="根据问题过滤">根据问题过滤</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">strace -f -tt -T -s 160 \</span><br><span class="line">  -e trace=connect,accept,accept4,recvfrom,sendto,poll,ppoll \</span><br><span class="line">  -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span></span><br><span class="line"></span><br><span class="line">strace -f -c -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p><code>-f</code> 跟踪相关子进程/线程；<code>-ff -o /work/trace</code> 可按 PID 分文件，适合并发输出。<code>-tt</code> 给时钟时间，<code>-T</code> 给系统调用开始到结束的经过时间；<code>-c</code> 默认汇总的是系统态 CPU 时间，配合 <code>-w</code> 才按经过时间汇总。汇总模式不保留完整顺序，并行线程的时间也不能直接当应用端到端延迟。<a target="_blank" rel="noopener" href="https://github.com/strace/strace/blob/master/doc/strace.1.in">strace 上游手册</a></p>
+<p>例如一个 <code>poll</code> 持续较久，可能只是事件循环正常等待；一个 <code>read</code> 很久，可能在等远端数据，不能直接怪本地磁盘。反过来，CPU 忙算却几乎没有系统调用时，空荡荡的 trace 正在提示你换用 CPU profiler。</p>
+<h3 id="抓得越多未必越好">抓得越多未必越好</h3>
+<p>全量抓取高频 <code>read</code>/<code>write</code> 不仅可能很慢，还可能记录口令、网络报文和个人数据。先限定 PID、调用类别、字符串长度和采样时长；不要把原始 trace 自动上传到公开笔记。</p>
+<p>对已经附加的目标，结束 <code>strace</code> 后要确认它已分离、业务正常继续；“停止跟踪”与“停止被跟踪进程”不是一句话。不要用生产 PID 试验不熟悉的信号组合。</p>
+<p>最小练习：把不存在文件改成实验目录里确实存在的小文件，分别观察失败和成功路径；随后比较 <code>-c</code> 的摘要与完整逐行记录，说明为什么只看调用次数不能还原因果顺序。</p>
+<p><a id="lsof"></a></p>
+<h2 id="lsof：把文件和-socket-关联回进程">lsof：把文件和 socket 关联回进程</h2>
+<h3 id="Linux-的“打开文件”不只有普通文件">Linux 的“打开文件”不只有普通文件</h3>
+<p><code>lsof</code> 能列出普通文件、目录引用、库映射、管道和 socket 等对象。它最适合回答“哪个进程持有这个资源”，但不是持续记录所有文件事件的历史数据库。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lsof -nP -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span></span><br><span class="line">lsof -nP -iTCP:4000 -sTCP:LISTEN</span><br><span class="line"></span><br><span class="line"><span class="comment"># -a 表示把进程条件和网络条件取交集</span></span><br><span class="line">lsof -nP -a -p <span class="string">&quot;<span class="variable">$TARGET_PID</span>&quot;</span> -iTCP</span><br></pre></td></tr></table></figure>
+<p><code>-n</code> 避免地址解析，<code>-P</code> 避免端口名称转换。<code>-p</code> 和 <code>-i</code> 这类选择条件默认可能组合成并集；希望看“这个 PID 的 TCP”时显式加 <code>-a</code>，否则结果范围可能远大于预期。<a target="_blank" rel="noopener" href="https://lsof.readthedocs.io/en/stable/manpage/">lsof 官方手册</a></p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/lsof.png">
+  <img src="/img/postImg/67_linux_tools/demos/lsof.gif" alt="lsof 将打开的文件和监听 socket 关联到所属进程与文件描述符" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/lsof.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>优先读 <code>COMMAND</code>、<code>PID</code>、<code>FD</code>、<code>TYPE</code>、<code>NAME</code>。<code>FD</code> 可能是数字描述符，也可能是 <code>cwd</code>、<code>txt</code>、<code>mem</code> 等用途；不是每一行都代表一个新的普通文件描述符。<code>SIZE/OFF</code> 也可能是偏移或与对象类型有关的值，不能将所有行直接相加为磁盘占用。</p>
+<h3 id="文件删了，空间为什么没释放">文件删了，空间为什么没释放</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lsof -nP +L1</span><br></pre></td></tr></table></figure>
+<p>这个选择寻找链接数小于 1、但仍被打开的文件。文件名从目录移除，不代表所有打开它的引用同时消失；进程仍持有引用时，空间可能暂时保留。这是 <code>df</code> 与按目录遍历的 <code>du</code> 不一致的一个可能原因，不是唯一原因。<a target="_blank" rel="noopener" href="https://lsof.readthedocs.io/en/stable/faq/">lsof 官方 FAQ</a></p>
+<p>找到对象后，先确认服务和日志轮转协议，再决定是否让服务重新打开日志。不要看到 <code>(deleted)</code> 就批量终止进程，更不要向陌生 <code>/proc/PID/fd/N</code> 路径写入来“清空”，那属于修改现场甚至破坏业务数据。</p>
+<h3 id="看不到不代表不存在">看不到不代表不存在</h3>
+<p>权限、PID/网络命名空间、挂载边界、快速退出的进程都会影响结果。容器内查不到宿主端口的持有者，可能只是看不到那个进程；容器里的端口映射也不一定对应容器进程直接监听同一个宿主端口。</p>
+<p>全局递归 <code>lsof +D /某个大目录</code> 可能很重，应先限定目标 PID 或确切文件。它不是任意规模都适合高频执行的轻量查询。</p>
+<p>最小练习：在隔离容器中运行 README 的本地 socket 示例，用 <code>-iTCP</code> 找到端口，再用 <code>-a -p</code> 确认交集结果。退出示例后重复检查，说明为什么一次截图不能证明端口长期无人使用。</p>
+<p><a id="ipcs"></a></p>
+<h2 id="ipcs：区分共享资源与遗留对象">ipcs：区分共享资源与遗留对象</h2>
+<h3 id="先问使用的是哪一套-IPC">先问使用的是哪一套 IPC</h3>
+<p>System V IPC 包含共享内存段、信号量集合、消息队列，相关接口如 <code>shmget</code>、<code>semget</code>、<code>msgget</code>。它们与 POSIX 的 <code>shm_open</code>、命名信号量、消息队列不是同一套对象。<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/sysvipc.7.html">Linux System V IPC 接口</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ipcs -m</span><br><span class="line">ipcs -s</span><br><span class="line">ipcs -q</span><br><span class="line">ipcs -m -p</span><br><span class="line">ipcs -m -t</span><br><span class="line">ipcs -l</span><br></pre></td></tr></table></figure>
+<p><code>-m</code>、<code>-s</code>、<code>-q</code> 分别选择三类 System V 对象；<code>-p</code>、<code>-t</code> 提供支持的进程/时间信息；<code>-l</code> 查看限制。不同对象类型能提供的字段不同，不能把共享内存表的列硬套在信号量上。<a target="_blank" rel="noopener" href="https://github.com/util-linux/util-linux/blob/master/sys-utils/ipcs.1.adoc">util-linux ipcs 手册</a></p>
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="/img/postImg/67_linux_tools/demos/ipcs.png">
+  <img src="/img/postImg/67_linux_tools/demos/ipcs.gif" alt="ipcs 分别查看 System V 共享内存、信号量和消息队列并核对对象身份" width="960" height="600" loading="lazy" decoding="async">
+</picture>
+<p><a href="/img/postImg/67_linux_tools/demos/ipcs.gif">查看原尺寸 GIF</a> · <a href="/downloads/code/linux_tools_lab/recorded-sessions.json">完整会话</a></p>
+<p>以共享内存为例，先看对象 ID、所有者、权限、大小、附加数量及时间。<code>nattch == 0</code> 只是当时没有附加者，不证明对象已经无主；服务可能稍后重新使用，或通过其他管理流程保留它。</p>
+<h3 id="查看单个对象，别先想着清空">查看单个对象，别先想着清空</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 用前一步确认过的共享内存 ID 替换示例数值</span></span><br><span class="line">SHM_ID=32768</span><br><span class="line">ipcs -m -i <span class="string">&quot;<span class="variable">$SHM_ID</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>IPC key 与对象 ID 不应混用，PID 也不是 IPC 对象 ID。删除这类对象属于状态变更，须确认精确 ID、所有者、用途以及所有依赖进程。这里不提供“一键清理全部共享内存”的流水线。</p>
+<p>看到容器间 <code>ipcs</code> 结果不同，先检查 IPC 命名空间；它们可能本来就不共享对象。把容器改成宿主 IPC 模式是隔离边界变化，不是普通诊断命令，应单独评估。</p>
+<h3 id="dev-shm-不是-ipcs-输出的目录版">/dev/shm 不是 ipcs 输出的目录版</h3>
+<p>Linux POSIX 共享内存通常映射到 <code>/dev/shm</code> 的 tmpfs 对象，System V 对象不是简单按同名普通文件列在那里的另一种显示。<code>ipcs</code> 为空，不能推断进程没有使用共享内存，更不能据此清空 <code>/dev/shm</code>。<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/shm_overview.7.html">Linux POSIX 共享内存</a></p>
+<p>机器人中间件可能使用共享内存传输，也可能使用 socket、匿名映射或其他机制。先查实际实现和配置，再选工具；不要因为名字里有 “shared memory” 就认定一定能用 <code>ipcs -m</code> 找到。</p>
+<p>最小练习：运行实验创建的唯一 IPC 对象，记录创建前后 ID、所有者和大小，退出后检查实验自己的清理逻辑。只操作本次实验创建的对象，并确认不存在残留；不对同一命名空间内其他应用的对象做清理。</p>
+<h2 id="将六个工具连起来">将六个工具连起来</h2>
+<h3 id="场景一：ROS-2-节点没有继续输出">场景一：ROS 2 节点没有继续输出</h3>
+<p>先用 <code>ps</code> 确认进程身份和启动参数，再用 <code>top -H</code> 看是少数线程忙算还是整体睡眠。若是计算热点，进入 perf；若是等待，采所有线程栈，建立业务唤醒关系。</p>
+<p>如果栈显示在系统调用附近等待，可限时用 <code>strace</code> 检查实际文件、socket 或事件操作。用 <code>lsof</code> 将对应描述符关联到端口或文件。只有明确使用 System V IPC 时，再用 <code>ipcs</code> 检查对象、权限和状态。</p>
+<p>这是一套按证据分支的流程，不是每次故障都必须把六条命令全部跑一遍。比如 CPU 忙算问题，一开始全量 <code>strace</code> 可能增加很多干扰，却看不到真正的算法热点。</p>
+<h3 id="场景二：程序不停重启">场景二：程序不停重启</h3>
+<p>不要拿上一次的 PID 继续抓栈。每次记录启动时间、父进程和实际路径，区分程序自退出、外部监督程序重启、内存限制触发终止。资源限制线索接到下一篇 <a href="/2026/09/07/linux_tools_resource_monitoring/">内存与 I/O 监控</a>，动态库错误则接到 <a href="/2026/09/07/linux_tools_elf_linking/">ELF 与链接</a>。</p>
+<h3 id="最终留下可复核证据">最终留下可复核证据</h3>
+<ul>
+<li>目标身份：PID/TID、所有者、启动时间、二进制与参数。</li>
+<li>观察边界：宿主或容器、命名空间、权限、采样窗口。</li>
+<li>事实：状态、CPU 样本、具体栈、系统调用、对象 ID。</li>
+<li>推理：这些事实支持哪个原因，还不能排除什么？</li>
+<li>影响：是否暂停过目标，是否打开过高开销跟踪？</li>
+<li>结果：采取什么经过授权的修复，如何复现并确认恢复？</li>
+</ul>
+<p>好的工具笔记，不是记录“某条命令看起来很厉害”，而是记录它回答了哪个问题，以及它没有回答什么。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+   <div class="tag-cloud-tags">
+    <a href="/tags/3d%E6%89%93%E5%8D%B0/" style="font-size: 10px; color: #f38181">3d打印</a> <a href="/tags/actor-critic/" style="font-size: 10px; color: #f38181">actor-critic</a> <a href="/tags/adaptive-sampling/" style="font-size: 10px; color: #f38181">adaptive sampling</a> <a href="/tags/ai%E8%BE%85%E5%8A%A9%E8%AE%BE%E8%AE%A1/" style="font-size: 10px; color: #f38181">ai辅助设计</a> <a href="/tags/algorithm/" style="font-size: 10px; color: #f38181">algorithm</a> <a href="/tags/algorithms/" style="font-size: 11.88px; color: #e19390">algorithms</a> <a href="/tags/anymal/" style="font-size: 12.5px; color: #dc9996">anymal</a> <a href="/tags/apriltag/" style="font-size: 10px; color: #f38181">apriltag</a> <a href="/tags/ardupilot/" style="font-size: 10px; color: #f38181">ardupilot</a> <a href="/tags/atlas/" style="font-size: 10px; color: #f38181">atlas</a> <a href="/tags/attention/" style="font-size: 11.88px; color: #e19390">attention</a> <a href="/tags/automation/" style="font-size: 10px; color: #f38181">automation</a> <a href="/tags/axis-angle/" style="font-size: 10px; color: #f38181">axis-angle</a> <a href="/tags/bang-bang/" style="font-size: 10px; color: #f38181">bang-bang</a> <a href="/tags/belief-encoder/" style="font-size: 10px; color: #f38181">belief encoder</a> <a href="/tags/blender/" style="font-size: 10px; color: #f38181">blender</a> <a href="/tags/bode/" style="font-size: 10px; color: #f38181">bode</a> <a href="/tags/c/" style="font-size: 10px; color: #f38181">c++</a> <a href="/tags/cadquery/" style="font-size: 10px; color: #f38181">cadquery</a> <a href="/tags/calibration/" style="font-size: 10.63px; color: #ed8786">calibration</a> <a href="/tags/camera-calibration/" style="font-size: 10px; color: #f38181">camera calibration</a> <a href="/tags/camera-intrinsics/" style="font-size: 10.63px; color: #ed8786">camera-intrinsics</a> <a href="/tags/chrome/" style="font-size: 10px; color: #f38181">chrome</a> <a href="/tags/cmake/" style="font-size: 10px; color: #f38181">cmake</a> <a href="/tags/cmakelists/" style="font-size: 10px; color: #f38181">cmakelists</a> <a href="/tags/cnn/" style="font-size: 10px; color: #f38181">cnn</a> <a href="/tags/colcon/" style="font-size: 10px; color: #f38181">colcon</a> <a href="/tags/computer-vision/" style="font-size: 10px; color: #f38181">computer-vision</a> <a href="/tags/conan/" style="font-size: 10px; color: #f38181">conan</a> <a href="/tags/control/" style="font-size: 14.38px; color: #caaba5">control</a> <a href="/tags/controller-manager/" style="font-size: 10px; color: #f38181">controller_manager</a> <a href="/tags/cpp/" style="font-size: 17.5px; color: #adc9bf">cpp</a> <a href="/tags/cpu/" style="font-size: 10px; color: #f38181">cpu</a> <a href="/tags/d435i/" style="font-size: 10px; color: #f38181">d435i</a> <a href="/tags/dagger/" style="font-size: 11.25px; color: #e78d8b">dagger</a> <a href="/tags/data-struct/" style="font-size: 10.63px; color: #ed8786">data_struct</a> <a href="/tags/db/" style="font-size: 10px; color: #f38181">db</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth camera</a> <a href="/tags/depth-camera/" style="font-size: 10px; color: #f38181">depth-camera</a> <a href="/tags/design-pattern/" style="font-size: 10px; color: #f38181">design-pattern</a> <a href="/tags/diagnostics/" style="font-size: 10.63px; color: #ed8786">diagnostics</a> <a href="/tags/direct-collocation/" style="font-size: 10px; color: #f38181">direct collocation</a> <a href="/tags/dots/" style="font-size: 14.38px; color: #caaba5">dots</a> <a href="/tags/dtof/" style="font-size: 10px; color: #f38181">dtof</a> <a href="/tags/economics/" style="font-size: 10px; color: #f38181">economics</a> <a href="/tags/eigen/" style="font-size: 10px; color: #f38181">eigen</a> <a href="/tags/elevation-map/" style="font-size: 10.63px; color: #ed8786">elevation map</a> <a href="/tags/elf/" style="font-size: 10px; color: #f38181">elf</a> <a href="/tags/executor/" style="font-size: 10px; color: #f38181">executor</a> <a href="/tags/factory-pattern/" style="font-size: 10px; color: #f38181">factory-pattern</a> <a href="/tags/fcpx/" style="font-size: 10px; color: #f38181">fcpx</a> <a href="/tags/fiducial-marker/" style="font-size: 10px; color: #f38181">fiducial marker</a> <a href="/tags/figure/" style="font-size: 10px; color: #f38181">figure</a> <a href="/tags/finance/" style="font-size: 10px; color: #f38181">finance</a> <a href="/tags/forge/" style="font-size: 10px; color: #f38181">forge</a> <a href="/tags/fourier/" style="font-size: 10px; color: #f38181">fourier</a> <a href="/tags/fov/" style="font-size: 10.63px; color: #ed8786">fov</a> <a href="/tags/freecad/" style="font-size: 10px; color: #f38181">freecad</a> <a href="/tags/gae/" style="font-size: 10px; color: #f38181">gae</a> <a href="/tags/gazebo/" style="font-size: 10px; color: #f38181">gazebo</a> <a href="/tags/gdb/" style="font-size: 10.63px; color: #ed8786">gdb</a> <a href="/tags/geometry/" style="font-size: 10px; color: #f38181">geometry</a> <a href="/tags/git/" style="font-size: 11.25px; color: #e78d8b">git</a> <a href="/tags/gnu/" style="font-size: 10px; color: #f38181">gnu</a> <a href="/tags/gru/" style="font-size: 10px; color: #f38181">gru</a> <a href="/tags/guitar/" style="font-size: 10px; color: #f38181">guitar</a> <a href="/tags/hardware/" style="font-size: 10px; color: #f38181">hardware</a> <a href="/tags/humanoid/" style="font-size: 10px; color: #f38181">humanoid</a> <a href="/tags/ibus/" style="font-size: 10px; color: #f38181">ibus</a> <a href="/tags/imu/" style="font-size: 10px; color: #f38181">imu</a> <a href="/tags/interest/" style="font-size: 10px; color: #f38181">interest</a> <a href="/tags/isaac-gym/" style="font-size: 13.75px; color: #d0a5a0">isaac gym</a> <a href="/tags/isaac-lab/" style="font-size: 10.63px; color: #ed8786">isaac lab</a> <a href="/tags/isaaclab/" style="font-size: 10.63px; color: #ed8786">isaaclab</a> <a href="/tags/kdl/" style="font-size: 10.63px; color: #ed8786">kdl</a> <a href="/tags/laplace/" style="font-size: 10px; color: #f38181">laplace</a> <a href="/tags/latent-variable/" style="font-size: 10px; color: #f38181">latent variable</a> <a href="/tags/latex/" style="font-size: 10.63px; color: #ed8786">latex</a> <a href="/tags/launch/" style="font-size: 10px; color: #f38181">launch</a> <a href="/tags/learning-notes/" style="font-size: 12.5px; color: #dc9996">learning-notes</a> <a href="/tags/legged-locomotion/" style="font-size: 16.25px; color: #b8bdb4">legged locomotion</a> <a href="/tags/legged-robotics/" style="font-size: 10px; color: #f38181">legged robotics</a> <a href="/tags/legged-robot/" style="font-size: 10px; color: #f38181">legged-robot</a> <a href="/tags/legged-gym/" style="font-size: 10px; color: #f38181">legged_gym</a> <a href="/tags/life/" style="font-size: 15.63px; color: #beb7af">life</a> <a href="/tags/linux/" style="font-size: 18.75px; color: #a1d5c9">linux</a> <a href="/tags/linux-kernel/" style="font-size: 10px; color: #f38181">linux-kernel</a> <a href="/tags/linux-tools/" style="font-size: 12.5px; color: #dc9996">linux-tools</a> <a href="/tags/mac/" style="font-size: 10px; color: #f38181">mac</a> <a href="/tags/math/" style="font-size: 12.5px; color: #dc9996">math</a> <a href="/tags/matlab/" style="font-size: 11.25px; color: #e78d8b">matlab</a> <a href="/tags/matrix/" style="font-size: 10px; color: #f38181">matrix</a> <a href="/tags/memory/" style="font-size: 13.75px; color: #d0a5a0">memory</a> <a href="/tags/mixture-of-experts/" style="font-size: 10px; color: #f38181">mixture of experts</a> <a href="/tags/mlp/" style="font-size: 10px; color: #f38181">mlp</a> <a href="/tags/money/" style="font-size: 10px; color: #f38181">money</a> <a href="/tags/motion-imitation/" style="font-size: 10px; color: #f38181">motion imitation</a> <a href="/tags/motion-control/" style="font-size: 10px; color: #f38181">motion-control</a> <a href="/tags/motor/" style="font-size: 10.63px; color: #ed8786">motor</a> <a href="/tags/moveit/" style="font-size: 10px; color: #f38181">moveit</a> <a href="/tags/mpc/" style="font-size: 10px; color: #f38181">mpc</a> <a href="/tags/mujoco/" style="font-size: 11.25px; color: #e78d8b">mujoco</a> <a href="/tags/music-theory/" style="font-size: 10px; color: #f38181">music-theory</a> <a href="/tags/network/" style="font-size: 10.63px; color: #ed8786">network</a> <a href="/tags/neural-mapping/" style="font-size: 10px; color: #f38181">neural mapping</a> <a href="/tags/ocs2/" style="font-size: 10px; color: #f38181">ocs2</a> <a href="/tags/ode/" style="font-size: 10px; color: #f38181">ode</a> <a href="/tags/onnx/" style="font-size: 10px; color: #f38181">onnx</a> <a href="/tags/openscad/" style="font-size: 10px; color: #f38181">openscad</a> <a href="/tags/operator/" style="font-size: 10px; color: #f38181">operator</a> <a href="/tags/optimal-algorithm/" style="font-size: 10px; color: #f38181">optimal algorithm</a> <a href="/tags/optimal-control/" style="font-size: 10px; color: #f38181">optimal-control</a> <a href="/tags/perceptive-locomotion/" style="font-size: 11.25px; color: #e78d8b">perceptive locomotion</a> <a href="/tags/perf/" style="font-size: 10px; color: #f38181">perf</a> <a href="/tags/performance/" style="font-size: 10.63px; color: #ed8786">performance</a> <a href="/tags/personal-finance/" style="font-size: 10px; color: #f38181">personal-finance</a> <a href="/tags/piano/" style="font-size: 10px; color: #f38181">piano</a> <a href="/tags/pinhole-camera/" style="font-size: 10px; color: #f38181">pinhole-camera</a> <a href="/tags/pinocchio/" style="font-size: 13.13px; color: #d69f9b">pinocchio</a> <a href="/tags/pixhawk/" style="font-size: 10px; color: #f38181">pixhawk</a> <a href="/tags/pixhawk-6c/" style="font-size: 11.88px; color: #e19390">pixhawk 6c</a> <a href="/tags/point-cloud/" style="font-size: 10px; color: #f38181">point-cloud</a> <a href="/tags/policy-distillation/" style="font-size: 11.25px; color: #e78d8b">policy distillation</a> <a href="/tags/ppo/" style="font-size: 15px; color: #c4b1aa">ppo</a> <a href="/tags/privileged-learning/" style="font-size: 11.88px; color: #e19390">privileged learning</a> <a href="/tags/profiling/" style="font-size: 10px; color: #f38181">profiling</a> <a href="/tags/px4/" style="font-size: 11.88px; color: #e19390">px4</a> <a href="/tags/python/" style="font-size: 14.38px; color: #caaba5">python</a> <a href="/tags/qgroundcontrol/" style="font-size: 11.88px; color: #e19390">qgroundcontrol</a> <a href="/tags/qos/" style="font-size: 10px; color: #f38181">qos</a> <a href="/tags/quadrotor/" style="font-size: 10.63px; color: #ed8786">quadrotor</a> <a href="/tags/realsense/" style="font-size: 10px; color: #f38181">realsense</a> <a href="/tags/reinforcement-learning/" style="font-size: 10px; color: #f38181">reinforcement learning</a> <a href="/tags/representation-learning/" style="font-size: 10px; color: #f38181">representation learning</a> <a href="/tags/reward-tuning/" style="font-size: 10.63px; color: #ed8786">reward tuning</a> <a href="/tags/rnn/" style="font-size: 10px; color: #f38181">rnn</a> <a href="/tags/robogauge/" style="font-size: 10px; color: #f38181">robogauge</a> <a href="/tags/robot/" style="font-size: 11.88px; color: #e19390">robot</a> <a href="/tags/robot-parkour/" style="font-size: 10px; color: #f38181">robot parkour</a> <a href="/tags/robotics/" style="font-size: 15px; color: #c4b1aa">robotics</a> <a href="/tags/ros/" style="font-size: 16.88px; color: #b2c3b9">ros</a> <a href="/tags/ros2/" style="font-size: 13.75px; color: #d0a5a0">ros2</a> <a href="/tags/ros2-control/" style="font-size: 10px; color: #f38181">ros2_control</a> <a href="/tags/rsl-rl/" style="font-size: 10px; color: #f38181">rsl_rl</a> <a href="/tags/rtb/" style="font-size: 10px; color: #f38181">rtb</a> <a href="/tags/security/" style="font-size: 10px; color: #f38181">security</a> <a href="/tags/sensor-fusion/" style="font-size: 10px; color: #f38181">sensor-fusion</a> <a href="/tags/shell/" style="font-size: 10.63px; color: #ed8786">shell</a> <a href="/tags/signal-processing/" style="font-size: 10px; color: #f38181">signal-processing</a> <a href="/tags/sim-to-real/" style="font-size: 16.25px; color: #b8bdb4">sim-to-real</a> <a href="/tags/simulation/" style="font-size: 11.25px; color: #e78d8b">simulation</a> <a href="/tags/socket/" style="font-size: 10px; color: #f38181">socket</a> <a href="/tags/soft-dynamics-constraints/" style="font-size: 10px; color: #f38181">soft dynamics constraints</a> <a href="/tags/spot/" style="font-size: 10px; color: #f38181">spot</a> <a href="/tags/ssh/" style="font-size: 10px; color: #f38181">ssh</a> <a href="/tags/stairs/" style="font-size: 10px; color: #f38181">stairs</a> <a href="/tags/stl/" style="font-size: 11.25px; color: #e78d8b">stl</a> <a href="/tags/stm32/" style="font-size: 10px; color: #f38181">stm32</a> <a href="/tags/tcp-ip/" style="font-size: 10px; color: #f38181">tcp-ip</a> <a href="/tags/teacher-policy/" style="font-size: 10px; color: #f38181">teacher policy</a> <a href="/tags/teacher-student/" style="font-size: 11.25px; color: #e78d8b">teacher student</a> <a href="/tags/teacher-student/" style="font-size: 10.63px; color: #ed8786">teacher-student</a> <a href="/tags/temporal-convolution/" style="font-size: 10px; color: #f38181">temporal convolution</a> <a href="/tags/terrain-reconstruction/" style="font-size: 10px; color: #f38181">terrain reconstruction</a> <a href="/tags/thread/" style="font-size: 10.63px; color: #ed8786">thread</a> <a href="/tags/tools/" style="font-size: 17.5px; color: #adc9bf">tools</a> <a href="/tags/tron1/" style="font-size: 10px; color: #f38181">tron1</a> <a href="/tags/twist/" style="font-size: 10px; color: #f38181">twist</a> <a href="/tags/ubuntu/" style="font-size: 11.25px; color: #e78d8b">ubuntu</a> <a href="/tags/uml/" style="font-size: 10px; color: #f38181">uml</a> <a href="/tags/uncertainty/" style="font-size: 10px; color: #f38181">uncertainty</a> <a href="/tags/unitree/" style="font-size: 10.63px; color: #ed8786">unitree</a> <a href="/tags/unitree-g1/" style="font-size: 10px; color: #f38181">unitree g1</a> <a href="/tags/urdf/" style="font-size: 10px; color: #f38181">urdf</a> <a href="/tags/vae/" style="font-size: 10px; color: #f38181">vae</a> <a href="/tags/valgrind/" style="font-size: 10px; color: #f38181">valgrind</a> <a href="/tags/vcxsrv/" style="font-size: 10px; color: #f38181">vcxsrv</a> <a href="/tags/velocity/" style="font-size: 10px; color: #f38181">velocity</a> <a href="/tags/vim/" style="font-size: 11.88px; color: #e19390">vim</a> <a href="/tags/web/" style="font-size: 10px; color: #f38181">web</a> <a href="/tags/wifi/" style="font-size: 10px; color: #f38181">wifi</a> <a href="/tags/wiring/" style="font-size: 10px; color: #f38181">wiring</a> <a href="/tags/work/" style="font-size: 20px; color: #95e1d3">work</a> <a href="/tags/workflow/" style="font-size: 10px; color: #f38181">workflow</a> <a href="/tags/wsl/" style="font-size: 10px; color: #f38181">wsl</a> <a href="/tags/z-transform/" style="font-size: 10px; color: #f38181">z-transform</a> <a href="/tags/zero-shot-transfer/" style="font-size: 10px; color: #f38181">zero-shot transfer</a> <a href="/tags/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" style="font-size: 10px; color: #f38181">中文输入</a> <a href="/tags/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" style="font-size: 10px; color: #f38181">交叉编译</a> <a href="/tags/%E4%BA%BA%E5%BD%A2%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10.63px; color: #ed8786">人形机器人</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">依赖管理</a> <a href="/tags/%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/" style="font-size: 10px; color: #f38181">分支管理</a> <a href="/tags/%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">动力学</a> <a href="/tags/%E5%9B%9B%E6%97%8B%E7%BF%BC/" style="font-size: 10px; color: #f38181">四旋翼</a> <a href="/tags/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 18.13px; color: #a7cfc4">四足机器人</a> <a href="/tags/%E5%AE%9E%E9%AA%8C%E8%AF%8A%E6%96%AD/" style="font-size: 10px; color: #f38181">实验诊断</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 19.38px; color: #9bdbce">强化学习</a> <a href="/tags/%E6%8E%A5%E8%A7%A6%E5%8A%A8%E5%8A%9B%E5%AD%A6/" style="font-size: 10px; color: #f38181">接触动力学</a> <a href="/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/" style="font-size: 10px; color: #f38181">数值计算</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10px; color: #f38181">机器人</a>
+</div>
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

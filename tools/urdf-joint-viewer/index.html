@@ -3,115 +3,132 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="在浏览器本地加载 URDF 与 mesh，检查机器人关节限位、零位、轴方向和 visual/collision 几何。">
-  <title>URDF 关节范围预览 · Robotics Workbench</title>
+  <meta name="description" content="本地 URDF Studio：在大画布中查看机器人、拖动关节并检查限位，模型与 mesh 不上传。">
+  <title>URDF Studio · Robotics Workbench</title>
   <link rel="icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="/css/toolkit.css">
-  <link rel="stylesheet" href="/css/urdf-joint-viewer.css">
+  <link rel="stylesheet" href="/css/urdf-joint-viewer.css?v=7f7ad35fcb35bcb9">
   <script src="/js/tools-common.js" defer></script>
-  <script src="/js/urdf-joint-viewer.js" defer></script>
+  <script src="/js/urdf-joint-viewer.js?v=223fc88168f48892" defer></script>
 </head>
 <body class="robot-tool-page ujv-page">
-  <header class="rt-sitebar">
-    <a class="rt-brand" href="/" aria-label="返回网站首页"><span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span><span>Robotics Workbench</span></a>
-    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
-  </header>
-
-  <main class="rt-page" data-ujv-root>
-    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>URDF 关节范围预览</span></nav>
-
-    <section class="rt-hero">
-      <div>
-        <span class="rt-kicker">Tool 03 · browser WebGL</span>
-        <h1>URDF 关节<br>范围预览</h1>
-        <p>加载已展开的 URDF、模型目录或 ZIP，在浏览器里逐关节检查 lower / zero / upper、旋转方向、mesh 尺寸以及 visual 与 collision 的差异。文件只留在当前页面，不会上传。</p>
+  <main class="ujv-studio is-hide-fixed" data-ujv-root>
+    <header class="ujv-topbar">
+      <div class="ujv-topbar-row">
+        <div class="ujv-brand">
+          <a class="ujv-brand-mark" href="/tools/" aria-label="返回工具集"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></a>
+          <h1>URDF <span>Studio</span></h1>
+          <span class="ujv-local-label">本地模型 · 不上传</span>
+        </div>
+        <nav class="ujv-topbar-actions" aria-label="工作区操作">
+          <span class="ujv-health" data-ujv-health role="status">starting</span>
+          <button class="rt-secondary-button" type="button" data-ujv-load-example>教学模型</button>
+          <button class="rt-secondary-button" type="button" data-ujv-fullscreen aria-pressed="false">全屏</button>
+          <a class="ujv-tools-link" href="/tools/">工具集 ↗</a>
+        </nav>
       </div>
-      <div class="rt-status-stack" aria-label="工具状态">
-        <div class="rt-status-row"><span>viewer</span><strong data-ujv-health>starting</strong></div>
-        <div class="rt-status-row"><span>privacy</span><strong>browser local</strong></div>
-        <div class="rt-status-row"><span>version</span><strong>1.0</strong></div>
-      </div>
-    </section>
-
-    <noscript><div class="ujv-message is-error">此工具需要 JavaScript 与 WebGL 2 才能解析并显示机器人模型。</div></noscript>
-    <div class="ujv-message" data-ujv-message role="status" aria-live="polite" hidden></div>
-
-    <section class="ujv-workspace" aria-label="URDF 预览工作区">
-      <aside class="rt-panel ujv-input-panel">
-        <div class="rt-panel-head"><h2>模型输入</h2><span class="rt-panel-index">01 / LOCAL</span></div>
-        <div class="ujv-drop-zone" data-ujv-drop>
-          <span class="ujv-drop-icon" aria-hidden="true">⌁</span>
-          <strong>拖入 URDF、模型目录文件或 ZIP</strong>
-          <span>支持 primitive 与本地 STL / DAE；外部网络资源默认阻止</span>
-        </div>
-        <div class="ujv-load-actions">
-          <button class="rt-primary-button" type="button" data-ujv-load-example>加载教学机器人</button>
-          <label class="rt-secondary-button ujv-file-button">选择 URDF<input type="file" accept=".urdf,.xacro" data-ujv-model-input></label>
-          <label class="rt-secondary-button ujv-file-button">选择模型目录<input type="file" multiple webkitdirectory directory data-ujv-folder-input></label>
-          <label class="rt-secondary-button ujv-file-button">选择 ZIP<input type="file" accept=".zip,application/zip" data-ujv-zip-input></label>
-        </div>
-        <p class="ujv-input-note"><strong>Xacro 边界：</strong>宏、include 与 package 查找需要完整 ROS 环境。请先执行 <code>xacro model.xacro &gt; model.urdf</code>，再加载生成结果。</p>
-
-        <div class="ujv-model-summary" aria-label="模型摘要">
-          <dl><div><dt>robot</dt><dd data-ujv-stat="name">—</dd></div><div><dt>source</dt><dd data-ujv-stat="source">—</dd></div><div><dt>links</dt><dd data-ujv-stat="links">0</dd></div><div><dt>joints</dt><dd data-ujv-stat="joints">0</dd></div><div><dt>visual</dt><dd data-ujv-stat="visual">0</dd></div><div><dt>collision</dt><dd data-ujv-stat="collision">0</dd></div></dl>
-        </div>
-      </aside>
-
-      <section class="rt-panel ujv-viewer-panel" aria-labelledby="ujv-viewer-title">
+      <noscript><div class="ujv-message is-error">需要启用 JavaScript 与 WebGL 2 才能查看模型。</div></noscript>
+      <div class="ujv-message" data-ujv-message role="status" aria-live="polite" hidden></div>
+    </header>
+    <div class="ujv-workspace" aria-label="URDF 模型与关节工作区">
+      <section class="ujv-viewer-panel" aria-labelledby="ujv-viewer-title">
         <div class="ujv-viewer-head">
-          <div><span class="rt-panel-index">02 / VIEWER</span><h2 id="ujv-viewer-title">三维模型与关节方向</h2></div>
-          <span class="ujv-viewer-state" data-ujv-viewer-state>INITIALIZING</span>
+          <h2 id="ujv-viewer-title" class="sr-only">三维机器人视图</h2>
+          <div class="ujv-camera-group" role="group" aria-label="相机视角">
+            <button class="is-active" type="button" data-ujv-camera="home" aria-pressed="true">默认</button>
+            <button type="button" data-ujv-camera="front" aria-pressed="false">正视</button>
+            <button type="button" data-ujv-camera="side" aria-pressed="false">侧视</button>
+            <button type="button" data-ujv-camera="top" aria-pressed="false">俯视</button>
+          </div>
+          <div class="ujv-viewer-actions">
+            <button class="rt-secondary-button" type="button" data-ujv-reset-camera>适配模型</button>
+            <button class="rt-secondary-button" type="button" data-ujv-screenshot>保存 PNG</button>
+          </div>
         </div>
-        <div class="ujv-stage">
-          <canvas data-ujv-canvas tabindex="0" role="application" aria-roledescription="交互式三维机器人视图" aria-label="URDF 机器人三维视图；可拖动旋转、滚轮或双指缩放，方向键微调当前关节" aria-describedby="ujv-viewer-help" aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Home End Space"></canvas>
+        <div class="ujv-stage" data-ujv-drop>
+          <canvas data-ujv-canvas tabindex="0" role="application" aria-roledescription="交互式三维机器人视图" aria-label="URDF 机器人三维视图；可拖动关节或旋转视角，滚轮或双指缩放，方向键微调当前关节" aria-describedby="ujv-viewer-help" aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Home End Space"></canvas>
           <span class="sr-only" data-ujv-live aria-live="polite" aria-atomic="true"></span>
-          <span class="ujv-stage-badge">Z-UP · WEBGL 2 · LOCAL FILES</span>
+          <span class="ujv-viewer-state" data-ujv-viewer-state role="status">INITIALIZING</span>
+          <span class="ujv-drop-hint" aria-hidden="true">将 URDF、模型文件夹或 ZIP 拖到这里</span>
           <div class="ujv-stage-legend" aria-hidden="true"><span><i class="is-visual"></i>Visual</span><span><i class="is-collision"></i>Collision</span><span><i class="is-axis"></i>Joint axis</span></div>
         </div>
-        <p class="ujv-viewer-help" id="ujv-viewer-help">鼠标左键或单指旋转，滚轮或双指缩放；选中关节后可用方向键微调、Home / End 跳到限位。视图仅用于建模检查，不执行物理仿真或精确碰撞检测。</p>
-        <div class="ujv-viewer-toolbar">
-          <label><span>几何</span><select data-ujv-geometry><option value="visual">仅 Visual</option><option value="both">Visual + Collision</option><option value="collision">仅 Collision</option></select></label>
-          <label><span>辅助标记</span><select data-ujv-axes><option value="axis">轴线 + 骨架</option><option value="frames">轴线 + 坐标系</option><option value="none">全部隐藏</option></select></label>
-          <button class="rt-secondary-button" type="button" data-ujv-reset-camera>适配视角</button>
-          <button class="rt-secondary-button" type="button" data-ujv-screenshot>保存 PNG</button>
-        </div>
+        <p class="ujv-viewer-help" id="ujv-viewer-help">拖动可动部件调整关节 · 拖动空白处旋转 · 滚轮 / 双指缩放 · 方向键微调选中关节</p>
       </section>
-    </section>
-
-    <section class="rt-panel ujv-motion-panel" aria-labelledby="ujv-motion-title">
-      <div class="rt-panel-head"><h2 id="ujv-motion-title">关节限位与播放</h2><span class="rt-panel-index">03 / JOINTS</span></div>
-      <div class="ujv-motion-toolbar">
-        <div class="ujv-mode-group" role="group" aria-label="关节播放模式">
-          <button class="is-active" type="button" data-ujv-play-mode="single" aria-pressed="true">当前关节</button>
-          <button type="button" data-ujv-play-mode="sequence" aria-pressed="false">逐关节扫描</button>
-          <button type="button" data-ujv-play-mode="loop" aria-pressed="false">全部循环</button>
-        </div>
-        <label class="ujv-inline-field"><span>当前关节</span><select data-ujv-active-joint disabled><option>等待模型</option></select></label>
-        <label class="ujv-inline-field"><span>速度</span><select data-ujv-speed><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
-        <button class="rt-primary-button" type="button" data-ujv-play aria-pressed="false" disabled>播放限位</button>
-        <button class="rt-secondary-button" type="button" data-ujv-zero>全部归零</button>
-      </div>
-      <div class="ujv-joint-list" data-ujv-joint-list></div>
-      <p class="ujv-empty-state" data-ujv-joint-empty>加载模型后，这里会按 URDF 顺序生成关节滑条与 lower / zero / upper 快捷检查。</p>
-    </section>
-
-    <section class="ujv-audit-grid">
-      <article class="rt-panel ujv-audit-panel">
-        <div class="rt-panel-head"><h2>模型检查报告</h2><span class="rt-panel-index">04 / AUDIT</span></div>
-        <ul class="ujv-diagnostics" data-ujv-diagnostics aria-live="polite"><li class="ujv-diagnostic is-info"><span class="ujv-diagnostic-level">WAIT</span><span>正在等待模型。</span></li></ul>
-        <div class="ujv-audit-actions"><button class="rt-secondary-button" type="button" data-ujv-export>导出 JSON 报告</button></div>
-      </article>
-      <article class="rt-panel ujv-boundary-panel">
-        <div class="rt-panel-head"><h2>执行边界</h2><span class="rt-panel-index">HOST / DOCKER</span></div>
-        <div class="ujv-boundary-flow">
-          <div><strong>主机 Hexo</strong><span>页面构建与静态预览</span></div><i aria-hidden="true">→</i><div><strong>浏览器</strong><span>URDF / mesh 解析与 WebGL</span></div>
-          <div><strong>Docker :4010</strong><span>标定、辨识、轨迹等 C++ 计算</span></div><i aria-hidden="true">→</i><div><strong>JSON 结果</strong><span>回到工具页展示</span></div>
-        </div>
-        <p>本工具的 3D 预览不需要启动计算容器。Tool 01、02、06 以及后续重计算模块统一使用本机 Docker API，Hexo 仍按原来的基础命令在主机运行。</p>
-      </article>
-    </section>
-
-    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 03</span><a href="/tools/dh-mdh-transform/">下一个：DH / MDH 变换检查 →</a></footer>
+      <aside class="ujv-sidebar" aria-label="模型输入、关节与显示设置">
+        <div class="ujv-sidebar-heading"><span class="ujv-panel-eyebrow">ROBOT MODEL</span><strong data-ujv-stat="name">等待模型</strong></div>
+        <details class="ujv-details ujv-input-panel">
+          <summary>打开本地模型<span>URDF / 文件夹 / ZIP</span></summary>
+          <div class="ujv-details-content">
+            <div class="ujv-load-actions">
+              <label class="rt-secondary-button ujv-file-button">模型文件夹<input type="file" multiple webkitdirectory directory data-ujv-folder-input></label>
+              <label class="rt-secondary-button ujv-file-button">仅 URDF 文件<input type="file" accept=".urdf,.xacro" data-ujv-model-input></label>
+              <label class="rt-secondary-button ujv-file-button">ZIP 压缩包<input type="file" accept=".zip,application/zip" data-ujv-zip-input></label>
+            </div>
+            <p class="ujv-input-note">也可以直接拖到画布。支持基本几何与本地 STL / DAE；模型内容只在当前页面处理，外部网络资源默认阻止。</p>
+            <p class="ujv-input-note">Xacro 请先在 ROS 环境展开：<code>xacro model.xacro &gt; model.urdf</code>。包含 mesh 时选择完整文件夹或 ZIP。</p>
+            <p class="ujv-input-note">宇树 RL Gym 模型请选择 <code>resources/robots/go2</code> 文件夹，保留其中的 <code>urdf/</code> 与 <code>dae/</code>。只选择 <code>go2.urdf</code> 不会同时授予旁边 DAE 文件的读取权限。</p>
+            <dl class="ujv-model-summary">
+              <div class="ujv-summary-source"><dt>来源</dt><dd data-ujv-stat="source">—</dd></div>
+              <div><dt>Links</dt><dd data-ujv-stat="links">0</dd></div><div><dt>Joints</dt><dd data-ujv-stat="joints">0</dd></div>
+              <div><dt>Visual</dt><dd data-ujv-stat="visual">0 / 0</dd></div><div><dt>Collision</dt><dd data-ujv-stat="collision">0 / 0</dd></div>
+            </dl>
+            <p class="ujv-input-note">Visual / Collision：已加载几何数 / URDF 定义数。</p>
+          </div>
+        </details>
+        <details class="ujv-details ujv-display-panel">
+          <summary>视图设置<span>几何 / 坐标 / 背景</span></summary>
+          <div class="ujv-details-content ujv-viewer-toolbar">
+            <label class="ujv-field"><span>几何显示</span><select data-ujv-geometry><option value="visual">仅 Visual</option><option value="both">Visual + Collision</option><option value="collision">仅 Collision</option></select></label>
+            <label class="ujv-field"><span>辅助标记</span><select data-ujv-axes><option value="axis">关节轴 + 骨架</option><option value="frames">轴线 + 坐标系</option><option value="none">隐藏辅助线</option></select></label>
+            <label class="ujv-field"><span>向上轴</span><select data-ujv-up><option value="+Z" selected>+Z</option><option value="-Z">−Z</option><option value="+X">+X</option><option value="-X">−X</option><option value="+Y">+Y</option><option value="-Y">−Y</option></select></label>
+            <label class="ujv-field"><span>背景</span><select data-ujv-background><option value="studio" selected>Studio 灰蓝</option><option value="light">浅色</option><option value="dark">深色</option></select></label>
+            <label class="ujv-check"><input type="checkbox" data-ujv-autocenter checked><span>自动居中</span></label>
+            <label class="ujv-check"><input type="checkbox" data-ujv-manipulate checked><span>在画布直接拖动关节</span></label>
+            <label class="ujv-check ujv-limit-option"><input type="checkbox" data-ujv-ignore-limits aria-describedby="ujv-limit-help"><span>忽略关节限位</span></label>
+            <p class="ujv-field-help" id="ujv-limit-help">仅用于检查建模范围；超出 URDF 限位不代表实体机器人可安全到达。</p>
+          </div>
+        </details>
+        <section class="ujv-motion-panel" aria-labelledby="ujv-motion-title">
+          <div class="ujv-panel-heading"><h2 id="ujv-motion-title">关节</h2><label class="ujv-units-field"><span class="sr-only">旋转关节单位</span><select data-ujv-units aria-label="旋转关节显示单位"><option value="deg" selected>角度 °</option><option value="rad">弧度 rad</option></select></label></div>
+          <label class="ujv-search-field"><span class="sr-only">按名称筛选关节</span><input id="ujv-joint-search" type="search" placeholder="搜索关节名称…" data-ujv-joint-search autocomplete="off"></label>
+          <label class="ujv-check ujv-fixed-toggle"><input type="checkbox" data-ujv-hide-fixed checked><span>隐藏固定关节</span></label>
+          <div class="ujv-motion-toolbar">
+            <label class="ujv-field ujv-active-field"><span>当前关节</span><select data-ujv-active-joint disabled><option>等待模型</option></select></label>
+            <button class="rt-primary-button" type="button" data-ujv-play aria-pressed="false" disabled>播放限位</button>
+            <button class="rt-secondary-button" type="button" data-ujv-zero>全部归零</button>
+            <details class="ujv-motion-options">
+              <summary>播放设置</summary>
+              <div class="ujv-mode-group" role="group" aria-label="关节播放模式">
+                <button class="is-active" type="button" data-ujv-play-mode="single" aria-pressed="true">当前</button>
+                <button type="button" data-ujv-play-mode="sequence" aria-pressed="false">逐个</button>
+                <button type="button" data-ujv-play-mode="loop" aria-pressed="false">全部</button>
+              </div>
+              <label class="ujv-field"><span>播放速度</span><select data-ujv-speed><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+            </details>
+          </div>
+          <div class="ujv-joint-list" data-ujv-joint-list></div>
+          <p class="ujv-empty-state" data-ujv-joint-empty>加载模型后显示关节滑条。也可以先试试顶部的教学模型。</p>
+        </section>
+        <details class="ujv-details ujv-audit-panel">
+          <summary>模型诊断<span>拓扑 / 限位 / 资源</span></summary>
+          <div class="ujv-details-content">
+            <ul class="ujv-diagnostics" data-ujv-diagnostics aria-live="polite"><li class="ujv-diagnostic is-info"><span class="ujv-diagnostic-level">WAIT</span><span>正在等待模型。</span></li></ul>
+            <button class="rt-secondary-button ujv-export-button" type="button" data-ujv-export>导出 JSON 报告</button>
+          </div>
+        </details>
+        <details class="ujv-details ujv-boundary-panel">
+          <summary>操作说明与致谢</summary>
+          <div class="ujv-details-content">
+            <p>点击关节卡片选择关节，使用滑条或画布拖动调整。画布获得焦点后，方向键微调，Home / End 跳到关节限位，空格切换播放。</p>
+            <p>这是一套运动学与建模检查工具，不执行物理仿真、动力学控制或精确碰撞检测。显示 Collision 几何也不等于完成碰撞验收。</p>
+            <p>页面由主机 Hexo 提供；URDF、mesh 解析与 WebGL 在浏览器本地完成。本工具不需要启动 Docker 计算服务，也不会将模型文件上传。</p>
+            <p>界面与交互参考 Garrett Johnson 的 <a href="https://gkjohnson.github.io/urdf-loaders/javascript/example/bundle/" target="_blank" rel="noopener noreferrer">URDF Viewer 原示例</a>。感谢 <a href="https://github.com/gkjohnson/urdf-loaders" target="_blank" rel="noopener noreferrer">urdf-loader</a>（<a href="https://github.com/gkjohnson/urdf-loaders/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">Apache-2.0</a>）与 Three.js（MIT）。本站保留本地教学模型，没有复制完整 ATHLETE 演示及其资源。</p>
+            <p>随站许可证：<a href="licenses/urdf-loader-LICENSE.txt">urdf-loader</a> · <a href="licenses/three-LICENSE.txt">Three.js</a> · <a href="licenses/fflate-LICENSE.txt">fflate</a>。</p>
+            <footer class="ujv-sidebar-footer"><span>© <span data-current-year></span> lsqyRobot</span><a href="/tools/dh-mdh-transform/">DH / MDH 工具 →</a></footer>
+          </div>
+        </details>
+      </aside>
+    </div>
   </main>
 </body>
 </html>
