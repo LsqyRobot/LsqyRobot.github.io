@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.15)
+project(test_mymath LANGUAGES CXX)
+find_package(mymath CONFIG REQUIRED)
+add_executable(test_mymath src/test_mymath.cpp)
+target_link_libraries(test_mymath PRIVATE mymath::mymath)

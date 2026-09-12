@@ -1,0 +1,381 @@
+{
+  "status": "passed",
+  "started_utc": "2026-09-09T01:18:13.584666+00:00",
+  "architecture": "aarch64",
+  "image_id": "sha256:28bff483de0e1b442f8dc26c70bd5637d34efa52fd4a80cc0f2196cc658f23fc",
+  "commands": [
+    {
+      "argv": [
+        "conan",
+        "--version"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "profile",
+        "detect"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "remote",
+        "disable",
+        "*"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "remote",
+        "list",
+        "--format=json"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "create",
+        "mymath",
+        "--version=1.0",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Release",
+        "--no-remote"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "create",
+        "mymath",
+        "--version=1.0",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Debug",
+        "--no-remote"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "list",
+        "mymath/1.0#*:*#*",
+        "--format=json"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "create",
+        "mymath",
+        "--version=1.0",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Release",
+        "-o:h",
+        "mymath/*:shared=True",
+        "--no-remote"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "install",
+        "consumer",
+        "-of",
+        "out/consumer-release",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Release",
+        "--build=never",
+        "--no-remote"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "build",
+        "consumer",
+        "-of",
+        "out/consumer-release",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Release"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "./out/consumer-release/build/Release/robot-consumer"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "lock",
+        "create",
+        "consumer",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Release",
+        "--no-remote",
+        "--lockfile-out=consumer/conan.lock"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "create",
+        "mymath",
+        "--version=1.1",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Release",
+        "--no-remote"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "graph",
+        "info",
+        "consumer",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Release",
+        "--no-remote",
+        "--lockfile="
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "graph",
+        "info",
+        "consumer",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Release",
+        "--no-remote",
+        "--lockfile=consumer/conan.lock"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "install",
+        "consumer",
+        "-of",
+        "out/consumer-debug",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=Debug",
+        "--lockfile=consumer/conan.lock",
+        "--build=never",
+        "--no-remote"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "argv": [
+        "conan",
+        "install",
+        "consumer",
+        "-of",
+        "out/missing-binary",
+        "-pr:b",
+        "default",
+        "-pr:h",
+        "default",
+        "-s:h",
+        "build_type=RelWithDebInfo",
+        "--lockfile=consumer/conan.lock",
+        "--build=never",
+        "--no-remote"
+      ],
+      "exit_code": 1,
+      "expected_failure": true
+    },
+    {
+      "argv": [
+        "conan",
+        "upload",
+        "--help"
+      ],
+      "exit_code": 0,
+      "expected_failure": false
+    }
+  ],
+  "checks": [
+    {
+      "name": "conan-2.15.0",
+      "passed": true,
+      "evidence": "Conan version 2.15.0"
+    },
+    {
+      "name": "all-remotes-disabled",
+      "passed": true,
+      "evidence": "[\n    {\n        \"name\": \"conancenter\",\n        \"url\": \"https://center2.conan.io\",\n        \"verify_ssl\": true,\n        \"enabled\": false\n    }\n]"
+    },
+    {
+      "name": "manual-create-Release",
+      "passed": true,
+      "evidence": "test_package: sum=5; version=1.0; build_type=Release"
+    },
+    {
+      "name": "manual-create-Debug",
+      "passed": true,
+      "evidence": "test_package: sum=5; version=1.0; build_type=Debug"
+    },
+    {
+      "name": "optional-linux-shared-test-package",
+      "passed": true,
+      "evidence": "Shared package test_package linked and executed on native Linux"
+    },
+    {
+      "name": "manual-conan-build-output-path",
+      "passed": true,
+      "evidence": "./out/consumer-release/build/Release/robot-consumer"
+    },
+    {
+      "name": "manual-conan-build-runs-release",
+      "passed": true,
+      "evidence": "consumer: sum=5; version=1.0; build_type=Release"
+    },
+    {
+      "name": "manual-lock-contains-1.0-rrev",
+      "passed": true,
+      "evidence": [
+        "mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca%1788916695.4129288"
+      ]
+    },
+    {
+      "name": "manual-unlocked-selects-1.1",
+      "passed": true,
+      "evidence": "Graph includes mymath/1.1"
+    },
+    {
+      "name": "manual-locked-selects-1.0",
+      "passed": true,
+      "evidence": "Graph includes mymath/1.0; does not include mymath/1.1"
+    },
+    {
+      "name": "manual-missing-binary-is-expected-failure",
+      "passed": true,
+      "evidence": "RelWithDebInfo install failed with Missing binary and --build=never"
+    },
+    {
+      "name": "upload-help-list",
+      "passed": true,
+      "evidence": "Conan 2.15.0 upload --help contains --list; upload not executed"
+    },
+    {
+      "name": "upload-help-check",
+      "passed": true,
+      "evidence": "Conan 2.15.0 upload --help contains --check; upload not executed"
+    },
+    {
+      "name": "upload-help-dry-run",
+      "passed": true,
+      "evidence": "Conan 2.15.0 upload --help contains --dry-run; upload not executed"
+    },
+    {
+      "name": "upload-help-confirm",
+      "passed": true,
+      "evidence": "Conan 2.15.0 upload --help contains --confirm; upload not executed"
+    }
+  ],
+  "boundaries": [
+    "Native Linux only; no cross compilation or target board",
+    "Upload help only; no remote login, upload or download"
+  ],
+  "source_sha256": {
+    "/contract/Dockerfile": "1c7c53870771fe2761a0828d07e2566a1f71698f71b6c8a88965dafee4e93a6d",
+    "/contract/check_manual.py": "74010a0804b546d3ad0c490ca9c0f6e44b0176287a73235b7ca60a61b64df0ef",
+    "/lab/consumer/CMakeLists.txt": "6ed7228d3fb58de7f558463579a2787eb94d2a8c358aeb7355a5d6d6db3016fa",
+    "/lab/consumer/conanfile.py": "f396a24c9f73de96a3dd275febcf3ed6c7a6eb14d2c910d646a1301d10a8e379",
+    "/lab/consumer/main.cpp": "5ea5803e1fc8b8d1b0afd40ddcf338d6664e475da440a95c1db1d72f54bffdf6",
+    "/lab/mymath/CMakeLists.txt": "a8a31f5ad9a8addaa767787d3a40ab3a47fde8d5f5788b6057ef0fad9c61f883",
+    "/lab/mymath/LICENSE": "ec36b097c35698f32a3e4b11c1858130010b2796bc06d04f12a4ab8c20fabd09",
+    "/lab/mymath/conanfile.py": "79b8eb4996df386e98a94fed23c07ca87c1a25b6970254388f4fabb09cf3ccb1",
+    "/lab/mymath/include/mymath.h": "490a2c2baacd3ef2b9f9fbfa032a76c6fae7dbee41be9dbfa801506642edc1f6",
+    "/lab/mymath/src/mymath.cpp": "5282835597902fb76ed86925d4044691824e695977f716a8f7344dacd5ef5344",
+    "/lab/mymath/test_package/CMakeLists.txt": "dd4d06bb43cb876d63d2dde7a0d6ed7cd4fa2adab154757fca2cc8fbe3256209",
+    "/lab/mymath/test_package/conanfile.py": "f321feb55d0778128ada433571a6edbffbdecf0f8730c12055cffc264f5bbdf9",
+    "/lab/mymath/test_package/src/test_mymath.cpp": "49b073faf5562bddd68301b03a0806579694b0ade6dee6f3dec771c15a65b34e"
+  },
+  "detected_profile": "[settings]\narch=armv8\nbuild_type=Release\ncompiler=gcc\ncompiler.cppstd=gnu17\ncompiler.libcxx=libstdc++11\ncompiler.version=11\nos=Linux\n",
+  "lockfile": {
+    "version": "0.5",
+    "requires": [
+      "mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca%1788916695.4129288"
+    ],
+    "build_requires": [],
+    "python_requires": [],
+    "config_requires": []
+  },
+  "finished_utc": "2026-09-09T01:18:17.651350+00:00",
+  "transcript_sha256": "b2002e342e16117810532d43035b861851a108bf853d30619115cf102e6a6b7d"
+}

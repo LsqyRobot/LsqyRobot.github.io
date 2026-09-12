@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="四元数与欧拉角双向转换和姿态可视化工具，支持 ZYX 顺序、角度单位切换与本地复制。">
+  <title>四元数 / 欧拉角可视化 · Robotics Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <link rel="stylesheet" href="/css/quaternion-euler.css">
+  <script src="/js/tools-common.js" defer></script>
+  <script src="/js/quaternion-euler.js" defer></script>
+</head>
+<body class="robot-tool-page qe-page">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页"><span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span><span>Robotics Workbench</span></a>
+    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
+  </header>
+
+  <main class="rt-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>四元数 / 欧拉角</span></nav>
+    <section class="rt-hero qe-hero">
+      <div><span class="rt-kicker">Tool 08 · browser local</span><h1>四元数 /<br>欧拉角可视化</h1><p>在常用的 ZYX（yaw → pitch → roll）约定下双向转换姿态，并用坐标轴预览旋转结果。所有计算都在浏览器本地完成，适合调试 IMU、里程计和导航消息。</p></div>
+      <div class="rt-status-stack" aria-label="工具状态"><div class="rt-status-row"><span>compute</span><strong class="is-ready">BROWSER LOCAL</strong></div><div class="rt-status-row"><span>convention</span><strong>ZYX / RIGHT-HAND</strong></div><div class="rt-status-row"><span>version</span><strong>0.1</strong></div></div>
+    </section>
+
+    <section class="rt-workspace qe-workspace" aria-label="四元数欧拉角转换工作区">
+      <div class="rt-panel qe-input-panel">
+        <div class="rt-panel-head"><h2>姿态输入</h2><span class="rt-panel-index">01 / INPUT</span></div>
+        <div class="qe-unit-row"><span class="rt-field-label">欧拉角单位</span><div class="rt-segmented" data-segmented style="--segments: 2"><button class="is-active" type="button" data-unit="deg" aria-pressed="true">度 °</button><button type="button" data-unit="rad" aria-pressed="false">弧度 rad</button></div></div>
+        <fieldset class="qe-fieldset"><legend>欧拉角 · ZYX</legend><div class="qe-three-fields"><label>Roll <small>绕 X</small><input data-euler="roll" type="number" step="any" value="25"></label><label>Pitch <small>绕 Y</small><input data-euler="pitch" type="number" step="any" value="-12"></label><label>Yaw <small>绕 Z</small><input data-euler="yaw" type="number" step="any" value="40"></label></div></fieldset>
+        <fieldset class="qe-fieldset"><legend>四元数 · w + xi + yj + zk</legend><div class="qe-four-fields"><label>w<input data-quaternion="w" type="number" step="any" value="0.91"></label><label>x<input data-quaternion="x" type="number" step="any" value="0.18"></label><label>y<input data-quaternion="y" type="number" step="any" value="-0.02"></label><label>z<input data-quaternion="z" type="number" step="any" value="0.37"></label></div><small class="qe-help">输入四元数后点击“以四元数为准”；工具会自动归一化。</small></fieldset>
+        <div class="qe-speed-row"><label>动画速度 <output data-animation-speed-value>1.0x</output><input data-animation-speed type="range" min="0.2" max="3" step="0.1" value="1"></label></div>
+        <div class="qe-actions"><button class="rt-primary-button" type="button" data-source="euler">以欧拉角为准 ↻</button><button class="rt-secondary-button" type="button" data-source="quaternion">以四元数为准 ↻</button><button class="rt-secondary-button" type="button" data-reset>重置</button><button class="rt-secondary-button" type="button" data-animation-pause>暂停</button><button class="rt-secondary-button" type="button" data-animation-resume>继续</button><button class="rt-secondary-button" type="button" data-animation-replay>重放</button></div>
+        <p class="qe-message" role="status" aria-live="polite" data-message>已使用示例欧拉角计算。</p>
+      </div>
+
+      <div class="rt-panel qe-preview-panel">
+        <div class="rt-panel-head"><h2>姿态预览</h2><span class="rt-panel-index">02 / VISUAL</span></div>
+        <div class="qe-canvas-wrap"><canvas data-attitude-canvas width="620" height="420" aria-label="旋转后的三维坐标轴预览"></canvas><div class="qe-canvas-legend"><span><i class="qe-axis-ref-x"></i>世界 X</span><span><i class="qe-axis-ref-y"></i>世界 Y</span><span><i class="qe-axis-ref-z"></i>世界 Z</span><span class="rt-divider" aria-hidden="true"></span><span><i class="qe-axis-start"></i>实体A（起始）</span><span><i class="qe-axis-current"></i>实体B（当前）</span><span><i class="qe-axis-virtual"></i>虚拟目标（下一步）</span><span class="rt-divider" aria-hidden="true"></span><span>左键拖拽旋转视角，滚轮缩放</span><span class="rt-divider" aria-hidden="true"></span><span data-animation-stage>阶段: --</span></div></div>
+        <div class="qe-progress-row"><label for="qe-animation-progress">动画进度</label><progress data-animation-progress id="qe-animation-progress" max="100" value="0"></progress></div>
+        <div class="qe-output"><div><span>归一化四元数</span><code data-output-quaternion>—</code></div><div><span>等价欧拉角</span><code data-output-euler>—</code></div></div>
+      </div>
+    </section>
+
+    <section class="qe-notes"><div class="rt-section-heading"><div><span class="rt-kicker">Reference</span><h2>约定先写清楚，姿态才可复现</h2></div><p>不同库对四元数顺序、坐标系和欧拉角内禀 / 外禀旋转的定义可能不同。这里的结果适用于右手系、主动旋转和 ZYX 顺序。</p></div><div class="qe-note-grid"><article><span>01 / ORDER</span><h3>ZYX 顺序</h3><p>先绕自身 X 轴 roll，再绕更新后的 Y 轴 pitch，最后绕更新后的 Z 轴 yaw。组合矩阵为 <code>R = Rz(yaw) · Ry(pitch) · Rx(roll)</code>。</p></article><article><span>02 / QUATERNION</span><h3>w 在最前</h3><p>页面使用 <code>q = [w, x, y, z]</code>。四元数和它的相反数表示同一个旋转；输入会先归一化再参与计算。</p></article><article><span>03 / LIMIT</span><h3>欧拉角有奇异性</h3><p>pitch 接近 ±90° 时会出现万向节锁，反算出的 roll / yaw 组合不唯一。需要连续姿态时，优先保存四元数。</p></article></div></section>
+    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 08</span><a href="/tools/">返回工具集 →</a></footer>
+  </main>
+</body>
+</html>
