@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="本地优先的多语言词汇学习工具：筛选英、日、法与论文笔记词汇，查看读音、例句、搭配、论文语境与精确笔记回链。">
+  <meta name="theme-color" content="#07121a">
+  <title>多语言词汇学习 · Personal Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <link rel="stylesheet" href="/css/vocabulary-learning.css">
+  <script src="/js/tools-common.js" defer></script>
+  <script type="module" src="/js/vocabulary-learning.mjs"></script>
+</head>
+<body class="robot-tool-page vocabulary-learning-page" data-vocabulary-ready="false">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页">
+      <span class="rt-brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg>
+      </span>
+      <span>Personal Workbench</span>
+    </a>
+    <nav class="rt-site-nav" aria-label="工具导航">
+      <a href="/">首页</a>
+      <a href="/about/">关于我</a>
+      <a href="/tools/">全部工具</a>
+    </nav>
+  </header>
+
+  <main class="rt-page vl-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑">
+      <a href="/tools/">工具集</a><span>/</span><span>多语言词汇学习</span>
+    </nav>
+
+    <section class="vl-intro" aria-labelledby="vl-title">
+      <div>
+        <span class="rt-kicker">Tool 10 · multilingual · local first</span>
+        <h1 id="vl-title">词汇漫游</h1>
+        <p>从一张词卡开始，按语言、主题和学习状态整理那些“见过，但还没真正掌握”的词。词库与学习进度都留在本地，不需要账号。</p>
+      </div>
+      <div class="vl-overview" aria-label="词库概览">
+        <div><strong data-stat-total>—</strong><span>本地词条</span></div>
+        <div><strong data-stat-known>0</strong><span>已经认识</span></div>
+        <div><strong data-stat-review>0</strong><span>稍后复习</span></div>
+        <p role="status" aria-live="polite" data-offline-status><span aria-hidden="true"></span>正在准备本地词库…</p>
+      </div>
+    </section>
+
+    <section class="vl-app" data-vocabulary-app aria-label="词汇学习工作区" aria-busy="true">
+      <div class="vl-study-area">
+        <header class="vl-study-toolbar">
+          <div><span class="vl-eyebrow">CURRENT DECK</span><strong data-result-summary>正在载入词库…</strong></div>
+          <div class="vl-nav-actions" aria-label="词卡导航">
+            <button type="button" data-previous-word aria-label="上一个词">←</button>
+            <button type="button" data-shuffle aria-label="重新打乱词库">随机</button>
+            <button type="button" data-next-word aria-label="下一个词">→</button>
+          </div>
+        </header>
+
+        <div class="vl-loading-card" data-loading-card>
+          <span class="vl-loading-dot" aria-hidden="true"></span>
+          <p>正在读取版本化本地词库…</p>
+        </div>
+
+        <article class="vl-word-card" data-word-card aria-labelledby="vl-current-term" hidden>
+          <header class="vl-card-head">
+            <div class="vl-meta-row">
+              <span data-language-badge>—</span>
+              <span data-difficulty>—</span>
+              <span data-frequency>—</span>
+              <span data-grammar>—</span>
+            </div>
+            <span class="vl-position" data-position>— / —</span>
+          </header>
+
+          <div class="vl-word-hero">
+            <div class="vl-word-copy">
+              <h2 id="vl-current-term" tabindex="-1" data-term>—</h2>
+              <div class="vl-pronunciation" aria-label="读音信息">
+                <span data-reading-wrap><small>读音</small><b data-reading>—</b></span>
+                <span data-phonetic-wrap><small>音标 / 假名</small><b data-phonetic>—</b></span>
+                <span data-romanization-wrap><small>罗马音</small><b data-romanization>—</b></span>
+              </div>
+            </div>
+            <div class="vl-speech-controls">
+              <button class="vl-speak-button" type="button" data-speak="term"><span aria-hidden="true">▶</span><b>播放原词</b></button>
+              <button class="vl-speak-example" type="button" data-speak="example">播放例句</button>
+              <label for="vl-voice">系统语音<select id="vl-voice" data-voice-select><option value="">自动选择</option></select></label>
+            </div>
+          </div>
+
+          <section class="vl-meaning" aria-labelledby="vl-meaning-title">
+            <span id="vl-meaning-title">中文含义</span>
+            <p data-meaning>—</p>
+          </section>
+
+          <div class="vl-state-actions" role="group" aria-label="学习状态">
+            <button type="button" data-progress-action="known" aria-pressed="false"><span aria-hidden="true">✓</span><b>认识</b><small>已经掌握</small></button>
+            <button type="button" data-progress-action="review" aria-pressed="false"><span aria-hidden="true">↻</span><b>稍后复习</b><small>加入复习</small></button>
+            <button type="button" data-progress-action="favorite" aria-pressed="false"><span aria-hidden="true">☆</span><b>收藏</b><small>单独保存</small></button>
+          </div>
+
+          <div class="vl-detail-grid">
+            <section class="vl-detail-card vl-example-card">
+              <span>EXAMPLE</span>
+              <p class="vl-example" dir="auto" data-example>—</p>
+              <p class="vl-example-translation" lang="zh-CN" data-example-zh>—</p>
+            </section>
+            <section class="vl-detail-card">
+              <span>COLLOCATIONS · 常见搭配</span>
+              <ul class="vl-term-list" data-collocations></ul>
+            </section>
+            <section class="vl-detail-card">
+              <span>NEARBY · 易混词 / 近义词</span>
+              <ul class="vl-term-list" data-related></ul>
+            </section>
+            <section class="vl-detail-card vl-paper-context" aria-labelledby="vl-paper-context-title" data-paper-context hidden>
+              <div class="vl-paper-context-head">
+                <span id="vl-paper-context-title">PAPER CONTEXT · 论文语境</span>
+                <span class="vl-paper-section" data-paper-section hidden></span>
+              </div>
+              <h3 data-paper-title></h3>
+              <p class="vl-paper-note-title" data-paper-note-title-wrap hidden>站内笔记：<span data-paper-note-title></span></p>
+              <blockquote data-paper-quote>
+                <span>NOTE EXCERPT · 笔记摘录</span>
+                <p lang="zh-CN" data-paper-excerpt></p>
+              </blockquote>
+              <div class="vl-paper-understanding" data-paper-context-zh-wrap>
+                <span>CONTEXT NOTE · 我的理解</span>
+                <p lang="zh-CN" data-paper-context-zh></p>
+              </div>
+              <div class="vl-paper-links" aria-label="论文语境链接">
+                <a data-paper-note-link hidden>回到站内笔记 →</a>
+                <a target="_blank" rel="noopener noreferrer" data-paper-source-link hidden>查看论文原文 ↗</a>
+              </div>
+            </section>
+          </div>
+
+          <footer class="vl-card-footer">
+            <div class="vl-source-line">
+              <span>来源</span><strong data-source>—</strong><small data-source-note>—</small>
+              <div class="vl-topic-list" data-topics></div>
+            </div>
+          </footer>
+        </article>
+
+        <div class="vl-empty-state" data-empty-state hidden>
+          <strong>没有符合条件的词条</strong>
+          <p>试试清空搜索，或放宽语言、主题和学习状态筛选。</p>
+          <button type="button" class="rt-secondary-button" data-empty-reset>清空筛选</button>
+        </div>
+
+        <div class="vl-error-state" data-error-state role="alert" hidden>
+          <strong>本地词库暂时无法读取</strong>
+          <p data-error-message>请刷新页面重试。</p>
+          <button type="button" class="rt-secondary-button" data-retry-load>重新读取</button>
+        </div>
+
+        <p class="vl-live-status" role="status" aria-live="polite" aria-atomic="true" data-live-status></p>
+
+        <section class="vl-queue" aria-labelledby="vl-queue-title">
+          <div class="vl-queue-head"><h3 id="vl-queue-title">当前词列</h3><span>点击任意词条继续学习</span></div>
+          <ol data-word-list></ol>
+        </section>
+      </div>
+
+      <aside class="vl-sidebar" aria-label="词库筛选">
+        <div class="vl-sidebar-head">
+          <div><span>LIBRARY</span><h2>筛选词库</h2></div>
+          <button type="button" class="vl-text-button" data-reset-filters>重置</button>
+        </div>
+
+        <form class="vl-filter-form" data-filter-form>
+          <label class="vl-search-field" for="vl-search">
+            <span>搜索</span>
+            <input id="vl-search" type="search" autocomplete="off" placeholder="原词、假名、释义或搭配" data-filter-query>
+          </label>
+
+          <div class="vl-filter-grid">
+            <label for="vl-language"><span>语言</span><select id="vl-language" data-filter-language><option value="all">全部语言</option></select></label>
+            <label for="vl-topic"><span>主题</span><select id="vl-topic" data-filter-topic><option value="all">全部主题</option></select></label>
+            <label for="vl-difficulty"><span>难度</span><select id="vl-difficulty" data-filter-difficulty><option value="all">全部难度</option></select></label>
+            <label for="vl-frequency"><span>词频</span><select id="vl-frequency" data-filter-frequency><option value="all">全部词频</option></select></label>
+            <label for="vl-source"><span>来源</span><select id="vl-source" data-filter-source><option value="all">全部来源</option></select></label>
+            <label for="vl-progress"><span>学习状态</span><select id="vl-progress" data-filter-progress><option value="all">全部状态</option><option value="new">未标记</option><option value="known">认识</option><option value="review">稍后复习</option><option value="favorite">已收藏</option></select></label>
+          </div>
+
+          <label class="vl-sort-field" for="vl-sort"><span>排序</span><select id="vl-sort" data-sort><option value="curated">精选顺序</option><option value="language">语言分组</option><option value="topic">主题分组</option><option value="source">来源分组</option><option value="frequency">词频优先</option><option value="difficulty">难度由浅到深</option><option value="recent">最近复习</option><option value="alphabetical">原词顺序</option><option value="shuffle">打乱顺序</option></select></label>
+        </form>
+
+        <div class="vl-progress-box" aria-label="当前学习进度">
+          <div><span>认识</span><strong data-progress-known>0</strong></div>
+          <div><span>待复习</span><strong data-progress-review>0</strong></div>
+          <div><span>收藏</span><strong data-progress-favorite>0</strong></div>
+        </div>
+        <p class="vl-keyboard-hint">键盘：<kbd>←</kbd> <kbd>→</kbd> 切换词卡，<kbd>P</kbd> 播放原词。</p>
+      </aside>
+    </section>
+
+    <noscript><p class="vl-noscript">这个工具需要 JavaScript 来筛选本地词库并保存学习状态；词库文件仍可从下方直接下载。</p></noscript>
+
+    <section class="vl-local-section" aria-labelledby="vl-local-title">
+      <div class="rt-section-heading">
+        <div><span class="rt-kicker">Local data &amp; offline</span><h2 id="vl-local-title">词库可追踪，进度归自己</h2></div>
+        <p>基础词库与从论文笔记生成的补充词库都随仓库版本管理；认识、复习、收藏和语音偏好只保存在当前浏览器。首次在线打开并完成缓存后，页面与词库可离线重开。</p>
+      </div>
+      <div class="vl-local-grid">
+        <article>
+          <span>01 / DATASET</span><h3>版本化本地词库</h3>
+          <p><code>words.json</code> 保存基础示例，<code>paper-words.json</code> 汇总站内论文笔记词汇。日语保留假名和罗马音；法语保留重音、词性与性数。词频表示本词库内的学习优先级，不是跨语种精确排名。</p>
+          <div class="vl-data-links">
+            <a class="vl-data-link" href="./words.json" download>基础词库 · 下载 words.json →</a>
+            <a class="vl-data-link" href="./paper-words.json" download>论文词库 · 下载 paper-words.json →</a>
+          </div>
+        </article>
+        <article>
+          <span>02 / PROGRESS</span><h3>备份学习进度</h3>
+          <p>导出文件只包含词条 ID、学习状态和语音偏好，不包含账号或远程数据。导入时会忽略当前词库中不存在的 ID。</p>
+          <div class="vl-data-actions">
+            <button type="button" class="rt-secondary-button" data-export-progress>导出进度</button>
+            <button type="button" class="rt-secondary-button" aria-controls="vl-import-progress" data-import-trigger>导入进度</button>
+            <input id="vl-import-progress" type="file" accept="application/json,.json" data-import-progress hidden>
+            <button type="button" class="vl-danger-button" data-clear-progress>清空进度</button>
+          </div>
+          <p class="vl-storage-status" role="status" aria-live="polite" data-storage-status>尚未导入或导出。</p>
+        </article>
+        <article>
+          <span>03 / SPEECH</span><h3>跟随当前语言发音</h3>
+          <p>页面优先匹配词条的 BCP 47 语言标签，再退回同语种系统声音。可用 voice 取决于操作系统与浏览器；没有语音时，读音、假名和音标仍完整保留。</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="rt-page-footer">
+      <span>© <span data-current-year></span> lsqyRobot · Tool 10</span>
+      <a href="/tools/">返回工具集 →</a>
+    </footer>
+  </main>
+</body>
+</html>

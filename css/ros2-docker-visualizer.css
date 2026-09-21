@@ -1,0 +1,1711 @@
+:root {
+  --ros2v-night: #07111e;
+  --ros2v-panel: #0d1b2a;
+  --ros2v-line: rgba(132, 174, 203, 0.25);
+  --ros2v-cyan: #70e1f5;
+  --ros2v-lime: #c8f476;
+  --ros2v-red: #ed668a;
+  --ros2v-amber: #ffc864;
+}
+
+.ros2v-page {
+  color: var(--rt-ink);
+  background:
+    radial-gradient(circle at 87% 4%, rgba(112, 225, 245, 0.18), transparent 27rem),
+    radial-gradient(circle at 2% 32%, rgba(200, 244, 118, 0.09), transparent 23rem),
+    #f3f7f7;
+}
+
+.ros2v-page code,
+.ros2v-page pre,
+.ros2v-page output,
+.ros2v-page .rt-status-row strong,
+.ros2v-panel-head > strong,
+.ros2v-panel-head > button {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.ros2v-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(100deg, rgba(7, 17, 30, 0.98), rgba(12, 38, 52, 0.95)),
+    var(--ros2v-night);
+  box-shadow: 0 30px 65px rgba(13, 36, 51, 0.18);
+}
+
+.ros2v-hero::after {
+  position: absolute;
+  top: -6rem;
+  right: 18%;
+  width: 19rem;
+  height: 19rem;
+  background: repeating-radial-gradient(circle, transparent 0 18px, rgba(112, 225, 245, 0.08) 19px 20px);
+  content: "";
+  pointer-events: none;
+}
+
+.ros2v-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ros2v-hero h1,
+.ros2v-hero p,
+.ros2v-hero .rt-status-row strong {
+  color: #f7fbff;
+}
+
+.ros2v-hero p code {
+  padding: 0.12em 0.35em;
+  color: var(--ros2v-lime);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+}
+
+.ros2v-hero .rt-kicker,
+.ros2v-hero .rt-status-row span {
+  color: #9db6c8;
+}
+
+.ros2v-hero .rt-status-stack {
+  border-color: rgba(145, 204, 227, 0.24);
+  background: rgba(3, 13, 24, 0.54);
+  backdrop-filter: blur(12px);
+}
+
+.ros2v-hero [data-ros2v-connection].is-live {
+  color: var(--ros2v-lime);
+}
+
+.ros2v-hero [data-ros2v-connection].is-fault,
+.ros2v-diagnostics > summary > strong.is-fault {
+  color: var(--ros2v-red);
+}
+
+.ros2v-hero [data-ros2v-connection].is-retrying {
+  color: var(--ros2v-amber);
+}
+
+.ros2v-hero [data-ros2v-lifecycle].is-live {
+  color: var(--ros2v-lime);
+}
+
+.ros2v-rviz-shell {
+  margin-top: 1.15rem;
+  overflow: hidden;
+  background: #06101c;
+  border: 1px solid #17354a;
+  border-radius: 20px;
+  box-shadow: 0 24px 58px rgba(9, 31, 45, 0.2);
+}
+
+.ros2v-rviz-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  min-height: 6.2rem;
+  padding: 1.1rem 1.25rem;
+  color: #eef8fb;
+  background: linear-gradient(110deg, #0b1a29, #123345);
+  border-bottom: 1px solid rgba(151, 206, 226, 0.2);
+}
+
+.ros2v-rviz-head > div:first-child {
+  min-width: 0;
+}
+
+.ros2v-rviz-head > div:first-child > span {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: #7fd7e2;
+  font: 800 0.62rem/1.4 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.13em;
+}
+
+.ros2v-rviz-head h2 {
+  margin: 0;
+  color: #f4fbfd;
+  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+}
+
+.ros2v-rviz-head p {
+  max-width: 48rem;
+  margin: 0.45rem 0 0;
+  color: #a7bec9;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.ros2v-rviz-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
+.ros2v-rviz-actions strong {
+  color: var(--ros2v-amber);
+  font: 800 0.67rem/1 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.ros2v-rviz-shell[data-state="loaded"] .ros2v-rviz-actions strong {
+  color: var(--ros2v-lime);
+}
+
+.ros2v-rviz-shell[data-state="blocked"] .ros2v-rviz-actions strong,
+.ros2v-rviz-shell[data-state="remote"] .ros2v-rviz-actions strong {
+  color: var(--ros2v-red);
+}
+
+.ros2v-rviz-actions a,
+.ros2v-rviz-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.62rem 0.82rem;
+  color: #092332;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: none;
+  background: var(--ros2v-lime);
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.ros2v-rviz-actions a:hover,
+.ros2v-rviz-actions a:focus-visible,
+.ros2v-rviz-actions button:hover,
+.ros2v-rviz-actions button:focus-visible {
+  background: #e0ff9d;
+  outline: 3px solid rgba(112, 225, 245, 0.4);
+  outline-offset: 2px;
+}
+
+.ros2v-rviz-actions .is-terminal {
+  color: #c9f3f5;
+  background: #173d4c;
+  box-shadow: inset 0 0 0 1px rgba(112, 225, 245, 0.28);
+}
+
+.ros2v-rviz-actions .is-terminal:hover,
+.ros2v-rviz-actions .is-terminal:focus-visible {
+  color: #06202c;
+  background: var(--ros2v-cyan);
+}
+
+.ros2v-rviz-actions a[aria-disabled="true"],
+.ros2v-rviz-actions button:disabled {
+  color: #7d9099;
+  pointer-events: none;
+  background: #243844;
+}
+
+.ros2v-terminal-shell[hidden] {
+  display: none;
+}
+
+.ros2v-terminal-shell {
+  margin-top: 1rem;
+  overflow: hidden;
+  color: #eaf5f7;
+  background: #07111e;
+  border: 1px solid #214456;
+  border-radius: 18px;
+  box-shadow: 0 22px 52px rgba(7, 25, 38, 0.19);
+}
+
+.ros2v-terminal-head,
+.ros2v-terminal-shell > footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  background: #0b1c29;
+}
+
+.ros2v-terminal-head {
+  border-bottom: 1px solid rgba(112, 225, 245, 0.18);
+}
+
+.ros2v-terminal-head > div {
+  min-width: 0;
+}
+
+.ros2v-terminal-head > div > span {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--ros2v-cyan);
+  font: 800 0.62rem/1.4 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.12em;
+}
+
+.ros2v-terminal-head h2 {
+  margin: 0;
+  color: #f1fbfd;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+}
+
+.ros2v-terminal-head p,
+.ros2v-terminal-shell > footer {
+  color: #9fb5c0;
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.ros2v-terminal-head p {
+  margin: 0.35rem 0 0;
+}
+
+.ros2v-terminal-head code,
+.ros2v-terminal-shell > footer code {
+  color: #dcf8be;
+}
+
+.ros2v-terminal-head > a,
+.ros2v-terminal-shell > footer button {
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: 0.58rem 0.76rem;
+  color: #c9f3f5;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-decoration: none;
+  background: #173d4c;
+  border: 1px solid rgba(112, 225, 245, 0.28);
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.ros2v-terminal-head > a[aria-disabled="true"] {
+  color: #718690;
+  pointer-events: none;
+  background: #1c2d37;
+}
+
+.ros2v-terminal-head > a:hover,
+.ros2v-terminal-head > a:focus-visible,
+.ros2v-terminal-shell > footer button:hover,
+.ros2v-terminal-shell > footer button:focus-visible {
+  color: #07111e;
+  background: var(--ros2v-cyan);
+  outline: 3px solid rgba(112, 225, 245, 0.28);
+  outline-offset: 2px;
+}
+
+.ros2v-terminal-viewport {
+  position: relative;
+  min-height: 30rem;
+  background: #050b10;
+}
+
+.ros2v-terminal-viewport iframe {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: min(66vh, 42rem);
+  min-height: 30rem;
+  background: #000;
+  border: 0;
+}
+
+.ros2v-terminal-placeholder {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.35rem;
+  color: #e6f2f6;
+  text-align: center;
+  background: #050b10;
+  transition: opacity 160ms ease, visibility 160ms ease;
+}
+
+.ros2v-terminal-placeholder small {
+  color: #829ba7;
+}
+
+.ros2v-terminal-shell[data-state="loaded"] .ros2v-terminal-placeholder {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.ros2v-terminal-commands {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 0.42rem 0.8rem;
+  padding: 0.9rem 1.15rem;
+  background: #091722;
+  border-top: 1px solid rgba(112, 225, 245, 0.14);
+}
+
+.ros2v-terminal-commands span {
+  padding-top: 0.12rem;
+  color: #7893a0;
+  font: 800 0.59rem/1.5 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.1em;
+}
+
+.ros2v-terminal-commands code {
+  min-width: 0;
+  overflow-x: auto;
+  color: #dcf8be;
+  font-size: 0.68rem;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.ros2v-terminal-shell > footer {
+  border-top: 1px solid rgba(112, 225, 245, 0.14);
+}
+
+.ros2v-terminal-shell > footer span {
+  max-width: 58rem;
+}
+
+.ros2v-rviz-viewport {
+  position: relative;
+  min-height: clamp(32rem, 72vh, 54rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(48, 116, 142, 0.2), transparent 24rem),
+    #040b12;
+}
+
+.ros2v-rviz-viewport iframe {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: clamp(32rem, 72vh, 54rem);
+  background: #040b12;
+  border: 0;
+}
+
+.ros2v-rviz-placeholder {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 1.5rem;
+  color: #e6f2f6;
+  text-align: center;
+  background: rgba(4, 11, 18, 0.92);
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.ros2v-rviz-shell[data-state="loaded"] .ros2v-rviz-placeholder {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.ros2v-rviz-placeholder span {
+  margin-bottom: 0.55rem;
+  color: var(--ros2v-cyan);
+  font: 800 0.65rem/1.4 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.12em;
+}
+
+.ros2v-rviz-placeholder strong {
+  font-size: clamp(1.15rem, 3vw, 1.6rem);
+}
+
+.ros2v-rviz-placeholder small {
+  margin-top: 0.45rem;
+  color: #97adb8;
+}
+
+.ros2v-rviz-placeholder code {
+  color: var(--ros2v-lime);
+}
+
+.ros2v-rviz-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.78rem 1.1rem;
+  color: #93abb7;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  background: #091622;
+  border-top: 1px solid rgba(151, 206, 226, 0.15);
+}
+
+.ros2v-rviz-foot code {
+  flex: 0 0 auto;
+  color: #bfecee;
+  overflow-wrap: anywhere;
+}
+
+.ros2v-control-map {
+  margin-top: 1.15rem;
+  padding: clamp(1.1rem, 3vw, 2rem);
+  background: #fff;
+  border: 1px solid var(--rt-line);
+  border-radius: 20px;
+  box-shadow: 0 16px 42px rgba(21, 57, 68, 0.07);
+}
+
+.ros2v-control-map > header h2 {
+  margin: 0;
+  color: #15303f;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+}
+
+.ros2v-control-map > header p {
+  max-width: 58rem;
+  margin: 0.55rem 0 1.15rem;
+  color: #607681;
+  font-size: 0.83rem;
+  line-height: 1.75;
+}
+
+.ros2v-architecture-primary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1.15fr);
+  gap: 0.65rem;
+  align-items: center;
+}
+
+.ros2v-architecture-primary article,
+.ros2v-architecture-managed article {
+  display: flex;
+  min-width: 0;
+  min-height: 7.8rem;
+  padding: 0.9rem;
+  flex-direction: column;
+  justify-content: center;
+  background: #f4f8f8;
+  border: 1px solid #dce8e8;
+  border-radius: 13px;
+}
+
+.ros2v-architecture-primary article.is-manager {
+  color: #edf9fb;
+  background: linear-gradient(145deg, #0e2938, #154151);
+  border-color: #1e5868;
+}
+
+.ros2v-architecture-primary > i {
+  color: #78939d;
+  font-style: normal;
+}
+
+.ros2v-architecture-primary span,
+.ros2v-architecture-managed span,
+.ros2v-supervisor-line > div > span {
+  margin-bottom: 0.4rem;
+  color: #55828c;
+  font: 800 0.59rem/1.4 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.11em;
+}
+
+.ros2v-architecture-primary strong,
+.ros2v-architecture-primary small,
+.ros2v-architecture-managed strong,
+.ros2v-architecture-managed small,
+.ros2v-architecture-managed code {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ros2v-architecture-primary strong,
+.ros2v-architecture-managed strong {
+  color: #183847;
+  font-size: 0.86rem;
+}
+
+.ros2v-architecture-primary article.is-manager span,
+.ros2v-architecture-primary article.is-manager small {
+  color: #91b8c6;
+}
+
+.ros2v-architecture-primary article.is-manager strong {
+  color: #ecfbfb;
+}
+
+.ros2v-architecture-primary small,
+.ros2v-architecture-managed small {
+  margin-top: 0.4rem;
+  color: #718791;
+  font-size: 0.67rem;
+  line-height: 1.55;
+}
+
+.ros2v-architecture-managed {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.7rem;
+  padding: 0.8rem;
+  background: #edf5f5;
+  border: 1px dashed #a9c9cc;
+  border-radius: 15px;
+}
+
+.ros2v-architecture-managed::before {
+  grid-column: 1 / -1;
+  color: #55727c;
+  content: "controller_manager managed resources";
+  font: 800 0.6rem/1.3 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ros2v-architecture-managed code {
+  margin-top: 0.35rem;
+  color: #286574;
+  font-size: 0.65rem;
+}
+
+.ros2v-observation-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 0.65fr) auto minmax(0, 0.7fr);
+  gap: 0.45rem;
+  align-items: center;
+  margin-top: 0.7rem;
+  padding: 0.72rem;
+  color: #cee8ed;
+  background: #0c1d2a;
+  border-radius: 12px;
+}
+
+.ros2v-observation-flow span {
+  min-width: 0;
+  overflow: hidden;
+  font: 700 0.65rem/1.4 "SFMono-Regular", Consolas, monospace;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ros2v-observation-flow i {
+  color: var(--ros2v-lime);
+  font-style: normal;
+}
+
+.ros2v-supervisor-line {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
+  gap: 1rem;
+  margin-top: 0.7rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #eef9f7, #f8fbea);
+  border: 1px solid #a7d7c4;
+  border-radius: 14px;
+}
+
+.ros2v-supervisor-line > div > strong {
+  display: block;
+  color: #19556a;
+  font: 800 0.82rem/1.5 "SFMono-Regular", Consolas, monospace;
+  overflow-wrap: anywhere;
+}
+
+.ros2v-supervisor-line p {
+  margin: 0.4rem 0 0;
+  color: #56727b;
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.ros2v-control-readout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.ros2v-control-readout > div {
+  min-width: 0;
+  padding: 0.65rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(95, 145, 138, 0.2);
+  border-radius: 9px;
+}
+
+.ros2v-control-readout dt {
+  margin-bottom: 0.22rem;
+  color: #6e888d;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.ros2v-control-readout dd {
+  margin: 0;
+  overflow: hidden;
+  color: #8a6a27;
+  font: 800 0.68rem/1.4 "SFMono-Regular", Consolas, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ros2v-control-readout dd.is-live {
+  color: #19734e;
+}
+
+.ros2v-control-readout dd.is-fault {
+  color: #b64061;
+}
+
+.ros2v-state-machine {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1fr) auto minmax(9rem, 1fr) auto minmax(9rem, 1fr) auto minmax(9rem, 1fr);
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.7rem;
+  overflow-x: auto;
+  padding: 0.75rem;
+  background: #f5f8f8;
+  border: 1px solid #dce7e7;
+  border-radius: 13px;
+}
+
+.ros2v-state-machine article {
+  min-height: 6.3rem;
+  padding: 0.7rem;
+  background: #fff;
+  border: 1px solid #d9e5e5;
+  border-radius: 10px;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.ros2v-state-machine article.is-fault {
+  background: #fff8fa;
+  border-color: #efcad5;
+}
+
+.ros2v-state-machine article.is-current {
+  border-color: #54b98a;
+  box-shadow: 0 0 0 3px rgba(84, 185, 138, 0.16);
+  transform: translateY(-2px);
+}
+
+.ros2v-state-machine article.is-fault.is-current {
+  border-color: var(--ros2v-red);
+  box-shadow: 0 0 0 3px rgba(237, 102, 138, 0.16);
+}
+
+.ros2v-state-machine span,
+.ros2v-state-machine strong,
+.ros2v-state-machine small {
+  display: block;
+}
+
+.ros2v-state-machine span {
+  color: #337481;
+  font: 800 0.65rem/1.4 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.ros2v-state-machine strong {
+  margin-top: 0.22rem;
+  color: #183847;
+  font-size: 0.72rem;
+}
+
+.ros2v-state-machine small {
+  margin-top: 0.4rem;
+  color: #6f838b;
+  font-size: 0.62rem;
+  line-height: 1.5;
+}
+
+.ros2v-state-machine > i {
+  min-width: max-content;
+  color: #78919a;
+  font: 700 0.58rem/1.4 "SFMono-Regular", Consolas, monospace;
+  font-style: normal;
+}
+
+.ros2v-notice {
+  display: flex;
+  align-items: center;
+  min-height: 3.25rem;
+  margin: 1.1rem 0;
+  padding: 0.78rem 1rem;
+  color: #4b6472;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid #d7e4e5;
+  border-left: 4px solid var(--ros2v-amber);
+  border-radius: 10px;
+}
+
+.ros2v-notice.is-live {
+  color: #285e4a;
+  border-left-color: #58bf8a;
+}
+
+.ros2v-notice.is-error {
+  color: #8e3550;
+  border-left-color: var(--ros2v-red);
+}
+
+.ros2v-pipeline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.65rem;
+  margin: 1rem 0 1.3rem;
+  padding: 0.82rem;
+  background: #fff;
+  border: 1px solid var(--rt-line);
+  border-radius: 15px;
+}
+
+.ros2v-pipeline > div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.6rem;
+  align-items: center;
+  min-width: 0;
+  padding: 0.5rem;
+}
+
+.ros2v-pipeline span {
+  grid-row: span 2;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  color: #197d84;
+  font: 800 0.66rem/1 "SFMono-Regular", Consolas, monospace;
+  background: #e9f8f8;
+  border-radius: 50%;
+  place-items: center;
+}
+
+.ros2v-pipeline strong,
+.ros2v-pipeline small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ros2v-pipeline strong {
+  color: #173342;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.ros2v-pipeline small {
+  color: var(--rt-muted);
+  font-size: 0.66rem;
+}
+
+.ros2v-pipeline > i {
+  color: #9db0b8;
+  font-style: normal;
+}
+
+.ros2v-diagnostics {
+  margin-top: 1rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--rt-line);
+  border-radius: 16px;
+}
+
+.ros2v-diagnostics > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.7rem;
+  padding: 0.9rem 1.1rem;
+  color: #183645;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ros2v-diagnostics > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ros2v-diagnostics > summary::before {
+  flex: 0 0 auto;
+  color: #4a7d88;
+  content: "+";
+  font: 800 1.1rem/1 "SFMono-Regular", Consolas, monospace;
+}
+
+.ros2v-diagnostics[open] > summary::before {
+  content: "−";
+}
+
+.ros2v-diagnostics > summary > span {
+  display: grid;
+  flex: 1 1 auto;
+  gap: 0.18rem;
+  min-width: 0;
+}
+
+.ros2v-diagnostics > summary b {
+  font-size: 0.9rem;
+}
+
+.ros2v-diagnostics > summary small {
+  color: var(--rt-muted);
+  font-size: 0.7rem;
+}
+
+.ros2v-diagnostics > summary > strong {
+  color: #9a6f18;
+  font: 800 0.68rem/1 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.ros2v-diagnostics > summary > strong.is-live {
+  color: #20815b;
+}
+
+.ros2v-diagnostics > summary > strong.is-retrying {
+  color: #b07413;
+}
+
+.ros2v-diagnostics-body {
+  padding: 0 0.9rem 0.9rem;
+  border-top: 1px solid #e3ecec;
+}
+
+.ros2v-console {
+  display: grid;
+  grid-template-columns: minmax(0, 1.68fr) minmax(18rem, 0.88fr);
+  gap: 1rem;
+}
+
+.ros2v-stage-card,
+.ros2v-telemetry-card {
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--rt-line);
+  border-radius: 20px;
+  box-shadow: 0 16px 42px rgba(21, 57, 68, 0.08);
+}
+
+.ros2v-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 5.2rem;
+  padding: 1.05rem 1.2rem;
+  border-bottom: 1px solid #e3ecec;
+}
+
+.ros2v-panel-head span,
+.ros2v-endpoint > span,
+.ros2v-tf-tree > span,
+.ros2v-packet span,
+.ros2v-option-grid article > span {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #71909e;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.ros2v-panel-head h2 {
+  margin: 0;
+  color: #15303f;
+  font-size: 1.08rem;
+}
+
+.ros2v-panel-head > strong {
+  color: #9a6f18;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+}
+
+.ros2v-panel-head > strong.is-live {
+  color: #20815b;
+}
+
+.ros2v-panel-head > button,
+.ros2v-command button {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 0.56rem 0.72rem;
+  color: #245a64;
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: #eff9f8;
+  border: 1px solid #c4dfdc;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ros2v-panel-head > button:hover,
+.ros2v-panel-head > button:focus-visible,
+.ros2v-command button:hover,
+.ros2v-command button:focus-visible {
+  color: #0b554f;
+  border-color: #63b9af;
+  outline: none;
+}
+
+.ros2v-stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--ros2v-night);
+}
+
+.ros2v-go2-joint-wrap {
+  padding: 1rem 1.1rem 1.2rem;
+  background:
+    linear-gradient(rgba(112, 225, 245, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(112, 225, 245, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 50% 38%, rgba(30, 116, 145, 0.24), transparent 23rem),
+    var(--ros2v-night);
+  background-size: 28px 28px, 28px 28px, auto, auto;
+  transition: filter 180ms ease, opacity 180ms ease;
+}
+
+.ros2v-go2-joint-wrap > p {
+  margin: 0 0 0.55rem;
+  color: #91a9b5;
+  font-size: 0.68rem;
+  line-height: 1.55;
+}
+
+.ros2v-go2-joints {
+  width: 100%;
+  color: #d5e7f0;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0 0.48rem;
+}
+
+.ros2v-go2-joints thead th {
+  padding: 0.1rem 0.55rem;
+  color: #718e9d;
+  font: 800 0.61rem/1.4 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.1em;
+  text-align: right;
+}
+
+.ros2v-go2-joints thead th:first-child {
+  width: 18%;
+  text-align: left;
+}
+
+.ros2v-go2-joints tbody th,
+.ros2v-go2-joints tbody td {
+  min-width: 0;
+  padding: 0.76rem 0.55rem;
+  background: rgba(13, 35, 51, 0.94);
+  border-top: 1px solid rgba(126, 179, 201, 0.18);
+  border-bottom: 1px solid rgba(126, 179, 201, 0.18);
+}
+
+.ros2v-go2-joints tbody th {
+  border-left: 1px solid rgba(126, 179, 201, 0.18);
+  border-radius: 10px 0 0 10px;
+  text-align: left;
+}
+
+.ros2v-go2-joints tbody td {
+  text-align: right;
+}
+
+.ros2v-go2-joints tbody td:last-child {
+  border-right: 1px solid rgba(126, 179, 201, 0.18);
+  border-radius: 0 10px 10px 0;
+}
+
+.ros2v-go2-joints tbody th strong,
+.ros2v-go2-joints tbody th small {
+  display: block;
+}
+
+.ros2v-go2-joints tbody th strong {
+  color: var(--ros2v-cyan);
+  font: 800 0.76rem/1.25 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.09em;
+}
+
+.ros2v-go2-joints tbody th small {
+  margin-top: 0.14rem;
+  overflow: hidden;
+  color: #7893a1;
+  font-size: 0.56rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ros2v-go2-joints output {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: #c7dbe4;
+  font: 700 clamp(0.64rem, 1.2vw, 0.76rem)/1.4 "SFMono-Regular", Consolas, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ros2v-stage[data-state="live"] .ros2v-go2-joints output {
+  color: #e0ff9f;
+}
+
+.ros2v-stage[data-state="offline"] .ros2v-go2-joint-wrap,
+.ros2v-stage[data-state="stale"] .ros2v-go2-joint-wrap {
+  filter: saturate(0.42) brightness(0.72);
+  opacity: 0.78;
+}
+
+.ros2v-stage-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 1.4rem;
+  color: #dcebf2;
+  text-align: center;
+  background: rgba(4, 13, 23, 0.62);
+  backdrop-filter: blur(4px);
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.ros2v-stage[data-state="live"] .ros2v-stage-overlay {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.ros2v-stage-overlay span {
+  margin-bottom: 0.55rem;
+  color: var(--ros2v-cyan);
+  font: 700 0.64rem/1.4 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.ros2v-stage-overlay strong {
+  font-size: 1.18rem;
+}
+
+.ros2v-stage-overlay small {
+  margin-top: 0.35rem;
+  color: #9db0bd;
+}
+
+.ros2v-stream-readout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid #e3ecec;
+}
+
+.ros2v-stream-readout > div {
+  min-width: 0;
+  padding: 0.92rem 1rem;
+  border-right: 1px solid #e3ecec;
+}
+
+.ros2v-stream-readout > div:last-child {
+  border-right: 0;
+}
+
+.ros2v-stream-readout dt {
+  margin-bottom: 0.25rem;
+  color: #78909c;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+}
+
+.ros2v-stream-readout dd {
+  margin: 0;
+  overflow: hidden;
+  color: #1c3947;
+  font: 700 0.78rem/1.4 "SFMono-Regular", Consolas, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ros2v-telemetry-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.ros2v-endpoint {
+  margin: 1rem;
+  padding: 0.85rem;
+  background: #f3f8f8;
+  border: 1px solid #dce9e8;
+  border-radius: 12px;
+}
+
+.ros2v-endpoint code {
+  display: block;
+  overflow: hidden;
+  color: #163d49;
+  font-size: 0.76rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ros2v-endpoint small {
+  display: block;
+  margin-top: 0.3rem;
+  color: #738993;
+  font-size: 0.66rem;
+}
+
+.ros2v-topic-list {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0 1rem;
+  list-style: none;
+}
+
+.ros2v-topic-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: center;
+  min-height: 3.7rem;
+  padding: 0.65rem 0.7rem;
+  border: 1px solid #e2ecec;
+  border-radius: 10px;
+}
+
+.ros2v-topic-list i {
+  width: 0.52rem;
+  height: 0.52rem;
+  background: #a9b9bd;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(169, 185, 189, 0.14);
+}
+
+.ros2v-topic-list li.is-live i {
+  background: #55c88a;
+  box-shadow: 0 0 0 4px rgba(85, 200, 138, 0.14);
+}
+
+.ros2v-topic-list strong,
+.ros2v-topic-list small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ros2v-topic-list strong {
+  color: #173544;
+  font: 700 0.73rem/1.4 "SFMono-Regular", Consolas, monospace;
+}
+
+.ros2v-topic-list small {
+  color: #81939c;
+  font-size: 0.62rem;
+}
+
+.ros2v-topic-list output {
+  min-width: 3.2rem;
+  color: #50707c;
+  font-size: 0.7rem;
+  text-align: right;
+}
+
+.ros2v-tf-tree {
+  margin: 0.85rem 1rem;
+  padding: 0.9rem;
+  background: #0c1c29;
+  border-radius: 12px;
+}
+
+.ros2v-tf-root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.38rem;
+  overflow: hidden;
+}
+
+.ros2v-tf-tree b {
+  overflow: hidden;
+  color: #d2e4ed;
+  font: 600 0.63rem/1.4 "SFMono-Regular", Consolas, monospace;
+  text-overflow: ellipsis;
+}
+
+.ros2v-tf-root > small {
+  flex: 0 0 auto;
+  margin: 0;
+  color: #698999;
+  font: 700 0.54rem/1.4 "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.ros2v-foot-frames {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin: 0.55rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ros2v-foot-frames li {
+  display: flex;
+  align-items: center;
+  gap: 0.32rem;
+  min-width: 0;
+  padding: 0.38rem 0.45rem;
+  background: rgba(255, 255, 255, 0.045);
+  border-radius: 7px;
+}
+
+.ros2v-foot-frames i {
+  flex: 0 0 auto;
+  color: var(--ros2v-lime);
+  font-style: normal;
+}
+
+.ros2v-tf-tree > small {
+  display: block;
+  margin-top: 0.45rem;
+  color: #7692a2;
+  font-size: 0.64rem;
+}
+
+.ros2v-packet {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 11rem;
+  margin: 0 1rem 1rem;
+  padding: 0.9rem;
+  overflow: hidden;
+  background: #f5f8f8;
+  border: 1px solid #e1e9e9;
+  border-radius: 12px;
+}
+
+.ros2v-packet > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ros2v-packet > div strong {
+  color: #2b6771;
+  font-size: 0.72rem;
+}
+
+.ros2v-packet pre {
+  flex: 1 1 auto;
+  margin: 0.45rem 0 0;
+  overflow: auto;
+  color: #49626e;
+  font-size: 0.65rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.ros2v-start,
+.ros2v-options,
+.ros2v-boundary {
+  margin-top: 1.15rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  background: #fff;
+  border: 1px solid var(--rt-line);
+  border-radius: 20px;
+}
+
+.ros2v-start {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(19rem, 0.72fr);
+  gap: 1.25rem 2rem;
+  align-items: center;
+}
+
+.ros2v-start h2,
+.ros2v-options h2,
+.ros2v-boundary h2 {
+  margin: 0;
+  color: #15303f;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+}
+
+.ros2v-start p,
+.ros2v-option-grid p,
+.ros2v-boundary p {
+  color: #607681;
+  font-size: 0.83rem;
+  line-height: 1.75;
+}
+
+.ros2v-start > div > p {
+  max-width: 42rem;
+  margin: 0.65rem 0 0;
+}
+
+.ros2v-start > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid #e0eaea;
+}
+
+.ros2v-command {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.65rem;
+  background: #0b1c29;
+  border-radius: 12px;
+}
+
+.ros2v-command code {
+  min-width: 0;
+  overflow: auto;
+  padding: 0.35rem;
+  color: #dcf8be;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.ros2v-command button {
+  color: #c5eef1;
+  background: #163746;
+  border-color: #2c5968;
+}
+
+.ros2v-options header {
+  margin-bottom: 1.1rem;
+}
+
+.ros2v-option-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.ros2v-option-grid article {
+  grid-column: span 2;
+  padding: 1rem;
+  background: #f6f9f9;
+  border: 1px solid #e0eaea;
+  border-radius: 13px;
+}
+
+.ros2v-option-grid article:nth-child(4),
+.ros2v-option-grid article:nth-child(5) {
+  grid-column: span 3;
+}
+
+.ros2v-option-grid article.is-selected {
+  background: linear-gradient(145deg, #effaf8, #f8fceb);
+  border-color: #90d4bf;
+}
+
+.ros2v-option-grid article.is-selected > span {
+  color: #258466;
+}
+
+.ros2v-option-grid h3 {
+  margin: 0;
+  color: #173544;
+  font-size: 0.93rem;
+}
+
+.ros2v-option-grid p {
+  margin: 0.45rem 0 0;
+}
+
+.ros2v-boundary {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.58fr) minmax(0, 1fr);
+  gap: 1.5rem 2rem;
+  background: #102332;
+  border-color: #102332;
+}
+
+.ros2v-boundary .rt-kicker,
+.ros2v-boundary h2 {
+  color: #f1f8fa;
+}
+
+.ros2v-boundary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.ros2v-boundary article {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(170, 208, 224, 0.18);
+  border-radius: 13px;
+}
+
+.ros2v-boundary strong {
+  color: var(--ros2v-lime);
+  font-size: 0.78rem;
+}
+
+.ros2v-boundary p {
+  margin: 0.42rem 0 0;
+  color: #abc0ca;
+}
+
+@media (max-width: 980px) {
+  .ros2v-pipeline {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ros2v-pipeline > i {
+    display: none;
+  }
+
+  .ros2v-console,
+  .ros2v-boundary,
+  .ros2v-supervisor-line {
+    grid-template-columns: 1fr;
+  }
+
+  .ros2v-architecture-managed {
+    grid-template-columns: 1fr;
+  }
+
+  .ros2v-stage {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .ros2v-rviz-head,
+  .ros2v-rviz-foot,
+  .ros2v-terminal-head,
+  .ros2v-terminal-shell > footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ros2v-rviz-actions {
+    justify-content: space-between;
+  }
+
+  .ros2v-rviz-foot code {
+    flex: 1 1 auto;
+  }
+
+  .ros2v-pipeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ros2v-architecture-primary {
+    grid-template-columns: 1fr;
+  }
+
+  .ros2v-architecture-primary > i {
+    text-align: center;
+    transform: rotate(90deg);
+  }
+
+  .ros2v-observation-flow {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .ros2v-observation-flow span {
+    flex: 0 0 auto;
+    min-width: 10.5rem;
+  }
+
+  .ros2v-start {
+    grid-template-columns: 1fr;
+  }
+
+  .ros2v-start > p {
+    grid-column: auto;
+  }
+
+  .ros2v-option-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ros2v-option-grid article,
+  .ros2v-option-grid article:nth-child(4),
+  .ros2v-option-grid article:nth-child(5) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .ros2v-page .rt-page {
+    padding-right: 0.8rem;
+    padding-left: 0.8rem;
+  }
+
+  .ros2v-page .rt-hero {
+    padding: 1.35rem;
+  }
+
+  .ros2v-page .rt-hero h1 {
+    font-size: clamp(2.1rem, 11vw, 3rem);
+  }
+
+  .ros2v-rviz-head {
+    padding: 1rem;
+  }
+
+  .ros2v-rviz-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ros2v-rviz-actions a,
+  .ros2v-rviz-actions button {
+    width: 100%;
+  }
+
+  .ros2v-rviz-viewport,
+  .ros2v-rviz-viewport iframe {
+    min-height: 24rem;
+    height: min(68vh, 34rem);
+  }
+
+  .ros2v-terminal-viewport,
+  .ros2v-terminal-viewport iframe {
+    min-height: 24rem;
+    height: min(62vh, 32rem);
+  }
+
+  .ros2v-terminal-commands {
+    grid-template-columns: 1fr;
+  }
+
+  .ros2v-terminal-commands span:empty {
+    display: none;
+  }
+
+  .ros2v-control-readout {
+    grid-template-columns: 1fr;
+  }
+
+  .ros2v-rviz-foot {
+    padding: 0.75rem 0.9rem;
+  }
+
+  .ros2v-pipeline {
+    display: flex;
+    gap: 0.35rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .ros2v-pipeline > div {
+    flex: 0 0 11.2rem;
+    scroll-snap-align: start;
+  }
+
+  .ros2v-panel-head {
+    min-height: 4.7rem;
+    padding: 0.9rem;
+  }
+
+  .ros2v-diagnostics > summary {
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.85rem;
+  }
+
+  .ros2v-diagnostics > summary > strong {
+    max-width: 6.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ros2v-panel-head h2 {
+    font-size: 0.96rem;
+  }
+
+  .ros2v-panel-head > strong {
+    max-width: 8.8rem;
+    overflow: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ros2v-go2-joint-wrap {
+    padding: 0.7rem;
+  }
+
+  .ros2v-go2-joint-wrap > p {
+    font-size: 0.62rem;
+  }
+
+  .ros2v-go2-joints {
+    border-spacing: 0 0.34rem;
+  }
+
+  .ros2v-go2-joints thead th,
+  .ros2v-go2-joints tbody th,
+  .ros2v-go2-joints tbody td {
+    padding-right: 0.24rem;
+    padding-left: 0.24rem;
+  }
+
+  .ros2v-go2-joints thead th {
+    font-size: 0.54rem;
+    letter-spacing: 0.04em;
+  }
+
+  .ros2v-go2-joints tbody th small {
+    display: none;
+  }
+
+  .ros2v-go2-joints output {
+    font-size: 0.62rem;
+  }
+
+  .ros2v-command {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ros2v-command button {
+    width: 100%;
+  }
+
+  .ros2v-boundary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ros2v-page *,
+  .ros2v-page *::before,
+  .ros2v-page *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -9,6 +9,7 @@
   var MAX_REQUEST_BYTES = 12 * 1024 * 1024;
   var MAX_MODEL_BYTES = 1024 * 1024;
   var MAX_DATA_BYTES = 10 * 1024 * 1024;
+  var FORM_STORAGE_KEY = "robot-calibration-form-v1";
   var EXAMPLES = {
     model: "/tools/robot-parameter-calibration/examples/six_axis_standard_dh.csv",
     data: "/tools/robot-parameter-calibration/examples/six_axis_measurements.csv",
@@ -59,6 +60,7 @@
     message: document.querySelector("[data-rc-message]"),
     healthState: document.querySelector("[data-rc-health-state]"),
     healthRetry: document.querySelector("[data-rc-health-retry]"),
+    backendProcessCopy: document.querySelector("[data-rc-backend-process-copy]"),
     runtimeState: document.querySelector("[data-rc-runtime-state]"),
     modeHelp: document.querySelector("[data-rc-mode-help]"),
     fileGrid: document.querySelector(".rc-file-grid"),
@@ -142,7 +144,9 @@
     inspectionValid: false,
     inspectionPayload: null,
     lastResult: null,
-    ikToleranceUnits: { length: "m", angle: "rad" }
+    ikToleranceUnits: { length: "m", angle: "rad" },
+    runtimeMode: "local",
+    serviceStatus: "checking"
   };
 
   function apiUrl(path) {
@@ -150,6 +154,15 @@
     return workbench && typeof workbench.apiUrl === "function"
       ? workbench.apiUrl(path)
       : path;
+  }
+
+  function localFallbackAllowed() {
+    var modeMeta = document.querySelector('meta[name="robotics-runtime-mode"]');
+    if (modeMeta && String(modeMeta.getAttribute("content") || "").toLowerCase() === "online") {
+      return false;
+    }
+    var hostname = String(window.location.hostname || "").toLowerCase().replace(/^\[|\]$/g, "");
+    return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
   }
 
   function isPlainObject(value) {
@@ -229,7 +242,15 @@
 
   function setReadyRuntime() {
     if (!state.backendReady) {
-      setRuntime("BACKEND OFFLINE", false);
+      if (state.runtimeMode === "online") {
+        setRuntime("ONLINE · LOCAL ONLY", false);
+      } else if (state.serviceStatus === "starting") {
+        setRuntime("DOCKER STARTING", false);
+      } else if (state.serviceStatus === "error") {
+        setRuntime("SERVICE ERROR", false);
+      } else {
+        setRuntime("BACKEND OFFLINE", false);
+      }
     } else if (state.inspectionValid) {
       setRuntime("READY TO SOLVE", true);
     } else if (state.uploads.model) {
@@ -435,6 +456,7 @@
     setReadyRuntime();
     clearMessage();
     updateControls();
+    persistFormState();
   }
 
   function syncModelTypeUi() {
@@ -464,6 +486,7 @@
     syncModelTypeUi();
     clearMessage();
     updateControls();
+    persistFormState();
   }
 
   async function responseJson(response) {
@@ -516,8 +539,91 @@
     return payload;
   }
 
+  function applyRuntimeSnapshot(snapshot) {
+    if (!snapshot || typeof snapshot !== "object") {
+      return;
+    }
+    state.runtimeMode = snapshot.mode === "online" ? "online" : "local";
+    state.serviceStatus = snapshot.status || "offline";
+    state.backendReady = snapshot.backendReady === true;
+    state.healthChecking = snapshot.status === "checking";
+    var healthLabels = {
+      ready: "服务已运行",
+      checking: "正在检查服务",
+      starting: "服务启动中",
+      stopping: "服务停止中",
+      error: "服务异常",
+      online: "当前为线上版本",
+      offline: "Docker 未启动"
+    };
+    elements.healthState.textContent = healthLabels[state.serviceStatus] || "Docker 未启动";
+    elements.healthState.classList.toggle("is-ready", state.backendReady);
+    elements.healthState.classList.toggle("rc-health-error", state.serviceStatus === "error");
+    var serviceState = document.querySelector("[data-rc-service-state]");
+    var serviceSummary = document.querySelector("[data-rc-service-summary]");
+    var runtimeMode = document.querySelector("[data-rc-runtime-mode]");
+    var helperState = document.querySelector("[data-rc-helper-state]");
+    var apiState = document.querySelector("[data-rc-api-state]");
+    var imageState = document.querySelector("[data-rc-image-state]");
+    if (serviceState) {
+      serviceState.textContent = healthLabels[state.serviceStatus] || "Docker 未启动";
+      serviceState.className = "rc-service-state is-" + state.serviceStatus;
+    }
+    if (state.runtimeMode === "online") {
+      if (serviceSummary) {
+        serviceSummary.textContent = "为避免公网页面探测或控制访问者电脑，本页不会请求 127.0.0.1；C++ 计算仅支持本地运行。";
+      }
+      if (runtimeMode) runtimeMode.textContent = "线上静态版本";
+      if (helperState) helperState.textContent = "不连接";
+      if (apiState) apiState.textContent = "不探测";
+      if (imageState) imageState.textContent = "不检查";
+      Array.from(document.querySelectorAll("[data-rc-local-actions]")).forEach(function (element) {
+        element.hidden = true;
+      });
+      var commandFallback = document.querySelector("[data-rc-command-fallback]");
+      if (commandFallback) commandFallback.open = true;
+    }
+    elements.healthRetry.hidden = state.runtimeMode === "online";
+    elements.backendProcessCopy.textContent = state.runtimeMode === "online"
+      ? "线上静态版不连接访问者的本机 API"
+      : "连接 Docker :4010 标定 API";
+    if (state.backendReady) {
+      markProcess("backend", "ready");
+    } else if (snapshot.status === "checking" || snapshot.status === "starting") {
+      markProcess("backend", "running");
+    } else {
+      markProcess("backend", snapshot.status === "error" ? "error" : "");
+    }
+    setReadyRuntime();
+    if (snapshot.notification && !state.action) {
+      setMessage(
+        snapshot.notification,
+        snapshot.notificationKind || "warning",
+        snapshot.notificationKind === "error"
+      );
+    }
+    updateControls();
+  }
+
   async function checkHealth(showSuccess) {
     if (isBusy()) {
+      return;
+    }
+    if (!localFallbackAllowed()) {
+      applyRuntimeSnapshot({
+        mode: "online",
+        status: "online",
+        backendReady: false,
+        notification: showSuccess
+          ? "线上静态版本不会连接或启动访问者电脑上的 Docker。"
+          : "",
+        notificationKind: "warning"
+      });
+      return;
+    }
+    var runtimeController = window.roboticsRuntimeController;
+    if (runtimeController && typeof runtimeController.refresh === "function") {
+      await runtimeController.refresh({ showNotice: Boolean(showSuccess) });
       return;
     }
     state.healthChecking = true;
@@ -528,11 +634,19 @@
     markProcess("backend", "running");
     updateControls();
 
+    var fallbackAbortController = new AbortController();
+    var fallbackTimeout = window.setTimeout(function () { fallbackAbortController.abort(); }, 3000);
     try {
-      var response = await fetch(apiUrl("/api/calibration/health"), { cache: "no-store" });
+      var response = await fetch(apiUrl("/api/calibration/health"), {
+        cache: "no-store",
+        signal: fallbackAbortController.signal
+      });
       var payload = await responseJson(response);
       if (!response.ok || !payload || payload.ok !== true) {
         throw new Error(apiError(payload, response));
+      }
+      if (payload.engine !== "robot_calibrator") {
+        throw new Error("响应不是预期的 Robotics Workbench 标定内核。");
       }
       state.backendReady = true;
       elements.healthState.textContent = "ready";
@@ -555,6 +669,7 @@
         "warning"
       );
     } finally {
+      window.clearTimeout(fallbackTimeout);
       state.healthChecking = false;
       updateControls();
     }
@@ -1976,6 +2091,7 @@
       state.action = "";
       elements.exampleButton.textContent = previousText;
       updateControls();
+      persistFormState();
     }
 
     if (state.backendReady && state.uploads.model) {
@@ -2248,6 +2364,7 @@
       elements.abbDemoButton.textContent = previousText;
       syncModeUi();
       updateControls();
+      persistFormState();
     }
   }
 
@@ -2291,13 +2408,110 @@
     clearResult();
     markProcess("model", "");
     markProcess("data", "");
-    setRuntime(state.backendReady ? "READY FOR MODEL" : "BACKEND OFFLINE", state.backendReady);
+    setReadyRuntime();
     if (state.backendReady) {
       clearMessage();
+    } else if (state.runtimeMode === "online") {
+      setMessage("当前为线上静态版本；参数说明和静态示例可查看，C++ 计算请在本机运行。", "warning");
     } else {
       setMessage("Docker 计算服务尚未启动，请确认服务已启动并重新检查。", "warning");
     }
+    try {
+      window.sessionStorage.removeItem(FORM_STORAGE_KEY);
+    } catch (_error) {
+      // Storage can be unavailable in hardened/private browsing contexts.
+    }
     updateControls();
+  }
+
+  function persistableControls() {
+    return Array.from(form.querySelectorAll("input:not([type='file']), select"));
+  }
+
+  function persistenceControlKey(control) {
+    if (control.id) {
+      return "id:" + control.id;
+    }
+    for (var attribute of [
+      "data-rc-target",
+      "data-rc-tool-xyz",
+      "data-rc-tool-rpy",
+      "data-rc-ik-target-xyz",
+      "data-rc-ik-target-quaternion"
+    ]) {
+      if (control.hasAttribute(attribute)) {
+        return attribute + ":" + control.getAttribute(attribute);
+      }
+    }
+    return "";
+  }
+
+  function persistFormState() {
+    if (isBusy()) {
+      return;
+    }
+    var controls = {};
+    persistableControls().forEach(function (control) {
+      var key = persistenceControlKey(control);
+      if (!key) {
+        return;
+      }
+      controls[key] = {
+        value: control.value,
+        checked: control.type === "checkbox" ? control.checked : undefined
+      };
+    });
+    try {
+      window.sessionStorage.setItem(FORM_STORAGE_KEY, JSON.stringify({
+        version: 2,
+        mode: state.mode,
+        modelType: state.modelType,
+        controls: controls
+      }));
+    } catch (_error) {
+      // The form remains usable even when sessionStorage is disabled.
+    }
+  }
+
+  function restoreFormState() {
+    var saved;
+    try {
+      saved = JSON.parse(window.sessionStorage.getItem(FORM_STORAGE_KEY) || "null");
+    } catch (_error) {
+      return;
+    }
+    if (!saved || saved.version !== 2 || !isPlainObject(saved.controls)) {
+      return;
+    }
+    if (saved.mode === "measured" || saved.mode === "closed-loop" || saved.mode === "ik") {
+      state.mode = saved.mode;
+    }
+    if (Object.prototype.hasOwnProperty.call(MODEL_COPY, saved.modelType)) {
+      state.modelType = saved.modelType;
+    }
+    persistableControls().forEach(function (control) {
+      var entry = saved.controls[persistenceControlKey(control)];
+      if (!control || !entry || typeof entry.value !== "string") {
+        return;
+      }
+      if (control.type === "checkbox") {
+        control.checked = entry.checked === true;
+      } else {
+        control.value = entry.value;
+      }
+    });
+    state.ikToleranceUnits.length = elements.lengthUnit.value;
+    state.ikToleranceUnits.angle = elements.angleUnit.value;
+  }
+
+  function initializePersistence() {
+    ["input", "change"].forEach(function (eventName) {
+      form.addEventListener(eventName, function (event) {
+        if (event.target && event.target.type !== "file") {
+          persistFormState();
+        }
+      });
+    });
   }
 
   function initializeUploads() {
@@ -2404,6 +2618,11 @@
   initializeUploads();
   initializeChoices();
   initializeInvalidation();
+  restoreFormState();
+  initializePersistence();
+  window.addEventListener("robotics-workbench-runtime", function (event) {
+    applyRuntimeSnapshot(event.detail);
+  });
   form.addEventListener("submit", runCalibration);
   elements.inspectButton.addEventListener("click", function () { void inspectModel(true); });
   elements.exampleButton.addEventListener("click", function () { void loadExamples(); });

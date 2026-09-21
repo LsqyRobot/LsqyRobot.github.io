@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="690" viewBox="0 0 1000 690" role="img" aria-labelledby="moe-latent-title moe-latent-desc">
+  <title id="moe-latent-title">MoE：混合潜变量，再生成动作</title>
+  <desc id="moe-latent-desc">部署时，含命令的五帧本体历史同时输入 softmax 门控和全部专家。门控权重对专家潜变量加权，得到中间表示 m，再做 L2 归一化得到潜变量 z；Actor 同时读取当前观测与 z，输出十二个关节目标偏移。PD 与 MuJoCo 评估环境形成状态反馈。Teacher 的特权信息仅在训练时监督潜变量；部署不需要高度图。这里是 dense MoE，不是 top-k 专家选择，也不是直接混合十二维动作；最终归一化后的 z 不能简单称为专家输出的凸组合。</desc>
+  <defs>
+    <marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#607987"/></marker>
+    <marker id="training-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#866f91"/></marker>
+    <style>
+      text { font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #243b46; }
+      .title { font-size: 27px; font-weight: 600; }
+      .subtitle, .note { font-size: 17px; fill: #536975; }
+      .label { font-size: 20px; font-weight: 500; }
+      .detail { font-size: 18px; fill: #536975; }
+      .small { font-size: 16px; fill: #536975; }
+      .formula { font-size: 23px; font-weight: 500; fill: #245565; }
+      .node { fill: #f5f9fb; stroke: #c6d6df; stroke-width: 1.3; }
+      .accent { fill: #eef7f7; stroke: #9ec2c6; stroke-width: 1.3; }
+      .training { fill: #faf7fc; stroke: #b7a5bf; stroke-width: 1.3; stroke-dasharray: 5 4; }
+      .arrow, .training-arrow { fill: none; stroke: #607987; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+      .training-arrow { stroke: #866f91; stroke-dasharray: 6 5; }
+      .divider { stroke: #e4ebef; stroke-width: 1; }
+    </style>
+  </defs>
+  <rect width="1000" height="690" fill="#ffffff"/>
+  <text x="30" y="43" class="title" text-anchor="start">MoE：混合潜变量，再生成动作</text>
+  <text x="30" y="76" class="subtitle" text-anchor="start">实线：部署与闭环评估路径　　虚线：仅训练时的特权监督</text>
+  <path d="M 30 97 H 970" class="divider"/>
+  <path d="M 194 274 H 215 V 192 H 240" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 215 274 V 338 H 240" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 465 192 H 495 V 254 H 525" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 465 338 H 495 V 295 H 525" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 690 274 H 755" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 862 178 V 223" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 862 326 V 410" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 862 490 V 589 H 750" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 520 589 H 455" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 225 589 H 112 V 326" class="arrow" marker-end="url(#tip)"/>
+  <path d="M 572 430 V 326" class="training-arrow" marker-end="url(#training-tip)"/>
+  <rect x="30" y="223" width="164" height="103" rx="8" class="node"/>
+  <text x="112" y="262" class="label" text-anchor="middle">5 帧本体历史</text>
+  <text x="112" y="294" class="detail" text-anchor="middle">含速度命令</text>
+  <rect x="240" y="150" width="225" height="84" rx="8" class="node"/>
+  <text x="352" y="182" class="label" text-anchor="middle">Gate / softmax</text>
+  <text x="352" y="211" class="detail" text-anchor="middle">权重 w₁ … wₖ</text>
+  <rect x="240" y="290" width="225" height="97" rx="8" class="node"/>
+  <text x="352" y="326" class="label" text-anchor="middle">Experts E₁ … Eₖ</text>
+  <text x="352" y="358" class="detail" text-anchor="middle">全部求值（dense）</text>
+  <rect x="525" y="223" width="165" height="103" rx="8" class="accent"/>
+  <text x="607" y="249" class="label" text-anchor="middle">潜变量混合</text>
+  <text x="607" y="280" class="formula" text-anchor="middle">m = Σ wᵢ zᵢ</text>
+  <text x="607" y="310" class="detail" text-anchor="middle">z = L2Norm(m)</text>
+  <rect x="755" y="122" width="215" height="56" rx="8" class="node"/>
+  <text x="862" y="157" class="label" text-anchor="middle">当前本体观测</text>
+  <rect x="755" y="223" width="215" height="103" rx="8" class="accent"/>
+  <text x="862" y="262" class="label" text-anchor="middle">Actor</text>
+  <text x="862" y="294" class="detail" text-anchor="middle">由观测与 z 生成动作</text>
+  <rect x="755" y="410" width="215" height="80" rx="8" class="node"/>
+  <text x="862" y="442" class="label" text-anchor="middle">12 维动作</text>
+  <text x="862" y="472" class="detail" text-anchor="middle">关节目标偏移</text>
+  <rect x="520" y="553" width="230" height="72" rx="8" class="node"/>
+  <text x="635" y="583" class="label" text-anchor="middle">PD + MuJoCo</text>
+  <text x="635" y="609" class="detail" text-anchor="middle">闭环评估</text>
+  <rect x="225" y="553" width="230" height="72" rx="8" class="node"/>
+  <text x="340" y="583" class="label" text-anchor="middle">读取新状态</text>
+  <text x="340" y="609" class="detail" text-anchor="middle">更新本体观测与历史</text>
+  <rect x="455" y="430" width="235" height="74" rx="8" class="training"/>
+  <text x="572" y="460" class="label" text-anchor="middle">Teacher 特权编码器</text>
+  <text x="572" y="487" class="detail" text-anchor="middle">仅训练：监督潜变量</text>
+  <text x="585" y="380" class="small" text-anchor="start">训练监督</text>
+  <text x="455" y="529" class="small" text-anchor="start">部署不输入高度图 / 特权状态</text>
+  <text x="30" y="663" class="note" text-anchor="start">关键区别：混合的是 latent，不是关节动作；所有专家都会参与计算，并非 top-k 稀疏路由。</text>
+</svg>

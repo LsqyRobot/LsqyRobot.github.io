@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="在浏览器中验证由场景描述文件启动的 Unitree Go2 ros2_control 管理图、Lifecycle 状态机、控制器状态与真实 RViz2 桌面。">
+  <meta name="ros2-viz-websocket" content="ws://127.0.0.1:9090/ws">
+  <meta name="ros2-rviz-url" content="http://127.0.0.1:6080/vnc.html#autoconnect=1&amp;reconnect=1&amp;resize=scale">
+  <meta name="ros2-terminal-url" content="http://127.0.0.1:7681/">
+  <title>Unitree Go2 · ros2_control · RViz2 · Robotics Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <link rel="stylesheet" href="/css/ros2-docker-visualizer.css">
+  <script src="/js/tools-common.js" defer></script>
+  <script src="/js/ros2-docker-visualizer.js" defer></script>
+</head>
+<body class="robot-tool-page ros2v-page">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页">
+      <span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span>
+      <span>Robotics Workbench</span>
+    </a>
+    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
+  </header>
+
+  <main class="rt-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>Unitree Go2 · ros2_control RViz2</span></nav>
+
+    <section class="rt-hero ros2v-hero">
+      <div>
+        <span class="rt-kicker">Tool 09 · Descriptor-driven ros2_control</span>
+        <h1>Go2 ros2_control<br>验证台</h1>
+        <p>这里运行的不再是孤立的关节发布器：<code>go2_mock.yaml</code> 描述机器人、硬件插件、控制器和 Lifecycle supervisor，再由同一个 Launch 图拉起 <code>controller_manager</code>、Robot State Publisher 与 RViz2。</p>
+      </div>
+      <div class="rt-status-stack" aria-label="当前 ros2_control 契约">
+        <div class="rt-status-row"><span>scenario</span><strong data-ros2v-scenario>GO2_MOCK</strong></div>
+        <div class="rt-status-row"><span>ROS</span><strong data-ros2v-distro>HUMBLE</strong></div>
+        <div class="rt-status-row"><span>manager</span><strong data-ros2v-manager>/go2/controller_manager</strong></div>
+        <div class="rt-status-row"><span>lifecycle</span><strong data-ros2v-lifecycle>UNKNOWN</strong></div>
+      </div>
+    </section>
+
+    <section class="ros2v-rviz-shell" data-ros2v-rviz-panel data-state="idle" aria-labelledby="ros2v-rviz-title">
+      <header class="ros2v-rviz-head">
+        <div>
+          <span>PRIMARY VIEW · LOCAL :6080</span>
+          <h2 id="ros2v-rviz-title">受 ros2_control 驱动的 Go2 · 真实 RViz2</h2>
+          <p data-ros2v-rviz-notice role="status" aria-live="polite">正在确认本地预览环境，准备加载 noVNC 桌面。</p>
+        </div>
+        <div class="ros2v-rviz-actions">
+          <strong data-ros2v-rviz-state>CHECKING</strong>
+          <button class="is-terminal" type="button" data-ros2v-terminal-toggle aria-controls="ros2v-terminal-panel" aria-expanded="false" disabled>进入 Docker 终端</button>
+          <a data-ros2v-rviz-open target="_blank" rel="noopener noreferrer" aria-disabled="true">在新窗口打开 RViz</a>
+        </div>
+      </header>
+      <div class="ros2v-rviz-viewport">
+        <iframe data-ros2v-rviz-frame title="容器内 Unitree Go2 ros2_control RViz2 的 noVNC 远程桌面" loading="eager" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <div class="ros2v-rviz-placeholder" data-ros2v-rviz-placeholder>
+          <span>RVIZ2 / NOVNC</span>
+          <strong>等待本机 :6080</strong>
+          <small>先运行 <code>./bin/site.sh ros2-serve 4000</code></small>
+        </div>
+      </div>
+      <footer class="ros2v-rviz-foot">
+        <span>RViz2 从 <code>/go2/robot_description</code>、<code>/go2/joint_state_broadcaster/joint_states</code> 和 <code>/go2/tf</code> 观察同一套受管 ROS 图。</span>
+        <code>:6080 RViz · :7681 shell</code>
+      </footer>
+    </section>
+
+    <section class="ros2v-terminal-shell" id="ros2v-terminal-panel" data-ros2v-terminal-panel data-state="closed" hidden aria-labelledby="ros2v-terminal-title">
+      <header class="ros2v-terminal-head">
+        <div>
+          <span>LOCAL CONTAINER TTY · :7681</span>
+          <h2 id="ros2v-terminal-title">当前 ros2_control 容器 · 非 root Zsh</h2>
+          <p>终端与上方 RViz2 位于同一个容器，ROS 2 与 <code>/opt/lsqy-ros2-control/install</code> 已载入；默认目录 <code>/workspace</code> 是宿主仓库的读写挂载。</p>
+        </div>
+        <a data-ros2v-terminal-open target="_blank" rel="noopener noreferrer" aria-disabled="true">在新窗口打开终端</a>
+      </header>
+      <div class="ros2v-terminal-viewport">
+        <iframe data-ros2v-terminal-frame title="当前 Unitree Go2 ros2_control Docker 容器终端" sandbox="allow-scripts allow-same-origin" referrerpolicy="no-referrer"></iframe>
+        <div class="ros2v-terminal-placeholder" data-ros2v-terminal-placeholder>
+          <strong>正在连接本机 :7681</strong>
+          <small>终端只会在点击按钮后建立 WebSocket 会话</small>
+        </div>
+      </div>
+      <div class="ros2v-terminal-commands" aria-label="可直接运行的 ros2_control 检查命令">
+        <span>可直接粘贴</span><code>ros2 control list_controllers -c /go2/controller_manager</code>
+        <span></span><code>ros2 control list_hardware_components -c /go2/controller_manager</code>
+        <span></span><code>ros2 lifecycle get /go2/control_supervisor</code>
+        <span></span><code>ros2 lifecycle set /go2/control_supervisor deactivate</code>
+        <span></span><code>ros2 lifecycle set /go2/control_supervisor activate</code>
+        <span></span><code>ros2 service call /go2/control/reset_fault std_srvs/srv/Trigger {}</code>
+      </div>
+      <footer>
+        <span><strong>注意：</strong><code>/workspace</code> 对应宿主仓库并且可写，终端中的文件修改会持久化到宿主机。容器根文件系统仍只读，不挂载 Docker socket，三个网页端口也只绑定回环地址。</span>
+        <button type="button" data-ros2v-terminal-close>收起并断开终端</button>
+      </footer>
+    </section>
+
+    <noscript><div class="ros2v-notice is-error">自动嵌入 RViz2 需要 JavaScript；也可以直接打开本机 <code>http://127.0.0.1:6080/vnc.html</code>，终端地址为 <code>http://127.0.0.1:7681/</code>。</div></noscript>
+
+    <section class="ros2v-control-map" aria-labelledby="ros2v-control-map-title">
+      <header>
+        <span class="rt-kicker">Managed launch graph</span>
+        <h2 id="ros2v-control-map-title">一个场景描述文件，拉起完整控制图</h2>
+        <p>场景 ID 决定 xacro、控制器参数、硬件插件、命名空间与可视化配置；严格校验通过后才生成 Launch actions。</p>
+      </header>
+
+      <div class="ros2v-architecture-primary" aria-label="ros2_control 主启动链路">
+        <article><span>01 · DESCRIPTOR</span><strong>go2_mock.yaml</strong><small>robot · limits · controllers · lifecycle</small></article>
+        <i aria-hidden="true">→</i>
+        <article><span>02 · DESCRIPTION</span><strong>xacro → robot_description</strong><small>官方 Go2 URDF + ros2_control tag</small></article>
+        <i aria-hidden="true">→</i>
+        <article class="is-manager"><span>03 · RESOURCE OWNER</span><strong>/go2/controller_manager</strong><small>加载硬件、申领接口、切换控制器</small></article>
+      </div>
+
+      <div class="ros2v-architecture-managed" aria-label="Controller Manager 管理的组件">
+        <article><span>HARDWARE SYSTEM</span><strong>Go2MockSystem</strong><code>mock_components/GenericSystem</code><small>当前是理想回显硬件，不代表动力学或实体 Go2</small></article>
+        <article><span>STATE CONTROLLER</span><strong>joint_state_broadcaster</strong><code>/go2/joint_state_broadcaster/joint_states</code><small>读取 12 个 position / velocity 状态接口</small></article>
+        <article><span>COMMAND CONTROLLER</span><strong>go2_position_controller</strong><code>/go2/control/position_command → supervisor</code><code>/go2/go2_position_controller/commands</code><small>按关节名校验并排序，再申领 12 个 position command interfaces</small></article>
+      </div>
+
+      <div class="ros2v-observation-flow" aria-label="从受管状态到 RViz2 的观察链路">
+        <span>joint_state_broadcaster</span><i aria-hidden="true">→</i><span>robot_state_publisher</span><i aria-hidden="true">→</i><span>/go2/tf</span><i aria-hidden="true">→</i><span>RViz2 / Web</span>
+      </div>
+
+      <div class="ros2v-supervisor-line">
+        <div><span>LIFECYCLE SUPERVISOR</span><strong data-ros2v-supervisor>/go2/control_supervisor</strong><p>负责控制器激活 / 停用、命令 watchdog 与故障锁存；不会绕过 Controller Manager 直接伪造 JointState。</p></div>
+        <dl class="ros2v-control-readout">
+          <div><dt>MODE</dt><dd data-ros2v-mode>WAITING</dd></div>
+          <div><dt>HARDWARE</dt><dd data-ros2v-hardware>Go2MockSystem</dd></div>
+          <div><dt>JOINT STATE</dt><dd data-ros2v-controller-jsb>UNKNOWN</dd></div>
+          <div><dt>POSITION</dt><dd data-ros2v-controller-position>UNKNOWN</dd></div>
+        </dl>
+      </div>
+
+      <div class="ros2v-state-machine" aria-label="Lifecycle 与故障状态机">
+        <article data-ros2v-machine-state="BOOT"><span>BOOT</span><strong>unconfigured</strong><small>参数已声明，尚未接管控制器</small></article>
+        <i aria-hidden="true">→ configure →</i>
+        <article data-ros2v-machine-state="STANDBY"><span>STANDBY</span><strong>inactive</strong><small>状态广播 active，命令接口已释放</small></article>
+        <i aria-hidden="true">→ activate →</i>
+        <article data-ros2v-machine-state="RUNNING"><span>RUNNING</span><strong>active</strong><small>两控制器 active，才允许发布命令</small></article>
+        <i aria-hidden="true">watchdog ↘</i>
+        <article class="is-fault" data-ros2v-machine-state="FAULT"><span>FAULT</span><strong>latched overlay</strong><small>停止发布并尝试停用；确认恢复后才可 reset</small></article>
+      </div>
+    </section>
+
+    <details class="ros2v-diagnostics" open>
+      <summary>
+        <span><b>ros2_control 在线诊断</b><small>只有 Lifecycle active、无 fault、control_ready 且两个控制器 active 时才显示 LIVE</small></span>
+        <strong data-ros2v-connection>OFFLINE</strong>
+      </summary>
+      <div class="ros2v-diagnostics-body">
+        <div class="ros2v-notice" data-ros2v-notice role="status" aria-live="polite">还没有收到受管控制图的遥测；这里会严格校验 :9090 的只读 v2 契约。</div>
+        <section class="ros2v-console" aria-label="ROS 2 控制与遥测工作区">
+          <article class="ros2v-stage-card">
+            <header class="ros2v-panel-head">
+              <div><span>MANAGED JOINT TELEMETRY</span><h2>Unitree Go2 · 12 关节受管状态</h2></div>
+              <strong data-ros2v-stage-state>AWAITING CONTROL</strong>
+            </header>
+            <div class="ros2v-stage ros2v-go2-stage" data-ros2v-stage data-state="offline">
+              <div class="ros2v-go2-joint-wrap">
+                <p>数值来自 <code>joint_state_broadcaster</code>，而不是独立的网页动画或直接 JointState publisher；运动画面以上方 RViz2 为准。</p>
+                <table class="ros2v-go2-joints" aria-label="Unitree Go2 实时关节角">
+                  <thead><tr><th scope="col">LEG</th><th scope="col">HIP</th><th scope="col">THIGH</th><th scope="col">CALF</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row"><strong>FL</strong><small>front left</small></th><td><output data-ros2v-joint="FL_hip_joint" aria-label="FL hip joint">+0.000 rad</output></td><td><output data-ros2v-joint="FL_thigh_joint" aria-label="FL thigh joint">+0.000 rad</output></td><td><output data-ros2v-joint="FL_calf_joint" aria-label="FL calf joint">+0.000 rad</output></td></tr>
+                    <tr><th scope="row"><strong>FR</strong><small>front right</small></th><td><output data-ros2v-joint="FR_hip_joint" aria-label="FR hip joint">+0.000 rad</output></td><td><output data-ros2v-joint="FR_thigh_joint" aria-label="FR thigh joint">+0.000 rad</output></td><td><output data-ros2v-joint="FR_calf_joint" aria-label="FR calf joint">+0.000 rad</output></td></tr>
+                    <tr><th scope="row"><strong>RL</strong><small>rear left</small></th><td><output data-ros2v-joint="RL_hip_joint" aria-label="RL hip joint">+0.000 rad</output></td><td><output data-ros2v-joint="RL_thigh_joint" aria-label="RL thigh joint">+0.000 rad</output></td><td><output data-ros2v-joint="RL_calf_joint" aria-label="RL calf joint">+0.000 rad</output></td></tr>
+                    <tr><th scope="row"><strong>RR</strong><small>rear right</small></th><td><output data-ros2v-joint="RR_hip_joint" aria-label="RR hip joint">+0.000 rad</output></td><td><output data-ros2v-joint="RR_thigh_joint" aria-label="RR thigh joint">+0.000 rad</output></td><td><output data-ros2v-joint="RR_calf_joint" aria-label="RR calf joint">+0.000 rad</output></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="ros2v-stage-overlay" data-ros2v-overlay>
+                <span>WS://127.0.0.1:9090</span><strong>等待 controller_manager</strong><small>启动后无需刷新页面</small>
+              </div>
+            </div>
+            <dl class="ros2v-stream-readout" aria-label="实时遥测质量">
+              <div><dt>RATE</dt><dd data-ros2v-rate>— Hz</dd></div><div><dt>AGE</dt><dd data-ros2v-age>— ms</dd></div>
+            </dl>
+          </article>
+
+          <aside class="ros2v-telemetry-card">
+            <header class="ros2v-panel-head"><div><span>READ-ONLY ROS GRAPH</span><h2>允许读取的话题</h2></div><button type="button" data-ros2v-reconnect>重新连接</button></header>
+            <div class="ros2v-endpoint"><span>LOCAL ENDPOINT</span><code>ws://127.0.0.1:9090/ws</code><small>仅宿主回环地址 · v2 页面只读契约</small></div>
+            <ul class="ros2v-topic-list" aria-label="允许读取的话题">
+              <li data-ros2v-topic="/go2/control/status"><i></i><div><strong>/go2/control/status</strong><small>std_msgs/msg/String</small></div><output>0</output></li>
+              <li data-ros2v-topic="/go2/joint_state_broadcaster/joint_states"><i></i><div><strong>/go2/joint_state_broadcaster/joint_states</strong><small>sensor_msgs/msg/JointState</small></div><output>0</output></li>
+              <li data-ros2v-topic="/go2/tf"><i></i><div><strong>/go2/tf</strong><small>tf2_msgs/msg/TFMessage</small></div><output>0</output></li>
+            </ul>
+            <div class="ros2v-tf-tree" aria-label="Go2 TF 四腿分支">
+              <span>TF FOOT BRANCHES</span><div class="ros2v-tf-root"><b>base</b><small>/go2/tf</small></div>
+              <ul class="ros2v-foot-frames"><li><i aria-hidden="true">↳</i><b>FL_foot</b></li><li><i aria-hidden="true">↳</i><b>FR_foot</b></li><li><i aria-hidden="true">↳</i><b>RL_foot</b></li><li><i aria-hidden="true">↳</i><b>RR_foot</b></li></ul>
+              <small data-ros2v-tf-status>等待 /go2/tf 消息</small>
+            </div>
+            <div class="ros2v-packet">
+              <div><span>LAST VALID SNAPSHOT</span><strong data-ros2v-sequence>#—</strong></div>
+              <pre data-ros2v-packet>{
+  "scenario": "go2_mock",
+  "control_ready": false,
+  "read_only": true
+}</pre>
+            </div>
+          </aside>
+        </section>
+      </div>
+    </details>
+
+    <section class="ros2v-start" aria-labelledby="ros2v-start-title">
+      <div>
+        <span class="rt-kicker">Descriptor-selected launch</span>
+        <h2 id="ros2v-start-title">选择场景并启动完整控制图</h2>
+        <p>入口会按场景描述加载 Go2 xacro、ros2_control hardware、两个控制器、Lifecycle supervisor、RViz2、noVNC 与只读诊断服务。</p>
+      </div>
+      <div class="ros2v-command">
+        <code>ROS2_CONTROL_SCENARIO=go2_mock ./bin/site.sh ros2-serve 4000</code>
+        <button type="button" data-ros2v-copy data-copy-text="ROS2_CONTROL_SCENARIO=go2_mock ./bin/site.sh ros2-serve 4000">复制命令</button>
+      </div>
+      <p><strong>集成方式：</strong>新增机器人时提供一份受校验的 scenario YAML、对应 xacro / URDF 和控制器参数；接真实硬件或仿真时，把 <code>mock_components/GenericSystem</code> 替换为实现 <code>ros2_control</code> 接口的 hardware plugin。上层 Controller Manager、Lifecycle 状态约束与观察链路可以继续复用。</p>
+    </section>
+
+    <section class="ros2v-options" aria-labelledby="ros2v-options-title">
+      <header><span class="rt-kicker">Integration slots</span><h2 id="ros2v-options-title">每一层都有明确的替换边界</h2></header>
+      <div class="ros2v-option-grid">
+        <article class="is-selected"><span>SCENARIO</span><h3>描述文件选择</h3><p><code>go2_mock.yaml</code> 固定模型、关节顺序、限制、控制器与命名空间，避免散落在启动脚本中。</p></article>
+        <article><span>HARDWARE</span><h3>SystemInterface 插件</h3><p>当前 GenericSystem 只做理想状态回显；后续可接 Gazebo、MuJoCo adapter 或实体硬件实现。</p></article>
+        <article><span>CONTROL</span><h3>Controller Manager</h3><p>控制器通过标准接口申领硬件资源；Lifecycle supervisor 只通过管理服务切换其状态。</p></article>
+        <article><span>OBSERVABILITY</span><h3>RSP / TF / RViz2</h3><p>Robot State Publisher 消费 broadcaster 输出并生成 TF；可选 RViz2 + noVNC、SSH -Y / XQuartz、Foxglove bridge 或 rosbag / URDF 静态播放作为观察端。</p></article>
+        <article><span>RECOVERY</span><h3>STANDBY / FAULT</h3><p>停用时释放命令接口；watchdog 触发故障锁存，reset 后仍需显式 activate 才恢复。</p></article>
+      </div>
+    </section>
+
+    <section class="ros2v-boundary" aria-labelledby="ros2v-boundary-title">
+      <div><span class="rt-kicker">Runtime boundary</span><h2 id="ros2v-boundary-title">能证明什么，以及不能证明什么</h2></div>
+      <div class="ros2v-boundary-grid">
+        <article><strong>本地已观察</strong><p>标准 Controller Manager 管理 12 个 position command interfaces，两个控制器状态、Lifecycle 状态与 Go2 RViz2 画面来自同一容器内 ROS 图。</p></article>
+        <article><strong>仍不在结论内</strong><p>GenericSystem 不是接触动力学或真实执行器；GPU 加速、真实相机、串口 / USB、实体 Go2 DDS、跨机器及公网访问也未由本页验证。</p></article>
+        <article><strong>终端写入边界</strong><p><code>/workspace</code> 是宿主仓库的读写 bind mount，文件修改会持久化；容器根文件系统只读，且没有 Docker socket。</p></article>
+        <article><strong>网络边界</strong><p><code>:6080</code>、<code>:7681</code>、<code>:9090</code> 只绑定回环地址，不应反向代理到局域网或公网。</p></article>
+      </div>
+    </section>
+
+    <footer class="rt-page-footer">
+      <span>© <span data-current-year></span> lsqyRobot · Robotics Workbench</span>
+      <a href="/tools/">返回工具集</a>
+    </footer>
+  </main>
+</body>
+</html>

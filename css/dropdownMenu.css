@@ -92,11 +92,11 @@ This stylesheet and the associated (x)html may be modified in any way to fit you
     color: #000;
     font-size: 15px;
 }
-.menu > li:hover .submenu, .menu > li:focus .submenu {
+.menu > li:hover .submenu, .menu > li:focus .submenu, .menu > li:focus-within .submenu {
     max-height: 2000px;
     z-index: 500;
 }
-.menu > li:hover .submenu li, .menu > li:focus .submenu li {
+.menu > li:hover .submenu li, .menu > li:focus .submenu li, .menu > li:focus-within .submenu li {
     opacity: 1;
     z-index: 500;
     -webkit-transform: none;
@@ -107,6 +107,20 @@ This stylesheet and the associated (x)html may be modified in any way to fit you
 }
 
 /* CSS3 delays for transition effects */
+#navPanel .submenu {
+    position: static;
+    width: 100%;
+    max-height: none;
+    padding-left: 1rem;
+    background: transparent;
+    perspective: none;
+}
+#navPanel .submenu li {
+    opacity: 1;
+    transform: none;
+    transition: none;
+}
+
 .menu li:hover .submenu li:nth-child(1) {
     z-index: 500;
     -webkit-transition-delay: 0s;

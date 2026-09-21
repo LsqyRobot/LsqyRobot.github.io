@@ -1,0 +1,3113 @@
+
+[conan-version] $ conan --version
+--- stdout ---
+Conan version 2.15.0
+--- stderr ---
+
+[exit_code=0]
+
+[cmake-version] $ cmake --version
+--- stdout ---
+cmake version 3.22.1
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+--- stderr ---
+
+[exit_code=0]
+
+[compiler-version] $ g++ --version
+--- stdout ---
+g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+Copyright (C) 2021 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+--- stderr ---
+
+[exit_code=0]
+
+[compiler-target] $ g++ -dumpmachine
+--- stdout ---
+aarch64-linux-gnu
+--- stderr ---
+
+[exit_code=0]
+
+[python-dependencies] $ pip freeze
+--- stdout ---
+certifi==2026.7.22
+charset-normalizer==3.5.1
+colorama==0.4.6
+conan==2.15.0
+distro==1.8.0
+fasteners==0.20
+idna==3.19
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+patch-ng==1.18.1
+python-dateutil==2.9.0.post0
+PyYAML==6.0.3
+requests==2.34.2
+six==1.17.0
+urllib3==2.0.7
+--- stderr ---
+WARNING: The directory '/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+
+[exit_code=0]
+
+[detect-profile] $ conan profile detect
+--- stdout ---
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+--- stderr ---
+detect_api: Found cc=gcc- 11.4.0
+detect_api: gcc>=5, using the major as version
+detect_api: gcc C++ standard library: libstdc++11
+
+Detected profile:
+WARN: This profile is a guess of your environment, please check it.
+WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions.
+WARN: Use your own profile files for stability.
+Saving detected profile to /work/conan-cache-i1pne5my/profiles/default
+
+[exit_code=0]
+
+[remove-remotes] $ conan remote remove '*'
+--- stdout ---
+Removed remotes:
+conancenter: https://center2.conan.io [Verify SSL: True, Enabled: True]
+--- stderr ---
+
+[exit_code=0]
+
+[list-remotes] $ conan remote list --format=json
+--- stdout ---
+[]
+--- stderr ---
+
+[exit_code=0]
+
+[create-1.0-release] $ conan create mymath --version=1.0 -pr:b=default -pr:h=default -s:h=build_type=Release -s:h=compiler.cppstd=17 --no-remote --format=json
+--- stdout ---
+{
+    "graph": {
+        "nodes": {
+            "0": {
+                "ref": "conanfile",
+                "id": "0",
+                "recipe": "Cli",
+                "package_id": null,
+                "prev": null,
+                "rrev": null,
+                "rrev_timestamp": null,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": null,
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": null,
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": null,
+                "author": null,
+                "description": null,
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": null,
+                "options_description": null,
+                "version": null,
+                "topics": null,
+                "package_type": "unknown",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {},
+                "options_definitions": {},
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": null,
+                "source_folder": null,
+                "build_folder": null,
+                "generators_folder": null,
+                "package_folder": null,
+                "immutable_package_folder": null,
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "lib"
+                        ],
+                        "resdirs": null,
+                        "bindirs": [
+                            "bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": null,
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": null,
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "cli",
+                "vendor": false,
+                "dependencies": {
+                    "1": {
+                        "ref": "mymath/1.0",
+                        "require": "mymath/1.0",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": true,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": true,
+                        "package_id_mode": null,
+                        "visible": true
+                    }
+                },
+                "context": "host",
+                "test": false
+            },
+            "1": {
+                "ref": "mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "id": "1",
+                "recipe": "Cache",
+                "package_id": "c29f32beda3c361f536ba35aae5e876faf970169",
+                "prev": "503b9e547f6243883e811bb56d786d77",
+                "rrev": "fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "rrev_timestamp": 1788916182.6141787,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": "Build",
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": "mymath",
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": "MIT",
+                "author": null,
+                "description": "Small local-only library for the Conan 2 teaching lab",
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": {
+                    "shared": false,
+                    "fPIC": true
+                },
+                "options_description": null,
+                "version": "1.0",
+                "topics": null,
+                "package_type": "static-library",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {
+                    "fPIC": "True",
+                    "shared": "False"
+                },
+                "options_definitions": {
+                    "shared": [
+                        "True",
+                        "False"
+                    ],
+                    "fPIC": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-cache-i1pne5my/p/mymat4b6ffa5fb7439/e",
+                "source_folder": "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b",
+                "build_folder": "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/build/Release",
+                "generators_folder": "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/build/Release/generators",
+                "package_folder": "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p",
+                "immutable_package_folder": "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p",
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p/include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p/lib"
+                        ],
+                        "resdirs": [],
+                        "bindirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p/bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": [
+                            "mymath"
+                        ],
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": [],
+                        "properties": {
+                            "cmake_file_name": "mymath",
+                            "cmake_target_name": "mymath::mymath"
+                        },
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "mymath/1.0",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Release"
+                    },
+                    "options": {
+                        "fPIC": "True",
+                        "shared": "False"
+                    }
+                },
+                "vendor": false,
+                "dependencies": {},
+                "context": "host",
+                "test": false
+            }
+        },
+        "root": {
+            "0": "None"
+        },
+        "overrides": {},
+        "resolved_ranges": {},
+        "replaced_requires": {},
+        "error": null
+    }
+}
+--- stderr ---
+
+======== Exporting recipe to the cache ========
+mymath/1.0: Exporting package recipe: /work/conan-example-lh3av7kx/mymath/conanfile.py
+mymath/1.0: Copied 1 '.py' file: conanfile.py
+mymath/1.0: Copied 1 file: LICENSE
+mymath/1.0: Copied 1 '.txt' file: CMakeLists.txt
+mymath/1.0: Copied 1 '.cpp' file: mymath.cpp
+mymath/1.0: Copied 1 '.h' file: mymath.h
+mymath/1.0: Exported to cache folder: /work/conan-cache-i1pne5my/p/mymat4b6ffa5fb7439/e
+mymath/1.0: Exported: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca (2026-09-09 01:09:42 UTC)
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    cli
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+mymath/1.0: Forced build from source
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:c29f32beda3c361f536ba35aae5e876faf970169 - Build
+
+======== Installing packages ========
+
+-------- Installing package mymath/1.0 (1 of 1) --------
+mymath/1.0: Building from source
+mymath/1.0: Package mymath/1.0:c29f32beda3c361f536ba35aae5e876faf970169
+mymath/1.0: Copying sources to build folder
+mymath/1.0: Building your package in /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b
+mymath/1.0: Calling generate()
+mymath/1.0: Generators folder: /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/build/Release/generators
+mymath/1.0: CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0: CMakeToolchain generated: /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/build/Release/generators/CMakePresets.json
+mymath/1.0: CMakeToolchain generated: /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/CMakeUserPresets.json
+mymath/1.0: Generating aggregated env files
+mymath/1.0: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+mymath/1.0: Calling build()
+mymath/1.0: Running CMake.configure()
+mymath/1.0: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b"
+-- Using Conan toolchain: /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/build/Release/generators/conan_toolchain.cmake
+-- Conan toolchain: Setting CMAKE_POSITION_INDEPENDENT_CODE=ON (options.fPIC)
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- Conan toolchain: Setting BUILD_SHARED_LIBS = OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/build/Release
+
+mymath/1.0: Running CMake.build()
+mymath/1.0: RUN: cmake --build "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/build/Release" -- -j2
+[ 50%] Building CXX object CMakeFiles/mymath.dir/src/mymath.cpp.o
+[100%] Linking CXX static library libmymath.a
+[100%] Built target mymath
+
+mymath/1.0: Package 'c29f32beda3c361f536ba35aae5e876faf970169' built
+mymath/1.0: Build folder /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/build/Release
+mymath/1.0: Generating the package
+mymath/1.0: Packaging in folder /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p
+mymath/1.0: Calling package()
+mymath/1.0: Running CMake.install()
+mymath/1.0: RUN: cmake --install "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/b/build/Release" --prefix "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p"
+-- Install configuration: "Release"
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p/lib/libmymath.a
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p/include
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p/include/mymath.h
+
+mymath/1.0: package(): Packaged 1 file: LICENSE
+mymath/1.0: package(): Packaged 1 '.h' file: mymath.h
+mymath/1.0: package(): Packaged 1 '.a' file: libmymath.a
+mymath/1.0: Created package revision 503b9e547f6243883e811bb56d786d77
+mymath/1.0: Package 'c29f32beda3c361f536ba35aae5e876faf970169' created
+mymath/1.0: Full package reference: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:c29f32beda3c361f536ba35aae5e876faf970169#503b9e547f6243883e811bb56d786d77
+mymath/1.0: Package folder /work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p
+
+======== Launching test_package ========
+
+======== Computing dependency graph ========
+Graph root
+    mymath/1.0 (test package): /work/conan-example-lh3av7kx/mymath/test_package/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:c29f32beda3c361f536ba35aae5e876faf970169#503b9e547f6243883e811bb56d786d77 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Testing the package ========
+Removing previously existing 'test_package' build folder: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release
+mymath/1.0 (test package): Test package build: build/gcc-11-armv8-17-release
+mymath/1.0 (test package): Test package build folder: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release
+mymath/1.0 (test package): Writing generators to /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/generators
+mymath/1.0 (test package): Generator 'CMakeToolchain' calling 'generate()'
+mymath/1.0 (test package): CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0 (test package): CMakeToolchain generated: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/generators/CMakePresets.json
+mymath/1.0 (test package): CMakeToolchain generated: /work/conan-example-lh3av7kx/mymath/test_package/CMakeUserPresets.json
+mymath/1.0 (test package): Generator 'CMakeDeps' calling 'generate()'
+mymath/1.0 (test package): CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+mymath/1.0 (test package): Generating aggregated env files
+mymath/1.0 (test package): Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+
+======== Testing the package: Building ========
+mymath/1.0 (test package): Calling build()
+mymath/1.0 (test package): Running CMake.configure()
+mymath/1.0 (test package): RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/conan-example-lh3av7kx/mymath/test_package" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/conan-example-lh3av7kx/mymath/test_package"
+-- Using Conan toolchain: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release
+
+mymath/1.0 (test package): Running CMake.build()
+mymath/1.0 (test package): RUN: cmake --build "/work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release" -- -j2
+[ 50%] Building CXX object CMakeFiles/test_mymath.dir/src/test_mymath.cpp.o
+[100%] Linking CXX executable test_mymath
+[100%] Built target test_mymath
+
+
+======== Testing the package: Executing test ========
+mymath/1.0 (test package): Running test()
+mymath/1.0 (test package): RUN: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/test_mymath
+test_package: sum=5; version=1.0; build_type=Release
+
+
+[exit_code=0]
+
+[create-1.0-debug] $ conan create mymath --version=1.0 -pr:b=default -pr:h=default -s:h=build_type=Debug -s:h=compiler.cppstd=17 --no-remote --format=json
+--- stdout ---
+{
+    "graph": {
+        "nodes": {
+            "0": {
+                "ref": "conanfile",
+                "id": "0",
+                "recipe": "Cli",
+                "package_id": null,
+                "prev": null,
+                "rrev": null,
+                "rrev_timestamp": null,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": null,
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": null,
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": null,
+                "author": null,
+                "description": null,
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": null,
+                "options_description": null,
+                "version": null,
+                "topics": null,
+                "package_type": "unknown",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Debug"
+                },
+                "options": {},
+                "options_definitions": {},
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": null,
+                "source_folder": null,
+                "build_folder": null,
+                "generators_folder": null,
+                "package_folder": null,
+                "immutable_package_folder": null,
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "lib"
+                        ],
+                        "resdirs": null,
+                        "bindirs": [
+                            "bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": null,
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": null,
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "cli",
+                "vendor": false,
+                "dependencies": {
+                    "1": {
+                        "ref": "mymath/1.0",
+                        "require": "mymath/1.0",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": true,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": true,
+                        "package_id_mode": null,
+                        "visible": true
+                    }
+                },
+                "context": "host",
+                "test": false
+            },
+            "1": {
+                "ref": "mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "id": "1",
+                "recipe": "Cache",
+                "package_id": "e39503e531b778c147fb86ec990699b806d3c26a",
+                "prev": "4b337f387f1390ba92589d668d25ff11",
+                "rrev": "fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "rrev_timestamp": 1788916183.1483471,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": "Build",
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": "mymath",
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": "MIT",
+                "author": null,
+                "description": "Small local-only library for the Conan 2 teaching lab",
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": {
+                    "shared": false,
+                    "fPIC": true
+                },
+                "options_description": null,
+                "version": "1.0",
+                "topics": null,
+                "package_type": "static-library",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Debug"
+                },
+                "options": {
+                    "fPIC": "True",
+                    "shared": "False"
+                },
+                "options_definitions": {
+                    "shared": [
+                        "True",
+                        "False"
+                    ],
+                    "fPIC": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-cache-i1pne5my/p/mymat4b6ffa5fb7439/e",
+                "source_folder": "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b",
+                "build_folder": "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/build/Debug",
+                "generators_folder": "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/build/Debug/generators",
+                "package_folder": "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p",
+                "immutable_package_folder": "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p",
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p/include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p/lib"
+                        ],
+                        "resdirs": [],
+                        "bindirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p/bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": [
+                            "mymath"
+                        ],
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": [],
+                        "properties": {
+                            "cmake_file_name": "mymath",
+                            "cmake_target_name": "mymath::mymath"
+                        },
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "mymath/1.0",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Debug"
+                    },
+                    "options": {
+                        "fPIC": "True",
+                        "shared": "False"
+                    }
+                },
+                "vendor": false,
+                "dependencies": {},
+                "context": "host",
+                "test": false
+            }
+        },
+        "root": {
+            "0": "None"
+        },
+        "overrides": {},
+        "resolved_ranges": {},
+        "replaced_requires": {},
+        "error": null
+    }
+}
+--- stderr ---
+
+======== Exporting recipe to the cache ========
+mymath/1.0: Exporting package recipe: /work/conan-example-lh3av7kx/mymath/conanfile.py
+mymath/1.0: Copied 1 '.py' file: conanfile.py
+mymath/1.0: Copied 1 file: LICENSE
+mymath/1.0: Copied 1 '.txt' file: CMakeLists.txt
+mymath/1.0: Copied 1 '.cpp' file: mymath.cpp
+mymath/1.0: Copied 1 '.h' file: mymath.h
+mymath/1.0: Exported to cache folder: /work/conan-cache-i1pne5my/p/mymat4b6ffa5fb7439/e
+mymath/1.0: Exported: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca (2026-09-09 01:09:43 UTC)
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Debug
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    cli
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+mymath/1.0: Forced build from source
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:e39503e531b778c147fb86ec990699b806d3c26a - Build
+
+======== Installing packages ========
+
+-------- Installing package mymath/1.0 (1 of 1) --------
+mymath/1.0: Building from source
+mymath/1.0: Package mymath/1.0:e39503e531b778c147fb86ec990699b806d3c26a
+mymath/1.0: Copying sources to build folder
+mymath/1.0: Building your package in /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b
+mymath/1.0: Calling generate()
+mymath/1.0: Generators folder: /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/build/Debug/generators
+mymath/1.0: CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0: CMakeToolchain generated: /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/build/Debug/generators/CMakePresets.json
+mymath/1.0: CMakeToolchain generated: /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/CMakeUserPresets.json
+mymath/1.0: Generating aggregated env files
+mymath/1.0: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+mymath/1.0: Calling build()
+mymath/1.0: Running CMake.configure()
+mymath/1.0: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Debug" "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b"
+-- Using Conan toolchain: /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/build/Debug/generators/conan_toolchain.cmake
+-- Conan toolchain: Setting CMAKE_POSITION_INDEPENDENT_CODE=ON (options.fPIC)
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- Conan toolchain: Setting BUILD_SHARED_LIBS = OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/build/Debug
+
+mymath/1.0: Running CMake.build()
+mymath/1.0: RUN: cmake --build "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/build/Debug" -- -j2
+[ 50%] Building CXX object CMakeFiles/mymath.dir/src/mymath.cpp.o
+[100%] Linking CXX static library libmymath.a
+[100%] Built target mymath
+
+mymath/1.0: Package 'e39503e531b778c147fb86ec990699b806d3c26a' built
+mymath/1.0: Build folder /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/build/Debug
+mymath/1.0: Generating the package
+mymath/1.0: Packaging in folder /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p
+mymath/1.0: Calling package()
+mymath/1.0: Running CMake.install()
+mymath/1.0: RUN: cmake --install "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/b/build/Debug" --prefix "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p"
+-- Install configuration: "Debug"
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p/lib/libmymath.a
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p/include
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p/include/mymath.h
+
+mymath/1.0: package(): Packaged 1 file: LICENSE
+mymath/1.0: package(): Packaged 1 '.h' file: mymath.h
+mymath/1.0: package(): Packaged 1 '.a' file: libmymath.a
+mymath/1.0: Created package revision 4b337f387f1390ba92589d668d25ff11
+mymath/1.0: Package 'e39503e531b778c147fb86ec990699b806d3c26a' created
+mymath/1.0: Full package reference: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:e39503e531b778c147fb86ec990699b806d3c26a#4b337f387f1390ba92589d668d25ff11
+mymath/1.0: Package folder /work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p
+
+======== Launching test_package ========
+
+======== Computing dependency graph ========
+Graph root
+    mymath/1.0 (test package): /work/conan-example-lh3av7kx/mymath/test_package/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:e39503e531b778c147fb86ec990699b806d3c26a#4b337f387f1390ba92589d668d25ff11 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Testing the package ========
+Removing previously existing 'test_package' build folder: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-debug
+mymath/1.0 (test package): Test package build: build/gcc-11-armv8-17-debug
+mymath/1.0 (test package): Test package build folder: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-debug
+mymath/1.0 (test package): Writing generators to /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-debug/generators
+mymath/1.0 (test package): Generator 'CMakeToolchain' calling 'generate()'
+mymath/1.0 (test package): CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0 (test package): CMakeToolchain generated: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-debug/generators/CMakePresets.json
+mymath/1.0 (test package): CMakeToolchain generated: /work/conan-example-lh3av7kx/mymath/test_package/CMakeUserPresets.json
+mymath/1.0 (test package): Generator 'CMakeDeps' calling 'generate()'
+mymath/1.0 (test package): CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+mymath/1.0 (test package): Generating aggregated env files
+mymath/1.0 (test package): Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+
+======== Testing the package: Building ========
+mymath/1.0 (test package): Calling build()
+mymath/1.0 (test package): Running CMake.configure()
+mymath/1.0 (test package): RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/conan-example-lh3av7kx/mymath/test_package" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Debug" "/work/conan-example-lh3av7kx/mymath/test_package"
+-- Using Conan toolchain: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-debug/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-debug
+
+mymath/1.0 (test package): Running CMake.build()
+mymath/1.0 (test package): RUN: cmake --build "/work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-debug" -- -j2
+[ 50%] Building CXX object CMakeFiles/test_mymath.dir/src/test_mymath.cpp.o
+[100%] Linking CXX executable test_mymath
+[100%] Built target test_mymath
+
+
+======== Testing the package: Executing test ========
+mymath/1.0 (test package): Running test()
+mymath/1.0 (test package): RUN: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-debug/test_mymath
+test_package: sum=5; version=1.0; build_type=Debug
+
+
+[exit_code=0]
+
+[create-lock] $ conan lock create consumer -pr:b=default -pr:h=default -s:h=build_type=Release -s:h=compiler.cppstd=17 --no-remote --lockfile= --lockfile-out=/work/out/mymath-1.0.lock
+--- stdout ---
+--- stderr ---
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/conan-example-lh3av7kx/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+Resolved version ranges
+    mymath/[>=1.0 <2.0]: mymath/1.0
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:c29f32beda3c361f536ba35aae5e876faf970169#503b9e547f6243883e811bb56d786d77 - Cache
+Generated lockfile: /work/out/mymath-1.0.lock
+
+[exit_code=0]
+
+[create-1.1-release] $ conan create mymath --version=1.1 -pr:b=default -pr:h=default -s:h=build_type=Release -s:h=compiler.cppstd=17 --no-remote --format=json
+--- stdout ---
+{
+    "graph": {
+        "nodes": {
+            "0": {
+                "ref": "conanfile",
+                "id": "0",
+                "recipe": "Cli",
+                "package_id": null,
+                "prev": null,
+                "rrev": null,
+                "rrev_timestamp": null,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": null,
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": null,
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": null,
+                "author": null,
+                "description": null,
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": null,
+                "options_description": null,
+                "version": null,
+                "topics": null,
+                "package_type": "unknown",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {},
+                "options_definitions": {},
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": null,
+                "source_folder": null,
+                "build_folder": null,
+                "generators_folder": null,
+                "package_folder": null,
+                "immutable_package_folder": null,
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "lib"
+                        ],
+                        "resdirs": null,
+                        "bindirs": [
+                            "bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": null,
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": null,
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "cli",
+                "vendor": false,
+                "dependencies": {
+                    "1": {
+                        "ref": "mymath/1.1",
+                        "require": "mymath/1.1",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": true,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": true,
+                        "package_id_mode": null,
+                        "visible": true
+                    }
+                },
+                "context": "host",
+                "test": false
+            },
+            "1": {
+                "ref": "mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "id": "1",
+                "recipe": "Cache",
+                "package_id": "c29f32beda3c361f536ba35aae5e876faf970169",
+                "prev": "3066a9a3e57bd75dac44040294742352",
+                "rrev": "fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "rrev_timestamp": 1788916183.7858565,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": "Build",
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": "mymath",
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": "MIT",
+                "author": null,
+                "description": "Small local-only library for the Conan 2 teaching lab",
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": {
+                    "shared": false,
+                    "fPIC": true
+                },
+                "options_description": null,
+                "version": "1.1",
+                "topics": null,
+                "package_type": "static-library",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {
+                    "fPIC": "True",
+                    "shared": "False"
+                },
+                "options_definitions": {
+                    "shared": [
+                        "True",
+                        "False"
+                    ],
+                    "fPIC": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-cache-i1pne5my/p/mymata1d837ffbbf85/e",
+                "source_folder": "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b",
+                "build_folder": "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/build/Release",
+                "generators_folder": "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/build/Release/generators",
+                "package_folder": "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p",
+                "immutable_package_folder": "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p",
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p/include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p/lib"
+                        ],
+                        "resdirs": [],
+                        "bindirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p/bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": [
+                            "mymath"
+                        ],
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": [],
+                        "properties": {
+                            "cmake_file_name": "mymath",
+                            "cmake_target_name": "mymath::mymath"
+                        },
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "mymath/1.1",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Release"
+                    },
+                    "options": {
+                        "fPIC": "True",
+                        "shared": "False"
+                    }
+                },
+                "vendor": false,
+                "dependencies": {},
+                "context": "host",
+                "test": false
+            }
+        },
+        "root": {
+            "0": "None"
+        },
+        "overrides": {},
+        "resolved_ranges": {},
+        "replaced_requires": {},
+        "error": null
+    }
+}
+--- stderr ---
+
+======== Exporting recipe to the cache ========
+mymath/1.1: Exporting package recipe: /work/conan-example-lh3av7kx/mymath/conanfile.py
+mymath/1.1: Copied 1 '.py' file: conanfile.py
+mymath/1.1: Copied 1 file: LICENSE
+mymath/1.1: Copied 1 '.txt' file: CMakeLists.txt
+mymath/1.1: Copied 1 '.cpp' file: mymath.cpp
+mymath/1.1: Copied 1 '.h' file: mymath.h
+mymath/1.1: Exported to cache folder: /work/conan-cache-i1pne5my/p/mymata1d837ffbbf85/e
+mymath/1.1: Exported: mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca (2026-09-09 01:09:43 UTC)
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    cli
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+mymath/1.1: Forced build from source
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca:c29f32beda3c361f536ba35aae5e876faf970169 - Build
+
+======== Installing packages ========
+
+-------- Installing package mymath/1.1 (1 of 1) --------
+mymath/1.1: Building from source
+mymath/1.1: Package mymath/1.1:c29f32beda3c361f536ba35aae5e876faf970169
+mymath/1.1: Copying sources to build folder
+mymath/1.1: Building your package in /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b
+mymath/1.1: Calling generate()
+mymath/1.1: Generators folder: /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/build/Release/generators
+mymath/1.1: CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.1: CMakeToolchain generated: /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/build/Release/generators/CMakePresets.json
+mymath/1.1: CMakeToolchain generated: /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/CMakeUserPresets.json
+mymath/1.1: Generating aggregated env files
+mymath/1.1: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+mymath/1.1: Calling build()
+mymath/1.1: Running CMake.configure()
+mymath/1.1: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b"
+-- Using Conan toolchain: /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/build/Release/generators/conan_toolchain.cmake
+-- Conan toolchain: Setting CMAKE_POSITION_INDEPENDENT_CODE=ON (options.fPIC)
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- Conan toolchain: Setting BUILD_SHARED_LIBS = OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/build/Release
+
+mymath/1.1: Running CMake.build()
+mymath/1.1: RUN: cmake --build "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/build/Release" -- -j2
+[ 50%] Building CXX object CMakeFiles/mymath.dir/src/mymath.cpp.o
+[100%] Linking CXX static library libmymath.a
+[100%] Built target mymath
+
+mymath/1.1: Package 'c29f32beda3c361f536ba35aae5e876faf970169' built
+mymath/1.1: Build folder /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/build/Release
+mymath/1.1: Generating the package
+mymath/1.1: Packaging in folder /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p
+mymath/1.1: Calling package()
+mymath/1.1: Running CMake.install()
+mymath/1.1: RUN: cmake --install "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/b/build/Release" --prefix "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p"
+-- Install configuration: "Release"
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p/lib/libmymath.a
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p/include
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p/include/mymath.h
+
+mymath/1.1: package(): Packaged 1 file: LICENSE
+mymath/1.1: package(): Packaged 1 '.h' file: mymath.h
+mymath/1.1: package(): Packaged 1 '.a' file: libmymath.a
+mymath/1.1: Created package revision 3066a9a3e57bd75dac44040294742352
+mymath/1.1: Package 'c29f32beda3c361f536ba35aae5e876faf970169' created
+mymath/1.1: Full package reference: mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca:c29f32beda3c361f536ba35aae5e876faf970169#3066a9a3e57bd75dac44040294742352
+mymath/1.1: Package folder /work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p
+
+======== Launching test_package ========
+
+======== Computing dependency graph ========
+Graph root
+    mymath/1.1 (test package): /work/conan-example-lh3av7kx/mymath/test_package/conanfile.py
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca:c29f32beda3c361f536ba35aae5e876faf970169#3066a9a3e57bd75dac44040294742352 - Cache
+
+======== Installing packages ========
+mymath/1.1: Already installed! (1 of 1)
+
+======== Testing the package ========
+Removing previously existing 'test_package' build folder: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release
+mymath/1.1 (test package): Test package build: build/gcc-11-armv8-17-release
+mymath/1.1 (test package): Test package build folder: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release
+mymath/1.1 (test package): Writing generators to /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/generators
+mymath/1.1 (test package): Generator 'CMakeToolchain' calling 'generate()'
+mymath/1.1 (test package): CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.1 (test package): CMakeToolchain generated: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/generators/CMakePresets.json
+mymath/1.1 (test package): CMakeToolchain generated: /work/conan-example-lh3av7kx/mymath/test_package/CMakeUserPresets.json
+mymath/1.1 (test package): Generator 'CMakeDeps' calling 'generate()'
+mymath/1.1 (test package): CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+mymath/1.1 (test package): Generating aggregated env files
+mymath/1.1 (test package): Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+
+======== Testing the package: Building ========
+mymath/1.1 (test package): Calling build()
+mymath/1.1 (test package): Running CMake.configure()
+mymath/1.1 (test package): RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/conan-example-lh3av7kx/mymath/test_package" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/conan-example-lh3av7kx/mymath/test_package"
+-- Using Conan toolchain: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release
+
+mymath/1.1 (test package): Running CMake.build()
+mymath/1.1 (test package): RUN: cmake --build "/work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release" -- -j2
+[ 50%] Building CXX object CMakeFiles/test_mymath.dir/src/test_mymath.cpp.o
+[100%] Linking CXX executable test_mymath
+[100%] Built target test_mymath
+
+
+======== Testing the package: Executing test ========
+mymath/1.1 (test package): Running test()
+mymath/1.1 (test package): RUN: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/test_mymath
+test_package: sum=5; version=1.1; build_type=Release
+
+
+[exit_code=0]
+
+[unlocked-release-install] $ conan install consumer --output-folder=/work/conan-example-lh3av7kx/unlocked-release -pr:b=default -pr:h=default -s:h=build_type=Release -s:h=compiler.cppstd=17 --no-remote --lockfile= --build=never --format=json
+--- stdout ---
+{
+    "graph": {
+        "nodes": {
+            "0": {
+                "ref": "",
+                "id": "0",
+                "recipe": "Consumer",
+                "package_id": "81d20957f79cab07b430b14a2a9ce93fff13789f",
+                "prev": null,
+                "rrev": null,
+                "rrev_timestamp": null,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": null,
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": null,
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": null,
+                "author": null,
+                "description": null,
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": null,
+                "options_description": null,
+                "version": null,
+                "topics": null,
+                "package_type": "unknown",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {},
+                "options_definitions": {},
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-example-lh3av7kx/consumer",
+                "source_folder": "/work/conan-example-lh3av7kx/consumer",
+                "build_folder": "/work/conan-example-lh3av7kx/unlocked-release/build/Release",
+                "generators_folder": "/work/conan-example-lh3av7kx/unlocked-release/build/Release/generators",
+                "package_folder": null,
+                "immutable_package_folder": null,
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "lib"
+                        ],
+                        "resdirs": [],
+                        "bindirs": [
+                            "bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": null,
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": null,
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "conanfile.py",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Release"
+                    },
+                    "requires": [
+                        "mymath/1.Y.Z"
+                    ]
+                },
+                "vendor": false,
+                "dependencies": {
+                    "1": {
+                        "ref": "mymath/1.1",
+                        "require": "mymath/[>=1.0 <2.0]",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": true,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": true,
+                        "package_id_mode": "semver_mode",
+                        "visible": true
+                    }
+                },
+                "context": "host",
+                "test": false
+            },
+            "1": {
+                "ref": "mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "id": "1",
+                "recipe": "Cache",
+                "package_id": "c29f32beda3c361f536ba35aae5e876faf970169",
+                "prev": "3066a9a3e57bd75dac44040294742352",
+                "rrev": "fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "rrev_timestamp": 1788916183.7858565,
+                "prev_timestamp": 1788916183.917291,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": "Cache",
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": "mymath",
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": "MIT",
+                "author": null,
+                "description": "Small local-only library for the Conan 2 teaching lab",
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": {
+                    "shared": false,
+                    "fPIC": true
+                },
+                "options_description": null,
+                "version": "1.1",
+                "topics": null,
+                "package_type": "static-library",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {
+                    "fPIC": "True",
+                    "shared": "False"
+                },
+                "options_definitions": {
+                    "shared": [
+                        "True",
+                        "False"
+                    ],
+                    "fPIC": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-cache-i1pne5my/p/mymata1d837ffbbf85/e",
+                "source_folder": null,
+                "build_folder": null,
+                "generators_folder": null,
+                "package_folder": "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p",
+                "immutable_package_folder": "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p",
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p/include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p/lib"
+                        ],
+                        "resdirs": null,
+                        "bindirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymatdd4e01eb78ef5/p/bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": [
+                            "mymath"
+                        ],
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": [],
+                        "properties": {
+                            "cmake_file_name": "mymath",
+                            "cmake_target_name": "mymath::mymath"
+                        },
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "mymath/1.1",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Release"
+                    },
+                    "options": {
+                        "fPIC": "True",
+                        "shared": "False"
+                    }
+                },
+                "vendor": false,
+                "dependencies": {},
+                "context": "host",
+                "test": false
+            }
+        },
+        "root": {
+            "0": ""
+        },
+        "overrides": {},
+        "resolved_ranges": {
+            "mymath/[>=1.0 <2.0]": "mymath/1.1"
+        },
+        "replaced_requires": {},
+        "error": null
+    }
+}
+--- stderr ---
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/conan-example-lh3av7kx/consumer/conanfile.py
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+Resolved version ranges
+    mymath/[>=1.0 <2.0]: mymath/1.1
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca:c29f32beda3c361f536ba35aae5e876faf970169#3066a9a3e57bd75dac44040294742352 - Cache
+
+======== Installing packages ========
+mymath/1.1: Already installed! (1 of 1)
+
+======== Finalizing install (deploy, generators) ========
+conanfile.py: Calling generate()
+conanfile.py: Generators folder: /work/conan-example-lh3av7kx/unlocked-release/build/Release/generators
+conanfile.py: CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+conanfile.py: CMakeToolchain generated: conan_toolchain.cmake
+conanfile.py: CMakeToolchain: Preset 'conan-release' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-release
+    (cmake<3.23) cmake <path> -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake  -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release
+conanfile.py: CMakeToolchain generated: /work/conan-example-lh3av7kx/unlocked-release/build/Release/generators/CMakePresets.json
+conanfile.py: CMakeToolchain generated: /work/conan-example-lh3av7kx/consumer/CMakeUserPresets.json
+conanfile.py: Generating aggregated env files
+conanfile.py: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+Install finished successfully
+
+[exit_code=0]
+
+[unlocked-release-configure] $ cmake -S consumer -B /work/conan-example-lh3av7kx/unlocked-release/build/Release -DCMAKE_TOOLCHAIN_FILE=/work/conan-example-lh3av7kx/unlocked-release/build/Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+--- stdout ---
+-- Using Conan toolchain: /work/conan-example-lh3av7kx/unlocked-release/build/Release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-example-lh3av7kx/unlocked-release/build/Release
+--- stderr ---
+
+[exit_code=0]
+
+[unlocked-release-build] $ cmake --build /work/conan-example-lh3av7kx/unlocked-release/build/Release --parallel 2
+--- stdout ---
+[ 50%] Building CXX object CMakeFiles/robot-consumer.dir/main.cpp.o
+[100%] Linking CXX executable robot-consumer
+[100%] Built target robot-consumer
+--- stderr ---
+
+[exit_code=0]
+
+[unlocked-release-run] $ /work/conan-example-lh3av7kx/unlocked-release/build/Release/robot-consumer
+--- stdout ---
+consumer: sum=5; version=1.1; build_type=Release
+--- stderr ---
+
+[exit_code=0]
+
+[create-1.0-release-new-revision] $ conan create mymath --version=1.0 -pr:b=default -pr:h=default -s:h=build_type=Release -s:h=compiler.cppstd=17 --no-remote --format=json
+--- stdout ---
+{
+    "graph": {
+        "nodes": {
+            "0": {
+                "ref": "conanfile",
+                "id": "0",
+                "recipe": "Cli",
+                "package_id": null,
+                "prev": null,
+                "rrev": null,
+                "rrev_timestamp": null,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": null,
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": null,
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": null,
+                "author": null,
+                "description": null,
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": null,
+                "options_description": null,
+                "version": null,
+                "topics": null,
+                "package_type": "unknown",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {},
+                "options_definitions": {},
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": null,
+                "source_folder": null,
+                "build_folder": null,
+                "generators_folder": null,
+                "package_folder": null,
+                "immutable_package_folder": null,
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "lib"
+                        ],
+                        "resdirs": null,
+                        "bindirs": [
+                            "bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": null,
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": null,
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "cli",
+                "vendor": false,
+                "dependencies": {
+                    "1": {
+                        "ref": "mymath/1.0",
+                        "require": "mymath/1.0",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": true,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": true,
+                        "package_id_mode": null,
+                        "visible": true
+                    }
+                },
+                "context": "host",
+                "test": false
+            },
+            "1": {
+                "ref": "mymath/1.0#890b5b933254f82a5824b673408fd49d",
+                "id": "1",
+                "recipe": "Cache",
+                "package_id": "c29f32beda3c361f536ba35aae5e876faf970169",
+                "prev": "503b9e547f6243883e811bb56d786d77",
+                "rrev": "890b5b933254f82a5824b673408fd49d",
+                "rrev_timestamp": 1788916184.67387,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": "Build",
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": "mymath",
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": "MIT",
+                "author": null,
+                "description": "Small local-only library for the Conan 2 teaching lab",
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": {
+                    "shared": false,
+                    "fPIC": true
+                },
+                "options_description": null,
+                "version": "1.0",
+                "topics": null,
+                "package_type": "static-library",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {
+                    "fPIC": "True",
+                    "shared": "False"
+                },
+                "options_definitions": {
+                    "shared": [
+                        "True",
+                        "False"
+                    ],
+                    "fPIC": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-cache-i1pne5my/p/mymat1af378809af39/e",
+                "source_folder": "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b",
+                "build_folder": "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/build/Release",
+                "generators_folder": "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/build/Release/generators",
+                "package_folder": "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p",
+                "immutable_package_folder": "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p",
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p/include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p/lib"
+                        ],
+                        "resdirs": [],
+                        "bindirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p/bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": [
+                            "mymath"
+                        ],
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": [],
+                        "properties": {
+                            "cmake_file_name": "mymath",
+                            "cmake_target_name": "mymath::mymath"
+                        },
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "mymath/1.0",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Release"
+                    },
+                    "options": {
+                        "fPIC": "True",
+                        "shared": "False"
+                    }
+                },
+                "vendor": false,
+                "dependencies": {},
+                "context": "host",
+                "test": false
+            }
+        },
+        "root": {
+            "0": "None"
+        },
+        "overrides": {},
+        "resolved_ranges": {},
+        "replaced_requires": {},
+        "error": null
+    }
+}
+--- stderr ---
+
+======== Exporting recipe to the cache ========
+mymath/1.0: Exporting package recipe: /work/conan-example-lh3av7kx/mymath/conanfile.py
+mymath/1.0: Copied 1 '.py' file: conanfile.py
+mymath/1.0: Copied 1 file: LICENSE
+mymath/1.0: Copied 1 '.txt' file: CMakeLists.txt
+mymath/1.0: Copied 1 '.cpp' file: mymath.cpp
+mymath/1.0: Copied 1 '.h' file: mymath.h
+mymath/1.0: Exported to cache folder: /work/conan-cache-i1pne5my/p/mymat1af378809af39/e
+mymath/1.0: Exported: mymath/1.0#890b5b933254f82a5824b673408fd49d (2026-09-09 01:09:44 UTC)
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    cli
+Requirements
+    mymath/1.0#890b5b933254f82a5824b673408fd49d - Cache
+
+======== Computing necessary packages ========
+mymath/1.0: Forced build from source
+Requirements
+    mymath/1.0#890b5b933254f82a5824b673408fd49d:c29f32beda3c361f536ba35aae5e876faf970169 - Build
+
+======== Installing packages ========
+
+-------- Installing package mymath/1.0 (1 of 1) --------
+mymath/1.0: Building from source
+mymath/1.0: Package mymath/1.0:c29f32beda3c361f536ba35aae5e876faf970169
+mymath/1.0: Copying sources to build folder
+mymath/1.0: Building your package in /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b
+mymath/1.0: Calling generate()
+mymath/1.0: Generators folder: /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/build/Release/generators
+mymath/1.0: CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0: CMakeToolchain generated: /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/build/Release/generators/CMakePresets.json
+mymath/1.0: CMakeToolchain generated: /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/CMakeUserPresets.json
+mymath/1.0: Generating aggregated env files
+mymath/1.0: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+mymath/1.0: Calling build()
+mymath/1.0: Running CMake.configure()
+mymath/1.0: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b"
+-- Using Conan toolchain: /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/build/Release/generators/conan_toolchain.cmake
+-- Conan toolchain: Setting CMAKE_POSITION_INDEPENDENT_CODE=ON (options.fPIC)
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- Conan toolchain: Setting BUILD_SHARED_LIBS = OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/build/Release
+
+mymath/1.0: Running CMake.build()
+mymath/1.0: RUN: cmake --build "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/build/Release" -- -j2
+[ 50%] Building CXX object CMakeFiles/mymath.dir/src/mymath.cpp.o
+[100%] Linking CXX static library libmymath.a
+[100%] Built target mymath
+
+mymath/1.0: Package 'c29f32beda3c361f536ba35aae5e876faf970169' built
+mymath/1.0: Build folder /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/build/Release
+mymath/1.0: Generating the package
+mymath/1.0: Packaging in folder /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p
+mymath/1.0: Calling package()
+mymath/1.0: Running CMake.install()
+mymath/1.0: RUN: cmake --install "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/b/build/Release" --prefix "/work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p"
+-- Install configuration: "Release"
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p/lib/libmymath.a
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p/include
+-- Installing: /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p/include/mymath.h
+
+mymath/1.0: package(): Packaged 1 file: LICENSE
+mymath/1.0: package(): Packaged 1 '.h' file: mymath.h
+mymath/1.0: package(): Packaged 1 '.a' file: libmymath.a
+mymath/1.0: Created package revision 503b9e547f6243883e811bb56d786d77
+mymath/1.0: Package 'c29f32beda3c361f536ba35aae5e876faf970169' created
+mymath/1.0: Full package reference: mymath/1.0#890b5b933254f82a5824b673408fd49d:c29f32beda3c361f536ba35aae5e876faf970169#503b9e547f6243883e811bb56d786d77
+mymath/1.0: Package folder /work/conan-cache-i1pne5my/p/b/mymat0a7c4e00f08b7/p
+
+======== Launching test_package ========
+
+======== Computing dependency graph ========
+Graph root
+    mymath/1.0 (test package): /work/conan-example-lh3av7kx/mymath/test_package/conanfile.py
+Requirements
+    mymath/1.0#890b5b933254f82a5824b673408fd49d - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#890b5b933254f82a5824b673408fd49d:c29f32beda3c361f536ba35aae5e876faf970169#503b9e547f6243883e811bb56d786d77 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Testing the package ========
+Removing previously existing 'test_package' build folder: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release
+mymath/1.0 (test package): Test package build: build/gcc-11-armv8-17-release
+mymath/1.0 (test package): Test package build folder: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release
+mymath/1.0 (test package): Writing generators to /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/generators
+mymath/1.0 (test package): Generator 'CMakeToolchain' calling 'generate()'
+mymath/1.0 (test package): CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0 (test package): CMakeToolchain generated: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/generators/CMakePresets.json
+mymath/1.0 (test package): CMakeToolchain generated: /work/conan-example-lh3av7kx/mymath/test_package/CMakeUserPresets.json
+mymath/1.0 (test package): Generator 'CMakeDeps' calling 'generate()'
+mymath/1.0 (test package): CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+mymath/1.0 (test package): Generating aggregated env files
+mymath/1.0 (test package): Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+
+======== Testing the package: Building ========
+mymath/1.0 (test package): Calling build()
+mymath/1.0 (test package): Running CMake.configure()
+mymath/1.0 (test package): RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/conan-example-lh3av7kx/mymath/test_package" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/conan-example-lh3av7kx/mymath/test_package"
+-- Using Conan toolchain: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release
+
+mymath/1.0 (test package): Running CMake.build()
+mymath/1.0 (test package): RUN: cmake --build "/work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release" -- -j2
+[ 50%] Building CXX object CMakeFiles/test_mymath.dir/src/test_mymath.cpp.o
+[100%] Linking CXX executable test_mymath
+[100%] Built target test_mymath
+
+
+======== Testing the package: Executing test ========
+mymath/1.0 (test package): Running test()
+mymath/1.0 (test package): RUN: /work/conan-example-lh3av7kx/mymath/test_package/build/gcc-11-armv8-17-release/test_mymath
+test_package: sum=5; version=1.0; build_type=Release
+
+
+[exit_code=0]
+
+[locked-release-install] $ conan install consumer --output-folder=/work/conan-example-lh3av7kx/locked-release -pr:b=default -pr:h=default -s:h=build_type=Release -s:h=compiler.cppstd=17 --no-remote --lockfile=/work/out/mymath-1.0.lock --build=never --format=json
+--- stdout ---
+{
+    "graph": {
+        "nodes": {
+            "0": {
+                "ref": "",
+                "id": "0",
+                "recipe": "Consumer",
+                "package_id": "81d20957f79cab07b430b14a2a9ce93fff13789f",
+                "prev": null,
+                "rrev": null,
+                "rrev_timestamp": null,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": null,
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": null,
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": null,
+                "author": null,
+                "description": null,
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": null,
+                "options_description": null,
+                "version": null,
+                "topics": null,
+                "package_type": "unknown",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {},
+                "options_definitions": {},
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-example-lh3av7kx/consumer",
+                "source_folder": "/work/conan-example-lh3av7kx/consumer",
+                "build_folder": "/work/conan-example-lh3av7kx/locked-release/build/Release",
+                "generators_folder": "/work/conan-example-lh3av7kx/locked-release/build/Release/generators",
+                "package_folder": null,
+                "immutable_package_folder": null,
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "lib"
+                        ],
+                        "resdirs": [],
+                        "bindirs": [
+                            "bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": null,
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": null,
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "conanfile.py",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Release"
+                    },
+                    "requires": [
+                        "mymath/1.Y.Z"
+                    ]
+                },
+                "vendor": false,
+                "dependencies": {
+                    "1": {
+                        "ref": "mymath/1.0",
+                        "require": "mymath/[>=1.0 <2.0]",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": true,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": true,
+                        "package_id_mode": "semver_mode",
+                        "visible": true
+                    }
+                },
+                "context": "host",
+                "test": false
+            },
+            "1": {
+                "ref": "mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "id": "1",
+                "recipe": "Cache",
+                "package_id": "c29f32beda3c361f536ba35aae5e876faf970169",
+                "prev": "503b9e547f6243883e811bb56d786d77",
+                "rrev": "fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "rrev_timestamp": 1788916183.1483471,
+                "prev_timestamp": 1788916182.755952,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": "Cache",
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": "mymath",
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": "MIT",
+                "author": null,
+                "description": "Small local-only library for the Conan 2 teaching lab",
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": {
+                    "shared": false,
+                    "fPIC": true
+                },
+                "options_description": null,
+                "version": "1.0",
+                "topics": null,
+                "package_type": "static-library",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Release"
+                },
+                "options": {
+                    "fPIC": "True",
+                    "shared": "False"
+                },
+                "options_definitions": {
+                    "shared": [
+                        "True",
+                        "False"
+                    ],
+                    "fPIC": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-cache-i1pne5my/p/mymat4b6ffa5fb7439/e",
+                "source_folder": null,
+                "build_folder": null,
+                "generators_folder": null,
+                "package_folder": "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p",
+                "immutable_package_folder": "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p",
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p/include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p/lib"
+                        ],
+                        "resdirs": null,
+                        "bindirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymated9b2cc3ac3b5/p/bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": [
+                            "mymath"
+                        ],
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": [],
+                        "properties": {
+                            "cmake_file_name": "mymath",
+                            "cmake_target_name": "mymath::mymath"
+                        },
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "mymath/1.0",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Release"
+                    },
+                    "options": {
+                        "fPIC": "True",
+                        "shared": "False"
+                    }
+                },
+                "vendor": false,
+                "dependencies": {},
+                "context": "host",
+                "test": false
+            }
+        },
+        "root": {
+            "0": ""
+        },
+        "overrides": {},
+        "resolved_ranges": {},
+        "replaced_requires": {},
+        "error": null
+    }
+}
+--- stderr ---
+Using lockfile: '/work/out/mymath-1.0.lock'
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/conan-example-lh3av7kx/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:c29f32beda3c361f536ba35aae5e876faf970169#503b9e547f6243883e811bb56d786d77 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Finalizing install (deploy, generators) ========
+conanfile.py: Calling generate()
+conanfile.py: Generators folder: /work/conan-example-lh3av7kx/locked-release/build/Release/generators
+conanfile.py: CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+conanfile.py: CMakeToolchain generated: conan_toolchain.cmake
+conanfile.py: CMakeToolchain: Preset 'conan-release' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-release
+    (cmake<3.23) cmake <path> -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake  -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release
+conanfile.py: CMakeToolchain generated: /work/conan-example-lh3av7kx/locked-release/build/Release/generators/CMakePresets.json
+conanfile.py: CMakeToolchain generated: /work/conan-example-lh3av7kx/consumer/CMakeUserPresets.json
+conanfile.py: Generating aggregated env files
+conanfile.py: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+Install finished successfully
+
+[exit_code=0]
+
+[locked-release-configure] $ cmake -S consumer -B /work/conan-example-lh3av7kx/locked-release/build/Release -DCMAKE_TOOLCHAIN_FILE=/work/conan-example-lh3av7kx/locked-release/build/Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+--- stdout ---
+-- Using Conan toolchain: /work/conan-example-lh3av7kx/locked-release/build/Release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-example-lh3av7kx/locked-release/build/Release
+--- stderr ---
+
+[exit_code=0]
+
+[locked-release-build] $ cmake --build /work/conan-example-lh3av7kx/locked-release/build/Release --parallel 2
+--- stdout ---
+[ 50%] Building CXX object CMakeFiles/robot-consumer.dir/main.cpp.o
+[100%] Linking CXX executable robot-consumer
+[100%] Built target robot-consumer
+--- stderr ---
+
+[exit_code=0]
+
+[locked-release-run] $ /work/conan-example-lh3av7kx/locked-release/build/Release/robot-consumer
+--- stdout ---
+consumer: sum=5; version=1.0; build_type=Release
+--- stderr ---
+
+[exit_code=0]
+
+[locked-debug-install] $ conan install consumer --output-folder=/work/conan-example-lh3av7kx/locked-debug -pr:b=default -pr:h=default -s:h=build_type=Debug -s:h=compiler.cppstd=17 --no-remote --lockfile=/work/out/mymath-1.0.lock --build=never --format=json
+--- stdout ---
+{
+    "graph": {
+        "nodes": {
+            "0": {
+                "ref": "",
+                "id": "0",
+                "recipe": "Consumer",
+                "package_id": "429468d3f92b5d6e3b2b6129e8d524209921b79d",
+                "prev": null,
+                "rrev": null,
+                "rrev_timestamp": null,
+                "prev_timestamp": null,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": null,
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": null,
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": null,
+                "author": null,
+                "description": null,
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": null,
+                "options_description": null,
+                "version": null,
+                "topics": null,
+                "package_type": "unknown",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Debug"
+                },
+                "options": {},
+                "options_definitions": {},
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-example-lh3av7kx/consumer",
+                "source_folder": "/work/conan-example-lh3av7kx/consumer",
+                "build_folder": "/work/conan-example-lh3av7kx/locked-debug/build/Debug",
+                "generators_folder": "/work/conan-example-lh3av7kx/locked-debug/build/Debug/generators",
+                "package_folder": null,
+                "immutable_package_folder": null,
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "lib"
+                        ],
+                        "resdirs": [],
+                        "bindirs": [
+                            "bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": null,
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": null,
+                        "properties": null,
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "conanfile.py",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Debug"
+                    },
+                    "requires": [
+                        "mymath/1.Y.Z"
+                    ]
+                },
+                "vendor": false,
+                "dependencies": {
+                    "1": {
+                        "ref": "mymath/1.0",
+                        "require": "mymath/[>=1.0 <2.0]",
+                        "run": false,
+                        "libs": true,
+                        "skip": false,
+                        "test": false,
+                        "force": false,
+                        "direct": true,
+                        "build": false,
+                        "transitive_headers": null,
+                        "transitive_libs": null,
+                        "headers": true,
+                        "package_id_mode": "semver_mode",
+                        "visible": true
+                    }
+                },
+                "context": "host",
+                "test": false
+            },
+            "1": {
+                "ref": "mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "id": "1",
+                "recipe": "Cache",
+                "package_id": "e39503e531b778c147fb86ec990699b806d3c26a",
+                "prev": "4b337f387f1390ba92589d668d25ff11",
+                "rrev": "fdd5d6d7b01b6e02685ebb4e272d2eca",
+                "rrev_timestamp": 1788916183.1483471,
+                "prev_timestamp": 1788916183.2813702,
+                "remote": null,
+                "binary_remote": null,
+                "build_id": null,
+                "binary": "Cache",
+                "invalid_build": false,
+                "info_invalid": null,
+                "name": "mymath",
+                "user": null,
+                "channel": null,
+                "url": null,
+                "license": "MIT",
+                "author": null,
+                "description": "Small local-only library for the Conan 2 teaching lab",
+                "homepage": null,
+                "build_policy": null,
+                "upload_policy": null,
+                "revision_mode": "hash",
+                "provides": null,
+                "deprecated": null,
+                "win_bash": null,
+                "win_bash_run": null,
+                "default_options": {
+                    "shared": false,
+                    "fPIC": true
+                },
+                "options_description": null,
+                "version": "1.0",
+                "topics": null,
+                "package_type": "static-library",
+                "languages": [],
+                "settings": {
+                    "os": "Linux",
+                    "arch": "armv8",
+                    "compiler": "gcc",
+                    "compiler.cppstd": "17",
+                    "compiler.libcxx": "libstdc++11",
+                    "compiler.version": "11",
+                    "build_type": "Debug"
+                },
+                "options": {
+                    "fPIC": "True",
+                    "shared": "False"
+                },
+                "options_definitions": {
+                    "shared": [
+                        "True",
+                        "False"
+                    ],
+                    "fPIC": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "generators": [],
+                "python_requires": null,
+                "system_requires": {},
+                "recipe_folder": "/work/conan-cache-i1pne5my/p/mymat4b6ffa5fb7439/e",
+                "source_folder": null,
+                "build_folder": null,
+                "generators_folder": null,
+                "package_folder": "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p",
+                "immutable_package_folder": "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p",
+                "cpp_info": {
+                    "root": {
+                        "includedirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p/include"
+                        ],
+                        "srcdirs": null,
+                        "libdirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p/lib"
+                        ],
+                        "resdirs": null,
+                        "bindirs": [
+                            "/work/conan-cache-i1pne5my/p/b/mymat8a42ea7725071/p/bin"
+                        ],
+                        "builddirs": null,
+                        "frameworkdirs": null,
+                        "system_libs": null,
+                        "frameworks": null,
+                        "libs": [
+                            "mymath"
+                        ],
+                        "defines": null,
+                        "cflags": null,
+                        "cxxflags": null,
+                        "sharedlinkflags": null,
+                        "exelinkflags": null,
+                        "objects": null,
+                        "sysroot": null,
+                        "requires": [],
+                        "properties": {
+                            "cmake_file_name": "mymath",
+                            "cmake_target_name": "mymath::mymath"
+                        },
+                        "exe": null,
+                        "type": null,
+                        "location": null,
+                        "link_location": null,
+                        "languages": null
+                    }
+                },
+                "conf_info": {},
+                "label": "mymath/1.0",
+                "info": {
+                    "settings": {
+                        "os": "Linux",
+                        "arch": "armv8",
+                        "compiler": "gcc",
+                        "compiler.cppstd": "17",
+                        "compiler.libcxx": "libstdc++11",
+                        "compiler.version": "11",
+                        "build_type": "Debug"
+                    },
+                    "options": {
+                        "fPIC": "True",
+                        "shared": "False"
+                    }
+                },
+                "vendor": false,
+                "dependencies": {},
+                "context": "host",
+                "test": false
+            }
+        },
+        "root": {
+            "0": ""
+        },
+        "overrides": {},
+        "resolved_ranges": {},
+        "replaced_requires": {},
+        "error": null
+    }
+}
+--- stderr ---
+Using lockfile: '/work/out/mymath-1.0.lock'
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Debug
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/conan-example-lh3av7kx/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:e39503e531b778c147fb86ec990699b806d3c26a#4b337f387f1390ba92589d668d25ff11 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Finalizing install (deploy, generators) ========
+conanfile.py: Calling generate()
+conanfile.py: Generators folder: /work/conan-example-lh3av7kx/locked-debug/build/Debug/generators
+conanfile.py: CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+conanfile.py: CMakeToolchain generated: conan_toolchain.cmake
+conanfile.py: CMakeToolchain: Preset 'conan-debug' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-debug
+    (cmake<3.23) cmake <path> -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake  -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug
+conanfile.py: CMakeToolchain generated: /work/conan-example-lh3av7kx/locked-debug/build/Debug/generators/CMakePresets.json
+conanfile.py: CMakeToolchain generated: /work/conan-example-lh3av7kx/consumer/CMakeUserPresets.json
+conanfile.py: Generating aggregated env files
+conanfile.py: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+Install finished successfully
+
+[exit_code=0]
+
+[locked-debug-configure] $ cmake -S consumer -B /work/conan-example-lh3av7kx/locked-debug/build/Debug -DCMAKE_TOOLCHAIN_FILE=/work/conan-example-lh3av7kx/locked-debug/build/Debug/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug
+--- stdout ---
+-- Using Conan toolchain: /work/conan-example-lh3av7kx/locked-debug/build/Debug/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/conan-example-lh3av7kx/locked-debug/build/Debug
+--- stderr ---
+
+[exit_code=0]
+
+[locked-debug-build] $ cmake --build /work/conan-example-lh3av7kx/locked-debug/build/Debug --parallel 2
+--- stdout ---
+[ 50%] Building CXX object CMakeFiles/robot-consumer.dir/main.cpp.o
+[100%] Linking CXX executable robot-consumer
+[100%] Built target robot-consumer
+--- stderr ---
+
+[exit_code=0]
+
+[locked-debug-run] $ /work/conan-example-lh3av7kx/locked-debug/build/Debug/robot-consumer
+--- stdout ---
+consumer: sum=5; version=1.0; build_type=Debug
+--- stderr ---
+
+[exit_code=0]
+
+[missing-binary] $ conan install consumer --output-folder=/work/conan-example-lh3av7kx/missing -pr:b=default -pr:h=default -s:h=build_type=RelWithDebInfo -s:h=compiler.cppstd=17 --no-remote --lockfile=/work/out/mymath-1.0.lock --build=never
+--- stdout ---
+--- stderr ---
+Using lockfile: '/work/out/mymath-1.0.lock'
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=RelWithDebInfo
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/conan-example-lh3av7kx/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+mymath/1.0: Main binary package '7304488ba587e87237f78825305b4efa764dabed' missing
+mymath/1.0: Checking 11 compatible configurations
+mymath/1.0: Compatible configurations not found in cache, checking servers
+mymath/1.0: '6169a65d8aec78b2074e492fa95b96c3ae6a3b71': compiler.cppstd=98
+mymath/1.0: '4a57e8cd3eadc3bbd1c4486cca8f7326497803ea': compiler.cppstd=gnu98
+mymath/1.0: '646c684ab707e2aaacedd62cb3b90beabbf230c0': compiler.cppstd=11
+mymath/1.0: '153984817aa0a6eab7ea99dcb01c1db7e8d08fb3': compiler.cppstd=gnu11
+mymath/1.0: '2fa5511c34d84892f43464df1f109f18f64f3187': compiler.cppstd=14
+mymath/1.0: 'cb4d86be01d3ee243b991eeb94a8815be4963ec6': compiler.cppstd=gnu14
+mymath/1.0: '98dce00aa928bcbec050cd8d649b5efa2d4cd3fb': compiler.cppstd=gnu17
+mymath/1.0: '5e0775c8b7737361033e4c99db83d86f0db6eac0': compiler.cppstd=20
+mymath/1.0: '269927923b56f672c161d1d93d17b231cfa821cf': compiler.cppstd=gnu20
+mymath/1.0: '82a3d62e7c2913544e6600fc17fa133f5657e73b': compiler.cppstd=23
+mymath/1.0: 'd7f790ae45064df8c3bfd1dd94ed22e5f115490a': compiler.cppstd=gnu23
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:7304488ba587e87237f78825305b4efa764dabed - Missing
+ERROR: Missing binary: mymath/1.0:7304488ba587e87237f78825305b4efa764dabed
+
+mymath/1.0: WARN: Can't find a 'mymath/1.0' package binary '7304488ba587e87237f78825305b4efa764dabed' for the configuration:
+[settings]
+arch=armv8
+build_type=RelWithDebInfo
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+[options]
+fPIC=True
+shared=False
+
+ERROR: Missing prebuilt package for 'mymath/1.0'. You can try:
+    - List all available packages using 'conan list "mymath/1.0:*" -r=remote'
+    - Explain missing binaries: replace 'conan install ...' with 'conan graph explain ...'
+    - Try to build locally from sources using the '--build=mymath/1.0' argument
+
+More Info at 'https://docs.conan.io/2/knowledge/faq.html#error-missing-prebuilt-package'
+
+
+[exit_code=1]
+
+[cache-identities] $ conan list 'mymath/*#*:*#*' --format=json
+--- stdout ---
+{
+    "Local Cache": {
+        "mymath/1.0": {
+            "revisions": {
+                "fdd5d6d7b01b6e02685ebb4e272d2eca": {
+                    "timestamp": 1788916183.1483471,
+                    "packages": {
+                        "c29f32beda3c361f536ba35aae5e876faf970169": {
+                            "revisions": {
+                                "503b9e547f6243883e811bb56d786d77": {
+                                    "timestamp": 1788916182.755952
+                                }
+                            },
+                            "info": {
+                                "settings": {
+                                    "arch": "armv8",
+                                    "build_type": "Release",
+                                    "compiler": "gcc",
+                                    "compiler.cppstd": "17",
+                                    "compiler.libcxx": "libstdc++11",
+                                    "compiler.version": "11",
+                                    "os": "Linux"
+                                },
+                                "options": {
+                                    "fPIC": "True",
+                                    "shared": "False"
+                                }
+                            }
+                        },
+                        "e39503e531b778c147fb86ec990699b806d3c26a": {
+                            "revisions": {
+                                "4b337f387f1390ba92589d668d25ff11": {
+                                    "timestamp": 1788916183.2813702
+                                }
+                            },
+                            "info": {
+                                "settings": {
+                                    "arch": "armv8",
+                                    "build_type": "Debug",
+                                    "compiler": "gcc",
+                                    "compiler.cppstd": "17",
+                                    "compiler.libcxx": "libstdc++11",
+                                    "compiler.version": "11",
+                                    "os": "Linux"
+                                },
+                                "options": {
+                                    "fPIC": "True",
+                                    "shared": "False"
+                                }
+                            }
+                        }
+                    }
+                },
+                "890b5b933254f82a5824b673408fd49d": {
+                    "timestamp": 1788916184.67387,
+                    "packages": {
+                        "c29f32beda3c361f536ba35aae5e876faf970169": {
+                            "revisions": {
+                                "503b9e547f6243883e811bb56d786d77": {
+                                    "timestamp": 1788916184.8042903
+                                }
+                            },
+                            "info": {
+                                "settings": {
+                                    "arch": "armv8",
+                                    "build_type": "Release",
+                                    "compiler": "gcc",
+                                    "compiler.cppstd": "17",
+                                    "compiler.libcxx": "libstdc++11",
+                                    "compiler.version": "11",
+                                    "os": "Linux"
+                                },
+                                "options": {
+                                    "fPIC": "True",
+                                    "shared": "False"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "mymath/1.1": {
+            "revisions": {
+                "fdd5d6d7b01b6e02685ebb4e272d2eca": {
+                    "timestamp": 1788916183.7858565,
+                    "packages": {
+                        "c29f32beda3c361f536ba35aae5e876faf970169": {
+                            "revisions": {
+                                "3066a9a3e57bd75dac44040294742352": {
+                                    "timestamp": 1788916183.917291
+                                }
+                            },
+                            "info": {
+                                "settings": {
+                                    "arch": "armv8",
+                                    "build_type": "Release",
+                                    "compiler": "gcc",
+                                    "compiler.cppstd": "17",
+                                    "compiler.libcxx": "libstdc++11",
+                                    "compiler.version": "11",
+                                    "os": "Linux"
+                                },
+                                "options": {
+                                    "fPIC": "True",
+                                    "shared": "False"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+--- stderr ---
+Found 2 pkg/version recipes matching mymath/* in local cache
+
+[exit_code=0]

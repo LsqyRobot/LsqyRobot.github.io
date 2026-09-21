@@ -1,0 +1,537 @@
+$ g++ -g -O0 -fPIC -shared demo_lib.cpp -Wl,-soname,libdemo.so -o libdemo.so
+[exit 0]
+
+$ g++ -g -O0 -fno-omit-frame-pointer -pthread tool_demo.cpp -L. -ldemo '-Wl,-rpath,$ORIGIN' -o tool_demo
+[exit 0]
+
+$ g++ -g -O0 -c symbols.cpp -o symbols.o
+[exit 0]
+
+$ dpkg-query -W g++ gdb binutils libc6 lsof procps strace util-linux sysstat wget openssh-client openssh-server cron python3 python3-pil ripgrep file curl iproute2 gawk less sed grep findutils coreutils
+binutils	2.38-4ubuntu2.12
+coreutils	8.32-4.1ubuntu1.4
+cron	3.0pl1-137ubuntu3
+curl	7.81.0-1ubuntu1.27
+file	1:5.41-3ubuntu0.1
+findutils	4.8.0-1ubuntu3
+g++	4:11.2.0-1ubuntu1
+gawk	1:5.1.0-1ubuntu0.2
+gdb	12.1-0ubuntu1~22.04.2
+grep	3.7-1build1
+iproute2	5.15.0-1ubuntu2.2
+less	590-1ubuntu0.22.04.3
+libc6:arm64	2.35-0ubuntu3.14
+lsof	4.93.2+dfsg-1.1build2
+openssh-client	1:8.9p1-3ubuntu0.17
+openssh-server	1:8.9p1-3ubuntu0.17
+procps	2:3.3.17-6ubuntu2.1
+python3	3.10.6-1~22.04.1
+python3-pil:arm64	9.0.1-1ubuntu0.5
+ripgrep	13.0.0-2ubuntu0.1
+sed	4.8-1ubuntu2.1
+strace	5.16-0ubuntu3
+sysstat	12.5.2-2ubuntu0.2
+util-linux	2.37.2-4ubuntu3.6
+wget	1.21.2-2ubuntu1.5
+[exit 0]
+
+$ ldd ./tool_demo
+	linux-vdso.so.1 (0x0000ffff9cf41000)
+	libdemo.so => /work/fixture/./libdemo.so (0x0000ffff9cec0000)
+	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000ffff9cc90000)
+	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000ffff9cc60000)
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000ffff9cab0000)
+	/lib/ld-linux-aarch64.so.1 (0x0000ffff9cf00000)
+	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000ffff9ca10000)
+[exit 0]
+
+$ readelf -d ./tool_demo | grep -E 'NEEDED|RUNPATH'
+ 0x0000000000000001 (NEEDED)             Shared library: [libdemo.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libstdc++.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libgcc_s.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [ld-linux-aarch64.so.1]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN]
+[exit 0]
+
+$ ps -p 32 -o pid,ppid,stat,nlwp,comm
+  PID  PPID STAT NLWP COMMAND
+   32     1 Sl      3 tool_demo
+[exit 0]
+
+$ ps -L -p 32 -o pid,tid,stat,wchan:28,comm
+  PID   TID STAT WCHAN                        COMMAND
+   32    32 Sl   do_sys_poll                  tool_demo
+   32    33 Sl   futex_wait_queue             tool_demo
+   32    34 Sl   futex_wait_queue             tool_demo
+[exit 0]
+
+$ lsof -nP -a -p 32 +L1
+COMMAND   PID    USER   FD   TYPE DEVICE SIZE/OFF NLINK NODE NAME
+tool_demo  32 learner    3u   REG   0,77       18     0   12 /work/fixture/sample.log (deleted)
+[exit 0]
+
+$ lsof -nP -a -p 32 -iTCP -sTCP:LISTEN
+COMMAND   PID    USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+tool_demo  32 learner    4u  IPv4  15159      0t0  TCP 127.0.0.1:46757 (LISTEN)
+[exit 0]
+
+$ if command -v pstack; then pstack --help; else printf 'pstack is not installed in this Ubuntu 22.04 image.
+Use the explicit GDB batch alternative below.
+'; fi
+pstack is not installed in this Ubuntu 22.04 image.
+Use the explicit GDB batch alternative below.
+[exit 0]
+
+$ gdb -q -nx -batch -ex 'set pagination off' -ex 'thread apply all bt 5' -p 32
+[New LWP 33]
+[New LWP 34]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/aarch64-linux-gnu/libthread_db.so.1".
+0x0000ffffa6b19c8c in pause () from /lib/aarch64-linux-gnu/libc.so.6
+
+Thread 3 (Thread 0xffffa61af100 (LWP 34) "tool_demo"):
+#0  0x0000ffffa6adcba8 in ?? () from /lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000ffffa6adf6c4 in pthread_cond_wait () from /lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000aaaab0981984 in std::condition_variable::wait<wait_for_job()::<lambda()> >(std::unique_lock<std::mutex> &, struct {...}) (this=0xaaaab0995050 <queue_ready>, __lock=..., __p=...) at /usr/include/c++/11/condition_variable:103
+#3  0x0000aaaab09815cc in wait_for_job () at tool_demo.cpp:23
+#4  0x0000aaaab0983ad4 in std::__invoke_impl<void, void (*)()> (__f=@0xaaaad6b02008: 0xaaaab0981570 <wait_for_job()>) at /usr/include/c++/11/bits/invoke.h:61
+
+Thread 2 (Thread 0xffffa69bf100 (LWP 33) "tool_demo"):
+#0  0x0000ffffa6adcba8 in ?? () from /lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000ffffa6adf6c4 in pthread_cond_wait () from /lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000aaaab0981984 in std::condition_variable::wait<wait_for_job()::<lambda()> >(std::unique_lock<std::mutex> &, struct {...}) (this=0xaaaab0995050 <queue_ready>, __lock=..., __p=...) at /usr/include/c++/11/condition_variable:103
+#3  0x0000aaaab09815cc in wait_for_job () at tool_demo.cpp:23
+#4  0x0000aaaab0983ad4 in std::__invoke_impl<void, void (*)()> (__f=@0xaaaad6b01eb8: 0xaaaab0981570 <wait_for_job()>) at /usr/include/c++/11/bits/invoke.h:61
+
+Thread 1 (Thread 0xffffa6eb7fc0 (LWP 32) "tool_demo"):
+#0  0x0000ffffa6b19c8c in pause () from /lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000aaaab0981808 in main (argc=2, argv=0xffffdbd4e858) at tool_demo.cpp:40
+[Inferior 1 (process 32) detached]
+[exit 0]
+
+$ strace -f -e trace=openat,read,close,clock_nanosleep,nanosleep -o trace.log ./tool_demo once
+demo_add(2,3)=5 bytes=36 missing_errno=2
+[exit 0]
+
+$ grep -E 'sample.txt|missing.txt|clock_nanosleep|nanosleep' trace.log
+56    openat(AT_FDCWD, "sample.txt", O_RDONLY) = 3
+56    openat(AT_FDCWD, "missing.txt", O_RDONLY) = -1 ENOENT (No such file or directory)
+56    clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=0, tv_nsec=20000000}, 0xffffff47bc38) = 0
+[exit 0]
+
+$ ipcmk -M 4096
+Shared memory id: 0
+[exit 0]
+
+$ ipcs -m -i 0
+
+Shared memory Segment shmid=0
+uid=501	gid=20	cuid=501	cgid=20
+mode=0644	access_perms=0644
+bytes=4096	lpid=0	cpid=58	nattch=0
+att_time=Not set                   
+det_time=Not set                   
+change_time=Mon Sep  7 13:55:29 2026  
+
+[exit 0]
+
+$ ipcrm -m 0 && ipcs -m
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status      
+
+[exit 0]
+
+$ top -b -n 2 -d 0.3 -p 32
+top - 13:55:29 up 18 min,  0 users,  load average: 0.39, 0.40, 0.21
+Tasks:   1 total,   0 running,   1 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   7837.0 total,   5923.5 free,    506.4 used,   1407.2 buff/cache
+MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   7150.7 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   32 learner   20   0   21804   2488   2268 S   0.0   0.0   0:00.00 tool_demo
+
+top - 13:55:29 up 18 min,  0 users,  load average: 0.39, 0.40, 0.21
+Tasks:   1 total,   0 running,   1 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   7837.0 total,   5923.5 free,    506.4 used,   1407.2 buff/cache
+MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   7150.7 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   32 learner   20   0   21804   2488   2268 S   0.0   0.0   0:00.00 tool_demo
+[exit 0]
+
+$ top -H -b -n 1 -p 32
+top - 13:55:29 up 18 min,  0 users,  load average: 0.39, 0.40, 0.21
+Threads:   3 total,   0 running,   3 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.8 us,  0.0 sy,  0.0 ni, 99.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   7837.0 total,   5923.5 free,    506.4 used,   1407.2 buff/cache
+MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   7150.7 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   32 learner   20   0   21804   2488   2268 S   0.0   0.0   0:00.00 tool_demo
+   33 learner   20   0   21804   2488   2268 S   0.0   0.0   0:00.00 tool_demo
+   34 learner   20   0   21804   2488   2268 S   0.0   0.0   0:00.00 tool_demo
+[exit 0]
+
+$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           7.7Gi       506Mi       5.8Gi       0.0Ki       1.4Gi       7.0Gi
+Swap:          1.0Gi          0B       1.0Gi
+[exit 0]
+
+$ free -m -s 1 -c 2
+               total        used        free      shared  buff/cache   available
+Mem:            7837         506        5923           0        1407        7150
+Swap:           1023           0        1023
+
+               total        used        free      shared  buff/cache   available
+Mem:            7837         506        5923           0        1407        7150
+Swap:           1023           0        1023
+[exit 0]
+
+$ vmstat 1 2
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 6065640  74668 1366292    0    0    37   175   81  117  0  0 99  0  0
+ 0  0      0 6062664  74668 1366292    0    0     0     0 2862 4563  2  1 97  0  0
+[exit 0]
+
+$ vmstat -s
+      8025128 K total memory
+       521504 K used memory
+       594480 K active memory
+      1081356 K inactive memory
+      6062664 K free memory
+        74668 K buffer memory
+      1366292 K swap cache
+      1048572 K total swap
+            0 K used swap
+      1048572 K free swap
+         3523 non-nice user cpu ticks
+            0 nice user cpu ticks
+         1199 system cpu ticks
+       890285 idle cpu ticks
+          537 IO-wait cpu ticks
+            0 IRQ cpu ticks
+          523 softirq cpu ticks
+            0 stolen cpu ticks
+       328201 pages paged in
+      1563872 pages paged out
+            0 pages swapped in
+            0 pages swapped out
+       729462 interrupts
+      1056146 CPU context switches
+   1788788210 boot time
+         4062 forks
+[exit 0]
+
+$ iostat -c 1 2
+Linux 6.12.54-linuxkit (ace52f81e5a7) 	09/07/26 	_aarch64_	(8 CPU)
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           0.39    0.00    0.19    0.06    0.00   99.35
+
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           0.00    0.00    0.00    0.00    0.00  100.00
+
+
+
+[exit 0]
+
+$ iostat -dx -y 1 1
+Linux 6.12.54-linuxkit (ace52f81e5a7) 	09/07/26 	_aarch64_	(8 CPU)
+
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+vda              0.00      0.00     0.00   0.00    0.00     0.00    2.00     48.00    10.00  83.33    1.00    24.00    1.00      8.00     0.00   0.00    1.00     8.00    2.00    0.00    0.00   0.20
+vdb              0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.00   0.00
+
+
+[exit 0]
+
+$ sar -u -o cpu.sar 1 2
+Linux 6.12.54-linuxkit (ace52f81e5a7) 	09/07/26 	_aarch64_	(8 CPU)
+
+13:55:33        CPU     %user     %nice   %system   %iowait    %steal     %idle
+13:55:34        all      0.00      0.00      0.00      0.00      0.00    100.00
+13:55:35        all      0.00      0.00      0.25      0.00      0.00     99.75
+Average:        all      0.00      0.00      0.12      0.00      0.00     99.88
+[exit 0]
+
+$ sar -u -f cpu.sar
+Linux 6.12.54-linuxkit (ace52f81e5a7) 	09/07/26 	_aarch64_	(8 CPU)
+
+13:55:33        CPU     %user     %nice   %system   %iowait    %steal     %idle
+13:55:34        all      0.00      0.00      0.00      0.00      0.00    100.00
+13:55:35        all      0.00      0.00      0.25      0.00      0.00     99.75
+Average:        all      0.00      0.00      0.12      0.00      0.00     99.88
+[exit 0]
+
+$ readelf -h ./tool_demo
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           AArch64
+  Version:                           0x1
+  Entry point address:               0x1440
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          111720 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         9
+  Size of section headers:           64 (bytes)
+  Number of section headers:         37
+  Section header string table index: 36
+[exit 0]
+
+$ readelf -d ./tool_demo | grep -E 'NEEDED|RUNPATH'
+ 0x0000000000000001 (NEEDED)             Shared library: [libdemo.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libstdc++.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [libgcc_s.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x0000000000000001 (NEEDED)             Shared library: [ld-linux-aarch64.so.1]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN]
+[exit 0]
+
+$ objdump -h ./symbols.o
+
+./symbols.o:     file format elf64-littleaarch64
+
+Sections:
+Idx Name          Size      VMA               LMA               File off  Algn
+  0 .text         00000048  0000000000000000  0000000000000000  00000040  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .data         00000008  0000000000000000  0000000000000000  00000088  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00001000  0000000000000000  0000000000000000  00000090  2**3
+                  ALLOC
+  3 .rodata       0000000b  0000000000000000  0000000000000000  00000090  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  4 .debug_info   00000726  0000000000000000  0000000000000000  0000009b  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING, OCTETS
+  5 .debug_abbrev 000001e2  0000000000000000  0000000000000000  000007c1  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_aranges 00000030  0000000000000000  0000000000000000  000009a3  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING, OCTETS
+  7 .debug_line   000000a3  0000000000000000  0000000000000000  000009d3  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING, OCTETS
+  8 .debug_str    00000411  0000000000000000  0000000000000000  00000a76  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+  9 .debug_line_str 0000015e  0000000000000000  0000000000000000  00000e87  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 10 .comment      0000002e  0000000000000000  0000000000000000  00000fe5  2**0
+                  CONTENTS, READONLY
+ 11 .note.GNU-stack 00000000  0000000000000000  0000000000000000  00001013  2**0
+                  CONTENTS, READONLY
+ 12 .eh_frame     00000050  0000000000000000  0000000000000000  00001018  2**3
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, DATA
+[exit 0]
+
+$ objdump -drC ./symbols.o
+
+./symbols.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <demo::square(int)>:
+   0:	d10043ff 	sub	sp, sp, #0x10
+   4:	b9000fe0 	str	w0, [sp, #12]
+   8:	b9400fe0 	ldr	w0, [sp, #12]
+   c:	1b007c01 	mul	w1, w0, w0
+  10:	90000000 	adrp	x0, 0 <demo::square(int)>
+			10: R_AARCH64_ADR_PREL_PG_HI21	.data+0x4
+  14:	91000000 	add	x0, x0, #0x0
+			14: R_AARCH64_ADD_ABS_LO12_NC	.data+0x4
+  18:	b9400000 	ldr	w0, [x0]
+  1c:	0b000020 	add	w0, w1, w0
+  20:	910043ff 	add	sp, sp, #0x10
+  24:	d65f03c0 	ret
+
+0000000000000028 <announce()>:
+  28:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+  2c:	910003fd 	mov	x29, sp
+  30:	90000000 	adrp	x0, 0 <demo::square(int)>
+			30: R_AARCH64_ADR_PREL_PG_HI21	.rodata
+  34:	91000000 	add	x0, x0, #0x0
+			34: R_AARCH64_ADD_ABS_LO12_NC	.rodata
+  38:	94000000 	bl	0 <puts>
+			38: R_AARCH64_CALL26	puts
+  3c:	d503201f 	nop
+  40:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  44:	d65f03c0 	ret
+[exit 0]
+
+$ nm -C ./symbols.o
+0000000000000028 T announce()
+0000000000000004 d local_counter
+0000000000000000 T demo::square(int)
+0000000000000000 D initialized_counter
+                 U puts
+0000000000000000 B zero_buffer
+[exit 0]
+
+$ nm -D --defined-only ./libdemo.so
+0000000000000564 T demo_add
+[exit 0]
+
+$ size ./symbols.o ./tool_demo
+   text	   data	    bss	    dec	    hex	filename
+    163	      8	   4096	   4267	   10ab	./symbols.o
+  18482	   1088	    112	  19682	   4ce2	./tool_demo
+[exit 0]
+
+$ size -A ./symbols.o
+./symbols.o  :
+section           size   addr
+.text               72      0
+.data                8      0
+.bss              4096      0
+.rodata             11      0
+.debug_info       1830      0
+.debug_abbrev      482      0
+.debug_aranges      48      0
+.debug_line        163      0
+.debug_str        1041      0
+.debug_line_str    350      0
+.comment            46      0
+.note.GNU-stack      0      0
+.eh_frame           80      0
+Total             8227
+
+
+[exit 0]
+
+$ wget --timeout=3 --tries=1 -O downloaded.txt http://127.0.0.1:45909/payload.txt
+--2026-09-07 13:55:36--  http://127.0.0.1:45909/payload.txt
+Connecting to 127.0.0.1:45909... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 60 [text/plain]
+Saving to: ‘downloaded.txt’
+
+     0K                                                       100% 19.3M=0s
+
+2026-09-07 13:55:36 (19.3 MB/s) - ‘downloaded.txt’ saved [60/60]
+
+[exit 0]
+
+$ sha256sum payload.txt downloaded.txt
+1541251a19553c9e2dde2a971aa6d3f7b894b008fa2941a3562c5ecb7dd6b01b  payload.txt
+1541251a19553c9e2dde2a971aa6d3f7b894b008fa2941a3562c5ecb7dd6b01b  downloaded.txt
+[exit 0]
+
+$ ssh-keygen -q -t ed25519 -N '' -f /work/fixture/host_key
+[exit 0]
+
+$ ssh-keygen -q -t ed25519 -N '' -f /work/fixture/client_key
+[exit 0]
+
+$ ssh-keyscan -p 2222 127.0.0.1 > known_hosts
+# 127.0.0.1:2222 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.17
+# 127.0.0.1:2222 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.17
+# 127.0.0.1:2222 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.17
+# 127.0.0.1:2222 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.17
+# 127.0.0.1:2222 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.17
+[exit 0]
+
+$ ssh-keygen -lf host_key.pub && ssh-keygen -lf known_hosts
+256 SHA256:gO4mMpGAth7kwo/+Omrc3oMEsLHbIt+e7JmJBENfcZ4 learner@ace52f81e5a7 (ED25519)
+256 SHA256:gO4mMpGAth7kwo/+Omrc3oMEsLHbIt+e7JmJBENfcZ4 [127.0.0.1]:2222 (ED25519)
+[exit 0]
+
+$ scp -v -P 2222 -i client_key -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=/work/fixture/known_hosts payload.txt learner@127.0.0.1:/work/fixture/received.txt
+Executing: program /usr/bin/ssh host 127.0.0.1, user learner, command scp -v -t /work/fixture/received.txt
+OpenSSH_8.9p1 Ubuntu-3ubuntu0.17, OpenSSL 3.0.2 15 Mar 2022
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+debug1: Connecting to 127.0.0.1 [127.0.0.1] port 2222.
+debug1: Connection established.
+debug1: identity file client_key type 3
+debug1: identity file client_key-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.17
+debug1: Remote protocol version 2.0, remote software version OpenSSH_8.9p1 Ubuntu-3ubuntu0.17
+debug1: compat_banner: match: OpenSSH_8.9p1 Ubuntu-3ubuntu0.17 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 127.0.0.1:2222 as 'learner'
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:gO4mMpGAth7kwo/+Omrc3oMEsLHbIt+e7JmJBENfcZ4
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: Host '[127.0.0.1]:2222' is known and matches the ED25519 host key.
+debug1: Found key in /work/fixture/known_hosts:1
+debug1: ssh_packet_send2_wrapped: resetting send seqnr 3
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: ssh_packet_read_poll2: resetting read seqnr 3
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: client_key ED25519 SHA256:VahqSybqgWltl0cUdvGaWemxBAhquJwKHb1N8iFYyvA explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com,webauthn-sk-ecdsa-sha2-nistp256@openssh.com>
+debug1: kex_input_ext_info: publickey-hostbound@openssh.com=<0>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: client_key ED25519 SHA256:VahqSybqgWltl0cUdvGaWemxBAhquJwKHb1N8iFYyvA explicit
+debug1: Server accepts key: client_key ED25519 SHA256:VahqSybqgWltl0cUdvGaWemxBAhquJwKHb1N8iFYyvA explicit
+Authenticated to 127.0.0.1 ([127.0.0.1]:2222) using "publickey".
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Remote: /work/fixture/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Remote: /work/fixture/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Sending environment.
+debug1: channel 0: setting env LC_ALL = "C.UTF-8"
+debug1: channel 0: setting env LANG = "C.UTF-8"
+debug1: Sending command: scp -v -t /work/fixture/received.txt
+scp: debug1: fd 3 clearing O_NONBLOCK
+Sending file modes: C0644 60 payload.txt
+Sink: C0644 60 payload.txt
+scp: debug1: fd 6 clearing O_NONBLOCK
+scp: debug1: fd 0 clearing O_NONBLOCK
+debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
+debug1: channel 0: free: client-session, nchannels 1
+Transferred: sent 2544, received 2396 bytes, in 0.0 seconds
+Bytes per second: sent 53610.4, received 50491.5
+debug1: Exit status 0
+[exit 0]
+
+$ sha256sum payload.txt received.txt
+1541251a19553c9e2dde2a971aa6d3f7b894b008fa2941a3562c5ecb7dd6b01b  payload.txt
+1541251a19553c9e2dde2a971aa6d3f7b894b008fa2941a3562c5ecb7dd6b01b  received.txt
+[exit 0]
+
+$ crontab -l
+crontabs/learner/: fopen: Permission denied
+[exit 1]
+
+$ env -i PATH=/usr/bin:/bin /bin/sh /lab/cron_job.sh
+HOME=not set
+PATH=/usr/bin:/bin
+shell=/lab/cron_job.sh
+/work/fixture
+1541251a19553c9e2dde2a971aa6d3f7b894b008fa2941a3562c5ecb7dd6b01b  /work/fixture/payload.txt
+[exit 0]

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<robot name="lsqy_two_joint_arm">
+  <!-- 纯 URDF，不需要 xacro。视觉几何只用于描述，不提供动力学积分。 -->
+  <link name="base_link"/>
+  <link name="link1">
+    <visual>
+      <origin xyz="0.15 0 0"/>
+      <geometry><box size="0.30 0.04 0.04"/></geometry>
+      <material name="blue"><color rgba="0.15 0.45 0.85 1"/></material>
+    </visual>
+  </link>
+  <link name="link2">
+    <visual>
+      <origin xyz="0.12 0 0"/>
+      <geometry><box size="0.24 0.035 0.035"/></geometry>
+      <material name="orange"><color rgba="0.95 0.50 0.15 1"/></material>
+    </visual>
+  </link>
+
+  <joint name="joint1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.57" upper="1.57" effort="5.0" velocity="1.0"/>
+  </joint>
+  <joint name="joint2" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz="0.30 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.57" upper="1.57" effort="5.0" velocity="1.0"/>
+  </joint>
+
+  <ros2_control name="DemoSystem" type="system">
+    <hardware>
+      <plugin>mock_components/GenericSystem</plugin>
+      <!-- 不推导速度/加速度：只验证框架接线，不冒充真实物理反馈。 -->
+      <param name="calculate_dynamics">false</param>
+    </hardware>
+    <joint name="joint1">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+    </joint>
+    <joint name="joint2">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+    </joint>
+  </ros2_control>
+</robot>

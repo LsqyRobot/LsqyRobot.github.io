@@ -1,0 +1,82 @@
+/* Hexo emits figure.highlight > table > tr > td.code > pre.
+ * That table is a code layout, not an article data table. Constrain its
+ * columns before making pre scroll; overflow on pre alone cannot defeat
+ * an auto-layout table's intrinsic width. Keep the text/DOM unchanged.
+ */
+.post-article-content figure.highlight,
+.post-article-content .code-area {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.post-article-content figure.highlight {
+  margin: 1.5rem 0;
+}
+
+.post-article-content figure.highlight table {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border: 0;
+  border-spacing: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+/* Undo the data-table padding, bold first column and hover enlargement. */
+.post-article-content figure.highlight table tr,
+.post-article-content figure.highlight table tr:hover {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none;
+}
+
+.post-article-content figure.highlight table td {
+  min-width: 0;
+  padding: 0 !important;
+  border: 0 !important;
+  color: inherit !important;
+  background: transparent !important;
+  font-size: inherit !important;
+  font-weight: normal !important;
+}
+
+/* The site currently hides line numbers; reserve a narrow column if enabled. */
+.post-article-content figure.highlight td.gutter {
+  width: 4rem;
+}
+
+.post-article-content pre {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.post-article-content figure.highlight pre {
+  margin: 0 !important;
+  padding: 1.5rem 1.25rem !important;
+}
+
+/* Do not visually split shell commands or destroy Python/ASCII indentation. */
+.post-article-content pre,
+.post-article-content pre code {
+  white-space: pre !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+@media (max-width: 600px) {
+  .post-article-content figure.highlight pre {
+    padding: 1.5rem 0.875rem !important;
+  }
+}

@@ -1,0 +1,1355 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/68_rust_learning/rust-system-learning-cover.svg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">Rust 系统学习笔记（一）：从所有权到可测试的 Cargo 工程</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <h1>这份笔记要解决什么</h1>
+<p>Rust 的语法并不是最难的部分。真正容易卡住的是：已经知道 <code>let</code>、<code>struct</code>、<code>match</code>，但一写项目就不断遇到 move、borrow、lifetime 和 trait 报错，于是开始到处加 <code>clone()</code>，或者把所有类型都包进智能指针。</p>
+<p>这份第一版笔记不按语法手册逐项抄录，而是围绕一条小型数据链路建立统一模型：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">文本输入</span><br><span class="line">  ↓ Result：解析可能失败</span><br><span class="line">Vec&lt;Sample&gt;</span><br><span class="line">  ↓ &amp;T：只读统计不取得所有权</span><br><span class="line">Option&lt;JointStats&lt;&#x27;_&gt;&gt;</span><br><span class="line">  ↓ main：决定怎样向用户报告“成功 / 不存在 / 失败”</span><br><span class="line">命令行输出</span><br></pre></td></tr></table></figure>
+<p>配套的 <a href="/downloads/code/rust_learning_lab/README.md"><code>rust_learning_lab</code></a> 是一个没有第三方依赖的 Cargo crate：读取几行机器人关节位置，解析为结构体，并计算某个关节的统计量。它很小，但足以贯穿所有权、借用、生命周期、<code>Option</code>、<code>Result</code>、模块、测试和异步的最小心智模型。</p>
+<p>本文写于 2026-09-13，以 Rust 2024 Edition 为语言基线。配套项目将 <code>rust-version</code> 设为 <code>1.85</code>，因为 Rust 1.85 是 2024 Edition 的首个稳定版本；学习时可以使用更新的 stable 工具链。<strong>Edition 不是编译器版本，也不是生态分叉</strong>：每个 crate 可以独立选择 edition，不同 edition 的 crate 仍可互操作。</p>
+<h2 id="先看学习地图">先看学习地图</h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>核心问题</th>
+<th>本文入口</th>
+<th>通过标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0. 工具链</td>
+<td>怎样获得可重复的构建环境？</td>
+<td><a href="#toolchain">Rustup 与 Cargo</a></td>
+<td>能解释 <code>rustc</code>、Cargo、toolchain、edition、MSRV 的区别</td>
+</tr>
+<tr>
+<td>1. 数据建模</td>
+<td>怎样用类型表达有效状态？</td>
+<td><a href="#syntax-and-types">语法与类型</a></td>
+<td>用 <code>struct</code>、<code>enum</code>、<code>match</code> 写出小模型</td>
+</tr>
+<tr>
+<td>2. 所有权</td>
+<td>谁负责释放值？调用后还能不能用？</td>
+<td><a href="#ownership">所有权</a></td>
+<td>能预判 move、<code>Copy</code>、<code>clone</code> 和作用域结束的位置</td>
+</tr>
+<tr>
+<td>3. 借用与生命周期</td>
+<td>函数能否只看或暂时修改数据？</td>
+<td><a href="#borrowing">借用</a>、<a href="#lifetimes">生命周期</a></td>
+<td>先设计输入输出关系，再读懂 E0382、E0499、E0502</td>
+</tr>
+<tr>
+<td>4. 失败建模</td>
+<td>“没有”和“失败”是否一回事？</td>
+<td><a href="#option-result">Option 与 Result</a></td>
+<td>库层不靠 <code>unwrap()</code> 处理外部输入</td>
+</tr>
+<tr>
+<td>5. 工程组织</td>
+<td>package、crate、module 是什么关系？</td>
+<td><a href="#cargo-project">Cargo 工程</a></td>
+<td>能拆出 lib/bin、单元测试和集成测试</td>
+</tr>
+<tr>
+<td>6. 并发边界</td>
+<td>async 到底改变了什么？</td>
+<td><a href="#async-intro">异步入门</a></td>
+<td>知道 future、<code>.await</code>、executor 与线程不是同义词</td>
+</tr>
+<tr>
+<td>7. 系统集成</td>
+<td>什么时候才需要 unsafe 与 FFI？</td>
+<td><a href="#ffi-boundary">FFI 边界</a></td>
+<td>把 unsafe 压缩在小模块内，并提供安全包装与测试</td>
+</tr>
+</tbody>
+</table>
+<p>学习顺序可以迭代，但不建议跳过所有权直接背生命周期标注。生命周期解决的是<strong>引用之间的有效期关系</strong>；如果还没分清“拥有”和“借用”，<code>'a</code> 只会变成另一种符号记忆。</p>
+<p><span id="toolchain"></span></p>
+<h1>1. Rustup、rustc 与 Cargo 各管什么</h1>
+<p>官方推荐用 Rustup 管理 Rust 工具链。安装完成后，常见的三个命令分别承担不同职责：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>责任</th>
+<th>常用命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rustup</code></td>
+<td>安装、选择和更新 toolchain / target / component</td>
+<td><code>rustup toolchain install stable</code>、<code>rustup show</code></td>
+</tr>
+<tr>
+<td><code>rustc</code></td>
+<td>编译单个 crate，给出语言级诊断</td>
+<td><code>rustc --version</code>、<code>rustc --explain E0382</code></td>
+</tr>
+<tr>
+<td><code>cargo</code></td>
+<td>管理 package、依赖、构建、运行、测试和发布</td>
+<td><code>cargo check</code>、<code>cargo test</code>、<code>cargo run</code></td>
+</tr>
+</tbody>
+</table>
+<p>在本仓库中，推荐先使用已经固定版本的 Docker 学习环境，不需要在 macOS / Linux 宿主机安装 Rust：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bin/site.sh rust-build</span><br><span class="line">./bin/site.sh rust-test</span><br><span class="line">./bin/site.sh rust-run</span><br><span class="line">./bin/site.sh rust-shell</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>rust-build</code> 构建 Rust 1.85.1、rustfmt 与 Clippy 镜像；<code>rust-test</code> 一次执行格式、lint、测试和三个程序入口；<code>rust-run</code> 运行配套遥测程序；<code>rust-shell</code> 则进入源码已经挂载到 <code>/workspace</code> 的临时容器。直接在宿主机编辑 <code>source/downloads/code/rust_learning_lab/src/*.rs</code>，容器下一次运行就会看到修改；编译缓存保存在被 Git 忽略的 <code>build/rust-learning-lab/</code>，退出容器不会丢源码。</p>
+<p>若是在仓库之外创建独立 Rust 项目，可以按官方安装页完成 Rustup 安装，然后执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rustup toolchain install stable --component rustfmt --component clippy</span><br><span class="line">rustup default stable</span><br><span class="line">rustc --version</span><br><span class="line">cargo --version</span><br></pre></td></tr></table></figure>
+<p>配套 crate 还提供 <code>rust-toolchain.toml</code>，把本机 Rustup 和 Docker 都对齐到 1.85.1，并声明 rustfmt、Clippy 组件。不要在还没看清脚本来源时复制任意“curl 后直接执行”的安装命令；本文只维护工具的使用方法，宿主安装入口以 <a target="_blank" rel="noopener" href="https://rust-lang.org/tools/install/">Rust 官方安装页</a> 为准。</p>
+<h2 id="Edition、stable-与-MSRV-是三件事">Edition、stable 与 MSRV 是三件事</h2>
+<p>配套项目的清单包含：</p>
+<figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;rust-learning-lab&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2024&quot;</span></span><br><span class="line"><span class="attr">rust-version</span> = <span class="string">&quot;1.85&quot;</span></span><br><span class="line"><span class="attr">publish</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>edition = &quot;2024&quot;</code> 选择同一门 Rust 语言的一组兼容性规则；</li>
+<li>stable 是 Rustup 管理的发布通道，会随升级移动到更新编译器；</li>
+<li><code>rust-version = &quot;1.85&quot;</code> 声明这个 package 支持的最低 Rust 版本，也称 MSRV；</li>
+<li><code>publish = false</code> 防止这个练习包被误发到 <a target="_blank" rel="noopener" href="http://crates.io">crates.io</a>。</li>
+</ul>
+<p>新项目最好明确写出 edition。若 <code>Cargo.toml</code> 完全省略它，Cargo 为兼容历史项目会按 2015 Edition 处理，这和当前 <code>cargo new</code> 默认生成最新版 edition 不是一回事。</p>
+<h2 id="日常反馈环">日常反馈环</h2>
+<p>把“写完再编译”缩短成以下循环：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cargo check</span><br><span class="line">cargo <span class="built_in">test</span></span><br><span class="line">cargo <span class="built_in">fmt</span> --all --check</span><br><span class="line">cargo clippy --all-targets -- -D warnings</span><br></pre></td></tr></table></figure>
+<p><code>cargo check</code> 会完成类型检查和借用检查，但通常不生成最终机器码，所以适合高频运行；<code>cargo test</code> 才是行为验收。<code>fmt</code> 统一格式，Clippy 补充编译器之外的惯用写法检查。四者职责不同，不能互相替代。</p>
+<p><span id="syntax-and-types"></span></p>
+<h1>2. 基础语法的重点：用类型缩小无效状态</h1>
+<p>先看一段完整但很小的建模代码：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="meta">#[derive(Debug, Clone, PartialEq)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">Sample</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> joint: <span class="type">String</span>,</span><br><span class="line">    <span class="keyword">pub</span> position_rad: <span class="type">f64</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">enum</span> <span class="title class_">ParseErrorKind</span> &#123;</span><br><span class="line">    MissingComma,</span><br><span class="line">    EmptyJoint,</span><br><span class="line">    <span class="title function_ invoke__">InvalidPosition</span>(<span class="type">String</span>),</span><br><span class="line">    NonFinitePosition,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里已经包含几项基础规则：</p>
+<ul>
+<li>变量和字段默认不可变，需要修改时显式写 <code>mut</code>；</li>
+<li><code>struct</code> 把同时存在的数据组织成乘积类型；</li>
+<li><code>enum</code> 表示几个互斥分支，是和类型；每个分支还可以携带自己的数据；</li>
+<li><code>String</code> 拥有一段可增长的 UTF-8 文本，<code>&amp;str</code> 是对 UTF-8 文本的借用视图；</li>
+<li><code>#[derive(...)]</code> 让编译器为类型生成可调试输出、克隆和相等比较等 trait 实现。</li>
+</ul>
+<h2 id="表达式、语句与返回值">表达式、语句与返回值</h2>
+<p>Rust 的 <code>if</code>、<code>match</code> 和代码块都可以是表达式。函数最后一个表达式不写分号时，就是返回值：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">classify</span>(position_rad: <span class="type">f64</span>) <span class="punctuation">-&gt;</span> &amp;<span class="symbol">&#x27;static</span> <span class="type">str</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> position_rad.<span class="title function_ invoke__">abs</span>() &lt; <span class="number">0.01</span> &#123;</span><br><span class="line">        <span class="string">&quot;near zero&quot;</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="string">&quot;offset&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 <code>&quot;near zero&quot;</code> 后加分号会把这个分支变成 <code>()</code>，从而与函数声明的 <code>&amp;str</code> 不匹配。初学时看到“expected <code>&amp;str</code>, found <code>()</code>”，先检查尾表达式是否被分号变成了语句。</p>
+<h2 id="match-应该穷尽状态"><code>match</code> 应该穷尽状态</h2>
+<p><code>match</code> 要覆盖所有可能分支：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">error_hint</span>(kind: &amp;ParseErrorKind) <span class="punctuation">-&gt;</span> &amp;<span class="symbol">&#x27;static</span> <span class="type">str</span> &#123;</span><br><span class="line">    <span class="keyword">match</span> kind &#123;</span><br><span class="line">        ParseErrorKind::MissingComma =&gt; <span class="string">&quot;检查 CSV 分隔符&quot;</span>,</span><br><span class="line">        ParseErrorKind::EmptyJoint =&gt; <span class="string">&quot;补上关节名&quot;</span>,</span><br><span class="line">        ParseErrorKind::<span class="title function_ invoke__">InvalidPosition</span>(_) =&gt; <span class="string">&quot;位置必须是数字&quot;</span>,</span><br><span class="line">        ParseErrorKind::NonFinitePosition =&gt; <span class="string">&quot;拒绝 NaN 和无穷大&quot;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这不是语法负担，而是演进提醒：将来新增错误类型时，编译器能指出哪些地方还没决定如何处理。若用 <code>_</code> 一口吞掉所有剩余分支，就会失去这种帮助；只有当剩余值确实同义时再使用通配模式。</p>
+<h2 id="String、-str-与集合的默认选择"><code>String</code>、<code>&amp;str</code> 与集合的默认选择</h2>
+<p>一个实用的接口经验是：</p>
+<ul>
+<li>结构体需要长期保存文本时，先考虑拥有的 <code>String</code>；</li>
+<li>函数只读字符串时，优先接收 <code>&amp;str</code>，它同时兼容字符串字面量和 <code>String</code> 的切片；</li>
+<li>默认可变长序列先考虑 <code>Vec&lt;T&gt;</code>；</li>
+<li>不要因为借用暂时难写，就给所有字段加 <code>'static</code> 或把所有数据泄漏到全局。</li>
+</ul>
+<p><span id="ownership"></span></p>
+<h1>3. 所有权：先问“谁负责释放”</h1>
+<p>Rust 的所有权规则可以压缩成三句话：</p>
+<ol>
+<li>每个值都有一个当前 owner；</li>
+<li>同一时刻只有一个 owner；</li>
+<li>owner 离开作用域时，该值会被 <code>drop</code>。</li>
+</ol>
+<p>对 <code>String</code>、<code>Vec&lt;T&gt;</code> 这类拥有堆资源的值，普通赋值通常是 move，不是深拷贝：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">samples</span> = <span class="built_in">vec!</span>[Sample::<span class="title function_ invoke__">new</span>(<span class="string">&quot;hip&quot;</span>, <span class="number">0.4</span>)];</span><br><span class="line"><span class="keyword">let</span> <span class="variable">archived</span> = samples;</span><br><span class="line"></span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, archived.<span class="title function_ invoke__">len</span>());</span><br><span class="line"><span class="comment">// println!(&quot;&#123;&#125;&quot;, samples.len()); // E0382: value used after move</span></span><br></pre></td></tr></table></figure>
+<p>移动后仍然只有一个 owner，因此不会发生两个变量重复释放同一资源。移动通常只复制栈上的指针、长度和容量等小型元数据，不会自动复制整段堆数据。</p>
+<p><img src="/img/postImg/68_rust_learning/ownership-borrow-flow.svg" alt="Rust 中所有权、共享借用、可变借用与移动的关系"></p>
+<blockquote>
+<p>一段程序可以先共享读取、再独占修改、最后移动所有权；关键是这些访问阶段不要非法重叠。引用不负责释放被借用的值。</p>
+</blockquote>
+<h2 id="Copy、move-与-clone"><code>Copy</code>、move 与 <code>clone()</code></h2>
+<p>整数、布尔值和由 <code>Copy</code> 类型组成的简单值常常实现 <code>Copy</code>：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">count</span> = <span class="number">3_u32</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">another</span> = count;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;count&#125; &#123;another&#125;&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>赋值后两者都可用，因为按位复制就是完整且安全的复制。<code>String</code> 没有实现 <code>Copy</code>，需要真实复制内容时必须显式 <code>clone()</code>：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">joint</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;front_left_hip&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> <span class="variable">label</span> = joint.<span class="title function_ invoke__">clone</span>();</span><br></pre></td></tr></table></figure>
+<p><code>clone()</code> 不是“修复 borrow checker 的万能键”。在循环、图结构或大缓冲区上，它可能改变性能和数据语义。每次添加前问：</p>
+<ul>
+<li>这里真的需要两个独立拥有者吗？</li>
+<li>函数是否只需接收 <code>&amp;str</code> 或 <code>&amp;[T]</code>？</li>
+<li>能否让被调用者返回所有权，或者调整数据拥有关系？</li>
+<li>如果复制是产品语义，是否应该在函数名和测试中体现？</li>
+</ul>
+<h2 id="函数签名就是所有权协议">函数签名就是所有权协议</h2>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">inspect</span>(samples: &amp;[Sample]) &#123; <span class="comment">/* 只读借用 */</span> &#125;</span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">calibrate</span>(samples: &amp;<span class="keyword">mut</span> [Sample]) &#123; <span class="comment">/* 独占修改 */</span> &#125;</span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">archive</span>(samples: <span class="type">Vec</span>&lt;Sample&gt;) &#123; <span class="comment">/* 取得所有权 */</span> &#125;</span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">create</span>() <span class="punctuation">-&gt;</span> <span class="type">Vec</span>&lt;Sample&gt; &#123; <span class="comment">/* 把所有权交给调用者 */</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>只看签名，就应该能判断调用后原值是否还能使用。Rust API 设计的第一步不是写函数体，而是先决定这四种关系中的哪一种准确表达意图。</p>
+<p><span id="borrowing"></span></p>
+<h1>4. 借用：多读或一写</h1>
+<p>创建引用称为借用。最重要的规则是：在同一段有效时间里，可以有任意多个共享引用 <code>&amp;T</code>，或者一个可变引用 <code>&amp;mut T</code>；两组不能重叠，并且引用必须始终有效。</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">samples</span> = <span class="built_in">vec!</span>[Sample::<span class="title function_ invoke__">new</span>(<span class="string">&quot;hip&quot;</span>, <span class="number">0.4</span>)];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">first_read</span> = &amp;samples;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">second_read</span> = &amp;samples;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>, first_read.<span class="title function_ invoke__">len</span>(), second_read.<span class="title function_ invoke__">len</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 两个共享引用最后一次使用已经结束，下面才开始独占借用。</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">only_writer</span> = &amp;<span class="keyword">mut</span> samples;</span><br><span class="line">only_writer[<span class="number">0</span>].position_rad += <span class="number">0.1</span>;</span><br></pre></td></tr></table></figure>
+<p>借用的有效范围通常到引用的<strong>最后一次使用</strong>，不必机械地持续到整个花括号结束。这就是为什么上面先读后写可以通过编译。</p>
+<h2 id="接口优先借用切片">接口优先借用切片</h2>
+<p>只需要查看一组元素时，<code>&amp;[Sample]</code> 通常比 <code>&amp;Vec&lt;Sample&gt;</code> 更通用：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">latest_for</span>&lt;<span class="symbol">&#x27;a</span>&gt;(samples: &amp;<span class="symbol">&#x27;a</span> [Sample], joint: &amp;<span class="type">str</span>) <span class="punctuation">-&gt;</span> <span class="type">Option</span>&lt;&amp;<span class="symbol">&#x27;a</span> Sample&gt; &#123;</span><br><span class="line">    samples.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">find</span>(|sample| sample.joint == joint)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用者可以传入 <code>Vec</code> 的全部或局部切片，也可以传数组切片。函数不关心集合如何扩容，只关心“连续的一段 <code>Sample</code>”。可变版本相应写成 <code>&amp;mut [Sample]</code>。</p>
+<h2 id="常见借用错误怎么读">常见借用错误怎么读</h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>常见含义</th>
+<th>首先检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E0382</td>
+<td>值已经 move，之后又被使用</td>
+<td>哪个调用取得了所有权；是否本应传引用</td>
+</tr>
+<tr>
+<td>E0499</td>
+<td>同一个值被同时可变借用多次</td>
+<td>第一个 <code>&amp;mut</code> 的最后一次使用在哪里</td>
+</tr>
+<tr>
+<td>E0502</td>
+<td>不可变借用与可变借用重叠</td>
+<td>能否把“读”和“写”拆成两个阶段</td>
+</tr>
+<tr>
+<td>E0515 / E0597</td>
+<td>返回或保存的引用活得比来源久</td>
+<td>是否应该返回拥有的值；来源是否在函数内被释放</td>
+</tr>
+</tbody>
+</table>
+<p>先画 owner 与引用的来源，再改签名。不要看到生命周期错误就盲目添加 <code>'a</code>，也不要先上 <code>Rc&lt;RefCell&lt;_&gt;&gt;</code> 绕过静态检查。</p>
+<p><span id="lifetimes"></span></p>
+<h1>5. 生命周期：描述引用关系，不是延长变量寿命</h1>
+<p>每个引用都有生命周期，大多数时候编译器可以推断。需要显式标注时，标注表达的是“输入引用与输出引用之间有什么关系”，不会让任何值活得更久。</p>
+<p>配套项目中：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">latest_for</span>&lt;<span class="symbol">&#x27;a</span>&gt;(samples: &amp;<span class="symbol">&#x27;a</span> [Sample], joint: &amp;<span class="type">str</span>) <span class="punctuation">-&gt;</span> <span class="type">Option</span>&lt;&amp;<span class="symbol">&#x27;a</span> Sample&gt; &#123;</span><br><span class="line">    samples.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">find</span>(|sample| sample.joint == joint)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>'a</code> 的含义是：如果返回 <code>Some(&amp;Sample)</code>，其中的引用来自 <code>samples</code>，不能比 <code>samples</code> 的借用更久。<code>joint</code> 只用于比较，不可能成为返回值来源，所以它不需要与 <code>'a</code> 绑定。</p>
+<h2 id="为什么下面无法返回引用">为什么下面无法返回引用</h2>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">invalid</span>() <span class="punctuation">-&gt;</span> &amp;<span class="type">str</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">name</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hip&quot;</span>);</span><br><span class="line">    &amp;name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>name</code> 在函数末尾被释放，返回的引用将悬空。加 <code>'static</code> 不能把局部 <code>String</code> 变成静态数据。正确选择通常是返回拥有的 <code>String</code>：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">valid</span>() <span class="punctuation">-&gt;</span> <span class="type">String</span> &#123;</span><br><span class="line">    <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hip&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只有字符串字面量、真正的静态项，或者有意长期保留的数据才适合 <code>'static</code>。把 <code>'static</code> 当作“最长所以最好”会把资源释放、测试隔离和接口复用都变差。</p>
+<h2 id="结构体为什么有生命周期参数">结构体为什么有生命周期参数</h2>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">JointStats</span>&lt;<span class="symbol">&#x27;a</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">pub</span> joint: &amp;<span class="symbol">&#x27;a</span> <span class="type">str</span>,</span><br><span class="line">    <span class="keyword">pub</span> count: <span class="type">usize</span>,</span><br><span class="line">    <span class="keyword">pub</span> mean_rad: <span class="type">f64</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个结果不复制关节名，而是借用某个 <code>Sample</code> 内的字符串。因此 <code>JointStats</code> 不能脱离原 <code>samples</code> 长期保存。若要跨线程队列、缓存或异步任务长期持有它，更自然的设计可能是把字段改成 <code>String</code>，让结果拥有名字。借用版减少复制，拥有版降低耦合；选择取决于数据需要活多久，而不是哪一种更“高级”。</p>
+<p><span id="option-result"></span></p>
+<h1>6. <code>Option</code>、<code>Result</code> 与错误边界</h1>
+<p>Rust 用类型区分两种经常被混在一起的情况：</p>
+<ul>
+<li><code>Option&lt;T&gt;</code>：值可能存在，也可能正常地不存在；</li>
+<li><code>Result&lt;T, E&gt;</code>：操作可能成功，也可能带着原因失败。</li>
+</ul>
+<p>在练习项目中，“目标关节没有采样”是 <code>None</code>，而“一行 CSV 不是合法数字”是 <code>Err(ParseError)</code>。如果两者都用空字符串或 <code>-1</code> 表示，调用者无法可靠地区分业务空值和数据损坏。</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">samples</span> = <span class="title function_ invoke__">parse_samples</span>(&amp;input)?;</span><br><span class="line"></span><br><span class="line"><span class="keyword">match</span> <span class="title function_ invoke__">summarize_joint</span>(&amp;samples, &amp;joint) &#123;</span><br><span class="line">    <span class="title function_ invoke__">Some</span>(stats) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;mean: &#123;&#125;&quot;</span>, stats.mean_rad),</span><br><span class="line">    <span class="literal">None</span> =&gt; <span class="built_in">println!</span>(<span class="string">&quot;joint `&#123;joint&#125;` was not found&quot;</span>),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="做了什么"><code>?</code> 做了什么</h2>
+<p>对 <code>Result</code> 使用 <code>?</code> 时：</p>
+<ol>
+<li>若为 <code>Ok(value)</code>，取出 <code>value</code> 继续执行；</li>
+<li>若为 <code>Err(error)</code>，把错误转换为当前函数声明的错误类型并提前返回。</li>
+</ol>
+<p>它不是忽略错误，也不是 panic。<code>?</code> 迫使当前函数本身也有一个能表达失败的返回类型。对 <code>Option</code> 使用时同理：<code>None</code> 会提前传播 <code>None</code>。</p>
+<h2 id="库层返回信息，应用边界决定呈现">库层返回信息，应用边界决定呈现</h2>
+<p>配套项目为解析错误保存物理行号和具体原因：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="meta">#[derive(Debug, Clone, PartialEq, Eq)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">ParseError</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> line: <span class="type">usize</span>,</span><br><span class="line">    <span class="keyword">pub</span> kind: ParseErrorKind,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>错误类型实现 <code>Display</code> 供用户阅读，实现 <code>Error</code> 供错误链组合。解析库不擅自退出进程；<code>main</code>、HTTP handler 或 ROS 节点边界再决定日志、退出码、重试或降级策略。</p>
+<h2 id="什么时候可以-unwrap">什么时候可以 <code>unwrap()</code></h2>
+<p>谨慎使用，但不必把它绝对禁止：</p>
+<ul>
+<li>单元测试中，失败本来就应该立即暴露；</li>
+<li>编译器不能证明、但程序已经由紧邻逻辑保证的内部不变量，可用带解释的 <code>expect()</code>；</li>
+<li>外部输入、文件、网络、用户参数和传感器数据不应靠 <code>unwrap()</code> 处理。</li>
+</ul>
+<p>若错误确实不可恢复，可以 panic；但“懒得建模”不等于“不可恢复”。</p>
+<h1>7. trait、泛型与迭代器：先表达能力，再复用实现</h1>
+<p><code>impl Into&lt;String&gt;</code> 让 <code>Sample::new</code> 同时接收字符串字面量和 <code>String</code>：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">impl</span> <span class="title class_">Sample</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">new</span>(joint: <span class="keyword">impl</span> <span class="title class_">Into</span>&lt;<span class="type">String</span>&gt;, position_rad: <span class="type">f64</span>) <span class="punctuation">-&gt;</span> <span class="keyword">Self</span> &#123;</span><br><span class="line">        <span class="keyword">Self</span> &#123;</span><br><span class="line">            joint: joint.<span class="title function_ invoke__">into</span>(),</span><br><span class="line">            position_rad,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的重点不是追求最抽象，而是让边界接收多种可转换输入，同时在结构体内部统一拥有 <code>String</code>。泛型和 trait bound 应来自实际复用需求；只有一个实现时，不必为了“设计模式”提前制造层级。</p>
+<p>解析器使用迭代器把数据流写成几步变换：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line">input</span><br><span class="line">    .<span class="title function_ invoke__">lines</span>()</span><br><span class="line">    .<span class="title function_ invoke__">enumerate</span>()</span><br><span class="line">    .<span class="title function_ invoke__">filter_map</span>(<span class="comment">/* 跳过空行和注释，同时保留物理行号 */</span>)</span><br><span class="line">    .<span class="title function_ invoke__">map</span>(<span class="comment">/* 每一行 -&gt; Result&lt;Sample, ParseError&gt; */</span>)</span><br><span class="line">    .collect::&lt;<span class="type">Result</span>&lt;<span class="type">Vec</span>&lt;_&gt;, _&gt;&gt;()</span><br></pre></td></tr></table></figure>
+<p><code>collect</code> 在这里会遇到第一个 <code>Err</code> 时停止并返回错误；全部成功才得到 <code>Ok(Vec&lt;Sample&gt;)</code>。迭代器通常是惰性的：构造适配器不会自动执行，消费器（如 <code>collect</code>、<code>sum</code>、<code>for_each</code>）才推动数据流。</p>
+<p>不要为了“一行链式调用”牺牲诊断信息。如果闭包太复杂，就提取成命名函数；配套项目把单行解析单独放到 <code>parse_line</code>，便于测试每一种失败。</p>
+<p><span id="cargo-project"></span></p>
+<h1>8. Cargo 工程：package、crate、module 不要混用</h1>
+<p>这三个词处在不同层级：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>含义</th>
+<th>本项目对应物</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>一个 <code>Cargo.toml</code> 描述的发布与构建单元</td>
+<td><code>rust-learning-lab/</code></td>
+</tr>
+<tr>
+<td>crate</td>
+<td>一次编译形成的库或可执行目标</td>
+<td><code>src/lib.rs</code> 的 library crate；<code>src/main.rs</code> 的 binary crate</td>
+</tr>
+<tr>
+<td>module</td>
+<td>crate 内部的命名空间与可见性结构</td>
+<td><code>model</code>、<code>parser</code>、<code>report</code>、<code>async_intro</code></td>
+</tr>
+</tbody>
+</table>
+<p>项目结构如下：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">rust_learning_lab/</span><br><span class="line">├── Cargo.toml</span><br><span class="line">├── Cargo.lock</span><br><span class="line">├── data/samples.csv</span><br><span class="line">├── src/</span><br><span class="line">│   ├── lib.rs</span><br><span class="line">│   ├── main.rs</span><br><span class="line">│   ├── model.rs</span><br><span class="line">│   ├── parser.rs</span><br><span class="line">│   ├── report.rs</span><br><span class="line">│   └── async_intro.rs</span><br><span class="line">├── examples/</span><br><span class="line">│   ├── ownership.rs</span><br><span class="line">│   └── async_intro.rs</span><br><span class="line">└── tests/</span><br><span class="line">    └── telemetry_workflow.rs</span><br></pre></td></tr></table></figure>
+<p><code>src/lib.rs</code> 是公开 API 的门面：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">mod</span> async_intro;</span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">mod</span> model;</span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">mod</span> parser;</span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">mod</span> report;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">use</span> model::&#123;JointStats, Sample&#125;;</span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">use</span> parser::&#123;ParseError, ParseErrorKind, parse_samples&#125;;</span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">use</span> report::&#123;apply_offset, latest_for, summarize_joint&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>mod</code> 把文件纳入模块树，<code>pub</code> 决定外部可见性，<code>use</code> 只是在当前作用域引入名字，<code>pub use</code> 则可以重新导出、塑造更稳定的公共入口。文件夹结构不应该机械等同于公开 API 结构。</p>
+<h2 id="为什么同时保留-lib-与-bin">为什么同时保留 lib 与 bin</h2>
+<p>把解析和统计放入 library crate 后：</p>
+<ul>
+<li>命令行程序只处理参数、文件 I/O 和输出；</li>
+<li>集成测试可以像外部使用者一样调用公开 API；</li>
+<li>以后接 HTTP、ROS2 或 FFI 时可复用核心逻辑；</li>
+<li><code>main.rs</code> 不会膨胀成无法隔离测试的全部实现。</li>
+</ul>
+<h2 id="单元测试、集成测试与示例">单元测试、集成测试与示例</h2>
+<ul>
+<li>模块里的 <code>#[cfg(test)] mod tests</code> 可以检查私有细节，适合边界条件；</li>
+<li><code>tests/*.rs</code> 各自是独立 crate，只能通过公开 API 验收工作流；</li>
+<li><code>examples/*.rs</code> 是可运行的学习材料，<code>cargo test --all-targets</code> 还会确保它们持续可编译；</li>
+<li>文档代码块如果需要长期保证，也应逐步改成可执行 doctest，而不是只相信文章渲染成功。</li>
+</ul>
+<p>运行配套项目：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="built_in">source</span>/downloads/code/rust_learning_lab</span><br><span class="line">cargo run</span><br><span class="line">cargo run -- data/samples.csv front_left_hip</span><br><span class="line">cargo run --example ownership</span><br><span class="line">cargo run --example async_intro</span><br><span class="line">cargo <span class="built_in">test</span> --all-targets</span><br></pre></td></tr></table></figure>
+<p>默认输出应为：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">joint: front_left_hip</span><br><span class="line">count: 3</span><br><span class="line">mean_rad: 0.440</span><br><span class="line">range_rad: 0.420..=0.460</span><br><span class="line">latest_rad: 0.440</span><br></pre></td></tr></table></figure>
+<p>注意 <code>cargo run -- &lt;参数&gt;</code> 中的 <code>--</code>：它把 Cargo 自己的参数与传给目标程序的参数分开。</p>
+<p><span id="async-intro"></span></p>
+<h1>9. 异步入门：<code>async</code> 产生 Future，不会自动产生并发</h1>
+<p><code>async fn</code> 调用后返回一个实现 <code>Future</code> 的值。Future 表示“可能尚未完成的计算”，只有被轮询时才取得进展；<code>.await</code> 允许当前异步任务在等待时把执行机会让给别的任务。</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">async</span> <span class="keyword">fn</span> <span class="title function_">summarize_async</span>&lt;<span class="symbol">&#x27;a</span>&gt;(samples: &amp;<span class="symbol">&#x27;a</span> [Sample], joint: &amp;<span class="type">str</span>) <span class="punctuation">-&gt;</span> <span class="type">Option</span>&lt;JointStats&lt;<span class="symbol">&#x27;a</span>&gt;&gt; &#123;</span><br><span class="line">    <span class="title function_ invoke__">summarize_joint</span>(samples, joint)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数没有真正等待 I/O，所以只是用来观察类型和生命周期如何进入 Future。标准库定义了 <code>Future</code>、<code>Poll</code>、<code>Context</code> 和 <code>Waker</code> 等底层协议，但常规网络/定时器应用还需要异步运行时负责 executor、I/O reactor、计时器和任务调度。</p>
+<p>配套项目中的 <code>run_ready</code> 只轮询一次，并在得到 <code>Poll::Pending</code> 时直接失败。它能证明“调用 async 函数得到 Future，executor 对 Future 进行 poll”这个最小关系，<strong>不是通用 executor，也不能拿来做网络、文件或定时任务</strong>。</p>
+<h2 id="async、线程与并行的区别">async、线程与并行的区别</h2>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>主要解决</th>
+<th>不自动保证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>async task</td>
+<td>大量等待型工作的协作调度</td>
+<td>CPU 并行、阻塞调用自动变非阻塞</td>
+</tr>
+<tr>
+<td>OS 线程</td>
+<td>抢占式调度、可利用多个核心</td>
+<td>低内存开销、无数据竞争</td>
+</tr>
+<tr>
+<td>数据并行</td>
+<td>把可分工作分配到多个核心</td>
+<td>I/O 并发、确定的完成顺序</td>
+</tr>
+</tbody>
+</table>
+<p>CPU 密集计算写成 <code>async fn</code> 不会自动变快；在 executor 线程里调用阻塞 API 还可能拖住其他任务。先识别工作是在等待 I/O，还是在持续计算，再选模型。</p>
+<h2 id="上真实运行时前要补的四个问题">上真实运行时前要补的四个问题</h2>
+<ol>
+<li>哪些资源会跨过 <code>.await</code>，它们是否仍然有效？</li>
+<li>task 是否需要跨线程移动，从而要求 Future 为 <code>Send</code>？</li>
+<li>超时、取消和部分副作用如何处理？丢弃 Future 不会撤销已经完成的外部写入；</li>
+<li>阻塞的 C/C++、文件或计算调用放在哪里，是否需要专用阻塞线程池？</li>
+</ol>
+<p>第一版先稳定同步核心。等确实出现多个 socket、定时器或高并发连接，再选择运行时，并把运行时依赖限制在应用边界。</p>
+<p><span id="ffi-boundary"></span></p>
+<h1>10. C/C++ FFI：把 unsafe 当作待证明的边界</h1>
+<p>与现有 C/C++ 或系统组件对接时，不要把 Rust 的 <code>String</code>、<code>Vec&lt;T&gt;</code> 或默认布局结构体直接跨 ABI 传递。常见边界是：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="meta">#[repr(C)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">JointSample</span> &#123;</span><br><span class="line">    <span class="keyword">pub</span> joint_id: <span class="type">u32</span>,</span><br><span class="line">    <span class="keyword">pub</span> position_rad: <span class="type">f64</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">unsafe</span> <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">read_joint_sample</span>(output: *<span class="keyword">mut</span> JointSample) <span class="punctuation">-&gt;</span> <span class="type">i32</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2024 Edition 中 <code>extern</code> block 必须写成 <code>unsafe extern</code>，因为编译器无法验证另一侧函数的真实契约。<code>#[repr(C)]</code> 为结构体选择 C 兼容的布局规则；它不自动解决对齐、整数宽度、字节序、所有权和线程安全。</p>
+<p>C++ 侧应提供窄的 <code>extern &quot;C&quot;</code> 包装层，避免把名称修饰、异常、STL 容器和对象生命周期直接暴露给 C ABI。Rust 侧再写安全包装函数，把原始返回码转成 <code>Result</code>，把裸指针的有效性、不为空、长度、对齐和生命周期检查集中在一个小模块里。</p>
+<h2 id="FFI-验收清单">FFI 验收清单</h2>
+<ul>
+<li>ABI 是否固定为 C，结构体是否使用 <code>#[repr(C)]</code>；</li>
+<li>每个指针由谁分配、谁释放、允许为空吗、有效长度是多少；</li>
+<li>C 字符串是否 NUL 结尾，是否可能包含内部 NUL，编码是什么；</li>
+<li>回调在哪个线程执行，能否重入，context 指针活多久；</li>
+<li>C++ 异常是否被挡在 <code>extern &quot;C&quot;</code> 边界内；</li>
+<li>Rust panic 是否被挡在导出边界内；</li>
+<li>构建脚本是否明确链接库、架构、搜索路径和静态/动态链接方式；</li>
+<li>是否有正常、空指针、边界长度、错误码和析构路径测试；</li>
+<li>是否用 sanitizer、Miri 或平台诊断工具补充检查；这些工具各有适用边界，不能把单次通过当成证明。</li>
+</ul>
+<p>当前练习 crate 没有真实 FFI 需求，因此不引入 <code>unsafe</code>。等出现明确的 C API、头文件、目标架构和生命周期契约时，再建立独立 companion crate；这比为了覆盖名词而写一个无实际消费方的裸指针 demo 更可靠。</p>
+<h1>11. 一套可持续的质量门禁</h1>
+<p>建议把 Rust 项目的本地门禁固定成：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cargo <span class="built_in">fmt</span> --all --check</span><br><span class="line">cargo clippy --all-targets -- -D warnings</span><br><span class="line">cargo <span class="built_in">test</span> --all-targets</span><br><span class="line">cargo doc --no-deps</span><br></pre></td></tr></table></figure>
+<p>若 package 声明 MSRV，还要在那个版本上至少运行 <code>cargo check</code> 与测试。stable 上通过不能证明 MSRV 仍然可用；反过来，MSRV 通过也不能发现最新编译器新增的 lint 或未来不兼容警告。</p>
+<h2 id="本版验证记录（2026-09-20）">本版验证记录（2026-09-20）</h2>
+<p>本机没有全局安装 Rust；为避免改变宿主环境，配套 crate 使用 <code>docker/rust-learning-lab/</code> 专用环境验证：</p>
+<table>
+<thead>
+<tr>
+<th>工具链</th>
+<th>执行项</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rust 1.85.1 / Cargo 1.85.1</td>
+<td><code>test --all-targets</code>、<code>fmt --check</code>、Clippy <code>-D warnings</code>、main 与两个 example</td>
+<td>5 个测试通过，格式和 lint 通过，三个入口输出符合预期</td>
+</tr>
+<tr>
+<td>Rust 1.98.1（验证时的 stable 补丁版）</td>
+<td><code>test --all-targets</code></td>
+<td>同一组 5 个测试通过</td>
+</tr>
+</tbody>
+</table>
+<p>当前专用环境已在 Apple Silicon 主机上的 Linux arm64 容器中实际构建；容器以宿主 UID/GID 运行，源码挂载可写，根文件系统只读，不开放端口，并限制 capabilities、进程数和内存。这证明当前源码同时满足声明的 MSRV 与验证时 stable；不代表未来 stable、其他 target、真实异步 I/O 或尚未建立的 FFI 链路已经通过。</p>
+<h2 id="编译错误也可以成为练习">编译错误也可以成为练习</h2>
+<p>所有权有一类重要知识只能从“故意失败”的代码中学习。不要把失败示例放进默认 target 破坏整套构建，可以采用：</p>
+<ol>
+<li>在 <code>examples/ownership.rs</code> 中保留一行注释掉的 E0382 示例；</li>
+<li>复制到临时文件，取消注释；</li>
+<li>运行 <code>cargo check --example ownership</code>；</li>
+<li>阅读完整诊断，再执行 <code>rustc --explain E0382</code>；</li>
+<li>分别用“借用”“返回所有权”“确实 clone”三种方式修复，比较 API 含义。</li>
+</ol>
+<p>目标不是消灭红字，而是学会从诊断中还原所有权图。</p>
+<h1>12. 六个迭代阶段，而不是一次读完</h1>
+<p>下面是一条可持续的首轮路线。每个阶段都以可运行结果结束，不用按自然周硬性推进。</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>学习与修改任务</th>
+<th>产物 / 验收</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. 建模</td>
+<td>读基础语法、struct、enum、pattern；给 <code>Sample</code> 增加时间戳</td>
+<td>编译通过；新增构造与边界测试</td>
+</tr>
+<tr>
+<td>B. 所有权</td>
+<td>运行 ownership example；分别触发 E0382、E0499、E0502</td>
+<td>用自己的话画出 owner、borrow 与最后使用点</td>
+</tr>
+<tr>
+<td>C. 错误</td>
+<td>为额外列、非法单位设计错误；禁止库层 <code>unwrap</code> 外部输入</td>
+<td>错误包含行号与原因；集成测试覆盖失败路径</td>
+</tr>
+<tr>
+<td>D. 抽象</td>
+<td>增加单位转换 trait 或泛型输入，但保持公开 API 小</td>
+<td>Clippy 零警告；能说明为何需要该抽象</td>
+</tr>
+<tr>
+<td>E. 工程</td>
+<td>拆 lib/bin；补 example、integration test、文档</td>
+<td><code>fmt + clippy + test + doc</code> 全通过</td>
+</tr>
+<tr>
+<td>F. 集成</td>
+<td>有真实等待再接 async runtime；有真实 C API 再接 FFI</td>
+<td>记录依赖选择、取消/所有权或 ABI 契约及端到端测试</td>
+</tr>
+</tbody>
+</table>
+<h2 id="每次学习记录只回答六个问题">每次学习记录只回答六个问题</h2>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">日期 / toolchain：</span><br><span class="line">目标：今天只验证哪一个假设？</span><br><span class="line">最小改动：改了哪个类型、签名或测试？</span><br><span class="line">编译器反馈：错误码或 lint 是什么？</span><br><span class="line">我的解释：哪个值拥有数据，哪个引用来自哪里，错误如何传播？</span><br><span class="line">验证：运行了哪些命令，结果是什么？</span><br><span class="line">下一步：只留一个最小问题。</span><br></pre></td></tr></table></figure>
+<p>这种记录比“今天看完生命周期”更可复查。Rust 的理解往往体现在接口取舍和编译器反馈里，不体现在读了多少页。</p>
+<h1>13. 第一轮练习题</h1>
+<p>按顺序修改配套项目，每题都先加测试：</p>
+<ol>
+<li>为输入增加 <code>timestamp_ms</code>，决定它用 <code>u64</code> 还是新类型，并解释选择；</li>
+<li>让统计函数支持任意关节前缀，返回的名字应该借用输入还是拥有新字符串？</li>
+<li>把 <code>position_rad</code> 的单位误写成 <code>degree</code> 时返回结构化错误，不用字符串包含判断做业务分支；</li>
+<li>增加 <code>median</code>。排序时是否需要 clone 整个 <code>Sample</code>，还是只复制 <code>f64</code>？</li>
+<li>写一个函数同时返回最小值和最大值的样本引用，标清输出生命周期来源；</li>
+<li>将文件读取抽到应用边界，保证 parser 只接收 <code>&amp;str</code>，然后用内存 fixture 测试；</li>
+<li>找到真实的异步 I/O 需求后，再比较“同步核心 + 异步外壳”与“全部 async”的复杂度；</li>
+<li>找到真实 C API 后，先写一页 ABI/所有权契约，再写第一行 <code>unsafe extern</code>。</li>
+</ol>
+<p>完成一道题的标准不是“能跑”，而是能用一句话说清楚：<strong>谁拥有数据、谁在借用、可能怎样失败、哪条测试证明行为。</strong></p>
+<h1>14. 当前边界与后续主题</h1>
+<p>这份 v1 已覆盖 TODO 中的基础主线，但它不是 Rust 百科。以下内容适合作为后续 companion notes，而不是继续把所有概念堆进本文：</p>
+<ul>
+<li>智能指针：<code>Box</code>、<code>Rc</code>、<code>Arc</code>、<code>Cell</code>、<code>RefCell</code>、<code>Mutex</code> 的所有权与运行时成本；</li>
+<li>trait object、关联类型、闭包与更系统的泛型 API 设计；</li>
+<li>async runtime、stream、背压、结构化并发、取消与 tracing；</li>
+<li><code>unsafe</code> 的有效性不变量、Miri、sanitizer 与并发模型；</li>
+<li>CMake / ROS2 / ONNX Runtime 的真实 FFI companion crate；</li>
+<li>workspace、feature、build script、交叉编译、供应链和发布策略。</li>
+</ul>
+<p>继续学习时仍沿用本文的主线：<strong>先明确问题与数据寿命，再设计类型和签名，然后让测试与工具链给出证据。</strong></p>
+<h1>官方资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/book/">The Rust Programming Language</a>：主线教材；重点阅读 ownership、error handling、packages/crates/modules 与 async；</li>
+<li><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/rust-by-example/">Rust By Example</a>：适合把概念快速落成可运行片段；</li>
+<li><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/cargo/">The Cargo Book</a>：manifest、targets、workspace、依赖解析与构建行为；</li>
+<li><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/reference/">The Rust Reference</a>：需要核对精确语言规则时使用；</li>
+<li><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/nomicon/">The Rustonomicon</a>：进入 unsafe 与 FFI 后再读，不是第一本入门书；</li>
+<li><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/edition-guide/">The Rust Edition Guide</a>：edition 差异和迁移流程；</li>
+<li><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/">标准库文档</a>：类型、trait 与 API 的最终查询入口。</li>
+</ul>
+<p>配套源码入口：<a href="/downloads/code/rust_learning_lab/Cargo.toml"><code>Cargo.toml</code></a>、<a href="/downloads/code/rust_learning_lab/src/lib.rs"><code>src/lib.rs</code></a>、<a href="/downloads/code/rust_learning_lab/src/parser.rs"><code>src/parser.rs</code></a>、<a href="/downloads/code/rust_learning_lab/src/report.rs"><code>src/report.rs</code></a>、<a href="/downloads/code/rust_learning_lab/tests/telemetry_workflow.rs"><code>tests/telemetry_workflow.rs</code></a>。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/programming/rust/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">Rust</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/async/">
+                        <span class="tag-chip-name">async</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/cargo/">
+                        <span class="tag-chip-name">cargo</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/ffi/">
+                        <span class="tag-chip-name">ffi</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/rust/">
+                        <span class="tag-chip-name">rust</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/systems-programming/">
+                        <span class="tag-chip-name">systems-programming</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

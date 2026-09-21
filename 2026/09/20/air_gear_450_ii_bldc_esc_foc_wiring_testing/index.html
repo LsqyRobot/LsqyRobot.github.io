@@ -1,0 +1,1447 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/69_air_gear_450_ii/logo/air_gear_450_ii_bldc_esc_foc_cover_used.svg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">无刷直流电机与电调：接线、选型、FOC 调试与 AIR GEAR 450 II 实例</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <h1>无刷直流电机与电调：接线、选型、FOC 调试与 AIR GEAR 450 II 实例</h1>
+<blockquote>
+<p>已确认本文对应用户手中的 T-MOTOR AIR GEAR 450 II。主配置按 <code>AIR2216II 920KV + AIR 20A + T1045 + 4S</code> 编写。涉及高速桨叶和锂电池，所有参数辨识、油门校准、旋向检查都必须先拆桨。</p>
+</blockquote>
+<p>相关笔记：<a href="/2026/08/09/pixhawk6c_px4_learning_03_hardware_ports_safe_wiring/">Pixhawk 6C 官方端口、硬件清单与安全接线</a> · <a href="/2026/07/29/archived_quadcopter_purchase_record_2026/">四旋翼无人机采购记录（2026）</a></p>
+<h2 id="先说结论">先说结论</h2>
+<ol>
+<li>电调没有“KV 值”。KV 是电机的转速常数；电机与电调要按电压、电流、功率、最高电气转速、控制方式和散热条件一起匹配。</li>
+<li>这套 450 II 的标准组合是 <code>AIR2216II 920KV + AIR 20A + T1045</code>。厂家公开台架数据使用 4S/16V；4S LiPo 满充实际为 16.8V，硬件耐压按满充值检查。</li>
+<li>原装电机、电调和桨已经完成基本动力匹配。重点是正确接线、油门范围、旋向、独立 5V 供电、总电流能力和散热，而不是再寻找所谓“与 920KV 相同的电调 KV”。改用 3S 或更换桨叶后，需要重新核对推力和电流余量。</li>
+<li>当前 T-MOTOR 官方商城把在售 AIR 20A 称为 FOC ESC；旧版 AIR 系列说明书又提供了传统的油门行程和 timing 设置。不同年份的同名产品可能存在硬件或固件差异，因此要以手中电调的标签和随附说明书为准。</li>
+<li>AIR 20A 即使采用 FOC，也属于预配置的封闭式航模电调，不等于 VESC、自研板或台架用 ODrive 这类允许用户辨识和填写相电阻、相电感、磁链的开放式控制器。除非该批次说明书或配置软件明确要求，否则不要对 AIR 20A 套用这些平台的参数辨识流程。</li>
+</ol>
+<hr>
+<h2 id="1-BLDC、PMSM-和-FOC-到底是什么关系">1. BLDC、PMSM 和 FOC 到底是什么关系</h2>
+<p>航模里常说的“无刷直流电机”通常是三相永磁电机。按波形和控制理论，它也可以被视为永磁同步电机（PMSM）。同一台三线电机可以由不同换相策略驱动：</p>
+<ul>
+<li>六步/方波换相：结构简单，航模电调中很常见；</li>
+<li>正弦驱动：相电流更平滑；</li>
+<li>FOC（磁场定向控制）：把电流分解为励磁与转矩分量进行闭环控制，通常更安静、低速更平滑，也更依赖正确的电机模型和电流采样。</li>
+</ul>
+<p>所以，“BLDC 电机能不能接 FOC 电调”的一般答案是：三相永磁电机通常可以，但电调必须能覆盖它的电压、电流、低电感和高电气转速，并且无感启动必须适合螺旋桨负载。</p>
+<h3 id="常见参数的含义">常见参数的含义</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>容易犯的错误</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KV</td>
+<td>近似空载转速常数，单位 rpm/V</td>
+<td>把 KV 当功率或把电调也写成某个 KV</td>
+</tr>
+<tr>
+<td>2216</td>
+<td>大致表示定子直径与高度</td>
+<td>把尺寸编号当作电流等级</td>
+</tr>
+<tr>
+<td>S 数</td>
+<td>串联电芯数；4S LiPo 满充为 16.8V</td>
+<td>只用 14.8V 标称值检查耐压</td>
+</tr>
+<tr>
+<td>电池电流</td>
+<td>从直流母线/电池流出的电流</td>
+<td>与 FOC 相电流混为一谈</td>
+</tr>
+<tr>
+<td>相电流</td>
+<td>流过电机绕组、直接形成转矩的电流</td>
+<td>直接把传统电调的“20A”复制进所有 FOC 电流限制</td>
+</tr>
+<tr>
+<td>eRPM</td>
+<td>电气转速，<code>机械 RPM × 极对数</code></td>
+<td>只看机械转速，忽略控制器 eRPM 上限</td>
+</tr>
+<tr>
+<td>桨规格</td>
+<td>如 10×4.5 英寸，前者为直径、后者为螺距</td>
+<td>认为电机空载正常就代表带桨不会过流</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2-AIR-GEAR-450-II-的实物与参数确认">2. AIR GEAR 450 II 的实物与参数确认</h2>
+<p>套装已确认带 <code>II</code>。装机前仍建议拍下并保存以下三张照片，以防卖家混装或后期维修时拿错零件：</p>
+<ol>
+<li>电机侧面/底部铭牌；</li>
+<li>电调热缩膜标签和接口；</li>
+<li>套装盒上的 <code>450</code>、<code>450 II</code>、KV 与批次信息。</li>
+</ol>
+<h3 id="已确认配置与旧版区别">已确认配置与旧版区别</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th style="text-align:right">AIR GEAR 450 旧版</th>
+<th style="text-align:right">AIR GEAR 450 II</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电机</td>
+<td style="text-align:right">AIR2216</td>
+<td style="text-align:right">AIR2216II</td>
+</tr>
+<tr>
+<td>KV</td>
+<td style="text-align:right">880KV</td>
+<td style="text-align:right">920KV</td>
+</tr>
+<tr>
+<td>原配电调</td>
+<td style="text-align:right">AIR 20A</td>
+<td style="text-align:right">AIR 20A</td>
+</tr>
+<tr>
+<td>原配桨</td>
+<td style="text-align:right">T1045，10×4.5</td>
+<td style="text-align:right">T1045，10×4.5</td>
+</tr>
+<tr>
+<td>电机峰值电流</td>
+<td style="text-align:right">16A，180s</td>
+<td style="text-align:right">17A，180s</td>
+</tr>
+<tr>
+<td>电机峰值功率</td>
+<td style="text-align:right">260W，180s</td>
+<td style="text-align:right">272W，180s</td>
+</tr>
+<tr>
+<td>电池条件</td>
+<td style="text-align:right">套装 AIR 20A 限 3–4S</td>
+<td style="text-align:right">电机额定 4S；AIR 20A 本体支持 3–4S</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>本文后续均以右栏 450 II 为主。左栏只用于避免误抄网上旧版 880KV 数据。ESC 的允许电压仍应按手中标签和说明书取更严格者；下列性能表只证明 4S/16V 工况，不能直接外推到 3S。</p>
+</blockquote>
+<h3 id="你的套装基准卡">你的套装基准卡</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th style="text-align:right">AIR GEAR 450 II 基准值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电机</td>
+<td style="text-align:right">AIR2216II，920KV</td>
+</tr>
+<tr>
+<td>推荐电池</td>
+<td style="text-align:right">4S LiPo；满充 16.8V</td>
+</tr>
+<tr>
+<td>原配电调</td>
+<td style="text-align:right">AIR 20A，3–4S，20A 持续、30A/10s，无 BEC</td>
+</tr>
+<tr>
+<td>原配桨</td>
+<td style="text-align:right">T1045，10×4.5 英寸</td>
+</tr>
+<tr>
+<td>电机峰值规格</td>
+<td style="text-align:right">17A/180s，272W/180s</td>
+</tr>
+<tr>
+<td>16V/T1045 满油门台架值</td>
+<td style="text-align:right">16.37A、260W、9857rpm、1332g</td>
+</tr>
+<tr>
+<td>四轴满油门台架电流之和</td>
+<td style="text-align:right">约 65.5A，不含飞控及其他负载</td>
+</tr>
+<tr>
+<td>飞控供电</td>
+<td style="text-align:right">必须使用独立 5V 电源模块或合适 BEC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="原厂-4S-T1045-台架检查点">原厂 4S/T1045 台架检查点</h3>
+<p>下面的数据适合拿来核对推力台测试是否处于合理量级，而不是当作每一台电机都必须精确达到的验收值。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th style="text-align:right">油门</th>
+<th style="text-align:right">电压</th>
+<th style="text-align:right">输入电流</th>
+<th style="text-align:right">转速</th>
+<th style="text-align:right">推力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AIR2216II 920KV</td>
+<td style="text-align:right">50%</td>
+<td style="text-align:right">16V</td>
+<td style="text-align:right">3.60A</td>
+<td style="text-align:right">5780rpm</td>
+<td style="text-align:right">447g</td>
+</tr>
+<tr>
+<td>AIR2216II 920KV</td>
+<td style="text-align:right">75%</td>
+<td style="text-align:right">16V</td>
+<td style="text-align:right">9.20A</td>
+<td style="text-align:right">8096rpm</td>
+<td style="text-align:right">906g</td>
+</tr>
+<tr>
+<td>AIR2216II 920KV</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">16V</td>
+<td style="text-align:right">16.37A</td>
+<td style="text-align:right">9857rpm</td>
+<td style="text-align:right">1332g</td>
+</tr>
+</tbody>
+</table>
+<p>450 II 官方数据还给出：AIR 20A 支持 3–4S、20A 持续、30A/10s、无 BEC；电机空载电流约 0.8A@10V。四个 920KV 电机在上述满负载点合计约 <code>4 × 16.37 = 65.5A</code>，还没有计入飞控和其他负载。</p>
+<p>450 II 官方页给 T1045 标出的推力限制约为 1.2kg，而同页 100% 台架点达到 1.332kg，已经超过该数值。因此满油门数据只能视为峰值参考，不应为了复现该数字而做长时间或无防护的满油门测试。</p>
+<hr>
+<h2 id="3-如何判断电机、电调、电池和桨是否匹配">3. 如何判断电机、电调、电池和桨是否匹配</h2>
+<p>按下面的顺序判断。只看 KV 或只看“20A”都不够。</p>
+<h3 id="3-1-电压先匹配">3.1 电压先匹配</h3>
+<p>检查：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">电池满充电压 &lt;= 电调允许最高母线电压</span><br><span class="line">电池工作电压范围在电机/桨的厂家测试范围内</span><br></pre></td></tr></table></figure>
+<p>LiPo 满充电压为：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Vmax = 4.2 × 串数</span><br></pre></td></tr></table></figure>
+<p>因此 4S 必须按 16.8V 检查硬件耐压，不能只按标称 14.8V。AIR 20A 标注 3–4S，所以整套 AIR GEAR 450 不应因为电机单独能承受某个电压，就擅自升到 5S 或 6S。</p>
+<h3 id="3-2-用-KV-估算转速上限，而不是估算电流">3.2 用 KV 估算转速上限，而不是估算电流</h3>
+<p>近似空载机械转速：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">n0 ≈ KV × Vmax</span><br></pre></td></tr></table></figure>
+<p>以 920KV、4S 满充为例：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">n0 ≈ 920 × 16.8 = 15456rpm</span><br></pre></td></tr></table></figure>
+<p>这只是空载上限量级；装 T1045 后，原厂在 16V 满油门测得约 9857rpm。KV 不直接告诉你电流，电流主要由电压、桨直径与螺距、转速、空气密度和机械负载共同决定。</p>
+<p>如果铭牌来源不可靠，可在拆桨、限速的条件下测量母线电压和机械转速，对 <code>RPM/V</code> 的量级做交叉检查；实际值会因绕组压降、控制器调制和损耗低于理想 KV。要精确反测未知 KV，应使用规定转速外拖电机并测反电势，或使用控制器厂家认可的辨识方法，不能用低油门下的 <code>RPM ÷ 电池电压</code> 直接下结论。</p>
+<h3 id="3-3-电流必须看“该电压-该桨”的实测表">3.3 电流必须看“该电压 + 该桨”的实测表</h3>
+<p>推荐关系：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">电调实际持续能力 &gt;= 目标连续工况电流，并保留散热裕量</span><br><span class="line">电调短时能力 &gt;= 电机/桨短时峰值电流</span><br><span class="line">电机、插头、PDB 和电池同样必须承受这一路及总电流</span><br></pre></td></tr></table></figure>
+<p>对 450 II，原厂 T1045/16V 满油门为 16.37A，配 20A 持续电调约有 22% 的名义电流余量，属于厂家配套方案。若换更大直径、更大螺距或不同叶型的桨，原结论立即失效，必须重新上推力台测电流。</p>
+<p>更大额定电流的电调不会主动把更大电流“灌”入电机；负载和控制指令决定实际电流。但 FOC 电调的相电流限制如果设得过高，堵转、启动或控制异常时仍可能烧坏绕组。</p>
+<h3 id="3-4-FOC-还要检查相电流、eRPM-和低电感能力">3.4 FOC 还要检查相电流、eRPM 和低电感能力</h3>
+<p>FOC 配置中至少有两种不同电流：</p>
+<ul>
+<li><code>Motor/Phase Current</code>：绕组相电流，主要对应转矩；</li>
+<li><code>Battery/DC Current</code>：母线输入电流，主要对应电池、插头和总功率。</li>
+</ul>
+<p>在低占空比时，相电流可以明显高于电池电流。不要把 AIR 20A 的额定值同时照抄到两个限制项；应按具体控制器手册的 RMS/峰值定义配置。</p>
+<p>电气转速为：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">eRPM = 机械 RPM × 极对数</span><br><span class="line">电气频率 Hz = eRPM / 60</span><br></pre></td></tr></table></figure>
+<p>极对数等于转子磁极数的一半，不等于定子槽数。AIR2216 的官方商品页没有给出极对数，因此应查对应电机资料或数转子磁钢；只有在具体工具明确支持且有机械位置/转速参考时，才使用其极对数辨识功能。假如实物确认是 14 极，即 7 极对，则 920KV/4S 满充的理论空载上限为：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">15456 × 7 = 108192 eRPM</span><br></pre></td></tr></table></figure>
+<p>电调的可靠上限应高于这个值并留裕量。若厂家不公布最高 eRPM、最低可控相电感或高转速无感能力，就不能仅凭“支持 4S、支持 30A”认定适合该电机。</p>
+<h3 id="3-5-控制协议和飞行用途也要匹配">3.5 控制协议和飞行用途也要匹配</h3>
+<p>确认电调是否支持飞控实际输出的 PWM、OneShot、DShot 或 CAN 协议。AIR 20A 资料给出最高约 600–621Hz 的油门信号能力，这不等于支持 DShot，也不等于功率级 PWM 开关频率。</p>
+<p>能在桌面软件里把电机转起来，不代表适合飞行。换用通用 FOC 控制器时还需验证：</p>
+<ul>
+<li>无感零速起转和带桨重启是否可靠；</li>
+<li>指令延迟和更新频率是否满足姿态控制；</li>
+<li>失信号是否及时停转；</li>
+<li>飞控能否解锁、停机和读取故障；</li>
+<li>四路启动阈值和动态响应是否一致；</li>
+<li>任一电调复位时是否会产生不可接受的推力跳变。</li>
+</ul>
+<p>还要明确控制器接收的是占空比、相电流/转矩、机械转速还是其他目标。多旋翼飞控通常期望快速且单调的推力响应；若第三方 FOC 内部又套了慢速转速环或位置环，必须重新验证推力曲线、延迟和飞控 PID，不能把“油门百分比相同”理解为动态行为相同。</p>
+<h3 id="3-6-电池、主线和-PDB-按总电流设计">3.6 电池、主线和 PDB 按总电流设计</h3>
+<p>四轴全油门的粗算：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Itotal ≈ 4 × 单电机实测电流 + 其他负载</span><br></pre></td></tr></table></figure>
+<p>这套 450 II 按原厂峰值点计算约为 65.5A。主插头、线束、PDB 和电池可先按 80A 左右的短时目标核对，再结合持续时间、通风和实测压降决定。</p>
+<p>电池理论放电能力为：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">I = 容量(Ah) × C 倍率</span><br></pre></td></tr></table></figure>
+<p>例如 5000mAh、20C 的标签值为 100A，但 C 倍率经常偏乐观，还要看电压下陷、温升、内阻和老化状态。容量越大也越重，最终要同时满足续航与推重比。</p>
+<hr>
+<h2 id="4-正确接线">4. 正确接线</h2>
+<h3 id="4-1-单路动力链">4.1 单路动力链</h3>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">4S LiPo</span><br><span class="line">  │</span><br><span class="line">  ├── 正极 ── 保险/防火花 ── PDB ── ESC 电源正极</span><br><span class="line">  └── 负极 ───────────────── PDB ── ESC 电源负极</span><br><span class="line"></span><br><span class="line">飞控 Motor 输出 ── 信号线 ───────── ESC 油门输入</span><br><span class="line">飞控 GND ───────── 信号地/回路线 ── ESC 信号地（若接口提供）</span><br><span class="line"></span><br><span class="line">ESC U / V / W ─────────────────── 电机三根相线</span><br></pre></td></tr></table></figure>
+<p>AIR 20A 没有 BEC，不能指望它给飞控、接收机或舵机提供 5V。飞控应由合适的电源模块或独立稳压 BEC 供电。若电调输入不是隔离式，飞控与电调信号必须有可靠的公共参考地；具体仍以该批次接线图为准。</p>
+<p>电池到 PDB、PDB 到 ESC 的直流回路应尽量短且成对布置。若必须明显加长电池侧导线，线束电感会加重开关尖峰，应按电调厂家要求在 ESC 附近增加合适的低 ESR 母线电容并重新检查纹波；不要凭经验随意并联未知电容。</p>
+<h3 id="4-2-三根相线怎么接">4.2 三根相线怎么接</h3>
+<p>对于无位置传感器的三相电机，初次可将三根相线任意一一对应连接：</p>
+<ul>
+<li>普通航模电调旋向错误：断电后交换任意两根相线；</li>
+<li>可配置的无感 FOC：优先在软件中设方向；如交换相线，应重新做该控制器要求的辨识；</li>
+<li>带 Hall/编码器的 FOC：相序和传感器顺序必须匹配，不能把“随便换两根线”当作最终方案，换线后应重新校准。</li>
+</ul>
+<p>每次换线前必须断开电池，并等待母线电容放电。</p>
+<h3 id="4-3-四旋翼的电机号、旋向和桨叶">4.3 四旋翼的电机号、旋向和桨叶</h3>
+<p>不要凭线色或螺帽颜色猜。正确顺序是：</p>
+<ol>
+<li>在飞控中选定机架类型和电机编号；</li>
+<li>拆桨，用“单电机测试”逐个确认哪个输出对应哪个机臂；</li>
+<li>核对每个电机的实际旋向；</li>
+<li>最后才安装与旋向相符的 CW/CCW 桨。</li>
+</ol>
+<p>看桨叶时，较厚、圆钝的一边是前缘，前缘应朝旋转方向。自紧桨或反牙轴还要按对应电机安装；旧套装的白点规则只能作为该批次辅助标记，不能替代实测旋向。</p>
+<hr>
+<h2 id="5-AIR-20A-的初次设置与测试">5. AIR 20A 的初次设置与测试</h2>
+<h3 id="5-1-油门行程校准">5.1 油门行程校准</h3>
+<p>旧版 AIR 系列手册给出的典型流程如下；若手中说明书不同，以实物说明书为准：</p>
+<ol>
+<li>拆下全部螺旋桨；</li>
+<li>飞控/接收机先输出最高油门；</li>
+<li>给 ESC 上电；</li>
+<li>听到两声短鸣后，在 3 秒内把油门降到最低；</li>
+<li>听确认音，断电，再按正常低油门上电流程检查。</li>
+</ol>
+<p>PWM 电调通常需要做行程校准；DShot、CAN 等数字协议通常不做传统的高低端点校准。不要把一个协议的流程套到另一个协议。</p>
+<p>旧手册还允许中/高 timing：默认中 timing 通常效率和温升更友好；高 timing 可能提高转速，也会提高温度。没有推力台、电流和温度记录时，不建议为了“听起来更快”而改高 timing。</p>
+<h3 id="5-2-无桨检查">5.2 无桨检查</h3>
+<p>将机架固定，周围清空，逐路进行：</p>
+<ul>
+<li>上电是否完成自检；</li>
+<li>最低指令是否保持停转；</li>
+<li>四个电机是否在接近的指令值开始旋转；</li>
+<li>旋向是否正确；</li>
+<li>从低速缓升到中高速是否平顺，无顿挫、啸叫、失步和错误报码；</li>
+<li>停止指令和失信号保护是否有效；</li>
+<li>飞控供电是否因电机启动而复位。</li>
+</ul>
+<p>旧版 AIR 20A 手册说明，失信号超过约 0.25 秒会停转，但信号恢复后可能恢复运行；失步后也可能自动尝试重启。因此失信号测试必须拆桨，测试结束后重新上锁并断开主电源，确认母线失电后才能接近电机。</p>
+<p>无桨测试只能证明接线、旋向和基本换相正常，不能证明带 T1045 后不会过流。</p>
+<hr>
+<h2 id="6-换用可配置-FOC-电调时，应该确认哪些参数">6. 换用可配置 FOC 电调时，应该确认哪些参数</h2>
+<p>本节讨论 VESC、ODrive、自研 STM32 FOC 板等“可配置控制器”的通用参数概念，不用于没有相应配置入口的原装封闭式 AIR 20A。它也不是飞行适航背书：例如当前 ODrive 文档把无感模式标为实验性，不能在零速闭环停住或直接换向，且当前硬件规格列出的最大电气频率为 800Hz（约 48000 eRPM）；若电机实物确认是 7 极对，原厂带桨满速量级已经约 69000 eRPM，因此 ODrive 不适合直接替代 AIR2216 的多旋翼电调，只可按其限制用于台架研究。</p>
+<h3 id="6-1-上电前参数表">6.1 上电前参数表</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>来源/方法</th>
+<th>AIR GEAR 450 注意点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电池串数与满充电压</td>
+<td>电池标签与万用表</td>
+<td>4S 按 16.8V 耐压检查</td>
+</tr>
+<tr>
+<td>KV</td>
+<td>电机铭牌</td>
+<td>本套应为 AIR2216II 920KV，装机前再核对实物</td>
+</tr>
+<tr>
+<td>极对数</td>
+<td>厂家、数磁钢；工具明确支持时才做辨识</td>
+<td>不要猜成 7；先确认实物</td>
+</tr>
+<tr>
+<td>相电阻 R</td>
+<td>控制器辨识或四线法</td>
+<td>普通万用表对百毫欧量级误差很大</td>
+</tr>
+<tr>
+<td>相电感 L</td>
+<td>控制器辨识/LCR 仪</td>
+<td>航模外转子常为低电感，是电流环难点</td>
+</tr>
+<tr>
+<td>磁链 λ/反电势常数</td>
+<td>控制器辨识或厂家参数</td>
+<td>数值定义依固件约定，不跨平台照抄</td>
+</tr>
+<tr>
+<td>最大相电流</td>
+<td>电机热能力与控制器能力</td>
+<td>电机只给出短时峰值时，不能冒充连续值</td>
+</tr>
+<tr>
+<td>最大母线电流</td>
+<td>电池、PDB、插头、电调</td>
+<td>与相电流分别限制</td>
+</tr>
+<tr>
+<td>最大 eRPM</td>
+<td>KV、电压、极对数</td>
+<td>需低于硬件和固件上限并留裕量</td>
+</tr>
+<tr>
+<td>回生电流</td>
+<td>电池充电能力/电源吸收能力</td>
+<td>台式电源常不能吸收回灌能量</td>
+</tr>
+<tr>
+<td>温度限制</td>
+<td>传感器与厂家规格</td>
+<td>无温度传感器时更保守地限流和限时</td>
+</tr>
+</tbody>
+</table>
+<p>KV 可以用来估算转矩常数 Kt，但换算系数取决于 KV 的线—线/相电压、峰值/RMS 以及电流定义。不同平台的约定可能不同，因此本文不提供一个可跨控制器照抄的 Kt 数字：只使用目标固件文档规定的公式、单位和自动辨识结果，不把一种控制器的 Kt 或磁链数值复制到另一种控制器。</p>
+<h3 id="6-2-FOC-参数辨识">6.2 FOC 参数辨识</h3>
+<p>安全前提：拆桨、牢固固定电机、转子能自由旋转、身体远离旋转平面，并能立即断开主电源。参数辨识常会锁定转子、注入直流/高频电流，随后自动旋转。</p>
+<p>推荐顺序：</p>
+<ol>
+<li>设置正确的电机类型、母线过压/欠压、硬件绝对电流和温度保护；</li>
+<li>设置极对数、KV、传感器类型；</li>
+<li>用比最终值保守得多的相电流和母线电流开始；</li>
+<li>执行 R/L 辨识；</li>
+<li>执行磁链/反电势辨识，这一步通常会转动；</li>
+<li>如有 Hall/编码器，再做传感器方向和偏置校准；</li>
+<li>保存后断电重启，读取并记录参数；</li>
+<li>如需验证重复性，每次辨识后先检查温升并让电机和功率级充分冷却，再进行下一次。第一次结果异常时先排查接触、电流量程和低阻低感兼容性，不要连续重试或用平均值掩盖问题。</li>
+</ol>
+<p>ODrive 的通用文档建议校准电流约从电机连续电流的 50% 起，并要求电阻校准最大电压小于母线电压的一半；但 AIR2216 只公开了 180 秒峰值，没有公开明确连续相电流，所以不能把 16A/17A 当连续值后直接套这个比例。应按所用控制器的“小型低阻外转子”流程保守起步，并监视温升。</p>
+<p>三组线间电阻应基本一致。ODrive 以超过约 10% 的相不平衡作为故障线索；对这种百毫欧级电机，手持万用表更适合做开路、短路和相对一致性筛查，不适合作精确 R 参数来源。</p>
+<h3 id="6-3-电源和回生">6.3 电源和回生</h3>
+<p>FOC 在减速或主动制动时可能把能量送回直流母线：</p>
+<ul>
+<li>LiPo 可以吸收一定回充，但回生上限不能超过电池允许充电电流；</li>
+<li>4S LiPo 在 16.8V 满充时几乎没有上升余量，主动制动产生的回灌可能很快触发母线过压；</li>
+<li>很多台式 AC/DC 电源只能供电、不能吸能，回灌会使母线过压或触发电源保护；</li>
+<li>按控制器手册使用制动电阻、回生钳位或可吸收能量的电源；</li>
+<li>初测关闭场弱、反转和主动制动，限制负向/回生电流，不做急加速—急刹车；</li>
+<li>带自紧桨/反牙桨座时，反转或激进制动还可能使桨松脱；带桨前必须确认机械防松方式适合所用控制策略。</li>
+</ul>
+<p>“使用限流电源”不是完整保护方案：它能限制正向供电，却未必能处理电机回灌。</p>
+<hr>
+<h2 id="7-分阶段测试流程">7. 分阶段测试流程</h2>
+<h3 id="阶段-A：断电检查">阶段 A：断电检查</h3>
+<ul>
+<li>目视检查绕组、磁钢、轴承、桨座和螺丝；螺丝不可长到顶住绕组；</li>
+<li>手转外转子，无摩擦、偏摆和松动；</li>
+<li>A-B、B-C、C-A 三组相线通路近似一致；</li>
+<li>任一相线对电机外壳不应导通；</li>
+<li>确认 XT 插头、PDB、ESC 正负极没有反接；</li>
+<li>确认飞控有独立、合格的 5V 电源。</li>
+</ul>
+<h3 id="阶段-B：无桨、低功率">阶段 B：无桨、低功率</h3>
+<ol>
+<li>只接一个电机/电调通道；</li>
+<li>对可配置 FOC，先设保守的相电流、母线电流、速度和加速度限制；对 AIR 20A，只能从很低的油门指令起步并用外部电流监测、保险和立即断电手段保护，飞控的低油门百分比不等同于硬件限流；</li>
+<li>点动确认旋向；</li>
+<li>从低速逐步升速，记录母线电压、电池电流、相电流、RPM、电机温度、电调温度和故障码；</li>
+<li>在 10V 附近做无桨输入电流核对时，AIR2216 系列公开数据约为 0.6–0.8A；控制器损耗和测试方法不同会造成偏差，只比较量级，不作硬性合格线；</li>
+<li>拆桨状态下触发一次停机和失信号测试；恢复信号前保持上锁，测试后切断主电源，防止电调自动恢复或重启。</li>
+</ol>
+<h3 id="阶段-C：无桨、高速与-eRPM">阶段 C：无桨、高速与 eRPM</h3>
+<ul>
+<li>用光电转速计或可靠遥测核对转速；</li>
+<li>检查机械 RPM 与 KV×电压的量级是否一致；</li>
+<li>乘以极对数后确认没有接近 FOC 控制器 eRPM 上限；</li>
+<li>预先设置机械转速和 eRPM 硬限制，只升到实际应用需要验证的范围；不要用满电、全占空比去追理论空载 KV，外转子和桨座可能机械超速；</li>
+<li>若高转速出现失步、尖锐啸叫、过流或母线过压，立即停机，不要靠提高电流限制硬顶。</li>
+</ul>
+<h3 id="阶段-D：带桨推力台">阶段 D：带桨推力台</h3>
+<p>这一步必须使用足够强度的推力台、防护罩/安全距离、护目镜和远程急停。禁止手持，禁止站在桨盘平面内。</p>
+<p>先写明控制模式，再定义阶梯：AIR 20A 才可用油门百分比与原厂表作近似对照；可配置 FOC 若采用占空比、相电流/转矩或转速闭环，其“百分比”含义不同，应按实际母线电流、相电流、RPM 和推力定义测试点。逐级加载时，只要达到桨的推力/RPM限制、电机或电调电流限制、温度限制中的任一项就停止；对已知 T1045 约 1.2kg 推力限制的版本，不应为了复现原厂峰值而继续推到 100%。</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>记录值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电池端电压 / 压降</td>
+<td></td>
+</tr>
+<tr>
+<td>电池输入电流</td>
+<td></td>
+</tr>
+<tr>
+<td>FOC 相电流（控制器可读取时）</td>
+<td></td>
+</tr>
+<tr>
+<td>转速 RPM / eRPM</td>
+<td></td>
+</tr>
+<tr>
+<td>推力</td>
+<td></td>
+</tr>
+<tr>
+<td>电机表面温度</td>
+<td></td>
+</tr>
+<tr>
+<td>ESC 温度</td>
+<td></td>
+</tr>
+<tr>
+<td>持续时间</td>
+<td></td>
+</tr>
+<tr>
+<td>异响、振动、失步、故障码</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>第一次测试不必直接长时间满油门。任何明显振动、相电流跳变、失步、绝缘气味、温度快速上升或超过厂家限值，都应立即停机。450 II 官方满油门温度说明是“运行 10 分钟后的电机表面温度约 80°C”，这是原厂台架条件的参考结果，不是鼓励把 80°C 当作日常目标。</p>
+<h3 id="阶段-E：四电机与飞控联调">阶段 E：四电机与飞控联调</h3>
+<ul>
+<li>四路分别通过 A–D 测试后再同时连接；</li>
+<li>单电机测试核对编号、旋向和启动阈值；</li>
+<li>空载时四路启动差异过大，先处理油门范围或配置一致性；</li>
+<li>安装桨前再次执行“电机编号—旋向—桨型”三项复核；</li>
+<li>首次整机带桨试车应在专用约束台或空旷试飞区按飞控厂商流程进行，限制油门并预留实体断电手段；不要随意捆住装有闭环飞控的机体后大油门运行；</li>
+<li>首飞前验证解锁、上锁、失控保护和遥控失联逻辑。电池低压保护应以飞控提前告警/返航/降落为主，避免某一路 ESC 突然硬切造成翻机；通过参数检查、台架限压或受控模拟验证，不要靠实际深放 LiPo 测试。</li>
+</ul>
+<hr>
+<h2 id="8-常见故障与判断">8. 常见故障与判断</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>优先检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电机只抖不转</td>
+<td>缺相/接触不良、FOC R/L/磁链错误、无感启动参数不合适；有 Hall/编码器时还要查相序、传感器方向和极对数映射</td>
+</tr>
+<tr>
+<td>低速能转，高速失步</td>
+<td>eRPM 超限、母线压降、观察器/换相参数、相线接触、控制器不适合低电感电机</td>
+</tr>
+<tr>
+<td>无桨电流异常大</td>
+<td>轴承摩擦、相不平衡、FOC 参数或电流环错误、timing 过高</td>
+</tr>
+<tr>
+<td>电机很热、电调不热</td>
+<td>桨负载过大、电机限流过高、散热差、控制参数错误</td>
+</tr>
+<tr>
+<td>电调很热、电机电流看似正常</td>
+<td>电调散热不足、开关损耗、高 eRPM、额定能力不足</td>
+</tr>
+<tr>
+<td>减速时母线过压</td>
+<td>电源不能吸收回生、回生限值过大、缺制动电阻/钳位</td>
+</tr>
+<tr>
+<td>RPM 显示差一个整数倍</td>
+<td>极对数设置错误</td>
+</tr>
+<tr>
+<td>四个电机起转点不同</td>
+<td>PWM 行程未统一、输入映射不同、各电调配置/固件不一致</td>
+</tr>
+<tr>
+<td>启动电机时飞控重启</td>
+<td>AIR 20A 无 BEC、5V 电源不足、接地/布线或电磁干扰问题</td>
+</tr>
+<tr>
+<td>AIR 20A 快速连续鸣叫</td>
+<td>旧版手册：油门未在最低位，检查并重新校准</td>
+</tr>
+<tr>
+<td>AIR 20A 每秒鸣一次</td>
+<td>旧版手册：未收到油门信号，检查信号线、地线和输出协议</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="9-针对这套-AIR-GEAR-450-的建议配置思路">9. 针对这套 AIR GEAR 450 的建议配置思路</h2>
+<p>你的套装已经确认是 450 II，装机时再核对电机外壳应为 <code>AIR2216II KV920</code>。原配 <code>AIR 20A + T1045 + 4S</code> 是明确的厂家组合；16V/T1045 原厂满油门电流为 16.37A。日常设计仍应让悬停落在中等油门区间，保留姿态控制、抗风、电压下陷和温升余量，不要用四倍最大静推力直接当可飞起飞重量。</p>
+<p>如果你还没有决定电池：先由整机目标重量和续航反推容量，再确认电池、PDB 和主插头能稳定承担约 65A 的四轴短时总电流及合理裕量。AIR 20A 无 BEC，另配飞控电源模块。</p>
+<p>如果你准备使用第三方 FOC 电调：在上电前取得它的准确型号、硬件版本、固件、最高母线电压、持续/峰值相电流、持续/峰值母线电流、最高 eRPM、最低相电感、回生处理方式以及飞控输入协议。缺其中任一关键项时，不进入带桨测试。</p>
+<hr>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://store.tmotor.com/product/air-gear-450II-combo-set-no-esc.html">T-MOTOR：Air Gear 450 II 官方规格与台架数据</a></li>
+<li><a target="_blank" rel="noopener" href="https://shop.tmotor.com/products/air-20a-4s-multirotor-drones">T-MOTOR：当前 AIR 20A 官方产品页</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mhm-modellbau.de/downloads/AIR-ESC.pdf">旧版 AIR 系列 ESC 说明书镜像：规格、校准、timing 与保护</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.digikey.com/htmldatasheets/production/3770248/0/0/1/108990080.pdf">旧版 AIR GEAR 450 产品资料镜像</a></li>
+<li><a target="_blank" rel="noopener" href="https://vesc-project.com/node/180">VESC 官方 Motor Setup Wizard：电流限制、传感器与 FOC 参数检测</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.vesc-project.com/node/183">VESC 官方说明：机械 RPM、极对数与 eRPM</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.odriverobotics.com/v/latest/articles/motor-parameters.html">ODrive：电机 R/L 校准与错误诊断</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.odriverobotics.com/v/latest/guides/odrivetool-setup.html">ODrive：电机设置、极对数和电流限制</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.odriverobotics.com/v/latest/manual/hardware-config.html">ODrive：母线功率、回生与制动电阻</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.odriverobotics.com/v/latest/pinout.html">ODrive：受支持电机、800Hz 电气频率上限与无感限制</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.st.com/stm32mcu/wiki/STM32MotorControl:STM32_MC_Motor_Profiler">STMicroelectronics：STM32 Motor Profiler</a></li>
+<li><a target="_blank" rel="noopener" href="https://ardupilot.org/copter/docs/connect-escs-and-motors.html">ArduPilot：ESC 与电机连接、旋向检查</a></li>
+<li><a target="_blank" rel="noopener" href="https://ardupilot.org/copter/docs/esc-calibration.html">ArduPilot：ESC 校准与拆桨安全要求</a></li>
+</ul>
+<h2 id="最后一次上电前清单">最后一次上电前清单</h2>
+<ul>
+<li>[ ] 套装已确认是 450 II，电机实物铭牌也已核对为 AIR2216II 920KV</li>
+<li>[ ] 已按电调标签确认 3–4S、额定电流、协议和具体批次说明书</li>
+<li>[ ] 电源正负极、相线、信号与信号地接线正确</li>
+<li>[ ] 飞控由独立 5V 电源模块供电</li>
+<li>[ ] FOC 的极对数、相/母线电流、eRPM、回生和温度限制已配置</li>
+<li>[ ] 参数辨识、油门校准和旋向检查时已拆桨</li>
+<li>[ ] 带桨测试使用推力台、防护和远程急停</li>
+<li>[ ] 电机号、实际旋向、CW/CCW 桨三者已经逐一核对</li>
+<li>[ ] 电池、PDB、插头和主线能承担四轴总电流</li>
+<li>[ ] 已在拆桨状态验证停机与失信号恢复行为，并在结束后上锁、断开主电源</li>
+<li>[ ] 已通过参数检查或受控模拟验证飞控低压告警/返航/降落，不靠深放电池或单路 ESC 硬切测试</li>
+</ul>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/robotics/fundamentals/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">机器人学笔记</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E7%94%B5%E8%B0%83/">
+                        <span class="tag-chip-name">电调</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E9%A3%9E%E6%8E%A7/">
+                        <span class="tag-chip-name">飞控</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%97%A0%E5%88%B7%E7%9B%B4%E6%B5%81%E7%94%B5%E6%9C%BA/">
+                        <span class="tag-chip-name">无刷直流电机</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/air-gear-450-ii/">
+                        <span class="tag-chip-name">air gear 450 ii</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/air2216ii/">
+                        <span class="tag-chip-name">air2216ii</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/foc/">
+                        <span class="tag-chip-name">foc</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

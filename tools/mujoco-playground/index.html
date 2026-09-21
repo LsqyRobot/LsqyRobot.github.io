@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="在本地 Docker 中运行 MuJoCo，浏览常用四足、人形和机械臂 MJCF 模型，并把持续运行的无头动力学仿真实时投射到网页。">
+  <meta name="mujoco-api-base" content="http://127.0.0.1:4020">
+  <title>MuJoCo 模型与回放 · Robotics Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <link rel="stylesheet" href="/css/mujoco-playground.css">
+  <script src="/js/tools-common.js" defer></script>
+  <script src="/js/mujoco-playground.js" defer></script>
+</head>
+<body class="robot-tool-page mjp-page">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页">
+      <span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span>
+      <span>Robotics Workbench</span>
+    </a>
+    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
+  </header>
+
+  <main class="rt-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>MuJoCo 模型与回放</span></nav>
+
+    <section class="rt-hero mjp-hero">
+      <div>
+        <span class="rt-kicker">Tool 07 · Containerized physics</span>
+        <h1>MuJoCo<br>模型与回放</h1>
+        <p>Hexo 只提供交互界面；模型加载、接触动力学和 CPU 无头渲染全部在本机 Docker 中持续运行，实时画面直接投射到网页。先从常用机器人模型出发，再逐步接入策略、轨迹和传感器数据。</p>
+      </div>
+      <div class="rt-status-stack" aria-label="工具状态">
+        <div class="rt-status-row"><span>backend</span><strong data-mjp-health>checking</strong></div>
+        <div class="rt-status-row"><span>engine</span><strong data-mjp-version>MUJOCO</strong></div>
+        <div class="rt-status-row"><span>renderer</span><strong>OSMESA / CPU</strong></div>
+      </div>
+    </section>
+
+    <noscript><div class="mjp-message is-error">此工具需要 JavaScript 才能连接本机 Docker MuJoCo 服务。</div></noscript>
+    <div class="mjp-message" data-mjp-message role="status" aria-live="polite" hidden></div>
+
+    <section class="mjp-pipeline" aria-label="运行链路">
+      <div><span>01</span><strong>HOST HEXO</strong><small>页面与交互</small></div>
+      <i aria-hidden="true">→</i>
+      <div><span>02</span><strong>DOCKER :4020</strong><small>隔离运行时</small></div>
+      <i aria-hidden="true">→</i>
+      <div><span>03</span><strong>MUJOCO + OSMESA</strong><small>动力学与渲染</small></div>
+      <i aria-hidden="true">→</i>
+      <div><span>04</span><strong>MJPEG STREAM</strong><small>网页实时画面</small></div>
+    </section>
+
+    <section class="mjp-workspace" aria-label="MuJoCo 模型与回放工作区">
+      <div class="mjp-library-panel">
+        <div class="mjp-panel-head">
+          <div><span>MODEL CATALOG</span><h2>容器内模型库</h2></div>
+          <strong data-mjp-model-count>—</strong>
+        </div>
+        <div class="mjp-filters" aria-label="模型分类">
+          <button class="is-active" type="button" data-mjp-filter="all" aria-pressed="true">全部</button>
+          <button type="button" data-mjp-filter="quadruped" aria-pressed="false">四足</button>
+          <button type="button" data-mjp-filter="humanoid" aria-pressed="false">人形</button>
+          <button type="button" data-mjp-filter="manipulator" aria-pressed="false">机械臂</button>
+        </div>
+        <div class="mjp-model-list" data-mjp-model-list aria-live="polite">
+          <div class="mjp-model-skeleton">等待 Docker 返回模型清单…</div>
+        </div>
+      </div>
+
+      <div class="mjp-player-panel">
+        <div class="mjp-player-head">
+          <div><span>HEADLESS RENDER</span><h2 data-mjp-selected-name>等待模型</h2></div>
+          <strong data-mjp-player-state>AWAITING DOCKER</strong>
+        </div>
+
+        <div class="mjp-stage" data-mjp-stage>
+          <img data-mjp-thumbnail alt="" hidden>
+          <img data-mjp-stream alt="" hidden>
+          <div class="mjp-interaction-layer" data-mjp-interaction-layer hidden>
+            <div class="mjp-drag-hint" aria-hidden="true">
+              <span data-mjp-plane-readout>XY PLANE</span>
+              <strong>拖动 TCP 手柄</strong>
+              <small>方向键微调 · Shift 精调</small>
+            </div>
+            <button class="mjp-ee-handle" type="button" data-mjp-ee-handle aria-label="拖动机械臂末端；也可以使用方向键微调" aria-describedby="mjp-drag-help">
+              <span aria-hidden="true">TCP</span>
+              <i class="is-u" data-mjp-axis-u aria-hidden="true">X</i>
+              <i class="is-v" data-mjp-axis-v aria-hidden="true">Y</i>
+            </button>
+            <p id="mjp-drag-help" class="rt-visually-hidden">按住并拖动手柄控制所选平面中的末端位置。方向键每次移动一厘米，按住 Shift 时每次移动三毫米。</p>
+          </div>
+          <div class="mjp-stage-placeholder" data-mjp-placeholder>
+            <span aria-hidden="true">μ</span>
+            <strong>选择模型后生成容器预览</strong>
+            <small>XML、mesh、物理步进与实时帧渲染均不离开 Docker</small>
+          </div>
+          <div class="mjp-render-overlay" data-mjp-render-overlay hidden>
+            <span></span><strong>正在建立 MuJoCo 实时流</strong><small>复杂 mesh 首次加载可能需要一些时间</small>
+          </div>
+        </div>
+
+        <dl class="mjp-model-stats" data-mjp-stats>
+          <div><dt>NQ</dt><dd>—</dd></div><div><dt>NV</dt><dd>—</dd></div><div><dt>NU</dt><dd>—</dd></div><div><dt>BODIES</dt><dd>—</dd></div><div><dt>GEOMS</dt><dd>—</dd></div><div><dt>LICENSE</dt><dd>—</dd></div>
+        </dl>
+
+        <form class="mjp-controls" data-mjp-form>
+          <div class="rt-field">
+            <label for="mjp-mode">回放模式</label>
+            <select id="mjp-mode"><option value="settle">自由沉降 / 保持</option><option value="actuator-wave">小幅执行器激励</option><option value="policy" data-mjp-policy-mode hidden>ONNX 策略 · 速度控制</option></select>
+          </div>
+          <div class="rt-field mjp-policy-field" data-mjp-policy-field hidden>
+            <label for="mjp-policy">运行策略</label>
+            <select id="mjp-policy" aria-describedby="mjp-policy-contract"></select>
+          </div>
+          <div class="rt-field">
+            <label for="mjp-fps">实时帧率</label>
+            <select id="mjp-fps"><option value="10">10 fps</option><option value="15" selected>15 fps</option><option value="24">24 fps</option></select>
+          </div>
+          <div class="rt-field">
+            <label for="mjp-quality">画质</label>
+            <select id="mjp-quality"><option value="480" selected>640 × 480 · 标准</option><option value="360">480 × 360 · 流畅</option><option value="720">960 × 720 · 清晰</option></select>
+          </div>
+          <button class="rt-primary-button" type="submit" data-mjp-start disabled>开始实时播放 →</button>
+          <button class="rt-secondary-button" type="button" data-mjp-stop disabled>暂停实时播放</button>
+        </form>
+
+        <section class="mjp-control-panel" data-mjp-control-panel aria-labelledby="mjp-control-title">
+          <header class="mjp-control-head">
+            <div><span>LIVE CONTROL</span><h3 id="mjp-control-title">末端与关节控制</h3></div>
+            <strong data-mjp-control-status>等待模型</strong>
+          </header>
+
+          <div class="mjp-readonly-note" data-mjp-readonly hidden>
+            <span aria-hidden="true">LOCKED</span>
+            <div><strong>当前模型仅开放实时回放</strong><p data-mjp-readonly-reason>浮动基机器人需要接触约束、支撑状态与全身控制器，不能直接套用固定基机械臂的末端 IK。</p></div>
+          </div>
+
+          <div class="mjp-live-controls" data-mjp-live-controls hidden>
+            <div class="mjp-cartesian-bar">
+              <div class="mjp-plane-control">
+                <span>拖拽平面</span>
+                <div class="mjp-plane-buttons" role="group" aria-label="选择末端拖拽平面">
+                  <button class="is-active" type="button" data-mjp-plane="xy" aria-pressed="true">XY</button>
+                  <button type="button" data-mjp-plane="xz" aria-pressed="false">XZ</button>
+                  <button type="button" data-mjp-plane="yz" aria-pressed="false">YZ</button>
+                </div>
+              </div>
+              <div class="mjp-ee-position" aria-live="polite">
+                <span>末端位置 / m</span>
+                <output data-mjp-ee-position>X — · Y — · Z —</output>
+              </div>
+              <button class="mjp-reset-button" type="button" data-mjp-reset disabled>复位姿态</button>
+            </div>
+
+            <div class="mjp-joint-section">
+              <div class="mjp-joint-head"><span>关节目标 / RAD</span><small>滑块、方向键均可控制</small></div>
+              <div class="mjp-joint-list" data-mjp-joint-list>
+                <p>启动实时会话后读取关节范围。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mjp-policy-controls" data-mjp-policy-controls hidden>
+            <div class="mjp-policy-summary">
+              <div>
+                <span>POLICY ADAPTER</span>
+                <strong data-mjp-policy-name>等待策略</strong>
+                <small id="mjp-policy-contract" data-mjp-policy-contract>策略、观测适配器与控制范围均由 Docker 运行时声明。</small>
+                <p class="mjp-policy-safety" data-mjp-policy-safety role="note">
+                  <span data-mjp-policy-safety-label>实验性社区策略</span>
+                  <strong>仅用于 Docker 仿真，不可直接连接或控制真机</strong>
+                </p>
+              </div>
+              <dl aria-label="策略运行状态">
+                <div><dt>RUNTIME</dt><dd data-mjp-policy-runtime>ONNX CPU</dd></div>
+                <div><dt>STATUS</dt><dd data-mjp-policy-status>READY</dd></div>
+              </dl>
+            </div>
+
+            <div class="mjp-policy-fault" data-mjp-policy-fault role="alert" hidden>
+              <span aria-hidden="true">FAULT</span><p>策略运行异常</p>
+            </div>
+
+            <div class="mjp-drive-layout">
+              <div class="mjp-velocity-pad-wrap">
+                <span>平面速度 / M·S⁻¹</span>
+                <div class="mjp-velocity-pad" data-mjp-velocity-pad role="group" tabindex="0" aria-roledescription="二维速度摇杆" aria-label="平面速度摇杆：上下控制前进速度 vx，左右控制横向速度 vy" aria-valuetext="vx 0.00 米每秒，vy 0.00 米每秒" aria-describedby="mjp-pad-help mjp-pad-value">
+                  <i class="is-horizontal" aria-hidden="true"></i><i class="is-vertical" aria-hidden="true"></i>
+                  <span class="is-forward" aria-hidden="true">+VX</span><span class="is-back" aria-hidden="true">−VX</span>
+                  <span class="is-left" aria-hidden="true">−VY</span><span class="is-right" aria-hidden="true">+VY</span>
+                  <b data-mjp-pad-handle aria-hidden="true"></b>
+                </div>
+                <small id="mjp-pad-help">拖动或使用方向键；Shift 精调，空格归零平面速度。</small>
+                <output id="mjp-pad-value" class="rt-visually-hidden" data-mjp-pad-value>当前 vx 0.00 米每秒，vy 0.00 米每秒。</output>
+              </div>
+
+              <div class="mjp-velocity-sliders">
+                <label class="mjp-velocity-row" for="mjp-vx">
+                  <span><strong>VX</strong><small>前后</small><output for="mjp-vx" data-mjp-vx-output>0.00 m/s</output></span>
+                  <input id="mjp-vx" data-mjp-velocity="vx" type="range" min="-1" max="1" step="0.02" value="0" disabled>
+                </label>
+                <label class="mjp-velocity-row" for="mjp-vy">
+                  <span><strong>VY</strong><small>横移</small><output for="mjp-vy" data-mjp-vy-output>0.00 m/s</output></span>
+                  <input id="mjp-vy" data-mjp-velocity="vy" type="range" min="-0.6" max="0.6" step="0.02" value="0" disabled>
+                </label>
+                <label class="mjp-velocity-row" for="mjp-wz">
+                  <span><strong>WZ</strong><small>偏航 / RZ</small><output for="mjp-wz" data-mjp-wz-output>0.00 rad/s</output></span>
+                  <input id="mjp-wz" data-mjp-velocity="wz" type="range" min="-1.5" max="1.5" step="0.02" value="0" disabled>
+                </label>
+              </div>
+            </div>
+
+            <div class="mjp-policy-actions" role="group" aria-label="策略安全操作">
+              <button class="mjp-zero-button" type="button" data-mjp-policy-zero disabled><span aria-hidden="true">◎</span>速度归零</button>
+              <button class="mjp-reset-button" type="button" data-mjp-policy-reset disabled>复位机器人</button>
+              <button class="mjp-estop-button" type="button" data-mjp-policy-stop disabled><span aria-hidden="true">■</span>停止策略</button>
+            </div>
+
+            <dl class="mjp-policy-telemetry" aria-label="策略遥测">
+              <div><dt>REQUESTED</dt><dd data-mjp-command-requested>+0.00 · +0.00 · +0.00</dd><small>vx · vy · wz</small></div>
+              <div><dt>APPLIED</dt><dd data-mjp-command-applied>+0.00 · +0.00 · +0.00</dd><small>vx · vy · wz</small></div>
+              <div><dt>MEASURED</dt><dd data-mjp-command-measured>+0.00 · +0.00 · +0.00</dd><small>vx · vy · wz</small></div>
+              <div><dt>INFERENCE</dt><dd data-mjp-inference>— ms</dd><small>ONNX CPU</small></div>
+              <div><dt>CONTROL</dt><dd data-mjp-control-hz>— Hz</dd><small>策略频率</small></div>
+              <div><dt>WATCHDOG</dt><dd data-mjp-watchdog>ARMED</dd><small>断连自动归零</small></div>
+            </dl>
+          </div>
+        </section>
+
+        <p class="mjp-selected-description" data-mjp-description>启动 `./bin/site.sh mujoco-up` 后，这里会显示模型和渲染入口。</p>
+      </div>
+    </section>
+
+    <section class="mjp-boundary" aria-labelledby="mjp-boundary-title">
+      <div>
+        <span class="rt-kicker">Portable by construction</span>
+        <h2 id="mjp-boundary-title">MuJoCo 后端只需要 Docker</h2>
+        <p>Python、MuJoCo、OSMesa、C++ worker、ONNX Runtime、策略权重和机器人模型均由镜像构建。macOS 与 Ubuntu 使用相同 Compose 命令，不依赖宿主机仿真环境。</p>
+      </div>
+      <ul>
+        <li><strong>6</strong><span>首批机器人</span></li>
+        <li><strong>3</strong><span>模型类别</span></li>
+        <li><strong>0</strong><span>宿主机仿真依赖</span></li>
+      </ul>
+      <p class="mjp-boundary-note">UR5e 与 Panda 使用末端 IK 和逐关节目标控制；Go2 策略会话使用独立的 ONNX CPU 适配器，通过 vx、vy、wz 指令驱动。模型、策略与控制器各自遵循显式接口，后续可继续接入其他开源策略、轨迹和传感器曲线。</p>
+    </section>
+
+    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Robotics Workbench</span><a href="/tools/">返回工具集</a></footer>
+  </main>
+</body>
+</html>

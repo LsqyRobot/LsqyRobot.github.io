@@ -1,0 +1,96 @@
+.camera-note-figure { margin: 1.8rem 0; max-width: 100%; }
+.camera-note-figure .camera-note-diagram { width: 100%; overflow-x: auto; border-radius: 6px; }
+.camera-note-figure .camera-note-diagram img { display: block; width: 100%; min-width: 800px; max-width: none; height: auto; margin: 0; }
+.camera-note-figure .camera-note-diagram:focus-visible { outline: 3px solid #287dab; outline-offset: 3px; }
+.camera-note-figure figcaption { margin-top: 8px; color: #536976; font-size: 13px; line-height: 1.7; text-align: left; }
+
+.camera-lab {
+    margin: 1.8rem 0;
+    padding: clamp(14px, 2.5vw, 24px);
+    border: 1px solid #ced9e2;
+    border-radius: 8px;
+    background: #f5f8fb;
+    color: #263b4d;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+.camera-lab *, .camera-lab *::before, .camera-lab *::after { box-sizing: border-box; }
+.camera-lab .camera-lab-layout { display: grid; grid-template-columns: minmax(190px, .7fr) minmax(0, 1.7fr); align-items: start; gap: 24px; }
+.camera-lab .camera-lab-controls, .camera-lab .camera-lab-visual { min-width: 0; }
+.camera-lab .camera-lab-control { margin: 0 0 16px; }
+.camera-lab label { display: block; margin: 0 0 5px; color: #263b4d; font-size: 14px; font-weight: 600; line-height: 1.6; }
+.camera-lab output { display: inline-block; min-width: 3.5em; margin-left: .5em; color: #0b527b; font-variant-numeric: tabular-nums; text-align: right; }
+
+.camera-lab input[type="range"] {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    accent-color: #14678e;
+    cursor: pointer;
+    touch-action: pan-y;
+}
+
+.camera-lab [data-camera-reset] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    min-height: 44px;
+    margin: 0;
+    padding: 9px 15px;
+    border: 1px solid #9db3c2;
+    border-radius: 5px;
+    box-shadow: none;
+    background: #fff;
+    color: #263b4d;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: normal;
+    cursor: pointer;
+}
+
+.camera-lab [data-camera-reset]:hover { border-color: #14678e; box-shadow: none; background: #e9f2f8; color: #0b527b !important; }
+.camera-lab input[type="range"]:focus-visible, .camera-lab [data-camera-reset]:focus-visible { outline: 3px solid #287dab; outline-offset: 3px; }
+.camera-lab svg[data-camera-image] { display: block; width: 100%; height: auto; max-width: 100%; overflow: hidden; background: #fff; border-radius: 5px; }
+.camera-lab svg[data-camera-image] text { font-family: inherit; letter-spacing: normal; }
+.camera-lab [data-camera-square] { fill: #317aaa15; stroke: #14678e; stroke-width: 2; }
+.camera-lab [data-camera-point] { fill: #bb3d26; stroke: #fff; stroke-width: 1.5; }
+.camera-lab [data-camera-principal] { fill: none; stroke: #986200; stroke-width: 2; }
+.camera-lab [data-camera-readout], .camera-lab [data-camera-fov] { margin: 12px 0 0; color: #334b5c; font-size: 14px; line-height: 1.75; text-align: left; }
+.camera-lab [data-camera-readout] { padding: 10px 12px; border-left: 3px solid #14678e; background: #e8f0f6; font-variant-numeric: tabular-nums; }
+.camera-lab[data-camera-inside="false"] [data-camera-readout] { border-left-color: #bb3d26; background: #fff0eb; }
+.camera-lab .camera-lab-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 10px 0; padding: 0; list-style: none; font-size: 13px; }
+.camera-lab .camera-lab-note { margin: 12px 0 0; color: #536976; font-size: 13px; line-height: 1.7; }
+
+@media (max-width: 700px) {
+    .camera-lab .camera-lab-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .camera-lab .camera-lab-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; }
+    .camera-lab .camera-lab-control { min-width: 0; margin: 0; }
+    .camera-lab [data-camera-reset] { align-self: end; justify-self: start; }
+}
+
+@media (max-width: 420px) {
+    .camera-lab .camera-lab-controls { grid-template-columns: minmax(0, 1fr); }
+    .camera-lab { padding: 12px; }
+    .camera-lab [data-camera-grid] text { font-size: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .camera-lab *, .camera-lab *::before, .camera-lab *::after { animation: none !important; transition: none !important; }
+}

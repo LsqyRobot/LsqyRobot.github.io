@@ -1,0 +1,225 @@
+{
+  "machine": "aarch64",
+  "platform": "Linux-6.12.54-linuxkit-aarch64-with-glibc2.35",
+  "uid": 501,
+  "gid": 20,
+  "packages": "binutils\t2.38-4ubuntu2.12\ncoreutils\t8.32-4.1ubuntu1.4\ncron\t3.0pl1-137ubuntu3\ncurl\t7.81.0-1ubuntu1.27\nfile\t1:5.41-3ubuntu0.1\nfindutils\t4.8.0-1ubuntu3\ng++\t4:11.2.0-1ubuntu1\ngawk\t1:5.1.0-1ubuntu0.2\ngdb\t12.1-0ubuntu1~22.04.2\ngrep\t3.7-1build1\niproute2\t5.15.0-1ubuntu2.2\nless\t590-1ubuntu0.22.04.3\nlibc6:arm64\t2.35-0ubuntu3.14\nlsof\t4.93.2+dfsg-1.1build2\nopenssh-client\t1:8.9p1-3ubuntu0.17\nopenssh-server\t1:8.9p1-3ubuntu0.17\nprocps\t2:3.3.17-6ubuntu2.1\npython3\t3.10.6-1~22.04.1\npython3-pil:arm64\t9.0.1-1ubuntu0.5\nripgrep\t13.0.0-2ubuntu0.1\nsed\t4.8-1ubuntu2.1\nstrace\t5.16-0ubuntu3\nsysstat\t12.5.2-2ubuntu0.2\nutil-linux\t2.37.2-4ubuntu3.6\nwget\t1.21.2-2ubuntu1.5\n",
+  "compile_commands": [
+    [
+      "g++",
+      "-g",
+      "-O0",
+      "-fPIC",
+      "-shared",
+      "demo_lib.cpp",
+      "-Wl,-soname,libdemo.so",
+      "-o",
+      "libdemo.so"
+    ],
+    [
+      "g++",
+      "-g",
+      "-O0",
+      "-fno-omit-frame-pointer",
+      "-pthread",
+      "tool_demo.cpp",
+      "-L.",
+      "-ldemo",
+      "-Wl,-rpath,$ORIGIN",
+      "-o",
+      "tool_demo"
+    ],
+    [
+      "g++",
+      "-g",
+      "-O0",
+      "-c",
+      "symbols.cpp",
+      "-o",
+      "symbols.o"
+    ]
+  ],
+  "base_image": "ubuntu:22.04@sha256:2edbbc5dc405e9612ba3584ce95480277e3eb374407b5505fe26f17df77c7dbc",
+  "image_id": "sha256:082013d190a0277eb05aadfda8d0f8416fee6f02a54221984d7d60fa45c13bf3",
+  "source_sha256": {
+    "demo_lib.cpp": "b8cc64dd3fb24e1b7fe332d38b63ec92388a13b10097ed473ad071a8ec2e68fc",
+    "verify_evidence.py": "2e8cd562185bf60c2499883d9c1d11e692668271877113cce657d8537e318de4",
+    "run_lab.py": "9590f689271e024e14aaf652ebebdb7c2f4694cb03a33c956aa62dd342552887",
+    "symbols.cpp": "6f81c4b97c75deb1468fd766b64551b32017829806320408bf65b2813969b321",
+    "cron_job.sh": "705aa2539d428723da87260f5bd4dcf9833614f91ff5fe346d787ccd2cdd83cd",
+    "tool_demo.cpp": "ac113ada436868ff9c34a9690612fd47520682160e73ad91bf8982fe40fe5896"
+  },
+  "binary_sha256": {
+    "tool_demo": "2ae618448188832afc86b421f65047e3d8a6a41931d64827330464e8822a45ca",
+    "libdemo.so": "b29c4783102f9a91dfd0ecd2d50567b1259031a3fee6a6d10c0ada04004dfb0f",
+    "symbols.o": "cd306124bc8b8ce0940f6365187e585a24ef5178d1d74e55aa5fdc6bc2464250"
+  },
+  "security": {
+    "network": "none; loopback-only temporary HTTP/SSH",
+    "root_read_only": true,
+    "non_root": true,
+    "privileged": false,
+    "host_pid": false,
+    "host_ipc": false,
+    "cap_add": [
+      "SYS_PTRACE"
+    ],
+    "seccomp": "unconfined"
+  },
+  "boundaries": [
+    "pstack absent: GNU GDB batch stack alternative, not pstack execution",
+    "crontab syntax/environment only: no cron daemon or actual scheduled execution",
+    "CPU/memory/device metrics may describe Docker VM/host, not cgroup entitlement",
+    "SSH scanned public key is checked against its own generated local host key; this is not remote production trust provisioning"
+  ],
+  "scenarios": [
+    {
+      "id": "ldd",
+      "status": "passed",
+      "checks": [
+        "local libdemo.so resolves and no dependency is missing",
+        "ELF records libdemo.so and $ORIGIN RUNPATH"
+      ]
+    },
+    {
+      "id": "ps",
+      "status": "passed",
+      "checks": [
+        "toy process has exactly three live threads",
+        "thread view returns main and both worker threads"
+      ]
+    },
+    {
+      "id": "lsof",
+      "status": "passed",
+      "checks": [
+        "unlinked sample.log remains held by the toy process",
+        "toy TCP listener is loopback only"
+      ]
+    },
+    {
+      "id": "pstack",
+      "status": "passed",
+      "checks": [
+        "pstack is absent; the alternative is explicitly labelled",
+        "batch alternative sees both wait_for_job stacks and detaches"
+      ]
+    },
+    {
+      "id": "strace",
+      "status": "passed",
+      "checks": [
+        "toy application computes correctly and sees ENOENT",
+        "trace records successful input, missing file and sleep syscall"
+      ]
+    },
+    {
+      "id": "ipcs",
+      "status": "passed",
+      "checks": [
+        "ipcmk returns the created shared-memory ID",
+        "the selected object is 4096 bytes and unattached"
+      ]
+    },
+    {
+      "id": "top",
+      "status": "passed",
+      "checks": [
+        "two batch process samples are present",
+        "thread mode lists all three toy threads"
+      ]
+    },
+    {
+      "id": "free",
+      "status": "passed",
+      "checks": [
+        "human-readable summary includes available memory",
+        "interval mode records exactly two memory samples"
+      ]
+    },
+    {
+      "id": "vmstat",
+      "status": "passed",
+      "checks": [
+        "two numeric vmstat rows are present",
+        "summary provides cumulative memory and context-switch counters"
+      ]
+    },
+    {
+      "id": "iostat",
+      "status": "passed",
+      "checks": [
+        "CPU report contains iowait without asserting a bottleneck",
+        "extended interval report has latency and utilization columns"
+      ]
+    },
+    {
+      "id": "sar",
+      "status": "passed",
+      "checks": [
+        "live CPU samples and a nonempty binary recording exist",
+        "sar replays the generated recording successfully"
+      ]
+    },
+    {
+      "id": "readelf",
+      "status": "passed",
+      "checks": [
+        "header identifies a 64-bit ELF and its actual architecture",
+        "dynamic section records the expected library and relative search path"
+      ]
+    },
+    {
+      "id": "objdump",
+      "status": "passed",
+      "checks": [
+        "object contains code and zero-initialized storage sections",
+        "disassembly includes C++ function and unresolved puts relocation"
+      ]
+    },
+    {
+      "id": "nm",
+      "status": "passed",
+      "checks": [
+        "initialized, zero-fill and undefined symbols have expected D/B/U types",
+        "shared library exports demo_add dynamically"
+      ]
+    },
+    {
+      "id": "size",
+      "status": "passed",
+      "checks": [
+        "Berkeley summary includes both fixtures",
+        "section view counts the zero_buffer allocation in .bss"
+      ]
+    },
+    {
+      "id": "wget",
+      "status": "passed",
+      "checks": [
+        "HTTP succeeds and downloaded bytes match the original",
+        "both SHA-256 values are identical"
+      ]
+    },
+    {
+      "id": "scp",
+      "status": "passed",
+      "checks": [
+        "scanned SSH key type and public-key bytes exactly match our generated server public key",
+        "the known-hosts fingerprint equals the independently generated host-key fingerprint",
+        "scp transfers through SSH with identical destination bytes",
+        "source and SSH destination SHA-256 are equal"
+      ]
+    },
+    {
+      "id": "crontab",
+      "status": "passed",
+      "checks": [
+        "listing is empty or explicitly denied by the restricted container, without installing any schedule",
+        "job works with explicitly declared PATH and absolute data path"
+      ]
+    }
+  ],
+  "recorded_sessions_sha256": "a63caf0638be318c62b636b389542cd89bcb59530fe0e510644547cc01283628",
+  "full_transcript_sha256": "4bddbc955166abad799b6ac1a55a8d0f84fd3b18322a8b327c64c8faadc6e37b"
+}

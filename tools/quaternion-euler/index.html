@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="四元数与欧拉角双向转换和坐标系变换可视化工具，支持 ZYX 顺序、轴角扫掠、主动映射与被动换基。">
+  <title>四元数 / 欧拉角可视化 · Robotics Workbench</title>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/toolkit.css">
+  <link rel="stylesheet" href="/css/quaternion-euler.css">
+  <link rel="modulepreload" href="/js/quaternion-euler-core.mjs">
+  <script src="/js/tools-common.js" defer></script>
+  <script type="module" src="/js/quaternion-euler.js"></script>
+</head>
+<body class="robot-tool-page qe-page">
+  <header class="rt-sitebar">
+    <a class="rt-brand" href="/" aria-label="返回网站首页"><span class="rt-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"/><path d="m8 9 4 2 4-2M12 11v6"/></svg></span><span>Robotics Workbench</span></a>
+    <nav class="rt-site-nav" aria-label="工具导航"><a href="/">首页</a><a href="/about/">关于我</a><a href="/tools/">全部工具</a></nav>
+  </header>
+
+  <main class="rt-page">
+    <nav class="rt-breadcrumbs" aria-label="面包屑"><a href="/tools/">工具集</a><span>/</span><span>四元数 / 欧拉角</span></nav>
+    <section class="rt-hero qe-hero">
+      <div><span class="rt-kicker">Tool 08 · browser local</span><h1>四元数 /<br>欧拉角可视化</h1><p>从默认共原点的纯旋转，到开启平移后分离的 O<sub>W</sub> 与 O<sub>B</sub>：看见旋转轴、平移箭头，以及同一向量在两个坐标系中的分量变化。所有计算都在浏览器本地完成，适合调试 IMU、里程计和导航消息。</p></div>
+      <div class="rt-status-stack" aria-label="工具状态"><div class="rt-status-row"><span>compute</span><strong class="is-ready">BROWSER LOCAL</strong></div><div class="rt-status-row"><span>convention</span><strong>ZYX / RIGHT-HAND</strong></div><div class="rt-status-row"><span>version</span><strong>0.2</strong></div></div>
+    </section>
+
+    <section class="rt-workspace qe-workspace" aria-label="四元数欧拉角转换工作区">
+      <div class="rt-panel qe-input-panel">
+        <div class="rt-panel-head"><h2>姿态输入</h2><span class="rt-panel-index">01 / INPUT</span></div>
+        <div class="qe-unit-row"><span class="rt-field-label">欧拉角单位</span><div class="rt-segmented" data-segmented style="--segments: 2"><button class="is-active" type="button" data-unit="deg" aria-pressed="true">度 °</button><button type="button" data-unit="rad" aria-pressed="false">弧度 rad</button></div></div>
+        <fieldset class="qe-fieldset"><legend>欧拉角 · ZYX</legend><div class="qe-three-fields"><label>Roll <small>绕 X</small><input data-euler="roll" type="number" step="any" value="25"></label><label>Pitch <small>绕 Y</small><input data-euler="pitch" type="number" step="any" value="-12"></label><label>Yaw <small>绕 Z</small><input data-euler="yaw" type="number" step="any" value="40"></label></div></fieldset>
+        <fieldset class="qe-fieldset"><legend>四元数 · w + xi + yj + zk</legend><div class="qe-four-fields"><label>w<input data-quaternion="w" type="number" step="any" value="0.91"></label><label>x<input data-quaternion="x" type="number" step="any" value="0.18"></label><label>y<input data-quaternion="y" type="number" step="any" value="-0.02"></label><label>z<input data-quaternion="z" type="number" step="any" value="0.37"></label></div><small class="qe-help">输入四元数后点击“以四元数为准”；工具会自动归一化。</small></fieldset>
+        <fieldset class="qe-fieldset qe-translation-fieldset"><legend>平移 · t<sub>WB</sub></legend><div class="qe-translation-head"><label class="qe-translation-toggle"><input data-translation-enabled type="checkbox" checked><span class="qe-toggle-track" aria-hidden="true"><i></i></span><strong>旋转后追加平移</strong></label><small>开启：① Z → ② Y′ → ③ X″ → ④ 平移；前三段 O<sub>B</sub> = O<sub>W</sub>。</small></div><div class="qe-translation-controls" data-translation-controls><div class="qe-three-fields qe-translation-fields"><label>t<sub>x</sub><small>世界 X · m</small><input data-translation="x" type="number" step="0.05" value="0.55"></label><label>t<sub>y</sub><small>世界 Y · m</small><input data-translation="y" type="number" step="0.05" value="-0.35"></label><label>t<sub>z</sub><small>世界 Z · m</small><input data-translation="z" type="number" step="0.05" value="0.40"></label></div><div class="qe-translation-presets" aria-label="平移预设"><button type="button" data-translation-preset="example">示例</button><button type="button" data-translation-preset="x-only">仅沿 X</button><button type="button" data-translation-preset="zero">清零</button></div><small class="qe-help">自由向量 <code>v</code> 只受 <code>R</code> 影响；点 <code>p</code> 与坐标系位姿同时受 <code>R + t</code> 影响。</small></div></fieldset>
+        <div class="qe-speed-row"><label>动画速度 <output data-animation-speed-value>1.0x</output><input data-animation-speed type="range" min="0.2" max="3" step="0.1" value="1"></label></div>
+        <div class="qe-actions"><button class="rt-primary-button" type="button" data-source="euler">以欧拉角为准 ↻</button><button class="rt-secondary-button" type="button" data-source="quaternion">以四元数为准 ↻</button><button class="rt-secondary-button" type="button" data-reset>重置</button><button class="rt-secondary-button qe-loop-button is-active" type="button" data-animation-loop aria-pressed="true">自动循环：开</button><button class="rt-secondary-button" type="button" data-animation-pause>暂停</button><button class="rt-secondary-button" type="button" data-animation-resume>继续</button><button class="rt-secondary-button" type="button" data-animation-replay>立即重放</button></div>
+        <p class="qe-message" role="status" aria-live="polite" data-message>已使用示例欧拉角计算。</p>
+      </div>
+
+      <div class="rt-panel qe-preview-panel">
+        <div class="rt-panel-head"><h2>坐标系变换</h2><span class="rt-panel-index">02 / FRAME MAP</span></div>
+        <div class="qe-frame-toolbar">
+          <div><span class="rt-field-label">观察方式</span><strong data-frame-meaning>q_WB：B 系坐标 → W 系坐标</strong></div>
+          <div class="rt-segmented qe-frame-toggle" style="--segments: 2" aria-label="坐标变换观察方式"><button class="is-active" type="button" data-frame-mode="body-to-world" aria-pressed="true">B → W · 随体系转</button><button type="button" data-frame-mode="world-to-body" aria-pressed="false">W → B · 只换坐标</button></div>
+        </div>
+        <p class="qe-frame-explanation" data-frame-explanation>B 系中的分量保持不变；机体系转动后，向量在世界中的方向随之改变。</p>
+        <p class="qe-rigid-explanation"><strong>把旋转和平移联系起来：</strong>勾选后，前三段只改变 B 的轴向且 O<sub>B</sub> = O<sub>W</sub>；姿态完成后才在第四段沿 t<sub>WB</sub> 移动 O<sub>B</sub>。关闭平移则只播放三段纯旋转。自由向量 <code>v</code> 只受 <code>R</code> 影响，点 <code>p</code> 与位姿则受 <code>R + t</code> 共同影响。</p>
+        <div class="qe-path-toolbar">
+          <div><span class="rt-field-label">四元数播放方式</span><strong data-path-description>将输入 q 转为一组等价 ZYX 欧拉角，按随动轴分三段播放。</strong></div>
+          <div class="rt-segmented qe-path-toggle" style="--segments: 2" aria-label="四元数动画路径"><button class="is-active" type="button" data-quaternion-path="zyx" aria-pressed="true">等价 ZYX · 三段</button><button type="button" data-quaternion-path="axis" aria-pressed="false">合成轴角 · 一段</button></div>
+        </div>
+        <div class="qe-stage-timeline" data-stage-timeline aria-label="ZYX 随动轴旋转与可选平移的分阶段变换">
+          <article data-stage-card="1"><span>01</span><div><small>先绕初始轴</small><strong>Z · 偏航 Yaw</strong></div><code data-stage-angle="yaw">—</code></article>
+          <article data-stage-card="2"><span>02</span><div><small>再绕当前轴</small><strong>Y′ · 俯仰 Pitch</strong></div><code data-stage-angle="pitch">—</code></article>
+          <article data-stage-card="3"><span>03</span><div><small>最后绕当前轴</small><strong>X″ · 滚转 Roll</strong></div><code data-stage-angle="roll">—</code></article>
+          <article data-stage-card="4" data-translation-stage><span>04</span><div><small>开启时最后追加</small><strong>t · 平移原点</strong></div><code>可选</code></article>
+        </div>
+        <div class="qe-order-equation"><code>q_WB = qz(yaw) ⊗ qy(pitch) ⊗ qx(roll)</code><span>开启平移：① Z → ② Y′ → ③ X″ → ④ 平移 · 关闭：纯旋转前三段</span></div>
+        <aside class="qe-axis-convention" aria-label="随动轴与固定轴旋转约定说明">
+          <div class="is-current"><span>本页三段动画</span><strong>随动轴 · 内禀 ZYX</strong><code>Z → Y′ → X″</code><p>后两根旋转轴会随机体系一起转动，正是画布当前展示的路径。</p></div>
+          <div class="is-equivalent"><span>同一最终姿态</span><strong>固定世界轴 · 外禀 XYZ</strong><code>X_W → Y_W → Z_W</code><p>顺序反过来，但最终同样得到 <b>Rz · Ry · Rx</b>。</p></div>
+          <div class="is-warning"><span>不要混淆</span><strong>固定世界轴 · 外禀 ZYX</strong><code>Z_W → Y_W → X_W</code><p>它得到的是 <b>Rx · Ry · Rz</b>，通常不是当前目标姿态。</p></div>
+        </aside>
+        <div class="qe-canvas-wrap">
+          <canvas data-attitude-canvas width="760" height="500" aria-label="Z 轴向上、XY 为地面的坐标变换图；默认世界系与机体系共原点，开启平移后两原点分离"></canvas>
+          <div class="qe-view-buttons" aria-label="相机视角"><button class="is-active" type="button" data-camera="iso">等轴</button><button type="button" data-camera="front">正视</button><button type="button" data-camera="top">俯视</button></div>
+          <p class="qe-world-lock-note"><strong>固定基准：</strong>相机视角默认固定，动画期间 W 与 O<sub>W</sub> 不动，只有 B 的原点和轴随 t / R 变化；拖动画布是在转动观察相机，不是在转动世界系。</p>
+          <div class="qe-canvas-legend"><span class="qe-legend-fixed"><i class="qe-legend-world"></i>世界系 W（固定）</span><span class="qe-legend-moving"><i class="qe-legend-body"></i>机体系 B(t)（运动）</span><span><i class="qe-axis-start"></i>起始 B₀</span><span class="qe-legend-target"><i class="qe-axis-virtual"></i>目标机体系 B*</span><span><i class="qe-legend-vector"></i>同一向量 v</span><span><i class="qe-legend-translation"></i>平移 t<sub>WB</sub> / O<sub>W</sub> → O<sub>B</sub></span><span class="qe-legend-help">拖拽旋转视角 · 滚轮缩放</span><span data-animation-stage>阶段: --</span></div>
+        </div>
+        <div class="qe-vector-editor" data-vector-editor>
+          <div><span class="rt-field-label">示例向量</span><strong>拖动主画布中的金色端点，自定义 v<sub>B</sub> / v<sub>W</sub></strong></div>
+          <code data-probe-vector>[0.780, 0.380, 0.460]</code>
+          <button type="button" data-probe-reset>恢复示例向量</button>
+        </div>
+        <section class="qe-stage-snapshots" aria-labelledby="qe-stage-snapshots-title">
+          <header><div><span class="rt-field-label">同一动画周期</span><h3 id="qe-stage-snapshots-title">ZYX 三段关键姿态快照</h3></div><p>播放或拖动越过分段边界时，记录该轮真实的 Z、Y′、X″ 结束姿态。</p></header>
+          <div class="qe-stage-snapshot-grid">
+            <article data-stage-snapshot-card="1" data-state="waiting"><div><span>1/3</span><strong>Z · Yaw 完成</strong><small data-stage-snapshot-status="1">等待本轮经过边界</small></div><canvas data-stage-snapshot="1" width="240" height="150" aria-label="第一段绕 Z 轴完成时的姿态快照"></canvas><code data-stage-snapshot-value="1">—</code></article>
+            <article data-stage-snapshot-card="2" data-state="waiting"><div><span>2/3</span><strong>Y′ · Pitch 完成</strong><small data-stage-snapshot-status="2">等待本轮经过边界</small></div><canvas data-stage-snapshot="2" width="240" height="150" aria-label="第二段绕 Y 撇轴完成时的姿态快照"></canvas><code data-stage-snapshot-value="2">—</code></article>
+            <article data-stage-snapshot-card="3" data-state="waiting"><div><span>3/3</span><strong>X″ · Roll 完成</strong><small data-stage-snapshot-status="3">等待本轮经过边界</small></div><canvas data-stage-snapshot="3" width="240" height="150" aria-label="第三段绕 X 双撇轴完成时的姿态快照"></canvas><code data-stage-snapshot-value="3">—</code></article>
+          </div>
+        </section>
+        <div class="qe-scrubber">
+          <div class="qe-scrubber-head"><label for="qe-animation-scrubber">手动检查变换路径</label><output for="qe-animation-scrubber" data-scrubber-value>t = 0.000</output></div>
+          <input data-animation-scrubber id="qe-animation-scrubber" type="range" min="0" max="1" step="0.001" value="0" aria-describedby="qe-scrubber-help">
+          <div class="qe-scrubber-stops" aria-hidden="true"><span>0<br><small>初始 B₀ / O<sub>B</sub> = O<sub>W</sub></small></span><span>1<br><small>最终位姿</small></span></div>
+          <p id="qe-scrubber-help" data-scrubber-help><strong>t = 0</strong> 为初始位姿；开启平移时前三阶段只旋转且 O<sub>B</sub> = O<sub>W</sub>，第四阶段才移动原点。当前阶段由播放状态动态说明。</p>
+        </div>
+        <div class="qe-progress-row"><label for="qe-animation-progress">动画进度</label><progress data-animation-progress id="qe-animation-progress" max="100" value="0"></progress></div>
+        <div class="qe-transform-readout" aria-live="polite">
+          <div class="qe-transform-chain">
+            <div><span>源坐标</span><strong data-vector-source-label>v_B</strong><code data-vector-source>[ — ]</code></div>
+            <div class="qe-transform-operator"><span data-transform-direction>B → W</span><strong>q<sub>WB</sub></strong><small data-transform-operation>q · p_B · q*</small></div>
+            <div><span>目标坐标</span><strong data-vector-target-label>v_W</strong><code data-vector-target>[ — ]</code></div>
+          </div>
+          <div class="qe-transform-meta"><code data-transform-equation>p_W = q_WB ⊗ p_B ⊗ q_WB*</code><span data-axis-angle>轴角：—</span></div>
+          <div class="qe-translation-readout"><span>点 / 位姿</span><code data-translation-readout>p_W = R_WB p_B + t_WB</code><small>前三段 O<sub>B</sub> = O<sub>W</sub>；姿态完成后第四段移动 O<sub>B</sub>。</small></div>
+          <div class="qe-convention-strip"><span>右手系</span><span>Z-up · XY 地面</span><span>Hamilton 乘法</span><span>列向量</span><span>R = [ x_B y_B z_B ]_W</span><span>T_WB=[R t;0 1]</span></div>
+        </div>
+        <div class="qe-output"><div><span>归一化四元数 q_WB</span><code data-output-quaternion>—</code></div><div><span>等价欧拉角</span><code data-output-euler>—</code></div></div>
+      </div>
+    </section>
+
+    <section class="qe-slerp-lab" aria-labelledby="qe-slerp-title">
+      <div class="rt-section-heading"><div><span class="rt-kicker">Quaternion path lab</span><h2 id="qe-slerp-title">q₀ / q₁ / t · SLERP 匀角速度对照</h2></div><p>SLERP 沿单位四元数最短弧插值；当 t 匀速变化时，从 q₀ 出发的旋转角也按相同比例增长。它和上面的分段 ZYX 中间路径通常不同。</p></div>
+      <div class="qe-slerp-layout">
+        <div class="qe-slerp-controls">
+          <fieldset><legend>起点 q₀ · wxyz</legend><div class="qe-four-fields"><label>w<input data-slerp-q0="w" type="number" step="any" value="1"></label><label>x<input data-slerp-q0="x" type="number" step="any" value="0"></label><label>y<input data-slerp-q0="y" type="number" step="any" value="0"></label><label>z<input data-slerp-q0="z" type="number" step="any" value="0"></label></div></fieldset>
+          <fieldset><legend>终点 q₁ · wxyz</legend><div class="qe-four-fields"><label>w<input data-slerp-q1="w" type="number" step="any" value="0.904655"></label><label>x<input data-slerp-q1="x" type="number" step="any" value="0.237176"></label><label>y<input data-slerp-q1="y" type="number" step="any" value="-0.022275"></label><label>z<input data-slerp-q1="z" type="number" step="any" value="0.353343"></label></div></fieldset>
+          <button class="rt-secondary-button" type="button" data-slerp-use-current>将主画布当前目标写入 q₁</button>
+          <label class="qe-slerp-range" for="qe-slerp-progress"><span>手动进度 t</span><output for="qe-slerp-progress" data-slerp-progress-value>0.500</output><input id="qe-slerp-progress" data-slerp-progress type="range" min="0" max="1" step="0.001" value="0.5"></label>
+          <p class="qe-slerp-error" data-slerp-error role="status" aria-live="polite" hidden></p>
+        </div>
+        <div class="qe-slerp-visual">
+          <canvas data-slerp-canvas width="720" height="260" aria-label="SLERP 起点、当前姿态和终点的坐标轴对照"></canvas>
+          <div class="qe-slerp-metrics"><div><span>q(t)</span><code data-slerp-quaternion>—</code></div><div><span>总最短角</span><strong data-slerp-total-angle>—</strong></div><div><span>当前角 / 比例</span><strong data-slerp-current-angle>—</strong></div><div><span>匀角速度检查</span><strong data-slerp-speed-check>—</strong></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="qe-notes"><div class="rt-section-heading"><div><span class="rt-kicker">Reference</span><h2>约定先写清楚，姿态才可复现</h2></div><p>本页定义 <code>q_WB</code> 为机体系 B 到世界系 W 的旋转映射，采用 Z-up、XY 地面。默认纯旋转时 O<sub>W</sub> 与 O<sub>B</sub> 重合；开启平移后，<code>t_WB</code> 给出 O<sub>B</sub> 在 W 中的位置，而矩阵 R 的三列仍是 B 的三根单位轴在 W 中的坐标。</p></div><div class="qe-note-grid"><article><span>01 / ORDER</span><h3>随动轴 ZYX</h3><p>先绕初始 Z 轴 yaw，再绕更新后的 Y′ 轴 pitch，最后绕更新后的 X″ 轴 roll。组合为 <code>R = Rz(yaw) · Ry(pitch) · Rx(roll)</code>。</p></article><article><span>02 / QUATERNION</span><h3>w 在最前</h3><p>页面使用 Hamilton 四元数 <code>q = [w, x, y, z]</code>。<code>q</code> 与 <code>-q</code> 表示同一旋转；输入会先归一化。</p></article><article><span>03 / B TO W</span><h3>分量不变，向量转动</h3><p>固定 <code>v_B</code> 时，<code>v_W = R_WB v_B</code>。金色箭头跟随机体系转动，彩色折线表示它沿 <code>x_B / y_B / z_B</code> 的三个分量。</p></article><article><span>04 / W TO B</span><h3>向量不动，只换坐标</h3><p>固定世界中的几何向量时，<code>v_B = R_WB^T v_W</code>。金色箭头不动，但机体系转动会让三个坐标读数变化。</p></article><article><span>05 / PATH</span><h3>一段轴角与三段 ZYX</h3><p>合成轴角沿相对四元数的一根固定轴走最短路径；等价 ZYX 则依次走 Z、Y′、X″ 三段。二者终点相同，中间路径通常不同。</p></article><article><span>06 / LIMIT</span><h3>欧拉角有奇异性</h3><p>pitch 接近 ±90° 时会出现万向节锁，反算出的 roll / yaw 组合不唯一；此时三段动画只展示其中一组等价分解。</p></article><article><span>07 / SE(3)</span><h3>向量与点要分开</h3><p>自由向量只做 <code>v_W = R_WB v_B</code>；点与坐标系原点则做 <code>p_W = R_WB p_B + t_WB</code>。统一进度只是为了观察方便，不改变这两类对象的数学区别。</p></article></div></section>
+    <footer class="rt-page-footer"><span>© <span data-current-year></span> lsqyRobot · Tool 08</span><a href="/tools/">返回工具集 →</a></footer>
+  </main>
+</body>
+</html>

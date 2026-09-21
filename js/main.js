@@ -198,7 +198,7 @@
 		// Intro.
 			var $intro = $('#intro');
 
-			if ($intro.length > 0) {
+			if ($intro.length > 0 && !$intro.hasClass('home-hero')) {
 
 				// Hack: Fix flex min-height on IE.
 					if (skel.vars.browser == 'ie') {

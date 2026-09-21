@@ -1,0 +1,1655 @@
+
+$ conan --version
+--- stdout ---
+Conan version 2.15.0
+--- stderr ---
+
+[exit_code=0]
+
+$ conan profile detect
+--- stdout ---
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+--- stderr ---
+detect_api: Found cc=gcc- 11.4.0
+detect_api: gcc>=5, using the major as version
+detect_api: gcc C++ standard library: libstdc++11
+
+Detected profile:
+WARN: This profile is a guess of your environment, please check it.
+WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions.
+WARN: Use your own profile files for stability.
+Saving detected profile to /work/manual-conan-home-6j1jd4ax/profiles/default
+
+[exit_code=0]
+
+$ conan remote disable "*"
+--- stdout ---
+conancenter: https://center2.conan.io [Verify SSL: True, Enabled: False]
+--- stderr ---
+
+[exit_code=0]
+
+$ conan remote list --format=json
+--- stdout ---
+[
+    {
+        "name": "conancenter",
+        "url": "https://center2.conan.io",
+        "verify_ssl": true,
+        "enabled": false
+    }
+]
+--- stderr ---
+
+[exit_code=0]
+
+$ conan create mymath --version=1.0 -pr:b default -pr:h default -s:h build_type=Release --no-remote
+--- stdout ---
+--- stderr ---
+
+======== Exporting recipe to the cache ========
+mymath/1.0: Exporting package recipe: /work/manual-demo-pej2bots/mymath/conanfile.py
+mymath/1.0: Copied 1 '.py' file: conanfile.py
+mymath/1.0: Copied 1 file: LICENSE
+mymath/1.0: Copied 1 '.txt' file: CMakeLists.txt
+mymath/1.0: Copied 1 '.cpp' file: mymath.cpp
+mymath/1.0: Copied 1 '.h' file: mymath.h
+mymath/1.0: Exported to cache folder: /work/manual-conan-home-6j1jd4ax/p/mymat4b6ffa5fb7439/e
+mymath/1.0: Exported: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca (2026-09-09 01:18:14 UTC)
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    cli
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+mymath/1.0: Forced build from source
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9 - Build
+
+======== Installing packages ========
+
+-------- Installing package mymath/1.0 (1 of 1) --------
+mymath/1.0: Building from source
+mymath/1.0: Package mymath/1.0:746e4557a2789d2071a4b9fb6b4960d7d548ced9
+mymath/1.0: Copying sources to build folder
+mymath/1.0: Building your package in /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b
+mymath/1.0: Calling generate()
+mymath/1.0: Generators folder: /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b/build/Release/generators
+mymath/1.0: CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0: CMakeToolchain generated: /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b/build/Release/generators/CMakePresets.json
+mymath/1.0: CMakeToolchain generated: /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b/CMakeUserPresets.json
+mymath/1.0: Generating aggregated env files
+mymath/1.0: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+mymath/1.0: Calling build()
+mymath/1.0: Running CMake.configure()
+mymath/1.0: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b"
+-- Using Conan toolchain: /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b/build/Release/generators/conan_toolchain.cmake
+-- Conan toolchain: Setting CMAKE_POSITION_INDEPENDENT_CODE=ON (options.fPIC)
+-- Conan toolchain: C++ Standard 17 with extensions ON
+-- Conan toolchain: Setting BUILD_SHARED_LIBS = OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b/build/Release
+
+mymath/1.0: Running CMake.build()
+mymath/1.0: RUN: cmake --build "/work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b/build/Release" -- -j2
+[ 50%] Building CXX object CMakeFiles/mymath.dir/src/mymath.cpp.o
+[100%] Linking CXX static library libmymath.a
+[100%] Built target mymath
+
+mymath/1.0: Package '746e4557a2789d2071a4b9fb6b4960d7d548ced9' built
+mymath/1.0: Build folder /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b/build/Release
+mymath/1.0: Generating the package
+mymath/1.0: Packaging in folder /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/p
+mymath/1.0: Calling package()
+mymath/1.0: Running CMake.install()
+mymath/1.0: RUN: cmake --install "/work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/b/build/Release" --prefix "/work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/p"
+-- Install configuration: "Release"
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/p/lib/libmymath.a
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/p/include
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/p/include/mymath.h
+
+mymath/1.0: package(): Packaged 1 file: LICENSE
+mymath/1.0: package(): Packaged 1 '.h' file: mymath.h
+mymath/1.0: package(): Packaged 1 '.a' file: libmymath.a
+mymath/1.0: Created package revision fabdec720fc66e70235247fab320a059
+mymath/1.0: Package '746e4557a2789d2071a4b9fb6b4960d7d548ced9' created
+mymath/1.0: Full package reference: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9#fabdec720fc66e70235247fab320a059
+mymath/1.0: Package folder /work/manual-conan-home-6j1jd4ax/p/b/mymat1b15be834adbe/p
+
+======== Launching test_package ========
+
+======== Computing dependency graph ========
+Graph root
+    mymath/1.0 (test package): /work/manual-demo-pej2bots/mymath/test_package/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9#fabdec720fc66e70235247fab320a059 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Testing the package ========
+Removing previously existing 'test_package' build folder: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release
+mymath/1.0 (test package): Test package build: build/gcc-11-armv8-gnu17-release
+mymath/1.0 (test package): Test package build folder: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release
+mymath/1.0 (test package): Writing generators to /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/generators
+mymath/1.0 (test package): Generator 'CMakeToolchain' calling 'generate()'
+mymath/1.0 (test package): CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0 (test package): CMakeToolchain generated: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/generators/CMakePresets.json
+mymath/1.0 (test package): CMakeToolchain generated: /work/manual-demo-pej2bots/mymath/test_package/CMakeUserPresets.json
+mymath/1.0 (test package): Generator 'CMakeDeps' calling 'generate()'
+mymath/1.0 (test package): CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+mymath/1.0 (test package): Generating aggregated env files
+mymath/1.0 (test package): Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+
+======== Testing the package: Building ========
+mymath/1.0 (test package): Calling build()
+mymath/1.0 (test package): Running CMake.configure()
+mymath/1.0 (test package): RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/manual-demo-pej2bots/mymath/test_package" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/manual-demo-pej2bots/mymath/test_package"
+-- Using Conan toolchain: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions ON
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release
+
+mymath/1.0 (test package): Running CMake.build()
+mymath/1.0 (test package): RUN: cmake --build "/work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release" -- -j2
+[ 50%] Building CXX object CMakeFiles/test_mymath.dir/src/test_mymath.cpp.o
+[100%] Linking CXX executable test_mymath
+[100%] Built target test_mymath
+
+
+======== Testing the package: Executing test ========
+mymath/1.0 (test package): Running test()
+mymath/1.0 (test package): RUN: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/test_mymath
+test_package: sum=5; version=1.0; build_type=Release
+
+
+[exit_code=0]
+
+$ conan create mymath --version=1.0 -pr:b default -pr:h default -s:h build_type=Debug --no-remote
+--- stdout ---
+--- stderr ---
+
+======== Exporting recipe to the cache ========
+mymath/1.0: Exporting package recipe: /work/manual-demo-pej2bots/mymath/conanfile.py
+mymath/1.0: Copied 1 '.py' file: conanfile.py
+mymath/1.0: Copied 1 file: LICENSE
+mymath/1.0: Copied 1 '.txt' file: CMakeLists.txt
+mymath/1.0: Copied 1 '.cpp' file: mymath.cpp
+mymath/1.0: Copied 1 '.h' file: mymath.h
+mymath/1.0: Exported to cache folder: /work/manual-conan-home-6j1jd4ax/p/mymat4b6ffa5fb7439/e
+mymath/1.0: Exported: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca (2026-09-09 01:18:14 UTC)
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Debug
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    cli
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+mymath/1.0: Forced build from source
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:adc7cf6d46f4df326685185b04228db784384554 - Build
+
+======== Installing packages ========
+
+-------- Installing package mymath/1.0 (1 of 1) --------
+mymath/1.0: Building from source
+mymath/1.0: Package mymath/1.0:adc7cf6d46f4df326685185b04228db784384554
+mymath/1.0: Copying sources to build folder
+mymath/1.0: Building your package in /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b
+mymath/1.0: Calling generate()
+mymath/1.0: Generators folder: /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b/build/Debug/generators
+mymath/1.0: CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0: CMakeToolchain generated: /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b/build/Debug/generators/CMakePresets.json
+mymath/1.0: CMakeToolchain generated: /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b/CMakeUserPresets.json
+mymath/1.0: Generating aggregated env files
+mymath/1.0: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+mymath/1.0: Calling build()
+mymath/1.0: Running CMake.configure()
+mymath/1.0: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Debug" "/work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b"
+-- Using Conan toolchain: /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b/build/Debug/generators/conan_toolchain.cmake
+-- Conan toolchain: Setting CMAKE_POSITION_INDEPENDENT_CODE=ON (options.fPIC)
+-- Conan toolchain: C++ Standard 17 with extensions ON
+-- Conan toolchain: Setting BUILD_SHARED_LIBS = OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b/build/Debug
+
+mymath/1.0: Running CMake.build()
+mymath/1.0: RUN: cmake --build "/work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b/build/Debug" -- -j2
+[ 50%] Building CXX object CMakeFiles/mymath.dir/src/mymath.cpp.o
+[100%] Linking CXX static library libmymath.a
+[100%] Built target mymath
+
+mymath/1.0: Package 'adc7cf6d46f4df326685185b04228db784384554' built
+mymath/1.0: Build folder /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b/build/Debug
+mymath/1.0: Generating the package
+mymath/1.0: Packaging in folder /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/p
+mymath/1.0: Calling package()
+mymath/1.0: Running CMake.install()
+mymath/1.0: RUN: cmake --install "/work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/b/build/Debug" --prefix "/work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/p"
+-- Install configuration: "Debug"
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/p/lib/libmymath.a
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/p/include
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/p/include/mymath.h
+
+mymath/1.0: package(): Packaged 1 file: LICENSE
+mymath/1.0: package(): Packaged 1 '.h' file: mymath.h
+mymath/1.0: package(): Packaged 1 '.a' file: libmymath.a
+mymath/1.0: Created package revision 8c4261ab682b469f3ed8ba25f5823824
+mymath/1.0: Package 'adc7cf6d46f4df326685185b04228db784384554' created
+mymath/1.0: Full package reference: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:adc7cf6d46f4df326685185b04228db784384554#8c4261ab682b469f3ed8ba25f5823824
+mymath/1.0: Package folder /work/manual-conan-home-6j1jd4ax/p/b/mymat88b4e8c03e550/p
+
+======== Launching test_package ========
+
+======== Computing dependency graph ========
+Graph root
+    mymath/1.0 (test package): /work/manual-demo-pej2bots/mymath/test_package/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:adc7cf6d46f4df326685185b04228db784384554#8c4261ab682b469f3ed8ba25f5823824 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Testing the package ========
+Removing previously existing 'test_package' build folder: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-debug
+mymath/1.0 (test package): Test package build: build/gcc-11-armv8-gnu17-debug
+mymath/1.0 (test package): Test package build folder: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-debug
+mymath/1.0 (test package): Writing generators to /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-debug/generators
+mymath/1.0 (test package): Generator 'CMakeToolchain' calling 'generate()'
+mymath/1.0 (test package): CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0 (test package): CMakeToolchain generated: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-debug/generators/CMakePresets.json
+mymath/1.0 (test package): CMakeToolchain generated: /work/manual-demo-pej2bots/mymath/test_package/CMakeUserPresets.json
+mymath/1.0 (test package): Generator 'CMakeDeps' calling 'generate()'
+mymath/1.0 (test package): CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+mymath/1.0 (test package): Generating aggregated env files
+mymath/1.0 (test package): Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+
+======== Testing the package: Building ========
+mymath/1.0 (test package): Calling build()
+mymath/1.0 (test package): Running CMake.configure()
+mymath/1.0 (test package): RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/manual-demo-pej2bots/mymath/test_package" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Debug" "/work/manual-demo-pej2bots/mymath/test_package"
+-- Using Conan toolchain: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-debug/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions ON
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-debug
+
+mymath/1.0 (test package): Running CMake.build()
+mymath/1.0 (test package): RUN: cmake --build "/work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-debug" -- -j2
+[ 50%] Building CXX object CMakeFiles/test_mymath.dir/src/test_mymath.cpp.o
+[100%] Linking CXX executable test_mymath
+[100%] Built target test_mymath
+
+
+======== Testing the package: Executing test ========
+mymath/1.0 (test package): Running test()
+mymath/1.0 (test package): RUN: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-debug/test_mymath
+test_package: sum=5; version=1.0; build_type=Debug
+
+
+[exit_code=0]
+
+$ conan list "mymath/1.0#*:*#*" --format=json
+--- stdout ---
+{
+    "Local Cache": {
+        "mymath/1.0": {
+            "revisions": {
+                "fdd5d6d7b01b6e02685ebb4e272d2eca": {
+                    "timestamp": 1788916694.7815936,
+                    "packages": {
+                        "746e4557a2789d2071a4b9fb6b4960d7d548ced9": {
+                            "revisions": {
+                                "fabdec720fc66e70235247fab320a059": {
+                                    "timestamp": 1788916694.3995314
+                                }
+                            },
+                            "info": {
+                                "settings": {
+                                    "arch": "armv8",
+                                    "build_type": "Release",
+                                    "compiler": "gcc",
+                                    "compiler.cppstd": "gnu17",
+                                    "compiler.libcxx": "libstdc++11",
+                                    "compiler.version": "11",
+                                    "os": "Linux"
+                                },
+                                "options": {
+                                    "fPIC": "True",
+                                    "shared": "False"
+                                }
+                            }
+                        },
+                        "adc7cf6d46f4df326685185b04228db784384554": {
+                            "revisions": {
+                                "8c4261ab682b469f3ed8ba25f5823824": {
+                                    "timestamp": 1788916694.9208314
+                                }
+                            },
+                            "info": {
+                                "settings": {
+                                    "arch": "armv8",
+                                    "build_type": "Debug",
+                                    "compiler": "gcc",
+                                    "compiler.cppstd": "gnu17",
+                                    "compiler.libcxx": "libstdc++11",
+                                    "compiler.version": "11",
+                                    "os": "Linux"
+                                },
+                                "options": {
+                                    "fPIC": "True",
+                                    "shared": "False"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+--- stderr ---
+
+[exit_code=0]
+
+$ conan create mymath --version=1.0 -pr:b default -pr:h default -s:h build_type=Release -o:h "mymath/*:shared=True" --no-remote
+--- stdout ---
+--- stderr ---
+
+======== Exporting recipe to the cache ========
+mymath/1.0: Exporting package recipe: /work/manual-demo-pej2bots/mymath/conanfile.py
+mymath/1.0: Copied 1 '.py' file: conanfile.py
+mymath/1.0: Copied 1 file: LICENSE
+mymath/1.0: Copied 1 '.txt' file: CMakeLists.txt
+mymath/1.0: Copied 1 '.cpp' file: mymath.cpp
+mymath/1.0: Copied 1 '.h' file: mymath.h
+mymath/1.0: Exported to cache folder: /work/manual-conan-home-6j1jd4ax/p/mymat4b6ffa5fb7439/e
+mymath/1.0: Exported: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca (2026-09-09 01:18:15 UTC)
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+[options]
+mymath/*:shared=True
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    cli
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+mymath/1.0: Forced build from source
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:18caf86df8b66cfe97edfb847b4106ae637170a9 - Build
+
+======== Installing packages ========
+
+-------- Installing package mymath/1.0 (1 of 1) --------
+mymath/1.0: Building from source
+mymath/1.0: Package mymath/1.0:18caf86df8b66cfe97edfb847b4106ae637170a9
+mymath/1.0: Copying sources to build folder
+mymath/1.0: Building your package in /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b
+mymath/1.0: Calling generate()
+mymath/1.0: Generators folder: /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b/build/Release/generators
+mymath/1.0: CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0: CMakeToolchain generated: /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b/build/Release/generators/CMakePresets.json
+mymath/1.0: CMakeToolchain generated: /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b/CMakeUserPresets.json
+mymath/1.0: Generating aggregated env files
+mymath/1.0: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+mymath/1.0: Calling build()
+mymath/1.0: Running CMake.configure()
+mymath/1.0: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b"
+-- Using Conan toolchain: /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b/build/Release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions ON
+-- Conan toolchain: Setting BUILD_SHARED_LIBS = ON
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b/build/Release
+
+mymath/1.0: Running CMake.build()
+mymath/1.0: RUN: cmake --build "/work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b/build/Release" -- -j2
+[ 50%] Building CXX object CMakeFiles/mymath.dir/src/mymath.cpp.o
+[100%] Linking CXX shared library libmymath.so
+[100%] Built target mymath
+
+mymath/1.0: Package '18caf86df8b66cfe97edfb847b4106ae637170a9' built
+mymath/1.0: Build folder /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b/build/Release
+mymath/1.0: Generating the package
+mymath/1.0: Packaging in folder /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/p
+mymath/1.0: Calling package()
+mymath/1.0: Running CMake.install()
+mymath/1.0: RUN: cmake --install "/work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/b/build/Release" --prefix "/work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/p"
+-- Install configuration: "Release"
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/p/lib/libmymath.so
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/p/include
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/p/include/mymath.h
+
+mymath/1.0: package(): Packaged 1 file: LICENSE
+mymath/1.0: package(): Packaged 1 '.h' file: mymath.h
+mymath/1.0: package(): Packaged 1 '.so' file: libmymath.so
+mymath/1.0: Created package revision b129f1194a684e47a9356cd6a615e027
+mymath/1.0: Package '18caf86df8b66cfe97edfb847b4106ae637170a9' created
+mymath/1.0: Full package reference: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:18caf86df8b66cfe97edfb847b4106ae637170a9#b129f1194a684e47a9356cd6a615e027
+mymath/1.0: Package folder /work/manual-conan-home-6j1jd4ax/p/b/mymata21110aa09e64/p
+
+======== Launching test_package ========
+
+======== Computing dependency graph ========
+Graph root
+    mymath/1.0 (test package): /work/manual-demo-pej2bots/mymath/test_package/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:18caf86df8b66cfe97edfb847b4106ae637170a9#b129f1194a684e47a9356cd6a615e027 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Testing the package ========
+Removing previously existing 'test_package' build folder: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release
+mymath/1.0 (test package): Test package build: build/gcc-11-armv8-gnu17-release
+mymath/1.0 (test package): Test package build folder: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release
+mymath/1.0 (test package): Writing generators to /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/generators
+mymath/1.0 (test package): Generator 'CMakeToolchain' calling 'generate()'
+mymath/1.0 (test package): CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.0 (test package): CMakeToolchain generated: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/generators/CMakePresets.json
+mymath/1.0 (test package): CMakeToolchain generated: /work/manual-demo-pej2bots/mymath/test_package/CMakeUserPresets.json
+mymath/1.0 (test package): Generator 'CMakeDeps' calling 'generate()'
+mymath/1.0 (test package): CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+mymath/1.0 (test package): Generating aggregated env files
+mymath/1.0 (test package): Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+
+======== Testing the package: Building ========
+mymath/1.0 (test package): Calling build()
+mymath/1.0 (test package): Running CMake.configure()
+mymath/1.0 (test package): RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/manual-demo-pej2bots/mymath/test_package" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/manual-demo-pej2bots/mymath/test_package"
+-- Using Conan toolchain: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions ON
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release
+
+mymath/1.0 (test package): Running CMake.build()
+mymath/1.0 (test package): RUN: cmake --build "/work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release" -- -j2
+[ 50%] Building CXX object CMakeFiles/test_mymath.dir/src/test_mymath.cpp.o
+[100%] Linking CXX executable test_mymath
+[100%] Built target test_mymath
+
+
+======== Testing the package: Executing test ========
+mymath/1.0 (test package): Running test()
+mymath/1.0 (test package): RUN: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/test_mymath
+test_package: sum=5; version=1.0; build_type=Release
+
+
+[exit_code=0]
+
+$ conan install consumer -of out/consumer-release -pr:b default -pr:h default -s:h build_type=Release --build=never --no-remote
+--- stdout ---
+--- stderr ---
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/manual-demo-pej2bots/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+Resolved version ranges
+    mymath/[>=1.0 <2.0]: mymath/1.0
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9#fabdec720fc66e70235247fab320a059 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Finalizing install (deploy, generators) ========
+conanfile.py: Calling generate()
+conanfile.py: Generators folder: /work/manual-demo-pej2bots/out/consumer-release/build/Release/generators
+conanfile.py: CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+conanfile.py: CMakeToolchain generated: conan_toolchain.cmake
+conanfile.py: CMakeToolchain: Preset 'conan-release' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-release
+    (cmake<3.23) cmake <path> -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake  -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release
+conanfile.py: CMakeToolchain generated: /work/manual-demo-pej2bots/out/consumer-release/build/Release/generators/CMakePresets.json
+conanfile.py: CMakeToolchain generated: /work/manual-demo-pej2bots/consumer/CMakeUserPresets.json
+conanfile.py: Generating aggregated env files
+conanfile.py: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+Install finished successfully
+
+[exit_code=0]
+
+$ conan build consumer -of out/consumer-release -pr:b default -pr:h default -s:h build_type=Release
+--- stdout ---
+--- stderr ---
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/manual-demo-pej2bots/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+Resolved version ranges
+    mymath/[>=1.0 <2.0]: mymath/1.0
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9#fabdec720fc66e70235247fab320a059 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Finalizing install (deploy, generators) ========
+conanfile.py: Calling generate()
+conanfile.py: Generators folder: /work/manual-demo-pej2bots/out/consumer-release/build/Release/generators
+conanfile.py: CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+conanfile.py: CMakeToolchain generated: conan_toolchain.cmake
+conanfile.py: CMakeToolchain: Preset 'conan-release' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-release
+    (cmake<3.23) cmake <path> -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake  -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release
+conanfile.py: CMakeToolchain generated: /work/manual-demo-pej2bots/out/consumer-release/build/Release/generators/CMakePresets.json
+conanfile.py: CMakeToolchain generated: /work/manual-demo-pej2bots/consumer/CMakeUserPresets.json
+conanfile.py: Generating aggregated env files
+conanfile.py: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+
+======== Calling build() ========
+conanfile.py: Calling build()
+conanfile.py: Running CMake.configure()
+conanfile.py: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/manual-demo-pej2bots/out/consumer-release" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/manual-demo-pej2bots/consumer"
+-- Using Conan toolchain: /work/manual-demo-pej2bots/out/consumer-release/build/Release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions ON
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/manual-demo-pej2bots/out/consumer-release/build/Release
+
+conanfile.py: Running CMake.build()
+conanfile.py: RUN: cmake --build "/work/manual-demo-pej2bots/out/consumer-release/build/Release" -- -j2
+[ 50%] Building CXX object CMakeFiles/robot-consumer.dir/main.cpp.o
+[100%] Linking CXX executable robot-consumer
+[100%] Built target robot-consumer
+
+
+[exit_code=0]
+
+$ ./out/consumer-release/build/Release/robot-consumer
+--- stdout ---
+consumer: sum=5; version=1.0; build_type=Release
+--- stderr ---
+
+[exit_code=0]
+
+$ conan lock create consumer -pr:b default -pr:h default -s:h build_type=Release --no-remote --lockfile-out=consumer/conan.lock
+--- stdout ---
+--- stderr ---
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/manual-demo-pej2bots/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+Resolved version ranges
+    mymath/[>=1.0 <2.0]: mymath/1.0
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9#fabdec720fc66e70235247fab320a059 - Cache
+Generated lockfile: /work/manual-demo-pej2bots/consumer/conan.lock
+
+[exit_code=0]
+
+$ conan create mymath --version=1.1 -pr:b default -pr:h default -s:h build_type=Release --no-remote
+--- stdout ---
+--- stderr ---
+
+======== Exporting recipe to the cache ========
+mymath/1.1: Exporting package recipe: /work/manual-demo-pej2bots/mymath/conanfile.py
+mymath/1.1: Copied 1 '.py' file: conanfile.py
+mymath/1.1: Copied 1 file: LICENSE
+mymath/1.1: Copied 1 '.txt' file: CMakeLists.txt
+mymath/1.1: Copied 1 '.cpp' file: mymath.cpp
+mymath/1.1: Copied 1 '.h' file: mymath.h
+mymath/1.1: Exported to cache folder: /work/manual-conan-home-6j1jd4ax/p/mymata1d837ffbbf85/e
+mymath/1.1: Exported: mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca (2026-09-09 01:18:16 UTC)
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    cli
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+mymath/1.1: Forced build from source
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9 - Build
+
+======== Installing packages ========
+
+-------- Installing package mymath/1.1 (1 of 1) --------
+mymath/1.1: Building from source
+mymath/1.1: Package mymath/1.1:746e4557a2789d2071a4b9fb6b4960d7d548ced9
+mymath/1.1: Copying sources to build folder
+mymath/1.1: Building your package in /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b
+mymath/1.1: Calling generate()
+mymath/1.1: Generators folder: /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b/build/Release/generators
+mymath/1.1: CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.1: CMakeToolchain generated: /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b/build/Release/generators/CMakePresets.json
+mymath/1.1: CMakeToolchain generated: /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b/CMakeUserPresets.json
+mymath/1.1: Generating aggregated env files
+mymath/1.1: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+mymath/1.1: Calling build()
+mymath/1.1: Running CMake.configure()
+mymath/1.1: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b"
+-- Using Conan toolchain: /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b/build/Release/generators/conan_toolchain.cmake
+-- Conan toolchain: Setting CMAKE_POSITION_INDEPENDENT_CODE=ON (options.fPIC)
+-- Conan toolchain: C++ Standard 17 with extensions ON
+-- Conan toolchain: Setting BUILD_SHARED_LIBS = OFF
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b/build/Release
+
+mymath/1.1: Running CMake.build()
+mymath/1.1: RUN: cmake --build "/work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b/build/Release" -- -j2
+[ 50%] Building CXX object CMakeFiles/mymath.dir/src/mymath.cpp.o
+[100%] Linking CXX static library libmymath.a
+[100%] Built target mymath
+
+mymath/1.1: Package '746e4557a2789d2071a4b9fb6b4960d7d548ced9' built
+mymath/1.1: Build folder /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b/build/Release
+mymath/1.1: Generating the package
+mymath/1.1: Packaging in folder /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/p
+mymath/1.1: Calling package()
+mymath/1.1: Running CMake.install()
+mymath/1.1: RUN: cmake --install "/work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/b/build/Release" --prefix "/work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/p"
+-- Install configuration: "Release"
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/p/lib/libmymath.a
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/p/include
+-- Installing: /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/p/include/mymath.h
+
+mymath/1.1: package(): Packaged 1 file: LICENSE
+mymath/1.1: package(): Packaged 1 '.h' file: mymath.h
+mymath/1.1: package(): Packaged 1 '.a' file: libmymath.a
+mymath/1.1: Created package revision d17b25d91126aba32ac6731f6a6375e8
+mymath/1.1: Package '746e4557a2789d2071a4b9fb6b4960d7d548ced9' created
+mymath/1.1: Full package reference: mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9#d17b25d91126aba32ac6731f6a6375e8
+mymath/1.1: Package folder /work/manual-conan-home-6j1jd4ax/p/b/mymat4fa43f0d1ef60/p
+
+======== Launching test_package ========
+
+======== Computing dependency graph ========
+Graph root
+    mymath/1.1 (test package): /work/manual-demo-pej2bots/mymath/test_package/conanfile.py
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9#d17b25d91126aba32ac6731f6a6375e8 - Cache
+
+======== Installing packages ========
+mymath/1.1: Already installed! (1 of 1)
+
+======== Testing the package ========
+Removing previously existing 'test_package' build folder: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release
+mymath/1.1 (test package): Test package build: build/gcc-11-armv8-gnu17-release
+mymath/1.1 (test package): Test package build folder: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release
+mymath/1.1 (test package): Writing generators to /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/generators
+mymath/1.1 (test package): Generator 'CMakeToolchain' calling 'generate()'
+mymath/1.1 (test package): CMakeToolchain generated: conan_toolchain.cmake
+mymath/1.1 (test package): CMakeToolchain generated: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/generators/CMakePresets.json
+mymath/1.1 (test package): CMakeToolchain generated: /work/manual-demo-pej2bots/mymath/test_package/CMakeUserPresets.json
+mymath/1.1 (test package): Generator 'CMakeDeps' calling 'generate()'
+mymath/1.1 (test package): CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+mymath/1.1 (test package): Generating aggregated env files
+mymath/1.1 (test package): Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+
+======== Testing the package: Building ========
+mymath/1.1 (test package): Calling build()
+mymath/1.1 (test package): Running CMake.configure()
+mymath/1.1 (test package): RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/work/manual-demo-pej2bots/mymath/test_package" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/work/manual-demo-pej2bots/mymath/test_package"
+-- Using Conan toolchain: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/generators/conan_toolchain.cmake
+-- Conan toolchain: C++ Standard 17 with extensions ON
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conan: Target declared 'mymath::mymath'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release
+
+mymath/1.1 (test package): Running CMake.build()
+mymath/1.1 (test package): RUN: cmake --build "/work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release" -- -j2
+[ 50%] Building CXX object CMakeFiles/test_mymath.dir/src/test_mymath.cpp.o
+[100%] Linking CXX executable test_mymath
+[100%] Built target test_mymath
+
+
+======== Testing the package: Executing test ========
+mymath/1.1 (test package): Running test()
+mymath/1.1 (test package): RUN: /work/manual-demo-pej2bots/mymath/test_package/build/gcc-11-armv8-gnu17-release/test_mymath
+test_package: sum=5; version=1.1; build_type=Release
+
+
+[exit_code=0]
+
+$ conan graph info consumer -pr:b default -pr:h default -s:h build_type=Release --no-remote --lockfile=""
+--- stdout ---
+:
+  ref: 
+  id: 0
+  recipe: Consumer
+  package_id: 4b47777b218d73b6bc5441afc94d537a40e0033a
+  prev: None
+  rrev: None
+  rrev_timestamp: None
+  prev_timestamp: None
+  remote: None
+  binary_remote: None
+  build_id: None
+  binary: None
+  invalid_build: False
+  info_invalid: None
+  name: None
+  user: None
+  channel: None
+  url: None
+  license: None
+  author: None
+  description: None
+  homepage: None
+  build_policy: None
+  upload_policy: None
+  revision_mode: hash
+  provides: None
+  deprecated: None
+  win_bash: None
+  win_bash_run: None
+  default_options: None
+  options_description: None
+  version: None
+  topics: None
+  package_type: unknown
+  languages: []
+  settings:
+    os: Linux
+    arch: armv8
+    compiler: gcc
+    compiler.cppstd: gnu17
+    compiler.libcxx: libstdc++11
+    compiler.version: 11
+    build_type: Release
+  options:
+  options_definitions:
+  generators: []
+  python_requires: None
+  system_requires:
+  recipe_folder: /work/manual-demo-pej2bots/consumer
+  source_folder: None
+  build_folder: None
+  generators_folder: None
+  package_folder: None
+  immutable_package_folder: None
+  cpp_info:
+    root:
+      includedirs: ['include']
+      srcdirs: None
+      libdirs: ['lib']
+      resdirs: None
+      bindirs: ['bin']
+      builddirs: None
+      frameworkdirs: None
+      system_libs: None
+      frameworks: None
+      libs: None
+      defines: None
+      cflags: None
+      cxxflags: None
+      sharedlinkflags: None
+      exelinkflags: None
+      objects: None
+      sysroot: None
+      requires: None
+      properties: None
+      exe: None
+      type: None
+      location: None
+      link_location: None
+      languages: None
+  conf_info:
+  label: conanfile.py
+  info:
+    settings:
+      os: Linux
+      arch: armv8
+      compiler: gcc
+      compiler.cppstd: gnu17
+      compiler.libcxx: libstdc++11
+      compiler.version: 11
+      build_type: Release
+    requires: ['mymath/1.Y.Z']
+  vendor: False
+  dependencies:
+    1:
+      ref: mymath/1.1
+      require: mymath/[>=1.0 <2.0]
+      run: False
+      libs: True
+      skip: False
+      test: False
+      force: False
+      direct: True
+      build: False
+      transitive_headers: None
+      transitive_libs: None
+      headers: True
+      package_id_mode: semver_mode
+      visible: True
+  context: host
+  test: False
+mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca:
+  ref: mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca
+  id: 1
+  recipe: Cache
+  package_id: 746e4557a2789d2071a4b9fb6b4960d7d548ced9
+  prev: d17b25d91126aba32ac6731f6a6375e8
+  rrev: fdd5d6d7b01b6e02685ebb4e272d2eca
+  rrev_timestamp: 1788916696.5996687
+  prev_timestamp: 1788916696.7283857
+  remote: None
+  binary_remote: None
+  build_id: None
+  binary: Cache
+  invalid_build: False
+  info_invalid: None
+  name: mymath
+  user: None
+  channel: None
+  url: None
+  license: MIT
+  author: None
+  description: Small local-only library for the Conan 2 teaching lab
+  homepage: None
+  build_policy: None
+  upload_policy: None
+  revision_mode: hash
+  provides: None
+  deprecated: None
+  win_bash: None
+  win_bash_run: None
+  default_options:
+    shared: False
+    fPIC: True
+  options_description: None
+  version: 1.1
+  topics: None
+  package_type: static-library
+  languages: []
+  settings:
+    os: Linux
+    arch: armv8
+    compiler: gcc
+    compiler.cppstd: gnu17
+    compiler.libcxx: libstdc++11
+    compiler.version: 11
+    build_type: Release
+  options:
+    fPIC: True
+    shared: False
+  options_definitions:
+    shared: ['True', 'False']
+    fPIC: ['True', 'False']
+  generators: []
+  python_requires: None
+  system_requires:
+  recipe_folder: /work/manual-conan-home-6j1jd4ax/p/mymata1d837ffbbf85/e
+  source_folder: None
+  build_folder: None
+  generators_folder: None
+  package_folder: None
+  immutable_package_folder: None
+  cpp_info:
+    root:
+      includedirs: ['include']
+      srcdirs: None
+      libdirs: ['lib']
+      resdirs: None
+      bindirs: ['bin']
+      builddirs: None
+      frameworkdirs: None
+      system_libs: None
+      frameworks: None
+      libs: None
+      defines: None
+      cflags: None
+      cxxflags: None
+      sharedlinkflags: None
+      exelinkflags: None
+      objects: None
+      sysroot: None
+      requires: None
+      properties: None
+      exe: None
+      type: None
+      location: None
+      link_location: None
+      languages: None
+  conf_info:
+  label: mymath/1.1
+  info:
+    settings:
+      os: Linux
+      arch: armv8
+      compiler: gcc
+      compiler.cppstd: gnu17
+      compiler.libcxx: libstdc++11
+      compiler.version: 11
+      build_type: Release
+    options:
+      fPIC: True
+      shared: False
+  vendor: False
+  dependencies:
+  context: host
+  test: False
+--- stderr ---
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/manual-demo-pej2bots/consumer/conanfile.py
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+Resolved version ranges
+    mymath/[>=1.0 <2.0]: mymath/1.1
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.1#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9#d17b25d91126aba32ac6731f6a6375e8 - Cache
+
+-------- Basic graph information --------
+
+[exit_code=0]
+
+$ conan graph info consumer -pr:b default -pr:h default -s:h build_type=Release --no-remote --lockfile=consumer/conan.lock
+--- stdout ---
+:
+  ref: 
+  id: 0
+  recipe: Consumer
+  package_id: 4b47777b218d73b6bc5441afc94d537a40e0033a
+  prev: None
+  rrev: None
+  rrev_timestamp: None
+  prev_timestamp: None
+  remote: None
+  binary_remote: None
+  build_id: None
+  binary: None
+  invalid_build: False
+  info_invalid: None
+  name: None
+  user: None
+  channel: None
+  url: None
+  license: None
+  author: None
+  description: None
+  homepage: None
+  build_policy: None
+  upload_policy: None
+  revision_mode: hash
+  provides: None
+  deprecated: None
+  win_bash: None
+  win_bash_run: None
+  default_options: None
+  options_description: None
+  version: None
+  topics: None
+  package_type: unknown
+  languages: []
+  settings:
+    os: Linux
+    arch: armv8
+    compiler: gcc
+    compiler.cppstd: gnu17
+    compiler.libcxx: libstdc++11
+    compiler.version: 11
+    build_type: Release
+  options:
+  options_definitions:
+  generators: []
+  python_requires: None
+  system_requires:
+  recipe_folder: /work/manual-demo-pej2bots/consumer
+  source_folder: None
+  build_folder: None
+  generators_folder: None
+  package_folder: None
+  immutable_package_folder: None
+  cpp_info:
+    root:
+      includedirs: ['include']
+      srcdirs: None
+      libdirs: ['lib']
+      resdirs: None
+      bindirs: ['bin']
+      builddirs: None
+      frameworkdirs: None
+      system_libs: None
+      frameworks: None
+      libs: None
+      defines: None
+      cflags: None
+      cxxflags: None
+      sharedlinkflags: None
+      exelinkflags: None
+      objects: None
+      sysroot: None
+      requires: None
+      properties: None
+      exe: None
+      type: None
+      location: None
+      link_location: None
+      languages: None
+  conf_info:
+  label: conanfile.py
+  info:
+    settings:
+      os: Linux
+      arch: armv8
+      compiler: gcc
+      compiler.cppstd: gnu17
+      compiler.libcxx: libstdc++11
+      compiler.version: 11
+      build_type: Release
+    requires: ['mymath/1.Y.Z']
+  vendor: False
+  dependencies:
+    1:
+      ref: mymath/1.0
+      require: mymath/[>=1.0 <2.0]
+      run: False
+      libs: True
+      skip: False
+      test: False
+      force: False
+      direct: True
+      build: False
+      transitive_headers: None
+      transitive_libs: None
+      headers: True
+      package_id_mode: semver_mode
+      visible: True
+  context: host
+  test: False
+mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:
+  ref: mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca
+  id: 1
+  recipe: Cache
+  package_id: 746e4557a2789d2071a4b9fb6b4960d7d548ced9
+  prev: fabdec720fc66e70235247fab320a059
+  rrev: fdd5d6d7b01b6e02685ebb4e272d2eca
+  rrev_timestamp: 1788916695.4129288
+  prev_timestamp: 1788916694.3995314
+  remote: None
+  binary_remote: None
+  build_id: None
+  binary: Cache
+  invalid_build: False
+  info_invalid: None
+  name: mymath
+  user: None
+  channel: None
+  url: None
+  license: MIT
+  author: None
+  description: Small local-only library for the Conan 2 teaching lab
+  homepage: None
+  build_policy: None
+  upload_policy: None
+  revision_mode: hash
+  provides: None
+  deprecated: None
+  win_bash: None
+  win_bash_run: None
+  default_options:
+    shared: False
+    fPIC: True
+  options_description: None
+  version: 1.0
+  topics: None
+  package_type: static-library
+  languages: []
+  settings:
+    os: Linux
+    arch: armv8
+    compiler: gcc
+    compiler.cppstd: gnu17
+    compiler.libcxx: libstdc++11
+    compiler.version: 11
+    build_type: Release
+  options:
+    fPIC: True
+    shared: False
+  options_definitions:
+    shared: ['True', 'False']
+    fPIC: ['True', 'False']
+  generators: []
+  python_requires: None
+  system_requires:
+  recipe_folder: /work/manual-conan-home-6j1jd4ax/p/mymat4b6ffa5fb7439/e
+  source_folder: None
+  build_folder: None
+  generators_folder: None
+  package_folder: None
+  immutable_package_folder: None
+  cpp_info:
+    root:
+      includedirs: ['include']
+      srcdirs: None
+      libdirs: ['lib']
+      resdirs: None
+      bindirs: ['bin']
+      builddirs: None
+      frameworkdirs: None
+      system_libs: None
+      frameworks: None
+      libs: None
+      defines: None
+      cflags: None
+      cxxflags: None
+      sharedlinkflags: None
+      exelinkflags: None
+      objects: None
+      sysroot: None
+      requires: None
+      properties: None
+      exe: None
+      type: None
+      location: None
+      link_location: None
+      languages: None
+  conf_info:
+  label: mymath/1.0
+  info:
+    settings:
+      os: Linux
+      arch: armv8
+      compiler: gcc
+      compiler.cppstd: gnu17
+      compiler.libcxx: libstdc++11
+      compiler.version: 11
+      build_type: Release
+    options:
+      fPIC: True
+      shared: False
+  vendor: False
+  dependencies:
+  context: host
+  test: False
+--- stderr ---
+Using lockfile: '/work/manual-demo-pej2bots/consumer/conan.lock'
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/manual-demo-pej2bots/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:746e4557a2789d2071a4b9fb6b4960d7d548ced9#fabdec720fc66e70235247fab320a059 - Cache
+
+-------- Basic graph information --------
+
+[exit_code=0]
+
+$ conan install consumer -of out/consumer-debug -pr:b default -pr:h default -s:h build_type=Debug --lockfile=consumer/conan.lock --build=never --no-remote
+--- stdout ---
+--- stderr ---
+Using lockfile: '/work/manual-demo-pej2bots/consumer/conan.lock'
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=Debug
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/manual-demo-pej2bots/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:adc7cf6d46f4df326685185b04228db784384554#8c4261ab682b469f3ed8ba25f5823824 - Cache
+
+======== Installing packages ========
+mymath/1.0: Already installed! (1 of 1)
+
+======== Finalizing install (deploy, generators) ========
+conanfile.py: Calling generate()
+conanfile.py: Generators folder: /work/manual-demo-pej2bots/out/consumer-debug/build/Debug/generators
+conanfile.py: CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(mymath)
+    target_link_libraries(... mymath::mymath)
+conanfile.py: CMakeToolchain generated: conan_toolchain.cmake
+conanfile.py: CMakeToolchain: Preset 'conan-debug' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-debug
+    (cmake<3.23) cmake <path> -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake  -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug
+conanfile.py: CMakeToolchain generated: /work/manual-demo-pej2bots/out/consumer-debug/build/Debug/generators/CMakePresets.json
+conanfile.py: CMakeToolchain generated: /work/manual-demo-pej2bots/consumer/CMakeUserPresets.json
+conanfile.py: Generating aggregated env files
+conanfile.py: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
+Install finished successfully
+
+[exit_code=0]
+
+$ conan install consumer -of out/missing-binary -pr:b default -pr:h default -s:h build_type=RelWithDebInfo --lockfile=consumer/conan.lock --build=never --no-remote
+--- stdout ---
+--- stderr ---
+Using lockfile: '/work/manual-demo-pej2bots/consumer/conan.lock'
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=armv8
+build_type=RelWithDebInfo
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+Profile build:
+[settings]
+arch=armv8
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py: /work/manual-demo-pej2bots/consumer/conanfile.py
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca - Cache
+
+======== Computing necessary packages ========
+mymath/1.0: Main binary package '98dce00aa928bcbec050cd8d649b5efa2d4cd3fb' missing
+mymath/1.0: Checking 11 compatible configurations
+mymath/1.0: Compatible configurations not found in cache, checking servers
+mymath/1.0: '6169a65d8aec78b2074e492fa95b96c3ae6a3b71': compiler.cppstd=98
+mymath/1.0: '4a57e8cd3eadc3bbd1c4486cca8f7326497803ea': compiler.cppstd=gnu98
+mymath/1.0: '646c684ab707e2aaacedd62cb3b90beabbf230c0': compiler.cppstd=11
+mymath/1.0: '153984817aa0a6eab7ea99dcb01c1db7e8d08fb3': compiler.cppstd=gnu11
+mymath/1.0: '2fa5511c34d84892f43464df1f109f18f64f3187': compiler.cppstd=14
+mymath/1.0: 'cb4d86be01d3ee243b991eeb94a8815be4963ec6': compiler.cppstd=gnu14
+mymath/1.0: '7304488ba587e87237f78825305b4efa764dabed': compiler.cppstd=17
+mymath/1.0: '5e0775c8b7737361033e4c99db83d86f0db6eac0': compiler.cppstd=20
+mymath/1.0: '269927923b56f672c161d1d93d17b231cfa821cf': compiler.cppstd=gnu20
+mymath/1.0: '82a3d62e7c2913544e6600fc17fa133f5657e73b': compiler.cppstd=23
+mymath/1.0: 'd7f790ae45064df8c3bfd1dd94ed22e5f115490a': compiler.cppstd=gnu23
+Requirements
+    mymath/1.0#fdd5d6d7b01b6e02685ebb4e272d2eca:98dce00aa928bcbec050cd8d649b5efa2d4cd3fb - Missing
+ERROR: Missing binary: mymath/1.0:98dce00aa928bcbec050cd8d649b5efa2d4cd3fb
+
+mymath/1.0: WARN: Can't find a 'mymath/1.0' package binary '98dce00aa928bcbec050cd8d649b5efa2d4cd3fb' for the configuration:
+[settings]
+arch=armv8
+build_type=RelWithDebInfo
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+[options]
+fPIC=True
+shared=False
+
+ERROR: Missing prebuilt package for 'mymath/1.0'. You can try:
+    - List all available packages using 'conan list "mymath/1.0:*" -r=remote'
+    - Explain missing binaries: replace 'conan install ...' with 'conan graph explain ...'
+    - Try to build locally from sources using the '--build=mymath/1.0' argument
+
+More Info at 'https://docs.conan.io/2/knowledge/faq.html#error-missing-prebuilt-package'
+
+
+[exit_code=1]
+
+$ conan upload --help
+--- stdout ---
+usage: conan upload [-h] [-v [V]] [-cc CORE_CONF] [-f FORMAT]
+                    [--out-file OUT_FILE] [-p PACKAGE_QUERY] -r REMOTE
+                    [--only-recipe] [--force] [--check] [-c] [--dry-run]
+                    [-l LIST] [-m METADATA]
+                    [pattern]
+
+Upload packages to a remote.
+
+By default, all the matching references are uploaded (all revisions).
+By default, if a recipe reference is specified, it will upload all the revisions for all the
+binary packages, unless --only-recipe is specified. You can use the "latest" placeholder at the
+"reference" argument to specify the latest revision of the recipe or the package.
+
+positional arguments:
+  pattern               A pattern in the form
+                        'pkg/version#revision:package_id#revision', e.g:
+                        "zlib/1.2.13:*" means all binaries for zlib/1.2.13. If
+                        revision is not specified, it is assumed latest one.
+
+options:
+  -h, --help            show this help message and exit
+  -v [V]                Level of detail of the output. Valid options from less
+                        verbose to more verbose: -vquiet, -verror, -vwarning,
+                        -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                        -vvv or -vtrace
+  -cc CORE_CONF, --core-conf CORE_CONF
+                        Define core configuration, overwriting global.conf
+                        values. E.g.: -cc core:non_interactive=True
+  -f FORMAT, --format FORMAT
+                        Select the output format: json
+  --out-file OUT_FILE   Write the output of the command to the specified file
+                        instead of stdout.
+  -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
+                        Only upload packages matching a specific query. e.g:
+                        os=Windows AND (arch=x86 OR compiler=gcc)
+  -r REMOTE, --remote REMOTE
+                        Upload to this specific remote
+  --only-recipe         Upload only the recipe/s, not the binary packages.
+  --force               Force the upload of the artifacts even if the revision
+                        already exists in the server
+  --check               Perform an integrity check, using the manifests,
+                        before upload
+  -c, --confirm         Upload all matching recipes without confirmation
+  --dry-run             Do not execute the real upload (experimental)
+  -l LIST, --list LIST  Package list file
+  -m METADATA, --metadata METADATA
+                        Upload the metadata, even if the package is already in
+                        the server and not uploaded
+--- stderr ---
+
+[exit_code=0]

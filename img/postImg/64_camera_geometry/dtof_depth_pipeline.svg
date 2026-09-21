@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+<title id="title">Two pipelines for building a camera-axis depth image</title>
+<desc id="desc">A radial range image becomes XYZ by multiplying each range by its unit viewing ray, then taking Z. An XYZ cloud is transformed into the target camera frame, projected with K and resolved per pixel using the nearest positive Z. The example point (1,-0.5,5) metres projects to (440,180) with depth 5 metres and radial range sqrt(26.25), approximately 5.123 metres. Its double projects to the same pixel and is occluded.</desc>
+<defs>
+  <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#112a3c"/><stop offset="1" stop-color="#091521"/></linearGradient>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker>
+  <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#cbe6f3" stroke-opacity=".045"/></pattern>
+</defs>
+<rect width="1280" height="720" fill="url(#background)"/>
+<rect width="1280" height="720" fill="url(#grid)"/>
+<g font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" stroke-linecap="round" stroke-linejoin="round">
+<text x="32" y="58" font-size="38" fill="#f2f7fb" font-weight="700">dToF / 点云：怎样生成 Z 深度图</text>
+<text x="32" y="102" font-size="24" fill="#abc1d0" >先确认输入含义：range 是径向距离；外参把点变到目标相机坐标系。</text>
+<rect x="32" y="135" width="1216" height="211" rx="18" fill="#0b1d2d" stroke="#426074"/>
+<text x="54" y="177" font-size="27" fill="#65e0cf" font-weight="700">A · 已确认径向 r · 同一相机</text>
+<rect x="54" y="200" width="236" height="82" rx="18" fill="#102a3d" stroke="#65e0cf" stroke-opacity=".65"/>
+<text x="172" y="233" font-size="25" fill="#f2f7fb" text-anchor="middle">r + 单位射线 d</text>
+<text x="172" y="265" font-size="22" fill="#65e0cf" text-anchor="middle">||d|| = 1</text>
+<line x1="305" y1="241" x2="341" y2="241" stroke="#65e0cf" stroke-width="3" marker-end="url(#arrow)" />
+<rect x="354" y="200" width="262" height="82" rx="18" fill="#102a3d" stroke="#65e0cf" stroke-opacity=".65"/>
+<text x="485" y="233" font-size="25" fill="#f2f7fb" text-anchor="middle">P_camera = r d</text>
+<text x="485" y="265" font-size="22" fill="#65e0cf" text-anchor="middle">(X, Y, Z)</text>
+<line x1="630" y1="241" x2="661" y2="241" stroke="#65e0cf" stroke-width="3" marker-end="url(#arrow)" />
+<rect x="674" y="200" width="218" height="82" rx="18" fill="#102a3d" stroke="#65e0cf" stroke-opacity=".65"/>
+<text x="783" y="233" font-size="25" fill="#f2f7fb" text-anchor="middle">取第 3 分量</text>
+<text x="783" y="265" font-size="22" fill="#65e0cf" text-anchor="middle">Z = r d_z</text>
+<line x1="906" y1="241" x2="937" y2="241" stroke="#65e0cf" stroke-width="3" marker-end="url(#arrow)" />
+<rect x="950" y="200" width="274" height="82" rx="18" fill="#102a3d" stroke="#65e0cf" stroke-opacity=".65"/>
+<text x="1087" y="233" font-size="25" fill="#f2f7fb" text-anchor="middle">深度图 Z(u,v)</text>
+<text x="1087" y="265" font-size="22" fill="#65e0cf" text-anchor="middle">Z ≤ r；轴上相等</text>
+<text x="54" y="307" font-size="22" fill="#abc1d0" >射线来自去畸变后的像素：d = normalize((u-c_x)/f_x, (v-c_y)/f_y, 1)</text>
+<text x="54" y="333" font-size="22" fill="#ffc477" >SDK 已输出 Z：勿重复转换；跨相机需继续做 B 的外参投影。</text>
+<rect x="32" y="368" width="1216" height="286" rx="18" fill="#0b1d2d" stroke="#426074"/>
+<text x="54" y="408" font-size="27" fill="#ffc477" font-weight="700">B · XYZ 点云 → 目标相机深度图</text>
+<rect x="54" y="430" width="228" height="82" rx="18" fill="#102a3d" stroke="#ffc477" stroke-opacity=".65"/>
+<text x="168" y="463" font-size="25" fill="#f2f7fb" text-anchor="middle">源点云 P_s</text>
+<text x="168" y="495" font-size="22" fill="#ffc477" text-anchor="middle">外参 R, t</text>
+<line x1="296" y1="471" x2="325" y2="471" stroke="#ffc477" stroke-width="3" marker-end="url(#arrow)" />
+<rect x="338" y="430" width="254" height="82" rx="18" fill="#102a3d" stroke="#ffc477" stroke-opacity=".65"/>
+<text x="465" y="463" font-size="25" fill="#f2f7fb" text-anchor="middle">P_c = R P_s + t</text>
+<text x="465" y="495" font-size="22" fill="#ffc477" text-anchor="middle">仅保留 Z &gt; 0</text>
+<line x1="606" y1="471" x2="635" y2="471" stroke="#ffc477" stroke-width="3" marker-end="url(#arrow)" />
+<rect x="648" y="430" width="230" height="82" rx="18" fill="#102a3d" stroke="#ffc477" stroke-opacity=".65"/>
+<text x="763" y="463" font-size="25" fill="#f2f7fb" text-anchor="middle">K 投影 → (u,v)</text>
+<text x="763" y="495" font-size="22" fill="#ffc477" text-anchor="middle">(u,v) 在图像内</text>
+<line x1="892" y1="471" x2="921" y2="471" stroke="#ffc477" stroke-width="3" marker-end="url(#arrow)" />
+<rect x="934" y="430" width="290" height="82" rx="18" fill="#102a3d" stroke="#ffc477" stroke-opacity=".65"/>
+<text x="1079" y="463" font-size="25" fill="#f2f7fb" text-anchor="middle">同像素取最近 Z</text>
+<text x="1079" y="495" font-size="22" fill="#ffc477" text-anchor="middle">Z_buffer = min(Z)</text>
+<rect x="54" y="534" width="1170" height="95" rx="18" fill="#102a3d" />
+<text x="74" y="569" font-size="24" fill="#f2f7fb" >P_c = (1, -0.5, 5) m   ·   (f_x,f_y,c_x,c_y) = (600,600,320,240)</text>
+<text x="74" y="608" font-size="24" fill="#ffc477" >→ (440,180), Z=5 m, r≈5.123 m；2P_c 投同像素，其 Z=10 m，被近点遮挡。</text>
+<text x="640" y="697" font-size="24" fill="#abc1d0" text-anchor="middle">深度图存目标相机坐标系中的 Z；r 与单位方向配对，才能还原三维点。</text>
+</g>
+</svg>

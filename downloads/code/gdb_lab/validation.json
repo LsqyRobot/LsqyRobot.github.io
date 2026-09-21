@@ -1,0 +1,118 @@
+{
+  "machine": "aarch64",
+  "platform": "Linux-6.12.54-linuxkit-aarch64-with-glibc2.35",
+  "uid": 501,
+  "gid": 20,
+  "gdb_version": "GNU gdb (Ubuntu 12.1-0ubuntu1~22.04.2) 12.1\nCopyright (C) 2022 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+  "compiler_version": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "packages": "g++\t4:11.2.0-1ubuntu1\ngdb\t12.1-0ubuntu1~22.04.2\ngdbserver\t12.1-0ubuntu1~22.04.2\nlibc6:arm64\t2.35-0ubuntu3.14\npython3\t3.10.6-1~22.04.1\npython3-pil:arm64\t9.0.1-1ubuntu0.5\n",
+  "compile_commands": [
+    [
+      "g++",
+      "-std=c++17",
+      "-g3",
+      "-Og",
+      "-fno-omit-frame-pointer",
+      "-pthread",
+      "/lab/debug_lab.cpp",
+      "-o",
+      "/work/debug_lab"
+    ],
+    [
+      "g++",
+      "-g3",
+      "-O0",
+      "-fno-omit-frame-pointer",
+      "/lab/reverse_demo.cpp",
+      "-o",
+      "/work/reverse_demo"
+    ]
+  ],
+  "source_sha256": {
+    "debug_lab.cpp": "430b4a710f1d280740ce9032dead6728678f83cb20acbf50d5cd23177ad0de73",
+    "reverse_demo.cpp": "bb0fc429263abb6b2103bf065eba94a03ad028a3c881ba0120b47446c6e925e7",
+    "record_session.py": "1c33bc32fae0f0813420a5db1f803c3f7ad39077972a2d99b9bf19cdf666d879",
+    "python_breakpoint.py": "1876aa2511a4e08d3f16e96798809e7a8f080e5b4dcfe43c4f0c0550034d7583",
+    "run_lab.py": "5e197d5406dbf4777b5b8ecb6cd4450e1ab4a72b5ba1635fe61ff7cd1fd7655d"
+  },
+  "binary_sha256": {
+    "debug_lab": "583c65b2112ba537614d5958825d7f59fe8a43d5cec9858075cb1d1fcc579c20",
+    "reverse_demo": "4e31900eab207d268647110d99a844f9a30bce2f1065c751669fc1ec915f525b"
+  },
+  "base_image": "ubuntu:22.04@sha256:2edbbc5dc405e9612ba3584ce95480277e3eb374407b5505fe26f17df77c7dbc",
+  "image_id": "sha256:f8d24c7b59e3ad858a8c8899481f8a064b1cb2901fb19c231e3ba0d49350cc18",
+  "security": {
+    "network": "none",
+    "source_mount": "read-only",
+    "non_root": true,
+    "cap_add": [
+      "SYS_PTRACE"
+    ],
+    "seccomp": "unconfined",
+    "privileged": false
+  },
+  "scenarios": [
+    {
+      "id": "conditional",
+      "status": "passed",
+      "checks": [
+        "tick=3, expected=20, actual=-20"
+      ]
+    },
+    {
+      "id": "watchpoint",
+      "status": "passed",
+      "checks": [
+        "hardware watchpoint selected",
+        "legitimate deposit reaches 125",
+        "bad write reaches -999",
+        "stack identifies buggy_fee"
+      ]
+    },
+    {
+      "id": "threads",
+      "status": "passed",
+      "checks": [
+        "three live threads",
+        "both workers are in wait_for_job",
+        "release_workers is false"
+      ]
+    },
+    {
+      "id": "exception",
+      "status": "passed",
+      "checks": [
+        "catch throw fired",
+        "throw origin contains seconds=-1",
+        "inferior exited"
+      ]
+    },
+    {
+      "id": "core",
+      "status": "passed",
+      "checks": [
+        "null target crash",
+        "nonempty core produced",
+        "reloaded core preserves arguments"
+      ]
+    },
+    {
+      "id": "python",
+      "status": "passed",
+      "checks": [
+        "Python predicate accepted bad result",
+        "Python filter stopped at tick 3"
+      ]
+    },
+    {
+      "id": "reverse",
+      "status": "passed",
+      "checks": [
+        "forward counter=2",
+        "reverse execution restores counter=1"
+      ]
+    }
+  ],
+  "recorded_sessions_sha256": "18fba2e37d5abc770193abada4bc9274b422fafcff0befaecfb3fc8f6645f0d4",
+  "full_transcript_sha256": "ddc2295c93c4978e123680dca92b07aaa9b0037a8f557104ef30d8471dbf81fe"
+}

@@ -4,10 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="基于 URDF、标准 DH 或 Craig MDH 模型的工业机器人参数标定与通用逆运动学工具。">
+  <meta name="robotics-runtime-mode" content="auto">
+  <meta name="robotics-helper-base" content="http://127.0.0.1:4011">
   <title>工业机器人参数标定与 IK · Robotics Workbench</title>
   <link rel="icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="/css/toolkit.css">
   <script src="/js/tools-common.js" defer></script>
+  <script src="/js/robotics-workbench-runtime.js" defer></script>
   <script src="/js/robot-parameter-calibration.js" defer></script>
 </head>
 <body class="robot-tool-page rc-page">
@@ -29,7 +32,7 @@
         <p>从 URDF、标准 DH 或 Craig MDH 名义模型出发，辨识关节零偏、杆长和法兰到工具的位姿修正；也可输入目标位姿，以 C++ 多起点数值求解器计算受关节限位约束的通用 IK。</p>
       </div>
       <div class="rt-status-stack" aria-label="工具状态">
-        <div class="rt-status-row"><span>backend</span><strong data-rc-health-state>checking</strong></div>
+        <div class="rt-status-row"><span>backend</span><strong data-rc-health-state>正在判断</strong></div>
         <div class="rt-status-row"><span>models</span><strong class="is-ready">URDF / DH / MDH</strong></div>
         <div class="rt-status-row"><span>engine</span><strong>C++ CLI</strong></div>
       </div>
@@ -37,6 +40,45 @@
 
     <noscript><div class="rc-message rc-message-error">此工具需要 JavaScript 才能读取本地文件并调用 Docker 标定服务。</div></noscript>
     <div class="rc-message" data-rc-message role="status" aria-live="polite" tabindex="-1" hidden></div>
+
+    <section class="rc-service-panel" data-rc-service-panel aria-labelledby="rc-service-title">
+      <div class="rc-service-head">
+        <div>
+          <span class="rt-kicker">Local runtime</span>
+          <h2 id="rc-service-title">本地计算服务</h2>
+        </div>
+        <strong class="rc-service-state is-checking" data-rc-service-state role="status" aria-live="polite" aria-atomic="true">正在判断运行环境</strong>
+      </div>
+      <p class="rc-service-summary" data-rc-service-summary>本地预览会检查回环地址上的 Workbench；公网版本不会探测或启动访问者电脑上的 Docker。</p>
+      <dl class="rc-service-facts" aria-label="计算服务状态">
+        <div><dt>页面模式</dt><dd data-rc-runtime-mode>判断中</dd></div>
+        <div><dt>Helper</dt><dd data-rc-helper-state>尚未检查</dd></div>
+        <div><dt>计算 API</dt><dd data-rc-api-state>尚未检查</dd></div>
+        <div><dt>镜像</dt><dd data-rc-image-state>尚未检查</dd></div>
+      </dl>
+      <div class="rc-service-actions" data-rc-local-actions hidden>
+        <button class="rt-primary-button" type="button" data-rc-service-start>启动 Docker</button>
+        <button class="rt-secondary-button" type="button" data-rc-service-check>检查服务</button>
+        <button class="rt-secondary-button" type="button" data-rc-service-logs>查看日志</button>
+        <button class="rt-secondary-button rc-danger-button" type="button" data-rc-service-stop>停止 Docker</button>
+      </div>
+      <p class="rc-service-impact" data-rc-local-actions hidden>停止操作需要二次确认，并会同时中断动力学辨识、机器人标定 / FK / IK 与轨迹规划页面的本地计算。</p>
+      <div class="rc-service-progress" data-rc-service-progress hidden>
+        <span class="rt-process-dot" aria-hidden="true"></span>
+        <span data-rc-service-progress-copy>正在等待 helper 返回状态……</span>
+      </div>
+      <pre class="rc-service-log" data-rc-service-log tabindex="0" hidden></pre>
+      <details class="rc-command-fallback" data-rc-command-fallback>
+        <summary>本地 helper 不可用？复制命令手动运行</summary>
+        <p>请在仓库根目录执行。<code>calibration-serve</code> 会同时启动受控 helper 与本地 Hexo 预览；API 和 helper 都只监听本机回环地址。</p>
+        <div class="rc-command-list">
+          <div><code>./bin/site.sh compute-up</code><button type="button" aria-label="复制 compute-up 命令" data-rc-copy-command="./bin/site.sh compute-up">复制</button></div>
+          <div><code>./bin/site.sh compute-status</code><button type="button" aria-label="复制 compute-status 命令" data-rc-copy-command="./bin/site.sh compute-status">复制</button></div>
+          <div><code>./bin/site.sh calibration-serve 4000</code><button type="button" aria-label="复制 calibration-serve 命令" data-rc-copy-command="./bin/site.sh calibration-serve 4000">复制</button></div>
+        </div>
+        <p class="rc-service-addresses">服务地址：<a href="http://127.0.0.1:4010/api/workbench/health">计算 API :4010</a><span aria-hidden="true"> · </span><a href="http://127.0.0.1:4000/tools/robot-parameter-calibration/">本地标定页 :4000</a></p>
+      </details>
+    </section>
 
     <section class="rt-workspace rc-workspace" aria-label="工业机器人参数标定工作区">
       <div class="rt-panel">
@@ -92,8 +134,8 @@
           </div>
 
           <div class="rc-example-row">
-            <button class="rt-secondary-button" type="button" data-rc-run-abb-demo>运行 ABB IRB 120 全闭环示例</button>
-            <span>一键执行 URDF 预检、隐藏参数辨识、独立留出集验证，以及补偿前后 FK / IK 物理回放。</span>
+            <button class="rt-secondary-button" type="button" data-rc-run-abb-demo disabled>运行 ABB IRB 120 全闭环示例</button>
+            <span>一键执行 URDF 预检、隐藏参数辨识、独立留出集验证，以及补偿前后 FK / IK 物理回放。<strong class="rc-local-only">仅本地计算</strong></span>
           </div>
 
           <div class="rt-form-grid rc-config-grid">
@@ -267,7 +309,7 @@
             <button class="rt-primary-button" type="submit" data-rc-run disabled>开始实测标定 →</button>
             <button class="rt-secondary-button" type="button" data-rc-inspect disabled>预检模型</button>
             <button class="rt-secondary-button" type="button" data-rc-reset>清空</button>
-            <span class="rt-form-hint">组合请求上限 12 MB</span>
+            <span class="rt-form-hint"><strong class="rc-local-only">C++ 计算仅本地可用</strong> · 组合请求上限 12 MB</span>
           </div>
         </form>
       </div>
@@ -276,7 +318,7 @@
         <div class="rt-preview-card rc-runtime-card">
           <div class="rt-preview-title"><strong>Docker 标定链路</strong><span class="rt-preview-state" data-rc-runtime-state>CHECKING BACKEND</span></div>
           <ol class="rt-process-list rc-process-list">
-            <li data-rc-process="backend"><span class="rt-process-dot"></span><span>连接 Docker :4010 标定 API</span><code>API</code></li>
+            <li data-rc-process="backend"><span class="rt-process-dot"></span><span data-rc-backend-process-copy>连接 Docker :4010 标定 API</span><code>API</code></li>
             <li data-rc-process="model"><span class="rt-process-dot"></span><span>解析模型、链路与关节范围</span><code>INSPECT</code></li>
             <li data-rc-process="data"><span class="rt-process-dot"></span><span data-rc-data-process-copy>对齐关节列与外部末端测量</span><code data-rc-data-process-code>DATA</code></li>
             <li data-rc-process="solver"><span class="rt-process-dot"></span><span data-rc-solver-process-copy>构造误差雅可比并迭代求解</span><code data-rc-solver-process-code>LM / SVD</code></li>
