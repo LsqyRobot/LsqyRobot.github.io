@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="基于固定基 URDF 和关节位置、速度、加速度、力矩 CSV 数据的机器人动力学参数辨识工具。">
+  <meta name="description" content="支持固定基与浮动基 URDF、关节日志、基座状态和已知接触力的机器人动力学参数辨识工具。">
   <title>动力学参数辨识 · Robotics Workbench</title>
   <link rel="icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="/css/toolkit.css">
@@ -21,14 +21,14 @@
 
     <section class="rt-hero">
       <div>
-        <span class="rt-kicker">Tool 02 · C++ dynamics</span>
+        <span class="rt-kicker">Tool 02 · rigid-body dynamics</span>
         <h1>动力学<br>参数辨识</h1>
-        <p>上传固定基机器人 URDF 与关节实验数据，由 Docker 容器中的 C++ 求解器构造动力学回归矩阵并估计参数。当前实现面向 revolute、continuous 与 prismatic 关节；输入只发送到本机 <code>127.0.0.1:4010</code> 的计算服务。</p>
+        <p>上传机器人 URDF 与同步实验数据：固定基继续使用 C++ RNEA 求解器，浮动基由 Pinocchio sidecar 结合 FreeFlyer 状态和已知接触力构造回归矩阵。输入只发送到本机 <code>127.0.0.1:4010</code> 的计算服务。</p>
       </div>
       <div class="rt-status-stack" aria-label="工具状态">
         <div class="rt-status-row"><span>backend</span><strong data-health-state>checking</strong></div>
-        <div class="rt-status-row"><span>model</span><strong class="is-ready">fixed base</strong></div>
-        <div class="rt-status-row"><span>engine</span><strong>C++ CLI</strong></div>
+        <div class="rt-status-row"><span>model</span><strong class="is-ready" data-model-state>fixed base</strong></div>
+        <div class="rt-status-row"><span>engine</span><strong data-engine-state>C++ RNEA</strong></div>
       </div>
     </section>
 
@@ -66,12 +66,12 @@
 
           <div class="di-example-row">
             <button class="rt-secondary-button" type="button" data-load-example>载入双连杆示例</button>
-            <span>先用仓库内示例验证完整链路，再替换成自己的数据。</span>
+            <span data-example-copy>先用仓库内固定基示例验证完整链路，再替换成自己的数据。</span>
           </div>
 
           <div class="rt-form-grid di-config-grid">
             <div class="rt-field"><label for="dynamics-source">建模来源</label><select id="dynamics-source" disabled><option>URDF（当前实现）</option><option>DH / MDH（未实现）</option></select></div>
-            <div class="rt-field"><label for="dynamics-base">基座形式</label><select id="dynamics-base" disabled><option>固定基（当前实现）</option><option>浮动基（未实现）</option></select></div>
+            <div class="rt-field"><label for="dynamics-base">基座形式</label><select id="dynamics-base"><option value="fixed">固定基 · C++ RNEA</option><option value="floating">浮动基 · Pinocchio FreeFlyer</option></select><small class="di-field-help">切换模式会清空已选文件，防止把两种 CSV 合同混用。</small></div>
             <div class="rt-field"><label for="dynamics-validation">验证集比例</label><input id="dynamics-validation" type="number" min="0" max="0.79" step="0.05" placeholder="留空使用 CLI 默认"></div>
             <div class="rt-field"><label for="dynamics-ridge">URDF 先验系数</label><input id="dynamics-ridge" type="number" min="0" step="any" placeholder="留空使用 CLI 默认"><small class="di-field-help">默认 1e-8；设为 0 会关闭防爆参先验。</small></div>
             <div class="rt-field"><label for="dynamics-rank-tolerance">秩判定容差</label><input id="dynamics-rank-tolerance" type="number" min="0.00000001" max="0.01" step="any" placeholder="留空使用 CLI 默认"><small class="di-field-help">用于归一化秩报告；先验为 0 时也控制截断求解。</small></div>
@@ -93,12 +93,12 @@
           <ol class="rt-process-list di-process-list">
             <li data-process="backend"><span class="rt-process-dot"></span><span>连接 Docker :4010 计算 API</span><code>API</code></li>
             <li data-process="input"><span class="rt-process-dot"></span><span>校验 URDF 与 CSV 输入</span><code>INPUT</code></li>
-            <li data-process="solver"><span class="rt-process-dot"></span><span>临时文件交给 C++ 求解器</span><code>EXEC</code></li>
+            <li data-process="solver"><span class="rt-process-dot"></span><span data-solver-process-label>临时文件交给 C++ RNEA 求解器</span><code>EXEC</code></li>
             <li data-process="result"><span class="rt-process-dot"></span><span>展示指标和辨识参数</span><code>RESULT</code></li>
           </ol>
           <div class="di-runtime-note">
             <strong>CSV 约定</strong>
-            <p>表头应与 URDF 的可动关节一一对应：time（可选），以及 q_&lt;joint&gt;、dq_&lt;joint&gt;、ddq_&lt;joint&gt;、tau_&lt;joint&gt;。也可直接参照双连杆示例。</p>
+            <p data-csv-convention>固定基 CSV：time（可选），以及每个可动关节的 q_&lt;joint&gt;、dq_&lt;joint&gt;、ddq_&lt;joint&gt;、tau_&lt;joint&gt;。可直接参照双连杆示例。</p>
           </div>
           <button class="di-health-retry" type="button" data-health-retry>重新检查后端</button>
         </div>
@@ -109,6 +109,11 @@
       <div class="rt-section-heading di-results-heading">
         <div><span class="rt-kicker">Identification result</span><h2 id="dynamics-results-title">辨识结果</h2><p data-result-summary>求解完成。</p></div>
         <button class="rt-secondary-button" type="button" data-download-result disabled>下载 JSON</button>
+      </div>
+      <div class="di-result-meta" aria-label="求解器元数据">
+        <span>engine<strong data-result-engine>—</strong></span>
+        <span>base_mode<strong data-result-base-mode>—</strong></span>
+        <span>contact frames<strong data-result-contact-frames>—</strong></span>
       </div>
       <div class="di-result-warnings" data-result-warnings hidden>
         <strong>结果解释与警告</strong>
@@ -127,12 +132,21 @@
       <details class="di-raw-result"><summary>查看原始 JSON</summary><pre data-raw-result></pre></details>
     </section>
 
+    <section class="di-scope di-workflow" aria-labelledby="dynamics-workflow-title">
+      <div><span class="rt-kicker">Two-layer workflow</span><h2 id="dynamics-workflow-title">双层工作流</h2></div>
+      <div class="di-scope-grid">
+        <article><span class="di-scope-state is-supported">layer 01</span><h3>Pinocchio · link inertials</h3><p>本页的浮动基求解器使用基座 6D 状态、关节状态与已知接触力辨识 link 惯性参数。</p></article>
+        <article><span class="di-scope-state is-supported">layer 02</span><h3>PACE · actuator calibration</h3><p>另行在固定基、机身固定且腿部悬空的工况标定 actuator、friction 与 delay；PACE 不是浮动基刚体求解器。</p></article>
+        <article><span class="di-scope-state is-supported">handoff</span><h3>Isaac Lab</h3><p>将两层结果分别写入刚体惯性与执行器配置，再以独立轨迹回放验证组合后的仿真资产。</p></article>
+      </div>
+    </section>
+
     <section class="di-scope" aria-labelledby="dynamics-scope-title">
       <div><span class="rt-kicker">Current scope</span><h2 id="dynamics-scope-title">当前边界</h2></div>
       <div class="di-scope-grid">
-        <article><span class="di-scope-state is-supported">supported</span><h3>固定基 URDF</h3><p>解析串联或树状固定基模型，使用 revolute、continuous、prismatic 关节和日志中的 q / dq / ddq / tau。</p></article>
-        <article><span class="di-scope-state">not yet</span><h3>浮动基与腿式系统</h3><p>暂不处理基座位姿、空间速度、IMU、接触力或闭链约束，因此不能直接辨识四足和人形的浮动基动力学。</p></article>
-        <article><span class="di-scope-state">not yet</span><h3>DH / 高级物理约束</h3><p>DH、MDH、Xacro、Stribeck、外载、转子惯量、最小参数重组和物理一致性投影尚未接入。</p></article>
+        <article><span class="di-scope-state is-supported">supported</span><h3>固定基 URDF</h3><p>原 C++ 合同保持不变：revolute、continuous、prismatic 关节与 q / dq / ddq / tau 日志。</p></article>
+        <article><span class="di-scope-state is-supported">supported</span><h3>浮动基与腿式系统</h3><p>Pinocchio FreeFlyer 使用 CSV v2 的基座位姿、LOCAL 速度 / 加速度、关节量和世界系已知接触力。</p></article>
+        <article><span class="di-scope-state">bounded</span><h3>已知接触与高级模型</h3><p>接触力必须已知并作用在命名 frame 原点；不估计未知接触、接触力矩或闭链约束。DH / MDH、Xacro 与物理一致性投影仍未接入。</p></article>
       </div>
     </section>
 
