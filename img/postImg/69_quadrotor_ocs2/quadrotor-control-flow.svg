@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+<title id="title">OCS2 与传统控制的四旋翼闭环</title>
+<desc id="desc">演示参考进入位置 MPC，再经姿态控制与推力分配进入 MuJoCo。实际位置速度反馈给 MPC，实际姿态角速度反馈给姿态控制。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#65dcff"/></marker></defs>
+<rect width="960" height="640" rx="22" fill="#101b2c"/>
+<g font-family="sans-serif" fill="#edf5ff">
+<text x="50" y="62" font-size="32" font-weight="700">OCS2 × 传统控制：让四旋翼飞起来</text>
+<text x="50" y="98" font-size="19" fill="#a4b5cc">上层给出参考，统一 controller 负责执行器控制</text>
+<rect x="195" y="130" width="570" height="75" rx="12" fill="#24324a"/>
+<text x="222" y="160" font-size="23">参考轨迹 · 示例层</text><text x="222" y="188" font-size="18" fill="#b6c6db">位置、速度、加速度 / 起飞、悬停、绕圈、降落</text>
+<rect x="195" y="235" width="570" height="85" rx="12" fill="#1b3e55"/>
+<text x="222" y="269" font-size="23">位置 MPC · OCS2 iLQR</text><text x="222" y="301" font-size="18" fill="#b6dbea">50 Hz 滚动优化 / 1.2 s 预测 / 输出期望加速度</text>
+<rect x="195" y="350" width="570" height="100" rx="12" fill="#23483f"/>
+<text x="222" y="384" font-size="23">姿态 PD + 旋翼推力分配</text><text x="222" y="415" font-size="18" fill="#c2e3d5">目标姿态、总推力 → 机体力矩 → 四个旋翼推力</text><text x="222" y="439" font-size="16" fill="#a6d6c1">RotorController · 500 Hz · 核心执行器控制层</text>
+<rect x="195" y="480" width="570" height="78" rx="12" fill="#24324a"/>
+<text x="222" y="513" font-size="23">MuJoCo 刚体与旋翼动力学</text><text x="222" y="540" font-size="18" fill="#b6c6db">推力响应、重力、运动积分、落架接触</text>
+<text x="50" y="603" font-size="18" fill="#a4b5cc">蓝线：反馈闭环　|　OCS2 预测平动，姿态与旋翼动力学在执行侧展开</text>
+</g>
+<g fill="none" stroke="#65dcff" stroke-width="3" marker-end="url(#arrow)">
+<path d="M480 206 V231"/><path d="M480 321 V346"/><path d="M480 451 V476"/>
+<path d="M195 518 H95 V278 H191"/><path d="M765 518 H853 V396 H769"/>
+</g>
+<g fill="#65dcff" font-family="sans-serif" font-size="17"><text x="35" y="362">位置</text><text x="35" y="387">速度</text><text x="864" y="442">姿态</text><text x="864" y="467">角速度</text></g>
+</svg>

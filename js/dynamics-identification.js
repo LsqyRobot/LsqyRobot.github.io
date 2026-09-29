@@ -7,19 +7,50 @@
   }
 
   var MAX_REQUEST_BYTES = 12 * 1024 * 1024;
-  var EXAMPLES = {
-    urdf: "/tools/dynamics-identification/examples/two_link.urdf",
-    csv: "/tools/dynamics-identification/examples/two_link_data.csv"
-  };
-  var DEFAULT_COPY = {
-    urdf: {
-      title: "拖入或选择 URDF",
-      detail: "固定基；支持 revolute / continuous / prismatic"
+  var MODES = {
+    fixed: {
+      examples: {
+        urdf: "/tools/dynamics-identification/examples/two_link.urdf",
+        csv: "/tools/dynamics-identification/examples/two_link_data.csv"
+      },
+      exampleNames: { urdf: "two_link.urdf", csv: "two_link_data.csv" },
+      exampleButton: "载入双连杆示例",
+      exampleCopy: "先用仓库内固定基示例验证完整链路，再替换成自己的数据。",
+      readyCopy: "双连杆 URDF 与实验 CSV 已载入，可以开始辨识。",
+      uploadDetails: {
+        urdf: "固定基；支持 revolute / continuous / prismatic",
+        csv: "每个关节提供 q、dq、ddq 与 tau 列"
+      },
+      csvConvention: "固定基 CSV：time（可选），以及每个可动关节的 q_<joint>、dq_<joint>、ddq_<joint>、tau_<joint>。可直接参照双连杆示例。",
+      modelLabel: "fixed base",
+      engineLabel: "C++ RNEA",
+      solverLabel: "临时文件交给 C++ RNEA 求解器"
     },
-    csv: {
-      title: "拖入或选择 CSV",
-      detail: "每个关节提供 q、dq、ddq 与 tau 列"
+    floating: {
+      examples: {
+        urdf: "/tools/dynamics-identification/examples/floating_quadruped.urdf",
+        csv: "/tools/dynamics-identification/examples/floating_quadruped_data.csv"
+      },
+      exampleNames: {
+        urdf: "floating_quadruped.urdf",
+        csv: "floating_quadruped_data.csv"
+      },
+      exampleButton: "载入浮动基四足示例",
+      exampleCopy: "CSV v2 示例包含 FreeFlyer 状态、关节量和世界系已知接触力。",
+      readyCopy: "浮动基四足 URDF 与 CSV v2 已载入，可以调用 Pinocchio 辨识。",
+      uploadDetails: {
+        urdf: "Pinocchio FreeFlyer；根 link 作为浮动基",
+        csv: "CSV v2：基座 pose / LOCAL v,a + 关节量 + 已知接触力"
+      },
+      csvConvention: "浮动基 CSV v2：base_* 位姿与 LOCAL 线/角速度、加速度，关节 q/dq/ddq/tau；contact_<frame>_fx/fy/fz 是作用于 frame 原点的世界系已知力。",
+      modelLabel: "floating base",
+      engineLabel: "Pinocchio sidecar",
+      solverLabel: "临时文件交给 Pinocchio sidecar"
     }
+  };
+  var UPLOAD_TITLES = {
+    urdf: "拖入或选择 URDF",
+    csv: "拖入或选择 CSV"
   };
   var PARAMETER_KEYS = [
     "parameters",
@@ -47,6 +78,15 @@
     parameterCount: document.querySelector("[data-parameter-count]"),
     rawResult: document.querySelector("[data-raw-result]"),
     downloadButton: document.querySelector("[data-download-result]"),
+    resultEngine: document.querySelector("[data-result-engine]"),
+    resultBaseMode: document.querySelector("[data-result-base-mode]"),
+    resultContactFrames: document.querySelector("[data-result-contact-frames]"),
+    baseMode: document.querySelector("#dynamics-base"),
+    modelState: document.querySelector("[data-model-state]"),
+    engineState: document.querySelector("[data-engine-state]"),
+    exampleCopy: document.querySelector("[data-example-copy]"),
+    csvConvention: document.querySelector("[data-csv-convention]"),
+    solverProcessLabel: document.querySelector("[data-solver-process-label]"),
     validationRatio: document.querySelector("#dynamics-validation"),
     ridge: document.querySelector("#dynamics-ridge"),
     rankTolerance: document.querySelector("#dynamics-rank-tolerance"),
@@ -55,11 +95,104 @@
 
   var state = {
     uploads: { urdf: null, csv: null },
+    healthPayload: null,
     backendReady: false,
     running: false,
     loadingExample: false,
     lastResult: null
   };
+
+  function selectedBaseMode() {
+    return elements.baseMode && elements.baseMode.value === "floating" ? "floating" : "fixed";
+  }
+
+  function modeConfig() {
+    return MODES[selectedBaseMode()];
+  }
+
+  function updateModeCopy() {
+    var config = modeConfig();
+    elements.exampleButton.textContent = config.exampleButton;
+    elements.exampleCopy.textContent = config.exampleCopy;
+    elements.csvConvention.textContent = config.csvConvention;
+    elements.modelState.textContent = config.modelLabel;
+    elements.engineState.textContent = config.engineLabel;
+    elements.solverProcessLabel.textContent = config.solverLabel;
+    ["urdf", "csv"].forEach(function (kind) {
+      if (state.uploads[kind]) {
+        return;
+      }
+      var detail = document.querySelector('[data-upload-detail="' + kind + '"]');
+      if (detail) {
+        detail.textContent = config.uploadDetails[kind];
+      }
+    });
+  }
+
+  function floatingHealth(payload) {
+    if (!payload) {
+      return null;
+    }
+    return (payload.backends && payload.backends.floating) ||
+      (payload.solvers && payload.solvers.floating) ||
+      null;
+  }
+
+  function floatingHealthDetail(payload) {
+    var health = floatingHealth(payload);
+    if (!health) {
+      return "健康响应未包含 backends.floating";
+    }
+    if (health.error) {
+      var detail = health.error.message || health.error.code || "sidecar 未就绪";
+      if (health.error.details) {
+        detail += "：" + health.error.details;
+      }
+      return detail;
+    }
+    return health.backend ? "后端 " + health.backend + " 未就绪" : "sidecar 未返回就绪状态";
+  }
+
+  function applyHealthForMode(showSuccess) {
+    var payload = state.healthPayload;
+    var mode = selectedBaseMode();
+    var fixedReady = Boolean(payload && payload.ok === true);
+    var sidecarReady = Boolean(floatingHealth(payload) && floatingHealth(payload).ok === true);
+    state.backendReady = fixedReady && (mode === "fixed" || sidecarReady);
+
+    elements.healthState.classList.remove("is-ready", "is-error");
+    elements.runtimeState.classList.remove("is-updated");
+    if (state.backendReady) {
+      elements.healthState.textContent = "ready";
+      elements.healthState.classList.add("is-ready");
+      elements.runtimeState.textContent = "READY FOR INPUT";
+      elements.runtimeState.classList.add("is-updated");
+      elements.engineState.textContent = modeConfig().engineLabel + " · ready";
+      markProcess("backend", true, false);
+      if (showSuccess) {
+        setMessage(
+          mode === "floating"
+            ? "Docker 计算服务与 Pinocchio 浮动基 sidecar 均已就绪。"
+            : "Docker 计算服务与固定基 C++ 求解器均已就绪。",
+          "success"
+        );
+      } else if (elements.message && elements.message.classList.contains("di-message-warning")) {
+        clearMessage();
+      }
+    } else if (mode === "floating" && fixedReady) {
+      elements.healthState.textContent = "sidecar offline";
+      elements.healthState.classList.add("is-error");
+      elements.runtimeState.textContent = "PINOCCHIO SIDECAR OFFLINE";
+      elements.engineState.textContent = "Pinocchio sidecar · unavailable";
+      markProcess("backend", false, false);
+      setMessage(
+        "Pinocchio 浮动基 sidecar 未就绪：" + floatingHealthDetail(payload) +
+          "。固定基模式仍可使用；浮动基需要先启动或修复 sidecar。",
+        "warning"
+      );
+    }
+    updateRunButton();
+  }
 
   function apiUrl(path) {
     var workbench = window.RoboticsWorkbench;
@@ -112,6 +245,7 @@
     elements.ridge.disabled = busy;
     elements.rankTolerance.disabled = busy;
     elements.friction.disabled = busy;
+    elements.baseMode.disabled = busy;
   }
 
   function validateUpload(kind, file) {
@@ -155,7 +289,11 @@
     if (state.backendReady) {
       clearMessage();
     } else {
-      setMessage("文件已就绪，但 Docker 计算服务尚未启动。请确认服务已启动，并检查 API 地址配置。", "warning");
+      setMessage(
+        "文件已就绪，但当前模式的计算后端尚未就绪。" +
+          (selectedBaseMode() === "floating" ? "请检查 Docker 服务与 Pinocchio sidecar。" : "请检查 Docker 服务。"),
+        "warning"
+      );
     }
     updateRunButton();
   }
@@ -173,10 +311,10 @@
       dropZone.classList.remove("has-file", "is-dragover");
     }
     if (title) {
-      title.textContent = DEFAULT_COPY[kind].title;
+      title.textContent = UPLOAD_TITLES[kind];
     }
     if (detail) {
-      detail.textContent = DEFAULT_COPY[kind].detail;
+      detail.textContent = modeConfig().uploadDetails[kind];
     }
   }
 
@@ -242,14 +380,18 @@
     }
   }
 
-  function apiError(payload, response) {
+  function apiError(payload, response, pinocchioContext) {
     if (payload && payload.error) {
       if (typeof payload.error === "string") {
         return payload.error;
       }
-      var message = payload.error.message || payload.error.code || "请求失败";
+      var code = payload.error.code || "";
+      var message = payload.error.message || code || "请求失败";
       if (payload.error.details) {
         message += "：" + payload.error.details;
+      }
+      if (pinocchioContext || code.indexOf("FLOATING_BACKEND") !== -1 || code.indexOf("PINOCCHIO") !== -1) {
+        return "Pinocchio 浮动基 sidecar：" + message;
       }
       return message;
     }
@@ -257,6 +399,7 @@
   }
 
   async function checkHealth(showSuccess) {
+    state.healthPayload = null;
     state.backendReady = false;
     elements.healthState.textContent = "checking";
     elements.healthState.classList.remove("is-ready", "is-error");
@@ -268,27 +411,25 @@
     try {
       var response = await fetch(apiUrl("/api/dynamics/health"), { cache: "no-store" });
       var payload = await responseJson(response);
-      state.backendReady = Boolean(response.ok && payload && payload.ok);
-      if (!state.backendReady) {
-        throw new Error(apiError(payload, response));
+      if (!response.ok || !payload || payload.ok !== true) {
+        throw new Error(apiError(payload, response, false));
       }
-      elements.healthState.textContent = "ready";
-      elements.healthState.classList.add("is-ready");
-      elements.runtimeState.textContent = "READY FOR INPUT";
-      elements.runtimeState.classList.add("is-updated");
-      markProcess("backend", true, false);
-      if (showSuccess) {
-        setMessage("Docker 计算服务和 C++ 求解器均已就绪。", "success");
-      } else if (elements.message && elements.message.classList.contains("di-message-warning")) {
-        clearMessage();
-      }
+      state.healthPayload = payload;
+      applyHealthForMode(showSuccess);
     } catch (error) {
+      state.healthPayload = null;
+      state.backendReady = false;
       elements.healthState.textContent = "offline";
       elements.healthState.classList.add("is-error");
       elements.runtimeState.textContent = "BACKEND OFFLINE";
       elements.runtimeState.classList.remove("is-updated");
+      elements.engineState.textContent = modeConfig().engineLabel + " · unavailable";
       markProcess("backend", false, false);
-      setMessage("Docker 计算服务不可用：" + error.message + "。请确认服务已启动，并检查 API 地址配置。", "warning");
+      setMessage(
+        "Docker 计算服务不可用：" + error.message +
+          "。请确认服务已启动并检查 API 地址；浮动基还需要 Pinocchio sidecar 健康。",
+        "warning"
+      );
     } finally {
       updateRunButton();
     }
@@ -300,13 +441,15 @@
     }
     var previousText = elements.exampleButton.textContent;
     state.loadingExample = true;
+    var config = modeConfig();
+    var selectedMode = selectedBaseMode();
     updateRunButton();
     elements.exampleButton.textContent = "正在载入…";
     clearMessage();
     try {
       var responses = await Promise.all([
-        fetch(EXAMPLES.urdf, { cache: "no-store" }),
-        fetch(EXAMPLES.csv, { cache: "no-store" })
+        fetch(config.examples.urdf, { cache: "no-store" }),
+        fetch(config.examples.csv, { cache: "no-store" })
       ]);
       responses.forEach(function (response) {
         if (!response.ok) {
@@ -314,14 +457,19 @@
         }
       });
       var contents = await Promise.all(responses.map(function (response) { return response.text(); }));
-      var urdf = { name: "two_link.urdf", text: contents[0], size: new Blob([contents[0]]).size, example: true };
-      var csv = { name: "two_link_data.csv", text: contents[1], size: new Blob([contents[1]]).size, example: true };
+      var urdf = { name: config.exampleNames.urdf, text: contents[0], size: new Blob([contents[0]]).size, example: true };
+      var csv = { name: config.exampleNames.csv, text: contents[1], size: new Blob([contents[1]]).size, example: true };
       setUpload("urdf", urdf);
       setUpload("csv", csv);
       if (state.backendReady) {
-        setMessage("双连杆 URDF 与实验 CSV 已载入，可以开始辨识。", "success");
+        setMessage(config.readyCopy, "success");
       } else {
-        setMessage("双连杆示例已载入，但 Docker 计算服务尚未启动。请确认服务已启动，并检查 API 地址配置。", "warning");
+        setMessage(
+          (selectedMode === "floating" ? "浮动基示例" : "双连杆示例") +
+            "已载入，但当前模式的计算后端尚未就绪。请检查 Docker 服务" +
+            (selectedMode === "floating" ? "与 Pinocchio sidecar。" : "。"),
+          "warning"
+        );
       }
     } catch (error) {
       setMessage("示例载入失败：" + error.message, "error");
@@ -353,7 +501,7 @@
   }
 
   function collectOptions() {
-    var options = {};
+    var options = { baseMode: selectedBaseMode() };
     var validationRatio = numericOption(elements.validationRatio, "验证集比例", 0, 0.8, false);
     var ridge = numericOption(elements.ridge, "URDF 先验系数", 0, undefined, false);
     var rankTolerance = numericOption(elements.rankTolerance, "秩判定容差", 1e-8, undefined, false);
@@ -512,82 +660,142 @@
     return PARAMETER_KEYS.indexOf(key.toLowerCase()) !== -1;
   }
 
-  function flattenMetrics(value, prefix, rows, depth) {
-    if (rows.length >= 80 || depth > 5 || value === null || value === undefined) {
+  function metricItemLabel(item, index) {
+    if (!isPlainObject(item)) {
+      return "[" + index + "]";
+    }
+    return item.joint || item.component || item.axis || item.frame || item.name || "[" + index + "]";
+  }
+
+  function flattenMetrics(value, prefix, rows, depth, group) {
+    if (rows.length >= 500 || depth > 6 || value === null || value === undefined) {
       return;
     }
     if (typeof value !== "object") {
-      rows.push({ name: prefix || "result", value: value });
+      rows.push({ name: prefix || "result", value: value, group: group });
       return;
     }
     if (Array.isArray(value)) {
       if (value.length <= 20 && value.every(function (item) { return typeof item !== "object"; })) {
-        rows.push({ name: prefix, value: value });
+        rows.push({ name: prefix, value: value, group: group });
+      } else {
+        value.forEach(function (item, index) {
+          if (isPlainObject(item)) {
+            flattenMetrics(item, prefix + "." + metricItemLabel(item, index), rows, depth + 1, group);
+          }
+        });
       }
       return;
     }
     Object.keys(value).forEach(function (key) {
-      if (rows.length >= 80 || isParameterKey(key)) {
+      if (rows.length >= 500 || isParameterKey(key)) {
         return;
       }
       var item = value[key];
       var name = prefix ? prefix + "." + key : key;
+      if (["joint", "component", "axis", "frame", "name"].indexOf(key) !== -1 &&
+          (typeof item !== "object" || item === null)) {
+        return;
+      }
       if (typeof item !== "object" || item === null) {
-        rows.push({ name: name, value: item });
+        rows.push({ name: name, value: item, group: group });
       } else if (Array.isArray(item)) {
         if (item.length <= 20 && item.every(function (entry) { return typeof entry !== "object"; })) {
-          rows.push({ name: name, value: item });
+          rows.push({ name: name, value: item, group: group });
+        } else {
+          flattenMetrics(item, name, rows, depth + 1, group);
         }
       } else {
-        flattenMetrics(item, name, rows, depth + 1);
+        flattenMetrics(item, name, rows, depth + 1, group);
       }
     });
   }
 
   function normalizeMetrics(root) {
     var rows = [];
-    var preferredKeys = ["metrics", "diagnostics", "data", "summary", "fit", "validation", "dataset", "solver", "model"];
-    preferredKeys.forEach(function (key) {
+    if (root && isPlainObject(root.metrics)) {
+      Object.keys(root.metrics).forEach(function (key) {
+        if (["base", "joints", "by_joint"].indexOf(key) === -1) {
+          flattenMetrics(root.metrics[key], "metrics." + key, rows, 0, "总体拟合");
+        }
+      });
+      if (root.metrics.base) {
+        flattenMetrics(root.metrics.base, "metrics.base", rows, 0, "基座 6D");
+      }
+      if (root.metrics.joints) {
+        flattenMetrics(root.metrics.joints, "metrics.joints", rows, 0, "关节总体");
+      }
+      if (root.metrics.by_joint) {
+        flattenMetrics(root.metrics.by_joint, "metrics.by_joint", rows, 0, "逐关节");
+      }
+    }
+    [
+      ["diagnostics", "求解诊断"],
+      ["data", "数据集"],
+      ["model", "模型"],
+      ["summary", "其他"],
+      ["fit", "其他"],
+      ["validation", "其他"],
+      ["dataset", "数据集"],
+      ["solver", "求解诊断"]
+    ].forEach(function (entry) {
+      var key = entry[0];
       if (root && Object.prototype.hasOwnProperty.call(root, key)) {
-        flattenMetrics(root[key], key, rows, 0);
+        flattenMetrics(root[key], key, rows, 0, entry[1]);
       }
     });
-    if (root && root.metrics && Array.isArray(root.metrics.by_joint)) {
-      root.metrics.by_joint.forEach(function (joint, index) {
-        if (!isPlainObject(joint)) {
-          return;
-        }
-        var jointName = joint.joint || "joint[" + index + "]";
-        ["all", "train", "validation"].forEach(function (scope) {
-          if (!isPlainObject(joint[scope])) {
-            return;
-          }
-          ["rmse", "mae", "max_abs", "r2"].forEach(function (metric) {
-            if (joint[scope][metric] !== undefined) {
-              rows.push({
-                name: "metrics.by_joint." + jointName + "." + scope + "." + metric,
-                value: joint[scope][metric]
-              });
-            }
-          });
-        });
-      });
-    }
     if (!rows.length) {
-      flattenMetrics(root, "", rows, 0);
+      flattenMetrics(root, "", rows, 0, "结果");
     }
     var seen = new Set();
     return rows.filter(function (row) {
-      if (!row.name || seen.has(row.name)) {
+      var identity = row.group + ":" + row.name;
+      if (!row.name || seen.has(identity)) {
         return false;
       }
-      seen.add(row.name);
+      seen.add(identity);
       return true;
     });
   }
 
   function humanizeName(name) {
     return name.replaceAll("_", " ").replaceAll(".", " · ");
+  }
+
+  function resultMetadata(root) {
+    var options = root && isPlainObject(root.options) ? root.options : {};
+    var engine = root && root.engine;
+    var baseMode = root && root.base_mode;
+    if (!baseMode) {
+      baseMode = options.base_mode;
+    }
+    if (!baseMode) {
+      baseMode = options.fixed_base === false ? "floating" : "fixed";
+    }
+    var engineName = typeof engine === "string" ? engine : (engine && (engine.name || engine.backend));
+    if (!engineName) {
+      engineName = baseMode === "floating"
+        ? "Pinocchio sidecar（未上报 engine）"
+        : "legacy fixed C++（未上报 engine）";
+    }
+    var contacts = root && root.model && root.model.contact_frames;
+    if (!contacts && root) {
+      contacts = root.contact_frames || (root.data && root.data.contact_frames);
+    }
+    var contactsReported = Array.isArray(contacts);
+    if (!Array.isArray(contacts)) {
+      contacts = [];
+    }
+    contacts = contacts.map(function (item) {
+      return isPlainObject(item) ? (item.frame || item.name || JSON.stringify(item)) : String(item);
+    });
+    return {
+      engine: engineName,
+      baseMode: String(baseMode),
+      contactFrames: contacts.length
+        ? contacts.join(", ")
+        : (baseMode === "fixed" ? "不适用（fixed）" : (contactsReported ? "无（0）" : "未上报"))
+    };
   }
 
   function appendCell(row, value) {
@@ -606,16 +814,32 @@
     body.appendChild(row);
   }
 
+  function appendMetricGroup(body, label) {
+    var row = document.createElement("tr");
+    var cell = document.createElement("td");
+    row.className = "di-metric-group-row";
+    cell.colSpan = 2;
+    cell.textContent = label;
+    row.appendChild(cell);
+    body.appendChild(row);
+  }
+
   function renderResult(payload) {
     var root = unwrapResult(payload);
     var metrics = normalizeMetrics(root);
     var parameters = normalizeParameters(root);
+    var metadata = resultMetadata(root);
     var warnings = root && Array.isArray(root.warnings) ? root.warnings : [];
     elements.metricsBody.replaceChildren();
     elements.parametersBody.replaceChildren();
     elements.resultWarningList.replaceChildren();
 
+    var currentGroup = "";
     metrics.forEach(function (metric) {
+      if (metric.group !== currentGroup) {
+        currentGroup = metric.group;
+        appendMetricGroup(elements.metricsBody, currentGroup);
+      }
       var row = document.createElement("tr");
       appendCell(row, humanizeName(metric.name));
       appendCell(row, formatValue(metric.value));
@@ -643,8 +867,12 @@
 
     elements.metricCount.textContent = metrics.length + " items";
     elements.parameterCount.textContent = parameters.length + " items";
+    elements.resultEngine.textContent = metadata.engine;
+    elements.resultBaseMode.textContent = metadata.baseMode;
+    elements.resultContactFrames.textContent = metadata.contactFrames;
     elements.rawResult.textContent = JSON.stringify(payload, null, 2);
-    elements.resultSummary.textContent = "C++ 求解器已返回 " + metrics.length + " 项指标和 " + parameters.length + " 项参数。";
+    elements.resultSummary.textContent = metadata.engine + "（" + metadata.baseMode + "）已返回 " +
+      metrics.length + " 项指标和 " + parameters.length + " 项参数。";
     elements.results.hidden = false;
     elements.downloadButton.disabled = false;
     state.lastResult = payload;
@@ -660,6 +888,9 @@
     elements.resultWarningList.replaceChildren();
     elements.resultWarnings.hidden = true;
     elements.rawResult.textContent = "";
+    elements.resultEngine.textContent = "—";
+    elements.resultBaseMode.textContent = "—";
+    elements.resultContactFrames.textContent = "—";
     markProcess("solver", false, false);
     markProcess("result", false, false);
   }
@@ -670,7 +901,12 @@
       return;
     }
     if (!state.backendReady) {
-      setMessage("Docker 计算服务尚未就绪，请重新检查服务。", "error");
+      setMessage(
+        selectedBaseMode() === "floating"
+          ? "Pinocchio 浮动基 sidecar 尚未就绪，请重新检查服务。"
+          : "Docker 固定基计算服务尚未就绪，请重新检查服务。",
+        "error"
+      );
       return;
     }
     if (!state.uploads.urdf || !state.uploads.csv) {
@@ -681,7 +917,9 @@
     var previousText = elements.runButton.textContent;
     state.running = true;
     elements.runButton.textContent = "正在计算…";
-    elements.runtimeState.textContent = "C++ SOLVER RUNNING";
+    elements.runtimeState.textContent = selectedBaseMode() === "floating"
+      ? "PINOCCHIO SOLVER RUNNING"
+      : "C++ SOLVER RUNNING";
     clearResult();
     markProcess("solver", false, true);
     clearMessage();
@@ -707,7 +945,7 @@
       });
       var payload = await responseJson(response);
       if (!response.ok) {
-        throw new Error(apiError(payload, response));
+        throw new Error(apiError(payload, response, selectedBaseMode() === "floating"));
       }
       if (payload === null || typeof payload !== "object") {
         throw new Error("求解服务未返回有效 JSON。");
@@ -739,17 +977,27 @@
 
   function resetAll() {
     form.reset();
+    updateModeCopy();
     resetUpload("urdf");
     resetUpload("csv");
-    if (state.backendReady) {
-      clearMessage();
-    } else {
+    clearMessage();
+    applyHealthForMode(false);
+    if (!state.backendReady && !state.healthPayload) {
       setMessage("Docker 计算服务尚未启动。请确认服务已启动，并检查 API 地址配置。", "warning");
     }
     clearResult();
     markProcess("input", false, false);
-    elements.runtimeState.textContent = state.backendReady ? "READY FOR INPUT" : "BACKEND OFFLINE";
-    elements.runtimeState.classList.toggle("is-updated", state.backendReady);
+    updateRunButton();
+  }
+
+  function changeBaseMode() {
+    resetUpload("urdf");
+    resetUpload("csv");
+    clearResult();
+    markProcess("input", false, false);
+    clearMessage();
+    updateModeCopy();
+    applyHealthForMode(false);
     updateRunButton();
   }
 
@@ -769,8 +1017,10 @@
     window.setTimeout(function () { URL.revokeObjectURL(url); }, 0);
   }
 
+  updateModeCopy();
   initializeUploads();
   form.addEventListener("submit", runIdentification);
+  elements.baseMode.addEventListener("change", changeBaseMode);
   elements.exampleButton.addEventListener("click", loadExamples);
   elements.resetButton.addEventListener("click", resetAll);
   elements.healthRetry.addEventListener("click", function () { checkHealth(true); });
