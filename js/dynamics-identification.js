@@ -99,7 +99,9 @@
     backendReady: false,
     running: false,
     loadingExample: false,
-    lastResult: null
+    lastResult: null,
+    serviceStatus: "checking",
+    runtimeMode: "online"
   };
 
   function selectedBaseMode() {
@@ -151,47 +153,6 @@
       return detail;
     }
     return health.backend ? "后端 " + health.backend + " 未就绪" : "sidecar 未返回就绪状态";
-  }
-
-  function applyHealthForMode(showSuccess) {
-    var payload = state.healthPayload;
-    var mode = selectedBaseMode();
-    var fixedReady = Boolean(payload && payload.ok === true);
-    var sidecarReady = Boolean(floatingHealth(payload) && floatingHealth(payload).ok === true);
-    state.backendReady = fixedReady && (mode === "fixed" || sidecarReady);
-
-    elements.healthState.classList.remove("is-ready", "is-error");
-    elements.runtimeState.classList.remove("is-updated");
-    if (state.backendReady) {
-      elements.healthState.textContent = "ready";
-      elements.healthState.classList.add("is-ready");
-      elements.runtimeState.textContent = "READY FOR INPUT";
-      elements.runtimeState.classList.add("is-updated");
-      elements.engineState.textContent = modeConfig().engineLabel + " · ready";
-      markProcess("backend", true, false);
-      if (showSuccess) {
-        setMessage(
-          mode === "floating"
-            ? "Docker 计算服务与 Pinocchio 浮动基 sidecar 均已就绪。"
-            : "Docker 计算服务与固定基 C++ 求解器均已就绪。",
-          "success"
-        );
-      } else if (elements.message && elements.message.classList.contains("di-message-warning")) {
-        clearMessage();
-      }
-    } else if (mode === "floating" && fixedReady) {
-      elements.healthState.textContent = "sidecar offline";
-      elements.healthState.classList.add("is-error");
-      elements.runtimeState.textContent = "PINOCCHIO SIDECAR OFFLINE";
-      elements.engineState.textContent = "Pinocchio sidecar · unavailable";
-      markProcess("backend", false, false);
-      setMessage(
-        "Pinocchio 浮动基 sidecar 未就绪：" + floatingHealthDetail(payload) +
-          "。固定基模式仍可使用；浮动基需要先启动或修复 sidecar。",
-        "warning"
-      );
-    }
-    updateRunButton();
   }
 
   function apiUrl(path) {
@@ -289,11 +250,7 @@
     if (state.backendReady) {
       clearMessage();
     } else {
-      setMessage(
-        "文件已就绪，但当前模式的计算后端尚未就绪。" +
-          (selectedBaseMode() === "floating" ? "请检查 Docker 服务与 Pinocchio sidecar。" : "请检查 Docker 服务。"),
-        "warning"
-      );
+      setMessage(unavailableMessage(), "warning");
     }
     updateRunButton();
   }
@@ -398,41 +355,104 @@
     return "Docker 计算服务返回 HTTP " + response.status + "，但没有可读取的 JSON 错误信息。";
   }
 
-  async function checkHealth(showSuccess) {
-    state.healthPayload = null;
-    state.backendReady = false;
-    elements.healthState.textContent = "checking";
-    elements.healthState.classList.remove("is-ready", "is-error");
-    elements.runtimeState.textContent = "CHECKING BACKEND";
-    elements.runtimeState.classList.remove("is-updated");
-    markProcess("backend", false, true);
-    updateRunButton();
+  var requestController = null;
+  var pollTimer = null;
+  var pageActive = true;
+  var FORM_STORAGE_KEY = "lsqy.dynamics.form.v1";
+  var optionInputs = [elements.baseMode, elements.validationRatio, elements.ridge, elements.rankTolerance, elements.friction];
 
-    try {
-      var response = await fetch(apiUrl("/api/dynamics/health"), { cache: "no-store" });
-      var payload = await responseJson(response);
-      if (!response.ok || !payload || payload.ok !== true) {
-        throw new Error(apiError(payload, response, false));
-      }
-      state.healthPayload = payload;
-      applyHealthForMode(showSuccess);
-    } catch (error) {
-      state.healthPayload = null;
-      state.backendReady = false;
-      elements.healthState.textContent = "offline";
-      elements.healthState.classList.add("is-error");
-      elements.runtimeState.textContent = "BACKEND OFFLINE";
-      elements.runtimeState.classList.remove("is-updated");
-      elements.engineState.textContent = modeConfig().engineLabel + " · unavailable";
-      markProcess("backend", false, false);
-      setMessage(
-        "Docker 计算服务不可用：" + error.message +
-          "。请确认服务已启动并检查 API 地址；浮动基还需要 Pinocchio sidecar 健康。",
-        "warning"
-      );
-    } finally {
-      updateRunButton();
+  function localPageAllowed() {
+    var marker = document.querySelector('meta[name="robotics-runtime-mode"]');
+    var hostname = String(window.location.hostname).toLowerCase().replace(/^\[|\]$/g, "");
+    return (!marker || marker.getAttribute("content") !== "online") &&
+      ["localhost", "127.0.0.1", "::1"].includes(hostname);
+  }
+
+  function unavailableMessage() {
+    if (state.runtimeMode === "local" && state.runtimeSnapshot && state.runtimeSnapshot.backendReady && selectedBaseMode() === "floating") {
+      return "Pinocchio 浮动基 sidecar 未就绪：" + floatingHealthDetail(state.healthPayload) + "。请在本地计算服务中检查状态；文件和参数会保留。";
     }
+    return state.runtimeMode === "online"
+      ? "当前为线上版本，可查看示例和参数说明；C++ 辨识仅本地可用，请按下方命令打开本地预览。"
+      : "计算服务尚未就绪，请在“本地计算服务”中启动 Docker 或检查状态；当前文件和参数会保留。";
+  }
+
+  function applyRuntimeSnapshot(snapshot) {
+    if (!snapshot) return;
+    var wasReady = state.backendReady;
+    state.runtimeSnapshot = snapshot;
+    state.healthPayload = snapshot.api || null;
+    state.runtimeMode = localPageAllowed() && snapshot.mode === "local" ? "local" : "online";
+    state.serviceStatus = state.runtimeMode === "online" ? "online" : snapshot.status;
+    var serviceReady = state.runtimeMode === "local" && snapshot.backendReady === true;
+    var sidecarReady = Boolean(floatingHealth(state.healthPayload) && floatingHealth(state.healthPayload).ok === true);
+    state.backendReady = serviceReady && (selectedBaseMode() === "fixed" || sidecarReady);
+    if (serviceReady && !state.backendReady) state.serviceStatus = "sidecar_offline";
+    elements.engineState.textContent = modeConfig().engineLabel + (state.backendReady ? " · ready" : " · unavailable");
+    var labels = { checking: "正在检查", ready: "服务已运行", starting: "服务启动中",
+      stopping: "服务停止中", sidecar_offline: "浮动基服务未就绪", offline: "Docker 未启动", error: "服务异常", online: "仅本地计算" };
+    elements.healthState.textContent = labels[state.serviceStatus] || "服务不可用";
+    elements.healthState.classList.toggle("is-ready", state.backendReady);
+    elements.healthState.classList.toggle("is-error", state.serviceStatus === "error");
+    elements.healthRetry.hidden = state.runtimeMode === "online";
+    document.querySelector("[data-backend-copy]").textContent = state.runtimeMode === "online"
+      ? "线上静态版本 · 不连接本机服务" : "连接 Docker :4010 计算 API";
+    markProcess("backend", state.backendReady, ["checking", "starting", "stopping"].includes(state.serviceStatus));
+    if (!state.backendReady && requestController) requestController.abort();
+    if (!state.running && (!state.lastResult || !state.backendReady)) {
+      elements.runtimeState.textContent = labels[state.serviceStatus] || "服务不可用";
+      elements.runtimeState.classList.toggle("is-updated", state.backendReady);
+    }
+    if (serviceReady && !state.backendReady) {
+      setMessage(unavailableMessage(), "warning");
+    } else if (snapshot.notification) {
+      setMessage(snapshot.notification, snapshot.notificationKind || "warning");
+    } else if (!state.backendReady && (!state.running || wasReady)) {
+      setMessage(unavailableMessage(), "warning");
+    } else if (state.backendReady && !wasReady && !state.running) {
+      setMessage("动力学计算服务已就绪，已保留当前文件与参数。", "success");
+    }
+    updateRunButton();
+  }
+
+  async function checkHealth(showSuccess, quiet) {
+    if (!localPageAllowed()) {
+      applyRuntimeSnapshot({ mode: "online", status: "online", backendReady: false });
+      return;
+    }
+    var controller = window.roboticsRuntimeController;
+    if (!controller) {
+      applyRuntimeSnapshot({ mode: "local", status: "error", backendReady: false,
+        notification: "服务控制组件未加载，请刷新页面或使用下方命令启动。", notificationKind: "error" });
+      return;
+    }
+    await controller.refresh({ showNotice: Boolean(showSuccess), quiet: Boolean(quiet) });
+  }
+
+  async function pollHealth() {
+    if (!pageActive || !localPageAllowed()) return;
+    var controller = window.roboticsRuntimeController;
+    if (document.visibilityState !== "hidden" && controller && !controller.snapshot().busy) {
+      await checkHealth(false, true);
+    }
+    if (pageActive) pollTimer = window.setTimeout(pollHealth, 5000);
+  }
+
+  function saveOptions() {
+    try {
+      var values = {};
+      optionInputs.forEach(function (input) { values[input.id] = input.value; });
+      window.sessionStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(values));
+    } catch (_error) { /* Storage may be disabled; current form still works. */ }
+  }
+
+  function restoreOptions() {
+    try {
+      var saved = JSON.parse(window.sessionStorage.getItem(FORM_STORAGE_KEY) || "{}");
+      optionInputs.forEach(function (input) {
+        if (typeof saved[input.id] === "string") input.value = saved[input.id];
+      });
+    } catch (_error) { /* Ignore invalid or unavailable storage. */ }
   }
 
   async function loadExamples() {
@@ -464,12 +484,7 @@
       if (state.backendReady) {
         setMessage(config.readyCopy, "success");
       } else {
-        setMessage(
-          (selectedMode === "floating" ? "浮动基示例" : "双连杆示例") +
-            "已载入，但当前模式的计算后端尚未就绪。请检查 Docker 服务" +
-            (selectedMode === "floating" ? "与 Pinocchio sidecar。" : "。"),
-          "warning"
-        );
+        setMessage((selectedMode === "floating" ? "浮动基示例" : "双连杆示例") + "已载入。" + unavailableMessage(), "warning");
       }
     } catch (error) {
       setMessage("示例载入失败：" + error.message, "error");
@@ -900,13 +915,8 @@
     if (state.running || state.loadingExample) {
       return;
     }
-    if (!state.backendReady) {
-      setMessage(
-        selectedBaseMode() === "floating"
-          ? "Pinocchio 浮动基 sidecar 尚未就绪，请重新检查服务。"
-          : "Docker 固定基计算服务尚未就绪，请重新检查服务。",
-        "error"
-      );
+    if (!localPageAllowed() || !state.backendReady) {
+      setMessage(unavailableMessage(), "warning");
       return;
     }
     if (!state.uploads.urdf || !state.uploads.csv) {
@@ -916,6 +926,9 @@
 
     var previousText = elements.runButton.textContent;
     state.running = true;
+    requestController = new AbortController();
+    var requestSignal = requestController.signal;
+    var requestTimeout = window.setTimeout(function () { requestController && requestController.abort(); }, 130000);
     elements.runButton.textContent = "正在计算…";
     elements.runtimeState.textContent = selectedBaseMode() === "floating"
       ? "PINOCCHIO SOLVER RUNNING"
@@ -927,6 +940,7 @@
 
     try {
       var contents = await Promise.all([uploadText(state.uploads.urdf), uploadText(state.uploads.csv)]);
+      if (!state.backendReady || requestSignal.aborted || !pageActive) throw new Error("服务状态已改变，请重新检查服务。");
       var request = {
         urdf: contents[0],
         csv: contents[1],
@@ -941,7 +955,8 @@
       var response = await fetch(apiUrl("/api/dynamics/identify"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: requestJson
+        body: requestJson,
+        signal: requestSignal
       });
       var payload = await responseJson(response);
       if (!response.ok) {
@@ -951,6 +966,7 @@
         throw new Error("求解服务未返回有效 JSON。");
       }
 
+      if (!pageActive || !state.backendReady || requestSignal.aborted) throw new Error("服务已停止，本次结果未应用。");
       var warningCount = renderResult(payload);
       markProcess("solver", true, false);
       markProcess("result", true, false);
@@ -967,8 +983,11 @@
       markProcess("solver", false, false);
       elements.runtimeState.textContent = "IDENTIFICATION FAILED";
       elements.runtimeState.classList.remove("is-updated");
-      setMessage("辨识失败：" + error.message, "error");
+      if (pageActive) setMessage("辨识失败：" + (error.name === "AbortError" ? "请求已取消或超时，请检查服务后重试。" : error.message), "error");
+      if (pageActive) void checkHealth(false, true);
     } finally {
+      window.clearTimeout(requestTimeout);
+      requestController = null;
       state.running = false;
       elements.runButton.textContent = previousText;
       updateRunButton();
@@ -978,15 +997,19 @@
   function resetAll() {
     form.reset();
     updateModeCopy();
+    if (state.runtimeSnapshot) applyRuntimeSnapshot(state.runtimeSnapshot);
+    saveOptions();
     resetUpload("urdf");
     resetUpload("csv");
-    clearMessage();
-    applyHealthForMode(false);
-    if (!state.backendReady && !state.healthPayload) {
-      setMessage("Docker 计算服务尚未启动。请确认服务已启动，并检查 API 地址配置。", "warning");
+    if (state.backendReady) {
+      clearMessage();
+    } else {
+      setMessage(unavailableMessage(), "warning");
     }
     clearResult();
     markProcess("input", false, false);
+    elements.runtimeState.textContent = state.backendReady ? "READY FOR INPUT" : (state.runtimeMode === "online" ? "仅本地计算" : "服务未就绪");
+    elements.runtimeState.classList.toggle("is-updated", state.backendReady);
     updateRunButton();
   }
 
@@ -997,7 +1020,7 @@
     markProcess("input", false, false);
     clearMessage();
     updateModeCopy();
-    applyHealthForMode(false);
+    if (state.runtimeSnapshot) applyRuntimeSnapshot(state.runtimeSnapshot);
     updateRunButton();
   }
 
@@ -1017,7 +1040,18 @@
     window.setTimeout(function () { URL.revokeObjectURL(url); }, 0);
   }
 
+  restoreOptions();
   updateModeCopy();
+  optionInputs.forEach(function (input) { input.addEventListener("change", saveOptions); });
+  window.addEventListener("robotics-workbench-runtime", function (event) { applyRuntimeSnapshot(event.detail); });
+  window.addEventListener("pagehide", function () {
+    pageActive = false;
+    window.clearTimeout(pollTimer);
+    if (requestController) requestController.abort();
+  });
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) { pageActive = true; void pollHealth(); }
+  });
   initializeUploads();
   form.addEventListener("submit", runIdentification);
   elements.baseMode.addEventListener("change", changeBaseMode);
@@ -1026,4 +1060,5 @@
   elements.healthRetry.addEventListener("click", function () { checkHealth(true); });
   elements.downloadButton.addEventListener("click", downloadResult);
   checkHealth(false);
+  if (localPageAllowed()) pollTimer = window.setTimeout(pollHealth, 5000);
 })();

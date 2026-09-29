@@ -1,0 +1,12 @@
+RC charge: pulse rises at 1ms, R=10k, C=1u, tau=10ms
+V1 vin 0 PULSE(0 5 1m 1u 1u 100m 200m)
+R1 vin out 10k
+C1 out 0 1u
+.control
+set wr_singlescale
+set wr_vecnames
+tran 0.05m 61m
+wrdata rc.dat v(vin) v(out)
+quit
+.endc
+.end

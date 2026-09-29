@@ -120,6 +120,10 @@
       return null;
     }
 
+    // Fixed profiles; the page cannot supply arbitrary probe URLs or commands.
+    var profile = panel.dataset.runtimeTool === "dynamics"
+      ? { health: "/api/dynamics/health", engine: "dynamics_identifier", label: "动力学辨识", serve: "dynamics-serve" }
+      : { health: "/api/calibration/health", engine: "robot_calibrator", label: "标定", serve: "calibration-serve" };
     var elements = {
       healthState: document.querySelector("[data-rc-health-state]"),
       serviceState: panel.querySelector("[data-rc-service-state]"),
@@ -160,6 +164,7 @@
       notificationKind: ""
     };
     var actionPromise = null;
+    var refreshGeneration = 0;
 
     function notify(next) {
       snapshot = Object.assign({}, snapshot, next || {});
@@ -172,7 +177,7 @@
       if (snapshot.status === "ready") {
         return {
           title: "服务已运行",
-          summary: "Robotics Workbench 与标定 C++ 内核均通过健康检查，可以运行标定、FK 和 IK。"
+          summary: "Robotics Workbench 与" + profile.label + " C++ 内核均通过健康检查，可以开始计算。"
         };
       }
       if (snapshot.status === "starting") {
@@ -195,7 +200,7 @@
       if (snapshot.status === "online") {
         return {
           title: "当前为线上版本",
-          summary: "为避免公网页面探测或控制访问者电脑，本页不会请求 127.0.0.1，也不会尝试启动 Docker。参数说明和静态示例仍可查看；C++ 标定、FK、IK 与轨迹计算仅支持本地运行。"
+          summary: "为避免公网页面探测或控制访问者电脑，本页不会请求 127.0.0.1，也不会尝试启动 Docker。参数说明和静态示例仍可查看；C++ 动力学辨识、标定、FK、IK 与轨迹计算仅支持本地运行。"
         };
       }
       if (snapshot.status === "checking") {
@@ -205,7 +210,7 @@
         title: "Docker 未启动",
         summary: snapshot.helperConnected
           ? "受控 helper 已连接，但 Workbench 尚未运行。可点击“启动 Docker”。"
-          : "Workbench 未响应，且没有连接到受控 helper。请用 calibration-serve 启动本地预览，或复制下面的命令手动运行。"
+          : "Workbench 未响应，且没有连接到受控 helper。请用 " + profile.serve + " 启动本地预览，或复制下面的命令手动运行。"
       };
     }
 
@@ -266,9 +271,9 @@
     }
 
     async function readApiHealth() {
-      var payload = await fetchJson(joinUrl(apiBase, "/api/calibration/health"), {}, HEALTH_TIMEOUT_MS);
-      if (payload.ok !== true || payload.engine !== "robot_calibrator") {
-        throw new Error("响应不是预期的 Robotics Workbench 标定内核。");
+      var payload = await fetchJson(joinUrl(apiBase, profile.health), {}, HEALTH_TIMEOUT_MS);
+      if (payload.ok !== true || payload.engine !== profile.engine) {
+        throw new Error("响应不是预期的 Robotics Workbench " + profile.label + "内核。");
       }
       return payload;
     }
@@ -304,6 +309,7 @@
 
     async function refresh(options) {
       options = options || {};
+      var generation = ++refreshGeneration;
       if (mode === "online") {
         return notify({
           status: "online",
@@ -323,6 +329,7 @@
         notify({ status: "checking", backendReady: false, busy: false });
       }
       var results = await Promise.allSettled([readApiHealth(), readHelperStatus()]);
+      if (generation !== refreshGeneration) return Object.assign({}, snapshot);
       var apiReady = results[0].status === "fulfilled";
       var helperConnected = results[1].status === "fulfilled";
       var helper = helperConnected ? results[1].value : null;
@@ -350,7 +357,7 @@
       var notificationKind = "";
       if (options.showNotice) {
         if (status === "ready") {
-          notification = "Docker 计算服务和标定 C++ 内核均已就绪。";
+          notification = "Docker 计算服务和" + profile.label + " C++ 内核均已就绪。";
           notificationKind = "success";
         } else if (!helperConnected) {
           notification = "Workbench 与本机 helper 均不可用：" + humanFailure(helperError || apiError) + " 请复制页面中的本地命令。";
@@ -403,7 +410,7 @@
         if (action === "start" && current.status === "ready") {
           return notify({
             busy: false,
-            notification: "Docker 已启动，标定 C++ 内核通过健康检查；已保留当前页面参数。",
+            notification: "Docker 已启动，" + profile.label + " C++ 内核通过健康检查；已保留当前页面文件和参数。",
             notificationKind: "success"
           });
         }
@@ -456,6 +463,7 @@
       if (actionPromise) {
         return actionPromise;
       }
+      refreshGeneration += 1; // Discard health responses started before this action.
       actionPromise = (async function () {
         try {
           notify({

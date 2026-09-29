@@ -400,6 +400,7 @@
 <span id="more"></span>
 <link rel="stylesheet" href="/css/ros2-notes.css">
 <link rel="stylesheet" href="/css/quadrotor-flight-note.css">
+<link rel="stylesheet" href="/css/robot-mapping-note.css">
 <p><a id="flight-demo"></a></p>
 <h2 id="1-先看真实闭环的效果">1. 先看真实闭环的效果</h2>
 <figure class="flight-demo">
@@ -668,6 +669,18 @@ M347 1759 V0 H263 V1759 v1200 v1759 h84z"/></svg></span></span></span><span clas
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 构建同一个 ros2_controller，验收两种飞行模式并生成 GIF/MP4</span></span><br><span class="line">./bin/site.sh ros2-quadrotor-demo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可指定尚不存在的结果目录，已有目录会被拒绝</span></span><br><span class="line">./bin/site.sh ros2-quadrotor-demo build/quadrotor/my-flight</span><br></pre></td></tr></table></figure>
 <p>阅读时建议依次看 <code>examples/flight/flight.cpp</code> 的 <code>Mpc::update()</code>、合力到目标姿态的转换，再看 <code>src/rotor_controller.cpp</code> 的 <code>update()</code> 和 <code>allocate()</code>。最后回到 <code>flight_demo.cpp</code>，检查状态记录与降落判据，便能把公式、控制输出和 GIF 中的运动一一对应。</p>
 <p>这次依赖的 OCS2 固定版本为 <code>930e3f4438b9e4cb5c191e39280e7307984dbda7</code>，使用其核心求解包。可继续查阅<a target="_blank" rel="noopener" href="https://github.com/leggedrobotics/ocs2/blob/930e3f4438b9e4cb5c191e39280e7307984dbda7/ocs2_ddp/include/ocs2_ddp/GaussNewtonDDP_MPC.h">该版本 MPC 实现</a>以及站内<a href="/2026/06/21/archived_ocs2_mpc_learning_notes/">OCS2 的 MPC 运行结构笔记</a>。</p>
+<p><a id="lidar-imu-mapping"></a></p>
+<h2 id="11-扩展演示：给同一段飞行接入雷达与-IMU-建图">11. 扩展演示：给同一段飞行接入雷达与 IMU 建图</h2>
+<p>在上面的飞行运动记录上增加虚拟雷达与 IMU 后，可以把标准传感器数据送入独立的 <code>ros2_mapping</code> 组件。它与 Go2 四足共用同一个建图入口，仅切换话题、坐标系和安装外参。</p>
+<figure class="mapping-demo">
+  <video controls playsinline preload="none" poster="/img/postImg/72_robot_mapping/quadrotor-mapping-poster.png" width="1440" height="900" aria-label="四旋翼飞行记录接入雷达与 IMU 建图组件" aria-describedby="flight-mapping-caption">
+    <source src="/img/postImg/72_robot_mapping/quadrotor-mapping.mp4" type="video/mp4">
+    当前浏览器不支持内嵌视频，请使用下方 MP4 链接。
+  </video>
+  <figcaption id="flight-mapping-caption">左侧为已有飞行状态回放，右侧为实际 Cartographer 3D 注册点云与估计轨迹。27.70 秒 MP4，1.5 倍速，点击播放。<a href="/img/postImg/72_robot_mapping/quadrotor-mapping.mp4">打开 / 下载视频</a>。</figcaption>
+</figure>
+<p>本轮无人机建图位置 RMSE 约 <strong>4.4 cm</strong>；这是传感器回放中的定位误差，与第 9 节的控制跟踪误差含义不同。新增场景与传感器没有重新参与动力学求解，SLAM 位姿也尚未反馈给飞控，因此前文的理想状态反馈控制结论保持原来的适用范围。</p>
+<p>四足的对照视频、两套外参配置、建图数据流和复现命令，见<a href="/2026/09/28/ros2_lidar_imu_mapping_multi_robot/">雷达与 IMU 建图笔记：四足和无人机共用一个组件</a>。</p>
 
                 </div>
             </div>

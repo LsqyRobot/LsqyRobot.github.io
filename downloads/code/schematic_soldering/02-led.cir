@@ -1,0 +1,20 @@
+LED operating point and supply sweep - GENERIC TEACHING MODEL
+* This is not a manufacturer-qualified model or a purchased part number.
+V1 vin 0 DC 5
+R1 vin led_a 1k
+D1 led_a 0 LED_TEACH
+C1 vin 0 100n
+.model LED_TEACH D(Is=1e-20 N=2 Rs=5)
+.temp 27
+.control
+set wr_singlescale
+set wr_vecnames
+op
+print v(vin) v(led_a) i(v1)
+wrdata led-op.dat v(led_a) i(v1)
+dc V1 0 5 0.05
+let led_current = -i(v1)
+wrdata led-sweep.dat v(led_a) led_current
+quit
+.endc
+.end

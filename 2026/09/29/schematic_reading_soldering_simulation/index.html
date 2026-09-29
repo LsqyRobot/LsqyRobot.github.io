@@ -1,0 +1,1296 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/73_schematic_soldering/schematic-to-soldering-cover.svg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">重拾电路图：从焊板读图到开源仿真</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>学过电气工程及其自动化，十几年没有接触电路，现在想重新看懂板子的图纸，最有效的恢复方式是：<strong>拿一个小电路，先判断连接与功能，算出测量预期，再仿真，最后对照板子检查。</strong> 欧姆定律、基尔霍夫定律和一阶电路不用从头背一遍，把它们重新用起来就好。</p>
+<p>这篇围绕 5 V 小信号电子板，补齐从“电气原理”到“元件封装、焊盘、测试点”的对应关系。配套三个可运行的 ngspice 实验：<strong>带载分压、LED 限流、RC 充电</strong>，输出实际求解结果、曲线和自动核对报告。练习不涉及市电板或高能量动力回路。</p>
+<p>先读第 1、2 节，再做第 5 节的带载分压实验；对极性或符号有疑问时回查第 3 节。配套文件：<a href="/downloads/code/schematic_soldering/README.md">实验说明</a>、<a href="/downloads/code/schematic_soldering/measurement-sheet.md">测量记录模板</a>、<a href="/downloads/code/schematic_soldering/VALIDATION.md">验证记录</a>。</p>
+<span id="more"></span>
+<h2 id="1-先把三种图和实物对上">1. 先把三种图和实物对上</h2>
+<p>焊板子时通常要同时看原理图、物料表和装配资料。</p>
+<table>
+<thead>
+<tr>
+<th>资料</th>
+<th>回答的问题</th>
+<th>实际怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原理图 / Schematic</td>
+<td>各引脚属于什么网络，电路起什么作用？</td>
+<td>找电源、回路、信号流和测量点</td>
+</tr>
+<tr>
+<td>BOM / 物料表</td>
+<td>R1 要拿哪一种元件？</td>
+<td>核对数值、完整型号、封装、精度、额定值与装配选项</td>
+</tr>
+<tr>
+<td>装配图 / Assembly drawing</td>
+<td>元件在哪一面、哪个位置、朝哪边？</td>
+<td>找 R1、D1、U1 和方向标记</td>
+</tr>
+<tr>
+<td>PCB 布局图</td>
+<td>焊盘和铜线怎么实现连接？</td>
+<td>核对焊盘编号、板层、过孔、铺铜和测试点</td>
+</tr>
+<tr>
+<td>Datasheet / 数据手册</td>
+<td>实物哪一脚是什么，允许怎样使用？</td>
+<td>查引脚图、封装尺寸、极性、额定范围、推荐应用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>位号是这几份资料之间的索引。</strong> 例如：原理图上的 <code>R17 = 10k</code> → BOM 的 R17 → PCB 丝印 R17 → 装在该位置的 10 kΩ 电阻。R17 不是“17 Ω”；0805 是封装规格的一种写法，也不是阻值。</p>
+<p>原理图可以把两个相邻实物画得很远；板上的铜线又可能藏在背面或内层。不要用图上“离得近”判断谁相连。先确认板号和版本一致，再追位号和脚号；同一产品不同修订版也可能改过引脚定义。</p>
+<h3 id="1-1-从电气图转到电子板图，特别注意这些差异">1.1 从电气图转到电子板图，特别注意这些差异</h3>
+<ul>
+<li><strong>GND 不自动等于保护地 PE。</strong> 在本文小电路中，它是指定为 0 V 的参考节点和回流网络。机壳地、保护地、模拟地、数字地是否连接，要看实际设计。</li>
+<li><strong>同一个 IC 可能分成多个符号单元。</strong> U1A、U1B 与 U1 的电源单元可能是同一颗芯片，不能按画了几个框就领几个元件。</li>
+<li><strong>NC 有语境差异。</strong> 继电器触点的 NC 常指 normally closed；芯片引脚表的 NC 常指 no connect。芯片是否必须悬空，应看该器件说明，不能套用触点含义。</li>
+<li><strong>DNP / DNI / Not fitted 通常表示该装配版本不焊。</strong> PCB 上有空焊盘，不代表漏装。</li>
+<li>丝印、阻焊开窗和铜层各有用途。白色元件框不导电；飞线/鼠线是尚待布线的连接提示，也不是已存在的铜线。</li>
+</ul>
+<h2 id="2-读一张陌生板子的图，按这个顺序">2. 读一张陌生板子的图，按这个顺序</h2>
+<h3 id="2-1-从供电入口建立参考">2.1 从供电入口建立参考</h3>
+<p>先找连接器、电池或稳压器：输入从哪一脚来？额定电压是多少？GND 回到哪里？输入和输出电源网名分别是什么？再找保险、反接保护、稳压、滤波和去耦元件。</p>
+<p>把 <code>VIN → 保护 → 稳压器 → +3V3 → 用电单元 → GND</code> 这样的供电关系写成一行，比逐个元件从左往右读有效。<code>VCC</code> 只是网名，不能仅凭名字认定是 5 V；上拉电阻接到 5 V 还是 3.3 V，对接口兼容性也有影响。</p>
+<h3 id="2-2-识别连接点、网络标签和跨页连接">2.2 识别连接点、网络标签和跨页连接</h3>
+<p><img src="/img/postImg/73_schematic_soldering/wire-junction-and-crossing.svg" alt="导线连接点和明确跨线桥的区别"></p>
+<p>交叉处的实心点通常表示连接；明确画出的跨线桥表示不连。现代图纸也常用“交叉无点”表示不连，但低清截图、旧制图习惯或刚好抵到导线的线端会造成歧义。能打开工程文件时，使用网络高亮确认。</p>
+<p>网名相同的线是否相连，还要看标签的作用域。在 KiCad 中，本地标签在同一图纸实例内起作用；跨图纸连接需理解全局标签或层次接口。不能把任意两页上的同名普通文字都当成已连通。<a target="_blank" rel="noopener" href="https://docs.kicad.org/9.0/en/eeschema/eeschema.html#electrical_connections">KiCad 电气连接说明</a></p>
+<h3 id="2-3-沿信号方向分块，再写测量预期">2.3 沿信号方向分块，再写测量预期</h3>
+<p>按“输入连接器 → 保护/滤波 → 放大或处理 → 输出驱动 → 负载”分块。对每一块写三件事：</p>
+<ol>
+<li>电源是否正确，参考地是哪一处。</li>
+<li>静态时关键节点应是多少伏、逻辑高还是低。</li>
+<li>输入变化时，输出应如何变化，时间尺度大约多长。</li>
+</ol>
+<p>例如 RC 充电电路，输出不会立刻跳到 5 V；例如 LED 串联支路，供电为 5 V，不代表 LED 两端也应测到 5 V。<strong>有预期以后，万用表读数才有解释。</strong></p>
+<h2 id="3-常用元件与标注速查">3. 常用元件与标注速查</h2>
+<p>这里用来恢复记忆；实际焊接始终落到“完整料号＋封装图＋焊盘编号”。</p>
+<table>
+<thead>
+<tr>
+<th>位号常见前缀</th>
+<th>元件</th>
+<th>焊接前要核对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R</td>
+<td>电阻</td>
+<td>阻值、精度、功率、封装；普通电阻通常无极性</td>
+</tr>
+<tr>
+<td>C</td>
+<td>电容</td>
+<td>容量、耐压、介质、封装及是否有极性</td>
+</tr>
+<tr>
+<td>L / FB</td>
+<td>电感 / 磁珠</td>
+<td>电感值或指定频率阻抗、额定电流、DCR；用途不同</td>
+</tr>
+<tr>
+<td>D / LED</td>
+<td>二极管 / 发光二极管</td>
+<td>A 阳极、K 阴极，器件种类及封装方向</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>三极管 / MOSFET</td>
+<td>B/C/E 或 G/D/S，型号和具体脚序；相同外形不保证兼容</td>
+</tr>
+<tr>
+<td>U / IC</td>
+<td>集成电路</td>
+<td>完整料号、1 脚、顶视/底视、裸露焊盘是否接地或散热</td>
+</tr>
+<tr>
+<td>J / P / CN</td>
+<td>连接器</td>
+<td>脚号、间距、板端/线端、插合面/焊接面视图</td>
+</tr>
+<tr>
+<td>SW / S、F、TP</td>
+<td>开关、保险、测试点</td>
+<td>触点定义、规格、对应网络</td>
+</tr>
+</tbody>
+</table>
+<p>美式电阻常画折线，IEC 风格常画矩形；普通电容常画两块平行极板。LED 在二极管符号旁有向外的光箭头；二极管符号的横杠对应 K 阴极。符号外形的入门对照可查 <a target="_blank" rel="noopener" href="https://learn.sparkfun.com/tutorials/how-to-read-a-schematic">SparkFun 原理图阅读教程</a>。</p>
+<h3 id="3-1-数值、封装和额定值别混在一起">3.1 数值、封装和额定值别混在一起</h3>
+<table>
+<thead>
+<tr>
+<th>标注</th>
+<th>常见解释</th>
+<th>易混处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>4K7</code>、<code>2R2</code></td>
+<td>4.7 kΩ、2.2 Ω</td>
+<td>字母同时代替小数点</td>
+</tr>
+<tr>
+<td>电阻三位码 <code>103</code></td>
+<td>10 × 10³ Ω = 10 kΩ</td>
+<td>第三位是十的幂，不是直接读成 103 Ω</td>
+</tr>
+<tr>
+<td>电阻四位码 <code>1002</code></td>
+<td>100 × 10² Ω = 10 kΩ</td>
+<td>不是按三位码读</td>
+</tr>
+<tr>
+<td>电容常见码 <code>104</code></td>
+<td>10 × 10⁴ pF = 100 nF = 0.1 μF</td>
+<td>该规则不能套到所有封装和型号标记上</td>
+</tr>
+<tr>
+<td><code>100n / 16V</code></td>
+<td>100 nF，额定耐压 16 V</td>
+<td>耐压不是此处一定要施加的电压</td>
+</tr>
+<tr>
+<td><code>0R</code> / <code>000</code></td>
+<td>常见零欧电阻标注</td>
+<td>是实际器件，有电流、封装等限制</td>
+</tr>
+<tr>
+<td>英制 <code>0805</code></td>
+<td>约 2.0 × 1.25 mm，对应公制 2012</td>
+<td>明确英制/公制；相同数字并非总是同样大小</td>
+</tr>
+</tbody>
+</table>
+<p>部分精密电阻使用 EIA-96 码，小尺寸贴片电阻/MLCC 可能没有可读标记。优先看料袋、BOM 和完整型号，不靠外观颜色猜容量。<a target="_blank" rel="noopener" href="https://www.vishay.com/docs/20020/smdmark.pdf">Vishay 电阻标记说明</a></p>
+<h3 id="3-2-极性和-1-脚：辨认线索，不当成万能口诀">3.2 极性和 1 脚：辨认线索，不当成万能口诀</h3>
+<table>
+<thead>
+<tr>
+<th>器件</th>
+<th>常见线索</th>
+<th>最后怎样确认</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>轴向二极管</td>
+<td>本体色环常标 K</td>
+<td>数据手册标记图与 PCB 的 K 端对应</td>
+</tr>
+<tr>
+<td>直插 LED</td>
+<td>未剪脚时长脚常为 A，平边/短脚常为 K</td>
+<td>不同封装有例外；剪脚后不能再靠长度判断</td>
+</tr>
+<tr>
+<td>铝电解电容</td>
+<td>条纹通常标负极</td>
+<td>与原理图正负及实物型号说明交叉核对</td>
+</tr>
+<tr>
+<td>钽电容</td>
+<td>常见条纹标正极</td>
+<td>不能照搬铝电解的“条纹负极”经验</td>
+</tr>
+<tr>
+<td>IC</td>
+<td>圆点、凹槽、倒角可能用于定位</td>
+<td>找封装图的 Pin 1 和视图方向</td>
+</tr>
+<tr>
+<td>PCB 方形焊盘</td>
+<td>经常用于标识 1 脚</td>
+<td><strong>1 脚不等于正极</strong>；必须查该元件脚定义</td>
+</tr>
+</tbody>
+</table>
+<p>常见 DIP 封装按顶视图、缺口朝上时，1 脚在左上，编号沿逆时针增加；这只用于帮助理解该类封装，不能推广到所有连接器、晶体管和贴片封装。封装图标注 <code>TOP VIEW</code>、<code>BOTTOM VIEW</code> 或 <code>MATING FACE</code> 时，先把观察面弄对再数脚。</p>
+<h2 id="4-一个电路，贯通原理图、焊盘和测量">4. 一个电路，贯通原理图、焊盘和测量</h2>
+<p><a id="led-example"></a></p>
+<p><img src="/img/postImg/73_schematic_soldering/led-circuit-reading.svg" alt="5V电源指示灯原理图，串联1k电阻和LED，并联100nF电容"></p>
+<p>本文定义：J1.1 是 +5 V，J1.2 是 GND；D1.2 是 A，D1.1 是 K。<strong>这是本例的脚号约定，不是所有 LED 的通用编号。</strong> C1 为无极性陶瓷电容。</p>
+<h3 id="4-1-把图抄成网络表">4.1 把图抄成网络表</h3>
+<table>
+<thead>
+<tr>
+<th>网络</th>
+<th>应相连的引脚</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+5V</td>
+<td>J1.1、R1.1、C1.1</td>
+</tr>
+<tr>
+<td>LED_A</td>
+<td>R1.2、D1.2（A）</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>J1.2、D1.1（K）、C1.2</td>
+</tr>
+</tbody>
+</table>
+<p>电流主回路是 <code>J1.1 → R1 → D1(A→K) → J1.2</code>。R1 和 LED 串联，电阻放在这一串联支路的另一端也能限流；C1 则并联在电源与地之间，不能把它理解成 LED 的串联供电通道。</p>
+<p>如果先用红 LED 正向压降约 2 V 作估算：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">I ≈ (5 V − 2 V) / 1 kΩ = 3 mA</span><br><span class="line">电阻两端电压 ≈ 3 V</span><br><span class="line">电阻功耗 ≈ I²R = 0.009 W = 9 mW</span><br></pre></td></tr></table></figure>
+<p>2 V 是估算条件，LED 压降随型号、电流和温度变化；仿真练习采用明确给出的教学模型，不能据此给未知 LED 定规格。实际选料还应核对器件最大额定值和工作范围。</p>
+<h3 id="4-2-从图纸走到焊盘">4.2 从图纸走到焊盘</h3>
+<p><img src="/img/postImg/73_schematic_soldering/pcb-top-bottom-pads.svg" alt="同一教学板的正面与翻转后的背面，J1和D1的1脚具有不同电气含义"></p>
+<p>上图仅演示位置、网络与翻面关系，<strong>不是可直接投板的 PCB 文件</strong>。R1/C1 用简化焊盘示意，实物封装尺寸、LED 孔距和布线需重新按器件核对。</p>
+<p>对照图可以直接看到：J1 的方形焊盘 1 是 +5 V，而 D1 的方形焊盘 1 是 K，接 GND。翻面后位置左右交换，电气脚号不变。实际软件的底层显示是否已经镜像，也要先确认；不要再凭感觉二次镜像。</p>
+<p>在 KiCad 这类 EDA 工具中，原理图的符号与 PCB 封装分别定义。普通映射通过符号引脚号与封装焊盘号对应；应同时检查具体库元件和封装，不能只看外形“放得进去”。<a target="_blank" rel="noopener" href="https://docs.kicad.org/9.0/en/eeschema/eeschema.html#assigning_footprints">KiCad 符号与封装文档</a></p>
+<h3 id="4-3-焊好以后测哪里">4.3 焊好以后测哪里</h3>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>测量位置</th>
+<th>本例的预期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>断电</td>
+<td>J1.1 ↔ R1.1</td>
+<td>同一网络，应接近表笔短接时的电阻</td>
+</tr>
+<tr>
+<td>断电</td>
+<td>D1.K ↔ J1.2</td>
+<td>同一 GND 网络，应导通</td>
+</tr>
+<tr>
+<td>断电</td>
+<td>+5V ↔ GND</td>
+<td>不应出现无法解释的持续近零电阻；电容/器件会影响读数</td>
+</tr>
+<tr>
+<td>正确供电后，直流电压档</td>
+<td>黑表笔接 J1.2，红表笔测 J1.1</td>
+<td>约 5 V</td>
+</tr>
+<tr>
+<td>同上</td>
+<td>红表笔测 LED_A</td>
+<td>约为 LED 正向压降，示例估算约 2 V</td>
+</tr>
+<tr>
+<td>同上</td>
+<td>R1 两端电压</td>
+<td>约 3 V，可由此算 I = U_R / R</td>
+</tr>
+</tbody>
+</table>
+<p>先通过电阻压降算支路电流，能避免初学恢复阶段频繁改接电流档。测电压时，红表笔插 V/Ω 孔、黑表笔插 COM；<strong>电流档必须串入被测支路，不能把 A/mA 档直接跨在电源两端。</strong></p>
+<h2 id="5-开源软件路线：先获得反馈，再增加工程细节">5. 开源软件路线：先获得反馈，再增加工程细节</h2>
+<p><a id="software-lab"></a></p>
+<table>
+<thead>
+<tr>
+<th>软件</th>
+<th>适合当前哪一步</th>
+<th>它能给什么反馈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CircuitJS1 / Falstad</strong></td>
+<td>恢复直觉、快速改元件与接线</td>
+<td>浏览器里显示电压/电流变化与波形，适合先做小电路</td>
+</tr>
+<tr>
+<td><strong>KiCad＋内置 ngspice</strong></td>
+<td>从原理图走到实际板子</td>
+<td>原理图、SPICE 仿真、封装关联、PCB、ERC/DRC</td>
+</tr>
+<tr>
+<td><strong>ngspice</strong></td>
+<td>重复计算、扫参数、保留可复核结果</td>
+<td>DC 工作点、扫描、瞬态分析；本篇配套实验直接使用它</td>
+</tr>
+</tbody>
+</table>
+<p>CircuitJS1 是开源浏览器电路仿真项目；KiCad 集成开源 ngspice 提供图形化仿真。这三者不要求一起安装：先用网页找回手感，再用 KiCad 做图与板；本篇的命令行实验适合用来重复验证数值。<a target="_blank" rel="noopener" href="https://github.com/sharpie7/circuitjs1">CircuitJS1 项目</a>、<a target="_blank" rel="noopener" href="https://www.kicad.org/discover/spice/">KiCad 仿真介绍</a>、<a target="_blank" rel="noopener" href="https://ngspice.sourceforge.io/ngspice-tutorial.html">ngspice 官方教程</a></p>
+<h3 id="5-1-今天就能做：CircuitJS-带载分压">5.1 今天就能做：CircuitJS 带载分压</h3>
+<p>打开 <a target="_blank" rel="noopener" href="https://www.falstad.com/circuit/circuitjs.html">Falstad CircuitJS 网页</a>，先画最简单的分压器。界面语言/菜单位置可能随站点变化；以下按元件与连接操作，不依赖固定快捷键。</p>
+<ol>
+<li>新建空白电路，添加直流电压源，设为 5 V；负端接地。</li>
+<li>添加 R1、R2，各为 10 kΩ，串联接在电源正负端之间。</li>
+<li>把两电阻中点命名为 OUT（若不命名，直接观察该节点电压也可以）。此时先算，再看 OUT：应为 2.5 V。</li>
+<li>增加一个 10 kΩ 负载 RL，从 OUT 接地。先不要盯读数，算 R2 与 RL 并联后的结果。</li>
+<li>运行，观察 OUT 降到约 1.667 V；移除负载后回到 2.5 V。</li>
+<li>把 RL 改为 1 kΩ，预测 OUT 约 0.417 V，再检查仿真。</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">空载：VOUT = 5 × 10k / (10k + 10k) = 2.5 V</span><br><span class="line">RL = 10k：R下 = 10k ∥ 10k = 5k，VOUT = 5 × 5k / 15k ≈ 1.667 V</span><br><span class="line">RL = 1k：R下 = 10k ∥ 1k ≈ 909.1 Ω，VOUT ≈ 0.417 V</span><br></pre></td></tr></table></figure>
+<p>这会马上唤回一个重要直觉：<strong>分压器不是理想稳压电源。</strong> 电压表的输入阻抗也相当于负载；对高阻节点，测量仪器本身会改变结果。动画中的点用于显示仿真电流，不是现实中电子漂移速度的写实动画。</p>
+<h3 id="5-2-已配好的-ngspice-实验">5.2 已配好的 ngspice 实验</h3>
+<p>下载网表：<a href="/downloads/code/schematic_soldering/01-divider.cir">01-divider.cir</a>、<a href="/downloads/code/schematic_soldering/02-led.cir">02-led.cir</a>、<a href="/downloads/code/schematic_soldering/03-rc.cir">03-rc.cir</a>。它们是 <strong>SPICE 网表，不是 KiCad 原理图工程</strong>；不用找“把 .cir 当成 .kicad_sch 打开”的操作。</p>
+<p>现有笔记仓库中已配 Docker 环境，宿主不用安装 ngspice/Python 包。在仓库根目录运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 首次构建需要联网获取 Ubuntu 软件包</span></span><br><span class="line">./bin/site.sh electronics-build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实际仿真断网运行；每次生成一个新结果目录</span></span><br><span class="line">./bin/site.sh electronics-test</span><br></pre></td></tr></table></figure>
+<p>结果位于 <code>build/electronics-lab/run-&lt;时间&gt;/results/</code>，其中 <code>report.json</code> 列出理论值、仿真值、容差和通过状态；各实验目录保留 <code>.cir</code>、<code>.dat</code> 与 <code>ngspice.log</code>。已有本地 ngspice 时，也可单独执行 <code>ngspice -b 01-divider.cir</code>，输出落在当前目录。</p>
+<p>网表中的 <code>0</code> 是 SPICE 参考地；<code>R1 vin out 10k</code> 表示 R1 接在 vin 与 out 两节点之间。<code>D1 led_a 0 LED_TEACH</code> 中节点顺序为阳极、阴极，这是 SPICE 元件语法，不等于 PCB 的焊盘编号。电压源 <code>i(V1)</code> 的正方向按流入其正端定义，所以供电时显示负值可以是正常结果。<a target="_blank" rel="noopener" href="https://ngspice.sourceforge.io/ngspice-tutorial.html">ngspice 网表与分析教程</a></p>
+<p>还有一个容易久未接触后忘掉的约定：SPICE 数值后缀 <code>m</code>/<code>M</code> 通常都表示 milli；兆要写 <code>meg</code>。例如 1 MΩ 在网表中写 <code>1meg</code>，不要写成会被解析为 1 mΩ 的 <code>1M</code>。<code>u</code> 表示微，<code>n</code> 表示纳。<a target="_blank" rel="noopener" href="https://ngspice.sourceforge.io/docs.html">ngspice 文档入口</a></p>
+<h3 id="5-3-实验反馈应该怎么读">5.3 实验反馈应该怎么读</h3>
+<table>
+<thead>
+<tr>
+<th>实验</th>
+<th>先做预测</th>
+<th>修改一个条件</th>
+<th>应看到的变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分压</td>
+<td>空载 2.5 V，10k 负载下约 1.667 V</td>
+<td>移除 RL 或改成 1k</td>
+<td>输出分别回升或进一步下降</td>
+</tr>
+<tr>
+<td>LED</td>
+<td>5 V、1k，电流大约几 mA</td>
+<td>R1 改 2k；另做反接对照</td>
+<td>电流减小；反接模型电流很小。不要通过实际反接未知 LED 验证耐压</td>
+</tr>
+<tr>
+<td>RC</td>
+<td>R=10k、C=1μF，τ=10 ms</td>
+<td>C 改 2μF</td>
+<td>达到同一充电比例所需时间约加倍</td>
+</tr>
+</tbody>
+</table>
+<p>RC 练习的输入在绝对时间 1 ms 开始上升，故充电 1τ 对应横轴约 <strong>11 ms</strong>，不是 10 ms；5τ 对应约 51 ms。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">τ = R × C = 10 kΩ × 1 μF = 10 ms</span><br><span class="line">理想阶跃下：VC(t) = 5 × [1 − exp(−t/τ)]，t 从阶跃开始计</span><br><span class="line">1τ：约 3.161 V，最终值的 63.2%</span><br><span class="line">5τ：约 4.966 V，最终值的 99.3%</span><br></pre></td></tr></table></figure>
+<p>配套波形来自 ngspice 求解结果；输入设置了 1 μs 有限上升时间，因此数值核对保留小容差。</p>
+<p><img src="/img/postImg/73_schematic_soldering/rc-transient.svg" alt="ngspice实际求解的RC输入与电容电压波形"></p>
+<p><img src="/img/postImg/73_schematic_soldering/led-current.svg" alt="ngspice教学LED模型在供电扫描时的电流变化"></p>
+<p><code>LED_TEACH</code> 是给定参数的教学模型，不是某个真实型号的厂家模型。曲线用于理解工作点和限流关系；真实器件差异、热效应、接触不良、焊锡桥、布局寄生等，不能由这几个理想化仿真直接验证。改参数后，如果仍运行“原始参数的自动核对”，出现失败是正常反馈：先改自己的理论预期，再核对新结果，不能只把容差放宽到通过。</p>
+<h3 id="5-4-转入-KiCad：同一个小电路完成闭环">5.4 转入 KiCad：同一个小电路完成闭环</h3>
+<p>从 <a target="_blank" rel="noopener" href="https://www.kicad.org/download/macos/">KiCad 官方 macOS 下载页</a>选择与系统、处理器匹配的发行包。本轮提供了安装入口和练习路径，没有自动安装桌面应用。以下对象与流程参照 KiCad 文档，具体按钮文字按安装版本确认。</p>
+<ol>
+<li>新建工程，先画分压器：直流电压源、两只 10k 电阻和参考地，标记 VIN / OUT。</li>
+<li>打开仿真模型设置，确认电压源是可仿真的 DC 源，而非只有名称的 <code>+5V</code> 电源符号。电阻有阻值，所有仿真引脚映射正确。</li>
+<li>在仿真器中做工作点分析，查看 OUT；并联 RL 后再计算。这一步用 KiCad 内置 ngspice，不必依赖 Docker 容器与 GUI 互相连接。</li>
+<li>再画 LED 练习。要仿真 LED，需分配相应 SPICE 模型并检查 A/K 映射；仅从符号库放一个 LED 图形不保证已有正确模型。</li>
+<li>工程转为实际板子时，用输入连接器表达供电入口，处理好仅供仿真的电压源是否排除出 PCB/BOM；不要把仿真激励当成待焊器件。</li>
+<li>为实际元件分配封装，逐个核对符号脚号、封装焊盘和数据手册；更新到 PCB，通过交叉定位找到 R1、C1、D1。</li>
+<li>看顶/底层、丝印和 3D 视图，导出 BOM 与装配资料。运行 ERC/DRC，逐条解释问题；它们检查的是设计规则，不保证元件选对、实物焊好或功能正确。</li>
+</ol>
+<p>三种分析先分清：<strong>OP</strong> 求静态工作点；<strong>DC sweep</strong> 看输入或参数变化后的静态特性；<strong>TRAN</strong> 看充放电、脉冲等随时间的过程。做 RC 恢复练习用 TRAN；做 LED 供电扫描用 DC sweep。AC 小信号分析可留到下一次复习频率响应时再练。</p>
+<h2 id="6-焊板与排查：每一步都对应图上的位置">6. 焊板与排查：每一步都对应图上的位置</h2>
+<h3 id="6-1-焊前">6.1 焊前</h3>
+<p>确认板号/版本、装配面和 BOM 版本。分好元件，先找所有有方向的 D、极性 C、Q、U 和连接器；把 1 脚、A/K、正负写在纸上。普通手工板可先装低矮元件再装高件，具体仍按结构和工艺安排。带底部散热焊盘、QFN/BGA 等器件，不应仅因“脚能对上”就按普通两脚元件方式处理。</p>
+<h3 id="6-2-焊后先断电检查">6.2 焊后先断电检查</h3>
+<p>在放大观察下检查桥连、漏焊、焊盘翘起与极性；焊点应体现焊料对焊盘和引脚的润湿。不能用“越亮越好”作为唯一标准，无铅焊点外观可能偏哑。常见不良可对照 <a target="_blank" rel="noopener" href="https://learn.adafruit.com/adafruit-guide-excellent-soldering/common-problems">Adafruit 焊点问题图解</a>。</p>
+<p>断电并释放电容残余电荷后，再测电阻、通断或二极管。先短接两表笔，了解自身表笔/导线读数。蜂鸣档有型号相关的阻值阈值；电容充电可能导致短暂鸣叫，低阻绕组/负载也可能鸣叫。因此 <strong>“响了”只是线索，需结合稳定阻值、原理图和支路判断</strong>。<a target="_blank" rel="noopener" href="https://www.fluke.com/en-us/learn/blog/digital-multimeters/how-to-test-for-continuity">Fluke 通断测量说明</a></p>
+<h3 id="6-3-首次通电按“供电—节点—功能”检查">6.3 首次通电按“供电—节点—功能”检查</h3>
+<p>对本文简单 LED 小板，可使用确认极性的 5 V 限流台式电源，按预计几 mA 的负载设置合理限流（例如 10 mA 起步）；该数值不适用于 MCU、电机或其他板卡。先看是否进入限流、供电轨是否正常，再测 LED_A 和电阻压降。</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>接下来测什么</th>
+<th>可能原因，不能仅凭现象定案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>上电进入限流，板端电压拉低</td>
+<td>断电检查电源—地阻值与装配方向</td>
+<td>桥连、装反、错件，或限流设得低于正常启动需求</td>
+</tr>
+<tr>
+<td>LED 不亮，LED_A 约 5 V，R1 压降近 0</td>
+<td>断电核对 LED、焊点及其回地路径</td>
+<td>LED 反接、开路、GND 未接通等</td>
+</tr>
+<tr>
+<td>LED_A 约 0 V，R1 承受接近全电源电压</td>
+<td>断电检查 LED 两端与对地连接</td>
+<td>LED 支路短接或装错等</td>
+</tr>
+<tr>
+<td>空载正常，接负载电压下降</td>
+<td>核对源阻抗、限流、接插件与供电能力</td>
+<td>把分压当供电、负载过重、连接电阻大等</td>
+</tr>
+<tr>
+<td>电压正常但功能不对</td>
+<td>看使能、复位、时序和接口电平</td>
+<td>静态电压正确不代表动态信号正确</td>
+</tr>
+</tbody>
+</table>
+<p>怀疑单个阻容数值时，板内并联支路会影响测量，必要时断开一端再测。发现异常发热或电流明显超出预期，先断电定位，不靠提高限流继续尝试。</p>
+<h2 id="7-三次练习，把“生疏”变成可验证的进步">7. 三次练习，把“生疏”变成可验证的进步</h2>
+<p><strong>第一次，约 30 分钟：恢复电路直觉。</strong> 做 CircuitJS 分压器，写出空载、10k 负载、1k 负载三个预测值。用 <a href="/downloads/code/schematic_soldering/measurement-sheet.md">测量记录模板</a>记录“预测—仿真—原因”。</p>
+<p><strong>第二次，约 45 分钟：回到动态与非线性。</strong> 跑 ngspice LED/RC，找到 LED 电流、1τ 和 5τ 的电压；每次只改 R 或 C 一个参数。解释 SPICE 电源电流为何可以为负。</p>
+<p><strong>第三次，约 60 分钟：恢复工程对应能力。</strong> 在 KiCad 画 LED 图，写网络表、分配封装，再从 PCB 中定位每个网络。没有实板也能完成这一步；有具体板子后再做断电检查和测量。</p>
+<p>完成后应能回答：D1 的 A/K 对应哪个焊盘？为何方焊盘可能接 GND？翻面后为什么位置反了而编号不变？2.5 V 的分压为什么带载变成 1.667 V？RC 图上为什么看 11 ms 而不是 10 ms？这些问题能说清，已经比单纯记一遍符号更接近实际焊板。</p>
+<h2 id="8-验证范围与后续练习">8. 验证范围与后续练习</h2>
+<p>本文附有教学图和实际 ngspice 仿真文件，数值验收与工具版本记录在 <a href="/downloads/code/schematic_soldering/VALIDATION.md">VALIDATION.md</a>。没有把教学图当成可制造的 PCB，也没有把仿真结果当成实物焊接验收。</p>
+<p>后续适合接着练：上拉/下拉与开漏输出、三极管/MOSFET 低边驱动及续流二极管、运放闭环与电源范围、稳压器输入输出电容、UART/I²C 接口。届时用具体器件数据手册和厂家模型，逐步把“理想电路成立”推进到“选定器件和板子上也成立”。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/other/topic-928a6cc852/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">电子技术</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E7%94%B5%E8%B7%AF%E5%9B%BE/">
+                        <span class="tag-chip-name">电路图</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E7%84%8A%E6%8E%A5/">
+                        <span class="tag-chip-name">焊接</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/circuitjs/">
+                        <span class="tag-chip-name">circuitjs</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/kicad/">
+                        <span class="tag-chip-name">kicad</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/ngspice/">
+                        <span class="tag-chip-name">ngspice</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

@@ -4,10 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="支持固定基与浮动基 URDF、关节日志、基座状态和已知接触力的机器人动力学参数辨识工具。">
+  <meta name="robotics-runtime-mode" content="auto">
+  <meta name="robotics-helper-base" content="http://127.0.0.1:4011">
   <title>动力学参数辨识 · Robotics Workbench</title>
   <link rel="icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="/css/toolkit.css">
   <script src="/js/tools-common.js" defer></script>
+  <script src="/js/robotics-workbench-runtime.js" defer></script>
   <script src="/js/dynamics-identification.js" defer></script>
 </head>
 <body class="robot-tool-page dynamics-identification-page">
@@ -23,10 +26,10 @@
       <div>
         <span class="rt-kicker">Tool 02 · rigid-body dynamics</span>
         <h1>动力学<br>参数辨识</h1>
-        <p>上传机器人 URDF 与同步实验数据：固定基继续使用 C++ RNEA 求解器，浮动基由 Pinocchio sidecar 结合 FreeFlyer 状态和已知接触力构造回归矩阵。输入只发送到本机 <code>127.0.0.1:4010</code> 的计算服务。</p>
+        <p>上传机器人 URDF 与同步实验数据：固定基继续使用 C++ RNEA 求解器，浮动基由 Pinocchio sidecar 结合 FreeFlyer 状态和已知接触力构造回归矩阵。本地预览可在下方启动计算服务；线上版本可浏览示例与说明，计算仅本地可用。</p>
       </div>
       <div class="rt-status-stack" aria-label="工具状态">
-        <div class="rt-status-row"><span>backend</span><strong data-health-state>checking</strong></div>
+        <div class="rt-status-row"><span>backend</span><strong data-health-state data-rc-health-state>checking</strong></div>
         <div class="rt-status-row"><span>model</span><strong class="is-ready" data-model-state>fixed base</strong></div>
         <div class="rt-status-row"><span>engine</span><strong data-engine-state>C++ RNEA</strong></div>
       </div>
@@ -34,6 +37,45 @@
 
     <noscript><div class="di-message di-message-error">此工具需要 JavaScript 才能读取文件并调用 Docker 计算服务。</div></noscript>
     <div class="di-message" data-message role="status" aria-live="polite" hidden></div>
+
+    <section class="rc-service-panel" data-rc-service-panel data-runtime-tool="dynamics" aria-labelledby="rc-service-title">
+      <div class="rc-service-head">
+        <div>
+          <span class="rt-kicker">Local runtime</span>
+          <h2 id="rc-service-title">本地计算服务</h2>
+        </div>
+        <strong class="rc-service-state is-checking" data-rc-service-state role="status" aria-live="polite" aria-atomic="true">正在判断运行环境</strong>
+      </div>
+      <p class="rc-service-summary" data-rc-service-summary>本地预览会检查回环地址上的 Workbench；公网版本不会探测或启动访问者电脑上的 Docker。</p>
+      <dl class="rc-service-facts" aria-label="计算服务状态">
+        <div><dt>页面模式</dt><dd data-rc-runtime-mode>判断中</dd></div>
+        <div><dt>Helper</dt><dd data-rc-helper-state>尚未检查</dd></div>
+        <div><dt>计算 API</dt><dd data-rc-api-state>尚未检查</dd></div>
+        <div><dt>镜像</dt><dd data-rc-image-state>尚未检查</dd></div>
+      </dl>
+      <div class="rc-service-actions" data-rc-local-actions hidden>
+        <button class="rt-primary-button" type="button" data-rc-service-start>启动 Docker</button>
+        <button class="rt-secondary-button" type="button" data-rc-service-check>检查服务</button>
+        <button class="rt-secondary-button" type="button" data-rc-service-logs>查看日志</button>
+        <button class="rt-secondary-button rc-danger-button" type="button" data-rc-service-stop>停止 Docker</button>
+      </div>
+      <p class="rc-service-impact" data-rc-local-actions hidden>停止操作需要二次确认，并会同时中断动力学辨识、机器人标定 / FK / IK 与轨迹规划页面的本地计算。</p>
+      <div class="rc-service-progress" data-rc-service-progress hidden>
+        <span class="rt-process-dot" aria-hidden="true"></span>
+        <span data-rc-service-progress-copy>正在等待 helper 返回状态……</span>
+      </div>
+      <pre class="rc-service-log" data-rc-service-log tabindex="0" hidden></pre>
+      <details class="rc-command-fallback" data-rc-command-fallback>
+        <summary>本地 helper 不可用？复制命令手动运行</summary>
+        <p>请在仓库根目录执行。<code>dynamics-serve</code> 会同时启动受控 helper 与本地 Hexo 预览；API 和 helper 都只监听本机回环地址。</p>
+        <div class="rc-command-list">
+          <div><code>./bin/site.sh compute-up</code><button type="button" aria-label="复制 compute-up 命令" data-rc-copy-command="./bin/site.sh compute-up">复制</button></div>
+          <div><code>./bin/site.sh compute-status</code><button type="button" aria-label="复制 compute-status 命令" data-rc-copy-command="./bin/site.sh compute-status">复制</button></div>
+          <div><code>./bin/site.sh dynamics-serve 4000</code><button type="button" aria-label="复制 dynamics-serve 命令" data-rc-copy-command="./bin/site.sh dynamics-serve 4000">复制</button></div>
+        </div>
+        <p class="rc-service-addresses">服务地址：<a href="http://127.0.0.1:4010/api/workbench/health">计算 API :4010</a><span aria-hidden="true"> · </span><a href="http://127.0.0.1:4000/tools/dynamics-identification/">本地辨识页 :4000</a></p>
+      </details>
+    </section>
 
     <section class="rt-workspace di-workspace" aria-label="动力学参数辨识工作区">
       <div class="rt-panel">
@@ -91,7 +133,7 @@
         <div class="rt-preview-card di-runtime-card">
           <div class="rt-preview-title"><strong>Docker 动力学计算链路</strong><span class="rt-preview-state" data-runtime-state>CHECKING BACKEND</span></div>
           <ol class="rt-process-list di-process-list">
-            <li data-process="backend"><span class="rt-process-dot"></span><span>连接 Docker :4010 计算 API</span><code>API</code></li>
+            <li data-process="backend"><span class="rt-process-dot"></span><span><span data-backend-copy>连接 Docker :4010 计算 API</span></span><code>API</code></li>
             <li data-process="input"><span class="rt-process-dot"></span><span>校验 URDF 与 CSV 输入</span><code>INPUT</code></li>
             <li data-process="solver"><span class="rt-process-dot"></span><span data-solver-process-label>临时文件交给 C++ RNEA 求解器</span><code>EXEC</code></li>
             <li data-process="result"><span class="rt-process-dot"></span><span>展示指标和辨识参数</span><code>RESULT</code></li>

@@ -1,0 +1,15 @@
+Loaded divider: ideal 5 V source, 10k/10k, with 10k load
+* CircuitJS and this netlist have the same topology.
+V1 vin 0 DC 5
+R1 vin out 10k
+R2 out 0 10k
+RL out 0 10k
+.control
+set wr_singlescale
+set wr_vecnames
+op
+print v(vin) v(out) i(v1)
+wrdata divider.dat v(out) i(v1)
+quit
+.endc
+.end
