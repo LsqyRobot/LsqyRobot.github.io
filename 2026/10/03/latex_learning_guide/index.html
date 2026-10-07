@@ -1,0 +1,986 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/latex_learning/valentine-s-day-valentine-love-coffee-preview_used.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">LaTeX 排版 00：学习路线与完整技术报告练习</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>以前的 LaTeX 笔记按“今天碰到什么命令”记录，查一个命令还可以，从头学习却容易失去方向。这次把原来的两篇文章重新编排：先理解源文件怎样变成文档，再学习公式与引用，最后处理图表和代码。每个主题都有解释、示例、常见错误和动手练习。</p>
+<p>最终目标是一份能持续维护的中文技术报告：章节和编号自动更新，公式符号一致，图表可以在正文引用，文献有独立的数据文件，换一台电脑也能重新生成 PDF。全部文章集中在 <a href="/knowledge/latex/">LaTeX 排版</a> 分类。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/latex-learning.css">
+<h2 id="一、先看完整路线">一、先看完整路线</h2>
+<table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>文章</th>
+<th>核心问题</th>
+<th>完成后的能力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>本篇：学习路线与完整练习</td>
+<td>学什么、怎样把各部分连起来</td>
+<td>找到源文件、运行构建、检查结果</td>
+</tr>
+<tr>
+<td>01</td>
+<td><a href="/2019/09/03/archived_latex_2019/">从最小文档到多文件工程</a></td>
+<td>文档类、导言区、章节、页面、编译</td>
+<td>从空文件写出中文报告，并定位第一个错误</td>
+</tr>
+<tr>
+<td>02</td>
+<td><a href="/2026/10/03/latex_math_and_references/">数学公式、交叉引用与参考文献</a></td>
+<td>数学语义、对齐、编号、文献流程</td>
+<td>修改推导后自动更新引用和书目</td>
+</tr>
+<tr>
+<td>03</td>
+<td><a href="/2021/01/17/archived_latex_2021/">图片、表格与代码清单</a></td>
+<td>浮动体、尺寸、子图、数据表、程序</td>
+<td>让图表在文档中清晰、稳定、便于比较</td>
+</tr>
+</tbody>
+</table>
+<p>01 与 03 分别由 2019、2021 年的原文章重写，原来的链接仍然有效。旧文散落的图片、表格和代码配置集中到 03；公式和文献成为独立的 02。以后遇到问题，先判断属于哪一层，再到对应章节查找，避免重新积累一串互不关联的命令。</p>
+<h2 id="二、理解从源码到-PDF-的过程">二、理解从源码到 PDF 的过程</h2>
+<figure class="latex-pipeline">
+  <picture>
+    <source media="(max-width: 640px)" srcset="/img/postImg/latex_learning/latex-pipeline-mobile.svg">
+    <img src="/img/postImg/latex_learning/latex-pipeline.svg" alt="LaTeX 文档与编译流程：正文和图片交给 XeLaTeX，文献交给 Biber，latexmk 调度到引用稳定后检查 PDF。" loading="lazy" decoding="async">
+  </picture>
+</figure>
+<p>这个流程中有三种不同的输入：<code>.tex</code> 描述正文与结构，图片文件保存图形，<code>.bib</code> 保存文献信息。XeLaTeX 将它们纳入排版流程；Biber 处理文献数据；latexmk 根据依赖和日志决定需要重跑哪些步骤。</p>
+<p>例如，在第一页插入一个新公式，会改变后面的公式编号。第一次编译把新编号写进辅助文件，后续编译再把引用更新到正文。目录、交叉引用和文献也是同样的思路。所以“运行过一次，没有报错”并不总意味着引用已经稳定。</p>
+<p>这里统一选择 <strong>XeLaTeX + CTeX + latexmk + Biber</strong>。XeLaTeX 是引擎入口，CTeX 提供中文文档支持，latexmk 是构建调度工具，Biber 负责 BibLaTeX 的文献后端。若学校或期刊模板指定另一套工具链，应按模板要求调整。<a target="_blank" rel="noopener" href="https://www.latex-project.org/get/">LaTeX 官方安装说明</a>、<a target="_blank" rel="noopener" href="https://ctan.org/pkg/ctex">CTeX</a>、<a target="_blank" rel="noopener" href="https://ctan.org/pkg/latexmk">latexmk</a> 和 <a target="_blank" rel="noopener" href="https://ctan.org/pkg/biblatex">BibLaTeX</a> 分别说明了这些组件的职责。</p>
+<h2 id="三、下载一份完整工程">三、下载一份完整工程</h2>
+<p>先对照成果，再修改源文件：</p>
+<ul>
+<li><a href="/downloads/latex/latex-workshop.pdf">查看完整示例 PDF</a></li>
+<li><a href="/downloads/code/latex_workshop.zip">下载完整示例源码 ZIP</a></li>
+<li><a href="/downloads/code/latex_workshop/main.tex">直接查看主文件 main.tex</a></li>
+<li><a href="/downloads/code/latex_workshop/README.md">查看运行说明 README</a></li>
+</ul>
+<p>这份报告使用虚构的关节数据，演示文档结构、最小二乘公式、子图、三线表、跨行跨列、长表、代码与文献。数据仅用于练习排版。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">latex_workshop/</span><br><span class="line">├── main.tex                    # 文档类、宏包、标题与章节入口</span><br><span class="line">├── sections/                   # 分主题正文</span><br><span class="line">├── figures/</span><br><span class="line">│   └── coordinate-frame.tex    # 可复现的 TikZ 图形源文件</span><br><span class="line">├── references.bib              # 文献条目</span><br><span class="line">└── README.md                   # 编译与练习说明</span><br></pre></td></tr></table></figure>
+<p>主文件负责全局配置；章节文件只写内容。编译时始终以主文件为入口。图片单独生成一次，修改图形后再重新生成。不要在每个章节中重复写 <code>\documentclass</code> 或 <code>\begin{document}</code>。</p>
+<h3 id="方式-A：使用仓库中的-Docker-环境">方式 A：使用仓库中的 Docker 环境</h3>
+<p>在网站仓库根目录执行：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./bin/site.sh latex-build</span><br><span class="line">./bin/site.sh latex-test</span><br></pre></td></tr></table></figure>
+<p>第一次构建镜像需要下载 TeX 依赖；构建完成后，示例编译在无网络容器中运行。结果放在 <code>build/latex-learning/</code> 下的新目录，包括 PDF、编译日志、提取出的正文、工具版本和逐页 PNG。原始练习文件以只读方式挂载，修改练习内容后重新运行即可。</p>
+<p>想为某次练习留一个明确的名字，可以指定<strong>新的空输出目录</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./bin/site.sh latex-test build/latex-learning/my-first-report</span><br></pre></td></tr></table></figure>
+<p>检查分两层：脚本检查中文文本、交叉引用、文献和溢出警告；读者仍需要打开 PDF，检查分页、空白、图片尺寸和文字是否容易阅读。内容正确与视觉清晰需要分别确认。</p>
+<h3 id="方式-B：本机已经安装-TeX-发行版">方式 B：本机已经安装 TeX 发行版</h3>
+<p>解压源码，在含有 <code>main.tex</code> 的目录中执行：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">xelatex -no-shell-escape -interaction=nonstopmode -halt-on-error \</span><br><span class="line">  -output-directory=figures figures/coordinate-frame.tex</span><br><span class="line">latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex</span><br></pre></td></tr></table></figure>
+<p>第一条生成插图 PDF，第二条生成报告 <code>main.pdf</code>。所需宏包见工程 README。引擎设置为 XeLaTeX，文献后端为 Biber；切换到在线编辑器时，也应保持这些设置，并准备好插图 PDF。不要只上传主文件而漏掉章节和文献。</p>
+<h2 id="四、分四次完成练习">四、分四次完成练习</h2>
+<h3 id="第一次：写出文档骨架">第一次：写出文档骨架</h3>
+<p>改标题、作者和日期，新增“实验条件”小节，写一个有序列表和一个无序列表。再把这个小节移动到另一个位置。</p>
+<p>验收：标题、目录、节编号和页码都由编译结果自动维护；能够解释正文与导言区的区别；知道应打开哪份日志。</p>
+<h3 id="第二次：把公式写成可以维护的推导">第二次：把公式写成可以维护的推导</h3>
+<p>在最小二乘目标前新增一个编号公式；为它设置标签，在正文中引用。接着把两行各自编号的 <code>align</code> 改为共用一个编号的 <code>equation + aligned</code>，观察编号的变化。</p>
+<p>验收：文中没有手写“公式 3”，没有未解析的 <code>??</code>；等号对齐；向量与标量的字体约定一致；能说出二范数下标与平方上标的含义。</p>
+<h3 id="第三次：整理实验图和数据">第三次：整理实验图和数据</h3>
+<p>改动坐标图的一个箭头，将表格加到五行，再给其中一项补一段较长的说明。复制长表的数据行，使它真正跨页，观察续页表头。</p>
+<p>验收：图片保持宽高比；表格不超出版心；文字列自动换行；数值列按小数点对齐；长表能够跨页。解释 <code>\linewidth</code> 为什么会随 minipage 或子图改变。</p>
+<h3 id="第四次：补齐可交付的技术报告">第四次：补齐可交付的技术报告</h3>
+<p>添加一条自己真实阅读过的文献，并在正文引用。不要只把条目写进 <code>.bib</code> 后期待它自动出现在文献表中。最后把源码目录复制到一个新位置，从干净状态重新编译。</p>
+<p>验收：文献作者、标题、年份准确；日志无未定义引用；源码、图片和书目完整；PDF 中没有缺字和遮挡；另一位读者能照 README 得到相同内容。</p>
+<h2 id="五、遇到问题时，先判断是哪一层">五、遇到问题时，先判断是哪一层</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>优先检查</th>
+<th>对应章节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>提示找不到命令或宏包</td>
+<td>引擎、发行版、包名、导言区</td>
+<td>01：编译链与日志</td>
+</tr>
+<tr>
+<td>中文缺字或字体不存在</td>
+<td>是否用 XeLaTeX；字体配置是否依赖本机</td>
+<td>01：中文最小文档</td>
+</tr>
+<tr>
+<td>公式错位或出现数学模式错误</td>
+<td>数学环境边界、括号、对齐符号</td>
+<td>02：公式环境与排错</td>
+</tr>
+<tr>
+<td>引用显示问号，文献为空</td>
+<td>标签、引用键、Biber 日志、编译是否稳定</td>
+<td>02：交叉引用与文献</td>
+</tr>
+<tr>
+<td>图片找不到或位置出乎意料</td>
+<td>相对路径、文件名大小写、浮动体规则</td>
+<td>03：图片与浮动体</td>
+</tr>
+<tr>
+<td>表格超出边界</td>
+<td>列类型、宽度总和、单元格内容</td>
+<td>03：数据表与长表</td>
+</tr>
+<tr>
+<td>代码配色混乱</td>
+<td>listings 配置键、语言、代码字符</td>
+<td>03：代码清单</td>
+</tr>
+</tbody>
+</table>
+<p>先看日志中的<strong>第一个实际错误</strong>，在最小文档中复现，再逐项恢复内容。一次增加很多宏包或替换整套模板，会让原因更难定位。</p>
+<h2 id="六、以后怎样扩展这套笔记">六、以后怎样扩展这套笔记</h2>
+<p>遇到一个新问题时，按“使用场景 → 最小示例 → 排版效果 → 原因 → 注意事项”的结构补到对应文章。宏包参数可以查手册，笔记应该保存的是选择它的理由、容易踩的坑，以及如何验证结果。</p>
+<p>这一轮建立的是通用技术报告基础。学校论文格式、期刊模板和演示文稿有各自约束；需要时再以这套基础为前提单独增加专题，避免把不同模板的设置混进同一个导言区。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/latex/start/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">学习路线与完整示例</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/latex/">
+                        <span class="tag-chip-name">latex</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/learning-notes/">
+                        <span class="tag-chip-name">learning-notes</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/writing/">
+                        <span class="tag-chip-name">writing</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

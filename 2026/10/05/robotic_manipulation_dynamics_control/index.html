@@ -1,0 +1,974 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/32_robotics/logo/lake-192990_1280.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">机器人操作数学重学 03：从虚功到动力学与控制</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>用一个具体问题串起这一章：两根长度为 1 米的杆折成直角，末端受到向右 1 牛的外力，两个关节分别感受到多大的转矩？先用数值和图验证雅可比转置，再加入惯性、重力与反馈控制，逐步看清每个矩阵对应的物理量。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/robotic-manipulation.css">
+<p><a href="/2026/10/05/robotic_manipulation_learning_guide/">系列学习地图</a> · 上一篇：<a href="/2026/10/05/robotic_manipulation_kinematics/">02 运动学与雅可比</a> · 下一篇：<a href="/2026/10/05/robotic_manipulation_grasp_nonholonomic/">04 抓取与非完整运动</a></p>
+<h2 id="1-先算外力怎样传到两个关节">1. 先算外力怎样传到两个关节</h2>
+<p>仍用前一篇的平面 2R 机械臂：两段杆长都为 <code>1 m</code>，关节角为 <code>q = (0°, 90°)</code>。第一根杆向右，第二根向上，末端位于 <code>(1, 1) m</code>。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/robotic_manipulation/jacobian.svg" alt="平面二连杆的关节速度与末端速度关系" loading="lazy" decoding="async"></p>
+<p>末端<strong>位置雅可比</strong>把关节角速度变成末端点的平移速度；此姿态下：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>p</mi><mo>˙</mo></mover><mo>=</mo><msub><mi>J</mi><mi>p</mi></msub><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo separator="true">,</mo><mspace width="2em"/><msub><mi>J</mi><mi>p</mi></msub><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">\dot p=J_p(q)\dot q,\qquad
+J_p=\begin{bmatrix}-1&amp;-1\\1&amp;0\end{bmatrix}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">p</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span></span></p>
+<p>现在让环境对末端施加向右的力 <code>f_ext = (1, 0) N</code>。这股力相对两个关节都有顺时针转动趋势；按照逆时针为正的约定，两个外力转矩都应为负。</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>τ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>=</mo><msubsup><mi>J</mi><mi>p</mi><mi>T</mi></msubsup><msub><mi>f</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mtext> </mtext><mrow><mi mathvariant="normal">N</mi><mtext> </mtext><mi mathvariant="normal">m</mi></mrow></mrow><annotation encoding="application/x-tex">\tau_{\mathrm{ext}}=J_p^T f_{\mathrm{ext}}
+=\begin{bmatrix}-1&amp;1\\-1&amp;0\end{bmatrix}
+\begin{bmatrix}1\\0\end{bmatrix}
+=\begin{bmatrix}-1\\-1\end{bmatrix}\ \mathrm{N\,m}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2744em;vertical-align:-0.3831em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathrm">N</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathrm">m</span></span></span></span></span></span></p>
+<p>这里得到的是<strong>外力作用到关节上的广义转矩</strong>。若忽略重力、摩擦，并要求静止不动，驱动器的保持转矩要反向抵消它：<code>τ_act = (1, 1) N·m</code>。把这两个概念混在一起，就会在控制代码中写反符号。</p>
+<div class="robotics-demo" data-demo="arm"></div>
+<script type="module" src="/js/robotic-manipulation/demo.mjs"></script>
+<p>交互图用于观察关节角改变后可产生的末端速度方向与速度椭圆，也可改变单位外力的方向，查看它对应的广义转矩；上面的转矩数值专门对应 <code>q = (0°, 90°)</code>，换姿态后要重新计算 <code>J_p(q)</code>。</p>
+<h2 id="2-为什么是转置：从功率对上账">2. 为什么是转置：从功率对上账</h2>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/robotic_manipulation/power-dynamics.svg" alt="关节端和末端通过雅可比转置保持功率一致，动力学再加入惯性与重力" loading="lazy" decoding="async"></p>
+<p>假设此刻关节速度是 <code>q̇ = (0.2, −0.1) rad/s</code>，末端速度为：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>p</mi><mo>˙</mo></mover><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.2</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>0.1</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>0.1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.2</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">/</mi><mi mathvariant="normal">s</mi></mrow></mrow><annotation encoding="application/x-tex">\dot p=\begin{bmatrix}-1&amp;-1\\1&amp;0\end{bmatrix}
+\begin{bmatrix}0.2\\-0.1\end{bmatrix}
+=\begin{bmatrix}-0.1\\0.2\end{bmatrix}\ \mathrm{m/s}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">p</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0.2</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">0.1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">0.1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0.2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathrm">m/s</span></span></span></span></span></span></p>
+<p>外力在末端输入的功率为 <code>1 × (−0.1) + 0 × 0.2 = −0.1 W</code>；传到关节端后，功率为 <code>−1 × 0.2 + (−1) × (−0.1) = −0.1 W</code>。两个端口的结果相同，负值表示该外力此刻从机器人吸收机械能。</p>
+<p>把这个数值例子改写成符号：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>f</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow><mi>T</mi></msubsup><mover accent="true"><mi>p</mi><mo>˙</mo></mover><mo>=</mo><msubsup><mi>f</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow><mi>T</mi></msubsup><msub><mi>J</mi><mi>p</mi></msub><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo>=</mo><mo stretchy="false">(</mo><msubsup><mi>J</mi><mi>p</mi><mi>T</mi></msubsup><msub><mi>f</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow></msub><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo>=</mo><msubsup><mi>τ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow><mi>T</mi></msubsup><mover accent="true"><mi>q</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">f_{\mathrm{ext}}^T\dot p
+=f_{\mathrm{ext}}^TJ_p\dot q
+=(J_p^Tf_{\mathrm{ext}})^T\dot q
+=\tau_{\mathrm{ext}}^T\dot q
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1383em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">p</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1774em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2744em;vertical-align:-0.3831em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1383em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>换成虚位移 <code>δp = J_p δq</code>，就是虚功关系。雅可比转置不是需要单独死记的力公式，而是与速度映射配对、让功率保持一致的映射。</p>
+<p>六维情况沿用本系列顺序：速度旋量 <code>V = (v, ω)</code>，力旋量 <code>F = (f, τ)</code>，功率为 <code>FᵀV</code>。两者必须使用匹配的参考坐标与参考点。前面的 <code>J_p</code> 只包含末端点的二维平移速度，不是完整的六维空间雅可比；不要把它和空间旋量的线速度部分直接混用。</p>
+<h2 id="3-动力学方程：转矩都花到哪里去了">3. 动力学方程：转矩都花到哪里去了</h2>
+<p>当机器人开始加速，驱动转矩不再只是平衡末端外力。用关节坐标写出：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo><mover accent="true"><mi>q</mi><mo>¨</mo></mover><mo>+</mo><mi>C</mi><mo stretchy="false">(</mo><mi>q</mi><mo separator="true">,</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo stretchy="false">)</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo>+</mo><mi mathvariant="bold">g</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>τ</mi><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>+</mo><msub><mi>J</mi><mi>p</mi></msub><mo stretchy="false">(</mo><mi>q</mi><msup><mo stretchy="false">)</mo><mi>T</mi></msup><msub><mi>f</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">M(q)\ddot q+C(q,\dot q)\dot q+\mathbf g(q)
+=\tau_{\mathrm{act}}+J_p(q)^Tf_{\mathrm{ext}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">M</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathbf" style="margin-right:0.016em;">g</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">act</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1774em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>直观含义</th>
+<th>读式子时要留意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>M(q)q̈</code></td>
+<td>让各连杆加速所需的惯性作用</td>
+<td>一个关节加速也可能影响另一个关节</td>
+</tr>
+<tr>
+<td><code>C(q,q̇)q̇</code></td>
+<td>与速度有关的科氏和离心项</td>
+<td>静止时这项为零</td>
+</tr>
+<tr>
+<td><code>g(q)</code></td>
+<td>重力势能对关节坐标的梯度</td>
+<td>与重力方向、零角度定义有关</td>
+</tr>
+<tr>
+<td><code>τ_act</code></td>
+<td>驱动器施加的关节转矩</td>
+<td>电机与减速器有输出限制</td>
+</tr>
+<tr>
+<td><code>J_pᵀf_ext</code></td>
+<td>环境外力对应的广义转矩</td>
+<td>方向按“环境作用于机器人”定义</td>
+</tr>
+</tbody>
+</table>
+<p>这里的 <code>g(q)</code> 是重力项，和表示坐标变换的 <code>g_ab</code> 不是同一个对象。实际模型还可能包含摩擦、柔性、负载变化与驱动器动态。</p>
+<p>在惯性参数物理有效、广义坐标独立的常规刚体模型中，质量矩阵 <code>M</code> 对称正定，因为动能为：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msup><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mi>T</mi></msup><mi>M</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">T=\frac{1}{2}\dot q^TM(q)\dot q
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.109em;">M</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>“正定”意味着非零速度具有正动能。<code>C</code> 的矩阵表示并不唯一，重要的是它给出的速度二次项；按常用 Christoffel 形式构造时，<code>Ṁ − 2C</code> 为斜对称矩阵。于是 <code>q̇ᵀ(Ṁ − 2C)q̇ = 0</code>，速度耦合不会无中生有地产生能量。这个性质可用于检查推导，但不能把它随意套到任意写法的 <code>C</code> 上。</p>
+<h2 id="4-一根摆杆：检查重力符号和单位">4. 一根摆杆：检查重力符号和单位</h2>
+<p>考虑质量集中在距关节 <code>r = 0.5 m</code> 处的单摆，质量 <code>m = 1 kg</code>，关于关节的转动惯量 <code>I = 0.25 kg·m²</code>。角度 <code>q</code> 从<strong>竖直向下</strong>计，重力加速度取 <code>9.81 m/s²</code>。</p>
+<p>选择势能 <code>U(q) = mgr(1 − cos q)</code>，因此重力项为 <code>dU/dq = mgr sin q</code>：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>I</mi><mover accent="true"><mi>q</mi><mo>¨</mo></mover><mo>+</mo><mi>m</mi><mi>g</mi><mi>r</mi><mi>sin</mi><mo>⁡</mo><mi>q</mi><mo>=</mo><msub><mi>τ</mi><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">I\ddot q+mgr\sin q=\tau_{\mathrm{act}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0785em;">I</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">act</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>当 <code>q = 30°</code> 且希望静止保持，<code>q̈ = 0</code>：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>τ</mi><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>=</mo><mn>1</mn><mo>×</mo><mn>9.81</mn><mo>×</mo><mn>0.5</mn><mo>×</mo><mi>sin</mi><mo>⁡</mo><msup><mn>30</mn><mo>∘</mo></msup><mo>=</mo><mn>2.4525</mn><mtext> </mtext><mrow><mi mathvariant="normal">N</mi><mtext> </mtext><mi mathvariant="normal">m</mi></mrow></mrow><annotation encoding="application/x-tex">\tau_{\mathrm{act}}
+=1\times9.81\times0.5\times\sin30^\circ
+=2.4525\ \mathrm{N\,m}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">act</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">9.81</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0.5</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7241em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">3</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7241em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∘</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">2.4525</span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">N</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathrm">m</span></span></span></span></span></span></p>
+<p>这个正转矩抵消重力的负向转动趋势。若电机不出力，此刻加速度为 <code>−2.4525 / 0.25 = −9.81 rad/s²</code>，杆会朝竖直向下回落。若再要求正向加速度 <code>2 rad/s²</code>，驱动转矩变为 <code>0.25 × 2 + 2.4525 = 2.9525 N·m</code>。</p>
+<p>这比只检查公式长相更有效：单位正确吗？在最低点 <code>q = 0</code> 时重力项是否为零？松手后加速度是否朝向最低点？</p>
+<h2 id="5-计算力矩控制：先写误差，再看抵消">5. 计算力矩控制：先写误差，再看抵消</h2>
+<p>设期望轨迹为 <code>q_d(t)</code>，定义误差 <code>e = q_d − q</code>。先假设模型精确、驱动器能完全实现转矩、没有外力，也暂不考虑摩擦。选择：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>τ</mi><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>=</mo><mi>M</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">(</mo><msub><mover accent="true"><mi>q</mi><mo>¨</mo></mover><mi>d</mi></msub><mo>+</mo><msub><mi>K</mi><mi>d</mi></msub><mover accent="true"><mi>e</mi><mo>˙</mo></mover><mo>+</mo><msub><mi>K</mi><mi>p</mi></msub><mi>e</mi><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">)</mo><mo>+</mo><mi>C</mi><mo stretchy="false">(</mo><mi>q</mi><mo separator="true">,</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo stretchy="false">)</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo>+</mo><mi mathvariant="bold">g</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\tau_{\mathrm{act}}
+=M(q)\bigl(\ddot q_d+K_d\dot e+K_pe\bigr)
++C(q,\dot q)\dot q+\mathbf g(q)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">act</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">M</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span><span class="mopen"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">e</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0833em;"><span class="mord">˙</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord mathnormal">e</span><span class="mclose"><span class="delimsizing size1">)</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathbf" style="margin-right:0.016em;">g</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span></span></span></span></span></p>
+<p>代回动力学方程，两侧的速度项和重力项抵消；再用 <code>M</code> 可逆，可得：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>q</mi><mo>¨</mo></mover><mo>=</mo><msub><mover accent="true"><mi>q</mi><mo>¨</mo></mover><mi>d</mi></msub><mo>+</mo><msub><mi>K</mi><mi>d</mi></msub><mover accent="true"><mi>e</mi><mo>˙</mo></mover><mo>+</mo><msub><mi>K</mi><mi>p</mi></msub><mi>e</mi><mspace width="1em"/><mo>⟹</mo><mspace width="1em"/><mover accent="true"><mi>e</mi><mo>¨</mo></mover><mo>+</mo><msub><mi>K</mi><mi>d</mi></msub><mover accent="true"><mi>e</mi><mo>˙</mo></mover><mo>+</mo><msub><mi>K</mi><mi>p</mi></msub><mi>e</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\ddot q=\ddot q_d+K_d\dot e+K_pe
+\quad\Longrightarrow\quad
+\ddot e+K_d\dot e+K_pe=0
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">e</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0833em;"><span class="mord">˙</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7512em;vertical-align:-0.0833em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">e</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">e</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0833em;"><span class="mord">˙</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span></p>
+<p>这才是控制律的目的：让机器人复杂的运动误差满足我们能分析的二阶系统。若每个关节采用 <code>K_d = 10</code>、<code>K_p = 25</code> 的标量增益，对应特征多项式为 <code>(s + 5)²</code>；理想误差会衰减。这里的增益单位分别为 <code>s⁻¹</code> 与 <code>s⁻²</code>，不是两个任意的无量纲数字。</p>
+<p>把这条控制律代回刚才的单摆：当前位置为 <code>30°</code>，目标再高 <code>0.1 rad</code>，当前和目标速度均为零，目标加速度也为零。取 <code>K_p = 25</code>，控制器要求的加速度是 <code>2.5 rad/s²</code>，于是输出 <code>0.25 × 2.5 + 2.4525 = 3.0775 N·m</code>。其中 <code>2.4525 N·m</code> 用于抵消重力，剩余 <code>0.625 N·m</code> 用于减小位置误差。若执行器最多只能输出 <code>2 N·m</code>，连当前位置的静态重力都无法抵消，单纯继续增大反馈增益也解决不了这个能力限制。</p>
+<p>在真实机器人上，负载估计错误、接触外力、摩擦、采样延迟和转矩饱和都会破坏这种精确抵消。尤其在饱和后，实际转矩不再等于公式要求的转矩，不能继续声称误差必然满足上面的方程。实际验证应同时看跟踪误差和转矩需求，并加入输出限制、状态估计及异常处理。</p>
+<p>本节讨论的是明确假设下的计算力矩控制。阅读原书的其他控制证明时，应同时查看<a target="_blank" rel="noopener" href="https://www.cds.caltech.edu/~murray/mlswiki/images/mlswiki/4/4a/Errata-e1.pdf">作者勘误</a>；作者页面还单独列出了第 4 章第 5 节 PD 控制证明的修正版。</p>
+<h2 id="6-三个小练习，把符号真正对齐">6. 三个小练习，把符号真正对齐</h2>
+<ol>
+<li>2R 例子中把外力改成向左 <code>f_ext = (−1, 0) N</code>。外力广义转矩和忽略重力时的保持转矩分别是多少？</li>
+<li>单摆保持在 <code>−30°</code>，驱动转矩的符号应怎样变化？</li>
+<li>计算力矩控制中模型把惯量低估一半，能否直接沿用理想误差方程？</li>
+</ol>
+<details>
+<summary>展开检查答案</summary>
+<p>第一题：外力广义转矩为 <code>(1, 1) N·m</code>，静态保持转矩为 <code>(−1, −1) N·m</code>。第二题：<code>sin(−30°) = −0.5</code>，保持转矩为 <code>−2.4525 N·m</code>。第三题：不能，模型与真实动力学不能精确抵消；应把估计值代入控制律、真实值保留在动力学中，重新推导误差项。</p>
+</details>
+<p>本篇为原创数值推导与学习示例，对应 Murray、Li、Sastry《A Mathematical Introduction to Robotic Manipulation》的动力学与控制主题。书籍版本和勘误以<a target="_blank" rel="noopener" href="https://www.cds.caltech.edu/~murray/mlswiki/index.php/First_edition">作者页面</a>为准。</p>
+<p>如果相同动作每次都出现相似误差，可以继续学习<a href="/knowledge/robotics/iterative-learning/">迭代学习控制专题</a>：在已有反馈控制之外，保存上一轮的误差，逐次生成下一轮的前馈补偿。专题配有单关节、两连杆画圆与柔性输出的逐轮实验。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/robotics/robotic-manipulation/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">机器人操作数学：图解重学</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/control/">
+                        <span class="tag-chip-name">control</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/dynamics/">
+                        <span class="tag-chip-name">dynamics</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/mls/">
+                        <span class="tag-chip-name">mls</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/robotics/">
+                        <span class="tag-chip-name">robotics</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

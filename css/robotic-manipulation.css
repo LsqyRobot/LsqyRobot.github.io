@@ -1,0 +1,47 @@
+.robotics-demo {
+  box-sizing: border-box; margin: 1.7rem 0; padding: 1.2rem;
+  border: 1px solid #cddce8; border-radius: 16px; background: #fff;
+  color: #213d52; min-width: 0; max-width: 100%; line-height: 1.65;
+}
+.robotics-demo *, .robotics-demo *::before, .robotics-demo *::after { box-sizing: border-box; }
+.robotics-demo .robotics-title { margin: 0 0 1rem; color: #193b54; font-size: 1.13rem; line-height: 1.5; }
+.robotics-controls { display: flex; align-items: end; flex-wrap: wrap; gap: .75rem 1rem; margin-bottom: 1rem; }
+.robotics-slider { display: block; flex: 1 1 190px; min-width: 0; margin: 0; font-size: .94rem; }
+.robotics-slider-label { display: flex; justify-content: space-between; gap: .6rem; font-weight: 650; }
+.robotics-slider output { font-variant-numeric: tabular-nums; color: #126594; }
+.robotics-slider input[type=range] { display: block; width: 100%; min-width: 0; height: 28px; margin: 3px 0; accent-color: #146b9a; cursor: pointer; }
+.robotics-controls button { appearance: none; border: 1px solid #9ab5c9; border-radius: 8px; background: #f1f7fb; color: #1a506f; font: inherit; font-size: .9rem; font-weight: 650; padding: .48rem .8rem; cursor: pointer; min-height: 42px; }
+.robotics-controls button:hover { background: #e1eff9; }
+.robotics-controls button:disabled { opacity: .48; cursor: default; }
+.robotics-controls button:focus-visible, .robotics-slider input:focus-visible { outline: 3px solid #a85816; outline-offset: 3px; }
+.robotics-stage { max-width: 100%; min-width: 0; }
+.robotics-plot { display: block; width: 100%; height: auto; font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+.robotics-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .7rem; margin-top: .9rem; }
+.robotics-field { background: #edf4f8; border-radius: 9px; padding: .55rem .7rem; min-width: 0; }
+.robotics-field span { display: block; font-size: .81rem; color: #496576; }
+.robotics-field strong { display: block; font-size: .96rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; color: #153b55; }
+.robotics-demo pre.robotics-matrix { grid-column: 1 / -1; margin: 0; padding: .7rem; overflow-x: auto; border: 1px solid #d8e4ec; border-radius: 9px; background: #f7fafc; color: #1b465e; font: .9rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre; }
+.robotics-demo .robotics-status { margin: .9rem 0 0; padding-left: .75rem; border-left: 3px solid #3b8c91; font-size: .92rem; color: #365568; overflow-wrap: anywhere; }
+.post-article-content table thead th { background: #224863; color: #fff !important; text-shadow: none; }
+@media (max-width: 600px) {
+  .robotics-demo { margin: 1.2rem 0; padding: .75rem; border-radius: 12px; }
+  .robotics-slider { flex-basis: 100%; }
+  .robotics-metrics { grid-template-columns: 1fr; }
+  .robotics-controls { gap: .6rem; }
+  .robotics-demo .robotics-title { font-size: 1.02rem; }
+  .robotics-demo pre.robotics-matrix { font-size: .83rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .robotics-demo *, .robotics-demo *::before, .robotics-demo *::after { animation: none !important; transition: none !important; }
+}
+@media (max-width: 520px) {
+  .post-article-content p:has(> img[src*="/robotic_manipulation/"]), .robotics-stage {
+    max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  .post-article-content p:has(> img[src*="/robotic_manipulation/"])::before, .robotics-stage::before {
+    content: "图较宽，可左右滑动查看"; display: block; position: sticky; left: 0;
+    width: max-content; font-size: .78rem; color: #526779; margin-bottom: .4rem;
+  }
+  .post-article-content p > img[src*="/robotic_manipulation/"] { width: 640px; min-width: 640px; max-width: none; height: auto; }
+  .robotics-stage .robotics-plot { min-width: 540px; }
+}

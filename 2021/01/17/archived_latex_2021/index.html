@@ -34,6 +34,8 @@
 	
 	
 	
+	
+	
 	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
 	
 	
@@ -377,12 +379,12 @@
 
 
         <div id="main" class="post-page-main">
-            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/8_LaTex/fantasy-5059352_1280.jpg);">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/8_LaTex/logo/old-3371616_1280_used.jpg);">
                 <div class="post-page-cover-media" aria-hidden="true">
                     <div class="post_page_title_blur"></div>
                     <div class="post_page_title_main"></div>
                 </div>
-                <h1 class="post-page-title">Latex 学习笔记(二)</h1>
+                <h1 class="post-page-title">LaTeX 排版 03：图片、表格与代码清单</h1>
             </header>
 
             <div class="post-content-shell">
@@ -395,105 +397,155 @@
                 </aside>
 
                 <div class="typo post-article-content">
-                    <!-- vim-markdown-toc GFM -->
-<ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
-<li><a href="#%E5%9B%BE%E7%89%87%E5%8F%8A%E5%AD%90%E5%9B%BE%E6%8E%92%E7%89%88">图片及子图排版</a></li>
-<li><a href="#%E4%B8%8E%E6%AE%B5%E8%90%BD%E6%9C%89%E5%85%B3%E7%9A%84%E8%B7%9D%E7%A6%BB">与段落有关的距离</a>
-<ul>
-<li><a href="#%E9%A6%96%E8%A1%8C%E7%BC%A9%E8%BF%9B">首行缩进</a></li>
-<li><a href="#%E6%AE%B5%E8%90%BD%E9%97%B4%E8%B7%9D">段落间距</a></li>
-<li><a href="#%E5%AD%97%E6%AF%8D%E4%B8%8A%E5%8A%A0%E5%B0%8F%E7%AE%AD%E5%A4%B4">字母上加小箭头</a></li>
-</ul>
-</li>
-<li><a href="#listings-%E5%AE%8F%E5%8C%85%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E">listings 宏包使用说明</a>
-<ul>
-<li><a href="#%E9%A2%84%E8%AE%BE">预设</a></li>
-<li><a href="#%E7%8E%AF%E5%A2%83%E5%8F%82%E6%95%B0">环境参数</a></li>
-<li><a href="#%E6%A1%86%E6%9E%B6">框架</a></li>
-<li><a href="#%E8%83%8C%E6%99%AF%E9%A2%9C%E8%89%B2">背景颜色</a></li>
-<li><a href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%8C%87%E4%BB%A4">更多的指令</a></li>
-</ul>
-</li>
-<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
-</ul>
-<!-- vim-markdown-toc -->
-<h1>前言</h1>
-<p>距离上次记录LaTex已经有好长一段时间了,大概有大半年的时间都没有更新,而上一次的记录的内容,大多数是出自于自己的需要,确实,想把技能变成肌肉记忆,还是得需要长时间的去练习的,后面会给出一些实用的东西,经常用,自然而然的就知道怎么回事了。这次做笔记,就事无巨细了,基础的还是很重要的,毕竟是给自己看的,不必那么多奇技淫巧。</p>
-<h1>图片及子图排版</h1>
-<p>在学生时代写论文的时候,很多图都是通过matlab绘制的,而matlab导出的图最清晰地就属eps格式了,这里感兴趣的可以去了解下矢量图与位图,这里就不做阐述了,但是对于日常的记录而言,其实png或者其他位图都是可以满足阅读要求的,而在写论文的时候,会经常使用到多个子图的排版问题,这里就简要的记录下,因为实现的方式太多了,</p>
-<p>graphicx 提供了一组控制命令,其中最常用的是插图命令如下(以eps为例,假设在文件夹imgs下的图片名字为your.eps)：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">includegraphics[opts]&#123;imgs/your.eps&#125;</span><br></pre></td></tr></table></figure>
-<p>下表为常用选项(opts)：</p>
-<table id='hor-zebra' summary='Employee Pay Sheet'>
+                    <p>写实验报告时，正文通常最先完成，最耗时间的却是“图片为什么跑到下一页”“表格为什么超出边界”“代码为什么挤成一团”。解决这些问题，需要分清内容、容器和页面安排三个层次：图片文件提供内容，<code>figure</code> 管理浮动位置和题注，页面宽度决定它能放多大。表格与代码也有相同的层次。</p>
+<p>本文把原来零散的插图和 <code>listings</code> 备忘整理成一套报告排版流程。建议先读<a href="/2019/09/03/archived_latex_2019/">文档基础与中文排版</a>，再按本文完成一张组合图、一张实验结果表、一段带编号的代码。公式、单位与引用的完整用法见<a href="/2026/10/03/latex_math_and_references/">公式与参考文献</a>，练习工程和编译入口见<a href="/2026/10/03/latex_learning_guide/">学习路线</a>。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/latex-learning.css">
+<p><a id="graphics"></a></p>
+<h2 id="1-先选图片格式，再考虑缩放">1. 先选图片格式，再考虑缩放</h2>
+<h3 id="PDF、PNG、JPEG-和-EPS-怎么选">PDF、PNG、JPEG 和 EPS 怎么选</h3>
+<p>曲线图、框图和带细文字的统计图，优先从绘图程序导出保留矢量对象的 PDF；照片通常适合 JPEG；截图、透明背景图和需要无损保存的像素图可以用 PNG。PDF 和 EPS 都可以包含矢量内容，也可以包着一张低分辨率位图，因此扩展名本身不能保证清晰。把模糊 PNG 转成 PDF，不会恢复原来没有的细节。</p>
+<p>现在常见的 pdfLaTeX、XeLaTeX 和 LuaLaTeX 的 PDF 输出流程都能处理 PDF、PNG、JPEG。传统 <code>latex → DVI → dvips</code> 流程主要使用 EPS；某些现代环境会自动调用转换工具处理 EPS，但是否可用取决于驱动和发行版配置。为了便于换机器重编译，可以先将已有 EPS 转为 PDF，并把转换后的文件纳入工程，而不是默认每位使用者都有自动转换链。引擎与驱动支持的边界见 <a target="_blank" rel="noopener" href="https://tug.ctan.org/macros/latex/required/graphics/grfguide.pdf">LaTeX graphics 官方指南</a>。</p>
+<p>图像的最终阅读效果还取决于放置尺寸。假如曲线图导出时字号为 10 pt，整张图缩到原来的三分之一，图内文字也随之缩小。准备图片时就按单栏或双栏的最终宽度设计，往往比在 LaTeX 里不断缩放更有效。导出后放大检查线条、字体和图例，再回到正常比例判断是否易读。</p>
+<h3 id="一张图片的基本写法">一张图片的基本写法</h3>
+<p>导言区加载 <code>graphicx</code>。下面的 <code>images/response.pdf</code> 是你需要准备的文件路径，练习时应换成工程内真实存在的图片。</p>
+<p>图片较多时，可以在导言区集中写 <code>\graphicspath&#123;&#123;images/&#125;&#123;figures/&#125;&#125;</code>，让 <code>graphicx</code> 在这两个目录查找文件；每个目录各有一层花括号，末尾保留斜杠。文件名建议简短、大小写统一，目录相对于实际编译工作目录安排，不依赖个人电脑上的绝对路径。</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% Preamble</span></span><br><span class="line"><span class="keyword">\usepackage</span>&#123;graphicx&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">% Document body</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;figure&#125;[htbp]</span><br><span class="line">  <span class="keyword">\centering</span></span><br><span class="line">  <span class="keyword">\includegraphics</span>[width=0.8<span class="keyword">\linewidth</span>]&#123;images/response.pdf&#125;</span><br><span class="line">  <span class="keyword">\caption</span>&#123;Step response under the same initial condition.&#125;</span><br><span class="line">  <span class="keyword">\label</span>&#123;fig:response&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;figure&#125;</span><br><span class="line"></span><br><span class="line">See Figure~<span class="keyword">\ref</span>&#123;fig:response&#125; for the response.</span><br></pre></td></tr></table></figure>
+<p>命令必须写成 <code>\includegraphics</code>，开头的反斜杠不能省略。常用选项包括 <code>width</code>、<code>height</code>、<code>scale</code> 和 <code>angle</code>。只指定宽度时会等比例缩放；同时限制宽和高时，加入 <code>keepaspectratio</code>，让图片在给定范围内保持比例，例如：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\includegraphics</span>[</span><br><span class="line">  width=<span class="keyword">\linewidth</span>,</span><br><span class="line">  height=0.55<span class="keyword">\textheight</span>,</span><br><span class="line">  keepaspectratio</span><br><span class="line">]&#123;images/response.pdf&#125;</span><br></pre></td></tr></table></figure>
+<p>一般在局部容器里用 <code>\linewidth</code>：它表示当前位置可用的行宽，会随列表、分栏、<code>minipage</code> 等环境改变。<code>\textwidth</code> 通常表示正文版心总宽度；在双栏页面里，拿它给普通单栏图片定宽就可能越界。某些环境也会局部重设 <code>\textwidth</code>，所以不要把它当作永远不变的页面常量。练习时先用 <code>width=\linewidth</code>，确认边界后再决定是否缩小。两种长度和插图缩放的示例可对照 <a target="_blank" rel="noopener" href="https://www.learnlatex.org/en/lesson-07">Learn LaTeX 插图课程</a>。</p>
+<h3 id="图片位置为什么不完全服从源代码">图片位置为什么不完全服从源代码</h3>
+<p><code>figure</code> 是浮动体。LaTeX 会兼顾本页剩余空间、正文比例和浮动体队列安排它的位置。<code>[htbp]</code> 给出允许放置的区域：<code>h</code> 是当前位置附近，<code>t</code> 是页顶，<code>b</code> 是页底，<code>p</code> 是专门的浮动页。它不是“必须按我列出的顺序尝试”的命令，更不保证图片紧跟在某一句话后面。加上 <code>!</code> 会放宽部分浮动限制，但不能让放不下的图片凭空塞进页面。</p>
+<p>遇到位置不理想，先检查图片是否过高、前面有没有滞留的大图、允许位置是否过少。通常保留 <code>[htbp]</code> 比到处写 <code>[h]</code> 容易得到稳定结果。<code>float</code> 宏包提供的 <code>[H]</code> 可以把内容固定在当前位置，但也可能制造大片空白，只在确实需要不浮动的局部内容时使用。章节结束必须排出前面图表时，可以用 <code>\clearpage</code>；它同时换页，不适合每张图后都加。浮动规则的进一步说明见 <a target="_blank" rel="noopener" href="https://www.learnlatex.org/en/more-07">Learn LaTeX 浮动体补充</a>。</p>
+<p>图内居中使用 <code>\centering</code>，通常不再嵌套 <code>center</code> 环境，避免附带额外上下间距。题注应说明读者如何理解图，例如坐标、条件和主要比较内容；正文负责讨论结论。将 <code>\label</code> 放在 <code>\caption</code> 后面，因为题注命令先更新图编号，标签才能记住正确的值。</p>
+<h3 id="在封面中放一张局部图片">在封面中放一张局部图片</h3>
+<p>封面可以先用 <code>titlepage</code> 组织标题、插图和作者，不需要一开始就引入全页背景、绝对定位或 <code>eso-pic</code>。下面片段放在正文开头，导言区需加载 <code>graphicx</code>；图片仍使用前面约定的真实文件 <code>images/response.pdf</code>。它直接放在封面中，不放进会移动位置的 <code>figure</code>。</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;titlepage&#125;</span><br><span class="line">  <span class="keyword">\centering</span></span><br><span class="line">  &#123;<span class="keyword">\Huge</span> Experiment Report<span class="keyword">\par</span>&#125;</span><br><span class="line">  <span class="keyword">\vspace</span>&#123;12mm&#125;</span><br><span class="line">  &#123;<span class="keyword">\Large</span> Control and Measurement<span class="keyword">\par</span>&#125;</span><br><span class="line">  <span class="keyword">\vfill</span></span><br><span class="line">  <span class="keyword">\includegraphics</span>[</span><br><span class="line">    width=0.75<span class="keyword">\linewidth</span>,</span><br><span class="line">    height=0.4<span class="keyword">\textheight</span>,</span><br><span class="line">    keepaspectratio</span><br><span class="line">  ]&#123;images/response.pdf&#125;</span><br><span class="line">  <span class="keyword">\vfill</span></span><br><span class="line">  &#123;<span class="keyword">\large</span> Your Name<span class="keyword">\par</span>&#125;</span><br><span class="line">  <span class="keyword">\vspace</span>&#123;5mm&#125;</span><br><span class="line">  &#123;<span class="keyword">\large</span> <span class="keyword">\today</span><span class="keyword">\par</span>&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;titlepage&#125;</span><br></pre></td></tr></table></figure>
+<p>两处 <code>\vfill</code> 会分配页面剩余的竖直空间，让图与标题、作者保持呼吸感。这里使用局部图片，标题不压在复杂背景上，调整尺寸也容易。如果已经设置 <code>\graphicspath&#123;&#123;images/&#125;&#125;</code>，图片参数可以简写为 <code>response.pdf</code>；仍要确保该文件存在。需要学校或期刊封面时，优先遵循其模板，再逐项调整这类内容结构。</p>
+<p><a id="subfigures"></a></p>
+<h2 id="2-用-subcaption-组织真正的子图">2. 用 subcaption 组织真正的子图</h2>
+<p>两个 <code>minipage</code> 可以让内容并排，但它们只是局部盒子，不会自动生成“图 1(a)、图 1(b)”的子图层级。如果在两个盒子里各放一个普通 <code>\caption</code>，可能得到两个独立图编号。需要主图题注、子图题注和分别引用时，使用 <code>subcaption</code> 的 <code>subfigure</code> 环境。<a target="_blank" rel="noopener" href="https://tug.ctan.org/macros/latex/contrib/caption/subcaption.pdf">subcaption 官方手册</a>详细说明了这套计数与引用方式。</p>
+<p>下面用两个占位框展示布局，不依赖外部图片。放入 <code>article</code> 或 <code>ctexart</code> 的正文即可练习，导言区需先加载 <code>subcaption</code>：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% Preamble</span></span><br><span class="line"><span class="keyword">\usepackage</span>&#123;graphicx&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;subcaption&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">% Document body</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;figure&#125;[htbp]</span><br><span class="line">  <span class="keyword">\centering</span></span><br><span class="line">  <span class="keyword">\begin</span>&#123;subfigure&#125;[t]&#123;0.47<span class="keyword">\linewidth</span>&#125;</span><br><span class="line">    <span class="keyword">\centering</span></span><br><span class="line">    <span class="keyword">\fbox</span>&#123;<span class="keyword">\rule</span>&#123;0pt&#125;&#123;28mm&#125;<span class="keyword">\rule</span>&#123;0.9<span class="keyword">\linewidth</span>&#125;&#123;0pt&#125;&#125;</span><br><span class="line">    <span class="keyword">\caption</span>&#123;Position response.&#125;</span><br><span class="line">    <span class="keyword">\label</span>&#123;fig:position&#125;</span><br><span class="line">  <span class="keyword">\end</span>&#123;subfigure&#125;<span class="keyword">\hfill</span></span><br><span class="line">  <span class="keyword">\begin</span>&#123;subfigure&#125;[t]&#123;0.47<span class="keyword">\linewidth</span>&#125;</span><br><span class="line">    <span class="keyword">\centering</span></span><br><span class="line">    <span class="keyword">\fbox</span>&#123;<span class="keyword">\rule</span>&#123;0pt&#125;&#123;28mm&#125;<span class="keyword">\rule</span>&#123;0.9<span class="keyword">\linewidth</span>&#125;&#123;0pt&#125;&#125;</span><br><span class="line">    <span class="keyword">\caption</span>&#123;Control input.&#125;</span><br><span class="line">    <span class="keyword">\label</span>&#123;fig:input&#125;</span><br><span class="line">  <span class="keyword">\end</span>&#123;subfigure&#125;</span><br><span class="line">  <span class="keyword">\caption</span>&#123;Two views of the same experiment.&#125;</span><br><span class="line">  <span class="keyword">\label</span>&#123;fig:comparison&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;figure&#125;</span><br><span class="line"></span><br><span class="line">Figure~<span class="keyword">\ref</span>&#123;fig:comparison&#125; contains panels</span><br><span class="line"><span class="keyword">\subref</span>&#123;fig:position&#125; and <span class="keyword">\subref</span>&#123;fig:input&#125;.</span><br></pre></td></tr></table></figure>
+<p>换成真实图片时，把 <code>\fbox&#123;...&#125;</code> 那一行替换为 <code>\includegraphics[width=\linewidth]&#123;...&#125;</code>。这里的 <code>\linewidth</code> 已经是子图自身宽度。两块各占外层的 47%，给间距留下余量；如果写成两个 50% 再加固定间距，总宽度很容易超出一行。<code>[t]</code> 是盒子顶部对齐方式，与 <code>figure</code> 的浮动选项是两件事。</p>
+<p>主图和子图各自有题注与标签。删除某个 <code>\caption</code> 会改变它的编号语义，不能简单认为“去掉标题文字就没有其他影响”。期刊模板可能已经提供或限制子图宏包，采用模板时先检查其说明，避免再加载旧 <code>subfigure</code> 宏包与 <code>subcaption</code> 混用。</p>
+<p><a id="tables"></a></p>
+<h2 id="3-表格先安排信息，再选列类型">3. 表格先安排信息，再选列类型</h2>
+<p><code>table</code> 管理浮动和题注，<code>tabular</code> 管理行列。只有 <code>tabular</code> 也能显示表格，但不会自动获得表题和浮动行为。表格里的 <code>&amp;</code> 分隔单元格，<code>\\</code> 结束一行；普通文本中的 <code>&amp;</code> 需要写成 <code>\&amp;</code>。</p>
+<h3 id="booktabs-三线表与数字对齐">booktabs 三线表与数字对齐</h3>
+<p>三线表不是“只能有三条横线”的机械要求，而是让表头、主体和分组清楚。<code>booktabs</code> 的 <code>\toprule</code>、<code>\midrule</code>、<code>\bottomrule</code> 管理线粗与周围留白，分组表头可以加 <code>\cmidrule</code>。通常不加竖线，把单位写进表头，读者会更容易沿列比较。<a target="_blank" rel="noopener" href="https://mirrors.ctan.org/macros/latex/contrib/booktabs/booktabs.pdf">booktabs 官方手册</a>给出了这类正式表格的设计原则。</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% Preamble</span></span><br><span class="line"><span class="keyword">\usepackage</span>&#123;booktabs&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;siunitx&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">% Document body</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;table&#125;[htbp]</span><br><span class="line">  <span class="keyword">\centering</span></span><br><span class="line">  <span class="keyword">\caption</span>&#123;Illustrative results, not measured benchmark data.&#125;</span><br><span class="line">  <span class="keyword">\label</span>&#123;tab:results&#125;</span><br><span class="line">  <span class="keyword">\begin</span>&#123;tabular&#125;&#123;l S[table-format=1.3] S[table-format=2.1]&#125;</span><br><span class="line">    <span class="keyword">\toprule</span></span><br><span class="line">    Method <span class="built_in">&amp;</span> &#123;RMSE (m)&#125; <span class="built_in">&amp;</span> &#123;Time (ms)&#125; <span class="keyword">\\</span></span><br><span class="line">    <span class="keyword">\midrule</span></span><br><span class="line">    A <span class="built_in">&amp;</span> 0.125 <span class="built_in">&amp;</span> 8.2 <span class="keyword">\\</span></span><br><span class="line">    B <span class="built_in">&amp;</span> 0.083 <span class="built_in">&amp;</span> 12.5 <span class="keyword">\\</span></span><br><span class="line">    C <span class="built_in">&amp;</span> 0.104 <span class="built_in">&amp;</span> 9.7 <span class="keyword">\\</span></span><br><span class="line">    <span class="keyword">\bottomrule</span></span><br><span class="line">  <span class="keyword">\end</span>&#123;tabular&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;table&#125;</span><br></pre></td></tr></table></figure>
+<p><code>l</code>、<code>c</code>、<code>r</code> 是左、中、右对齐的普通列，不会按小数点对齐。<code>siunitx</code> 的 <code>S</code> 列会解析数值并对齐相应部分。<code>table-format=1.3</code> 为整数一位、小数三位预留空间；它主要描述版式容量，并不等于要求把所有数据舍入到三位小数。若有负值，要为符号预留空间，例如 <code>table-format=-1.3</code>。文字表头用花括号保护，避免被按数字解析。这些配置采用 <code>siunitx</code> v3 的接口，复杂的误差、指数和舍入需求请查 <a target="_blank" rel="noopener" href="https://texdoc.org/serve/siunitx/0">siunitx 官方手册的表格章节</a>，不要混抄不同大版本的选项。</p>
+<p>在正文中排量值时，<code>siunitx</code> v3 还提供 <code>\qty&#123;12.5&#125;&#123;\milli\second&#125;</code>，将数字与毫秒单位一起排版；仅排单位可用 <code>\unit&#123;\milli\second&#125;</code>。同一份报告应统一使用这套接口，避免手动插入空格造成单位间距不一致。</p>
+<h3 id="长文字用-tabularx，别把整表缩到看不清">长文字用 tabularx，别把整表缩到看不清</h3>
+<p>普通 <code>l</code> 列会按自然宽度延伸。一列塞入整句话后，表格可能比页面还宽。固定宽度的 <code>p&#123;宽度&#125;</code> 可以换行；希望表格总宽度恰好等于当前行宽时，可以使用 <code>tabularx</code>，让 <code>X</code> 列分配剩余宽度。</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% Preamble</span></span><br><span class="line"><span class="keyword">\usepackage</span>&#123;array&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;tabularx&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;booktabs&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">% Document body</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;table&#125;[htbp]</span><br><span class="line">  <span class="keyword">\centering</span></span><br><span class="line">  <span class="keyword">\caption</span>&#123;Responsibilities of report artifacts.&#125;</span><br><span class="line">  <span class="keyword">\label</span>&#123;tab:artifacts&#125;</span><br><span class="line">  <span class="keyword">\begin</span>&#123;tabularx&#125;&#123;<span class="keyword">\linewidth</span>&#125;&#123;@&#123;&#125;l &gt;&#123;<span class="keyword">\raggedright</span><span class="keyword">\arraybackslash</span>&#125;X@&#123;&#125;&#125;</span><br><span class="line">    <span class="keyword">\toprule</span></span><br><span class="line">    Artifact <span class="built_in">&amp;</span> Purpose <span class="keyword">\\</span></span><br><span class="line">    <span class="keyword">\midrule</span></span><br><span class="line">    Figure <span class="built_in">&amp;</span> Show the trend and the relationship between variables. <span class="keyword">\\</span></span><br><span class="line">    Table <span class="built_in">&amp;</span> Preserve exact values and make comparisons easy to scan. <span class="keyword">\\</span></span><br><span class="line">    Code <span class="built_in">&amp;</span> Explain the few implementation steps needed by the reader. <span class="keyword">\\</span></span><br><span class="line">    <span class="keyword">\bottomrule</span></span><br><span class="line">  <span class="keyword">\end</span>&#123;tabularx&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;table&#125;</span><br></pre></td></tr></table></figure>
+<p><code>X</code> 默认类似可换行的 <code>p</code> 列；<code>\raggedright</code> 避免窄列里单词间被拉出很大空隙，<code>\arraybackslash</code> 恢复表格行末 <code>\\</code> 的含义。<code>@&#123;&#125;</code> 去掉表格左右边缘的额外列间距。这套机制由 <a target="_blank" rel="noopener" href="https://texdoc.org/serve/tabularx/0">tabularx 官方文档</a>说明。</p>
+<p>排不下时，先缩短表头、统一单位、把解释搬到题注或正文，再考虑换行列、拆表和横向页面。<code>\resizebox&#123;\linewidth&#125;&#123;!&#125;&#123;...&#125;</code> 会连文字一起缩小，虽然能消除越界，却未必解决阅读问题。过长文件路径等不可断开的文本也可能超宽，不能指望 <code>X</code> 列替你在任意字符处断行。</p>
+<p>需要彩色表头时，可在导言区用 <code>\usepackage[table]&#123;xcolor&#125;</code>，然后在表头行前写 <code>\rowcolor&#123;gray!10&#125;</code>；不要在已经加载 <code>xcolor</code> 后再用另一组选项重复加载，否则可能遇到选项冲突。浅背景配深文字通常比深色大面积铺底更便于打印，颜色之外仍应保留清楚的表头和分组关系。正式投稿时以模板要求为准，接口见 <a target="_blank" rel="noopener" href="https://texdoc.org/serve/xcolor/0">xcolor 官方手册</a>。</p>
+<h3 id="合并单元格要保留可读性">合并单元格要保留可读性</h3>
+<p><code>\multicolumn&#123;2&#125;&#123;c&#125;&#123;...&#125;</code> 跨两列并指定该单元格的对齐方式；<code>\multirow&#123;2&#125;&#123;*&#125;&#123;...&#125;</code> 来自 <code>multirow</code> 宏包，让内容跨两行、取自然宽度。被纵向合并覆盖的后续单元格仍要留空，否则文字会重叠。下面是需要 <code>booktabs</code> 和 <code>multirow</code> 的正文片段：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;tabular&#125;&#123;llrr&#125;</span><br><span class="line">  <span class="keyword">\toprule</span></span><br><span class="line">  Group <span class="built_in">&amp;</span> Trial <span class="built_in">&amp;</span> <span class="keyword">\multicolumn</span>&#123;2&#125;&#123;c&#125;&#123;Error (m)&#125; <span class="keyword">\\</span></span><br><span class="line">  <span class="keyword">\cmidrule</span>(lr)&#123;3-4&#125;</span><br><span class="line">        <span class="built_in">&amp;</span>       <span class="built_in">&amp;</span> Mean <span class="built_in">&amp;</span> Max <span class="keyword">\\</span></span><br><span class="line">  <span class="keyword">\midrule</span></span><br><span class="line">  <span class="keyword">\multirow</span>&#123;2&#125;&#123;*&#125;&#123;Indoor&#125; <span class="built_in">&amp;</span> 1 <span class="built_in">&amp;</span> 0.08 <span class="built_in">&amp;</span> 0.21 <span class="keyword">\\</span></span><br><span class="line">                         <span class="built_in">&amp;</span> 2 <span class="built_in">&amp;</span> 0.09 <span class="built_in">&amp;</span> 0.24 <span class="keyword">\\</span></span><br><span class="line">  <span class="keyword">\bottomrule</span></span><br><span class="line"><span class="keyword">\end</span>&#123;tabular&#125;</span><br></pre></td></tr></table></figure>
+<p>这类合并适合短表的分组标题。需要导出数据、逐行排序或跨页时，重复写组名往往更清楚。不要用大量合并单元格把原本简单的数据关系做成难维护的布局。跨行宽度与对齐规则可查 <a target="_blank" rel="noopener" href="https://texdoc.org/serve/multirow/0">multirow 官方文档</a>。</p>
+<p><a id="longtable"></a></p>
+<h2 id="4-跨页表格交给-longtable">4. 跨页表格交给 longtable</h2>
+<p><code>table</code> 和普通 <code>tabular</code> 不能自动把一张表拆到多页。较长的参数表、实验日志和符号表，可以直接在正文放 <code>longtable</code>，<strong>不要再把它包进 <code>table</code>、<code>minipage</code> 或 <code>resizebox</code></strong>。这些容器会妨碍跨页。<code>longtable</code> 也不适用于普通双栏模式，需要先规划单栏表格所在的部分。<a target="_blank" rel="noopener" href="https://texdoc.org/serve/longtable/0">longtable 官方文档</a>说明了它的页眉、页脚与输出机制限制。</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% Preamble: \usepackage&#123;longtable,booktabs&#125;</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;longtable&#125;&#123;@&#123;&#125;p&#123;0.22<span class="keyword">\linewidth</span>&#125;p&#123;0.65<span class="keyword">\linewidth</span>&#125;@&#123;&#125;&#125;</span><br><span class="line">  <span class="keyword">\caption</span>&#123;Configuration checklist.&#125;<span class="keyword">\label</span>&#123;tab:checklist&#125;<span class="keyword">\\</span></span><br><span class="line">  <span class="keyword">\toprule</span></span><br><span class="line">  Item <span class="built_in">&amp;</span> Check <span class="keyword">\\</span></span><br><span class="line">  <span class="keyword">\midrule</span></span><br><span class="line">  <span class="keyword">\endfirsthead</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">\multicolumn</span>&#123;2&#125;&#123;l&#125;&#123;Table~<span class="keyword">\thetable</span><span class="keyword">\ </span>continued&#125;<span class="keyword">\\</span></span><br><span class="line">  <span class="keyword">\toprule</span></span><br><span class="line">  Item <span class="built_in">&amp;</span> Check <span class="keyword">\\</span></span><br><span class="line">  <span class="keyword">\midrule</span></span><br><span class="line">  <span class="keyword">\endhead</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">\midrule</span></span><br><span class="line">  <span class="keyword">\multicolumn</span>&#123;2&#125;&#123;r&#125;&#123;Continued on next page&#125;<span class="keyword">\\</span></span><br><span class="line">  <span class="keyword">\endfoot</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">\bottomrule</span></span><br><span class="line">  <span class="keyword">\endlastfoot</span></span><br><span class="line"></span><br><span class="line">  Engine <span class="built_in">&amp;</span> Use the same engine for every build. <span class="keyword">\\</span></span><br><span class="line">  Figures <span class="built_in">&amp;</span> Check final text size and image paths. <span class="keyword">\\</span></span><br><span class="line">  Labels <span class="built_in">&amp;</span> Resolve every cross-reference before delivery. <span class="keyword">\\</span></span><br><span class="line">  <span class="comment">% Add more rows here to observe page breaks.</span></span><br><span class="line"><span class="keyword">\end</span>&#123;longtable&#125;</span><br></pre></td></tr></table></figure>
+<p><code>\endfirsthead</code> 前面定义第一页表头，<code>\endhead</code> 前的下一块定义续页表头，<code>\endfoot</code> 定义非末页页脚，<code>\endlastfoot</code> 定义末页页脚。先保留这四块结构，再增加数据行，比在分页之后手工复制一张表稳定。</p>
+<p>默认在行与行之间分页，单个极高的单元格不会自动拆成上下两半。因此，不要把一页长的说明塞进同一个单元格。首次或修改列宽后，可能需要再次编译才能让各页列宽稳定；用 <code>latexmk</code> 可以自动处理必要的重复编译。</p>
+<p><a id="listings"></a></p>
+<h2 id="5-代码清单从一套可靠样式开始">5. 代码清单从一套可靠样式开始</h2>
+<p>展示源代码与执行源代码是两件事。<code>listings</code> 直接读取代码并排版，不需要先运行 Python、C++ 等语言。下面是一份使用 XeLaTeX 独立编译的 ASCII 代码清单示例，与本系列的引擎保持一致；<code>fontspec</code> 负责字体支持。代码中的标点、缩进和注释都保留为原始字符：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;fontspec&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;xcolor&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;listings&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\lstdefinestyle</span>&#123;reportcode&#125;&#123;</span><br><span class="line">  basicstyle=<span class="keyword">\small</span><span class="keyword">\ttfamily</span>,</span><br><span class="line">  keywordstyle=<span class="keyword">\color</span>&#123;blue!65!black&#125;<span class="keyword">\bfseries</span>,</span><br><span class="line">  commentstyle=<span class="keyword">\color</span>&#123;green!35!black&#125;,</span><br><span class="line">  stringstyle=<span class="keyword">\color</span>&#123;red!60!black&#125;,</span><br><span class="line">  numbers=left,</span><br><span class="line">  numberstyle=<span class="keyword">\tiny</span><span class="keyword">\color</span>&#123;gray&#125;,</span><br><span class="line">  numbersep=8pt,</span><br><span class="line">  xleftmargin=2em,</span><br><span class="line">  frame=single,</span><br><span class="line">  rulecolor=<span class="keyword">\color</span>&#123;gray!50&#125;,</span><br><span class="line">  backgroundcolor=<span class="keyword">\color</span>&#123;gray!5&#125;,</span><br><span class="line">  breaklines=true,</span><br><span class="line">  breakatwhitespace=false,</span><br><span class="line">  columns=fullflexible,</span><br><span class="line">  keepspaces=true,</span><br><span class="line">  showstringspaces=false,</span><br><span class="line">  tabsize=4,</span><br><span class="line">  captionpos=b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"><span class="keyword">\begin</span>&#123;lstlisting&#125;[</span><br><span class="line">  style=reportcode,</span><br><span class="line">  language=Python,</span><br><span class="line">  caption=&#123;Compute a scalar tracking error.&#125;,</span><br><span class="line">  label=&#123;lst:error&#125;</span><br><span class="line">]</span><br><span class="line">def error(reference, measurement):</span><br><span class="line">    <span class="params">#</span> Keep this example ASCII-only.</span><br><span class="line">    return reference - measurement</span><br><span class="line"></span><br><span class="line">print(error(1.0, 0.8))</span><br><span class="line"><span class="keyword">\end</span>&#123;lstlisting&#125;</span><br><span class="line"></span><br><span class="line">Listing~<span class="keyword">\ref</span>&#123;lst:error&#125; defines the error convention.</span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<p>所有键值选项用逗号分隔：<code>tabsize=4,</code> 正确，<code>tabsize=4;</code> 不正确。同一个样式里多次设置 <code>basicstyle</code> 不会自动累加，后面的设置会覆盖前面的值。因此字体大小和字族应合并写为 <code>basicstyle=\small\ttfamily</code>；希望关键字既蓝又粗，则把 <code>\color&#123;...&#125;\bfseries</code> 放进同一个 <code>keywordstyle</code>。优先使用 <code>\ttfamily</code>、<code>\bfseries</code> 等声明，减少复制旧命令造成的混乱。</p>
+<p><code>numbers=left</code> 只负责显示行号，行号区需要边距；<code>breaklines=true</code> 允许长行折行，但折行后的显示不意味着源文件真的多了一行。<code>columns=fullflexible</code> 减少为了固定字符格而增加的间距，<code>keepspaces=true</code> 保留缩进。样式应让读者看清结构，不必把每种字符都染上鲜艳颜色。参数的完整定义见 <a target="_blank" rel="noopener" href="https://texdoc.org/serve/listings/0">listings 官方手册</a>。</p>
+<p>项目里已有代码文件时，尽量直接导入，避免报告里的副本与实际实现不同步：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\lstinputlisting</span>[</span><br><span class="line">  style=reportcode,</span><br><span class="line">  language=Python,</span><br><span class="line">  firstline=1,</span><br><span class="line">  lastline=12,</span><br><span class="line">  caption=&#123;Controller update step.&#125;,</span><br><span class="line">  label=&#123;lst:controller&#125;</span><br><span class="line">]&#123;code/controller.py&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的路径同样需要真实存在。普通非浮动 <code>lstlisting</code> 可以跨页；加 <code>float</code> 后就受浮动体规则约束，不适合几十页的完整源码。报告应展示理解方法必需的片段，把完整程序放在仓库或附件里。</p>
+<p>本示例明确只保证 ASCII 代码。中文正文使用 XeLaTeX，并不自动解决 <code>listings</code> 对所有 Unicode 代码内容的处理：中文注释、特殊符号和字体回退仍需单独验证。可以先让代码保持 ASCII，把中文解释写在清单前后；确实要在清单里保留中文时，再用当前引擎和字体做最小样例测试。</p>
+<p>当报告包含多段带题注的代码时，可以在正文开头合适的位置加入 <code>\lstlistoflistings</code>，生成代码目录。先给代码设置 <code>caption</code>，再让构建工具完成必要的重跑；不要手工维护清单编号。自定义语言与多组关键词强调属于更深入的样式配置，先把本文的基础样式用稳，再按 listings 手册扩展。</p>
+<h3 id="什么时候考虑-minted">什么时候考虑 minted</h3>
+<p><code>minted</code> 借助 Pygments 进行语法高亮，支持的语言与词法分析能力适合更复杂的代码展示。当前 v3 通过 <code>latexminted</code> 外部程序工作，依赖的 Python 组件通常由相应 TeX 安装方式提供。支持该程序的新版发行版可以通过受限 shell escape 运行，不应把“所有 minted 文档都必须加 <code>-shell-escape</code>”当作通用结论；旧版与不同打包方式可能有不同要求。先核对本机版本、可执行程序和官方安装说明，再决定编译配置。<a target="_blank" rel="noopener" href="https://tug.ctan.org/macros/latex/contrib/minted/minted.pdf">minted 官方手册</a>记录了 v2/v3 的迁移差异。</p>
+<p>本系列的基础工程使用 <code>listings</code>，便于先掌握代码清单的标题、引用与宽度控制。换用 <code>minted</code> 时，先在独立小文档验证依赖链，成功后再合入报告模板。</p>
+<p><a id="diagnostics"></a></p>
+<h2 id="6-从日志症状定位问题">6. 从日志症状定位问题</h2>
+<p>排版异常时，每次只改一个因素：先做一个最小文档，只保留相关宏包和出问题的图表；确认它能编译，再逐步放回原工程。不要同时换引擎、模板和五个宏包，否则很难知道哪一步解决了问题。</p>
+<table>
 <thead>
 <tr>
-<th scope='col'>选项</th>
-<th scope='col'>说明</th>
+<th>症状</th>
+<th>优先检查</th>
+<th>修正方向</th>
 </tr>
 </thead>
 <tbody>
-<tr class='odd'>
-<td>angle</td>
-<td>图形旋转角度,正值表示逆时针旋转</td>
+<tr>
+<td><code>File ... not found</code></td>
+<td>相对路径、大小写、文件是否跟源码一起保存</td>
+<td>从主文件编译位置核对路径，避免使用个人电脑绝对路径</td>
 </tr>
 <tr>
-<td>height</td>
-<td>图形高度</td>
-</tr>
-</thead>
-<tbody>
-<tr class='odd'>
-<td>width</td>
-<td>图形宽度</td>
+<td>图片只剩边框或文件名</td>
+<td>文档类、<code>graphicx</code> 是否开启 <code>draft</code></td>
+<td>最终构建关闭草稿图像模式</td>
 </tr>
 <tr>
-<td>scale</td>
-<td>图形缩放因数</td>
+<td>图号引用成节号</td>
+<td><code>\label</code> 是否在 <code>\caption</code> 之前</td>
+<td>把标签移到题注后，再重新编译</td>
+</tr>
+<tr>
+<td>引用显示 <code>??</code></td>
+<td>标签是否拼错、重复、缺少再次编译</td>
+<td>检查日志的 undefined references，并用 <code>latexmk</code> 重建</td>
+</tr>
+<tr>
+<td><code>Overfull \hbox</code></td>
+<td>图片总宽、不可断文本、表格列宽、代码长行</td>
+<td>缩短内容或调整局部结构，查看 PDF 中具体越界位置</td>
+</tr>
+<tr>
+<td>表格出现 <code>Extra alignment tab</code></td>
+<td>本行 <code>&amp;</code> 数量是否与列数一致</td>
+<td>数清单元格，普通文本中的 <code>&amp;</code> 改成 <code>\&amp;</code></td>
+</tr>
+<tr>
+<td><code>Misplaced \noalign</code></td>
+<td><code>\midrule</code> 前一行是否缺少 <code>\\</code></td>
+<td>修正行结束位置，而不是删除横线</td>
+</tr>
+<tr>
+<td>子图掉到下一行</td>
+<td>两个盒子、空格和间距之和是否超宽</td>
+<td>降低盒子宽度，检查是否插入了空白段落</td>
+</tr>
+<tr>
+<td>跨页表格没有跨页</td>
+<td>是否套了浮动体或盒子，是否启用双栏</td>
+<td>让 <code>longtable</code> 直接处于可分页的单栏正文</td>
+</tr>
+<tr>
+<td>代码样式后半段突然变化</td>
+<td>是否重复定义了同一个键，是否少逗号</td>
+<td>集中定义样式，局部只覆盖确实需要改变的键</td>
 </tr>
 </tbody>
 </table>
-<p>插入图片一般可以分为两种情况,一种是只有一个图,一个标题；另一种是有多个图,每个图有个子标题,然后有个总的大标题。第一种情况就不做介绍了,第二种情况的命令如下(需要subfigure宏包):</p>
-<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\begin</span><span class="template-variable">&#123;figure&#125;</span><span class="language-xml"> [!htbp]</span></span><br><span class="line"><span class="language-xml">\begin</span><span class="template-variable">&#123;minipage&#125;</span><span class="language-xml">[t]</span><span class="template-variable">&#123;0.5\textwidth&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\centering</span></span><br><span class="line"><span class="language-xml">\includegraphics[width=2.7in]</span><span class="template-variable">&#123;imgs/your1.eps&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\caption</span><span class="template-variable">&#123;fig1&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\end</span><span class="template-variable">&#123;minipage&#125;</span><span class="language-xml">%</span></span><br><span class="line"><span class="language-xml">\begin</span><span class="template-variable">&#123;minipage&#125;</span><span class="language-xml">[t]</span><span class="template-variable">&#123;0.5\textwidth&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\centering</span></span><br><span class="line"><span class="language-xml">\includegraphics[width=2.7in]</span><span class="template-variable">&#123;imgs/your1.eps&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\caption</span><span class="template-variable">&#123;fig2&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\end</span><span class="template-variable">&#123;minipage&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\end</span><span class="template-variable">&#123;figure&#125;</span></span><br></pre></td></tr></table></figure>
-<p>如果不想让其显示caption,删除或者置空即可。</p>
-<h1>与段落有关的距离</h1>
-<h2 id="首行缩进">首行缩进</h2>
-<p>段落首行缩进的距离由长度\parindent决定,用户可如下改变这个值∶</p>
-<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\setlength</span><span class="template-variable">&#123;\parindent&#125;</span><span class="template-variable">&#123;长度&#125;</span></span><br></pre></td></tr></table></figure>
-<p>当上述长度不是零时,段落的首行会自动缩进由长度指定的距离。对于中文文章,命令</p>
-<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\setlength</span><span class="template-variable">&#123;\parindent&#125;</span><span class="template-variable">&#123;2em&#125;</span><span class="language-xml"> 或在 CJK环境中写上 \CJKindent</span></span><br></pre></td></tr></table></figure>
-<p>就会使其后段落首行缩进两个汉字的距离.需要注意的是上述两种首行缩进的距离等于当前字体两个汉字的宽度,若改变了字体尺寸,需重新再写一次上述命令,才会使后继段落首行缩进两个新字体汉字的宽度。若想使某段首行不缩进,可在该段开始放上命令<code>\noindent</code>。需要注意的是每一节的第一段的首行并不会缩进,为了使第一段能像其他段一样会首行缩进,可在第一段的开始放上命令</p>
-<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\hspace*</span><span class="template-variable">&#123;\parindent&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="段落间距">段落间距</h2>
-<p>两段之间的距离 等于行 间 隔(也称为行 隙)(\lineskip)加上 长 度\parskip的值,如果重设这个值,通常应设置成弹性长度并使用ex作单位,以便它随着字体尺寸的改变而变化。中文书籍段落之间的距离通常与行间隔相同,为达到这种效果,可在导言区放上命令</p>
-<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\setlength</span><span class="template-variable">&#123;\parskip&#125;</span><span class="template-variable">&#123;0pt&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="字母上加小箭头">字母上加小箭头</h2>
-<p>遇到一些矢量需要加箭头,短的箭头可用比如 \vec 去表示,想用长箭头去表示,可用指令\overrightarrow 来实现。</p>
-<h1>listings 宏包使用说明</h1>
-<p>listings 可以自定义一些特定风格的代码,在自己写文档的时候经常能够用的上,比如给matlab代码块配色等等,总之是挺好用的一个宏包,在网上可以查阅到很多的用法,下面的内容来自于知乎用户 <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/liu-zhi-yu-17-91">Lluvio Liu</a></p>
-<h2 id="预设">预设</h2>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\lstset&#123;</span> </span><br><span class="line">basicstyle=<span class="string">\small,</span> %环境中的代码字体变小 [在结尾要加逗号！]</span><br><span class="line">basicstyle=<span class="string">\tt,</span> %使用teletype字体(一种等宽字体)</span><br><span class="line">basicstyle=<span class="string">\it,</span> %使用罗马斜体</span><br><span class="line">%其他可选的还有：<span class="string">\bf,</span> <span class="string">\sc,</span> <span class="string">\st,</span> <span class="string">\sl,</span> <span class="string">\em,</span> <span class="string">\nocorr等</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\lstset&#123; </span><br><span class="line"><span class="attribute">keywordstyle</span>=\color&#123;black&#125;, %设置关键字颜色为黑色</span><br><span class="line"><span class="attribute">keywordstyle</span>=\color&#123;blue&#125;, %设置关键字颜色为蓝色</span><br><span class="line"><span class="attribute">keywordstyle</span>=\bfseries, %不改变当前字体的族与形状,但转变成bold加粗序列</span><br><span class="line"><span class="attribute">keywordstyle</span>=\mdseries, %不改变当前字体的族与形状,但转变成中等粗细medium序列</span><br><span class="line"><span class="attribute">keywordstyle</span>=\underbar, %添加下划线</span><br><span class="line"><span class="attribute">keywordstyle</span>=\color&#123;black&#125;\bfseries\underbar, %添加下划线的加粗黑色关键字</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">identifierstyle</span>=\color&#123;red&#125;,</span><br><span class="line">identifierstyle= , %不设置 &#125;</span><br><span class="line"></span><br><span class="line"><span class="attribute">showstringspaces</span>=<span class="literal">false</span> %去掉空格时产生的下划的空格标志, 设置为<span class="literal">true</span>则出现</span><br><span class="line"><span class="attribute">showtabs</span>=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">\lstset&#123; [公式]</span><br><span class="line"><span class="attribute">commentstyle</span>=\it\color[RGB]&#123;100,100,100&#125;, &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">numbers</span>=left, %在左侧显示行数</span><br><span class="line"><span class="attribute">numbers</span>=right %在右侧显示行数</span><br><span class="line"><span class="attribute">numbers</span>=none, %去掉行数显示</span><br><span class="line"><span class="attribute">numberstyle</span>=\tiny\color&#123;red&#125;, %数字大小,颜色调整</span><br><span class="line"><span class="attribute">numberstyle</span>=\it, %数字字体调整</span><br><span class="line"><span class="attribute">stepnumber</span>=2 , %每两行标号一次</span><br><span class="line"><span class="attribute">numbersep</span>=5pt, %数字右端(若为左侧显示数字)水平距离代码5pt</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">tabsize</span>=2; %此时一个tab键=2个空格</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">xleftmargin</span>=2em, %整体距左侧边线的距离为2em</span><br><span class="line"><span class="attribute">xrightmargin</span>=2em,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">也可以使用</span><br><span class="line"><span class="attribute">linewidth</span>=1.2\linewidth 改变长度</span><br><span class="line"></span><br><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">columns</span>=fixed, %改变字母间的空隙大小</span><br><span class="line"><span class="attribute">columns</span>=flexible,</span><br><span class="line"><span class="attribute">columns</span>=fullflexible,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="环境参数">环境参数</h2>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">\begin&#123;lstlisting&#125;</span><br><span class="line">[<span class="attribute">firstline</span>=2, lastline =5] 只排版2-5行的代码</span><br><span class="line">[<span class="attribute">language</span>=C] %代码为C语言(会自动识别C语言关键字)</span><br><span class="line">[<span class="attribute">language</span>=Java] %代码为Java语言</span><br><span class="line">[float] %设置为浮动题</span><br><span class="line">[<span class="attribute">float</span>=t] %在页面上方</span><br><span class="line">[<span class="attribute">float</span>=!h] %在此处</span><br><span class="line">[<span class="attribute">firstnumber</span>=100] %第一个数字为100 [<span class="attribute">firstnumber</span>=last] %起始行数为上一段lstlisting环境结尾的行数 [caption=&#123;MyCode1&#125;] %说明 [caption=&#123;[Code2] An very important code&#125;] %可分别添加一个短的和长的caption [<span class="attribute">label</span>=Code1] % 标签 [<span class="attribute">title</span>=Code1] %可以去掉label产生的Listings 1</span><br></pre></td></tr></table></figure>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">[<span class="attribute">name</span>=MyCode1] %使用<span class="attribute">name</span>=***为代码环境取名,同名的环境代码行数会延续</span><br><span class="line">[<span class="attribute">aboveskip</span>=5pt] %与代码环境上一行的垂直间距为5pt</span><br><span class="line">[<span class="attribute">belowskip</span>=4pt] %与代码环境下一行的垂直间距为4pt</span><br></pre></td></tr></table></figure>
-<p>当然,它们也可以在 lstset 中设置</p>
-<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">[emph=</span><span class="template-variable">&#123;printf&#125;</span><span class="language-xml">, emphstyle=</span><span class="template-variable">&#123;\underbar&#125;</span><span class="language-xml">] %强调printf,在它下面加下划线</span></span><br><span class="line"><span class="language-xml">[emph=</span><span class="template-variable">&#123;for,while&#125;</span><span class="language-xml">, emphstyle=\color</span><span class="template-variable">&#123;red&#125;</span><span class="language-xml">]</span></span><br><span class="line"><span class="language-xml">[emph=</span><span class="template-variable">&#123;strlen&#125;</span><span class="language-xml">, emphstyle=\color</span><span class="template-variable">&#123;red&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">emph=</span><span class="template-variable">&#123;[2]strcpy&#125;</span><span class="language-xml">, emphstyle=</span><span class="template-variable">&#123;[2]\color&#123;blue&#125;</span><span class="language-xml">&#125;,</span></span><br><span class="line"><span class="language-xml">emph=</span><span class="template-variable">&#123;[3]strcmp&#125;</span><span class="language-xml">,emphstyle=</span><span class="template-variable">&#123;[3]\underbar&#125;</span><span class="language-xml">] %强调多个,并且强调方式不同</span></span><br></pre></td></tr></table></figure>
-<h2 id="框架">框架</h2>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">[<span class="attribute">frame</span>=none] %无框</span><br><span class="line">[<span class="attribute">frame</span>=leftline,topline,rightline, bottomline] %分别对应只在左侧,上方,右侧,下方有竖线</span><br><span class="line">[<span class="attribute">frame</span>=trb] %t-top,r-right,b-bottom,l-left. 这是为框架只在上,右,下方</span><br><span class="line">[<span class="attribute">frame</span>=trBL] %大写表示双重线</span><br><span class="line">在预设中可设置框的拐角处为圆弧：</span><br><span class="line">\lstset&#123;</span><br><span class="line">\frameround = fttt,</span><br><span class="line">&#125;</span><br><span class="line">\frameround后必须有四个字母。第一个字母表示右上角的拐角,然后顺时针地依次代表各个拐角。f表示方形,t表示弧形。</span><br><span class="line"><span class="attribute">frame</span>=shadowbox, %设置阴影</span><br><span class="line"><span class="attribute">framexleftmargin</span>=4mm, %框架左边界延长(frame是不会考虑到左边的行数栏的)</span><br><span class="line"><span class="attribute">rulecolor</span>=\color&#123;gray&#125;, %框架颜色设置</span><br><span class="line"><span class="attribute">rulesepcolor</span>=\color&#123;gray&#125;, %框架阴影颜色设置</span><br></pre></td></tr></table></figure>
-<h2 id="背景颜色">背景颜色</h2>
-<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">\lstset&#123;</span><br><span class="line"><span class="attribute">backgroundcolor</span><span class="operator">=</span>\color&#123;yellow&#125; %背景颜色为黄色</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="更多的指令">更多的指令</h2>
-<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\lstdefinestyle 可以预设多个不同的style。 \lstdefinestyle</span><span class="template-variable">&#123;numbers1&#125;</span><span class="template-variable">&#123;numbers=left, stepnumber=1, numberstyle=\tiny, numbersep=10pt&#125;</span><span class="language-xml"> \lstdefinestyle</span><span class="template-variable">&#123;numbers2&#125;</span><span class="template-variable">&#123;numbers=none&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\begin</span><span class="template-variable">&#123;lstlisting&#125;</span><span class="language-xml">[style=numbers1] 即可选择numbers1作为style</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">\lstdefinelanguage 定义一个新的语言.</span></span><br><span class="line"><span class="language-xml">\lstdefinelanguage</span><span class="template-variable">&#123;SDU&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-variable">&#123;morekeywords=&#123;ShiYidDa, CheapCafeteria&#125;</span><span class="language-xml">, %定义关键字</span></span><br><span class="line"><span class="language-xml">sensitive=false, %是否大小写敏感</span></span><br><span class="line"><span class="language-xml">morecommet=[l]</span><span class="template-tag">&#123;//&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morecomment=[s]</span><span class="template-tag">&#123;/*&#125;</span><span class="template-variable">&#123;*/&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morecomment=[n]</span><span class="template-variable">&#123;(*&#125;</span><span class="template-variable">&#123;*)&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morestring=[b]&quot;,</span></span><br><span class="line"><span class="language-xml">morestring=[d]&#x27;,&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">**morecomment**指令用于定义书写注释的标识符。</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">[l] 表示标识符后至该行末尾</span></span><br><span class="line"><span class="language-xml">[s] 表示定义的第一个和第二个标识符之间</span></span><br><span class="line"><span class="language-xml">[n] 表示从第一个定义的标识符开始,直至出现第二个标识符。</span></span><br><span class="line"><span class="language-xml">[il] [is] [in] 编译时不显示注释</span></span><br></pre></td></tr></table></figure>
-<p>也可以定义不同颜色的注释(要先定义好普通注释/**/)</p>
-<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">\lstset</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">morecomment=[s][\color&#123;blue&#125;</span><span class="language-xml">]</span><span class="template-tag">&#123;/*+&#125;</span><span class="template-variable">&#123;*/&#125;</span><span class="language-xml">,</span></span><br><span class="line"><span class="language-xml">morecomment=[s][\color</span><span class="template-variable">&#123;red&#125;</span><span class="language-xml">]</span><span class="template-tag">&#123;/*<span class="name">-</span>&#125;</span><span class="template-variable">&#123;*/&#125;</span><span class="language-xml">, &#125;</span></span><br></pre></td></tr></table></figure>
-<p><strong>\lstlistoflistings</strong> 添加过 caption 的代码段可以通过此命令全部被列出来,并且按顺序标号和标注页码。 添加过 name 的代码段也会通过此命令被列出来,且不会参与标号。此时对该代码段再添加caption就会覆盖name。 对于caption{[<short>]<long>}只会打出其短名。</p>
-<h1>参考</h1>
-<p>[1]  《LaTex 入门与提高》——陈志杰等。</p>
-<p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/261667944">LaTeX listings 宏包使用说明</a></p>
+<p>日志没有错误只说明 TeX 完成了工作，不能代替阅读 PDF。最终还要检查图片文字是否过小、同类图尺寸是否一致、表格单位是否齐全、题注是否能独立理解，以及正文里是否真的解释了每一张图表。</p>
+<p><a id="exercises"></a></p>
+<h2 id="7-一次实验报告练习">7. 一次实验报告练习</h2>
+<p>先下载<a href="/downloads/code/latex_workshop.zip">完整练习工程</a>，也可以浏览<a href="/downloads/code/latex_workshop/main.tex">主文件</a>与<a href="/downloads/latex/latex-workshop.pdf">参考 PDF</a>。在仓库根目录按<a href="/2026/10/03/latex_learning_guide/">学习路线</a>准备 Docker 环境后编译：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bin/site.sh latex-build</span><br><span class="line">./bin/site.sh latex-test</span><br></pre></td></tr></table></figure>
+<p>不要一次复制所有高级选项，依次完成以下练习，每一步都保存一份能编译的版本。</p>
+<ol>
+<li><strong>单图与引用。</strong> 放入自己导出的响应曲线，用 <code>\caption</code> 说明输入、时间范围和单位，在正文用 <code>\ref</code> 引用。验收时调整图的位置，正文中的编号仍应正确，不要手写“图 1”。</li>
+<li><strong>组合图。</strong> 把位置响应和控制输入合成两个子图，分别引用子图，再引用总图。把其中一个题注改成长句，检查两块是否仍在同一行、图像比例是否一致。</li>
+<li><strong>结果表。</strong> 写三种方法的误差和运行时间，使用 <code>booktabs</code> 与 <code>S</code> 列。再加入一个负数和一个两位整数，观察 <code>table-format</code> 是否需要调整。数值均可自拟，但题注要说明是练习数据。</li>
+<li><strong>文字表与跨页表。</strong> 把方法说明改为 <code>X</code> 列，确保自然换行。另建一张足够长的 <code>longtable</code>，检查第二页是否重复表头、最后一页是否没有“下页续”的提示。</li>
+<li><strong>代码清单。</strong> 导入一份十几行的 ASCII 程序，添加标题、标签和行号。故意把一行变长，确认发生的是显示折行，原程序的语义和缩进没有被改写。</li>
+<li><strong>主动排错。</strong> 在练习副本中把标签移到题注前，或在表格行末删掉一个 <code>\\</code>，观察错误。记录“症状—原因—修复”，随后恢复到干净编译状态。</li>
+</ol>
+<p>完成后留下源文件、图片、代码和最终 PDF，避免只保存 PDF。下次写报告时复用的是结构与样式，而不是重新从聊天记录拼接选项。返回 <a href="/knowledge/latex/">LaTeX 排版分类</a>可以继续安排公式、文献和完整文档练习。</p>
 
                 </div>
             </div>
@@ -896,9 +948,9 @@
                     <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
                 </div>
                 
-                <a class="post-primary-link" href="/knowledge/tools-creation/latex/">
+                <a class="post-primary-link" href="/knowledge/latex/figures/">
                     <span class="post-primary-marker">主专题</span>
-                    <span class="post-primary-name">LaTeX 排版</span>
+                    <span class="post-primary-name">图片、表格与代码</span>
                     <span class="post-primary-arrow" aria-hidden="true">→</span>
                 </a>
                 
@@ -908,12 +960,16 @@
                 <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
                 <div class="tag-chip-list tag-chip-list--related">
                     
-                    <a class="tag-chip tag-chip--related" href="/tags/latex/">
-                        <span class="tag-chip-name">latex</span>
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%8A%80%E6%9C%AF%E5%86%99%E4%BD%9C/">
+                        <span class="tag-chip-name">技术写作</span>
                     </a>
                     
-                    <a class="tag-chip tag-chip--related" href="/tags/tools/">
-                        <span class="tag-chip-name">tools</span>
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%8E%92%E7%89%88/">
+                        <span class="tag-chip-name">排版</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/latex/">
+                        <span class="tag-chip-name">latex</span>
                     </a>
                     
                 </div>

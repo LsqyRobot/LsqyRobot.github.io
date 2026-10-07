@@ -1,0 +1,1093 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/17_Control/logo/mountain-5431950_1280.png);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">机器人操作数学重学 00：让符号重新对应真实运动</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>《机器人操作的数学导论》（A Mathematical Introduction to Robotic Manipulation，Murray、Li、Sastry，简称 MLS）把刚体、机械臂、多指手和非完整系统放在一套几何语言里。第一次读时，难点常常不是某一个公式算不出来，而是还没看清“这个对象在描述什么”，就开始对它求导、换坐标、做指数运算。</p>
+<p>这套笔记先把每个对象放回一个可以画出来的问题，再写公式。主线是一台两连杆机械臂：它的末端在哪里、怎样运动、能朝哪些方向运动、外力怎样传到关节、驱动需要怎样出力。最后用双指抓取和独轮车理解约束。所有插图和算例重新设计，作为原书的学习桥梁。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/robotic-manipulation.css">
+<h2 id="一、把六个问题接成一条线">一、把六个问题接成一条线</h2>
+<p>先想象桌面上一台机械臂，末端夹住一个小物体。暂时不看公式，依次问：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>数学对象</th>
+<th>它回答什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相机看到的位置怎样交给机械臂？</td>
+<td>坐标变换 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mrow><mi>a</mi><mi>b</mi></mrow></msub></mrow><annotation encoding="application/x-tex">g_{ab}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ab</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td>同一个点在两套坐标里分别写成什么数字</td>
+</tr>
+<tr>
+<td>改变两个关节角，夹爪到哪里？</td>
+<td>正运动学 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">g(q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span></span></span></span></td>
+<td>从机构内部坐标得到末端位姿</td>
+</tr>
+<tr>
+<td>关节每秒转一点，末端怎样动？</td>
+<td>雅可比 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>J</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">V=J(q)\dot q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span></td>
+<td>位姿映射在当前位置的一阶变化</td>
+</tr>
+<tr>
+<td>在末端施加一个力，关节承受什么？</td>
+<td>广义力 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>J</mi><mi>T</mi></msup><mi>F</mi></mrow><annotation encoding="application/x-tex">J^TF</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span></span></span></span></td>
+<td>用相同雅可比的转置映射功率对偶量</td>
+</tr>
+<tr>
+<td>希望关节加速，需要多少驱动力矩？</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo><mover accent="true"><mi>q</mi><mo>¨</mo></mover><mo>+</mo><mi>C</mi><mo stretchy="false">(</mo><mi>q</mi><mo separator="true">,</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo stretchy="false">)</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo>+</mo><mi>g</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">M(q)\ddot q+C(q,\dot q)\dot q+g(q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">M</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span></span></span></span></td>
+<td>惯性、速度相关项、重力分别贡献什么</td>
+</tr>
+<tr>
+<td>指尖不能穿过物体，车轮不能侧滑，会怎样？</td>
+<td>接触与速度约束</td>
+<td>哪些运动、哪些接触力在物理上允许</td>
+</tr>
+</tbody>
+</table>
+<p>这里的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi></mrow><annotation encoding="application/x-tex">g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span></span></span></span> 在前几行表示刚体变换，在动力学式中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">g(q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span></span></span></span> 惯常表示重力广义力。<strong>相同字母在不同语境下可能不是同一对象。</strong> 笔记会在每次引入时说明含义；写自己的程序时应使用更明确的变量名，例如 <code>pose</code> 与 <code>gravity_torque</code>。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/robotic_manipulation/poe.svg" alt="同一台两连杆机械臂中，关节角、末端位姿和运动轴的关系" loading="lazy" decoding="async"></p>
+<p>阅读时不要急着把整本书的公式背下来。先判断当前公式位于上表哪一行，输入输出分别是什么，再进入计算。</p>
+<h2 id="二、五篇笔记怎样使用">二、五篇笔记怎样使用</h2>
+<p>专题入口在<a href="/knowledge/robotics/robotic-manipulation/">机器人操作数学：图解重学</a>。</p>
+<table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>文章</th>
+<th>先做的动作</th>
+<th>最后应能解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>本篇：学习方法与符号地图</td>
+<td>画一个坐标系和一台两连杆机械臂</td>
+<td>为什么位姿、速度和力不能混成同一种向量</td>
+</tr>
+<tr>
+<td>01</td>
+<td><a href="/2026/10/05/robotic_manipulation_geometry/">坐标、旋转与螺旋运动</a></td>
+<td>转动坐标系，追踪一个点；绕偏置轴画圆</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>O</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">SO(3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">S</span><span class="mord mathnormal" style="margin-right:0.0278em;">O</span><span class="mopen">(</span><span class="mord">3</span><span class="mclose">)</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>E</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">SE(3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">S</span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span><span class="mopen">(</span><span class="mord">3</span><span class="mclose">)</span></span></span></span>、旋量、指数映射和伴随变换的作用</td>
+</tr>
+<tr>
+<td>02</td>
+<td><a href="/2026/10/05/robotic_manipulation_kinematics/">指数积、雅可比与奇异性</a></td>
+<td>分别只转动一个关节，再把手臂伸直</td>
+<td>为什么雅可比每一列是一个速度贡献，奇异性与任务怎样关联</td>
+</tr>
+<tr>
+<td>03</td>
+<td><a href="/2026/10/05/robotic_manipulation_dynamics_control/">从虚功到动力学与控制</a></td>
+<td>推一下末端，比较关节力矩，再想象重力下的摆杆</td>
+<td>为什么出现转置、质量矩阵与反馈误差方程</td>
+</tr>
+<tr>
+<td>04</td>
+<td><a href="/2026/10/05/robotic_manipulation_grasp_nonholonomic/">抓取约束与非完整运动</a></td>
+<td>两指相向夹紧；让车前进、转向、后退、转回</td>
+<td>内力为什么不推动物体，瞬时不能横移为何仍能绕出侧向位移</td>
+</tr>
+</tbody>
+</table>
+<p>每篇都有图、可手算数值、关键推导和带答案的自检。01、02、03、04 中还嵌入了滑杆或逐步操作；页面不自动播放，先预测结果再调整输入。模型采用平面算例，是为了把三维公式中的关键关系看清楚；维度扩展与适用边界在正文说明。</p>
+<h2 id="三、先建立这张符号卡">三、先建立这张符号卡</h2>
+<p>整套专题统一使用<strong>列向量、右手坐标系、弧度参与计算、MLS 的线性部分在前排列</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>记号</th>
+<th>类型或维度</th>
+<th>含义与检查方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">x_a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">3\times1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></td>
+<td>一个点在 a 系里的坐标；要问“在哪个系里”</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mrow><mi>a</mi><mi>b</mi></mrow></msub></mrow><annotation encoding="application/x-tex">R_{ab}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ab</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span></span></span></span></td>
+<td>b 系的轴用 a 系表示；<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mi>T</mi></msup><mi>R</mi><mo>=</mo><mi>I</mi><mo separator="true">,</mo><mi>det</mi><mo>⁡</mo><mi>R</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">R^TR=I,\det R=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0785em;">I</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">det</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mrow><mi>a</mi><mi>b</mi></mrow></msub></mrow><annotation encoding="application/x-tex">g_{ab}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ab</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4\times4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span></span></span></span></td>
+<td>把 b 系点坐标变到 a 系；<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>a</mi></msub><mo>=</mo><msub><mi>R</mi><mrow><mi>a</mi><mi>b</mi></mrow></msub><msub><mi>x</mi><mi>b</mi></msub><mo>+</mo><msub><mi>p</mi><mrow><mi>a</mi><mi>b</mi></mrow></msub></mrow><annotation encoding="application/x-tex">x_a=R_{ab}x_b+p_{ab}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ab</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ab</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo separator="true">,</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo separator="true">,</mo><mover accent="true"><mi>q</mi><mo>¨</mo></mover></mrow><annotation encoding="application/x-tex">q,\dot q,\ddot q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">¨</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\times1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></td>
+<td>关节位置、速度、加速度；每一维的单位由关节类型决定</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mo stretchy="false">(</mo><mi>v</mi><mo separator="true">,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">V=(v,\omega)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">6\times1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></td>
+<td>运动旋量；空间 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">v</span></span></span></span> 一般不等于末端原点速度</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>V</mi><mo stretchy="true">^</mo></mover></mrow><annotation encoding="application/x-tex">\widehat V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9233em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9233em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span></span><span class="svg-align" style="top:-3.6833em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.24em;"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="0.24em" viewBox="0 0 1062 239" preserveAspectRatio="none"><path d="M529 0h5l519 115c5 1 9 5 9 10 0 1-1 2-1 3l-4 22
+c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z"/></svg></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4\times4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span></span></span></span></td>
+<td>旋量的矩阵表示，左上为叉乘矩阵，右上为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">v</span></span></span></span></td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ξ</mi></mrow><annotation encoding="application/x-tex">\xi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.046em;">ξ</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">6\times1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></td>
+<td>归一化运动轴；与实际速度 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>ξ</mi><mover accent="true"><mi>θ</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">V=\xi\dot\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1257em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.046em;">ξ</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9313em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">θ</span></span><span style="top:-3.2634em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span></span></span></span></span></span></span> 区分</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">J_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">6\times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></td>
+<td>空间旋量雅可比；<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>s</mi></msub><mo>=</mo><msub><mi>J</mi><mi>s</mi></msub><mover accent="true"><mi>q</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">V_s=J_s\dot q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">J_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">3\times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>，平面可取 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">2\times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></td>
+<td>某个指定点的位置导数；<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>p</mi><mo>˙</mo></mover><mo>=</mo><msub><mi>J</mi><mi>p</mi></msub><mover accent="true"><mi>q</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">\dot p=J_p\dot q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">p</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mo stretchy="false">(</mo><mi>f</mi><mo separator="true">,</mo><mi>τ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F=(f,\tau)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">6\times1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></td>
+<td>力旋量；力矩必须说明关于哪个原点</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mi>q</mi></msub></mrow><annotation encoding="application/x-tex">\tau_q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0359em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\times1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></td>
+<td>关节广义驱动力；转动关节为力矩，移动关节为力</td>
+</tr>
+</tbody>
+</table>
+<p>已有的<a href="/2023/10/14/archived_Modern_Robotics_%E5%88%9A%E4%BD%93%E8%BF%90%E5%8A%A8%E4%B8%8E%E8%BF%90%E5%8A%A8%E6%97%8B%E9%87%8F/">Modern Robotics 刚体笔记</a>采用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\omega,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="mclose">)</span></span></span></span>。两种书写方式都有效，换顺序时雅可比和伴随矩阵也必须一起变换。<a href="/2026/10/05/robotic_manipulation_geometry/">01 的对照段落</a>给出具体置换矩阵。遇到六维向量，先读接口约定，不能凭“前 3 项看起来像位置”猜测。</p>
+<h3 id="同样是六个数，为什么不能直接相加">同样是六个数，为什么不能直接相加</h3>
+<p>位姿不是“位置 3 项 + 任意角度 3 项”组成的全局欧氏向量。旋转有约束，角度参数有奇异与分支；把两个旋转矩阵逐项相加通常不再是旋转。速度则是位姿在某一时刻的变化方向，需要借助左乘或右乘变换，在一个明确的坐标系中表达。</p>
+<p>“群”在这里先理解成：两个合法刚体变换可以复合，也可以求逆，结果仍合法。“李代数”先理解成：在单位变换附近描述瞬时运动的线性空间。指数映射把一个固定生成方向累计成有限运动。先认识这三个用途，再读抽象定义，会更容易知道定义要解决什么问题。</p>
+<h2 id="四、用一个算例贯穿三篇">四、用一个算例贯穿三篇</h2>
+<p>取两根长 1 米的连杆，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q_1=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>2</mn></msub><mo>=</mo><mi>π</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">q_2=\pi/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="mord">/2</span></span></span></span>：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mo separator="true">,</mo><mspace width="2em"/><msub><mi>J</mi><mi>p</mi></msub><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">p=(1,1)^T,\qquad
+J_p=\begin{bmatrix}-1&amp;-1\\1&amp;0\end{bmatrix}.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1774em;vertical-align:-0.2861em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">.</span></span></span></span></span></p>
+<p>先令关节速度为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo>=</mo><mo stretchy="false">(</mo><mn>0.2</mn><mo separator="true">,</mo><mo>−</mo><mn>0.1</mn><msup><mo stretchy="false">)</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">\dot q=(0.2,-0.1)^T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0913em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0.2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mord">0.1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span></span></span></span>，点速度为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>p</mi><mo>˙</mo></mover><mo>=</mo><msub><mi>J</mi><mi>p</mi></msub><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo>=</mo><mo stretchy="false">(</mo><mo>−</mo><mn>0.1</mn><mo separator="true">,</mo><mn>0.2</mn><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">/</mi><mi mathvariant="normal">s</mi></mrow><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\dot p=J_p\dot q=(-0.1,0.2)^T\ \mathrm{m/s}.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">p</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1413em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">0.1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0.2</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">m/s</span></span><span class="mord">.</span></span></span></span></span></p>
+<p>再让环境施加末端外力 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">f_{\rm ext}=(1,0)^T\ \mathrm N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0913em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mord mathrm">N</span></span></span></span>，产生的关节广义外力为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>τ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>=</mo><msubsup><mi>J</mi><mi>p</mi><mi>T</mi></msubsup><msub><mi>f</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>=</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mtext> </mtext><mrow><mi mathvariant="normal">N</mi><mtext> </mtext><mi mathvariant="normal">m</mi></mrow><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\tau_{\rm ext}=J_p^Tf_{\rm ext}=(-1,-1)^T\ \mathrm{N\,m}.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2744em;vertical-align:-0.3831em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1413em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">N</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathrm">m</span></span><span class="mord">.</span></span></span></span></span></p>
+<p>用两边功率检查符号：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>f</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow><mi>T</mi></msubsup><mover accent="true"><mi>p</mi><mo>˙</mo></mover><mo>=</mo><mo>−</mo><mn>0.1</mn><mtext> </mtext><mi mathvariant="normal">W</mi><mo>=</mo><msubsup><mi>τ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow><mi>T</mi></msubsup><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">f_{\rm ext}^T\dot p=-0.1\ \mathrm W
+=\tau_{\rm ext}^T\dot q.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1383em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">p</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">0.1</span><span class="mspace"> </span><span class="mord mathrm" style="margin-right:0.0139em;">W</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1383em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">ext</span></span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mord">.</span></span></span></span></span></p>
+<p>负功率表示这股外力在当前运动方向上取走机械能。忽略重力且要静态保持时，驱动应提供 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">(1,1)^T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0913em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span></span></span></span> 抵消外力；它和“外力映射出的广义力”不是同一符号。如果还要求加速，就必须再计算惯性与其他项，进入动力学。</p>
+<p>这个例子给出一条检查链：<strong>位置靠几何核对，速度靠差分核对，力靠功率核对。</strong> 三种检查能够互相定位符号与坐标错误。</p>
+<h2 id="五、怎样回到原书">五、怎样回到原书</h2>
+<p>这套笔记不是逐页译写。它按理解依赖重组，重点覆盖原书第 2、3、4 章的基础，以及第 5–8 章中抓取和非完整约束的入口。高级多指手控制与一般非完整规划并未在五篇中完整展开；先把下面几个桥梁算通，再回书中细读相应推导。章节名称按<a target="_blank" rel="noopener" href="https://www.cds.caltech.edu/~murray/books/MLS/contents.html">作者公布的完整目录</a>核对。</p>
+<table>
+<thead>
+<tr>
+<th>原书主题</th>
+<th>先看本系列哪一篇</th>
+<th>回书时带着的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 2 章：刚体运动</td>
+<td>01</td>
+<td>速度是如何从约束求导出来的？为什么换原点会改变旋量线性部分？</td>
+</tr>
+<tr>
+<td>第 3 章：机械臂运动学</td>
+<td>02</td>
+<td>每根轴在零位的坐标是什么？雅可比对应哪个任务与参考系？</td>
+</tr>
+<tr>
+<td>第 4 章：动力学与控制</td>
+<td>03</td>
+<td>动能如何决定质量矩阵？稳定性证明用了哪些模型假设？</td>
+</tr>
+<tr>
+<td>第 5–6 章：多指手运动学、动力学与控制</td>
+<td>04 的抓取部分</td>
+<td>接触力受哪些约束？内力与物体合力怎样分开？</td>
+</tr>
+<tr>
+<td>第 7 章：机器人系统中的非完整行为</td>
+<td>04 的独轮车部分</td>
+<td>速度约束为何不能简单积分成一个固定的位置约束？</td>
+</tr>
+<tr>
+<td>第 8 章：非完整运动规划</td>
+<td>04 的四段运动与 Lie 括号，作为入口</td>
+<td>怎样利用动作组合构造可达方向？一般规划算法还需回原书继续学习</td>
+</tr>
+</tbody>
+</table>
+<p>作者在<a target="_blank" rel="noopener" href="https://www.cds.caltech.edu/~murray/mlswiki/index.php?title=Preface_%28first_edition%29">原书前言</a>中说明了从单机器人到多指操作和非完整规划的组织思路；本系列的学习路线是在这条主线上的重新设计。教材和勘误从<a target="_blank" rel="noopener" href="https://www.cds.caltech.edu/~murray/mlswiki/index.php/First_edition">作者书籍页面</a>进入，正式电子版见<a target="_blank" rel="noopener" href="https://www.cds.caltech.edu/~murray/mlswiki/images/mlswiki/0/02/Mls94-complete.pdf">作者公开 PDF</a>。</p>
+<p>核对旧版公式时同时看<a target="_blank" rel="noopener" href="https://www.cds.caltech.edu/~murray/mlswiki/images/mlswiki/4/4a/Errata-e1.pdf">作者勘误</a>，尤其旋转角接近 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">π</span></span></span></span> 的轴提取、动力学下标和控制证明。这些勘误并不意味着所有类似公式都失效，而是提醒我们必须带着条件阅读。</p>
+<h2 id="六、四轮学习，逐步减少对答案的依赖">六、四轮学习，逐步减少对答案的依赖</h2>
+<p><strong>第一轮：只画。</strong> 给每个向量写上坐标系；画正转方向、关节轴和力的作用点。不展开矩阵，先用图预测符号。</p>
+<p><strong>第二轮：只算小例子。</strong> 使用 0、90°、两根单位长度杆等输入。每个结果都用另一个方法交叉检查，例如三角函数对照指数积。</p>
+<p><strong>第三轮：重新推导。</strong> 从 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><msup><mi>R</mi><mi>T</mi></msup><mo>=</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">RR^T=I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0785em;">I</span></span></span></span> 得到反对称矩阵；从 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>p</mi><mo>˙</mo></mover><mo>=</mo><msub><mi>J</mi><mi>p</mi></msub><mover accent="true"><mi>q</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">\dot p=J_p\dot q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8623em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">p</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0962em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span></span></span></span> 和功率守恒得到转置；从动能写出质量矩阵。不要直接抄最后一行公式。</p>
+<p><strong>第四轮：主动找边界。</strong> 把机械臂拉直，令目标超出可达范围，改变力矩参考原点，令车执行有限角度的四段动作。解释哪条近似开始不成立，哪种约束仍然成立。</p>
+<p>每轮都留下三样东西：一张自己的图、一个带单位的数值结果、一句话说明使用条件。重新读书时，这些记录比一长串没有上下文的公式更容易唤起理解。</p>
+<h2 id="七、图与数值如何复核">七、图与数值如何复核</h2>
+<p>教学图由 <code>tools/generate-robotic-manipulation-assets.mjs</code> 确定性生成；网页计算位于 <code>source/js/robotic-manipulation/model.mjs</code>。在仓库根目录运行：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">node tools/generate-robotic-manipulation-assets.mjs</span><br><span class="line">node --<span class="built_in">test</span> tools/test-robotic-manipulation-model.mjs</span><br></pre></td></tr></table></figure>
+<p>测试核对坐标变换来回转换、两连杆点雅可比的中心差分、力与速度的功率对偶、独轮车四段动作的解析终点。它们检查本系列算例和可视化的一致性；更一般的三维机构仍需按自己的建模约定验证。</p>
+<p>继续到<a href="/2026/10/05/robotic_manipulation_geometry/">01：坐标、旋转与螺旋运动</a>，从一个点的两套坐标开始。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/robotics/robotic-manipulation/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">机器人操作数学：图解重学</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6/">
+                        <span class="tag-chip-name">机器人学</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%95%B0%E5%AD%A6%E7%9B%B4%E8%A7%89/">
+                        <span class="tag-chip-name">数学直觉</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">
+                        <span class="tag-chip-name">学习路线</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/mls/">
+                        <span class="tag-chip-name">mls</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

@@ -1,0 +1,53 @@
+.ilc-demo { box-sizing: border-box; max-width: 100%; min-width: 0; margin: 1.6rem 0; padding: 1.1rem; border: 1px solid #cadce7; border-radius: 15px; background: #fff; color: #1d425a; line-height: 1.65; }
+.ilc-demo *, .ilc-demo *::before, .ilc-demo *::after { box-sizing: border-box; }
+.ilc-demo .ilc-title { margin: 0 0 .6rem; font-size: 1.16rem; line-height: 1.5; color: #173e57; }
+.ilc-demo .ilc-model-note { margin: 0 0 1rem; padding: .65rem .8rem; background: #edf4f8; border-radius: 8px; font-size: .92rem; color: #35586e; }
+.ilc-controls { display: flex; flex-wrap: wrap; align-items: end; gap: .7rem; margin: .8rem 0; }
+.ilc-config-label { display: flex; flex: 0 1 170px; flex-direction: column; gap: .25rem; min-width: 0; }
+.ilc-iteration-label { display: block; flex: 1 1 220px; min-width: 0; }
+.ilc-config-label > span, .ilc-iteration-heading { font-size: .9rem; font-weight: 650; }
+.ilc-iteration-heading { display: flex; justify-content: space-between; gap: .6rem; }
+.ilc-iteration-heading output { color: #176ca3; font-variant-numeric: tabular-nums; }
+.ilc-demo input[type=range] { width: 100%; min-width: 0; height: 38px; margin: 0; accent-color: #176ca3; cursor: pointer; }
+.ilc-demo select, .ilc-demo button { appearance: auto; min-height: 42px; padding: .45rem .7rem; border: 1px solid #91adbf; border-radius: 7px; background: #f2f7fb; color: #174a67; font: inherit; font-size: .88rem; }
+.ilc-demo select { width: 100%; }
+.ilc-demo button { cursor: pointer; }
+.post-article-content .ilc-controls button { width: auto !important; box-shadow: none; height: auto; line-height: 1.5; }
+.ilc-demo button:disabled { opacity: .43; cursor: default; }
+.ilc-demo button:hover:not(:disabled) { background: #e0eef7; }
+.ilc-demo button:focus-visible, .ilc-demo select:focus-visible, .ilc-demo input:focus-visible, .ilc-chart-scroll:focus-visible { outline: 3px solid #a65517; outline-offset: 3px; }
+.ilc-demo .ilc-configuration-note, .ilc-demo .ilc-footnote { font-size: .85rem; color: #526e80; overflow-wrap: anywhere; }
+.ilc-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: .6rem; }
+.ilc-metric { min-width: 0; background: #edf5f8; border-radius: 9px; padding: .6rem .7rem; }
+.ilc-metric span { display: block; font-size: .81rem; color: #496a7d; }
+.ilc-metric strong { display: block; color: #173e57; font-size: 1.02rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.ilc-demo .ilc-status { padding-left: .7rem; border-left: 3px solid #247a66; font-size: .92rem; color: #355b6c; }
+.ilc-plots { display: grid; gap: 1rem; min-width: 0; }
+.ilc-chart { min-width: 0; max-width: 100%; border-top: 1px solid #dde8ef; padding-top: .9rem; }
+.ilc-demo .ilc-chart h5 { margin: 0 0 .5rem; color: #254b63; font-size: 1rem; line-height: 1.5; }
+.ilc-legend { display: flex; flex-wrap: wrap; gap: .3rem .9rem; margin: .4rem 0 .6rem; font-size: .79rem; color: #3f6075; }
+.ilc-legend-item { display: inline-flex; align-items: center; gap: .4rem; }
+.ilc-swatch { width: 30px; height: 0; border-top: 3px solid var(--ilc-color); }
+.ilc-swatch[data-line=dashed] { border-top-style: dashed; }
+.ilc-swatch[data-line=dotted] { border-top-style: dotted; }
+.ilc-chart-scroll { min-width: 0; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ilc-plot { display: block; width: 100%; height: auto; font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+.ilc-demo .ilc-chart-note { font-size: .82rem; color: #546f80; margin: .4rem 0 0; }
+.ilc-demo .ilc-loading { color: #47697d; }
+.ilc-demo .ilc-error { color: #8c3d24; background: #fff3e8; padding: .8rem; border-radius: 8px; }
+.post-article-content table thead th { background: #224863; color: #fff !important; text-shadow: none; }
+@media (max-width: 600px) {
+  .ilc-demo { margin: 1.2rem 0; padding: .7rem; }
+  .ilc-config-label, .ilc-iteration-label { flex-basis: 100%; }
+  .ilc-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .post-article-content .ilc-controls button { flex: 1 1 0; min-width: 0; padding-inline: .3rem; }
+  .ilc-demo .ilc-title { font-size: 1.04rem; }
+  .ilc-plot { min-width: 560px; }
+  .ilc-chart-scroll::before { content: '图较宽，可左右滑动；指标显示在图上方'; display: block; position: sticky; left: 0; width: max-content; max-width: 100%; margin: .2rem 0 .4rem; font-size: .76rem; color: #627b8c; }
+  .post-article-content p:has(> img[src*='/iterative_learning/']), .post-article-content figure:has(> img[src*='/iterative_learning/']) { min-width: 0; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .post-article-content p:has(> img[src*='/iterative_learning/'])::before, .post-article-content figure:has(> img[src*='/iterative_learning/'])::before { content: '机制图可左右滑动查看'; display: block; position: sticky; left: 0; width: max-content; font-size: .78rem; color: #526e80; margin-bottom: .4rem; }
+  .post-article-content p > img[src*='/iterative_learning/'], .post-article-content figure > img[src*='/iterative_learning/'] { width: 640px; min-width: 640px; max-width: none; height: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ilc-demo *, .ilc-demo *::before, .ilc-demo *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

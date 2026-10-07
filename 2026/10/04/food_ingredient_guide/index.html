@@ -1,0 +1,1009 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/food_ingredients/raspberries-5576401_1280_used.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">食品配料 00：先学会读标签，再判断哪些值得留意</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>日常买食品，优先留意的是<strong>长期吃进去多少糖、钠和不合适的脂肪，以及有没有自己需要避开的成分</strong>。添加剂名称长、配料表行数多，都不能单独证明食品有害；“无添加”“天然”也不能代替营养评价。</p>
+<p>这组笔记把常见配料整理成可以不断补充的记录：认名称、看用途、查证据、算实际摄入，再决定食用频率。入口是独立的<a href="/knowledge/food-ingredients/">食品配料分类</a>。资料核对截至 <strong>2026-10-04</strong>，标签规则以中国大陆普通预包装食品为主要场景。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/food-ingredients.css">
+<h2 id="一、先把“有问题”分成三种情况">一、先把“有问题”分成三种情况</h2>
+<table>
+<thead>
+<tr>
+<th>需要回答的问题</th>
+<th>常见例子</th>
+<th>应该怎么处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>经常吃多，是否影响长期健康？</td>
+<td>含糖饮料、钠较高的调味料、富含饱和脂肪的零食</td>
+<td>比较同类食品，记录份量和频率，调整日常组合</td>
+</tr>
+<tr>
+<td>某些人是否需要特别避开？</td>
+<td>PKU 患者与阿斯巴甜、亚硫酸盐敏感者、个人过敏原</td>
+<td>先识别适用人群，再按已确认的个人限制选购</td>
+</tr>
+<tr>
+<td>是否超范围、超量或标示不实？</td>
+<td>添加剂用在不允许的食品类别中，检测值超过适用限量</td>
+<td>核对具体标准、食品类别和可靠检测信息，不能靠名称下结论</td>
+</tr>
+</tbody>
+</table>
+<p>这三类问题不能互相替代。一个食品可以在添加剂使用上合规，却不适合天天大量吃；一种配料可以对一般人群适用，却不适合某个有明确代谢疾病或敏感史的人。食品安全限量和一日膳食建议回答的也不是同一件事。</p>
+<p>本系列的学习顺序：先读本篇，再看<a href="/2026/10/04/food_label_sugar_sodium_fat/">糖、钠与脂肪的份量换算</a>，最后查<a href="/2026/10/04/food_additives_evidence/">添加剂证据与特殊人群</a>。一般成人膳食的优先方向与 WHO 的<a target="_blank" rel="noopener" href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet">健康饮食建议</a>一致；儿童、孕哺期及有疾病需要的人，不应把通用参考量当成个人处方。</p>
+<h2 id="二、一分钟读标签的顺序">二、一分钟读标签的顺序</h2>
+<ol>
+<li><strong>看食品真实名称和净含量。</strong> “乳饮料”“发酵乳”“茶饮料”等类别信息，比正面宣传的大字更有助于理解产品；一瓶也不一定等于标签的一份。</li>
+<li><strong>看配料表。</strong> 识别主要原料、糖的不同名称、油脂来源及自己需要避开的成分。</li>
+<li><strong>看营养成分表的计量基准。</strong> 是每 100 g、每 100 mL，还是每份？随后换算到实际吃下的数量。</li>
+<li><strong>看声称与自己要解决的问题是否对应。</strong> “0 糖”没有同时说明低钠、低脂肪或低能量；“不加蔗糖”也没有说明其他糖的含量。</li>
+<li><strong>看生产日期、保存方法及适用提示。</strong> 配料筛选不能替代基本的保存和食用要求。</li>
+</ol>
+<p>在 GB 7718-2011 的一般规则下，配料按生产时加入质量递减排列，但加入量不超过 2% 的配料可以不按递减顺序排列，复合配料也有相应标示规则。因此，排位可以帮助判断主要构成，不能反推每种物质的精确克数。见<a target="_blank" rel="noopener" href="https://www.nhc.gov.cn/zwgk/zcjd/201402/544c0539b95d4d35b99ffbc105579071.shtml">国家卫健委配料标示问答，第 25—29 问</a>。</p>
+<h2 id="三、看到这些名称，跳到对应问题">三、看到这些名称，跳到对应问题</h2>
+<table>
+<thead>
+<tr>
+<th>标签名称或词组</th>
+<th>先识别成什么</th>
+<th>下一步查什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>白砂糖、蔗糖、葡萄糖、果葡糖浆、麦芽糖浆、蜂蜜</td>
+<td>糖或含糖配料，成分并不完全相同</td>
+<td>是否在前列、每份糖量与整天来源</td>
+</tr>
+<tr>
+<td>食盐、酱油、鸡精、味精／谷氨酸钠</td>
+<td>可能贡献钠的原料或调味品</td>
+<td>营养表的钠含量，不靠“咸不咸”估算</td>
+</tr>
+<tr>
+<td>部分氢化植物油</td>
+<td>工业反式脂肪的重要来源线索</td>
+<td>反式脂肪、总脂肪与替代产品</td>
+</tr>
+<tr>
+<td>棕榈油、椰子油、黄油</td>
+<td>饱和脂肪较多的油脂来源</td>
+<td>饱和脂肪总量与日常份量</td>
+</tr>
+<tr>
+<td>亚硝酸钠／亚硝酸钾</td>
+<td>某些肉制品中的防腐、护色相关添加剂</td>
+<td>区分加工肉整体证据与单个添加剂的使用条件</td>
+</tr>
+<tr>
+<td>阿斯巴甜、山梨糖醇、麦芽糖醇</td>
+<td>不同类别的甜味来源</td>
+<td>PKU 提示或糖醇耐受，不能笼统视为“糖”</td>
+</tr>
+<tr>
+<td>二氧化硫、焦亚硫酸钠、焦亚硫酸钾</td>
+<td>亚硫酸盐相关成分</td>
+<td>已知敏感史与产品信息</td>
+</tr>
+</tbody>
+</table>
+<p>名称映射只是检索入口，具体证据、适用人群和来源链接在后两篇逐项给出。含有“钠”不等于一定高钠，“植物”不等于一定低饱和脂肪；仍需回到含量与食用量。</p>
+<h2 id="四、虚构标签演示：先算整瓶">四、虚构标签演示：先算整瓶</h2>
+<p><strong>以下为教学用虚构标签节选，未展示完整法定标示项目。</strong> 某茶饮料净含量 500 mL，配料为水、白砂糖、茶叶；营养信息标示每 100 mL 含糖 8 g、钠 20 mg。</p>
+<table>
+<thead>
+<tr>
+<th>实际饮用量</th>
+<th>糖</th>
+<th>钠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100 mL</td>
+<td>8 g</td>
+<td>20 mg</td>
+</tr>
+<tr>
+<td>半瓶 250 mL</td>
+<td>20 g</td>
+<td>50 mg</td>
+</tr>
+<tr>
+<td>整瓶 500 mL</td>
+<td>40 g</td>
+<td>100 mg</td>
+</tr>
+</tbody>
+</table>
+<p>本例真正值得记的是“一瓶含 40 g 糖”，以及自己一周喝几瓶。因为配方中明确有白砂糖，可以识别添加糖来源；换成含乳或果汁的混合饮料时，营养表的“糖”未必能直接拆分成添加糖与原料自带糖。配料表和营养表分别提供线索，需要一起读。</p>
+<h2 id="五、截至-2026-年，哪些标准已经生效">五、截至 2026 年，哪些标准已经生效</h2>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>本篇核对到的时间状态</th>
+<th>阅读时的意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GB 2760-2024《食品添加剂使用标准》</td>
+<td>2025-02-08 已实施</td>
+<td>查添加剂的食品类别、使用条件及限量，并留意后续公告</td>
+</tr>
+<tr>
+<td>GB 7718-2011／GB 28050-2011</td>
+<td>新版标签标准实施前，仍需按适用情形核对旧版规则</td>
+<td>不应要求所有当前包装都已经采用新版格式</td>
+</tr>
+<tr>
+<td>GB 7718-2025《预包装食品标签通则》</td>
+<td>2027-03-16 实施，目前在过渡期</td>
+<td>新旧标签规则的切换须结合生产日期和实施安排</td>
+</tr>
+<tr>
+<td>GB 28050-2025《预包装食品营养标签通则》</td>
+<td>2027-03-16 实施，目前在过渡期</td>
+<td>新版将糖与饱和脂肪纳入强制标示内容，不等于今天所有未列产品都违规</td>
+</tr>
+</tbody>
+</table>
+<p>时间依据：<a target="_blank" rel="noopener" href="https://scjgj.cq.gov.cn/zz/bbq/zwxx_146775/bmdt_146776/202502/t20250208_14281781.html">重庆市场监管部门对 GB 2760-2024 生效首日的记录</a>、<a target="_blank" rel="noopener" href="https://zlzx.zjamr.zj.gov.cn/bzzx/public/news/view/ANALYSIS/6129bfbd7aca45fcb20740d18e4df72b.html">浙江省市场监管局的 GB 7718-2025 解读</a>、<a target="_blank" rel="noopener" href="https://www.nhc.gov.cn/sps/c100087/202509/470fa4ff5de14dd38619223cce9da4e7.shtml">国家卫健委 GB 28050-2025 问答</a>。</p>
+<p>过渡期内企业可以按规定提前实施并公开相关情况，不能仅凭“包装长得不同”判断违法；实施安排可核对<a target="_blank" rel="noopener" href="https://fw.scjgj.sh.gov.cn/shaic/consult%21viewDetail.action?cid=2c984b5f9f124106019f180d12430023">上海市市场监管局相关答复</a>。具体产品的合规判断还涉及类别、豁免情形和标准全文，本笔记不是检测报告。</p>
+<h2 id="六、以后每种配料都这样记录">六、以后每种配料都这样记录</h2>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">配料名称／别名：</span><br><span class="line">在哪类食品看到，主要用途：</span><br><span class="line">这次实际吃了多少，一周吃几次：</span><br><span class="line">标签能提供哪些含量，哪些未知：</span><br><span class="line">证据对象：配料本身／整类食品／某种饮食模式</span><br><span class="line">证据类型：官方评估／人体研究／动物或细胞线索</span><br><span class="line">适用人群与例外：</span><br><span class="line">可以采取的具体改变：</span><br><span class="line">来源链接、发布日期、自己的核对日期：</span><br></pre></td></tr></table></figure>
+<p>“证据充分”“有限证据”要记录它针对的结局和对象，不能变成一个脱离剂量的红绿灯。动物高剂量实验、人体观察到相关、以及证明某种暴露能导致疾病，是不同层次的信息。下一次遇到“某配料被列为致癌物”的标题，先核对完整评估，再判断它是否能回答你的实际摄入问题。</p>
+<p>第一周练习只需选三种自己经常购买的食品：一瓶饮料、一份零食、一种调味品。拍下标签，计算实际份量，找一个同类产品比较。先改变一个长期重复的摄入来源，再继续扩充配料笔记。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/food-ingredients/start/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">00 配料表阅读与记录方法</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/evidence/">
+                        <span class="tag-chip-name">evidence</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/food/">
+                        <span class="tag-chip-name">food</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/ingredients/">
+                        <span class="tag-chip-name">ingredients</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/nutrition/">
+                        <span class="tag-chip-name">nutrition</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

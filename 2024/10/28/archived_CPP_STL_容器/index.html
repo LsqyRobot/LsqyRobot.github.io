@@ -34,6 +34,8 @@
 	
 	
 	
+	
+	
 	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
 	
 	
@@ -377,12 +379,12 @@
 
 
         <div id="main" class="post-page-main">
-            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/18_CPP/logo/halloween-7487706_1280_used.jpg);">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/19_dataStructure/logo/ai-generated-8490379_1280_used.jpg);">
                 <div class="post-page-cover-media" aria-hidden="true">
                     <div class="post_page_title_blur"></div>
                     <div class="post_page_title_main"></div>
                 </div>
-                <h1 class="post-page-title">C++ 中的容器</h1>
+                <h1 class="post-page-title">数据结构 03：用 STL 完成查找、去重与安全修改</h1>
             </header>
 
             <div class="post-content-shell">
@@ -395,185 +397,171 @@
                 </aside>
 
                 <div class="typo post-article-content">
-                    <!-- vim-markdown-toc GFM -->
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFstl">什么是STL?</a></li>
-<li><a href="#%E5%AE%B9%E5%99%A8containers">容器(Containers)</a>
-<ul>
-<li><a href="#vector">vector</a>
-<ul>
-<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
-<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</a></li>
-<li><a href="#%E4%BE%8B%E5%AD%90">例子</a></li>
-</ul>
-</li>
-<li><a href="#deque">deque</a>
-<ul>
-<li><a href="#%E7%89%B9%E7%82%B9-1">特点</a></li>
-<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1">适用场景</a></li>
-<li><a href="#%E4%BE%8B%E5%AD%90-1">例子</a></li>
-</ul>
-</li>
-<li><a href="#list">list</a>
-<ul>
-<li><a href="#%E7%89%B9%E7%82%B9-2">特点</a></li>
-<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-2">适用场景</a></li>
-<li><a href="#%E4%BE%8B%E5%AD%90-2">例子</a></li>
-</ul>
-</li>
-<li><a href="#set">set</a>
-<ul>
-<li><a href="#%E7%89%B9%E7%82%B9-3">特点</a></li>
-<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-3">适用场景</a></li>
-<li><a href="#%E4%BE%8B%E5%AD%90-3">例子</a></li>
-</ul>
-</li>
-<li><a href="#map">map</a>
-<ul>
-<li><a href="#%E7%89%B9%E7%82%B9-4">特点</a></li>
-<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-4">适用场景</a></li>
-<li><a href="#%E4%BE%8B%E5%AD%90-4">例子</a></li>
-</ul>
-</li>
-<li><a href="#%E5%AE%B9%E5%99%A8%E9%85%8D%E6%8E%A5%E5%99%A8">容器配接器</a></li>
-</ul>
-</li>
-<li><a href="#%E6%80%BB%E7%BB%93">总结</a>
-<ul>
-<li><a href="#%E5%90%84%E5%AE%B9%E5%99%A8%E7%9A%84%E7%89%B9%E7%82%B9%E6%80%BB%E7%BB%93">各容器的特点总结</a>
-<ul>
-<li><a href="#%E5%90%84%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90">各容器的时间复杂度分析</a></li>
-<li><a href="#%E5%90%84%E5%AE%B9%E5%99%A8%E7%9A%84%E5%85%B1%E6%80%A7">各容器的共性</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E6%90%AC%E8%BF%90%E6%BA%90">搬运源</a></li>
-</ul>
-<!-- vim-markdown-toc -->
-<h1>什么是STL?</h1>
-<p>1、STL(Standard Template Library)，即标准模板库，是一个高效的C++程序库，包含了诸多常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。</p>
-<p>2、从逻辑层次来看，在STL中体现了泛型化程序设计的思想(generic programming)。在这种思想里，大部分基本算法被抽象，被泛化，独立于与之对应的数据结构，用于以相同或相近的方式处理各种不同情形。</p>
-<p>3、从实现层次看，整个STL是以一种类型参数化(type parameterized)的方式实现的，基于模板(template)。</p>
-<p>STL有六大组件，但主要包含容器、迭代器和算法三个部分。</p>
-<p><code>容器(Containers)</code>:用来管理某类对象的集合。每一种容器都有其优点和缺点，所以为了应付程序中的不同需求，STL 准备了七种基本容器类型。</p>
-<p><code>迭代器(Iterators)</code>:用来在一个对象集合的元素上进行遍历动作。这个对象集合或许是个容器，或许是容器的一部分。每一种容器都提供了自己的迭代器，而这些迭代器了解该种容器的内部结构。</p>
-<p><code>算法(Algorithms)</code>:用来处理对象集合中的元素，比如 Sort，Search，Copy，Erase 那些元素。通过迭代器的协助，我们只需撰写一次算法，就可以将它应用于任意容器之上，这是因为所有容器的迭代器都提供一致的接口。</p>
-<p>STL 的基本观念就是将数据和操作分离。数据由容器进行管理，操作则由算法进行，而迭代器在两者之间充当粘合剂，使任何算法都可以和任何容器交互运作。这一篇博客暂时只介绍容器，下一篇介绍迭代器。</p>
-<h1>容器(Containers)</h1>
-<p>容器用来管理某类对象。为了应付程序中的不同需求，STL 准备了两类共七种基本容器类型:</p>
-<p><code>序列式容器(Sequence containers)</code>，此为可序群集，其中每个元素均有固定位置—取决于插入时机和地点，和元素值无关。如果你以追加方式对一个群集插入六个元素，它们的排列次序将和插入次序一致。STL提供了三个序列式容器:向量(<code>vector</code>)、双端队列(<code>deque</code>)、列表(<code>list</code>)，此外你也可以把 <code>string</code> 和 <code>array</code> 当做一种序列式容器。</p>
-<p><code>关联式容器(Associative containers)</code>，此为已序群集，元素位置取决于特定的排序准则以及元素值，和插入次序无关。如果你将六个元素置入这样的群集中，它们的位置取决于元素值，和插入次序无关。STL提供了四个关联式容器:集合(<code>set</code>)、多重集合(<code>multiset</code>)、映射(<code>map</code>)和多重映射(<code>multimap</code>)。</p>
-<h2 id="vector">vector</h2>
-<p>vector(向量): 是一种序列式容器，事实上和数组差不多，但它比数组更优越。一般来说数组不能动态拓展，因此在程序运行的时候不是浪费内存，就是造成越界。而 vector 正好弥补了这个缺陷，当内存空间不够时，需要重新申请一块足够大的内存并进行内存的拷贝。</p>
-<h3 id="特点">特点</h3>
-<p>• 拥有一段连续的内存空间，因此它能非常好的支持随机访问，即 [] 操作符和 .at()，随机访问快。(优点)</p>
-<p>• 当向其头部或中间插入或删除元素时，为了保持原本的相对次序，插入或删除点之后的所有元素都必须移动，所以插入或删除的效率比较低。(缺点)</p>
-<p>• 在后面插入删除元素最快，此时一般不需要移动内存。(优点)</p>
-<p>总结:相当于可拓展的数组(动态数组)，随机访问快，在头部和中间插入或删除效率低，但在尾部插入或删除效率高。</p>
-<h3 id="适用场景">适用场景</h3>
-<p>适用于对象简单，变化较小，并且频繁随机访问的场景。</p>
-<h3 id="例子">例子</h3>
-<p>以下例子针对整型定义了一个 vector，插入 6 个元素，然后打印所有元素:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt; vecTemp;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i&lt;<span class="number">6</span>; i++)</span><br><span class="line">		vecTemp.<span class="built_in">push_back</span>(i);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i&lt;vecTemp.<span class="built_in">size</span>(); i++)</span><br><span class="line">		cout &lt;&lt; vecTemp[i] &lt;&lt;<span class="string">&quot; &quot;</span>; <span class="comment">// 输出:0 1 2 3 4 5</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="deque">deque</h2>
-<p>deque(double-ended queue)是双向开口的连续内存空间(动态将多个连续空间通过指针数组接合在一起)，随时可以增加一段新的空间。deque 的最大任务就是在这些分段的连续空间上，维护其整体连续的假象，并提供随机存取的接口。</p>
-<h3 id="特点-2">特点</h3>
-<p>• 一旦要在 deque 的头部和尾部增加新空间，便配置一段定量连续空间，串在整个 deque 的头部或尾部，因此不论在头部或尾部插入元素都十分迅速。 (优点)</p>
-<p>•  在中间部分安插元素则比较费时，因为必须移动其它元素。(缺点)</p>
-<p>•  deque 是 list 和 vector 的折中方案。兼有 list 的优点，也有 vector 随机访问效率高的优点。</p>
-<p><strong>总结:</strong> 支持随机访问，但效率没有 vector 高，在头部和尾部插入或删除效率高，但在中间插入或删除效率低。</p>
-<h3 id="适用场景-2">适用场景</h3>
-<p>适用于既要频繁随机访问，又要关心两端数据的插入与删除的场景。</p>
-<h3 id="例子-2">例子</h3>
-<p>以下例子声明了一个浮点类型的 deque，并在容器尾部插入 6 个元素，最后打印出所有元素。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	deque&lt;<span class="type">float</span>&gt; dequeTemp;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i&lt;<span class="number">6</span>; i++)</span><br><span class="line">		dequeTemp.<span class="built_in">push_back</span>(i);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i&lt;dequeTemp.<span class="built_in">size</span>(); i++)</span><br><span class="line">		cout &lt;&lt; dequeTemp[i] &lt;&lt; <span class="string">&quot; &quot;</span>; <span class="comment">// 输出:0 1 2 3 4 5</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="list">list</h2>
-<p>List 由双向链表(doubly linked list)实现而成，元素存放在堆中，每个元素都是放在一块内存中。没有空间预留习惯，所以每分配一个元素都会从内存中分配，每删除一个元素都会释放它占用的内存。</p>
-<h3 id="特点-3">特点</h3>
-<p>•  内存空间可以是不连续的，通过指针来进行数据的访问，这个特点使得它的随机存取变得非常没有效率，因此它没有提供 [] 操作符的重载。(缺点)<br>
-由于链表的特点，在任意位置的插入和删除效率都较高。(优点)</p>
-<p>• 只支持首尾两个元素的直接存取，想获取其他元素(访问时间一样)，则需要遍历链表。(缺点)</p>
-<p>**总结:**不支持随机访问，在任意位置的插入和删除效率都较高。</p>
-<h3 id="适用场景-3">适用场景</h3>
-<p>适用于经常进行插入和删除操作并且不经常随机访问的场景。</p>
-<h3 id="例子-3">例子</h3>
-<p>以下例子产生一个空 list，准备放置字符，然后将 ‘a’ 至 ‘z’ 的所有字符插入其中，利用循环每次打印并移除集合的第一个元素，从而打印出所有元素:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	list&lt;<span class="type">char</span>&gt; listTemp;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">char</span> c = <span class="string">&#x27;a&#x27;</span>; c &lt;= <span class="string">&#x27;z&#x27;</span>; ++c)</span><br><span class="line">		listTemp.<span class="built_in">push_back</span>(c);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (!listTemp.<span class="built_in">empty</span>())</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt;listTemp.<span class="built_in">front</span>() &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		listTemp.<span class="built_in">pop_front</span>();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>成员函数empty()的返回值告诉我们容器中是否还有元素，只要这个函数返回 false，循环就继续进行。循环之内，成员函数front()会返回第一个元素，pop_front()函数会删除第一个元素。</p>
-<p>注意:list&lt;指针&gt; 完全是性能最低的做法，还不如直接使用 list&lt;对象&gt; 或使用 vector&lt;指针&gt; 好，因为指针没有构造与析构，也不占用很大内存。</p>
-<h2 id="set">set</h2>
-<p>set(集合)顾名思义，就是数学上的集合——每个元素最多只出现一次，并且 set 中的元素已经从小到大排好序。</p>
-<h3 id="特点-4">特点</h3>
-<p>• 使用红黑树实现，其内部元素依据其值自动排序，每个元素值只能出现一次，不允许重复。</p>
-<p>• 每次插入值的时候，都需要调整红黑树，效率有一定影响。(缺点)</p>
-<p>• map 和 set 的插入或删除效率比用其他序列容器高，因为对于关联容器来说，不需要做内存拷贝和内存移动。(优点)</p>
-<p>**总结:**由红黑树实现，其内部元素依据其值自动排序，每个元素值只能出现一次，不允许重复，且插入和删除效率比用其他序列容器高。</p>
-<h3 id="适用场景-4">适用场景</h3>
-<p>适用于经常查找一个元素是否在某集合中且需要排序的场景。</p>
-<h3 id="例子-4">例子</h3>
-<p>下面的例子演示 set(集合)的两个特点:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	set&lt;<span class="type">int</span>&gt; setTemp;</span><br><span class="line"></span><br><span class="line">	setTemp.<span class="built_in">insert</span>(<span class="number">3</span>);</span><br><span class="line">	setTemp.<span class="built_in">insert</span>(<span class="number">1</span>);</span><br><span class="line">	setTemp.<span class="built_in">insert</span>(<span class="number">2</span>);</span><br><span class="line">	setTemp.<span class="built_in">insert</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	set&lt;<span class="type">int</span>&gt;::iterator it;</span><br><span class="line">	<span class="keyword">for</span> (it = setTemp.<span class="built_in">begin</span>(); it != setTemp.<span class="built_in">end</span>(); it++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; *it &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果:1 2 3。一共插入了 4 个数，但是集合中只有 3 个数并且是有序的，可见之前说过的 set 集合的两个特点，有序和不重复。</p>
-<p>当 set 集合中的元素为结构体时，该结构体必须实现运算符 ‘&lt;’ 的重载:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">People</span></span><br><span class="line">&#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">	<span class="type">bool</span> <span class="keyword">operator</span> &lt;(<span class="type">const</span> People p) <span class="type">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> age &lt; p.age;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	set&lt;People&gt; setTemp;</span><br><span class="line"></span><br><span class="line">	setTemp.<span class="built_in">insert</span>(&#123;<span class="string">&quot;张三&quot;</span>,<span class="number">14</span>&#125;);</span><br><span class="line">	setTemp.<span class="built_in">insert</span>(&#123; <span class="string">&quot;李四&quot;</span>, <span class="number">16</span> &#125;);</span><br><span class="line">	setTemp.<span class="built_in">insert</span>(&#123; <span class="string">&quot;隔壁老王&quot;</span>, <span class="number">10</span> &#125;);</span><br><span class="line"></span><br><span class="line">	set&lt;People&gt;::iterator it;</span><br><span class="line">	<span class="keyword">for</span> (it = setTemp.<span class="built_in">begin</span>(); it != setTemp.<span class="built_in">end</span>(); it++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;姓名:%s 年龄:%d\n&quot;</span>, (*it).name.<span class="built_in">c_str</span>(), (*it).age);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果</p>
-<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">姓名:王二麻子 年龄:10</span></span><br><span class="line"><span class="section">姓名:张三 年龄:14</span></span><br><span class="line"><span class="section">姓名:李四 年龄:16</span></span><br></pre></td></tr></table></figure>
-<p>可以看到结果是按照年龄由小到大的顺序排列。另外 string 要使用<code>c_str()</code>转换一下，否则打印出的是乱码。</p>
-<p>另外 Multiset 和 set 相同，只不过它允许重复元素，也就是说 multiset 可包括多个数值相同的元素。这里不再做过多介绍。</p>
-<h2 id="map">map</h2>
-<p>•  map 由红黑树实现，其元素都是 “键值/实值” 所形成的一个对组(key/value pairs)。</p>
-<p>•  map 主要用于资料一对一映射的情况，map 内部自建一颗红黑树，这颗树具有对数据自动排序的功能，所以在 map 内部所有的数据都是有序的。比如一个班级中，每个学生的学号跟他的姓名就存在着一对一映射的关系。</p>
-<h3 id="特点-5">特点</h3>
-<p>•  每个元素都有一个键，且只能出现一次，不允许重复。</p>
-<p>•  根据 key 值快速查找记录，查找的复杂度基本是 O(logN)，如果有 1000 个记录，二分查找最多查找 10次(1024)。(优点)</p>
-<p>•  每次插入值的时候，都需要调整红黑树，效率有一定影响。(缺点)</p>
-<p>•  增加和删除节点对迭代器的影响很小，除了那个操作节点，对其他的节点都没有什么影响。(优点)</p>
-<p>•  对于迭代器来说，可以修改实值，而不能修改 key。</p>
-<p>**总结:**元素为键值对，key 和 value 可以是任意你需要的类型，每个元素都有一个键，且只能出现一次，不允许重复，根据 key 快速查找记录。</p>
-<h3 id="适用场景-5">适用场景</h3>
-<p>适用于需要存储一个数据字典，并要求方便地根据key找value的场景。</p>
-<h3 id="例子-5">例子</h3>
-<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	map&lt;<span class="type">int</span>, string&gt; mapTemp;</span><br><span class="line"></span><br><span class="line">	mapTemp.<span class="built_in">insert</span>(&#123; <span class="number">5</span>,<span class="string">&quot;张三&quot;</span> &#125;);</span><br><span class="line">	mapTemp.<span class="built_in">insert</span>(&#123; <span class="number">3</span>, <span class="string">&quot;李四&quot;</span>&#125;);</span><br><span class="line">	mapTemp.<span class="built_in">insert</span>(&#123; <span class="number">4</span>, <span class="string">&quot;隔壁老王&quot;</span> &#125;);</span><br><span class="line"></span><br><span class="line">	map&lt;<span class="type">int</span>, string&gt;::iterator it;</span><br><span class="line">	<span class="keyword">for</span> (it = mapTemp.<span class="built_in">begin</span>(); it != mapTemp.<span class="built_in">end</span>(); it++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;学号:%d 姓名:%s\n&quot;</span>, (*it).first, (*it).second.<span class="built_in">c_str</span>());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果:</p>
-<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">学号:3 姓名:李四</span></span><br><span class="line"><span class="section">学号:4 姓名:隔壁老王</span></span><br><span class="line"><span class="section">学号:5 姓名:张三</span></span><br></pre></td></tr></table></figure>
-<p>multimap 和 map 相同，但允许重复元素，也就是说 multimap 可包含多个键值(key)相同的元素。这里不再做过多介绍。</p>
-<h2 id="容器配接器">容器配接器</h2>
-<p>除了以上七个基本容器类别，为满足特殊需求，STL还提供了一些特别的(并且预先定义好的)容器配接器，根据基本容器类别实现而成。包括:</p>
-<p>1、stack</p>
-<p>名字说明了一切，stack 容器对元素采取 LIFO(后进先出)的管理策略。</p>
-<p>2、queue</p>
-<p>queue 容器对元素采取 FIFO(先进先出)的管理策略。也就是说，它是个普通的缓冲区(buffer)。</p>
-<p>3、priority_queue</p>
-<p>priority_queue 容器中的元素可以拥有不同的优先权。所谓优先权，乃是基于程序员提供的排序准则(缺省使用 operators)而定义。Priority queue 的效果相当于这样一个 buffer:“下一元素永远是queue中优先级最高的元素”。如果同时有多个元素具备最髙优先权，则其次序无明确定义。</p>
-<h1>总结</h1>
-<h2 id="各容器的特点总结">各容器的特点总结</h2>
-<p>•  vector 支持随机访问，在头部和中间插入或删除效率低，但在尾部插入或删除效率高。 支持随机访问，但效率没有 vector 高，在头部和尾部插入或删除效率高，但在中间插入或删除效率低。</p>
-<p>•  list 不支持随机访问，在任意位置的插入和删除效率都较高。</p>
-<p>•  set 由红黑树实现，其内部元素依据其值自动排序，每个元素值只能出现一次，不允许重复，且插入和删除效率比用其他序列容器高。</p>
-<p>•  map 的元素为键值对，key 和 value 可以是任意你需要的类型，每个元素都有一个键，且只能出现一次，不允许重复，根据 key 快速查找记录。</p>
-<p>在实际使用过程中，到底选择这几种容器中的哪一个，应该根据遵循以下原则:</p>
-<p>1、如果需要高效的随机访问，不在乎插入和删除的效率，使用 vector。</p>
-<p>2、如果需要随机访问，并且关心两端数据的插入和删除效率，使用 deque。</p>
-<p>3、如果需要大量的插入和删除元素，不关心随机访问的效率，使用 list。</p>
-<p>4、如果经常查找一个元素是否在某集合中且需要排序，唯一存在的情况使用 set，不唯一存在的情况使用 multiset。</p>
-<p>5、如果打算存储数据字典，并且要求方便地根据 key 找到 value，一对一的情况使用 map，一对多的情况使用 multimap。</p>
-<h3 id="各容器的时间复杂度分析">各容器的时间复杂度分析</h3>
-<p>•  vector 在头部和中间位置插入和删除的时间复杂度为 O(N)，在尾部插入和删除的时间复杂度为 O(1)，随机访问的时间复杂度为 O(1)，查找的时间复杂度为 O(N)；</p>
-<p>•  deque 在中间位置插入和删除的时间复杂度为 O(N)，在头部和尾部插入和删除的时间复杂度为 O(1)，随机访问的时间复杂度为 O(1)，查找的时间复杂度为 O(N)；</p>
-<p>•  list 在任意位置插入和删除的时间复杂度都为 O(1)，查找的时间复杂度为 O(N)；</p>
-<p>•  set 和 map 都是通过红黑树实现，因此插入、删除和查找操作的时间复杂度都是 O(log N)。</p>
-<h3 id="各容器的共性">各容器的共性</h3>
-<p>各容器一般来说都有下列函数:默认构造函数、复制构造函数、析构函数、empty()、max_size()、size()、operator=、operator&lt;、operator&lt;=、operator&gt;、operator&gt;=、operator==、operator!=、swap()。</p>
-<p>顺序容器和关联容器都共有下列函数:</p>
-<p><code>begin()</code>: 返回容器第一个元素的迭代器指针；</p>
-<p><code>end()</code>: 返回容器最后一个元素后面一位的迭代器指针；</p>
-<p><code>rbegin()</code>: 返回一个逆向迭代器指针，指向容器最后一个元素；</p>
-<p><code>rend()</code>: 返回一个逆向迭代器指针，指向容器首个元素前面一位；</p>
-<p><code>clear()</code>: 删除容器中的所有的元素；</p>
-<p><code>erase(it)</code>: 删除迭代器指针it处元素。</p>
-<h1>搬运源</h1>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/linuxAndMcu/p/10254542.html">C++ STL 各容器简单介绍</a></p>
+                    <p>拿到 <code>[7,-1,3,7,2,-5]</code>，先过滤无效读数，再统计、去重、查询：这比依次背诵 <code>vector</code>、<code>set</code>、<code>map</code> 的成员函数更接近真实工作。这篇把同一批数据串成流水线，每一步都说明容器里实际还剩什么，以及迭代器能否继续使用。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/data-algorithms.css">
+<p><a href="/2026/10/04/data_structures_algorithms_learning_path/">专题目录</a> · 前置：<a href="/2026/08/11/cpp_common_data_structures_visual_guide/">存储布局与结构选择</a> · 后续：<a href="/2026/10/04/algorithms_search_sort_patterns/">查找与排序</a></p>
+<h2 id="1-容器、迭代器、算法如何分工">1. 容器、迭代器、算法如何分工</h2>
+<p>容器拥有元素，迭代器描述位置，算法处理迭代器定义的范围。对于 <code>[first,last)</code>，<code>first</code> 指向第一项，<code>last</code> 指向不包含在范围内的终点；<code>begin()==end()</code> 就是空范围。<code>end()</code> 可以比较，但不能解引用。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">[7] [-1] [3] [7] [2] [-5] | 尾后位置</span><br><span class="line"> ↑ begin()                 ↑ end()</span><br><span class="line">算法处理左闭右开范围 [begin(), end())</span><br></pre></td></tr></table></figure>
+<p>迭代器不一定是裸指针，不同迭代器支持的操作也不同。因此，“任何算法都能用于任何容器”是错误的。</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>对迭代器/元素的要求</th>
+<th>合适的写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>从头寻找某个值</td>
+<td>输入迭代器</td>
+<td><code>std::find(begin,end,value)</code></td>
+</tr>
+<tr>
+<td>原地排序</td>
+<td>随机访问迭代器、可交换/移动的元素</td>
+<td><code>std::sort(vector.begin(),vector.end())</code></td>
+</tr>
+<tr>
+<td>链表排序</td>
+<td>链表不提供随机访问</td>
+<td><code>list.sort()</code></td>
+</tr>
+<tr>
+<td>有序键查找</td>
+<td>使用容器维护的索引</td>
+<td><code>map.find(key)</code>、<code>set.lower_bound(key)</code></td>
+</tr>
+<tr>
+<td>批量过滤 vector</td>
+<td>可向前遍历并移动赋值</td>
+<td><code>remove_if</code> 后接 <code>erase</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>std::sort</code> 不能拿 <code>list</code> 的迭代器直接排序，<code>set</code> 的键也不能通过迭代器就地改写。标准库的容器种类不止旧资料中的“七种”；C++17 已有 <code>array</code>、<code>forward_list</code>、无序关联容器等。先学操作要求，比死记一个历史数量有用。</p>
+<h2 id="2-过滤：remove-为什么没有真的缩短容器">2. 过滤：remove 为什么没有真的缩短容器</h2>
+<p>约定读数小于 0 无效，0 是有效读数。原数据为 <code>[7,-1,3,7,2,-5]</code>，目标得到 <code>[7,3,7,2]</code>。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/data_algorithms/erase-remove.svg" alt="remove_if 把有效值移到前缀，erase 才删除尾部，随后排序去重" loading="lazy" decoding="async"></p>
+<p><code>remove_if</code> 只有两个迭代器，不拥有容器，因此不能更改容器的 <code>size</code>。它把保留项按原有相对顺序移动到前面，返回有效前缀的新终点。后面的对象仍存在，但值处于有效而未指定的状态，不能把图中尾部的 <code>?</code> 当成必然保留的原值。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; readings&#123;<span class="number">7</span>, <span class="number">-1</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">-5</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> new_end = std::<span class="built_in">remove_if</span>(readings.<span class="built_in">begin</span>(), readings.<span class="built_in">end</span>(),</span><br><span class="line">                              [](<span class="type">int</span> x) &#123; <span class="keyword">return</span> x &lt; <span class="number">0</span>; &#125;);</span><br><span class="line"><span class="comment">// size 仍是 6；[begin,new_end) 的内容是 7,3,7,2</span></span><br><span class="line">readings.<span class="built_in">erase</span>(new_end, readings.<span class="built_in">end</span>());</span><br><span class="line"><span class="comment">// size 变成 4；内容是 7,3,7,2</span></span><br></pre></td></tr></table></figure>
+<p>这就是 C++17 的 erase-remove 写法；时间为 O(n)。逐项 <code>vector.erase</code> 每次都可能移动后缀，批量删除时最坏达到 O(n²)。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/alg.remove">标准草案：remove 算法</a></p>
+<p><strong>操作不变量：</strong> 扫描过的输入中，所有应该保留的项都在输出前缀里，顺序不变。自己手写过滤算法时，这就是读指针、写指针为什么能只向前移动的依据。</p>
+<p><strong>练习：</strong> 把输入换成全负数、空数组、<code>[0,-1,0]</code>，先预测 <code>new_end</code> 与最终结果。完整源码对这些边界都有断言。</p>
+<h2 id="3-去重：排序去重与保序去重不是同一需求">3. 去重：排序去重与保序去重不是同一需求</h2>
+<h3 id="允许重排：sort-→-unique-→-erase">允许重排：sort → unique → erase</h3>
+<p>对 <code>[7,3,7,2]</code> 排序得到 <code>[2,3,7,7]</code>，相同值相邻后，<code>unique</code> 才能把每一组相邻重复压缩为一项。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::<span class="built_in">sort</span>(readings.<span class="built_in">begin</span>(), readings.<span class="built_in">end</span>());</span><br><span class="line"><span class="keyword">auto</span> unique_end = std::<span class="built_in">unique</span>(readings.<span class="built_in">begin</span>(), readings.<span class="built_in">end</span>());</span><br><span class="line">readings.<span class="built_in">erase</span>(unique_end, readings.<span class="built_in">end</span>());</span><br><span class="line"><span class="comment">// 2,3,7</span></span><br></pre></td></tr></table></figure>
+<p><code>unique</code> 不会搜索整个序列中所有重复项，且本身不改变 <code>size</code>。例如 <code>[7,3,7]</code> 的相邻元素均不相同，直接 <code>unique</code> 仍保留三个元素。排序后去重的总复杂度为 O(n log n)，这也改变了顺序。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/alg.unique">标准草案：unique</a></p>
+<h3 id="必须保留第一次出现的顺序">必须保留第一次出现的顺序</h3>
+<p>保序去重的目标是 <code>[7,3,2]</code>。让 <code>unordered_set</code> 负责“以前见过吗”，让 <code>vector</code> 负责结果顺序：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::unordered_set&lt;<span class="type">int</span>&gt; seen;</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; ordered;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : readings_before_sort) &#123;</span><br><span class="line">    <span class="keyword">if</span> (seen.<span class="built_in">insert</span>(x).second) ordered.<span class="built_in">push_back</span>(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>insert</code> 的 <code>second</code> 表示这次是否真的插入了新键。平均总时间 O(n)，额外空间 O(n)，哈希冲突严重时最坏可能 O(n²)。输出顺序来自遍历原数组和追加结果，不能从哈希表的遍历顺序推断。</p>
+<p>如果每个读数带有时间戳，“相同”的定义也要先说清：是数值相同、时间戳相同，还是整条记录相同？排序比较器与 <code>unique</code> 的等价判断必须服务于同一个去重目标。</p>
+<h2 id="4-查找：有序前提不能省略">4. 查找：有序前提不能省略</h2>
+<p>无序数据使用线性查找；排序后可以二分查找，但先排序的成本仍要计算。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> found = std::<span class="built_in">find</span>(raw.<span class="built_in">begin</span>(), raw.<span class="built_in">end</span>(), <span class="number">7</span>);</span><br><span class="line"><span class="keyword">if</span> (found != raw.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    <span class="comment">// 可以解引用 *found</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// readings 已按升序排列</span></span><br><span class="line"><span class="type">int</span> target = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">auto</span> position = std::<span class="built_in">lower_bound</span>(readings.<span class="built_in">begin</span>(), readings.<span class="built_in">end</span>(), target);</span><br><span class="line"><span class="type">bool</span> exists = position != readings.<span class="built_in">end</span>() &amp;&amp; *position == target;</span><br></pre></td></tr></table></figure>
+<p><code>lower_bound</code> 找第一个不小于目标的位置，可能是 <code>end()</code>；它不是“找到相等值才返回”的接口。对 <code>vector</code> 的二分查找比较次数和位置移动均为 O(log n)。对只有前向/双向迭代器的范围，比较次数可以仍是对数，但迭代器移动可能线性。因此查 <code>map</code>/<code>set</code> 应优先用成员 <code>lower_bound</code>，以使用其树索引。</p>
+<p><strong>小实验：</strong> 对 <code>[2,3,7]</code> 查 <code>1,3,5,9</code>，返回位置依次为下标 <code>0,1,2,3</code>；其中只有 3 确实存在。完整算法推导见<a href="/2026/10/04/algorithms_search_sort_patterns/">查找与排序笔记</a>。</p>
+<h2 id="5-计数与字典：一次读取为什么增加了元素">5. 计数与字典：一次读取为什么增加了元素</h2>
+<p>如果想统计每个值出现几次，要在去重之前统计；否则重复次数已经丢失。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; frequency;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : std::vector&lt;<span class="type">int</span>&gt;&#123;<span class="number">7</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">2</span>&#125;) ++frequency[x];</span><br><span class="line"><span class="comment">// 按键遍历：2→1，3→1，7→2</span></span><br></pre></td></tr></table></figure>
+<p>这里使用 <code>operator[]</code> 很合适：不存在的键会先插入一个值初始化的 <code>int</code>，即 0，然后自增。可是读取配置时同样的写法可能是错误的：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; limits&#123;&#123;<span class="string">&quot;imu&quot;</span>, <span class="number">100</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">auto</span> before = limits.<span class="built_in">size</span>();</span><br><span class="line"><span class="keyword">auto</span> it = limits.<span class="built_in">find</span>(<span class="string">&quot;camera&quot;</span>); <span class="comment">// 未找到时是 end()，size 不变</span></span><br><span class="line"><span class="keyword">if</span> (it != limits.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> configured = it-&gt;second;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// limits[&quot;camera&quot;] 会新增 camera→0，不能当作无副作用的读取。</span></span><br><span class="line"><span class="comment">// limits.at(&quot;camera&quot;) 则在不存在时抛出 out_of_range。</span></span><br></pre></td></tr></table></figure>
+<p>要明确覆盖可用 <code>insert_or_assign</code>；希望仅在键不存在时插入可用 <code>try_emplace</code>。两者均在 C++17 中可用。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/map.access">标准草案：map 元素访问</a></p>
+<h3 id="set-的相等不一定是对象所有字段相等">set 的相等不一定是对象所有字段相等</h3>
+<p>如果 <code>set&lt;Person&gt;</code> 只比较年龄，那么两个姓名不同但年龄相同的人会被视为等价键，只保留一个。比较器必须满足严格弱序，不能写成 <code>&lt;=</code>。也不强制必须重载 <code>operator&lt;</code>，可以传入独立比较器。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123; std::string name; <span class="type">int</span> age; &#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PersonLess</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> Person&amp; a, <span class="type">const</span> Person&amp; b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> std::<span class="built_in">tie</span>(a.age, a.name) &lt; std::<span class="built_in">tie</span>(b.age, b.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">std::set&lt;Person, PersonLess&gt; people;</span><br></pre></td></tr></table></figure>
+<p>这里按年龄再按姓名排序，只有这两个字段都等价才去重；若业务身份是 ID，就应按 ID 定义唯一性，而不是碰巧使用某个展示字段。</p>
+<h2 id="6-修改：删除后接住新的迭代器">6. 修改：删除后接住新的迭代器</h2>
+<p>按迭代器删除之后，不能继续对原来的失效迭代器执行 <code>++it</code>。使用返回的下一个位置：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = frequency.<span class="built_in">begin</span>(); it != frequency.<span class="built_in">end</span>(); ) &#123;</span><br><span class="line">    <span class="keyword">if</span> (it-&gt;second &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        it = frequency.<span class="built_in">erase</span>(it);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ++it;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 剩下 7→2</span></span><br></pre></td></tr></table></figure>
+<p>对 <code>map</code>、<code>set</code>、<code>list</code>，删除只使被删元素的迭代器和引用失效。对 <code>vector</code>，删除点及其后的迭代器、引用都会失效；即使容器没有重新分配，也不能继续拿旧位置当作原元素。</p>
+<table>
+<thead>
+<tr>
+<th>修改情形</th>
+<th>原有位置还能用吗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vector</code> 插入且重新分配</td>
+<td>全部旧迭代器、指针、引用失效</td>
+</tr>
+<tr>
+<td><code>vector</code> 插入但未重新分配</td>
+<td>插入点及之后失效，旧 <code>end()</code> 也失效</td>
+</tr>
+<tr>
+<td><code>vector</code> 删除</td>
+<td>删除点及之后失效，旧 <code>end()</code> 也失效</td>
+</tr>
+<tr>
+<td><code>list</code> 插入</td>
+<td>既有节点的迭代器、引用保持有效</td>
+</tr>
+<tr>
+<td><code>map</code> / <code>set</code> 插入</td>
+<td>既有元素的迭代器、引用保持有效</td>
+</tr>
+<tr>
+<td><code>unordered_map</code> rehash</td>
+<td>迭代器失效，存活元素的指针和引用保持有效</td>
+</tr>
+</tbody>
+</table>
+<p>表并非所有容器操作的完整规则，尤其不能从 <code>list</code> 推断 <code>deque</code>。标准的具体失效边界见 <a target="_blank" rel="noopener" href="https://eel.is/c++draft/vector.modifiers">vector 修改规则</a>与<a target="_blank" rel="noopener" href="https://eel.is/c++draft/unord.req">无序容器规则</a>。</p>
+<h3 id="rehash-后重新查找，而不是继续使用旧迭代器">rehash 后重新查找，而不是继续使用旧迭代器</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::unordered_map&lt;<span class="type">int</span>, std::string&gt; names&#123;&#123;<span class="number">1</span>, <span class="string">&quot;imu&quot;</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">auto</span> old_position = names.<span class="built_in">find</span>(<span class="number">1</span>);</span><br><span class="line">std::string&amp; saved_value = old_position-&gt;second;</span><br><span class="line">names.<span class="built_in">rehash</span>(names.<span class="built_in">bucket_count</span>() * <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line"><span class="comment">// 此处不得解引用 old_position；saved_value 仍引用同一存活元素。</span></span><br><span class="line"><span class="keyword">auto</span> new_position = names.<span class="built_in">find</span>(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>插入、<code>reserve</code>、<code>rehash</code> 都需要结合是否重建桶来判断。<code>reserve</code> 有助于预估容量，但不是对所有后续修改的一次性安全承诺。</p>
+<h2 id="7-两类任务：范围输出与按优先级处理">7. 两类任务：范围输出与按优先级处理</h2>
+<h3 id="有序-map-做范围查询">有序 map 做范围查询</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; events&#123;</span><br><span class="line">    &#123;<span class="number">10</span>, <span class="string">&quot;start&quot;</span>&#125;, &#123;<span class="number">20</span>, <span class="string">&quot;sample&quot;</span>&#125;, &#123;<span class="number">25</span>, <span class="string">&quot;warning&quot;</span>&#125;, &#123;<span class="number">40</span>, <span class="string">&quot;stop&quot;</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = events.<span class="built_in">lower_bound</span>(<span class="number">15</span>);</span><br><span class="line">     it != events.<span class="built_in">end</span>() &amp;&amp; it-&gt;first &lt; <span class="number">30</span>; ++it) &#123;</span><br><span class="line">    <span class="comment">// 依次处理 20、25，对应左闭右开的区间 [15,30)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>找起点 O(log n)，输出 <code>k</code> 个结果再花 O(k)。如果同一时间点允许多条记录，可以用 <code>multimap</code>，或把映射值改为一组记录；数据模型要先决定。</p>
+<h3 id="priority-queue-做当前最优任务">priority_queue 做当前最优任务</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::priority_queue&lt;<span class="type">int</span>&gt; priorities;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> p : &#123;<span class="number">3</span>, <span class="number">9</span>, <span class="number">1</span>&#125;) priorities.<span class="built_in">push</span>(p);</span><br><span class="line"><span class="keyword">while</span> (!priorities.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> p = priorities.<span class="built_in">top</span>();</span><br><span class="line">    priorities.<span class="built_in">pop</span>();</span><br><span class="line">    <span class="comment">// 依次取出 9、3、1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>堆顶有保证，其余位置并未完全排序；同优先级任务也不保证先进先出。如果需要稳定次序，把序号作为第二排序条件。普通 FIFO 任务队列用 <code>queue</code> 即可，回溯或撤销历史则使用 <code>stack</code>。</p>
+<h2 id="8-一份可以修改输入的-C-17-实验">8. 一份可以修改输入的 C++17 实验</h2>
+<p><a href="/downloads/code/data_structure_lab/stl_operations.cpp">下载 stl_operations.cpp</a>。它不是孤立 API 拼盘：包括过滤与去重、保留首次出现顺序、词频删除、范围查询、比较器身份、rehash 后的引用检查。对应统一编译命令见<a href="/2026/10/04/data_structures_algorithms_learning_path/">专题学习路线</a>。</p>
+<p>修改前先预测这些结果：</p>
+<table>
+<thead>
+<tr>
+<th>输入/动作</th>
+<th>预期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>过滤并排序去重 <code>[7,-1,3,7,2,-5]</code></td>
+<td><code>[2,3,7]</code></td>
+</tr>
+<tr>
+<td>对过滤结果保序去重</td>
+<td><code>[7,3,2]</code></td>
+</tr>
+<tr>
+<td>输入为空或全负数</td>
+<td>空结果，不能访问首元素</td>
+</tr>
+<tr>
+<td>输入 <code>[0,0,-1]</code></td>
+<td><code>[0]</code>，0 仍有效</td>
+</tr>
+<tr>
+<td>对不存在的键 <code>find</code></td>
+<td>返回 <code>end()</code>，元素数不变</td>
+</tr>
+<tr>
+<td>只保留出现次数至少为 2 的键</td>
+<td>示例中仅剩 <code>7→2</code></td>
+</tr>
+</tbody>
+</table>
+<p>练习可以继续加深：给读数加上时间戳和传感器 ID；按“每个传感器保留最新一条”定义去重；然后决定是否允许排序、是否需要保留原时间顺序、键不存在时应报错还是初始化。每次先确定数据语义，再选择容器与算法。</p>
 
                 </div>
             </div>
@@ -987,6 +975,10 @@
             <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
                 <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
                 <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/algorithm/">
+                        <span class="tag-chip-name">algorithm</span>
+                    </a>
                     
                     <a class="tag-chip tag-chip--related" href="/tags/cpp/">
                         <span class="tag-chip-name">cpp</span>

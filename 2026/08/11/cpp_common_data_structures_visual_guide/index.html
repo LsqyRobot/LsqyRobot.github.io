@@ -34,6 +34,8 @@
 	
 	
 	
+	
+	
 	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
 	
 	
@@ -377,12 +379,12 @@
 
 
         <div id="main" class="post-page-main">
-            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/19_dataStructure/cpp_data_structures_cover_used.png);">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/16_Algorithm/logo/ladybugs-ladybirds-bugs-insects-preview_used.jpg);">
                 <div class="post-page-cover-media" aria-hidden="true">
                     <div class="post_page_title_blur"></div>
                     <div class="post_page_title_main"></div>
                 </div>
-                <h1 class="post-page-title">C++ 常用数据结构：从内存布局到 STL 选择（图解版）</h1>
+                <h1 class="post-page-title">数据结构 01：从存储布局到结构选择</h1>
             </header>
 
             <div class="post-content-shell">
@@ -395,397 +397,270 @@
                 </aside>
 
                 <div class="typo post-article-content">
-                    <h1>为什么需要一张“全景图”</h1>
-<p>学习数据结构时，容易把 <code>vector</code>、链表、堆、哈希表分别记成一些零散 API。更实用的理解方式是先问三个问题：</p>
-<ol>
-<li>数据在内存中如何摆放：连续、分散，还是按节点连接？</li>
-<li>最常做的操作是什么：按下标访问、查找、两端增删、取最值，还是维护连接关系？</li>
-<li>是否需要顺序、重复元素、稳定迭代器或最坏时间保证？</li>
-</ol>
-<p>下面这张图给出常用数据结构及其 C++ 对应物。后文既介绍抽象结构，也说明工程中应该优先使用哪个 STL 容器。</p>
-<p><img src="/img/postImg/19_dataStructure/cpp_data_structures/01_overview.svg" alt="C++ 常用数据结构全景图"></p>
-<blockquote>
-<p>本文复杂度中的 <code>n</code> 表示元素个数，图中的 <code>V</code>、<code>E</code> 分别表示顶点数和边数。“平均 O(1)”不能直接等同于“永远 O(1)”。</p>
-</blockquote>
-<h1>先看结论：该选哪一种</h1>
+                    <p>同样一批数据，为什么数组按下标取值很快，链表插入之前却常常需要先找位置？为什么堆能快速取出最大值，却不能像有序数组一样做二分查找？这篇沿着“数据放在哪里 → 一次操作改变什么 → 哪个约束始终成立”的顺序，把结构和操作连起来。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/data-algorithms.css">
+<script type="module" src="/js/data-algorithms/demo.mjs"></script>
+<p><a href="/2026/10/04/data_structures_algorithms_learning_path/">专题目录</a> · 下一篇：<a href="/2024/01/26/archived_linkList/">链表与指针操作</a> · <a href="/2024/10/28/archived_CPP_STL_%E5%AE%B9%E5%99%A8/">STL 数据处理</a></p>
+<h2 id="1-先提出操作，再选择结构">1. 先提出操作，再选择结构</h2>
+<p>设想正在处理机器人记录：传感器样本要顺序保存，等待处理的任务要排队，紧急任务要优先执行，设备名称要映射到状态，设备之间又有连接关系。这些数据都能保存到 <code>vector</code>，但查询与修改的代价会不同。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/data_algorithms/structure-map.svg" alt="连续序列、节点结构、键查询和关系结构的选择地图" loading="lazy" decoding="async"></p>
 <table>
 <thead>
 <tr>
-<th>需求</th>
-<th>首选</th>
-<th>关键原因</th>
+<th>最常发生的操作</th>
+<th>从这个结构开始考虑</th>
+<th>接受的代价</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>固定长度、栈上小数组</td>
+<td>固定数量、按下标访问</td>
 <td><code>std::array&lt;T, N&gt;</code></td>
-<td>连续内存，无动态分配</td>
+<td>长度是类型的一部分</td>
 </tr>
 <tr>
-<td>默认的可变长序列</td>
+<td>顺序收集、随机访问、批量处理</td>
 <td><code>std::vector&lt;T&gt;</code></td>
-<td>缓存友好、随机访问 O(1)</td>
+<td>中间插入要搬移元素</td>
 </tr>
 <tr>
-<td>两端频繁增删并需要下标</td>
+<td>两端增删且需要下标</td>
 <td><code>std::deque&lt;T&gt;</code></td>
-<td>两端 O(1)，支持随机访问</td>
+<td>不保证整段连续内存</td>
 </tr>
 <tr>
-<td>已知位置频繁插入删除</td>
+<td>持有节点位置后频繁移接</td>
 <td><code>std::list&lt;T&gt;</code></td>
-<td>迭代器位置处 O(1)，但缓存局部性差</td>
+<td>寻找位置及缓存访问可能较慢</td>
 </tr>
 <tr>
-<td>后进先出</td>
-<td><code>std::stack&lt;T&gt;</code></td>
-<td>语义明确的容器适配器</td>
+<td>只处理最新/最早加入的任务</td>
+<td><code>stack</code> / <code>queue</code></td>
+<td>接口限制了访问方式</td>
 </tr>
 <tr>
-<td>先进先出</td>
-<td><code>std::queue&lt;T&gt;</code></td>
-<td>语义明确的容器适配器</td>
+<td>反复取当前极值</td>
+<td><code>priority_queue</code></td>
+<td>其余元素没有全局排序</td>
 </tr>
 <tr>
-<td>随时取最大值或最小值</td>
-<td><code>std::priority_queue&lt;T&gt;</code></td>
-<td>堆顶 O(1)，插入/弹出 O(log n)</td>
+<td>按键排序、范围查询</td>
+<td><code>map</code> / <code>set</code></td>
+<td>常见查找为 O(log n)</td>
 </tr>
 <tr>
-<td>键有序、需要范围查询</td>
-<td><code>std::map</code> / <code>std::set</code></td>
-<td>通常为平衡树，操作 O(log n)</td>
+<td>按完整键查找或计数</td>
+<td><code>unordered_map</code> / <code>unordered_set</code></td>
+<td>平均快，最坏可能退化</td>
 </tr>
 <tr>
-<td>只关心快速查找</td>
-<td><code>std::unordered_map</code> / <code>std::unordered_set</code></td>
-<td>哈希表，平均 O(1)</td>
+<td>按字符串前缀查询</td>
+<td>Trie</td>
+<td>用空间换前缀路径共享</td>
 </tr>
 <tr>
-<td>前缀查询或自动补全</td>
-<td>Trie（自行实现或第三方库）</td>
-<td>查询与字符串长度相关</td>
+<td>邻居、路径、连接关系</td>
+<td>图的邻接表</td>
+<td>需要明确方向和边权</td>
 </tr>
 <tr>
-<td>表示网络、依赖或道路</td>
-<td>邻接表 <code>vector&lt;vector&lt;...&gt;&gt;</code></td>
-<td>稀疏图节省空间</td>
-</tr>
-<tr>
-<td>判断动态连通性</td>
-<td>并查集（自行实现）</td>
-<td>近似 O(1) 的合并和查询</td>
+<td>只查询集合是否连通</td>
+<td>并查集</td>
+<td>不保存具体路径，不直接支持拆边</td>
 </tr>
 </tbody>
 </table>
-<p>一个很实用的默认规则是：<strong>序列先考虑 <code>vector</code>，键值查询再在 <code>map</code> 与 <code>unordered_map</code> 之间选择</strong>。不要仅凭某个操作的理论复杂度就使用链表；连续内存带来的缓存优势经常使 <code>vector</code> 更快。</p>
-<h1>一、数组与动态数组</h1>
-<h2 id="1-原生数组与-std-array">1. 原生数组与 <code>std::array</code></h2>
-<p>数组把相同类型的元素放在一段连续内存中。第 <code>i</code> 个元素的地址可由首地址加偏移量直接算出，因此下标访问是 O(1)。</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">下标       0       1       2       3</span><br><span class="line">地址     1000    1004    1008    1012       （假设 int 占 4 字节）</span><br><span class="line">数据    [  8  ][  3  ][  6  ][  1  ]</span><br><span class="line">                  ↑</span><br><span class="line">               a[1]</span><br></pre></td></tr></table></figure>
-<p>现代 C++ 中，固定长度数组通常优先写成：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::array&lt;<span class="type">int</span>, 4&gt; values&#123;<span class="number">8</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">1</span>&#125;;</span><br><span class="line">values[<span class="number">1</span>] = <span class="number">10</span>;                 <span class="comment">// O(1)，不检查越界</span></span><br><span class="line"><span class="type">int</span> x = values.<span class="built_in">at</span>(<span class="number">2</span>);           <span class="comment">// O(1)，越界时抛出异常</span></span><br></pre></td></tr></table></figure>
-<p><code>std::array</code> 的长度是类型的一部分，不能在运行时改变。它可以使用 STL 迭代器和算法，比裸数组更容易组合。</p>
-<h2 id="2-std-vector：默认的动态序列">2. <code>std::vector</code>：默认的动态序列</h2>
-<p><code>vector</code> 同样使用连续内存，但会额外维护元素个数 <code>size</code> 和已分配空间 <code>capacity</code>。尾部空间不足时，它会申请更大的连续区域，把旧元素移动或复制过去，然后释放旧区域。</p>
-<p><img src="/img/postImg/19_dataStructure/cpp_data_structures/02_vector_growth.svg" alt="vector 扩容动画：等待片刻可看到元素搬移"></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; nums;</span><br><span class="line">nums.<span class="built_in">reserve</span>(<span class="number">1000</span>);             <span class="comment">// 已知规模时提前预留，减少扩容</span></span><br><span class="line">nums.<span class="built_in">push_back</span>(<span class="number">10</span>);             <span class="comment">// 摊还 O(1)</span></span><br><span class="line">nums.<span class="built_in">emplace_back</span>(<span class="number">20</span>);          <span class="comment">// 原地构造元素</span></span><br><span class="line"><span class="type">int</span> first = nums[<span class="number">0</span>];            <span class="comment">// O(1)</span></span><br><span class="line">nums.<span class="built_in">insert</span>(nums.<span class="built_in">begin</span>(), <span class="number">5</span>);   <span class="comment">// O(n)，后续元素需要移动</span></span><br></pre></td></tr></table></figure>
-<p>必须分清：</p>
-<ul>
-<li><code>reserve(n)</code> 改变 <code>capacity</code>，不创建元素，<code>size</code> 不变；</li>
-<li><code>resize(n)</code> 改变 <code>size</code>，会创建或销毁元素；</li>
-<li>扩容后，指向旧元素的指针、引用和迭代器通常全部失效；</li>
-<li>尾部删除不会自动归还容量，<code>shrink_to_fit()</code> 也只是非强制请求。</li>
-</ul>
+<p>这里的 <code>n</code> 表示元素数，<code>V</code>、<code>E</code> 表示顶点数与边数。复杂度描述规模增长时的操作量，不是一次操作的耗时。<code>O(1)</code> 也要执行哈希、访问内存或分配节点；实际速度应在真实数据上测量。</p>
+<h2 id="2-连续存储：数组怎样换来随机访问">2. 连续存储：数组怎样换来随机访问</h2>
+<p>假设每个整数占 4 字节，数组首地址为 1000，第 <code>i</code> 个元素的地址就是 <code>1000 + 4 × i</code>。只计算偏移，不需要从头走过前面的元素。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">下标       0       1       2</span><br><span class="line">地址     1000    1004    1008</span><br><span class="line">数据     [10]    [20]    [30]</span><br></pre></td></tr></table></figure>
+<p><code>std::array&lt;int, 3&gt;</code> 把这 3 个元素放在对象内部，元素连续。<strong>它不保证对象一定在栈上</strong>：局部对象、静态对象、另一个对象的成员或动态创建的对象，可以有不同的存储期。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/array.overview">标准草案：array</a></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::array&lt;<span class="type">int</span>, 3&gt; samples&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>&#125;;</span><br><span class="line">samples[<span class="number">1</span>] = <span class="number">15</span>;           <span class="comment">// 已知下标有效时使用；[] 不检查边界</span></span><br><span class="line"><span class="type">int</span> value = samples.<span class="built_in">at</span>(<span class="number">2</span>); <span class="comment">// 下标越界时抛出 std::out_of_range</span></span><br></pre></td></tr></table></figure>
+<h3 id="vector-的-size-和-capacity-各表示什么">vector 的 size 和 capacity 各表示什么</h3>
+<p><code>size</code> 是已经存在的元素数，<code>capacity</code> 是当前分配的空间能容纳多少元素。<code>reserve(8)</code> 只是预留空间，不能让空数组立刻合法地访问 <code>v[0]</code>；<code>resize(8)</code> 才会把元素数改为 8。</p>
+<p>先看在 <code>[10,20,30]</code> 的下标 1 插入 15：必须给新元素腾出一格。图用整数赋值展示移动关系；真正的泛型 <code>vector</code> 还要处理对象的构造、移动和析构。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/data_algorithms/vector-insert.svg" alt="vector 在下标 1 插入 15，后缀从右向左腾出空间" loading="lazy" decoding="async"></p>
+<div class="algorithm-demo" data-demo="vector"></div>
+<p>点击下一步，观察被搬移的后缀。这里始终维持的约束是：插入位置之前的元素保持顺序，已经搬好的后缀不会被尚未移动的数据覆盖。结束后得到 <code>[10,15,20,30]</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; values&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>&#125;;</span><br><span class="line">values.<span class="built_in">reserve</span>(<span class="number">8</span>);</span><br><span class="line">values.<span class="built_in">insert</span>(values.<span class="built_in">begin</span>() + <span class="number">1</span>, <span class="number">15</span>);</span><br><span class="line"><span class="comment">// 结果：10, 15, 20, 30；size 为 4，capacity 至少为 8</span></span><br></pre></td></tr></table></figure>
+<p><strong>容量不足和中间搬移是两件事。</strong> 即使提前 <code>reserve</code>，中间插入仍要移动后缀；如果还发生重新分配，则全部元素要进入新的存储区域。重新分配后，旧指针、引用和迭代器全部失效；未重新分配的插入也会使插入点及其后的迭代器、指针和引用失效，包含旧的 <code>end()</code>。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/vector.modifiers">标准草案：vector 修改规则</a></p>
+<p>尾插多数时候只增加一个元素，少数时候搬迁整个数组，所以一系列尾插平均分摊为 O(1)，但单次可能 O(n)。标准不规定每次容量必须恰好翻倍。尾删为 O(1)，通常保留容量；<code>shrink_to_fit()</code> 是非强制的缩容请求。</p>
+<p><strong>小练习：</strong> 先 <code>reserve(100)</code>，再在已有 50 个元素的最前面插入一次，是否就变成 O(1)？答案是没有：减少分配不等于消除移动。</p>
+<h2 id="3-节点存储：链表的-O-1-有什么前提">3. 节点存储：链表的 O(1) 有什么前提</h2>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">head → [10 | next] → [20 | next] → [30 | null]</span><br><span class="line">                插入 15：先连 15→20，再连 10→15</span><br></pre></td></tr></table></figure>
+<p>节点不要求连续。已有前驱节点时，单链表插入只改变少量链接；但要从头寻找“第 100 个节点”，仍要顺着链接走。双链表还保存前驱链接，能向两个方向移动。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::list&lt;<span class="type">int</span>&gt; values&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> position = std::<span class="built_in">next</span>(values.<span class="built_in">begin</span>()); <span class="comment">// 查找位置有成本</span></span><br><span class="line"><span class="keyword">auto</span> inserted = values.<span class="built_in">insert</span>(position, <span class="number">15</span>); <span class="comment">// 已知位置，插入为 O(1)</span></span><br><span class="line">values.<span class="built_in">erase</span>(inserted);                      <span class="comment">// 只使被删除节点失效</span></span><br></pre></td></tr></table></figure>
+<p><code>std::forward_list</code> 是单链表，对应 <code>insert_after</code>、<code>erase_after</code>；<code>std::list</code> 是双链表。二者都没有下标访问。链表中的稳定节点身份适合某些移接操作，但“经常增删就用链表”仍不够：如果每次都要先搜索，搜索可能占主要成本。</p>
+<p><code>list::splice</code> 可以转移节点而不复制元素，但不同重载复杂度不同：转移整张表或单个节点是常数时间；<strong>跨容器转移一个范围通常还需统计范围长度，标准规定线性复杂度</strong>；同一容器内合法的范围移接为常数时间。来源与目标的分配器还必须相等。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/list.ops">标准草案：list 操作</a></p>
+<p>具体插入、删除、反转的逐步指针图见<a href="/2024/01/26/archived_linkList/">数据结构 02：链表</a>。练习时先画出修改前后所有箭头，再写代码。</p>
+<h2 id="4-栈、队列、deque：限制入口让意图明确">4. 栈、队列、deque：限制入口让意图明确</h2>
+<p>同样加入 <code>10,20,30</code>，不同规则决定下一个处理谁：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">栈：   入 10 → 入 20 → 入 30 → 取出 30       后进先出</span><br><span class="line">队列： 入 10 → 入 20 → 入 30 → 取出 10       先进先出</span><br><span class="line">deque：既可从左侧进出，也可从右侧进出</span><br></pre></td></tr></table></figure>
+<p><code>stack</code> 与 <code>queue</code> 是容器适配器，默认使用 <code>deque</code>；它们强调允许哪些操作，不暴露用于任意遍历的迭代器。<code>top()</code> / <code>front()</code> 观察元素，<code>pop()</code> 删除元素但不返回值；调用前要先检查非空。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::queue&lt;<span class="type">int</span>&gt; jobs;</span><br><span class="line">jobs.<span class="built_in">push</span>(<span class="number">10</span>);</span><br><span class="line">jobs.<span class="built_in">push</span>(<span class="number">20</span>);</span><br><span class="line"><span class="keyword">if</span> (!jobs.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> job = jobs.<span class="built_in">front</span>();</span><br><span class="line">    jobs.<span class="built_in">pop</span>();</span><br><span class="line">    <span class="comment">// 处理 job；下一个轮到 20</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>deque</code> 支持 O(1) 随机访问和两端单元素增删，但不保证元素处于同一连续内存区。因此不能把它当作 <code>vector::data()</code> 那样的连续数组传给 C 接口。中间插入仍是线性操作。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/deque.modifiers">标准草案：deque 修改</a></p>
+<p><strong>用操作理解场景：</strong> 括号匹配需要最近一个未配对左括号，所以用栈；BFS 必须先处理早发现的节点，所以用队列。结构选择来自访问规则。</p>
+<h2 id="5-搜索树、堆与哈希表解决三个不同的问题">5. 搜索树、堆与哈希表解决三个不同的问题</h2>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/data_algorithms/heap-hash.svg" alt="堆保持父子极值约束，哈希表按桶定位并处理冲突" loading="lazy" decoding="async"></p>
+<h3 id="有序树：查询值和区间">有序树：查询值和区间</h3>
+<p>二叉搜索树要求左子树键小于当前键、右子树键大于当前键。未经平衡的树可能退化成链，所以不能一概声称树查找是 O(log n)。标准库 <code>map</code>、<code>set</code> 提供相应的对数复杂度保证，常见实现是平衡搜索树，标准未指定必须使用红黑树。</p>
+<p><code>map</code> 保存键值对；<code>set</code> 只保存键；<code>multimap</code>、<code>multiset</code> 允许等价键重复。键是否等价由比较器判断：<code>!comp(a,b) &amp;&amp; !comp(b,a)</code>，不一定由 <code>operator==</code> 决定。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; devices&#123;</span><br><span class="line">    &#123;<span class="number">30</span>, <span class="string">&quot;imu&quot;</span>&#125;, &#123;<span class="number">10</span>, <span class="string">&quot;camera&quot;</span>&#125;, &#123;<span class="number">20</span>, <span class="string">&quot;lidar&quot;</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// lower_bound 找第一个键 &gt;= 15 的位置，随后按键向前遍历</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = devices.<span class="built_in">lower_bound</span>(<span class="number">15</span>);</span><br><span class="line">     it != devices.<span class="built_in">end</span>() &amp;&amp; it-&gt;first &lt; <span class="number">30</span>; ++it) &#123;</span><br><span class="line">    <span class="comment">// 只访问键 20；区间 [15,30)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定位起点 O(log n)，输出 <code>k</code> 项再花 O(k)。不要把整个范围查询只记成 O(log n)。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/associative.reqmts">标准草案：有序关联容器</a></p>
+<h3 id="堆：只维持最值所需的秩序">堆：只维持最值所需的秩序</h3>
+<p>最小堆要求父节点不大于孩子，不要求左右子树互相有序。用数组保存完全二叉树时，节点 <code>i</code> 的孩子下标是 <code>2*i+1</code> 与 <code>2*i+2</code>；只有 <code>i&gt;0</code> 时才有父节点 <code>(i-1)/2</code>。</p>
+<p>例如最小堆数组 <code>[2,5,3,9,7]</code> 并没有完全排序，但根已经是最小值。加入 1 时先放末尾，再与父节点交换，直到父子约束恢复；弹出根时用末尾补位，再向下调整。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::priority_queue&lt;<span class="type">int</span>, std::vector&lt;<span class="type">int</span>&gt;, std::greater&lt;<span class="type">int</span>&gt;&gt; ready;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> priority : &#123;<span class="number">5</span>, <span class="number">2</span>, <span class="number">9</span>&#125;) ready.<span class="built_in">push</span>(priority);</span><br><span class="line"><span class="keyword">while</span> (!ready.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> next = ready.<span class="built_in">top</span>(); <span class="comment">// 依次为 2、5、9</span></span><br><span class="line">    ready.<span class="built_in">pop</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>priority_queue</code> 默认是最大堆；上面用 <code>greater&lt;int&gt;</code> 得到最小堆。查看顶端 O(1)，调整堆所需比较次数 O(log n)。默认底层 <code>vector</code> 插入偶尔还会重新分配，因此 <code>push</code> 的总成本有摊还因素。维护大小为 <code>k</code> 的最小堆，可以在扫描 <code>n</code> 项时保留最大的 <code>k</code> 项，典型代价 O(n log k)。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/priority.queue">标准草案：priority_queue</a></p>
+<h3 id="哈希表：完整键定位，不维护大小关系">哈希表：完整键定位，不维护大小关系</h3>
+<p>哈希把键映射到桶，桶冲突后仍必须比较真正的键。平均查找为 O(1)，最坏可能 O(n)；若键是长字符串，计算哈希和比较字符串本身也有成本。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::unordered_map&lt;std::string, <span class="type">int</span>&gt; counts;</span><br><span class="line">counts.<span class="built_in">reserve</span>(<span class="number">100</span>);</span><br><span class="line">++counts[<span class="string">&quot;imu&quot;</span>]; <span class="comment">// 这里确实希望不存在的计数先插入 0</span></span><br><span class="line"><span class="keyword">auto</span> found = counts.<span class="built_in">find</span>(<span class="string">&quot;camera&quot;</span>); <span class="comment">// 单纯查询不会插入</span></span><br></pre></td></tr></table></figure>
+<p>不能依赖哈希表的遍历顺序。<strong>rehash 会使迭代器失效，但不会使仍存活元素的指针和引用失效</strong>；删除元素才会使指向该元素的引用失效。<code>reserve</code> 也可能触发 rehash。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/unord.req">标准草案：无序关联容器</a></p>
+<p>自定义键的相等判断与哈希必须一致：相等的两个键必须产生相同哈希值；哈希值相同则不代表键相等。C++17 写法示例：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="type">int</span> x, y;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>==(<span class="type">const</span> Point&amp; other) <span class="type">const</span> <span class="keyword">noexcept</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x == other.x &amp;&amp; y == other.y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PointHash</span> &#123;</span><br><span class="line">    <span class="function">std::<span class="type">size_t</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> Point&amp; p)</span> <span class="type">const</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> std::hash&lt;<span class="type">int</span>&gt;&#123;&#125;(p.x) ^ (std::hash&lt;<span class="type">int</span>&gt;&#123;&#125;(p.y) &lt;&lt; <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 简单演示，不代表适合所有数据分布的高质量哈希组合</span></span><br><span class="line">std::unordered_map&lt;Point, std::string, PointHash&gt; labels;</span><br></pre></td></tr></table></figure>
+<h2 id="6-Trie：把“公共前缀”变成公共路径">6. Trie：把“公共前缀”变成公共路径</h2>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">root</span><br><span class="line"> ├─ c ─ a ─ t*       cat</span><br><span class="line"> │       └─ r*       car</span><br><span class="line"> └─ d ─ o ─ g*       dog</span><br><span class="line">* 标记一个完整单词结束</span><br></pre></td></tr></table></figure>
+<p>插入 <code>cat</code> 后再插入 <code>car</code>，只需在 <code>ca</code> 后新建 <code>r</code> 节点。查询 <code>ca</code> 时路径存在，但终点未被标为单词，因此 <code>starts_with(&quot;ca&quot;)</code> 为真，<code>contains(&quot;ca&quot;)</code> 为假。</p>
+<p>固定 26 字母孩子数组让每一步索引为 O(1)，长度为 <code>L</code> 的插入和查询为 O(L)。代价是每个节点都预留 26 个孩子位置。字符集大且分支稀疏时，可改用映射存孩子，复杂度和空间也会随之变化。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">validate_word</span><span class="params">(std::string_view word)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> c : word) &#123;</span><br><span class="line">        <span class="keyword">if</span> (c &lt; <span class="string">&#x27;a&#x27;</span> || c &gt; <span class="string">&#x27;z&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">invalid_argument</span>(<span class="string">&quot;expected lowercase a-z&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 必须先验证整串，再执行 child[c - &#x27;a&#x27;]。</span></span><br><span class="line"><span class="comment">// 否则大写、标点及 UTF-8 字节会造成错误索引。</span></span><br></pre></td></tr></table></figure>
+<p><a href="/downloads/code/data_structure_lab/structures.cpp">完整 Trie 实现和边界用例</a> 使用 <code>unique_ptr</code> 表达子节点所有权，接受空字符串作为可插入的单词，非法字符抛出异常。这个教学版本针对小规模单词，不把 Unicode 分词、超长输入的资源限制或产品级搜索功能混在一起。</p>
+<h2 id="7-图与-BFS：让队列对应“距离一层层增长”">7. 图与 BFS：让队列对应“距离一层层增长”</h2>
+<p>图的顶点表示对象，边表示关系。先画一个有向无权图：A 指向 B、C；B 指向 D；C 指向 D、E。代码用 <code>0..4</code> 对应 <code>A..E</code>。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/data_algorithms/graph-bfs.svg" alt="BFS 从 A 分层访问有向图，B 与 C 都能到达 D" loading="lazy" decoding="async"></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> Graph = std::vector&lt;std::vector&lt;<span class="type">int</span>&gt;&gt;;</span><br><span class="line">Graph graph&#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;&#125;, &#123;&#125;&#125;;</span><br><span class="line"><span class="comment">//           A       B      C     D   E</span></span><br></pre></td></tr></table></figure>
+<div class="algorithm-demo" data-demo="bfs"></div>
+<p>从 A 出发的过程如下。队列左侧是下一次要出队的元素；发现节点时就标记，而不是等到出队时才标记。</p>
 <table>
 <thead>
 <tr>
-<th>操作</th>
-<th style="text-align:right">数组 / <code>array</code></th>
-<th style="text-align:right"><code>vector</code></th>
+<th>刚处理的节点</th>
+<th>处理之后的队列</th>
+<th>新发现的距离</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>下标访问</td>
-<td style="text-align:right">O(1)</td>
-<td style="text-align:right">O(1)</td>
+<td>尚未处理</td>
+<td><code>[A]</code></td>
+<td>A 的距离为 0</td>
 </tr>
 <tr>
-<td>尾部插入</td>
-<td style="text-align:right">不支持改变长度</td>
-<td style="text-align:right">摊还 O(1)</td>
+<td>A</td>
+<td><code>[B,C]</code></td>
+<td>B、C 的距离为 1</td>
 </tr>
 <tr>
-<td>中间插入/删除</td>
-<td style="text-align:right">O(n)</td>
-<td style="text-align:right">O(n)</td>
+<td>B</td>
+<td><code>[C,D]</code></td>
+<td>D 的距离为 2</td>
 </tr>
 <tr>
-<td>查找某个值</td>
-<td style="text-align:right">O(n)</td>
-<td style="text-align:right">O(n)</td>
+<td>C</td>
+<td><code>[D,E]</code></td>
+<td>E 的距离为 2；D 已发现，不重复入队</td>
+</tr>
+<tr>
+<td>D</td>
+<td><code>[E]</code></td>
+<td>无新节点</td>
+</tr>
+<tr>
+<td>E</td>
+<td><code>[]</code></td>
+<td>遍历结束</td>
 </tr>
 </tbody>
 </table>
-<h1>二、链表</h1>
-<p>链表的节点可以分散在内存各处，节点之间用指针连接。单链表只保存 <code>next</code>，双链表同时保存 <code>prev</code> 和 <code>next</code>。</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">单链表： head → [data|next] → [data|next] → [data|null]</span><br><span class="line"></span><br><span class="line">双链表： null ← [prev|data|next] ⇄ [prev|data|next] → null</span><br></pre></td></tr></table></figure>
-<p>C++ 标准库提供：</p>
-<ul>
-<li><code>std::forward_list&lt;T&gt;</code>：单链表，内存开销较小，只能向前遍历；</li>
-<li><code>std::list&lt;T&gt;</code>：双链表，可以双向遍历和 O(1) 拼接。</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::list&lt;<span class="type">int</span>&gt; xs&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> pos = std::<span class="built_in">next</span>(xs.<span class="built_in">begin</span>());</span><br><span class="line">xs.<span class="built_in">insert</span>(pos, <span class="number">15</span>);             <span class="comment">// 已经拿到 pos 时为 O(1)</span></span><br><span class="line">xs.<span class="built_in">erase</span>(pos);                  <span class="comment">// 已经拿到 pos 时为 O(1)</span></span><br></pre></td></tr></table></figure>
-<p>“链表插入 O(1)”有一个经常被省略的前提：<strong>已经拥有插入位置的迭代器</strong>。如果先从头查找位置，查找仍是 O(n)。链表不能用 <code>xs[i]</code> 随机访问，而且每个节点都有指针开销，缓存局部性通常也弱于 <code>vector</code>。</p>
-<p>更完整的节点实现与应用示例可参考已有笔记：<a href="/2024/01/26/archived_linkList/">链表</a>。</p>
-<h1>三、栈、队列与双端队列</h1>
-<p>栈和队列描述的是受限制的访问规则，STL 用“容器适配器”提供它们：默认借助其他底层容器存储数据，而不暴露迭代器。</p>
-<p><img src="/img/postImg/19_dataStructure/cpp_data_structures/03_stack_queue.svg" alt="栈与队列操作动画"></p>
-<h2 id="1-栈-std-stack">1. 栈 <code>std::stack</code></h2>
-<p>栈遵循后进先出（LIFO），像一摞盘子。函数调用栈、撤销操作、括号匹配、DFS 都会用到它。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::stack&lt;<span class="type">int</span>&gt; st;</span><br><span class="line">st.<span class="built_in">push</span>(<span class="number">10</span>);                    <span class="comment">// O(1)</span></span><br><span class="line">st.<span class="built_in">push</span>(<span class="number">20</span>);</span><br><span class="line"><span class="type">int</span> x = st.<span class="built_in">top</span>();               <span class="comment">// 20，O(1)</span></span><br><span class="line">st.<span class="built_in">pop</span>();                       <span class="comment">// 不返回被删除的值</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-队列-std-queue">2. 队列 <code>std::queue</code></h2>
-<p>队列遵循先进先出（FIFO），适合任务调度、消息缓冲和 BFS。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::queue&lt;<span class="type">int</span>&gt; jobs;</span><br><span class="line">jobs.<span class="built_in">push</span>(<span class="number">10</span>);                  <span class="comment">// 从队尾进入</span></span><br><span class="line">jobs.<span class="built_in">push</span>(<span class="number">20</span>);</span><br><span class="line"><span class="type">int</span> x = jobs.<span class="built_in">front</span>();           <span class="comment">// 10，从队头观察</span></span><br><span class="line">jobs.<span class="built_in">pop</span>();                     <span class="comment">// 删除 10</span></span><br></pre></td></tr></table></figure>
-<h2 id="3-双端队列-std-deque">3. 双端队列 <code>std::deque</code></h2>
-<p><code>deque</code> 支持头尾 O(1) 插入删除，也支持 O(1) 下标访问。它通常由多个固定大小的连续块组成，并不保证所有元素处在同一整段内存中，所以不能把它当作连续数组传给只接受 <code>T*</code> 的接口。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::deque&lt;<span class="type">int</span>&gt; q&#123;<span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">q.<span class="built_in">push_front</span>(<span class="number">1</span>);</span><br><span class="line">q.<span class="built_in">push_back</span>(<span class="number">4</span>);</span><br><span class="line">q.<span class="built_in">pop_front</span>();</span><br></pre></td></tr></table></figure>
-<h1>四、树、集合与映射</h1>
-<p>树表达层次关系。每个节点除数据外，还保存到子节点的边。二叉树规定每个节点最多有两个孩子；二叉搜索树（BST）进一步规定左子树的键小于根，右子树的键大于根。</p>
-<p><img src="/img/postImg/19_dataStructure/cpp_data_structures/04_tree_heap_hash.svg" alt="二叉搜索树、最小堆与哈希表对比"></p>
-<p>普通 BST 如果按 <code>1, 2, 3, 4...</code> 插入，会退化成链表，查找从 O(log n) 变成 O(n)。因此工程中通常使用自平衡树。<code>std::set</code> 和 <code>std::map</code> 一般由红黑树等平衡搜索树实现；标准只约束复杂度和行为，不强制具体实现。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::set&lt;<span class="type">int</span>&gt; ids&#123;<span class="number">8</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">1</span>&#125;; <span class="comment">// 自动去重并按升序保存：1, 3, 8</span></span><br><span class="line"></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; age;</span><br><span class="line">age[<span class="string">&quot;Alice&quot;</span>] = <span class="number">20</span>;             <span class="comment">// 不存在时会插入默认值再赋值</span></span><br><span class="line">age.<span class="built_in">insert_or_assign</span>(<span class="string">&quot;Bob&quot;</span>, <span class="number">21</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> it = age.<span class="built_in">lower_bound</span>(<span class="string">&quot;B&quot;</span>); <span class="comment">// 第一个不小于 &quot;B&quot; 的键，O(log n)</span></span><br></pre></td></tr></table></figure>
-<p>四种常见有序关联容器如下：</p>
+<p>BFS 的关键约束是：队列按距离非递减的顺序处理顶点。若每条边代价相同，第一次发现一个点时就得到最短步数。若边有不同权重，这个结论不再成立，需要根据权重条件选择 Dijkstra 等算法。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">bfs_distance</span><span class="params">(<span class="type">const</span> Graph&amp; graph, <span class="type">int</span> start)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 完整源码先检查 start、图规模以及全部边端点是否合法。</span></span><br><span class="line">    <span class="built_in">validate_graph</span>(graph, start);</span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">distance</span><span class="params">(graph.size(), <span class="number">-1</span>)</span></span>;</span><br><span class="line">    std::queue&lt;<span class="type">int</span>&gt; pending;</span><br><span class="line">    distance[start] = <span class="number">0</span>;</span><br><span class="line">    pending.<span class="built_in">push</span>(start);</span><br><span class="line">    <span class="keyword">while</span> (!pending.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> u = pending.<span class="built_in">front</span>();</span><br><span class="line">        pending.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> v : graph[u]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (distance[v] == <span class="number">-1</span>) &#123;</span><br><span class="line">                distance[v] = distance[u] + <span class="number">1</span>;</span><br><span class="line">                pending.<span class="built_in">push</span>(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> distance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整源码将空图和非法起点视为无效调用并抛出异常；即使某个坏的边端点位于不可达分量，也会先验证出来，避免因输入形状不同而漏检。未访问顶点的距离保持 <code>-1</code>。</p>
 <table>
 <thead>
 <tr>
-<th>容器</th>
-<th>键是否重复</th>
-<th>保存内容</th>
-<th style="text-align:right">查找/插入/删除</th>
+<th>表示方法</th>
+<th>空间</th>
+<th>检查 <code>u→v</code> 是否存在</th>
+<th>枚举 u 的邻居</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>set</code></td>
-<td>否</td>
-<td>键</td>
-<td style="text-align:right">O(log n)</td>
+<td>普通邻接表</td>
+<td>O(V+E)</td>
+<td>O(deg(u))</td>
+<td>O(deg(u))</td>
 </tr>
 <tr>
-<td><code>multiset</code></td>
-<td>是</td>
-<td>键</td>
-<td style="text-align:right">O(log n)</td>
-</tr>
-<tr>
-<td><code>map</code></td>
-<td>否</td>
-<td>键值对</td>
-<td style="text-align:right">O(log n)</td>
-</tr>
-<tr>
-<td><code>multimap</code></td>
-<td>是</td>
-<td>键值对</td>
-<td style="text-align:right">O(log n)</td>
+<td>邻接矩阵</td>
+<td>O(V²)</td>
+<td>O(1)</td>
+<td>O(V)</td>
 </tr>
 </tbody>
 </table>
-<p>需要范围查询、按键排序、<code>lower_bound</code>，或者需要稳定的最坏复杂度时，优先选择有序关联容器。</p>
-<h1>五、堆与优先队列</h1>
-<p>堆是一棵完全二叉树，通常紧凑地存进数组。最小堆只保证“父节点不大于孩子”，最大堆则相反；它不保证左右子树之间整体有序。</p>
-<p>数组下标从 0 开始时，节点 <code>i</code> 的关系为：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">父节点：(i - 1) / 2</span><br><span class="line">左孩子：2 * i + 1</span><br><span class="line">右孩子：2 * i + 2</span><br></pre></td></tr></table></figure>
-<p>STL 的 <code>priority_queue</code> 默认是最大堆：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::priority_queue&lt;<span class="type">int</span>&gt; max_heap;</span><br><span class="line">max_heap.<span class="built_in">push</span>(<span class="number">3</span>);</span><br><span class="line">max_heap.<span class="built_in">push</span>(<span class="number">8</span>);</span><br><span class="line">max_heap.<span class="built_in">push</span>(<span class="number">5</span>);</span><br><span class="line"><span class="type">int</span> largest = max_heap.<span class="built_in">top</span>();   <span class="comment">// 8，O(1)</span></span><br><span class="line"></span><br><span class="line">std::priority_queue&lt;<span class="type">int</span>, std::vector&lt;<span class="type">int</span>&gt;, std::greater&lt;<span class="type">int</span>&gt;&gt; min_heap;</span><br><span class="line">min_heap.<span class="built_in">push</span>(<span class="number">3</span>);</span><br><span class="line">min_heap.<span class="built_in">push</span>(<span class="number">8</span>);</span><br><span class="line">min_heap.<span class="built_in">push</span>(<span class="number">5</span>);</span><br><span class="line"><span class="type">int</span> smallest = min_heap.<span class="built_in">top</span>();  <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-<p>堆适合 Top-K、任务优先级、Dijkstra 算法。它擅长取极值，却不适合查找任意元素：任意值查找仍可能是 O(n)。</p>
-<h1>六、哈希表</h1>
-<p>哈希表通过哈希函数把键映射到桶（bucket）。理想情况下，查找、插入和删除平均为 O(1)；不同键落到同一个桶时会发生冲突，容器需要用链式结构或其他策略处理。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::unordered_map&lt;std::string, <span class="type">int</span>&gt; scores;</span><br><span class="line">scores.<span class="built_in">reserve</span>(<span class="number">1000</span>);           <span class="comment">// 可减少反复 rehash</span></span><br><span class="line">scores[<span class="string">&quot;Alice&quot;</span>] = <span class="number">95</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Alice&quot;</span>); it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> score = it-&gt;second;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>unordered_map</code> 不维护排序，遍历顺序也不应被依赖。元素增多触发 <code>rehash</code> 时，桶会重建，迭代器可能失效。自定义键需要同时给出相等判断和哈希函数。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>==(<span class="type">const</span> Point&amp;) <span class="type">const</span> = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PointHash</span> &#123;</span><br><span class="line">    <span class="function">std::<span class="type">size_t</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> Point&amp; p)</span> <span class="type">const</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">        std::<span class="type">size_t</span> h1 = std::hash&lt;<span class="type">int</span>&gt;&#123;&#125;(p.x);</span><br><span class="line">        std::<span class="type">size_t</span> h2 = std::hash&lt;<span class="type">int</span>&gt;&#123;&#125;(p.y);</span><br><span class="line">        <span class="keyword">return</span> h1 ^ (h2 &lt;&lt; <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::unordered_map&lt;Point, std::string, PointHash&gt; labels;</span><br></pre></td></tr></table></figure>
+<p>这里是未额外建立索引的普通邻接表。无向边通常存两次，不改变渐进复杂度。BFS/DFS 遍历邻接表的代价为 O(V+E)；DFS 用递归或显式栈，可用于连通分量、环检测等，但普通 DFS 不保证无权最短路。</p>
+<h2 id="8-并查集：只关心哪些点属于同一集合">8. 并查集：只关心哪些点属于同一集合</h2>
+<p>假设依次连接 <code>(0,1)</code>、<code>(2,3)</code>、<code>(1,2)</code>：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">开始：   &#123;0&#125; &#123;1&#125; &#123;2&#125; &#123;3&#125; &#123;4&#125;</span><br><span class="line">连0—1： &#123;0,1&#125;   &#123;2&#125; &#123;3&#125; &#123;4&#125;</span><br><span class="line">连2—3： &#123;0,1&#125;   &#123;2,3&#125;   &#123;4&#125;</span><br><span class="line">连1—2： &#123;0,1,2,3&#125;       &#123;4&#125;</span><br></pre></td></tr></table></figure>
+<p>并查集保存“父节点”，沿父节点最终找到代表元。集合代表元是谁不重要，同一集合中的元素是否找到同一个根才重要。合并时把小集合的根挂到大集合的根上；查询时把沿途节点尽量指向根，称为路径压缩。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">DisjointSet <span class="title">groups</span><span class="params">(<span class="number">5</span>)</span></span>; <span class="comment">// 完整定义见 structures.cpp</span></span><br><span class="line">groups.<span class="built_in">unite</span>(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">groups.<span class="built_in">unite</span>(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">groups.<span class="built_in">unite</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="type">bool</span> same = groups.<span class="built_in">connected</span>(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">// true</span></span><br><span class="line"><span class="type">bool</span> changed = groups.<span class="built_in">unite</span>(<span class="number">0</span>, <span class="number">3</span>);  <span class="comment">// false：本来就已连通</span></span><br></pre></td></tr></table></figure>
+<p>初始化为 O(n)。按大小合并与路径压缩一起使用时，后续操作的摊还复杂度为 O(α(n))；<code>α</code> 是增长极慢的反阿克曼函数，不能据此宣称每一次调用严格为 O(1)。它适合增量连通性与 Kruskal；不保存具体连通路径，也不能直接支持任意删除边。</p>
+<p>示例构造函数先拒绝负数规模，再分配数组；零规模允许构造，但没有合法元素下标。<code>find</code>、<code>unite</code>、<code>connected</code> 接受的编号范围是 <code>[0,n)</code>，完整代码检查这个前提，不把负数隐式转成超大无符号下标。</p>
+<h2 id="9-复杂度要写清楚是哪一个操作">9. 复杂度要写清楚是哪一个操作</h2>
 <table>
 <thead>
 <tr>
-<th>特性</th>
-<th><code>map</code></th>
-<th><code>unordered_map</code></th>
+<th>结构</th>
+<th>访问/查找</th>
+<th>插入</th>
+<th>删除</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>内部逻辑</td>
-<td>平衡搜索树</td>
-<td>哈希表</td>
-</tr>
-<tr>
-<td>顺序</td>
-<td>按键有序</td>
-<td>无序</td>
-</tr>
-<tr>
-<td>查找</td>
-<td>O(log n)</td>
-<td>平均 O(1)，最坏 O(n)</td>
-</tr>
-<tr>
-<td>范围查询</td>
-<td>支持</td>
-<td>不支持</td>
-</tr>
-<tr>
-<td>自定义键要求</td>
-<td>严格弱序比较</td>
-<td>相等判断 + 哈希</td>
-</tr>
-</tbody>
-</table>
-<h1>七、Trie 前缀树</h1>
-<p>Trie 把字符串的每个字符放在一层节点上，共享相同前缀。查找复杂度主要取决于字符串长度 <code>L</code>，约为 O(L)，而不是已存单词数。</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">root</span><br><span class="line"> ├─ c ─ a ─ t*       cat</span><br><span class="line"> │       └─ r*       car</span><br><span class="line"> └─ d ─ o ─ g*       dog</span><br><span class="line"></span><br><span class="line">* 表示一个完整单词在此结束</span><br></pre></td></tr></table></figure>
-<p>简化实现如下，字符集很大或节点稀疏时，可把定长孩子数组换成 <code>unordered_map&lt;char, unique_ptr&lt;Node&gt;&gt;</code>：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string_view&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Trie</span> &#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">        std::array&lt;std::unique_ptr&lt;Node&gt;, <span class="number">26</span>&gt; child&#123;&#125;;</span><br><span class="line">        <span class="type">bool</span> is_word = <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    Node root_;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(std::string_view word)</span> </span>&#123;</span><br><span class="line">        Node* p = &amp;root_;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : word) &#123;</span><br><span class="line">            <span class="keyword">auto</span>&amp; next = p-&gt;child[c - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            <span class="keyword">if</span> (!next) next = std::<span class="built_in">make_unique</span>&lt;Node&gt;();</span><br><span class="line">            p = next.<span class="built_in">get</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        p-&gt;is_word = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">contains</span><span class="params">(std::string_view word)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="type">const</span> Node* p = &amp;root_;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : word) &#123;</span><br><span class="line">            <span class="type">const</span> <span class="keyword">auto</span>&amp; next = p-&gt;child[c - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            <span class="keyword">if</span> (!next) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            p = next.<span class="built_in">get</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p-&gt;is_word;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>Trie 适合自动补全、词典和路由前缀匹配，代价是节点及孩子指针可能消耗较多内存。</p>
-<h1>八、图：邻接表与邻接矩阵</h1>
-<p>图由顶点（vertex）和边（edge）组成，可表示道路、社交关系、机器人状态转移、软件依赖等。边可以有向或无向，也可以带权重。</p>
-<p><img src="/img/postImg/19_dataStructure/cpp_data_structures/05_graph_traversal.svg" alt="图的 BFS 分层遍历动画"></p>
-<h2 id="1-邻接表">1. 邻接表</h2>
-<p>邻接表为每个顶点保存其邻居，空间复杂度为 O(V + E)，适合大多数稀疏图。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> Graph = std::vector&lt;std::vector&lt;<span class="type">int</span>&gt;&gt;;</span><br><span class="line"></span><br><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">bfs</span><span class="params">(<span class="type">const</span> Graph&amp; graph, <span class="type">int</span> start)</span> </span>&#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; order;</span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">bool</span>&gt; <span class="title">visited</span><span class="params">(graph.size(), <span class="literal">false</span>)</span></span>;</span><br><span class="line">    std::queue&lt;<span class="type">int</span>&gt; pending;</span><br><span class="line"></span><br><span class="line">    visited[start] = <span class="literal">true</span>;       <span class="comment">// 入队时标记，避免重复入队</span></span><br><span class="line">    pending.<span class="built_in">push</span>(start);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!pending.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> u = pending.<span class="built_in">front</span>();</span><br><span class="line">        pending.<span class="built_in">pop</span>();</span><br><span class="line">        order.<span class="built_in">push_back</span>(u);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> v : graph[u]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[v]) &#123;</span><br><span class="line">                visited[v] = <span class="literal">true</span>;</span><br><span class="line">                pending.<span class="built_in">push</span>(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> order;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-邻接矩阵">2. 邻接矩阵</h2>
-<p>邻接矩阵用 <code>matrix[u][v]</code> 表示两点是否相连或边权，判断一条边是否存在为 O(1)，但空间固定为 O(V²)，适合顶点较少且边很密集的图。</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th style="text-align:right">邻接表</th>
-<th style="text-align:right">邻接矩阵</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>空间</td>
-<td style="text-align:right">O(V + E)</td>
-<td style="text-align:right">O(V²)</td>
-</tr>
-<tr>
-<td>判断 <code>(u,v)</code> 是否有边</td>
-<td style="text-align:right">O(deg(u))</td>
-<td style="text-align:right">O(1)</td>
-</tr>
-<tr>
-<td>遍历 <code>u</code> 的邻居</td>
-<td style="text-align:right">O(deg(u))</td>
-<td style="text-align:right">O(V)</td>
-</tr>
-<tr>
-<td>适合</td>
-<td style="text-align:right">稀疏图</td>
-<td style="text-align:right">稠密图、小图</td>
-</tr>
-</tbody>
-</table>
-<p>BFS 使用队列，适合无权图最短步数；DFS 使用递归或显式栈，适合连通性、环检测、拓扑相关问题。两者遍历邻接表图的复杂度均为 O(V + E)。</p>
-<h1>九、并查集（Disjoint Set Union）</h1>
-<p>并查集维护若干互不相交的集合，支持两个核心操作：查询某个元素属于哪个集合，以及合并两个集合。它适合动态连通性、Kruskal 最小生成树和网格连通区域问题。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;numeric&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DisjointSet</span> &#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; parent_;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; size_;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">DisjointSet</span><span class="params">(<span class="type">int</span> n)</span> : parent_(n), size_(n, <span class="number">1</span>) &#123;</span></span><br><span class="line">        std::<span class="built_in">iota</span>(parent_.<span class="built_in">begin</span>(), parent_.<span class="built_in">end</span>(), <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (parent_[x] != x) &#123;</span><br><span class="line">            parent_[x] = <span class="built_in">find</span>(parent_[x]); <span class="comment">// 路径压缩</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent_[x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">unite</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        a = <span class="built_in">find</span>(a);</span><br><span class="line">        b = <span class="built_in">find</span>(b);</span><br><span class="line">        <span class="keyword">if</span> (a == b) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (size_[a] &lt; size_[b]) std::<span class="built_in">swap</span>(a, b);</span><br><span class="line">        parent_[b] = a;                   <span class="comment">// 小树挂到大树下</span></span><br><span class="line">        size_[a] += size_[b];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">connected</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">find</span>(a) == <span class="built_in">find</span>(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>同时使用路径压缩与按大小合并后，单次操作的均摊复杂度为 O(α(n))；反阿克曼函数 <code>α(n)</code> 增长极慢，工程上可近似理解为常数。</p>
-<h1>十、复杂度速查表</h1>
-<table>
-<thead>
-<tr>
-<th>数据结构</th>
-<th style="text-align:right">随机访问</th>
-<th style="text-align:right">查找</th>
-<th style="text-align:right">头部增删</th>
-<th style="text-align:right">尾部增删</th>
-<th style="text-align:right">已知位置增删</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>array</code></td>
-<td style="text-align:right">O(1)</td>
-<td style="text-align:right">O(n)</td>
-<td style="text-align:right">不改变长度</td>
-<td style="text-align:right">不改变长度</td>
-<td style="text-align:right">不改变长度</td>
-</tr>
 <tr>
 <td><code>vector</code></td>
-<td style="text-align:right">O(1)</td>
-<td style="text-align:right">O(n)</td>
-<td style="text-align:right">O(n)</td>
-<td style="text-align:right">摊还 O(1)</td>
-<td style="text-align:right">O(n)</td>
+<td>下标 O(1)；无序值查找 O(n)</td>
+<td>尾插摊还 O(1)、单次最坏 O(n)；中间 O(n)</td>
+<td>尾删 O(1)；中间 O(n)</td>
 </tr>
 <tr>
 <td><code>deque</code></td>
-<td style="text-align:right">O(1)</td>
-<td style="text-align:right">O(n)</td>
-<td style="text-align:right">O(1)</td>
-<td style="text-align:right">O(1)</td>
-<td style="text-align:right">O(n)</td>
+<td>下标 O(1)；值查找 O(n)</td>
+<td>两端单元素 O(1)；中间 O(n)</td>
+<td>两端单元素 O(1)；中间 O(n)</td>
 </tr>
 <tr>
 <td><code>list</code></td>
-<td style="text-align:right">O(n)</td>
-<td style="text-align:right">O(n)</td>
-<td style="text-align:right">O(1)</td>
-<td style="text-align:right">O(1)</td>
-<td style="text-align:right">O(1)</td>
+<td>走到第 i 项 O(i)；查值 O(n)</td>
+<td>已知位置单元素 O(1)</td>
+<td>已知位置单元素 O(1)</td>
 </tr>
 <tr>
-<td><code>set</code> / <code>map</code></td>
-<td style="text-align:right">不适用</td>
-<td style="text-align:right">O(log n)</td>
-<td style="text-align:right">不适用</td>
-<td style="text-align:right">不适用</td>
-<td style="text-align:right">O(log n)</td>
+<td><code>map</code> / <code>set</code></td>
+<td>按键 O(log n)</td>
+<td>普通单元素 O(log n)</td>
+<td><code>erase(iterator)</code> 摊还 O(1)；<code>erase(key)</code> 为 O(log n + count(key))</td>
 </tr>
 <tr>
-<td><code>unordered_set</code> / <code>unordered_map</code></td>
-<td style="text-align:right">不适用</td>
-<td style="text-align:right">平均 O(1)</td>
-<td style="text-align:right">不适用</td>
-<td style="text-align:right">不适用</td>
-<td style="text-align:right">平均 O(1)</td>
+<td><code>unordered_*</code></td>
+<td>按键平均 O(1)、最坏 O(n)</td>
+<td>单元素平均 O(1)、最坏 O(n)</td>
+<td>单元素平均 O(1)、最坏 O(n)</td>
 </tr>
 </tbody>
 </table>
-<p>这里 <code>list</code> 的“已知位置增删”指已经持有有效迭代器；<code>unordered_*</code> 的复杂度是平均情况；<code>vector</code> 尾插是均摊复杂度。</p>
-<h1>十一、容易混淆的几个结论</h1>
+<p>表中的 <code>unordered_*</code> 单元素删除指持有一个元素迭代器的情形；允许重复键的 <code>erase(key)</code> 还要计入删掉多少项。有序容器按迭代器删除与按键删除也不是同一复杂度，详细要求见<a target="_blank" rel="noopener" href="https://eel.is/c++draft/associative.reqmts">标准草案对应表</a>。</p>
+<h2 id="10-把图变成可运行的实验">10. 把图变成可运行的实验</h2>
+<p><a href="/downloads/code/data_structure_lab/structures.cpp">下载 structures.cpp</a>，其中包括安全的 Trie、BFS、并查集，以及数组、堆和自定义哈希键示例。仓库中的统一实验命令见<a href="/2026/10/04/data_structures_algorithms_learning_path/">专题学习路线</a>。所有示例使用 C++17。</p>
+<p>练习时先手写期望结果，再运行：</p>
 <ol>
-<li><strong>数据结构不等于 STL 容器。</strong> 栈、队列是抽象访问规则；<code>std::stack</code>、<code>std::queue</code> 是其标准库接口。</li>
-<li><strong>O(1) 不代表一定更快。</strong> 哈希计算、内存分配、缓存未命中和常数项都会影响真实速度。</li>
-<li><strong><code>list</code> 的插入并非无条件 O(1)。</strong> 找位置需要 O(n)，只有拿到位置后链接节点是 O(1)。</li>
-<li><strong><code>priority_queue</code> 不是完全排序的数组。</strong> 只能保证 <code>top()</code> 是极值。</li>
-<li><strong><code>map</code> 与 <code>unordered_map</code> 不只是 O(log n) 和 O(1) 的差别。</strong> 是否有序、是否范围查询、内存开销、最坏情况保证都不同。</li>
-<li><strong>不要依赖 <code>unordered_map</code> 的遍历顺序。</strong> 插入或 rehash 后顺序可能变化。</li>
-<li><strong>避免手写裸 <code>new</code> / <code>delete</code> 管理节点。</strong> 学习实现时可以练习，工程代码应优先使用标准容器或智能指针明确所有权。</li>
+<li>向 Trie 插入 <code>car</code>、<code>cat</code>，比较查询 <code>ca</code> 与前缀查询 <code>ca</code>；再输入 <code>Car</code>，观察异常。</li>
+<li>在图中加入第六个顶点 F，预测它的距离；再增加 <code>E→F</code> 的边，预测距离数组怎样变化。</li>
+<li>连续三次合并同一对元素，记录 <code>unite</code> 返回值，并验证其他集合没有被误连。</li>
+<li>需要“最近 1000 个样本、按顺序处理、偶尔随机查看”时，比较 <code>deque</code> 与循环数组的接口设计；先说明操作比例，再讨论性能。</li>
 </ol>
-<h1>十二、建议的学习顺序</h1>
-<p>可以用同一组小任务逐层练习：</p>
-<ol>
-<li>用 <code>array</code> 和 <code>vector</code> 完成遍历、查找、插入；</li>
-<li>手写一次单链表以理解指针，再回到 <code>list</code> 对比；</li>
-<li>用 <code>stack</code> 做括号匹配，用 <code>queue</code> 做层序遍历；</li>
-<li>用 <code>map</code> 统计有序词频，再换成 <code>unordered_map</code> 比较；</li>
-<li>用 <code>priority_queue</code> 做 Top-K；</li>
-<li>用邻接表实现 BFS 和 DFS；</li>
-<li>最后实现 Trie 与并查集，体会“针对特殊查询设计结构”。</li>
-</ol>
-<p>进一步了解 STL 容器的接口和示例，可继续阅读：<a href="/2024/10/28/archived_CPP_STL_%E5%AE%B9%E5%99%A8/">C++ 中的容器</a>。</p>
-<h1>参考资料</h1>
-<ol>
-<li>cppreference：C++ 标准库容器与复杂度说明；</li>
-<li>《数据结构（C++ 语言版）》——邓俊辉；</li>
-<li>《数据结构与算法图解》——Jay Wengrow；</li>
-<li>Hello 算法：数组、链表、树、堆、图等章节。</li>
-</ol>
+<p>接下来到 <a href="/2024/10/28/archived_CPP_STL_%E5%AE%B9%E5%99%A8/">STL 数据流水线</a>：将这里的结构选择，落实成查找、过滤、计数、排序和去重代码。</p>
 
                 </div>
             </div>
@@ -1188,9 +1063,9 @@
                     <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
                 </div>
                 
-                <a class="post-primary-link" href="/knowledge/programming/algorithms/">
+                <a class="post-primary-link" href="/knowledge/data-algorithms/structures/">
                     <span class="post-primary-marker">主专题</span>
-                    <span class="post-primary-name">数据结构与算法</span>
+                    <span class="post-primary-name">01 存储布局与结构选择</span>
                     <span class="post-primary-arrow" aria-hidden="true">→</span>
                 </a>
                 

@@ -1,0 +1,944 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/42_vim/logo/conifers-1867371_1280.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">网络安全 04：对象越权、SQL 注入与修复验证</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>本篇只研究两个很小的边界：<strong>通过身份认证后是否还需要检查对象归属；输入字符串进入 SQL 时是否仍然只被当成数据</strong>。每个问题都先看漏洞版，再用同一用例检查修复版。</p>
+<p>实验里的 Alice、Bob 和订单都是虚构数据。HTTP 服务只有本机端口；SQL 示例在断网容器里离线执行，没有网络 SQL 查询接口。先完成<a href="/2026/10/03/security_learning_roadmap/">环境准备</a>。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/security-learning.css">
+<h2 id="一、认证与授权分别问什么">一、认证与授权分别问什么</h2>
+<p>认证回答“你是谁”，授权回答“你可以对哪个对象做什么”。成功登录不等于可以读所有订单；按钮被隐藏也不等于服务端已经阻止访问。</p>
+<p>配套代码中，服务端把固定教学 token 映射为用户，再查订单归属。客户端不通过 <code>?user=alice</code> 自报身份。生产系统应使用实际的登录和会话验证流程；本例省略了密码与 token 签发，只保留与对象检查有关的部分。</p>
+<table>
+<thead>
+<tr>
+<th>订单 ID</th>
+<th>归属</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>alice</td>
+<td>Notebook</td>
+</tr>
+<tr>
+<td>102</td>
+<td>bob</td>
+<td>Pencil</td>
+</tr>
+</tbody>
+</table>
+<h2 id="二、实验-A：已认证用户访问另一个用户的对象">二、实验 A：已认证用户访问另一个用户的对象</h2>
+<h3 id="2-1-正常读取自己的订单">2.1 正常读取自己的订单</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -i -H <span class="string">&#x27;Authorization: Bearer training-alice&#x27;</span> \</span><br><span class="line">  http://127.0.0.1:18080/fixed/orders/101</span><br></pre></td></tr></table></figure>
+<p>预期 <code>200</code>，owner 为 <code>alice</code>。再去掉请求头，预期 <code>401</code>。这是“能识别身份”的第一道检查。</p>
+<h3 id="2-2-漏洞版只检查登录，没有检查对象归属">2.2 漏洞版只检查登录，没有检查对象归属</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -i -H <span class="string">&#x27;Authorization: Bearer training-alice&#x27;</span> \</span><br><span class="line">  http://127.0.0.1:18080/lesson/orders/102</span><br></pre></td></tr></table></figure>
+<p>预期仍然 <code>200</code>，但 owner 为 <code>bob</code>。证据是 <strong>Alice 的身份 + Bob 的对象 + 服务端成功返回数据</strong>。仅仅修改 URL 中的编号不是漏洞结论，越过了原本不应越过的授权边界才是。</p>
+<h3 id="2-3-相同身份和对象，访问修复版">2.3 相同身份和对象，访问修复版</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -i -H <span class="string">&#x27;Authorization: Bearer training-alice&#x27;</span> \</span><br><span class="line">  http://127.0.0.1:18080/fixed/orders/102</span><br><span class="line"></span><br><span class="line">curl -i -H <span class="string">&#x27;Authorization: Bearer training-bob&#x27;</span> \</span><br><span class="line">  http://127.0.0.1:18080/fixed/orders/102</span><br></pre></td></tr></table></figure>
+<p>预期分别是 <code>403</code> 和 <code>200</code>。合法使用仍成功，跨用户访问被拒绝。这比“所有请求都拒绝了”更能证明修复符合业务要求。</p>
+<p>关键判断可以写成：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user = authenticated_user   <span class="comment"># 来自服务端验证过的身份</span></span><br><span class="line">order = orders[order_id]</span><br><span class="line"><span class="keyword">if</span> order[<span class="string">&#x27;owner&#x27;</span>] != user:</span><br><span class="line">    <span class="keyword">return</span> forbidden()</span><br><span class="line"><span class="keyword">return</span> order</span><br></pre></td></tr></table></figure>
+<p>真实系统可以在数据库查询时同时限定 ID 与用户、租户或角色范围，避免先拿到全量对象再遗漏检查。难猜的 UUID 可能减少编号猜测，但不能替代对象授权。<a target="_blank" rel="noopener" href="https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html">OWASP IDOR 防护说明</a></p>
+<h2 id="三、实验-B：SQL-输入为什么变成了代码">三、实验 B：SQL 输入为什么变成了代码</h2>
+<p>先预测这条错误写法会怎样拼接字符串：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sql = <span class="string">&quot;SELECT name FROM products WHERE name = &#x27;&quot;</span> + value + <span class="string">&quot;&#x27;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>正常输入 <code>Notebook</code> 时，看起来能工作。若输入中含有 SQL 语法，查询的结构可能改变。本地离线演示准备了两条商品：Notebook 和 Pencil。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bin/site.sh security-sql</span><br></pre></td></tr></table></figure>
+<p>程序依次对普通输入和教学输入 <code>' OR 1=1 -- </code> 执行漏洞版与修复版，输出 JSON。</p>
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>漏洞版结果</th>
+<th>修复版结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notebook</td>
+<td>1 条 Notebook</td>
+<td>1 条 Notebook</td>
+</tr>
+<tr>
+<td>教学输入</td>
+<td>2 条商品</td>
+<td>空列表</td>
+</tr>
+</tbody>
+</table>
+<p>在漏洞版中，输入关闭原来的字符串，再把条件改成恒真，注释掉剩余部分。修复版把它作为一个完整的商品名字去匹配，没有这个名字，自然返回空列表。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">con.execute(</span><br><span class="line">    <span class="string">&#x27;SELECT name FROM products WHERE name = ?&#x27;</span>,</span><br><span class="line">    (value,)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>这段 <code>?</code> 占位符及第二参数是 Python sqlite3 的参数绑定机制。<code>(value,)</code> 是只有一个元素的元组，不是多余的标点。它将语句结构与数据值分开。<a target="_blank" rel="noopener" href="https://docs.python.org/3.12/library/sqlite3.html">Python sqlite3 官方文档</a></p>
+<p>参数化主要解决值的位置；动态表名、列名和排序关键字需要通过固定映射等方式约束，不能认为把所有位置换成 <code>?</code> 就会正确工作。过滤几个“危险单词”、自己拼转义规则，都不能替代可靠的参数绑定。<a target="_blank" rel="noopener" href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html">OWASP SQL 注入防护</a></p>
+<h2 id="四、从请求回到日志">四、从请求回到日志</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bin/site.sh security-logs</span><br></pre></td></tr></table></figure>
+<p>程序每次 GET 输出一条结构化记录，含时间、方法、路径、状态码和识别到的用户，不记录 Authorization token。</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;time&quot;</span><span class="punctuation">:</span> <span class="number">1790000000.0</span><span class="punctuation">,</span> <span class="attr">&quot;method&quot;</span><span class="punctuation">:</span> <span class="string">&quot;GET&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/fixed/orders/102&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="number">403</span><span class="punctuation">,</span> <span class="attr">&quot;user&quot;</span><span class="punctuation">:</span> <span class="string">&quot;alice&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上面是字段格式示意，时间不是本次运行的真实证据。练习时把自己的响应和同一次请求的日志对应起来。</p>
+<p>复盘至少回答：发生在什么时间、使用哪个身份、访问哪个对象、服务端作出了什么决定。一次 403 可以由练习、误操作或恶意请求触发，不能仅凭这一条日志判定攻击意图。这个小服务没有请求 ID，若并发请求难以对应，下一步可以添加由服务端生成的 request_id。</p>
+<h2 id="五、把一次手工结果变成回归测试">五、把一次手工结果变成回归测试</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bin/site.sh security-test</span><br></pre></td></tr></table></figure>
+<p>七项测试覆盖：服务健康、缺失/错误身份、合法所有者、漏洞与修复的越权对照、错误/不存在的 ID、SQL 参数化，以及普通用户文件权限。测试不是“所有安全问题都没有”的证明，只证明这些已写明的用例满足预期。</p>
+<p>练习扩展：添加第三个用户和第三条订单，然后写出完整的用户×订单访问矩阵。不要只补一个管理员成功用例；还要断言普通用户仍不能跨越对象边界。</p>
+<h2 id="六、浏览器安全接下来学什么">六、浏览器安全接下来学什么</h2>
+<p>Cookie 保存状态，但不自动完成授权。<code>HttpOnly</code> 限制脚本读取 Cookie；<code>Secure</code> 约束 Cookie 的传输；<code>SameSite</code> 影响跨站请求携带 Cookie 的行为。这些属性各有作用，不能互相替代。本实验没有实现 Cookie 会话，所以不会把它的测试结果说成已覆盖 CSRF 或会话安全。<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">MDN Cookie 指南</a></p>
+<p>后续另建 XSS、CSRF 和会话实验时，应分别固定输出上下文、请求来源与状态变化，再设计修复前后的断言。</p>
+<details><summary>自测：把订单 ID 从数字换成 UUID，这次漏洞就消失了吗？</summary>
+<p>没有。只要知道一个不属于自己的有效 ID，仍可能读取对象。应把当前身份与对象访问策略绑定；编号难猜只是额外减少可发现性。</p>
+</details>
+<details><summary>自测：修复后合法请求也返回 403，能否算完成？</summary>
+<p>不能。修复同时要满足合法请求成功和越界请求失败；否则只是把业务关闭了。</p>
+</details>
+<p>完成后执行 <code>./bin/site.sh security-down</code>，写一份包含“证据—根因—修复—回归”的短记录。<a href="/2026/10/03/security_learning_roadmap/">返回学习路线</a>。<a href="/knowledge/security/">返回分类</a>。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/security/web/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">Web 安全与修复</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/authorization/">
+                        <span class="tag-chip-name">authorization</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/security/">
+                        <span class="tag-chip-name">security</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/sql/">
+                        <span class="tag-chip-name">sql</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/web/">
+                        <span class="tag-chip-name">web</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

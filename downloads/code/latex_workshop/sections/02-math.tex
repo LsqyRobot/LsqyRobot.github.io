@@ -1,0 +1,55 @@
+\section{最小二乘与数学结构}\label{sec:math}
+设 \(\vect{A}\in\R^{m\times n}\)、\(\vect{x}\in\R^n\)、
+\(\vect{b}\in\R^m\)，所有元素均为实数。最小二乘目标为
+\begin{equation}
+  J(\vect{x})=\frac{1}{2}\lVert\vect{A}\vect{x}-\vect{b}\rVert_2^2.
+  \label{eq:least-squares}
+\end{equation}
+两条分别编号的公式使用 \texttt{align}，以等号为对齐点：
+\begin{align}
+  \nabla J(\vect{x})&=\vect{A}^{\mathsf{T}}
+    (\vect{A}\vect{x}-\vect{b}),\label{eq:gradient}\\
+  \nabla^2J(\vect{x})&=\vect{A}^{\mathsf{T}}\vect{A}.
+    \label{eq:hessian}
+\end{align}
+一条推导需要多行、但只保留一个编号时，使用外层公式包住 \texttt{aligned}：
+\begin{equation}
+  \begin{aligned}
+    J(\vect{x})
+      &=\frac{1}{2}(\vect{A}\vect{x}-\vect{b})^{\mathsf{T}}
+        (\vect{A}\vect{x}-\vect{b})\\
+      &=\frac{1}{2}\vect{x}^{\mathsf{T}}\vect{A}^{\mathsf{T}}
+        \vect{A}\vect{x}
+        -\vect{b}^{\mathsf{T}}\vect{A}\vect{x}
+        +\frac{1}{2}\vect{b}^{\mathsf{T}}\vect{b}.
+  \end{aligned}
+  \label{eq:expanded-loss}
+\end{equation}
+以阈值 \(\delta>0\) 定义分段损失，条件列与表达式列分开对齐：
+\begin{equation}
+  \rho_\delta(r)=
+  \begin{cases}
+    \dfrac{1}{2}r^2,&\lvert r\rvert\leq\delta,\\
+    \delta\bigl(\lvert r\rvert-\dfrac{1}{2}\delta\bigr),
+      &\lvert r\rvert>\delta.
+  \end{cases}
+  \label{eq:huber}
+\end{equation}
+矩阵环境中的分列、换行同样表达结构，例如
+\[
+  \vect{A}=\begin{bmatrix}1&0\\1&1\\1&2\end{bmatrix},
+  \qquad
+  \vect{x}=\begin{bmatrix}a\\b\end{bmatrix},
+  \qquad
+  \vect{b}=\begin{bmatrix}1\\2\\2\end{bmatrix}.
+\]
+\begin{theorem}[正定二次型]\label{thm:positive-quadratic}
+若实对称矩阵 \(\vect{Q}\) 正定，则
+\(f(\vect{x})=\vect{x}^{\mathsf{T}}\vect{Q}\vect{x}\)
+的唯一全局最小点为 \(\vect{x}=\vect{0}\)。
+\end{theorem}
+\begin{proof}
+由正定性，非零向量满足 \(f(\vect{x})>0\)，而 \(f(\vect{0})=0\)。
+\end{proof}
+练习：引用\cref{eq:gradient,eq:hessian}，再插入新公式观察编号变化。
+将\cref{thm:positive-quadratic}的“正定”改成“半正定”后，数学结论需要重新检查。

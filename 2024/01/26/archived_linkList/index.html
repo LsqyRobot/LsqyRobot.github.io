@@ -34,6 +34,8 @@
 	
 	
 	
+	
+	
 	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
 	
 	
@@ -377,12 +379,12 @@
 
 
         <div id="main" class="post-page-main">
-            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/19_dataStructure/logo/ai-generated-8490379_1280_used.jpg);">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/1_ros/logo/snail-7976692_1920_used.jpg);">
                 <div class="post-page-cover-media" aria-hidden="true">
                     <div class="post_page_title_blur"></div>
                     <div class="post_page_title_main"></div>
                 </div>
-                <h1 class="post-page-title">链表</h1>
+                <h1 class="post-page-title">数据结构 02：链表插入、删除与反转的指针过程</h1>
             </header>
 
             <div class="post-content-shell">
@@ -395,41 +397,280 @@
                 </aside>
 
                 <div class="typo post-article-content">
-                    <!-- vim-markdown-toc GFM -->
-<ul>
-<li><a href="#%E7%BA%BF%E6%80%A7%E8%A1%A8">线性表</a>
-<ul>
-<li><a href="#%E9%93%BE%E8%A1%A8">链表</a></li>
-</ul>
-</li>
-<li><a href="#%E9%93%BE%E8%A1%A8%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8">链表典型应用</a></li>
-<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
-</ul>
-<!-- vim-markdown-toc -->
-<h1>线性表</h1>
-<h2 id="链表">链表</h2>
-<p>与数组不同的是,组成链表的格子不是连续的。它们可以分布在内存的各个地方。这种不相邻的格子,就叫作结点。每个结点除了保存数据,它还保存着链表里的下一结点的内存地址。如下图所示：</p>
-<p><img src="/img/postImg/19_dataStructure/linkedList/%E9%93%BE%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt=""></p>
-<p>若想使用链表,只需知道<code>第一个结点</code>在内存的什么位置。因为每个结点都有指向下一结点的链,所以只要有给定的第一个结点,就可以用结点1的链找到结点2再用结点2的链找到结点3…如此遍历链表的剩余部分。下面这张图感觉更能形象的表述出这份意思</p>
-<p><img src="/img/postImg/19_dataStructure/linkedList/linkedlist_common_types.png" alt=""></p>
-<p>下面给出链表结构的C++代码实现部分</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 节点类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    int <span class="keyword">data</span>;</span><br><span class="line">    Node* next;</span><br><span class="line">    </span><br><span class="line">    Node(int <span class="keyword">data</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="keyword">data</span> = <span class="keyword">data</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;next = NULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 链表类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LinkedList</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Node* head;</span><br><span class="line">    </span><br><span class="line">    LinkedList() &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;head = NULL;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在链表末尾添加节点</span></span><br><span class="line">    void append(int <span class="keyword">data</span>) &#123;</span><br><span class="line">        Node* new_node = new Node(<span class="keyword">data</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;head == NULL) &#123;</span><br><span class="line">            <span class="keyword">this</span>-&gt;head = new_node;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Node* current = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">            <span class="keyword">while</span> (current-&gt;next != NULL) &#123;</span><br><span class="line">                current = current-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            current-&gt;next = new_node;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在链表指定位置插入节点</span></span><br><span class="line">    void insert(int <span class="keyword">data</span>, int index) &#123;</span><br><span class="line">        Node* new_node = new Node(<span class="keyword">data</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (index == <span class="number">0</span>) &#123;</span><br><span class="line">            new_node-&gt;next = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">            <span class="keyword">this</span>-&gt;head = new_node;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Node* current = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">            <span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; index-<span class="number">1</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (current == NULL) &#123;</span><br><span class="line">                    cout &lt;&lt; <span class="string">&quot;Error: Index out of range.&quot;</span> &lt;&lt; endl;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                current = current-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            new_node-&gt;next = current-&gt;next;</span><br><span class="line">            current-&gt;next = new_node;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在链表指定位置删除节点</span></span><br><span class="line">    void remove(int index) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;head == NULL) &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;Error: List is empty.&quot;</span> &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (index == <span class="number">0</span>) &#123;</span><br><span class="line">            Node* temp = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">            <span class="keyword">this</span>-&gt;head = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">            delete temp;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Node* current = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">            <span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; index-<span class="number">1</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (current == NULL) &#123;</span><br><span class="line">                    cout &lt;&lt; <span class="string">&quot;Error: Index out of range.&quot;</span> &lt;&lt; endl;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                current = current-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (current-&gt;next == NULL) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;Error: Index out of range.&quot;</span> &lt;&lt; endl;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            Node* temp = current-&gt;next;</span><br><span class="line">            current-&gt;next = temp-&gt;next;</span><br><span class="line">            delete temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 显示链表中的所有节点</span></span><br><span class="line">    void display() &#123;</span><br><span class="line">        Node* current = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">        <span class="keyword">while</span> (current != NULL) &#123;</span><br><span class="line">            cout &lt;&lt; current-&gt;<span class="keyword">data</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            current = current-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 示例</span></span><br><span class="line">int main() &#123;</span><br><span class="line">    LinkedList list;</span><br><span class="line">    </span><br><span class="line">    list.append(<span class="number">1</span>);</span><br><span class="line">    list.append(<span class="number">2</span>);</span><br><span class="line">    list.append(<span class="number">3</span>);</span><br><span class="line">    list.display(); <span class="comment">// 输出：1 2 3</span></span><br><span class="line">    </span><br><span class="line">    list.insert(<span class="number">4</span>, <span class="number">1</span>);</span><br><span class="line">    list.display(); <span class="comment">// 输出：1 4 2 3</span></span><br><span class="line">    </span><br><span class="line">    list.remove(<span class="number">2</span>);</span><br><span class="line">    list.display(); <span class="comment">// 输出：1 4 3</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1>链表典型应用</h1>
-<p>单向链表通常用于实现栈、队列、哈希表和图等数据结构。</p>
-<p><strong>栈与队列</strong>：当插入和删除操作都在链表的一端进行时，它表现出先进后出的特性，对应栈；当插入操作在链表的一端进行，删除操作在链表的另一端进行，它表现出先进先出的特性，对应队列。</p>
-<p><strong>哈希表</strong>：链式地址是解决哈希冲突的主流方案之一，在该方案中，所有冲突的元素都会被放到一个链表中。</p>
-<p><strong>图</strong>：邻接表是表示图的一种常用方式，其中图的每个顶点都与一个链表相关联，链表中的每个元素都代表与该顶点相连的其他顶点。</p>
-<p>双向链表常用于需要快速查找前一个和后一个元素的场景。</p>
-<p><strong>高级数据结构</strong>：比如在红黑树、B 树中，我们需要访问节点的父节点，这可以通过在节点中保存一个指向父节点的引用来实现，类似于双向链表。</p>
-<p><strong>浏览器历史</strong>：在网页浏览器中，当用户点击前进或后退按钮时，浏览器需要知道用户访问过的前一个和后一个网页。双向链表的特性使得这种操作变得简单。</p>
-<p><strong>LRU 算法</strong>：在缓存淘汰（LRU）算法中，我们需要快速找到最近最少使用的数据，以及支持快速添加和删除节点。这时候使用双向链表就非常合适。</p>
-<p>环形链表常用于需要周期性操作的场景，比如操作系统的资源调度。</p>
-<p><strong>时间片轮转调度算法</strong>：在操作系统中，时间片轮转调度算法是一种常见的 CPU 调度算法，它需要对一组进程进行循环。每个进程被赋予一个时间片，当时间片用完时，CPU 将切换到下一个进程。这种循环操作可以通过环形链表来实现。</p>
-<p><strong>数据缓冲区</strong>：在某些数据缓冲区的实现中，也可能会使用环形链表。比如在音频、视频播放器中，数据流可能会被分成多个缓冲块并放入一个环形链表，以便实现无缝播放。</p>
-<h1>参考</h1>
-<p>1, 《数据结构与算法图解》 – 杰伊 温格罗著, 袁志鹏译<br>
-2, 《数据结构(C++语言版)》 – 邓俊辉 编著<br>
-3, <a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_array_and_linkedlist/linked_list/#423">Hello 算法</a></p>
+                    <p>从 <code>10 → 20 → 30</code> 开始，把 <code>15</code> 插进去、把 <code>20</code> 删掉，再把整条链反转。本篇把每一次箭头变化与 C++ 代码对应起来：先看操作，再说明为什么不会丢节点，最后用边界测试检验实现。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/data-algorithms.css">
+<p><a href="/knowledge/data-algorithms/">专题目录</a> · <a href="/2026/10/04/data_structures_algorithms_learning_path/">学习路线</a> · 上一篇：<a href="/2026/08/11/cpp_common_data_structures_visual_guide/">常用数据结构的选择</a> · 下一篇：<a href="/2024/10/28/archived_CPP_STL_%E5%AE%B9%E5%99%A8/">STL 数据处理</a></p>
+<h2 id="1-从三个节点建立模型">1. 从三个节点建立模型</h2>
+<p>把三个数放进数组，通常可以从起始地址直接计算第 <code>i</code> 个元素的位置。链表里的节点可以分散在不同地址；节点中的 <code>next</code> 保存下一个节点的位置，<code>head</code> 保存第一个节点的位置。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">head → [10 | next] → [20 | next] → [30 | nullptr]</span><br><span class="line">          index 0       index 1       index 2</span><br></pre></td></tr></table></figure>
+<p>图上把节点画成一排，是为了看清逻辑顺序；这不意味着内存地址连续。<code>nullptr</code> 表示后面没有节点，不是一个值为 <code>0</code> 的节点。</p>
+<p>这里区分三个容易混淆的概念：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>本文含义</th>
+<th>空表时是什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>头指针 <code>head</code></td>
+<td>保存首个节点位置的入口</td>
+<td><code>nullptr</code></td>
+</tr>
+<tr>
+<td>首元节点</td>
+<td>实际存储第一个值的节点，如 <code>10</code></td>
+<td>不存在</td>
+</tr>
+<tr>
+<td>哨兵／头结点</td>
+<td>可选的、不存业务值的辅助节点</td>
+<td>使用哨兵的实现仍保留它</td>
+</tr>
+</tbody>
+</table>
+<p>本文的实现<strong>不设置哨兵</strong>，用“指向拥有者的指针”统一处理头部和中间的操作。理解算法时，仍可以先按普通箭头来推演；所有权的细节在第 6 节解释。</p>
+<p>下面的交互演示逐步展示插入过程；后面的静态图继续展示删除和反转。每一步先观察链接变化，再对照代码；即使不运行脚本，也能按图完成练习。</p>
+<div class="algorithm-demo" data-demo="linked"></div>
+<script type="module" src="/js/data-algorithms/demo.mjs"></script>
+<h2 id="2-插入-15：先接住后半段，再改前驱">2. 插入 15：先接住后半段，再改前驱</h2>
+<p>目标是把 <code>15</code> 插到索引 <code>1</code>，也就是原来的 <code>20</code> 前面。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/data_algorithms/linked-insert.svg" alt="链表插入：先让新节点15指向20，再让10指向15" loading="lazy" decoding="async"></p>
+<p>完整过程是：找到 <code>10</code>，准备新节点 <code>15</code>，让 <code>15.next</code> 接住原来的后半段 <code>20 → 30</code>，最后让 <code>10.next</code> 指向 <code>15</code>。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">原始：head → 10 ─────────→ 20 → 30 → null</span><br><span class="line">准备：              15</span><br><span class="line">接住：              15 ──→ 20 → 30 → null</span><br><span class="line">改链：head → 10 ──→ 15 ──→ 20 → 30 → null</span><br></pre></td></tr></table></figure>
+<p>为什么要注意顺序？若先覆盖 <code>10.next</code>，又没有另外保存 <code>20</code> 的位置，就失去了访问后半段的入口。裸指针实现中，这可能直接造成内存泄漏；所有权指针实现中，错误地覆盖拥有者还可能提前销毁后半段。核心规则是：<strong>改变一条旧链接前，先保证旧链接所指向的节点仍有人持有。</strong></p>
+<p>本文统一使用 <code>insert(index, value)</code>；因此本次操作写成 <code>insert(1, 15)</code>。插入位置表示“新元素最终所在的位置”，长度为 <code>n</code> 的表共有 <code>n + 1</code> 个可插入位置。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>结果</th>
+<th>需要考虑的边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>insert(0, 5)</code></td>
+<td>新节点成为首元节点</td>
+<td>更新 <code>head</code></td>
+</tr>
+<tr>
+<td><code>insert(1, 15)</code></td>
+<td>插到原索引 1 的元素前</td>
+<td>保留后半段</td>
+</tr>
+<tr>
+<td><code>insert(size(), 40)</code></td>
+<td>追加到尾部</td>
+<td>新节点的 <code>next</code> 为空</td>
+</tr>
+<tr>
+<td>空表上 <code>insert(0, 10)</code></td>
+<td>建立第一个节点</td>
+<td>合法</td>
+</tr>
+<tr>
+<td><code>insert(size() + 1, 40)</code></td>
+<td>抛出 <code>std::out_of_range</code></td>
+<td>不分配节点，不改变原表</td>
+</tr>
+</tbody>
+</table>
+<p>定位索引 <code>1</code> 只需很少的步数；但定位第 <code>n - 1</code> 个位置仍要沿链走过去。因此，“改两条链接”是 <code>O(1)</code>，<strong>按索引定位后再插入的整体最坏时间是 <code>O(n)</code></strong>。</p>
+<h2 id="3-删除-20：绕过去之后才能释放它">3. 删除 20：绕过去之后才能释放它</h2>
+<p>接着从 <code>10 → 15 → 20 → 30</code> 中删除索引 <code>2</code>。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/data_algorithms/linked-erase.svg" alt="链表删除：保存20，把15的next接到30，最后释放20" loading="lazy" decoding="async"></p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">原始：head → 10 → 15 → [20] → 30 → null</span><br><span class="line">保存：                 removed ↑</span><br><span class="line">改链：head → 10 → 15 ───────→ 30 → null</span><br><span class="line">释放：                 [20] 不再属于链表</span><br></pre></td></tr></table></figure>
+<p>先找到 <code>15</code>，再保存待删节点 <code>20</code>；把 <code>15.next</code> 接到 <code>20.next</code> 所指向的 <code>30</code>，最后释放 <code>20</code>。如果先释放 <code>20</code> 再读取它的 <code>next</code>，就是访问已经结束生命周期的对象。仅把指针设为 <code>nullptr</code> 也不等于释放它原先指向的内存。</p>
+<p>本文的 <code>erase(2)</code> 返回被删除的值 <code>20</code>。删除范围和插入范围不同：长度为 <code>n</code> 的表只能删除 <code>[0, n)</code> 内的元素。</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>正确处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>删首节点</td>
+<td>让 <code>head</code> 接住旧首节点的后继</td>
+</tr>
+<tr>
+<td>删尾节点</td>
+<td>前驱的 <code>next</code> 变成空</td>
+</tr>
+<tr>
+<td>只有一个节点</td>
+<td>删除后 <code>head</code> 为空，长度为 0</td>
+</tr>
+<tr>
+<td>空表删除、删除 <code>size()</code></td>
+<td>抛异常，表不变</td>
+</tr>
+</tbody>
+</table>
+<p>“给你一个节点就能 <code>O(1)</code> 删除”对单向链表并不普遍成立。要真正把它从链里摘掉，通常还需要它的前驱或指向它的那条链接。把后继的值复制过来的技巧会改变节点身份，而且对尾节点无效；本篇不使用这一技巧。</p>
+<h2 id="4-反转：一次只处理一个节点">4. 反转：一次只处理一个节点</h2>
+<p>现在表是 <code>10 → 15 → 30</code>。要得到 <code>30 → 15 → 10</code>，需要改变链接方向，不必交换三个数据值。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/data_algorithms/linked-reverse.svg" alt="链表反转：已反转前缀逐步增长，未处理后缀逐步缩短" loading="lazy" decoding="async"></p>
+<p>可以用两段链来理解每一轮的状态：</p>
+<table>
+<thead>
+<tr>
+<th>已处理节点数</th>
+<th>已反转前缀 <code>previous</code></th>
+<th>未处理后缀 <code>head</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>空</td>
+<td><code>10 → 15 → 30</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>10</code></td>
+<td><code>15 → 30</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>15 → 10</code></td>
+<td><code>30</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>30 → 15 → 10</code></td>
+<td>空</td>
+</tr>
+</tbody>
+</table>
+<p>每轮只把后缀的第一个节点摘下来，接到前缀的头部：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">保存 next：先接住当前节点后面的链</span><br><span class="line">反向连接：当前节点的 next 指向 previous</span><br><span class="line">扩展前缀：previous 移到当前节点</span><br><span class="line">推进后缀：head 移到刚保存的 next</span><br></pre></td></tr></table></figure>
+<p>这段过程的<strong>循环不变量</strong>是：每轮开始时，所有节点恰好分在“已经反转的前缀”和“仍保持原顺序的后缀”中，没有节点丢失，也没有节点重复出现。后缀为空时，所有节点都进入前缀；把入口交给 <code>previous</code>，反转完成。</p>
+<p>这里正好能把理论和图联系起来：不变量描述“每一步都应该保持的事实”，终止条件描述“什么时候可以停”。总共处理 <code>n</code> 个节点，每个节点只改一次后继，时间 <code>O(n)</code>；只保留几个指针，额外空间 <code>O(1)</code>。空表和单节点表不需要特别分支。</p>
+<h2 id="5-复杂度先拆成“定位”和“修改”">5. 复杂度先拆成“定位”和“修改”</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>本文实现的最坏时间</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>size()</code>、<code>empty()</code></td>
+<td><code>O(1)</code></td>
+<td>单独维护节点数</td>
+</tr>
+<tr>
+<td><code>push_front(value)</code></td>
+<td><code>O(1)</code></td>
+<td>直接改头部链接</td>
+</tr>
+<tr>
+<td><code>insert(index, value)</code></td>
+<td><code>O(n)</code></td>
+<td>按索引沿链定位</td>
+</tr>
+<tr>
+<td><code>erase(index)</code>、<code>at(index)</code></td>
+<td><code>O(n)</code></td>
+<td>访问之前的节点</td>
+</tr>
+<tr>
+<td><code>append(value)</code></td>
+<td><code>O(n)</code></td>
+<td>本实现没有缓存尾指针</td>
+</tr>
+<tr>
+<td><code>reverse()</code>、<code>clear()</code></td>
+<td><code>O(n)</code></td>
+<td>每个节点处理一次</td>
+</tr>
+</tbody>
+</table>
+<p>如果另外维护尾指针，尾插可以做到 <code>O(1)</code>；但删除单向链表的尾节点仍需找到它的前驱，通常还是 <code>O(n)</code>。维护更多指针也意味着插入、删除、清空时要维护更多不变量。</p>
+<p>不要只凭“插入快”就把 <code>vector</code> 全换成链表。链表有每节点指针与分配开销，遍历时内存局部性也常较差。对于连续读取、按索引访问的任务，连续容器往往更合适；比较时还要把实际数据规模、分配成本与缓存行为算进去。</p>
+<h2 id="6-完整-C-17-实现：把箭头落实到所有权">6. 完整 C++17 实现：把箭头落实到所有权</h2>
+<p>节点使用 <code>std::unique_ptr&lt;Node&gt;</code> 拥有后继，表对象拥有首节点。这里的“拥有”表示负责最终销毁该节点；<code>get()</code> 得到的普通指针只用于观察，不负责释放。<code>std::move</code> 本身是允许移动的类型转换，下面的 <code>unique_ptr</code> 移动操作才执行所有权转移；被移出的指针变空。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/unique.ptr.single">C++ 草案：unique_ptr 构造、赋值与析构</a></p>
+<p>实现里的 <code>auto* link = &amp;head_</code> 指向“拥有当前节点的那个 <code>unique_ptr</code>”。继续走一步时，<code>link</code> 改为指向当前节点的 <code>next</code>。因此，头部操作改 <code>head_</code>，中间操作改前驱的 <code>next</code>，可以共用同一段代码。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">索引 0 的拥有者：head_</span><br><span class="line">索引 1 的拥有者：第 0 个节点的 next</span><br><span class="line">索引 2 的拥有者：第 1 个节点的 next</span><br></pre></td></tr></table></figure>
+<p>下载：<a href="/downloads/code/data_structure_lab/linked_list.hpp">完整头文件 linked_list.hpp</a> · <a href="/downloads/code/data_structure_lab/linked_list_test.cpp">测试 linked_list_test.cpp</a></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstddef&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Teaching container: owns its nodes, has no public mutable node pointers.</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LinkedList</span> &#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">        <span class="type">int</span> value;</span><br><span class="line">        std::unique_ptr&lt;Node&gt; next;</span><br><span class="line">        <span class="function"><span class="keyword">explicit</span> <span class="title">Node</span><span class="params">(<span class="type">int</span> v)</span> : value(v) &#123;</span>&#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    std::unique_ptr&lt;Node&gt; head_;</span><br><span class="line">    std::<span class="type">size_t</span> size_ = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">LinkedList</span>() = <span class="keyword">default</span>;</span><br><span class="line">    ~<span class="built_in">LinkedList</span>() &#123; <span class="built_in">clear</span>(); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">LinkedList</span>(<span class="type">const</span> LinkedList&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    LinkedList&amp; <span class="keyword">operator</span>=(<span class="type">const</span> LinkedList&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    <span class="built_in">LinkedList</span>(LinkedList&amp;&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    LinkedList&amp; <span class="keyword">operator</span>=(LinkedList&amp;&amp;) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">    [[nodiscard]] <span class="function"><span class="type">bool</span> <span class="title">empty</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> size_ == <span class="number">0</span>; &#125;</span><br><span class="line">    [[nodiscard]] <span class="function">std::<span class="type">size_t</span> <span class="title">size</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> size_; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Valid insertion positions: [0, size()]. No allocation before validation.</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(std::<span class="type">size_t</span> index, <span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index &gt; size_) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">out_of_range</span>(<span class="string">&quot;LinkedList::insert&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">auto</span>* link = &amp;head_;</span><br><span class="line">        <span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; index; ++i) &#123;</span><br><span class="line">            link = &amp;((*link)-&gt;next);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">auto</span> node = std::<span class="built_in">make_unique</span>&lt;Node&gt;(value);</span><br><span class="line">        node-&gt;next = std::<span class="built_in">move</span>(*link);</span><br><span class="line">        *link = std::<span class="built_in">move</span>(node);</span><br><span class="line">        ++size_;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push_front</span><span class="params">(<span class="type">int</span> value)</span> </span>&#123; <span class="built_in">insert</span>(<span class="number">0</span>, value); &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">append</span><span class="params">(<span class="type">int</span> value)</span> </span>&#123; <span class="built_in">insert</span>(size_, value); &#125;  <span class="comment">// O(n), no tail pointer.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Valid deletion positions: [0, size()). Returns the removed value.</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">erase</span><span class="params">(std::<span class="type">size_t</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index &gt;= size_) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">out_of_range</span>(<span class="string">&quot;LinkedList::erase&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">auto</span>* link = &amp;head_;</span><br><span class="line">        <span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; index; ++i) &#123;</span><br><span class="line">            link = &amp;((*link)-&gt;next);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">auto</span> removed = std::<span class="built_in">move</span>(*link);</span><br><span class="line">        *link = std::<span class="built_in">move</span>(removed-&gt;next);</span><br><span class="line">        --size_;</span><br><span class="line">        <span class="keyword">return</span> removed-&gt;value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [[nodiscard]] <span class="function"><span class="type">int</span> <span class="title">at</span><span class="params">(std::<span class="type">size_t</span> index)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index &gt;= size_) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">out_of_range</span>(<span class="string">&quot;LinkedList::at&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">const</span> Node* current = head_.<span class="built_in">get</span>();</span><br><span class="line">        <span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; index; ++i) &#123;</span><br><span class="line">            current = current-&gt;next.<span class="built_in">get</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> current-&gt;value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// One node moves from the unreversed suffix to the reversed prefix.</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">reverse</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">        std::unique_ptr&lt;Node&gt; previous;</span><br><span class="line">        <span class="keyword">while</span> (head_) &#123;</span><br><span class="line">            <span class="keyword">auto</span> next = std::<span class="built_in">move</span>(head_-&gt;next);</span><br><span class="line">            head_-&gt;next = std::<span class="built_in">move</span>(previous);</span><br><span class="line">            previous = std::<span class="built_in">move</span>(head_);</span><br><span class="line">            head_ = std::<span class="built_in">move</span>(next);</span><br><span class="line">        &#125;</span><br><span class="line">        head_ = std::<span class="built_in">move</span>(previous);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Detach the successor before destroying a node: no recursive chain delete.</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">clear</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (head_) &#123;</span><br><span class="line">            <span class="keyword">auto</span> removed = std::<span class="built_in">move</span>(head_);</span><br><span class="line">            head_ = std::<span class="built_in">move</span>(removed-&gt;next);</span><br><span class="line">        &#125;</span><br><span class="line">        size_ = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [[nodiscard]] <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">to_vector</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        std::vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        result.<span class="built_in">reserve</span>(size_);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">const</span> Node* node = head_.<span class="built_in">get</span>(); node; node = node-&gt;next.<span class="built_in">get</span>()) &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(node-&gt;value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>有四处设计值得边看代码边验证：</p>
+<ol>
+<li><strong>先验证索引，再创建节点。</strong> 旧版代码先 <code>new</code> 再发现越界，提前 <code>return</code> 时会泄漏；有些边界还会解引用空指针。现在非法插入不分配内存，也不修改原链。</li>
+<li><strong>分配成功后才改链接。</strong> <code>make_unique</code> 若抛出分配异常，原表仍保持原状；后续的指针移动不会分配新节点。</li>
+<li><strong>禁止复制和移动。</strong> 这个教学版本明确禁用两者，避免读者把单一所有权误读成可浅复制的容器。以后增加移动操作时，还要重置源对象的 <code>size_</code>，不能只默认移动 <code>head_</code>。</li>
+<li><strong>迭代销毁。</strong> 直接让 <code>head_</code> 自动析构，会连锁析构每个节点的 <code>next</code>，长链可能造成递归栈过深。<code>clear()</code> 每轮先断开后继，再销毁一个节点；整个过程只用常数额外栈空间。</li>
+</ol>
+<p><code>insert</code>、<code>erase</code>、<code>at</code> 的索引类型是 <code>std::size_t</code>，表示非负下标。示例测试也覆盖了 <code>std::size_t(-1)</code> 这种巨大值；真实业务若接收用户输入，应先在输入层拒绝负数，再转换成无符号类型。</p>
+<h2 id="7-跑一遍：结果必须与图一致">7. 跑一遍：结果必须与图一致</h2>
+<p>把头文件和测试源文件放在同一目录，使用 C++17 编译。下面的命令用于已经具备 GCC 或 Clang 的 Linux／Docker 环境；本仓库的原生编译统一在 Docker 中运行。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">c++ -std=c++17 -Wall -Wextra -Wpedantic -O1 -g \</span><br><span class="line">  -fsanitize=address,undefined -fno-omit-frame-pointer \</span><br><span class="line">  linked_list_test.cpp -o linked_list_test</span><br><span class="line">ASAN_OPTIONS=detect_leaks=1 ./linked_list_test</span><br></pre></td></tr></table></figure>
+<p>测试没有依赖会被 <code>NDEBUG</code> 关闭的 <code>assert</code>，失败时会输出原因并返回非零退出码。测试范围包括：</p>
+<table>
+<thead>
+<tr>
+<th>测试</th>
+<th>为什么需要它</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空表、单节点、头中尾增删</td>
+<td>大多数链表错误发生在边界</td>
+</tr>
+<tr>
+<td>越界插入、删除和访问</td>
+<td>验证异常及原表不变</td>
+</tr>
+<tr>
+<td>插入 15、删除 20、反转两次</td>
+<td>把文章图例落实成可执行行为</td>
+</tr>
+<tr>
+<td>5,000 次固定种子操作，与 <code>std::vector</code> 对照</td>
+<td>验证连续混合操作后的内容和长度</td>
+</tr>
+<tr>
+<td>250,000 节点的反转、清空与析构</td>
+<td>暴露长链递归销毁及资源管理问题</td>
+</tr>
+</tbody>
+</table>
+<p>正常运行会看到四条 <code>PASS</code>。AddressSanitizer 用于发现越界、释放后使用及泄漏等问题，UndefinedBehaviorSanitizer 用于发现部分未定义行为；通过测试并不等于证明任意程序都正确，但能检验本篇最容易出错的路径。</p>
+<h2 id="8-从单链表扩展到双向链表、循环链表">8. 从单链表扩展到双向链表、循环链表</h2>
+<h3 id="8-1-双向链表：多一条回去的路">8.1 双向链表：多一条回去的路</h3>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">null ← 10 ⇄ 15 ⇄ 30 → null</span><br></pre></td></tr></table></figure>
+<p>双向链表的节点同时保存 <code>prev</code> 与 <code>next</code>。已知目标节点时，可以直接访问前驱，因此摘除该节点不必再从头找前驱；但插入时必须同时维护新节点与相邻节点的两个方向。按值查找或按索引定位仍不会凭空变成 <code>O(1)</code>。</p>
+<p>在智能指针设计里，两个方向都承担强所有权容易形成循环；通常只让一个方向拥有节点，另一个方向作为非拥有观察指针，或由外部容器统一管理生命周期。不能把这里的 <code>unique_ptr</code> 单链表简单“再加一条同类型 prev”就当作双向实现。</p>
+<h3 id="8-2-循环链表：尾部回到入口">8.2 循环链表：尾部回到入口</h3>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">head → 10 → 15 → 30</span><br><span class="line">        ↑_________|</span><br></pre></td></tr></table></figure>
+<p>循环结构适合表达反复轮转的逻辑，但遍历终止条件必须改成“再次回到起点”或“已经走了规定数量”，不能再等 <code>nullptr</code>。本文的 <code>clear()</code> 与 <code>reverse()</code> 只适用于无环单链表，不能直接拿去处理循环链。</p>
+<p>“循环队列”也不必由循环链表实现：很多队列和缓冲区使用数组加首尾下标构成环形缓冲区。先明确希望表达的操作，再选择存储结构。</p>
+<h3 id="8-3-LRU：哈希表负责定位，双向链表负责顺序">8.3 LRU：哈希表负责定位，双向链表负责顺序</h3>
+<p>假设缓存容量为 3，左边表示最近使用：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">访问前： [C] ⇄ [B] ⇄ [A]</span><br><span class="line">访问 B： [B] ⇄ [C] ⇄ [A]   // 哈希表找到 B，移到头部</span><br><span class="line">加入 D： [D] ⇄ [B] ⇄ [C]   // 超容量，淘汰尾部 A</span><br></pre></td></tr></table></figure>
+<p>仅有双向链表时，按 key 找 <code>B</code> 仍要扫描。常见组合是 <code>std::unordered_map&lt;Key, std::list&lt;Entry&gt;::iterator&gt;</code> 加 <code>std::list&lt;Entry&gt;</code>：哈希表查位置，链表保存使用顺序，命中后用同一链表内的单节点 <code>splice</code> 移到头部。这个 <code>splice</code> 是常数时间，并保持被移动节点的迭代器有效。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/list.ops">C++ 草案：list 操作</a></p>
+<p>这样可以获得<strong>平均 <code>O(1)</code></strong> 的查询及更新；哈希表的最坏情况仍可能是线性，不能写成无条件最坏 <code>O(1)</code>。淘汰节点时要同步删除哈希表中的记录；容量为 <code>0</code>、已有 key 的更新、删除后悬空迭代器和并发访问也需要单独处理。哈希容器本身的复杂度边界可查 <a target="_blank" rel="noopener" href="https://eel.is/c++draft/unord.req">C++ 草案：无序关联容器要求</a>。</p>
+<h2 id="9-不看答案，手动完成三次改链">9. 不看答案，手动完成三次改链</h2>
+<ol>
+<li>在 <code>10 → 15 → 30</code> 前插入 <code>5</code>：先画出新节点的 <code>next</code>，再画新的 <code>head</code>。</li>
+<li>删除 <code>10 → 15 → 30</code> 的尾部：找到需要修改的拥有者，确认它最后变成空。</li>
+<li>反转 <code>1 → 2 → 3 → 4</code>：每一轮分别写出已反转前缀和未处理后缀，确认四个节点始终全部出现。</li>
+</ol>
+<details>
+<summary>展开检查思路</summary>
+<p>前插时 <code>5.next</code> 先接住 <code>10</code>，再让 <code>head</code> 指向 <code>5</code>。尾删时修改的是节点 <code>15</code> 的 <code>next</code>；被删除的 <code>30</code> 已经没有后继。反转四轮后的前缀依次为 <code>1</code>、<code>2 → 1</code>、<code>3 → 2 → 1</code>、<code>4 → 3 → 2 → 1</code>，未处理后缀每轮缩短一个节点。</p>
+</details>
+<p>继续练习时，先实现 <code>find(value)</code> 并明确“没找到”的返回方式，再尝试增加尾指针优化 <code>append</code>。为新增尾指针写下至少三个不变量：空表时它为空；非空表时它指向最后一个节点；最后一个节点的 <code>next</code> 为空。随后补上删除最后一个节点、反转、清空后的测试。</p>
+<p>返回 <a href="/2026/10/04/data_structures_algorithms_learning_path/">学习路线</a>，或继续看 <a href="/2026/10/04/algorithms_search_sort_patterns/">查找、排序与算法模式</a>。</p>
 
                 </div>
             </div>
@@ -832,9 +1073,9 @@
                     <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
                 </div>
                 
-                <a class="post-primary-link" href="/knowledge/programming/algorithms/">
+                <a class="post-primary-link" href="/knowledge/data-algorithms/linked-list/">
                     <span class="post-primary-marker">主专题</span>
-                    <span class="post-primary-name">数据结构与算法</span>
+                    <span class="post-primary-name">02 链表的指针过程</span>
                     <span class="post-primary-arrow" aria-hidden="true">→</span>
                 </a>
                 
@@ -843,6 +1084,10 @@
             <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
                 <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
                 <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/algorithm/">
+                        <span class="tag-chip-name">algorithm</span>
+                    </a>
                     
                     <a class="tag-chip tag-chip--related" href="/tags/cpp/">
                         <span class="tag-chip-name">cpp</span>

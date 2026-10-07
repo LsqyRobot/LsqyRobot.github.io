@@ -1,0 +1,48 @@
+\section{长表格、代码与验证}\label{sec:long-document}
+跨页表格直接使用 \texttt{longtable}，不要再套 \texttt{table} 浮动环境。
+本例先保留少量行；复制数据行后，继续页会显示重复表头。
+
+\begin{longtable}{@{}p{0.12\linewidth}p{0.34\linewidth}p{0.45\linewidth}@{}}
+  \caption{练习记录：包含继续页的表头与页尾定义}\label{tab:practice-log}\\
+  \toprule
+  序号 & 修改内容 & 验收现象\\
+  \midrule
+  \endfirsthead
+  \multicolumn{3}{l}{表 \thetable：练习记录（续）}\\
+  \toprule
+  序号 & 修改内容 & 验收现象\\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r}{续下页}\\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  01 & 新增带编号公式 & 正文引用自动更新\\
+  02 & 调整图的宽度 & 图未越过正文边界\\
+  03 & 加长表格说明 & 文字列自动换行\\
+  04 & 增加真实书目 & 引用键解析为文献编号\\
+  05 & 复制本表的数据行 & 跨页后显示继续页表头\\
+\end{longtable}
+
+下面的 Python 代码只含 ASCII 字符，避免把中文字体问题与代码环境问题混在一起。
+它实现\cref{eq:huber}；命令的语法高亮不能证明算法逻辑正确。
+\begin{lstlisting}[caption={Huber loss with an explicit threshold},label={lst:huber}]
+def huber(residual, delta=1.0):
+    if delta <= 0:
+        raise ValueError("delta must be positive")
+    magnitude = abs(residual)
+    if magnitude <= delta:
+        return 0.5 * residual * residual
+    return delta * (magnitude - 0.5 * delta)
+
+assert huber(0.0) == 0.0
+assert huber(1.0) == 0.5
+assert huber(-2.0) == 1.5
+\end{lstlisting}
+
+\textbf{一次完整检查：}
+确认没有未定义引用、缺失字符或越界盒子；逐页观察公式、表格和图题；
+点击一个公式引用和一条文献引用；最后核对数学条件、单位及数据来源。
+工程构建使用 \texttt{latexmk} 驱动 XeLaTeX 与 Biber，
+而不是把“生成了 PDF”作为唯一成功条件。

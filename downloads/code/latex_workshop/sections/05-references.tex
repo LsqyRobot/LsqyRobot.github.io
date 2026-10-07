@@ -1,0 +1,31 @@
+\section{引用链路与下一次练习}\label{sec:references}
+引用键是文献的稳定标识，显示出来的数字由引用顺序决定。
+本例先引用 Knuth\cite{knuth1984texbook}，
+再引用 Lamport 对文档准备系统的介绍\cite{lamport1994latex}。
+两条记录都对应真实出版物；示例中的机器人数据与这些书目没有实验来源关系。
+
+本工程采用 BibLaTeX 加 Biber：
+\begin{enumerate}
+  \item XeLaTeX 写出文献请求与交叉引用辅助信息。
+  \item Biber 读取 \texttt{references.bib}，生成处理后的文献数据。
+  \item XeLaTeX 读入数据，继续编译直到引用稳定。
+\end{enumerate}
+平时用 \texttt{latexmk -xelatex main.tex} 让工具按依赖判断构建步骤。
+如果出现未定义引文，应检查引用键、文件路径、Biber 日志和版本配套，
+不能靠手写文献编号补救。
+
+\subsection*{交付前的四个问题}
+\begin{itemize}
+  \item 结构：新增章节后，目录、标签和超链接是否仍正确？
+  \item 排版：长公式、数字列、续表和页眉是否均在预期位置？
+  \item 内容：符号维度、定理条件、数据单位和参考来源是否准确？
+  \item 复现：换到同一构建环境，是否能从源文件重新生成 PDF？
+\end{itemize}
+
+\printbibliography[heading=subbibliography,title={参考文献}]
+
+\bigskip
+\noindent
+建议每次只改变一种因素，并保留修改前后的 PDF。
+本练习中的显式换页用于将每个主题独立展示；
+正式长文档应先让结构与浮动体自然排版，再针对需要处理分页。

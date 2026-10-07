@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="780" viewBox="0 0 900 780" role="img" aria-labelledby="title desc">
+  <title id="title">从 LaTeX 源文件到 PDF 的编译流程</title>
+  <desc id="desc">latexmk 自动调度。XeLaTeX 先读取正文和图片，写出编号与文献请求；Biber 读取书目生成 bbl；XeLaTeX 再次编译更新引用；最后检查 PDF。bib 书目输入连接到 Biber。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#61758c"/></marker></defs>
+  <rect width="900" height="780" rx="18" fill="#fff"/>
+  <g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, sans-serif" fill="#20344d">
+    <text x="450" y="44" text-anchor="middle" font-size="30" font-weight="700">从源文件到 PDF</text>
+    <text x="450" y="79" text-anchor="middle" font-size="23" fill="#536b84">latexmk 自动调度编译、文献处理与必要的重跑</text>
+    <rect x="35" y="110" width="264" height="96" rx="14" fill="#edf5ff" stroke="#98bbdf" stroke-width="2"/>
+  <text x="167" y="148" text-anchor="middle" font-size="28" font-weight="700">.tex</text>
+  <text x="167" y="183" text-anchor="middle" font-size="24">正文与结构</text>
+<rect x="318" y="110" width="264" height="96" rx="14" fill="#edf8f5" stroke="#91c8b9" stroke-width="2"/>
+  <text x="450" y="148" text-anchor="middle" font-size="28" font-weight="700">.pdf / .png</text>
+  <text x="450" y="183" text-anchor="middle" font-size="24">插图</text>
+<rect x="601" y="110" width="264" height="96" rx="14" fill="#f3effb" stroke="#bba4db" stroke-width="2"/>
+  <text x="733" y="148" text-anchor="middle" font-size="28" font-weight="700">.bib</text>
+  <text x="733" y="183" text-anchor="middle" font-size="24">书目数据</text>
+    <g fill="none" stroke="#61758c" stroke-width="2.5" stroke-linejoin="round">
+      <path d="M167 206v29h283v22" marker-end="url(#arrow)"/>
+      <path d="M450 206v29"/>
+      <path d="M733 206v19h103v192h-69" marker-end="url(#arrow)"/>
+      <path d="M450 346v23" marker-end="url(#arrow)"/>
+      <path d="M450 458v23" marker-end="url(#arrow)"/>
+      <path d="M450 570v23" marker-end="url(#arrow)"/>
+    </g>
+    <rect x="140" y="264" width="620" height="82" rx="14" fill="#edf5ff" stroke="#9abddf" stroke-width="2"/>
+  <text x="450" y="297" text-anchor="middle" font-size="27" font-weight="700">XeLaTeX：第一遍排版</text>
+  <text x="450" y="327" text-anchor="middle" font-size="22">读取内容，写出编号与文献请求（.aux / .bcf）</text>
+<rect x="140" y="376" width="620" height="82" rx="14" fill="#f3effb" stroke="#baa3d9" stroke-width="2"/>
+  <text x="450" y="409" text-anchor="middle" font-size="27" font-weight="700">Biber：处理参考文献</text>
+  <text x="450" y="439" text-anchor="middle" font-size="22">读取 .bib 与 .bcf，生成 .bbl</text>
+<rect x="140" y="488" width="620" height="82" rx="14" fill="#edf5ff" stroke="#9abddf" stroke-width="2"/>
+  <text x="450" y="521" text-anchor="middle" font-size="27" font-weight="700">XeLaTeX：再次编译</text>
+  <text x="450" y="551" text-anchor="middle" font-size="22">读入 .bbl，重跑至编号与引用稳定</text>
+<rect x="140" y="600" width="620" height="82" rx="14" fill="#edf8f5" stroke="#93c8b9" stroke-width="2"/>
+  <text x="450" y="633" text-anchor="middle" font-size="27" font-weight="700">PDF：检查成品</text>
+  <text x="450" y="663" text-anchor="middle" font-size="22">检查图表、字体、引用与页面布局</text>
+    <text x="450" y="728" text-anchor="middle" font-size="23" fill="#536b84">编辑源文件 → 重新编译 → 核对变化</text>
+    <text x="450" y="758" text-anchor="middle" font-size="20" fill="#61758c">矢量示意图，可放大查看；参考文献使用 biblatex + Biber</text>
+  </g>
+</svg>

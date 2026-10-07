@@ -1,0 +1,59 @@
+\section{图片、关节数据与分组表格}\label{sec:figures-tables}
+图题在图后，标签放在图题之后。这里重复使用同一份矢量图，
+演示两个独立子图的编号与引用；它们不是不同实验结果。
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.44\linewidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{figures/coordinate-frame.pdf}
+    \caption{坐标系示意}\label{fig:frame-a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.44\linewidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{figures/coordinate-frame.pdf}
+    \caption{重复引用同一源图}\label{fig:frame-b}
+  \end{subfigure}
+  \caption{一份矢量资源组成的双子图练习}\label{fig:coordinate-pair}
+\end{figure}
+
+表格中的数字按小数点对齐，单位统一放在表头。下面使用
+\texttt{tabularx} 的弹性文字列和 \texttt{siunitx} 的数字列。
+\begin{table}[htbp]
+  \centering
+  \caption{教学用关节跟踪误差，数据为人为构造}\label{tab:joint-error}
+  \begin{tabularx}{\linewidth}{@{}l X S[table-format=1.3]
+    S[table-format=1.3]@{}}
+    \toprule
+    关节 & 说明 & {RMSE (\si{\radian})} & {峰值 (\si{\radian})}\\
+    \midrule
+    J1 & 髋部俯仰，仅用于演示排版 & 0.012 & 0.031\\
+    J2 & 膝部俯仰，数值保留三位小数 & 0.008 & 0.024\\
+    J3 & 踝部俯仰，单位与前两项一致 & 0.015 & 0.040\\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+跨行表示一个组包含多个条目，跨列表示共同的表头。三线表通常不加竖线，
+组间局部横线用 \texttt{cmidrule} 表达，避免让表格过于密集。
+\begin{table}[htbp]
+  \centering
+  \caption{跨行与跨列结构示例}\label{tab:grouped}
+  \begin{tabular}{@{}llrr@{}}
+    \toprule
+    模块 & 项目 & \multicolumn{2}{c}{样本数量}\\
+    \cmidrule(l){3-4}
+         &      & 训练 & 检查\\
+    \midrule
+    \multirow{2}{*}{关节} & 位置 & 120 & 30\\
+                         & 速度 & 120 & 30\\
+    \midrule
+    \multirow{2}{*}{姿态} & 横滚 & 80 & 20\\
+                         & 俯仰 & 80 & 20\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+练习：将\cref{tab:joint-error}的说明改成较长句子，观察文字列换行；
+把某个数字改为两位整数时，同时调整 \texttt{table-format}。
+浮动体的 \texttt{htbp} 是位置偏好，不能保证恰好放在源码所在行。

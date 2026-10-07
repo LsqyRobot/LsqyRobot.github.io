@@ -1,0 +1,89 @@
+\documentclass[UTF8,fontset=fandol,a4paper,11pt]{ctexart}
+\usepackage[margin=25mm,headheight=18pt]{geometry}
+\usepackage{amsmath,amssymb,bm,amsthm}
+\usepackage{graphicx,subcaption}
+\usepackage{booktabs,tabularx,multirow,longtable}
+\usepackage{siunitx}
+\usepackage{xcolor,listings}
+\usepackage{fancyhdr}
+\usepackage{titling,enumitem}
+\setlength{\droptitle}{-2em}
+\setlist{itemsep=0pt,parsep=0pt,topsep=4pt}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+\addbibresource{references.bib}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\R}{\mathbb{R}}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newtheorem{theorem}{定理}[section]
+\crefname{equation}{式}{式}
+\Crefname{equation}{式}{式}
+\crefname{figure}{图}{图}
+\Crefname{figure}{图}{图}
+\crefname{table}{表}{表}
+\Crefname{table}{表}{表}
+\crefname{section}{节}{节}
+\Crefname{section}{节}{节}
+\crefname{theorem}{定理}{定理}
+\Crefname{theorem}{定理}{定理}
+\renewcommand{\proofname}{证明}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{LaTeX 排版练习}
+\fancyhead[R]{结构、公式与图表}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.2em}
+\setcounter{tocdepth}{1}
+\sisetup{detect-all}
+\lstset{
+  language=Python,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\color{blue!65!black},
+  commentstyle=\color{green!40!black},
+  stringstyle=\color{red!60!black},
+  numbers=left,
+  numberstyle=\scriptsize\color{gray},
+  numbersep=8pt,
+  frame=single,
+  rulecolor=\color{gray!50},
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=4
+}
+\hypersetup{
+  pdftitle={LaTeX 排版：可复现练习工程},
+  pdfauthor={LSQY},
+  pdfsubject={中文文档、数学公式、图表与参考文献}
+}
+\title{\LaTeX{} 排版\\[0.4em]\large 可复现练习工程}
+\author{LSQY 学习笔记}
+\date{2026 年 10 月 3 日}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\begin{abstract}
+本工程将一份中文技术文档拆成结构、数学、图表和参考文献四个部分。
+公式、图片与书目都有可编辑的源文件；通过修改内容观察自动编号与版面的变化，
+比记忆孤立命令更容易掌握排版规则。这里的机器人关节数据为教学构造数据，
+不代表实际测量或控制器性能。
+\end{abstract}
+\tableofcontents
+\input{sections/01-structure}
+\clearpage
+\input{sections/02-math}
+\clearpage
+\input{sections/03-figures-tables}
+\clearpage
+\input{sections/04-long-document}
+\clearpage
+\input{sections/05-references}
+\end{document}

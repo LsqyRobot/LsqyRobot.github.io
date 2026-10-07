@@ -1,0 +1,987 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/48_RL/1_Isaac_lab/logo/kingfisher-bird-wildlife-macro-fb39cdba3484e7139c621d5918ae981d_used.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">迭代学习控制 03：怎样接入通用关节控制器</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>一个 controller 要适配不同机器人，适合共用的是控制接口、数据记录与学习流程；真正被学到的补偿曲线仍与具体机器人、轨迹、负载和速度有关。本篇从仓库现有的关节控制接口出发，说明 ILC 应放在哪里、每一轮怎样开始和结束，以及怎样判断学到的结果能否继续使用。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/iterative-learning.css">
+<p><a href="/knowledge/robotics/iterative-learning/">专题目录</a> · <a href="/2026/10/06/iterative_learning_control_principles/">01 原理与资料</a> · <a href="/2026/10/06/iterative_learning_control_experiments/">02 交互实验</a></p>
+<h2 id="1-先明确当前做到哪一层">1. 先明确当前做到哪一层</h2>
+<p>本专题已提供可复现的教学数值模型、离线生成的数据和逐轮交互读图。下面的 controller 组合方式是<strong>根据现有源码提出的接入设计</strong>，尚未加入 ROS2 实时控制链，也未进行真机验证。教学模型中的补偿是位置参考修正，单位为弧度。</p>
+<p>当前源码位于 <code>docker/ros2-humble-dev/control_ws/src/ros2_controller/include/ros2_controller/</code>。其中 <code>control_interface.hpp</code> 定义：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ControlTime</span> &#123; <span class="type">double</span> now, dt; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">State</span>, <span class="keyword">class</span> <span class="title class_">Command</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IController</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">virtual</span> ~<span class="built_in">IController</span>() = <span class="keyword">default</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">reset</span><span class="params">(<span class="type">const</span> State&amp; state, ControlTime time)</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">const</span> Command&amp; <span class="title">update</span><span class="params">(<span class="type">const</span> State&amp; state, ControlTime time)</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>controller.hpp</code> 进一步把关节边界的数据定义为：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">JointCommand</span> &#123;</span><br><span class="line">  std::vector&lt;<span class="type">double</span>&gt; position, velocity, effort, kp, kd;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">using</span> IJointController = IController&lt;JointState, JointCommand&gt;;</span><br></pre></td></tr></table></figure>
+<p>控制器输出目标关节位置、速度、前馈力矩和 PD 增益。最终的 <code>compute_joint_effort()</code> 先限制目标位置，再计算：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>τ</mi><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo>=</mo><msub><mi>τ</mi><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">f</mi></mrow></msub><mo>+</mo><msub><mi>K</mi><mi>p</mi></msub><mo stretchy="false">(</mo><msub><mi>q</mi><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">d</mi></mrow></msub><mo>−</mo><mi>q</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>K</mi><mi>d</mi></msub><mo stretchy="false">(</mo><msub><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">d</mi></mrow></msub><mo>−</mo><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><msub><mi>τ</mi><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi></mrow></msub><mo>=</mo><mi mathvariant="normal">clip</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mi>τ</mi><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\tau_{\mathrm{req}}
+=\tau_{\mathrm{ff}}
++K_p(q_{\mathrm{cmd}}-q)
++K_d(\dot q_{\mathrm{cmd}}-\dot q),
+\qquad
+\tau_{\mathrm{applied}}=\operatorname{clip}(\tau_{\mathrm{req}}).
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">req</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight" style="margin-right:0.0778em;">ff</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">cmd</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">cmd</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">applied</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mop"><span class="mord mathrm">clip</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">req</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span></p>
+<p>这里 <code>effort</code> 是转动关节的力矩前馈，单位为 <code>N·m</code>；<code>position</code> 是 <code>rad</code>。接口让不同算法共享关节层边界，但算法输出的物理意义仍必须一致。原有<a href="/2026/09/27/quadrotor_ocs2_pd_unified_controller/">四旋翼控制笔记</a>中的 <code>RotorCommand</code> 则表示旋翼推力，单位为 <code>N</code>，不能直接装进关节力矩向量。</p>
+<h2 id="2-选择一个明确的补偿入口">2. 选择一个明确的补偿入口</h2>
+<p class="ilc-figure" tabindex="0"><img src="/img/postImg/iterative_learning/learning-loop.svg" alt="本轮反馈控制与跨轮学习补偿配合，上一轮误差经过学习器生成下一轮前馈" loading="lazy" decoding="async"></p>
+<table>
+<thead>
+<tr>
+<th>补偿入口</th>
+<th>改动什么</th>
+<th>学习对象和适用条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>位置参考修正</td>
+<td><code>q_cmd = q_nominal + f_q</code></td>
+<td>输入到输出的模型包含原有位置伺服；本专题的教学实验采用此方式</td>
+</tr>
+<tr>
+<td>力矩前馈修正</td>
+<td><code>effort = tau_nominal + f_tau</code></td>
+<td>需要力矩通道和相应动力学；<code>f_tau</code> 的单位是 <code>N·m</code></td>
+</tr>
+<tr>
+<td>任务空间参考修正</td>
+<td>修改 TCP 参考后转换到关节参考</td>
+<td>需要任务空间误差测量、运动学转换与可达性处理</td>
+</tr>
+</tbody>
+</table>
+<p>“把误差加回控制输入”不是一个完整的实现说明。例如末端位置误差是毫米，关节参考是弧度，力矩是牛米；中间的学习算子负责单位和动态映射。直接把同一组浮点数加进三个入口，会产生完全不同的系统。</p>
+<p>用位置修正时，要同时考虑速度参考的一致性。若接口要求位置、速度构成同一条可微轨迹，应从平滑后的完整修正曲线计算导数：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>q</mi><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">d</mi></mrow></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>q</mi><mi>d</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>f</mi><mrow><mi>q</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><msub><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">d</mi></mrow></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mi>d</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mover accent="true"><mi>f</mi><mo>˙</mo></mover><mrow><mi>q</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">q_{\mathrm{cmd}}(t)=q_d(t)+f_{q,k}(t),\qquad
+\dot q_{\mathrm{cmd}}(t)=\dot q_d(t)+\dot f_{q,k}(t).
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">cmd</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0359em;">q</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">cmd</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.0556em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2174em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9313em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span></span><span style="top:-3.2634em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:0.0278em;"><span class="mord">˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0359em;">q</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span></p>
+<p>不能一边改位置，一边默认速度字段总能沿用旧值。另一种设计可以有意保持速度前馈不变，但识别的闭环输入输出模型必须与这种实现一致。</p>
+<p>一个未来适配层的职责可以写成下面的伪代码。它用于讲清数据流，<strong>不是已实现、可编译的 C++ 类</strong>：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">每个控制周期：</span><br><span class="line">    nominal = base_controller.update(state, time)</span><br><span class="line">    command = copy(nominal)          # 不修改基础控制器内部保存的 const 返回值</span><br><span class="line">    correction = frozen_trial.sample(time.now - trial_start)</span><br><span class="line">    command.position += correction.position</span><br><span class="line">    command.velocity += correction.velocity</span><br><span class="line">    经过既有的关节限位和力矩限制后执行</span><br><span class="line">    记录：原目标、修正量、实测状态、请求命令、实际命令、时间戳</span><br><span class="line"></span><br><span class="line">完整一轮结束后：</span><br><span class="line">    校验日志完整性与起始条件</span><br><span class="line">    对齐参考和测量</span><br><span class="line">    离线计算候选补偿并做约束检查</span><br><span class="line">    下一轮开始前，发布完整且固定的新版本</span><br></pre></td></tr></table></figure>
+<p>这与综述中“反馈控制加学习前馈”的并联结构相呼应。学习器要使用从其补偿入口到误差测量输出的<strong>有效闭环模型</strong>；只拿裸电机模型代替已经包含 PD、滤波和延迟的系统，会使学习方向或相位失配。<a target="_blank" rel="noopener" href="https://www.diag.uniroma1.it/deluca/rob2_en/A_survey_of_iterative_learning_control_CSMag_2006.pdf">Bristow 等，2006 综述</a></p>
+<h2 id="3-单独管理每一轮的生命周期">3. 单独管理每一轮的生命周期</h2>
+<p>本轮的实时控制与轮间学习有不同的任务。建议让 <code>TrialManager</code> 管理流程，基础 controller 保持原有 <code>reset/update</code> 接口。</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>本阶段做什么</th>
+<th>进入下一阶段的条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>准备</td>
+<td>载入轨迹、控制参数、已有补偿，核对实验标识</td>
+<td>通道、单位、版本与长度一致</td>
+</tr>
+<tr>
+<td>回到起点</td>
+<td>基础反馈控制把机器人带回指定初态并等待稳定</td>
+<td>位置、速度误差满足针对该平台设定的容差</td>
+</tr>
+<tr>
+<td>执行与记录</td>
+<td>冻结补偿版本，完成有限时间轨迹</td>
+<td>日志完整、无中断且没有触发停止条件</td>
+</tr>
+<tr>
+<td>评估与更新</td>
+<td>计算误差和候选学习曲线</td>
+<td>候选通过幅值、变化率和性能检查</td>
+</tr>
+<tr>
+<td>冻结验证</td>
+<td>固定补偿，多次独立执行以评价结果</td>
+<td>形成准确度、重复性与异常情况报告</td>
+</tr>
+</tbody>
+</table>
+<p>一次途中停止的轨迹，不能不加区分地当成完整的一轮加入学习。请求命令与实际执行命令也应分开记录：如果驱动端已经饱和，输入不再是线性模型假设的那条曲线。此时需要拒绝该轮更新、缩小任务范围，或显式采用带约束的学习方法。</p>
+<p>这里的“回到起点”包含速度与柔性状态。关节角回到了同一个值，末端仍可能在摆动。因此柔性实验中应有足够停稳时间；对无法测量的内部状态，也要通过等待和重复检查控制其影响。初态能够变化的 AILC 方法有额外设计条件，不能把它理解为任意初态都无关紧要。<a target="_blank" rel="noopener" href="https://journals.sagepub.com/doi/10.1177/17298806241283228">Shu 等，2024</a></p>
+<p>仓库现有 <code>ControlLatch</code> 的停止状态由执行宿主管理。设计学习器时，算法 <code>reset()</code> 应只清理算法状态，不应隐含解除执行宿主的停止状态。参数更新、清空学习数据、重新允许运动，是三个独立操作。</p>
+<h2 id="4-一份补偿曲线应该附带什么信息">4. 一份补偿曲线应该附带什么信息</h2>
+<p>设想昨天学好的圆轨迹，今天把工件换重一倍。数组长度与关节数都没有改变，旧补偿却可能已经不合适。因此除了保存浮点数组，还应保存能够识别任务条件的元数据：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">机器人/模型版本、关节名称与顺序、关节单位</span><br><span class="line">补偿入口：position_reference 或 effort_feedforward</span><br><span class="line">轨迹内容标识、执行时长、采样时刻、插值方式</span><br><span class="line">工具、负载、基础控制参数与限幅配置</span><br><span class="line">学习算法及参数、生成版本、使用的测量通道</span><br><span class="line">初始状态要求、验证指标、最后一次通过验证的记录</span><br></pre></td></tr></table></figure>
+<p>使用文件内容摘要识别轨迹，比只存文件名可靠：名为 <code>circle.csv</code> 的文件可能已经被修改。速度也应显式记录。同一条几何圆在 2 秒和 8 秒内完成，速度、加速度和动态滞后都不同，按原采样索引回放补偿未必适用。</p>
+<p>时间对齐同样关键。记录中至少要能恢复“目标生成时间、命令执行时间、测量采集时间”的关系，估计固定延迟并检测抖动。将晚到的测量误认为当前采样点，会把正确的补偿学到错误的位置。对齐后再重采样到学习网格，不能仅依赖两份数组恰好长度相等。</p>
+<p>泛化能力需要验证：共用的是学习组件的接口和算法实现，不是把一台机械臂的补偿文件原样用于另一台机器人。四足周期步态还涉及接触模式与相位；无人机重复运动涉及姿态、推力和不同的输出量，都需要各自的任务与执行器适配。</p>
+<h2 id="5-怎样证明学到了需要的精度">5. 怎样证明学到了需要的精度</h2>
+<p>先选清楚测量输出。只使用编码器时，可评价关节跟踪，但不能凭此证明物理 TCP 的绝对位置准确。末端挠曲、工具安装偏差和几何参数误差，可能无法从电机侧编码器直接观察到。FANUC LVC 的公开资料使用加速度计观察振动；2024 年 M20iA 研究使用外部 C-Track 780 测量末端位姿，两者的测量目标不同。</p>
+<p>一个可执行的评价顺序是：</p>
+<ol>
+<li>**固定实验条件。**记录机器人、轨迹、速度、负载和测量方法，先多次执行未学习的基线。</li>
+<li>**观察学习过程。**每轮分别记录 RMS、最大误差、命令幅值和饱和比例。误差降低但命令剧增，需要解释其代价。</li>
+<li>**冻结补偿后重复运行。**将学习过程结束后的固定控制方案重复多次，计算平均误差及跨轮离散程度。学习中不断变化的轨迹不能直接当作固定方案的重复性样本。</li>
+<li>**分开报告停稳段。**柔性末端应同时记录运动段跟踪误差、停稳段残振和稳定时间；全程 RMS 可能掩盖末端残振。</li>
+<li>**改变一个条件。**例如只改变负载或初始状态，重新评价旧补偿，确定它的适用范围。</li>
+</ol>
+<p>任务空间还应区分两种误差：同一时刻的参考与实测之差是时间参数化的跟踪误差；实测点到目标几何路径的最短距离是轮廓误差。机器人沿圆跑得慢半拍，可能路径形状仍然接近圆，但时间跟踪误差明显。因此本专题的画圆图必须结合关节或同时间末端误差一起读。</p>
+<p>准确度、重复性、校准与测量坐标的背景可继续读 <a target="_blank" rel="noopener" href="https://nvlpubs.nist.gov/nistpubs/ir/2015/NIST.IR.8093.pdf">NIST 机器人校准与配准报告</a>。不要把一次仿真的下降曲线换算成真机重复定位精度的保证。</p>
+<h2 id="6-复现实验，再考虑接入">6. 复现实验，再考虑接入</h2>
+<p>数值模型、数据生成与测试放在 <code>docker/iterative-learning-lab/</code>，静态网页读取 <code>source/js/iterative-learning/experiments.json</code>。在仓库根目录运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bin/site.sh ilc-test</span><br><span class="line">./bin/site.sh ilc-generate</span><br><span class="line">./bin/site.sh build</span><br><span class="line">./bin/site.sh serve 4096</span><br></pre></td></tr></table></figure>
+<p>如果本机没有可用的 Node 24 容器镜像，先执行 <code>./bin/site.sh ilc-build</code> 构建专用环境。数值实验在 Docker 内执行，网页的配置菜单选择已经计算好的数据。切换一项配置会从该实验的第 0 轮重新查看，不会对本机机器人发送命令。</p>
+<p>当前完成范围与复现细节以该目录的 <code>README.md</code>、<code>TODO.md</code> 为准。把教学模型换成真实 controller 前，需建立相应的输入输出模型和日志适配；完成受控仿真中的限幅、中断、延迟和负载变化验证后，才具备评估硬件接入的基础。</p>
+<h2 id="7-三个设计练习">7. 三个设计练习</h2>
+<p>**练习一：**关节顺序从 <code>[shoulder, elbow]</code> 换成 <code>[elbow, shoulder]</code>，数组长度仍为 2，可以直接读旧补偿吗？</p>
+<p>**答案：**不可以。必须按关节名称重排所有相关数据，并验证单位和模型；单靠向量维度检查发现不了这个错误。</p>
+<p>**练习二：**学习期间每轮最大误差都下降了，能否据此宣布重复定位精度提升？</p>
+<p>**答案：**不能。先冻结学习结果，在相同条件下重复执行，测量固定方案的落点或轨迹离散程度。学习下降曲线回答的是不同控制方案逐轮改善的问题。</p>
+<p>**练习三：**把学到的 <code>0.02 rad</code> 位置修正直接加到 <code>effort</code> 字段，为什么不正确？</p>
+<p>**答案：**位置和力矩单位不同，输入到误差的动态映射也不同。若选择力矩前馈入口，需要重建该入口的学习模型，并以 <code>N·m</code> 为补偿单位。</p>
+<h2 id="8-接着读">8. 接着读</h2>
+<ul>
+<li><a href="/2026/10/06/iterative_learning_control_principles/">迭代学习控制 01：从重复误差理解学习律</a>：对照这里的工程边界重新理解公式。</li>
+<li><a href="/2026/10/06/iterative_learning_control_experiments/">迭代学习控制 02：单关节、画圆与柔性输出</a>：从曲线和指标检查每一轮真正发生了什么。</li>
+<li><a href="/2026/10/05/robotic_manipulation_dynamics_control/">机器人操作数学 03：从虚功到动力学与控制</a>：补齐关节力矩、外力与动力学的物理关系。</li>
+<li><a target="_blank" rel="noopener" href="https://www.fanuc.co.jp/en/product/catalog/pdf/robot/LVC-%28C%29-03b.pdf">FANUC Learning Robot 官方中文资料</a>：学习振动控制的公开应用介绍。</li>
+<li><a target="_blank" rel="noopener" href="https://journals.sagepub.com/doi/10.1177/17298806241283228">Shu 等，FANUC M20iA 自适应迭代学习实验，2024</a>：观察实际末端测量与反馈、学习模块如何配合。</li>
+</ul>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/robotics/iterative-learning/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">迭代学习控制：重复运动精度</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/control/">
+                        <span class="tag-chip-name">control</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/ilc/">
+                        <span class="tag-chip-name">ilc</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/robotics/">
+                        <span class="tag-chip-name">robotics</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/ros2/">
+                        <span class="tag-chip-name">ros2</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

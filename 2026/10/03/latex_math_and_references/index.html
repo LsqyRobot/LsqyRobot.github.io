@@ -1,0 +1,1086 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/3_algorithm/logo/flower-2342706_1280.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">LaTeX 排版 02：数学公式、交叉引用与参考文献</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>写技术笔记时，公式最难维护的部分往往不是某个希腊字母，而是：推导换行以后等号能否对齐，插入一个公式以后正文引用会不会过期，参考文献增加以后编号能否自动更新。本篇用一个最小二乘问题，把这些工作连成一套可以实际练习的写作方法。</p>
+<p>学习前先完成<a href="/2019/09/03/archived_latex_2019/">文档结构与中文编译</a>。完整路线、项目入口和编译环境见<a href="/2026/10/03/latex_learning_guide/">学习指南</a>，后续的图表内容见<a href="/2021/01/17/archived_latex_2021/">图片、表格与长文档</a>。所有内容集中在独立的 <a href="/knowledge/latex/">LaTeX 分类</a>。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/latex-learning.css">
+<p>配套材料：<a href="/downloads/code/latex_workshop.zip">下载完整练习工程</a> · <a href="/downloads/latex/latex-workshop.pdf">查看编译后的 PDF</a>。工程将导言区、数学章节、图表章节和 <code>references.bib</code>分开保存；本文的短代码用于逐项理解，完整工程用于一起练习。</p>
+<p><a id="math-setup"></a></p>
+<h2 id="一、先固定符号约定和宏包">一、先固定符号约定和宏包</h2>
+<p>本文约定小写斜体表示标量，粗斜体表示向量或矩阵，正体下标表示文字说明。它是一套便于练习的约定；写论文时应优先遵守所用模板和学科规范。符号一旦选定，就不要在同一篇文章里让 <code>x</code>、<code>\mathbf{x}</code>、<code>\bm{x}</code>轮流表示同一个向量。</p>
+<p>导言区先加入：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\usepackage</span>&#123;amsmath,amssymb,bm&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;amsthm&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\DeclareMathOperator</span>&#123;<span class="keyword">\rank</span>&#125;&#123;rank&#125;</span><br><span class="line"><span class="keyword">\DeclareMathOperator</span>*&#123;<span class="keyword">\argmin</span>&#125;&#123;arg<span class="keyword">\,</span>min&#125;</span><br><span class="line"><span class="keyword">\newcommand</span>&#123;<span class="keyword">\vect</span>&#125;[1]&#123;<span class="keyword">\bm</span>&#123;<span class="params">#1</span>&#125;&#125;</span><br><span class="line"><span class="keyword">\newcommand</span>&#123;<span class="keyword">\R</span>&#125;&#123;<span class="keyword">\mathbb</span>&#123;R&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><code>amsmath</code>提供公式环境、文本嵌入和运算符声明；<code>amssymb</code>扩展数学符号；<code>bm</code>提供数学对象的加粗命令，包含希腊字母；<code>amsthm</code>处理定理和证明。它们各有职责，不需要为了“公式更专业”再一次性加载十几个宏包。<a target="_blank" rel="noopener" href="https://ctan.org/pkg/amsmath">AMS 数学宏包说明</a>、<a target="_blank" rel="noopener" href="https://ctan.org/pkg/bm">bm 宏包说明</a>和<a target="_blank" rel="noopener" href="https://ctan.org/pkg/amsthm">amsthm 宏包说明</a>可以用来查各自边界。</p>
+<p>自己定义 <code>\vect</code> 有一个实际好处：以后需要把向量改为带箭头的样式，可以集中修改定义。宏的名字应表达含义；不建议为了少敲几个字符，把 <code>\section</code> 改成难以理解的单字母命令。</p>
+<p>这里使用传统数学字体配置。若以后采用 <code>unicode-math</code> 和 OpenType 数学字体，应重新确认粗体命令和符号配置，不要原样叠加两套字体方案。</p>
+<h2 id="二、先区分行内、行间和编号">二、先区分行内、行间和编号</h2>
+<p>短表达式是句子的一部分，例如“当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">n&gt;m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span> 时继续检查矩阵的秩”。较长的目标函数应独立成行。下面是同一个概念在 <code>.tex</code> 文件中的两种写法：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">设 <span class="keyword">\(</span><span class="keyword">\vect</span>&#123;x&#125;<span class="keyword">\in</span><span class="keyword">\R</span><span class="built_in">^</span>n<span class="keyword">\)</span>，<span class="keyword">\(</span><span class="keyword">\vect</span>&#123;A&#125;<span class="keyword">\in</span><span class="keyword">\R</span><span class="built_in">^</span>&#123;m<span class="keyword">\times</span> n&#125;<span class="keyword">\)</span>，</span><br><span class="line">观测向量为 <span class="keyword">\(</span><span class="keyword">\vect</span>&#123;b&#125;<span class="keyword">\in</span><span class="keyword">\R</span><span class="built_in">^</span>m<span class="keyword">\)</span>。</span><br><span class="line">考虑目标函数</span><br><span class="line"><span class="keyword">\[</span></span><br><span class="line">  J(<span class="keyword">\vect</span>&#123;x&#125;)=<span class="keyword">\frac</span>&#123;1&#125;&#123;2&#125;</span><br><span class="line">  <span class="keyword">\lVert</span><span class="keyword">\vect</span>&#123;A&#125;<span class="keyword">\vect</span>&#123;x&#125;-<span class="keyword">\vect</span>&#123;b&#125;<span class="keyword">\rVert</span><span class="built_in">_</span>2<span class="built_in">^</span>2.</span><br><span class="line"><span class="keyword">\]</span></span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>J</mi><mo stretchy="false">(</mo><mi mathvariant="bold-italic">x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false">∥</mo><mi mathvariant="bold-italic">A</mi><mi mathvariant="bold-italic">x</mi><mo>−</mo><mi mathvariant="bold-italic">b</mi><msubsup><mo stretchy="false">∥</mo><mn>2</mn><mn>2</mn></msubsup><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">J(\boldsymbol{x})=\frac{1}{2}\lVert\boldsymbol{A}\boldsymbol{x}-\boldsymbol{b}\rVert_2^2.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0962em;">J</span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mopen">∥</span><span class="mord"><span class="mord"><span class="mord boldsymbol">A</span></span></span><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">b</span></span></span><span class="mclose"><span class="mclose">∥</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord">.</span></span></span></span></span></p>
+<p>注意范数下标里的 <code>2</code> 表示二范数，右上角的 <code>2</code> 表示平方，两者不可互相替代。<code>\frac{1}{2}</code> 是排版命令，也不会自动检查目标函数是否符合你要描述的模型。</p>
+<p>需要在下文引用时，改用带编号的环境：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;equation&#125;</span><br><span class="line">  J(<span class="keyword">\vect</span>&#123;x&#125;)=<span class="keyword">\frac</span>&#123;1&#125;&#123;2&#125;</span><br><span class="line">  <span class="keyword">\lVert</span><span class="keyword">\vect</span>&#123;A&#125;<span class="keyword">\vect</span>&#123;x&#125;-<span class="keyword">\vect</span>&#123;b&#125;<span class="keyword">\rVert</span><span class="built_in">_</span>2<span class="built_in">^</span>2.</span><br><span class="line">  <span class="keyword">\label</span>&#123;eq:least-squares&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;equation&#125;</span><br><span class="line"></span><br><span class="line">目标函数见式~<span class="keyword">\eqref</span>&#123;eq:least-squares&#125;。</span><br></pre></td></tr></table></figure>
+<p><code>\eqref</code>自动带括号；<code>\ref</code>只输出编号。<code>~</code>是不换行空格，用来避免“式”和编号分到两行。标签名表示内容，例如 <code>eq:least-squares</code>，不要写成 <code>eq:3</code>，因为第三个公式随时可能变成第四个。</p>
+<table>
+<thead>
+<tr>
+<th>要表达的结构</th>
+<th>使用方式</th>
+<th>编号行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>句子里的短表达式</td>
+<td><code>\(...\)</code>，也可使用 <code>$...$</code></td>
+<td>不编号</td>
+</tr>
+<tr>
+<td>独立的一条公式</td>
+<td><code>\[...\]</code> 或 <code>equation*</code></td>
+<td>不编号</td>
+</tr>
+<tr>
+<td>一条可引用的公式</td>
+<td><code>equation</code></td>
+<td>一个编号</td>
+</tr>
+<tr>
+<td>多条需要对齐的公式</td>
+<td><code>align</code></td>
+<td>默认每行一个编号</td>
+</tr>
+<tr>
+<td>一个公式内部的多行结构</td>
+<td><code>equation</code> 包住 <code>aligned</code></td>
+<td>整体一个编号</td>
+</tr>
+<tr>
+<td>分段定义</td>
+<td>数学环境内使用 <code>cases</code></td>
+<td>由外层决定</td>
+</tr>
+</tbody>
+</table>
+<p>在 <code>.tex</code> 文档中不要以 <code>$$...$$</code>作为行间公式的常规写法，使用 LaTeX 环境更容易与编号、间距和宏包配合。本网站的 Markdown 数学渲染器使用美元分隔符，网页写法和 <code>.tex</code> 源文件写法应分别理解；复制上方标明 <code>latex</code> 的代码即可。</p>
+<p><a id="aligned-equations"></a></p>
+<h2 id="三、对齐是在描述结构">三、对齐是在描述结构</h2>
+<h3 id="多条公式：align">多条公式：align</h3>
+<p>设矩阵与向量都是实数，且维度与上一节一致，则最小二乘目标函数的梯度和 Hessian 为：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;align&#125;</span><br><span class="line">  <span class="keyword">\nabla</span> J(<span class="keyword">\vect</span>&#123;x&#125;)</span><br><span class="line">    <span class="built_in">&amp;</span>= <span class="keyword">\vect</span>&#123;A&#125;<span class="built_in">^</span>&#123;<span class="keyword">\mathsf</span>&#123;T&#125;&#125;(<span class="keyword">\vect</span>&#123;A&#125;<span class="keyword">\vect</span>&#123;x&#125;-<span class="keyword">\vect</span>&#123;b&#125;)</span><br><span class="line">    <span class="keyword">\label</span>&#123;eq:gradient&#125; <span class="keyword">\\</span></span><br><span class="line">  <span class="keyword">\nabla</span><span class="built_in">^</span>2 J(<span class="keyword">\vect</span>&#123;x&#125;)</span><br><span class="line">    <span class="built_in">&amp;</span>= <span class="keyword">\vect</span>&#123;A&#125;<span class="built_in">^</span>&#123;<span class="keyword">\mathsf</span>&#123;T&#125;&#125;<span class="keyword">\vect</span>&#123;A&#125;.</span><br><span class="line">    <span class="keyword">\label</span>&#123;eq:hessian&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;align&#125;</span><br></pre></td></tr></table></figure>
+<p>每个 <code>&amp;</code>标记对齐位置，这里放在等号前；<code>\\</code>结束当前行。不要用若干空格把等号推到一起，数学模式里的普通空格不会承担这种布局职责。<code>align</code>已经是行间数学环境，外面不要再包一层 <code>\[...\]</code> 或 <code>equation</code>。</p>
+<p>如果中间行不需要编号，在该行加 <code>\notag</code>；如果整组都不需要编号，使用 <code>align*</code>。准备引用的行必须保留编号，并把 <code>\label</code>放在该行中、换行命令之前。<a target="_blank" rel="noopener" href="https://mirrors.ctan.org/macros/latex/required/amsmath/amsldoc.pdf">amsmath 使用手册</a>的 displayed equations 部分说明了这些环境的差别。</p>
+<h3 id="一条推导分成多行：equation-加-aligned">一条推导分成多行：equation 加 aligned</h3>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;equation&#125;</span><br><span class="line">  <span class="keyword">\begin</span>&#123;aligned&#125;</span><br><span class="line">    J(<span class="keyword">\vect</span>&#123;x&#125;)</span><br><span class="line">      <span class="built_in">&amp;</span>= <span class="keyword">\frac</span>&#123;1&#125;&#123;2&#125;(<span class="keyword">\vect</span>&#123;A&#125;<span class="keyword">\vect</span>&#123;x&#125;-<span class="keyword">\vect</span>&#123;b&#125;)<span class="built_in">^</span>&#123;<span class="keyword">\mathsf</span>&#123;T&#125;&#125;</span><br><span class="line">         (<span class="keyword">\vect</span>&#123;A&#125;<span class="keyword">\vect</span>&#123;x&#125;-<span class="keyword">\vect</span>&#123;b&#125;) <span class="keyword">\\</span></span><br><span class="line">      <span class="built_in">&amp;</span>= <span class="keyword">\frac</span>&#123;1&#125;&#123;2&#125;<span class="keyword">\vect</span>&#123;x&#125;<span class="built_in">^</span>&#123;<span class="keyword">\mathsf</span>&#123;T&#125;&#125;</span><br><span class="line">         <span class="keyword">\vect</span>&#123;A&#125;<span class="built_in">^</span>&#123;<span class="keyword">\mathsf</span>&#123;T&#125;&#125;<span class="keyword">\vect</span>&#123;A&#125;<span class="keyword">\vect</span>&#123;x&#125;</span><br><span class="line">       - <span class="keyword">\vect</span>&#123;b&#125;<span class="built_in">^</span>&#123;<span class="keyword">\mathsf</span>&#123;T&#125;&#125;<span class="keyword">\vect</span>&#123;A&#125;<span class="keyword">\vect</span>&#123;x&#125;</span><br><span class="line">       + <span class="keyword">\frac</span>&#123;1&#125;&#123;2&#125;<span class="keyword">\vect</span>&#123;b&#125;<span class="built_in">^</span>&#123;<span class="keyword">\mathsf</span>&#123;T&#125;&#125;<span class="keyword">\vect</span>&#123;b&#125;.</span><br><span class="line">  <span class="keyword">\end</span>&#123;aligned&#125;</span><br><span class="line">  <span class="keyword">\label</span>&#123;eq:expanded-loss&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+<p>外层表示一个带编号的公式，内层负责两个等号的对齐。<code>aligned</code>本身不负责开启数学模式；它也可以放在 <code>\[...\]</code>中，得到不编号的多行结构。长公式最好在等号、加号或乘积结构边界处拆开，不要先缩小字体，也不要把整页文字宽度改大来容纳一个局部问题。</p>
+<h3 id="分段函数：cases">分段函数：cases</h3>
+<p>下面的 Huber 损失中，阈值 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta&gt;0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>。两段在边界处的值应相等，这个数学条件需要作者自己确认。</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;equation&#125;</span><br><span class="line">  <span class="keyword">\rho</span><span class="built_in">_</span><span class="keyword">\delta</span>(r)=</span><br><span class="line">  <span class="keyword">\begin</span>&#123;cases&#125;</span><br><span class="line">    <span class="keyword">\dfrac</span>&#123;1&#125;&#123;2&#125;r<span class="built_in">^</span>2, <span class="built_in">&amp;</span> <span class="keyword">\lvert</span> r<span class="keyword">\rvert</span><span class="keyword">\leq</span><span class="keyword">\delta</span>, <span class="keyword">\\</span></span><br><span class="line">    <span class="keyword">\delta</span><span class="keyword">\bigl</span>(<span class="keyword">\lvert</span> r<span class="keyword">\rvert</span>-<span class="keyword">\dfrac</span>&#123;1&#125;&#123;2&#125;<span class="keyword">\delta</span><span class="keyword">\bigr</span>),</span><br><span class="line">      <span class="built_in">&amp;</span> <span class="keyword">\lvert</span> r<span class="keyword">\rvert</span>&gt;<span class="keyword">\delta</span>.</span><br><span class="line">  <span class="keyword">\end</span>&#123;cases&#125;</span><br><span class="line">  <span class="keyword">\label</span>&#123;eq:huber&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+<p><code>cases</code>中的 <code>&amp;</code>分开“取值”和“条件”，<code>\\</code>分开各个分支。这里只用 <code>\dfrac</code>让分数容易阅读；在行内表达式里强行使用大分数，可能撑高行距。</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>ρ</mi><mi>δ</mi></msub><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.36em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><msup><mi>r</mi><mn>2</mn></msup><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo stretchy="false">∣</mo><mi>r</mi><mo stretchy="false">∣</mo><mo>≤</mo><mi>δ</mi><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>δ</mi><mo stretchy="false">(</mo><mo stretchy="false">∣</mo><mi>r</mi><mo stretchy="false">∣</mo><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>δ</mi><mo stretchy="false">)</mo><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo stretchy="false">∣</mo><mi>r</mi><mo stretchy="false">∣</mo><mo>&gt;</mo><mi>δ</mi><mi mathvariant="normal">.</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\rho_\delta(r)=\begin{cases}
+\frac{1}{2}r^2,&amp;\lvert r\rvert\leq\delta,\\
+\delta(\lvert r\rvert-\frac{1}{2}\delta),&amp;\lvert r\rvert&gt;\delta.
+\end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">ρ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0379em;">δ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3em;vertical-align:-1.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mpunct">,</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mopen">(∣</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mclose">∣</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mclose">)</span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mopen">∣</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mclose">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mpunct">,</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mopen">∣</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mclose">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span><span class="mord">.</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h2 id="四、字形要告诉读者“这是什么”">四、字形要告诉读者“这是什么”</h2>
+<p>数学模式默认把字母当作变量。直接写 <code>sin(x)</code> 会把 <code>s</code>、<code>i</code>、<code>n</code>当成连续变量；应写 <code>\sin x</code>。同样，直接写 <code>rank(A)</code> 不如定义并使用 <code>\rank(\vect{A})</code>。</p>
+<table>
+<thead>
+<tr>
+<th>目的</th>
+<th>示例</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>已有函数</td>
+<td><code>\sin\theta</code>、<code>\log x</code></td>
+<td>使用定义好的运算符及其间距</td>
+</tr>
+<tr>
+<td>临时运算符</td>
+<td><code>\operatorname{diag}(1,2,3)</code></td>
+<td>正体运算符名称</td>
+</tr>
+<tr>
+<td>重复使用的运算符</td>
+<td><code>\DeclareMathOperator{\rank}{rank}</code></td>
+<td>在导言区统一声明</td>
+</tr>
+<tr>
+<td>带下方约束的运算符</td>
+<td><code>\DeclareMathOperator*{\argmin}{arg\,min}</code></td>
+<td>星号允许行间样式把约束放在下方</td>
+</tr>
+<tr>
+<td>表示说明的下标</td>
+<td><code>x_{\mathrm{ref}}</code></td>
+<td><code>ref</code>是一项说明，不是三个变量的乘积</td>
+</tr>
+<tr>
+<td>公式内的短语</td>
+<td><code>\text{subject to}</code></td>
+<td>按文本处理，保留单词之间的空格</td>
+</tr>
+<tr>
+<td>粗体希腊符号</td>
+<td><code>\bm{\theta}</code></td>
+<td>表示约定中的向量参数</td>
+</tr>
+</tbody>
+</table>
+<p><code>\mathrm</code>适合简短的正体数学标记，不适合拿来排一整句自然语言；说明语句使用 <code>\text</code>。运算符需要的不只是正体字形，还有左右间距，因此不要把 <code>\mathrm{rank}</code>当作所有运算符声明的替代品。</p>
+<p>量值和单位也要分清。例如 <code>\(t=2\,\mathrm{s}\)</code>中，<code>t</code>是变量，<code>s</code>是秒，<code>\,</code>提供一个小间隔。大量含单位的数据请统一使用 <code>siunitx</code>，对应写法与表格对齐见<a href="/2021/01/17/archived_latex_2021/">图表篇</a>。微分记号可按本文约定写为 <code>\mathrm{d}t</code>；不同出版规范可能采用不同字形，要先统一约定再应用。</p>
+<h2 id="五、矩阵和定理也有结构">五、矩阵和定理也有结构</h2>
+<p>另一种常见向量约定是箭头记号：<code>\vec{v}</code> 适合单字母，<code>\overrightarrow{AB}</code> 适合从点 A 到点 B 的方向。它们与本篇的粗体约定都是排版选择；一份文档中选定一种约定后保持一致。可以修改 <code>\vect</code> 的定义来统一切换，而不用逐条改公式。</p>
+<h3 id="矩阵与维度检查">矩阵与维度检查</h3>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\[</span></span><br><span class="line">  <span class="keyword">\vect</span>&#123;A&#125;=<span class="keyword">\begin</span>&#123;bmatrix&#125;</span><br><span class="line">    1 <span class="built_in">&amp;</span> 0 <span class="keyword">\\</span></span><br><span class="line">    1 <span class="built_in">&amp;</span> 1 <span class="keyword">\\</span></span><br><span class="line">    1 <span class="built_in">&amp;</span> 2</span><br><span class="line">  <span class="keyword">\end</span>&#123;bmatrix&#125;,<span class="keyword">\qquad</span></span><br><span class="line">  <span class="keyword">\vect</span>&#123;x&#125;=<span class="keyword">\begin</span>&#123;bmatrix&#125;a<span class="keyword">\\</span>b<span class="keyword">\end</span>&#123;bmatrix&#125;,<span class="keyword">\qquad</span></span><br><span class="line">  <span class="keyword">\vect</span>&#123;b&#125;=<span class="keyword">\begin</span>&#123;bmatrix&#125;1<span class="keyword">\\</span>2<span class="keyword">\\</span>2<span class="keyword">\end</span>&#123;bmatrix&#125;.</span><br><span class="line"><span class="keyword">\]</span></span><br></pre></td></tr></table></figure>
+<p><code>bmatrix</code>自带方括号，<code>pmatrix</code>自带圆括号；不带括号时可用 <code>matrix</code>。矩阵里 <code>&amp;</code>分列，<code>\\</code>分行。上述矩阵是三行两列，参数向量是两行一列，所以乘积是三行一列，能与观测向量比较。</p>
+<p>LaTeX 不会替你检查矩阵乘法是否合法。即使把参数向量多加一个元素，它也可能正常生成 PDF；因此每次引入矩阵，先在正文说明维度，再检查乘积、转置和逆矩阵是否存在。需要括号自动伸缩时可用成对的 <code>\left</code>、<code>\right</code>，但不要跨 <code>align</code> 的换行符配对；分行时分别选择合适大小的括号更清楚。</p>
+<h3 id="定理与证明">定理与证明</h3>
+<p>在加载 <code>amsthm</code>之后声明环境；如果还使用下一节的 <code>cleveref</code>，把环境声明放在该宏包加载之后：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 导言区</span></span><br><span class="line"><span class="keyword">\newtheorem</span>&#123;theorem&#125;&#123;定理&#125;[section]</span><br><span class="line"></span><br><span class="line"><span class="comment">% 正文</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;theorem&#125;[正定二次型]<span class="keyword">\label</span>&#123;thm:positive-quadratic&#125;</span><br><span class="line">  设实对称矩阵 <span class="keyword">\(</span><span class="keyword">\vect</span>&#123;Q&#125;<span class="keyword">\)</span> 正定，则</span><br><span class="line">  <span class="keyword">\(</span>f(<span class="keyword">\vect</span>&#123;x&#125;)=<span class="keyword">\vect</span>&#123;x&#125;<span class="built_in">^</span>&#123;<span class="keyword">\mathsf</span>&#123;T&#125;&#125;<span class="keyword">\vect</span>&#123;Q&#125;<span class="keyword">\vect</span>&#123;x&#125;<span class="keyword">\)</span></span><br><span class="line">  的唯一全局最小点为 <span class="keyword">\(</span><span class="keyword">\vect</span>&#123;x&#125;=<span class="keyword">\vect</span>&#123;0&#125;<span class="keyword">\)</span>。</span><br><span class="line"><span class="keyword">\end</span>&#123;theorem&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;proof&#125;</span><br><span class="line">  由正定性，任何非零 <span class="keyword">\(</span><span class="keyword">\vect</span>&#123;x&#125;<span class="keyword">\)</span> 都满足</span><br><span class="line">  <span class="keyword">\(</span><span class="keyword">\vect</span>&#123;x&#125;<span class="built_in">^</span>&#123;<span class="keyword">\mathsf</span>&#123;T&#125;&#125;<span class="keyword">\vect</span>&#123;Q&#125;<span class="keyword">\vect</span>&#123;x&#125;&gt;0<span class="keyword">\)</span>，</span><br><span class="line">  而 <span class="keyword">\(</span>f(<span class="keyword">\vect</span>&#123;0&#125;)=0<span class="keyword">\)</span>，因此结论成立。</span><br><span class="line"><span class="keyword">\end</span>&#123;proof&#125;</span><br></pre></td></tr></table></figure>
+<p><code>[section]</code>让定理编号与节关联；<code>proof</code>提供证明结构和结束标记。如果把“正定”改成“半正定”，唯一性结论就不再普遍成立，排版系统仍然不会报错。这正是“数学正确”和“排版正确”需要分开验收的原因。</p>
+<p><a id="cross-references"></a></p>
+<h2 id="六、交叉引用与超链接">六、交叉引用与超链接</h2>
+<p>在本文使用的宏包组合中，先加载数学、图表和文献宏包，再加载 <code>hyperref</code>，最后加载 <code>cleveref</code>。<code>hyperref</code>使引用可点击，<code>cleveref</code>按被引用对象的类型添加名称。后者对加载顺序有要求，不能把“hyperref 最后加载”当成没有例外的口诀。见 <a target="_blank" rel="noopener" href="https://ctan.org/pkg/hyperref">hyperref 文档</a>和 <a target="_blank" rel="noopener" href="https://mirrors.ctan.org/macros/latex/contrib/cleveref/cleveref.pdf">cleveref 手册的宏包交互说明</a>。</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\usepackage</span>[hidelinks]&#123;hyperref&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>[nameinlink,noabbrev]&#123;cleveref&#125;</span><br><span class="line"><span class="keyword">\crefname</span>&#123;equation&#125;&#123;式&#125;&#123;式&#125;</span><br><span class="line"><span class="keyword">\Crefname</span>&#123;equation&#125;&#123;式&#125;&#123;式&#125;</span><br><span class="line"><span class="keyword">\crefname</span>&#123;figure&#125;&#123;图&#125;&#123;图&#125;</span><br><span class="line"><span class="keyword">\crefname</span>&#123;table&#125;&#123;表&#125;&#123;表&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">% 若上一节已经声明 theorem，将原声明移到这里，只保留一次。</span></span><br><span class="line"><span class="keyword">\newtheorem</span>&#123;theorem&#125;&#123;定理&#125;[section]</span><br><span class="line"><span class="keyword">\crefname</span>&#123;theorem&#125;&#123;定理&#125;&#123;定理&#125;</span><br><span class="line"><span class="keyword">\Crefname</span>&#123;theorem&#125;&#123;定理&#125;&#123;定理&#125;</span><br></pre></td></tr></table></figure>
+<p>正文可写 <code>\cref{eq:gradient,eq:hessian}</code>，把名称和多个编号交给宏包处理。中文名称需要像上面这样明确配置；不能假设英文默认设置会自动变成中文。不要在 <code>\cref</code>之前再手写一个“式”，否则可能重复。</p>
+<p>把 <code>\label</code>放在产生目标编号的位置：章节的 <code>\section</code>之后，图表的 <code>\caption</code>之后，公式环境或相应公式行内部。不要把图的标签放在 <code>\caption</code>之前，再指望它一定得到该图编号。</p>
+<p>交叉引用至少经历“记录标签”和“读取标签”两个阶段，因此首次编译出现 <code>??</code>并不罕见。但完整构建结束后仍然存在 <code>??</code>，就应检查标签拼写、重复标签、位置和构建日志，不能把问号当成正常结果交付。也不要手写“见公式 (7)”或用 <code>\tag{7}</code>掩盖引用问题；<code>\tag</code>用于确实需要指定特殊标记的场景，不承担自动编号管理。</p>
+<p><a id="bibliography"></a></p>
+<h2 id="七、参考文献：只建立一条完整链路">七、参考文献：只建立一条完整链路</h2>
+<p>本文选定 <strong>BibLaTeX + Biber</strong>：<code>.bib</code>保存文献数据，BibLaTeX 控制引用和文献表样式，Biber 处理数据。这样可以把“引用哪篇文献”和“使用什么编号样式”分开管理。<a target="_blank" rel="noopener" href="https://ctan.org/pkg/biblatex">BibLaTeX 官方说明</a>介绍了这种职责划分。</p>
+<h3 id="1-建立-references-bib">1. 建立 references.bib</h3>
+<p>新建 UTF-8 文件 <code>references.bib</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@book&#123;knuth1984texbook,</span><br><span class="line">  author    = &#123;Knuth, Donald E.&#125;,</span><br><span class="line">  title     = &#123;The &#123;TeXbook&#125;&#125;,</span><br><span class="line">  date      = &#123;1984&#125;,</span><br><span class="line">  publisher = &#123;Addison-Wesley&#125;,</span><br><span class="line">  location  = &#123;Reading, Massachusetts&#125;,</span><br><span class="line">  isbn      = &#123;0-201-13448-9&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>条目中的书名、年份、出版社和 ISBN 对应 <a target="_blank" rel="noopener" href="https://www-cs-faculty.stanford.edu/~knuth/abcde.html">Knuth 本人的书目信息</a>。参考文献练习也要使用能追溯的真实条目，不要随手编造 DOI 或页码。</p>
+<p><code>knuth1984texbook</code>是引用键，不会因为书在文献表里排第几而变化。作者用“姓, 名”便于解析；多名作者用 <code>and</code>分隔，不要用逗号连接整个作者列表。书名中内层的 <code>{TeXbook}</code>保护这一部分的大小写。代码围栏标为 <code>bibtex</code>只是语法高亮名称，不代表本例要运行 BibTeX 程序。</p>
+<h3 id="2-写一份最小-main-tex">2. 写一份最小 main.tex</h3>
+<p>下面的完整例子可单独用于排查文献环境，不依赖本篇其它数学代码：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>[UTF8,fontset=fandol]&#123;ctexart&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;csquotes&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>[backend=biber,style=numeric,sorting=none]&#123;biblatex&#125;</span><br><span class="line"><span class="keyword">\addbibresource</span>&#123;references.bib&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>[hidelinks]&#123;hyperref&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"><span class="keyword">\section</span>&#123;阅读记录&#125;</span><br><span class="line">了解 TeX 的排版模型可以从其作者的著作入手</span><br><span class="line"><span class="keyword">\cite</span>&#123;knuth1984texbook&#125;。</span><br><span class="line"></span><br><span class="line"><span class="keyword">\printbibliography</span>[title=&#123;参考文献&#125;]</span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<p><code>numeric</code>采用数字引用，<code>sorting=none</code>让文献表按引用顺序排列。默认只列出实际引用的条目；把一百条资料放入 <code>.bib</code>，并不意味着它们都应该出现在文末。<code>\nocite{*}</code>可以列出全部条目，但练习时不应靠它掩盖正文漏引。字段和命令的详细定义见 <a target="_blank" rel="noopener" href="https://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf">BibLaTeX 用户手册</a>。</p>
+<p>这套配置不要再混入旧模板的 <code>\bibliographystyle</code>、<code>\bibliography</code>或另一个 <code>natbib</code>加载语句。以后遇到期刊强制的旧模板，应按该模板单独建立构建方案，而不是把两套链路拼到同一份文档里。</p>
+<h3 id="3-让-latexmk-驱动构建">3. 让 latexmk 驱动构建</h3>
+<p>在同时包含 <code>main.tex</code>与 <code>references.bib</code>的目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex</span><br></pre></td></tr></table></figure>
+<p><code>latexmk</code>会根据依赖和辅助文件判断何时调用 XeLaTeX、何时运行 Biber，以及是否需要再次编译。它需要环境中已经提供相应程序，不会替你凭空安装缺失的 Biber。自动构建的职责见 <a target="_blank" rel="noopener" href="https://ctan.org/pkg/latexmk">latexmk 文档</a>。</p>
+<p>为理解中间过程，可以在这个简单例子中手动执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xelatex -interaction=nonstopmode -halt-on-error main.tex</span><br><span class="line">biber main</span><br><span class="line">xelatex -interaction=nonstopmode -halt-on-error main.tex</span><br><span class="line">xelatex -interaction=nonstopmode -halt-on-error main.tex</span><br></pre></td></tr></table></figure>
+<p>第一步让文档写出 Biber 所需的 <code>.bcf</code>等信息；Biber 读取文献数据库并生成 <code>.bbl</code>；后续编译读入结果，继续稳定引用编号。这里的 <code>biber main</code>对应文档任务名，参数不是 <code>references.bib</code>。平时用 <code>latexmk</code>判断是否完成，不必机械地背诵“永远编译四次”。</p>
+<p>本仓库提供统一的 Docker 练习环境。在仓库根目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bin/site.sh latex-build</span><br><span class="line">./bin/site.sh latex-test</span><br></pre></td></tr></table></figure>
+<p>构建项目、输出位置及已有目录保护规则见<a href="/2026/10/03/latex_learning_guide/">学习指南</a>。可以传入新的输出目录保留一次独立结果，例如 <code>./bin/site.sh latex-test build/latex-practice-02</code>。这些命令用于本仓库的完整练习项目；上面的两文件例子用于理解最小依赖。</p>
+<h2 id="八、从现象定位问题">八、从现象定位问题</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>先检查什么</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Missing $ inserted</code></td>
+<td>数学命令是否落在正文，正文下划线是否转义</td>
+<td>TeX 发现需要数学模式的内容</td>
+</tr>
+<tr>
+<td><code>Misplaced alignment tab character &amp;</code></td>
+<td><code>&amp;</code>是否写在对齐环境之外</td>
+<td>普通正文中的符号应写 <code>\&amp;</code></td>
+</tr>
+<tr>
+<td><code>Undefined control sequence</code></td>
+<td>宏包是否加载、命令是否拼错</td>
+<td>后续报错可能只是第一次错误的连锁结果</td>
+</tr>
+<tr>
+<td>公式越过右边界</td>
+<td>看日志中的 <code>Overfull \hbox</code>，拆分长表达式</td>
+<td>成功生成 PDF 不等于布局合格</td>
+</tr>
+<tr>
+<td>公式编号显示 <code>??</code></td>
+<td>标签名、标签位置、重复标签、是否完成重编译</td>
+<td>引用数据还未生成或没有正确读取</td>
+</tr>
+<tr>
+<td>引文显示引用键或未定义引用</td>
+<td><code>.bib</code>路径和引用键、Biber 是否执行</td>
+<td>文献处理链路尚未闭合</td>
+</tr>
+<tr>
+<td><code>Please (re)run Biber</code></td>
+<td>查看 <code>.blg</code>、确认使用 Biber 后端</td>
+<td>只反复执行 XeLaTeX 不能替代文献处理</td>
+</tr>
+<tr>
+<td>Biber 报数据版本不兼容</td>
+<td>BibLaTeX 与 Biber 是否来自兼容的发行环境</td>
+<td>混用系统包和手工更新可能造成版本不匹配</td>
+</tr>
+<tr>
+<td>文献表为空</td>
+<td>有无 <code>\cite</code>和 <code>\printbibliography</code></td>
+<td>导入数据库与输出文献表是不同操作</td>
+</tr>
+</tbody>
+</table>
+<p>排查时先看 <code>.log</code>中的第一条实质错误，再看 Biber 的 <code>.blg</code>。只对自己能够解释的辅助文件执行清理；不要靠删除全部文件碰运气，更不要误删 <code>.tex</code>、<code>.bib</code>和原始图片。若更改过后端或大幅调整构建配置，可在保留源文件的前提下清理派生文件，再做完整构建。</p>
+<p><a id="math-exercises"></a></p>
+<h2 id="九、做三次会暴露问题的练习">九、做三次会暴露问题的练习</h2>
+<p><strong>练习 A：让编号自动改变。</strong> 在 <code>eq:gradient</code>之前插入一条新的带编号公式，再构建。检查正文引用是否自动更新、PDF 链接是否跳到正确位置。验收时要同时检查编号文本和点击目标；只看编号“像是对的”还不够。</p>
+<p><strong>练习 B：让数学条件发生变化。</strong> 把定理中的正定改为半正定，构造 <code>diag(1,0)</code>的例子。确认 LaTeX 仍会编译，但最小点不再唯一。然后修正定理表述。把这次练习记录为“排版检查通过，数学检查未通过”，养成分开判断的习惯。</p>
+<p><strong>练习 C：故意破坏一条引用。</strong> 将正文的 <code>knuth1984texbook</code>改成不存在的键，完整构建并寻找 warning；记录 PDF 与日志的表现，然后恢复。再添加一条来自真实出版社或作者主页的文献，先核对元数据，后添加引用。验收标准是没有未定义引用、文献表信息可追溯、正文顺序改变后编号仍正确。</p>
+<p>完成后应当能回答：为什么 <code>aligned</code>需要外层数学环境？为什么 <code>\operatorname</code>与 <code>\mathrm</code>不能随意互换？为什么插入公式不该手改十处数字？为什么 <code>.bib</code>已经存在，仍然可能没有参考文献？把答案连同你编译出的 PDF 留在自己的练习记录里，再继续<a href="/2021/01/17/archived_latex_2021/">图表与长文档篇</a>。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/latex/math/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">数学公式与参考文献</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/bibliography/">
+                        <span class="tag-chip-name">bibliography</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/latex/">
+                        <span class="tag-chip-name">latex</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/math/">
+                        <span class="tag-chip-name">math</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>
