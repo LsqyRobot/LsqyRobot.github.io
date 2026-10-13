@@ -4,7 +4,7 @@
 .post-content:has(link[href="/css/data-algorithms.css"]) table th,
 .article-entry:has(link[href="/css/data-algorithms.css"]) table th {
   color: #f7fbff !important;
-  background: #23394f;
+  background: #23394f !important;
   text-shadow: none !important;
 }
 .algorithm-demo {
@@ -31,6 +31,8 @@
 }
 .algorithm-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; margin-bottom: .9rem; }
 .algorithm-controls button {
+  width: auto;
+  flex: 0 0 auto;
   padding: .5rem .85rem;
   min-height: 40px;
   border: 1px solid #829ab0;
@@ -41,6 +43,7 @@
   font: inherit;
   font-size: .9rem;
   line-height: 1.3;
+  box-shadow: none;
 }
 .algorithm-controls button:hover:not(:disabled) { background: #e3eff9; border-color: #376a96; }
 .algorithm-controls button:focus-visible { outline: 3px solid #ad6717; outline-offset: 2px; }
@@ -127,4 +130,10 @@
     animation: none !important;
     transition: none !important;
   }
+}
+
+@media (max-width: 600px) {
+  .post-article-content > table { display: block; max-width: 100%; overflow-x: auto; }
+  .post-article-content > table th, .post-article-content > table td { min-width: 9rem; }
+  .post-article-content > table::before { content: '表格可左右滑动查看'; display: block; width: max-content; position: sticky; left: 0; font-size: .8rem; color: #526779; margin: .3rem 0; }
 }

@@ -1,0 +1,1206 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/3_algorithm/logo/parliament-1440679_1280.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">算法 07：动态规划的状态、转移与方案恢复</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>看到递推式之后，动态规划往往只剩几层循环；真正困难的部分发生在写循环之前：哪些历史可以合并成一个状态，哪些信息会影响未来，怎样让每个前驱先于当前状态计算完，压缩空间之后还能不能找回方案。</p>
+<p>本篇通过背包、最长递增子序列、最长公共子序列和硬币计数，把这些判断逐一展开。<a href="/downloads/code/data_structure_lab/dynamic_programming.cpp">完整 C++17 源码</a>与文中算法对应，包含独立小规模枚举校验；运行入口见<a href="/2026/10/04/data_structures_algorithms_learning_path/">数据结构与算法学习路线</a>。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/data-algorithms.css">
+<p><a id="state-design"></a></p>
+<h2 id="一、状态设计：留下未来需要的信息">一、状态设计：留下未来需要的信息</h2>
+<p>假设若干物品有重量和价值，每件最多使用一次，要恰好装满重量 W 并使总价值最大。把“当前已装多少重量”记为状态还不够：处理到第几件物品决定了后面还可以选择什么。</p>
+<p>令 <code>dp[i][w]</code> 表示：<strong>只使用前 i 件物品，恰好装出重量 w 的最大总价值</strong>。这句话同时规定了候选范围、约束和目标。“有一个数组 dp”没有这些语义，后续每一步都无法检查。</p>
+<p>同一个状态可以由很多物品组合到达。只要这些组合已经处理相同的前缀、当前重量相同，它们面对的剩余物品就相同；在价值可以直接相加的前提下，价值更小的组合不会优于价值更大的组合，因此只保留最大价值即可。</p>
+<p>这也是状态压缩的依据：丢弃的历史必须不影响未来的可行选择和收益。若新增“相邻选择的物品不能同色”，最后一次选中的颜色就影响下一步；两个同重量、同前缀的方案未必还能合并，需要记录最后颜色等信息。</p>
+<h3 id="一个错误状态怎样暴露">一个错误状态怎样暴露</h3>
+<p>设下一件物品是红色，两个历史方案都已装到重量 4；其中一个最后选了红色，另一个最后选了蓝色。它们的合法后继不同。即使红色历史价值更高，也不能直接覆盖蓝色历史，否则可能丢掉能选下一件红色物品的最优方案。</p>
+<p>状态应包含什么，取决于问题约束。物品是否只能用一次、是否要求恰好装满、是否有颜色限制，都会改变递推；这也是不能按题目里出现“背包”两个字就套代码的原因。</p>
+<table>
+<thead>
+<tr>
+<th>建模步骤</th>
+<th>本篇背包中的具体含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态</td>
+<td>前 i 件、恰好重量 w 的最优价值</td>
+</tr>
+<tr>
+<td>选择</td>
+<td>不选第 i 件，或选择它一次</td>
+</tr>
+<tr>
+<td>初始情况</td>
+<td>空物品集只可以装出重量 0</td>
+</tr>
+<tr>
+<td>依赖顺序</td>
+<td>第 i 行依赖第 i−1 行</td>
+</tr>
+<tr>
+<td>输出位置</td>
+<td>恰好装满读取 <code>dp[n][W]</code></td>
+</tr>
+</tbody>
+</table>
+<p>动态规划可以记忆化递归，也可以按依赖顺序填表。本篇使用填表，便于直接检查状态来源；<a href="/2026/10/13/algorithms_search_backtracking_greedy/">搜索与贪心篇</a>说明枚举决策如何扩展成搜索树，这里则合并会遇到相同后续问题的节点。</p>
+<p><a id="knapsack"></a></p>
+<h2 id="二、0-1-背包：初始化与循环方向都属于语义">二、0/1 背包：初始化与循环方向都属于语义</h2>
+<p>三件物品分别为 A=(重量 2，价值 3)、B=(3，4)、C=(4，5)，目标 W=5。每件最多选择一次，价值相加，没有额外选择限制。</p>
+<h3 id="恰好装满不能把整张表初始化为-0">恰好装满不能把整张表初始化为 0</h3>
+<p>没有物品时，重量 0 可达，价值为 0；重量 1、2、3 等全部不可达。若把它们也初始化为 0，就凭空允许了“已经免费装出这些重量”的历史。</p>
+<p>数学上可以用负无穷表示不可达。源码限定所有物品价值非负，所以选择 <code>unreachable=-1</code>；它与合法价值 0 不冲突，且只在可达前驱上进行加法。若允许负价值，−1 就不再适合作为哨兵，需要独立可达标记或 <code>std::optional</code>。</p>
+<p>处理第 i 件、重量为 wi、价值为 vi 时，候选有两个：</p>
+<ul>
+<li>不选：继承 <code>dp[i−1][w]</code>。</li>
+<li>选一次：若 w≥wi 且前驱可达，取 <code>dp[i−1][w−wi]+vi</code>。</li>
+</ul>
+<p>两者取最大值；都不可达时保持不可达。用“—”表示不可达，逐行计算得到：</p>
+<table>
+<thead>
+<tr>
+<th>已处理物品</th>
+<th>w=0</th>
+<th>w=1</th>
+<th>w=2</th>
+<th>w=3</th>
+<th>w=4</th>
+<th>w=5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无</td>
+<td>0</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>A</td>
+<td>0</td>
+<td>—</td>
+<td>3</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>A、B</td>
+<td>0</td>
+<td>—</td>
+<td>3</td>
+<td>4</td>
+<td>—</td>
+<td>7</td>
+</tr>
+<tr>
+<td>A、B、C</td>
+<td>0</td>
+<td>—</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<p>在 B 行的 w=5，选 B 的候选是上一行 w=2 的 3 加上 B 的价值 4，得到 7。C 行无法改进：选 C 要求上一行 w=1 可达，但它不可达。因此答案是 A+B，总价值 7。</p>
+<p>如果题目改成“总重量不超过 W”，空方案就对每个容量上限都合法；常见状态是“容量上限 w 的最优价值”，所有容量初始化为 0。另一种做法是保留本篇的精确重量状态，最后在 <code>dp[n][0..W]</code> 中取最大值。两种定义都能使用，但必须前后一致。</p>
+<h3 id="一维压缩：为什么必须倒序">一维压缩：为什么必须倒序</h3>
+<p>第 i 行只依赖第 i−1 行，所以可以用一维数组保存价值。现在数组同时承载旧行和新行，遍历方向负责保证读取的是哪一行：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::vector&lt;Value&gt; <span class="title">dp</span><span class="params">(<span class="keyword">static_cast</span>&lt;std::<span class="type">size_t</span>&gt;(capacity) + <span class="number">1</span>, unreachable)</span></span>;</span><br><span class="line">dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; item : items) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> w = capacity; w &gt;= item.weight; --w) &#123;</span><br><span class="line">        <span class="keyword">if</span> (dp[w - item.weight] != unreachable)</span><br><span class="line">            dp[w] = std::<span class="built_in">max</span>(dp[w], dp[w - item.weight] + item.value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>倒序处理时，较小的 <code>w−item.weight</code> 尚未被本轮修改，读取的仍是上一行，因此本件最多使用一次。该片段对应 <code>knapsack01_value</code>；返回值用 <code>std::optional&lt;Value&gt;</code> 区分不可达与合法的价值 0。</p>
+<p>错误反例只需要一件物品 <code>(2,3)</code> 和目标 W=4。若正序遍历，先把 <code>dp[2]</code> 更新为 3，再用这个刚更新的值把 <code>dp[4]</code> 更新为 6；同一件物品被用了两次。正确的 0/1 答案是不可达。</p>
+<p>如果物品每种可以使用无限次，这个正序依赖恰好是需要的：<code>dp[w−wi]</code> 可以已经包含本种物品，继续加一件就能使用多次。源码 <code>knapsack_complete_value</code> 仅把重量循环改为从 wi 增大到 W，同一反例现在合法，答案就是 6。</p>
+<p>完全背包要求重量为正。若允许重量 0 且价值为正，最优价值无界；不能继续使用这段有限表递推。源码直接拒绝非正重量。</p>
+<h3 id="只保存价值还不够恢复物品">只保存价值还不够恢复物品</h3>
+<p><code>knapsack01_restore</code> 保存二维表，从 <code>(n,W)</code> 往前走：</p>
+<ul>
+<li>若 <code>dp[i][w]==dp[i−1][w]</code>，可以不选第 i 件。</li>
+<li>否则本状态依靠选第 i 件获得，记录下标，再令 <code>w-=wi</code>。</li>
+<li>每一步 i 都减一，最后反转记录的下标。</li>
+</ul>
+<p>相同最优价值可能对应多套方案；源码在平局时优先不选当前物品，返回其中一套，并不承诺字典序最小。</p>
+<p>直接给一维数组附上可变的 <code>parent[w]</code>，容易把不同轮次的历史串在一起。仍看物品 A=(2,3)、B=(2,4)、目标 4：处理 B 时，先使 <code>dp[4]=7</code>，它依赖处理 B 之前的 <code>dp[2]=3</code>；随后 <code>dp[2]</code> 被 B 改为 4。如果恢复时只读取当前 <code>parent[2]</code>，就可能把 B 记录两次。二维表保留了“来自哪一行”。</p>
+<p>物品数 n、目标重量 W：价值版时间 O(nW)、空间 O(W)；二维恢复版时间和空间均为 O(nW)。这是按 W 的数值计的伪多项式时间，W 的二进制位数只有 O(log W)，所以“对 W 线性”不代表对输入编码长度线性。源码限制 n≤200、W≤5000、价值≤1000000，计算使用 64 位整数。</p>
+<p><a id="lis"></a></p>
+<h2 id="三、最长递增子序列：从清楚的状态到更小的代表">三、最长递增子序列：从清楚的状态到更小的代表</h2>
+<p>输入 <code>[3,1,2,2,4]</code>，求<strong>严格递增</strong>子序列的最大长度。子序列允许跳过元素，但保持原下标顺序；重复的两个 2 不能同时放进严格递增序列。一个答案是 <code>[1,2,4]</code>，长度 3。</p>
+<h3 id="O-n²-：定义为“以谁结尾”">O(n²)：定义为“以谁结尾”</h3>
+<p>令 <code>length[i]</code> 表示以第 i 个元素结尾的最长严格递增子序列长度。每个元素单独成序列，所以初值都是 1；前驱只可能是 j&lt;i 且 <code>a[j]&lt;a[i]</code> 的位置。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; a.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (std::<span class="type">size_t</span> j = <span class="number">0</span>; j &lt; i; ++j) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a[j] &lt; a[i] &amp;&amp; length[j] + <span class="number">1</span> &gt; length[i]) &#123;</span><br><span class="line">            length[i] = length[j] + <span class="number">1</span>;</span><br><span class="line">            parent[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (length[i] &gt; length[last]) last = i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段循环来自 <code>lis_quadratic</code>。函数先处理空输入，之后初始化长度、父下标和最佳结尾；父下标的缺失标记是 <code>a.size()</code>。</p>
+<table>
+<thead>
+<tr>
+<th>下标 i</th>
+<th>值</th>
+<th>合法前驱</th>
+<th>length[i]</th>
+<th>一条对应序列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>3</td>
+<td>无</td>
+<td>1</td>
+<td><code>[3]</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>无</td>
+<td>1</td>
+<td><code>[1]</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>下标 1 的值 1</td>
+<td>2</td>
+<td><code>[1,2]</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>下标 1 的值 1</td>
+<td>2</td>
+<td><code>[1,2]</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>下标 0、1、2、3</td>
+<td>3</td>
+<td><code>[1,2,4]</code></td>
+</tr>
+</tbody>
+</table>
+<p>任意以 i 结尾的非单元素答案，都有倒数第二个下标 j；枚举这些 j，再接上 a[i]，覆盖所有可能。答案是全部 <code>length[i]</code> 的最大值，不能只读最后一格。例如 <code>[1,2,3,0]</code> 的答案是 3，而最后一格长度只有 1。</p>
+<h3 id="O-n-log-n-：相同长度只保留最小结尾">O(n log n)：相同长度只保留最小结尾</h3>
+<p>对于相同长度，结尾越小，后面越容易接上新值。因此维护 <code>tails[k]</code>：已处理前缀里，长度为 k+1 的严格递增子序列能够取得的最小结尾值。</p>
+<p>对新值 x，找第一个不小于 x 的位置 p。若找到，用 x 替换该结尾；若不存在，在末尾增加一格。<code>tails</code> 本身严格递增，可以用<a href="/2026/10/04/algorithms_search_sort_patterns/">二分查找</a>寻找这个分界。</p>
+<table>
+<thead>
+<tr>
+<th>读入值</th>
+<th>tails</th>
+<th>发生了什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td><code>[3]</code></td>
+<td>长度 1 的最小结尾暂为 3</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>[1]</code></td>
+<td>同长度结尾改善为 1</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>[1,2]</code></td>
+<td>新增长度 2</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>[1,2]</code></td>
+<td>替换相等值，不增加长度</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>[1,2,4]</code></td>
+<td>新增长度 3</td>
+</tr>
+</tbody>
+</table>
+<p>为什么替换不会损失最优长度？长度 p+1 原本有一个不小于 x 的结尾，换成更小的 x 只会扩大未来能接上的值域。另一方面，p 前一格严格小于 x，所以确实存在长度 p 的序列可以接上 x；被写入的新代表有实际序列支持。</p>
+<p>严格递增使用 <code>std::lower_bound</code>。若改为允许相等值的不下降序列，应使用第一个大于 x 的位置，也就是 <code>std::upper_bound</code>；对 <code>[2,2,2]</code>，前者答案 1，后者答案 3。这不是可以忽略的实现细节，而是题目定义的变化。</p>
+<h3 id="tails-不是可直接输出的答案">tails 不是可直接输出的答案</h3>
+<p>输入 <code>[3,5,6,2,4]</code> 后，最终 <code>tails=[2,4,6]</code>。但原输入里 6 出现在 2、4 之前，<code>[2,4,6]</code> 并不是它的子序列。每格代表的是不同长度的最佳结尾，这些代表可能来自不同历史。</p>
+<p><code>lis_binary</code> 另外维护每格结尾所在的原下标 <code>tail_index</code>，以及每个原元素接到谁后面的 <code>parent</code>。在替换 p 格之前，先让当前元素的父下标指向当时 p−1 格的结尾；最后从最长格的结尾沿父链回溯。</p>
+<p>父链总是指向更早的下标，且父值严格更小，所以恢复结果同时满足下标顺序与值顺序。不同平局处理可能恢复不同 LIS，两种实现只要求长度一致、各自方案合法。</p>
+<p>平方实现时间 O(n²)、空间 O(n)；二分实现时间 O(n log n)、空间 O(n)，包含恢复所需的下标和父链。空输入返回空序列，全相等输入返回长度 1；负值不影响比较前提。源码将平方实现限制为 2000 个元素，二分实现限制为 100000 个元素。</p>
+<p><a id="lcs"></a></p>
+<h2 id="四、最长公共子序列：二维状态与滚动覆盖">四、最长公共子序列：二维状态与滚动覆盖</h2>
+<p>给定 <code>A=&quot;ABC&quot;</code>、<code>B=&quot;BAC&quot;</code>，寻找两者共有的最长子序列。答案长度是 2，<code>&quot;AC&quot;</code> 和 <code>&quot;BC&quot;</code> 都合法。它们不要求在原字符串中连续；这与最长公共子串是不同问题。</p>
+<p>定义 <code>dp[i][j]</code> 为 A 的前 i 个字符、B 的前 j 个字符的 LCS 长度。任一前缀为空时答案为 0。</p>
+<ul>
+<li>末字符相同：可以把这个公共字符接在两个更短前缀的 LCS 后，取 <code>dp[i−1][j−1]+1</code>。</li>
+<li>末字符不同：它们不能同时作为同一个公共末字符，至少舍弃一方的末字符，取 <code>max(dp[i−1][j],dp[i][j−1])</code>。</li>
+</ul>
+<p>末字符相同时，存在包含这一对末字符的最优解：若一个最优公共子序列没有用到双方末字符，可以接上这个字符而变得更长；若只用到了其中一方的末字符，可以把另一方对应的匹配位置移到其末尾。因此选对角线转移覆盖一个最优方案。</p>
+<table>
+<thead>
+<tr>
+<th>A 前缀 \ B 前缀</th>
+<th>空</th>
+<th>B</th>
+<th>BA</th>
+<th>BAC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>A</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>AB</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>ABC</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>最后的 C 匹配，来自左上角 <code>dp[2][2]=1</code>，所以长度为 2。从右下角恢复时先拿 C，再遇到不匹配且上下候选平局，源码优先往上走，最后拿 A，逆序得到 <code>&quot;AC&quot;</code>。</p>
+<h3 id="一行数组中同时存在旧行与新行">一行数组中同时存在旧行与新行</h3>
+<p>每格只依赖上、左、左上三格。把列方向选择为较短字符串后，可以用 O(min(n,m)) 空间求长度；难点是左上角会被覆盖，需要临时变量保存它：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">char</span> x : *rows) &#123;</span><br><span class="line">    <span class="type">int</span> diagonal = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (std::<span class="type">size_t</span> j = <span class="number">1</span>; j &lt;= cols-&gt;<span class="built_in">size</span>(); ++j) &#123;</span><br><span class="line">        <span class="type">const</span> <span class="type">int</span> above = dp[j];</span><br><span class="line">        <span class="keyword">if</span> (x == (*cols)[j - <span class="number">1</span>]) dp[j] = diagonal + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> dp[j] = std::<span class="built_in">max</span>(dp[j], dp[j - <span class="number">1</span>]);</span><br><span class="line">        diagonal = above;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该片段来自 <code>lcs_length</code>。每次更新之前，<code>dp[j]</code> 是上一行的上方格；<code>dp[j−1]</code> 已变为当前行的左方格；<code>diagonal</code> 保存上一行的左上格。先备份 above，更新后再移交给 diagonal，三种角色才不会混淆。</p>
+<p>错误实现可能直接写成“匹配时 <code>dp[j]=dp[j−1]+1</code>”。对 <code>A=&quot;A&quot;</code>、<code>B=&quot;AA&quot;</code>，第一列得到 1，第二列又用当前行的 1 加一，错误得到 2，相当于把 A 中同一个字符匹配了两次。正确答案只能是 1。</p>
+<h3 id="压缩掉的表不能直接回溯">压缩掉的表不能直接回溯</h3>
+<p>只有最后一行长度时，中途每格选择往上还是往左的信息已经消失。不能从滚动数组直接执行前面的二维回溯。源码明确分为两个函数：<code>lcs_length</code> 求长度，<code>lcs_restore</code> 保留完整二维表并恢复一条 LCS。</p>
+<p>滚动版时间 O(nm)、空间 O(min(n,m))；完整表恢复版时间和空间 O(nm)，另需 O(n+m) 以内的回溯步数。还存在使用分治和线性工作空间恢复 LCS 的方法，但需要额外推导，不能仅将完整表删掉就声称具备相同能力。</p>
+<p>源码比较 <code>std::string</code> 的字节，文中案例使用 ASCII 字母。对 UTF-8 中文，直接按 <code>char</code> 比较会把一个汉字拆成多个字节；若要按字符求 LCS，应先按明确编码解码成码点序列，并明确是否还需要组合字符规范化。两个输入分别限制为 2000 字节，空字符串的长度是 0，恢复结果为空。</p>
+<p><a id="counting"></a></p>
+<h2 id="五、计数动态规划：循环交换会改变计数对象">五、计数动态规划：循环交换会改变计数对象</h2>
+<p>硬币面值集合 <code>[1,2]</code>，每种可以无限使用，目标金额 3。此时先明确：“1+2”和“2+1”算一份，还是两份？</p>
+<p>如果顺序无关，组合只有 <code>{1,1,1}</code> 与 <code>{1,2}</code>，共 2 份。若顺序有关，有序序列为 <code>[1,1,1]</code>、<code>[1,2]</code>、<code>[2,1]</code>，共 3 份。</p>
+<h3 id="组合：先确定允许的硬币种类">组合：先确定允许的硬币种类</h3>
+<p>使用硬币种类作为外层循环。处理完某种面值后，<code>dp[x]</code> 只统计使用已处理种类凑出金额 x 的组合数；同种可用多次，所以金额正序。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> c : coins)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> x = c; x &lt;= amount; ++x)</span><br><span class="line">        <span class="built_in">checked_add</span>(dp[x], dp[x - c]);</span><br></pre></td></tr></table></figure>
+<p>初始数组 <code>[1,0,0,0]</code>。处理面值 1 后为 <code>[1,1,1,1]</code>；处理面值 2 时，金额 2 增加 <code>dp[0]=1</code>，金额 3 增加 <code>dp[1]=1</code>，结果 <code>[1,1,2,2]</code>。</p>
+<p>每个组合按面值种类的固定处理顺序生成，不会因为交换硬币排列再计一次。<code>dp[0]=1</code> 表示唯一的空组合；若初始化为 0，就没有任何起点能贡献计数，全部状态永远是 0。</p>
+<h3 id="有序序列：枚举最后一枚硬币">有序序列：枚举最后一枚硬币</h3>
+<p>金额作为外层循环，内层枚举最后一枚面值 c。每个较小金额的有序序列都可以接上 c，且最后一枚不同的类别不会重复：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x = <span class="number">1</span>; x &lt;= amount; ++x)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> c : coins)</span><br><span class="line">        <span class="keyword">if</span> (c &lt;= x) <span class="built_in">checked_add</span>(dp[x], dp[x - c]);</span><br></pre></td></tr></table></figure>
+<p>金额 1 有 <code>[1]</code>，所以计数为 1；金额 2 有 <code>[1,1]</code>、<code>[2]</code>，计数为 2；金额 3 的最后一枚若是 1，可以接在金额 2 的两份方案后，若是 2，可以接在金额 1 的一份方案后，合计 3。</p>
+<p>两段循环都像“<code>dp[x]+=dp[x−c]</code>”，但前者的隐含状态包括已允许的种类，后者的状态包括任意面值构成的全部有序前缀。仅看一行加法无法判断它们统计的是哪个问题。</p>
+<h3 id="重复面值、不可达与整数增长">重复面值、不可达与整数增长</h3>
+<p>源码先排序、去重面值，因此 <code>[1,1,2]</code> 与 <code>[1,2]</code> 表示同一个硬币种类集合。若输入两个 1 其实代表有身份的不同物品，就不能套用这种去重语义；那是另一个计数问题。</p>
+<p>面值必须为正：它保证前驱金额更小，并避免出现可以任意插入零面值硬币的无限序列。无硬币、金额 0 有一份空方案；无硬币、金额大于 0 则计数为 0。</p>
+<p>面值种类数 k、目标 A：两种算法时间 O(kA)、空间 O(A)，以固定宽度整数运算计；若换为任意精度整数，还要计入随结果位数增加的加法成本。源码将目标限制为 1000、输入面值数限制为 50，并不因此保证 64 位计数一定足够。</p>
+<p><code>checked_add</code> 在加法前检查 <code>b &gt; max−a</code>，超出 <code>uint64_t</code> 范围就抛出异常。<code>[1,2]</code> 的有序计数随目标增长，金额 100 已超出该范围；代码用这个案例验证溢出路径，避免悄悄回绕为小数。若问题要求对某个模数取余，应明确改成模计数；那时输出语义也相应改变。</p>
+<p><a id="verification"></a></p>
+<h2 id="六、让状态与恢复方案一起接受独立校验">六、让状态与恢复方案一起接受独立校验</h2>
+<p>配套程序中的校验不依靠重新抄一份相同递推：</p>
+<table>
+<thead>
+<tr>
+<th>核心算法</th>
+<th>独立校验怎样寻找答案</th>
+<th>同时检查的方案性质</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0/1 背包</td>
+<td>枚举小输入所有物品子集</td>
+<td>每件至多一次、重量恰好、价值等于最优值</td>
+</tr>
+<tr>
+<td>完全背包</td>
+<td>递归枚举各物品使用次数</td>
+<td>最优价值、不可达状态与空方案</td>
+</tr>
+<tr>
+<td>LIS</td>
+<td>枚举长度≤8 的序列的所有下标子集</td>
+<td>原下标严格递增、值严格递增、长度最优</td>
+</tr>
+<tr>
+<td>LCS</td>
+<td>枚举第一个短串的全部子序列，再扫描第二串</td>
+<td>恢复串同时是两边的子序列、长度最优</td>
+</tr>
+<tr>
+<td>硬币计数</td>
+<td>分别枚举面值使用次数和全部有序选择</td>
+<td>组合与有序序列计数各自正确</td>
+</tr>
+</tbody>
+</table>
+<p>LIS 校验覆盖元素取自 <code>{-1,0,1}</code>、长度 0 到 8 的全部 9841 个输入；LCS 校验覆盖字母表 <code>{A,B}</code>、长度 0 到 5 的全部 3969 对字符串。背包以固定随机种子生成小输入并枚举，计数覆盖面值 1 到 5 的全部子集、目标 0 到 12。</p>
+<p>这些校验能检验空输入、重复值、不可达、循环方向和恢复合法性，但有限枚举不能代替对任意输入的正确性证明。前面每节的状态定义、前驱覆盖与依赖顺序说明了为什么递推可推广；测试负责尽早发现实现与证明不一致的地方。</p>
+<p>更多前置内容可以接着看<a href="/2026/10/13/algorithms_sequence_patterns/">序列算法</a>中的前缀和与窗口；<a href="/2026/10/13/algorithms_graph_paths/">图与最短路</a>则把“先算依赖，再求当前状态”放到有向图和路径问题中。动态规划的填表顺序也可以看作在无环依赖图上求值。</p>
+<p>本篇关于子问题、前驱选择与父指针的建模方式可对照 <a target="_blank" rel="noopener" href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2008/resources/lec20/">MIT 6.006 的动态规划、LCS 与父指针讲义</a>；背包与伪多项式时间可对照 <a target="_blank" rel="noopener" href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/mit6_006f11_rec21/">MIT 6.006 背包专题讲义</a>。本文的手算输入、实现限制和枚举校验与下载源码对应。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/data-algorithms/algorithms/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">04–08 算法设计与应用</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E8%83%8C%E5%8C%85/">
+                        <span class="tag-chip-name">背包</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                        <span class="tag-chip-name">动态规划</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/">
+                        <span class="tag-chip-name">最长递增子序列</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97/">
+                        <span class="tag-chip-name">最长公共子序列</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/c/">
+                        <span class="tag-chip-name">c++</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

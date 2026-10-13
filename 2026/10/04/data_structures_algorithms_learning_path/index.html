@@ -398,7 +398,7 @@
 
                 <div class="typo post-article-content">
                     <p>学习数据结构时，最容易出现一种错觉：能背出“链表插入是 O(1)、二分查找是 O(log n)”，却说不清程序到底改了哪些数据，也不知道这些结论需要什么前提。这套笔记从一次操作开始：画出操作前后的状态，观察每一步改变什么，再用不变量和复杂度解释它。</p>
-<p>文章集中在独立的<a href="/knowledge/data-algorithms/">数据结构与算法</a>分类。三篇旧笔记重新组织内容并保留原链接；数值优化作为扩展，和离散数据操作分开学习。示例统一使用 C++17，配套源码可以编译、运行、核对结果。</p>
+<p>文章集中在独立的<a href="/knowledge/data-algorithms/">数据结构与算法</a>分类。前半部分解释存储与容器，后半部分按序列处理、搜索与贪心、动态规划、图算法展开；数值优化保留为扩展。旧文章链接继续有效，示例统一使用 C++17。</p>
 <span id="more"></span>
 <link rel="stylesheet" href="/css/data-algorithms.css">
 <h2 id="一、先看一个问题，而不是先记一个定义">一、先看一个问题，而不是先记一个定义</h2>
@@ -439,13 +439,33 @@
 <td>循环不变量、状态与递推怎样证明结果</td>
 </tr>
 <tr>
+<td>05</td>
+<td><a href="/2026/10/13/algorithms_sequence_patterns/">序列处理</a>：前缀和、差分、双指针、滑动窗口与答案二分</td>
+<td>什么条件允许指针单向移动，何时必须换用前缀和与哈希</td>
+</tr>
+<tr>
+<td>06</td>
+<td><a href="/2026/10/13/algorithms_search_backtracking_greedy/">分治、回溯与贪心</a>：逆序对、排列与区间调度</td>
+<td>拆分、枚举与局部选择各依靠什么正确性依据</td>
+</tr>
+<tr>
+<td>07</td>
+<td><a href="/2026/10/13/algorithms_dynamic_programming_states/">动态规划的状态与恢复</a>：背包、LIS、LCS 与计数</td>
+<td>初始化与遍历方向为什么会改变问题，怎样恢复一个具体方案</td>
+</tr>
+<tr>
+<td>08</td>
+<td><a href="/2026/10/13/algorithms_graph_paths/">图算法</a>：最短路、拓扑排序与最小生成树</td>
+<td>无权距离、带权路径、依赖顺序与连通成本为什么需要不同算法</td>
+</tr>
+<tr>
 <td>扩展</td>
 <td><a href="/2024/12/15/archived_optimal_%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">数值优化</a>：梯度、步长、Newton</td>
 <td>如何从离散操作转向连续变量上的目标函数最小化</td>
 </tr>
 </tbody>
 </table>
-<p>推荐每次只完成一个操作：先预测下一步，点击图中的“下一步”核对，再自己手算另一组输入。最后运行 C++ 示例，把图和真实输出对应起来。看懂动画只是开始；能够解释“为什么必须这样更新”才算掌握。</p>
+<p>逐步演示把每次更新前后的状态放在同一处；正文解释为什么必须这样更新，配套源码展示真实输出与边界处理。静态说明与示例已经包含完整过程。</p>
 <h2 id="三、复杂度是随规模增长的工作量">三、复杂度是随规模增长的工作量</h2>
 <p>不要从一张 O 记号表开始。假设每次比较算一次工作，在长度为 <code>n</code> 的序列中寻找一个不在里面的值：</p>
 <ol>
@@ -522,7 +542,7 @@
 </tbody>
 </table>
 <p>实际写代码可以按“初始化是否成立 → 一次更新是否保持 → 结束条件推出什么”检查。发现无法写出不变量，往往说明还没想清楚变量的职责。</p>
-<h2 id="五、配套-C-17-实验">五、配套 C++17 实验</h2>
+<h2 id="五、配套-C-17-示例">五、配套 C++17 示例</h2>
 <p>可直接查看<a href="/downloads/code/data_structure_lab/README.md">源码与运行说明</a>。源码按主题分开，但共用一个运行入口：</p>
 <table>
 <thead>
@@ -549,6 +569,22 @@
 <td>二分与标准库对照、稳定排序、动态规划与独立搜索对照</td>
 </tr>
 <tr>
+<td><a href="/downloads/code/data_structure_lab/sequence_algorithms.cpp">sequence_algorithms.cpp</a></td>
+<td>区间求和、差分、双指针、窗口、精确和计数与分段容量</td>
+</tr>
+<tr>
+<td><a href="/downloads/code/data_structure_lab/search_greedy.cpp">search_greedy.cpp</a></td>
+<td>归并逆序对、去重排列、区间调度与枚举参考结果</td>
+</tr>
+<tr>
+<td><a href="/downloads/code/data_structure_lab/dynamic_programming.cpp">dynamic_programming.cpp</a></td>
+<td>背包、LIS、LCS、方案恢复与组合/有序计数</td>
+</tr>
+<tr>
+<td><a href="/downloads/code/data_structure_lab/graph_algorithms.cpp">graph_algorithms.cpp</a></td>
+<td>Dijkstra、Bellman–Ford、拓扑排序和 Kruskal</td>
+</tr>
+<tr>
 <td><a href="/downloads/code/data_structure_lab/optimization.cpp">optimization.cpp</a></td>
 <td>合适步长收敛、过大步长振荡或发散</td>
 </tr>
@@ -557,55 +593,70 @@
 <p>在网站仓库根目录执行：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./bin/site.sh algorithms-build</span><br><span class="line">./bin/site.sh algorithms-test</span><br><span class="line">node --<span class="built_in">test</span> tools/test-data-algorithm-model.mjs</span><br></pre></td></tr></table></figure>
 <p>第一条复用仓库已有的 GDB 教学镜像配方，构建一次即可。第二条在无网络容器内以 C++17 编译各个示例，并启用 AddressSanitizer、UndefinedBehaviorSanitizer 和断言。源文件只读挂载，编译产物留在临时容器中，日志保存在 <code>build/data-structure-lab/</code>。第三条验证网页逐步演示的状态过程。</p>
-<p>断言覆盖的是这套教学实现和选定边界，不是对任意程序正确性的证明。学习时可以故意改错一个更新顺序，先预测会触发哪条断言，再运行观察。</p>
-<h2 id="六、一周的练习安排">六、一周的练习安排</h2>
+<p>断言覆盖的是这套教学实现和选定边界，不是对任意程序正确性的证明。完整源码同时包含输入约束、独立参考结果和边界检查，便于核对正文结论。</p>
+<h2 id="六、根据问题选择算法">六、根据问题选择算法</h2>
 <table>
 <thead>
 <tr>
-<th>次序</th>
-<th>任务</th>
-<th>检验方式</th>
+<th>问题特征</th>
+<th>优先考虑</th>
+<th>必须确认的前提</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>手画数组与链表中间插入</td>
-<td>写清“定位成本”和“修改成本”，不要只写一个 O</td>
+<td>同一静态序列反复求区间和</td>
+<td>前缀和</td>
+<td>查询区间和下标定义一致</td>
 </tr>
 <tr>
-<td>2</td>
-<td>空链表、单节点链表分别删除和反转</td>
-<td>标出头指针和剩余节点的拥有者</td>
+<td>批量修改区间，最后统一读取</td>
+<td>差分</td>
+<td>不要求每次更新后立即回答查询</td>
 </tr>
 <tr>
-<td>3</td>
-<td>过滤 <code>[7,-1,3,7,2,-5]</code>，再去重</td>
-<td>能解释 logical end、physical end 与尾部未指定值</td>
+<td>连续段的条件随端点移动具有单调性</td>
+<td>滑动窗口</td>
+<td>负数、回退或多种约束可能破坏单调性</td>
 </tr>
 <tr>
-<td>4</td>
-<td>对有重复值的有序数组找第一个目标值</td>
-<td>覆盖空数组、全部小于目标、全部大于目标</td>
+<td>求最小可行阈值</td>
+<td>答案二分</td>
+<td>可行性判断本身正确，且随阈值单调</td>
 </tr>
 <tr>
-<td>5</td>
-<td>手算 <code>[5,2,4,1]</code> 的插入排序</td>
-<td>每轮标出有序前缀，带相同键的记录检验稳定性</td>
+<td>所有方案都需要生成</td>
+<td>回溯</td>
+<td>输出规模可能本来就呈指数或阶乘增长</td>
 </tr>
 <tr>
-<td>6</td>
-<td>在图中同时记录 BFS 队列和距离</td>
-<td>解释为何应在入队时标记，加入孤立点后仍能处理</td>
+<td>局部选择能交换成全局最优</td>
+<td>贪心</td>
+<td>存在证明，不能只依据几个成功样例</td>
 </tr>
 <tr>
-<td>7</td>
-<td>用硬币 <code>[1,3,4]</code> 凑 6</td>
-<td>贪心与动态规划各给一个答案，并解释差别来源</td>
+<td>子问题重复且历史可被有限状态概括</td>
+<td>动态规划</td>
+<td>状态足够、转移无循环依赖或有正确处理方式</td>
+</tr>
+<tr>
+<td>有向依赖的执行顺序</td>
+<td>拓扑排序</td>
+<td>有环时不能给出覆盖全部顶点的合法顺序</td>
+</tr>
+<tr>
+<td>非负带权图中的单源最短路</td>
+<td>Dijkstra</td>
+<td>负边权会破坏定点正确性依据</td>
+</tr>
+<tr>
+<td>尽量低成本连通全部顶点</td>
+<td>最小生成树</td>
+<td>连通成本与单条最短路径是不同目标</td>
 </tr>
 </tbody>
 </table>
-<p>每次记录三行即可：输入是什么；哪个不变量保证这一轮正确；换成空输入、重复值或极端输入时是否还成立。这样笔记会逐渐变成你自己的推理过程。</p>
+<p>数据结构提供操作能力，算法则利用问题条件减少工作。比如优先队列既能管理任务，也能服务于 Dijkstra；哈希表既能建立设备索引，也能计数前缀和。结构与算法之间的联系，比孤立记住名称更有用。</p>
 
                 </div>
             </div>

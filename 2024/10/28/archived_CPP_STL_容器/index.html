@@ -449,7 +449,7 @@
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; readings&#123;<span class="number">7</span>, <span class="number">-1</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">-5</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> new_end = std::<span class="built_in">remove_if</span>(readings.<span class="built_in">begin</span>(), readings.<span class="built_in">end</span>(),</span><br><span class="line">                              [](<span class="type">int</span> x) &#123; <span class="keyword">return</span> x &lt; <span class="number">0</span>; &#125;);</span><br><span class="line"><span class="comment">// size 仍是 6；[begin,new_end) 的内容是 7,3,7,2</span></span><br><span class="line">readings.<span class="built_in">erase</span>(new_end, readings.<span class="built_in">end</span>());</span><br><span class="line"><span class="comment">// size 变成 4；内容是 7,3,7,2</span></span><br></pre></td></tr></table></figure>
 <p>这就是 C++17 的 erase-remove 写法；时间为 O(n)。逐项 <code>vector.erase</code> 每次都可能移动后缀，批量删除时最坏达到 O(n²)。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/alg.remove">标准草案：remove 算法</a></p>
 <p><strong>操作不变量：</strong> 扫描过的输入中，所有应该保留的项都在输出前缀里，顺序不变。自己手写过滤算法时，这就是读指针、写指针为什么能只向前移动的依据。</p>
-<p><strong>练习：</strong> 把输入换成全负数、空数组、<code>[0,-1,0]</code>，先预测 <code>new_end</code> 与最终结果。完整源码对这些边界都有断言。</p>
+<p>空数组或全负数在过滤后为空；<code>[0,-1,0]</code> 过滤后保留两个 0。完整源码对这些边界都有断言。</p>
 <h2 id="3-去重：排序去重与保序去重不是同一需求">3. 去重：排序去重与保序去重不是同一需求</h2>
 <h3 id="允许重排：sort-→-unique-→-erase">允许重排：sort → unique → erase</h3>
 <p>对 <code>[7,3,7,2]</code> 排序得到 <code>[2,3,7,7]</code>，相同值相邻后，<code>unique</code> 才能把每一组相邻重复压缩为一项。</p>
@@ -524,9 +524,9 @@
 <h3 id="priority-queue-做当前最优任务">priority_queue 做当前最优任务</h3>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::priority_queue&lt;<span class="type">int</span>&gt; priorities;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> p : &#123;<span class="number">3</span>, <span class="number">9</span>, <span class="number">1</span>&#125;) priorities.<span class="built_in">push</span>(p);</span><br><span class="line"><span class="keyword">while</span> (!priorities.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> p = priorities.<span class="built_in">top</span>();</span><br><span class="line">    priorities.<span class="built_in">pop</span>();</span><br><span class="line">    <span class="comment">// 依次取出 9、3、1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>堆顶有保证，其余位置并未完全排序；同优先级任务也不保证先进先出。如果需要稳定次序，把序号作为第二排序条件。普通 FIFO 任务队列用 <code>queue</code> 即可，回溯或撤销历史则使用 <code>stack</code>。</p>
-<h2 id="8-一份可以修改输入的-C-17-实验">8. 一份可以修改输入的 C++17 实验</h2>
+<h2 id="8-配套-C-17-示例与输出">8. 配套 C++17 示例与输出</h2>
 <p><a href="/downloads/code/data_structure_lab/stl_operations.cpp">下载 stl_operations.cpp</a>。它不是孤立 API 拼盘：包括过滤与去重、保留首次出现顺序、词频删除、范围查询、比较器身份、rehash 后的引用检查。对应统一编译命令见<a href="/2026/10/04/data_structures_algorithms_learning_path/">专题学习路线</a>。</p>
-<p>修改前先预测这些结果：</p>
+<p>源码中的输入与结果如下：</p>
 <table>
 <thead>
 <tr>
@@ -561,7 +561,7 @@
 </tr>
 </tbody>
 </table>
-<p>练习可以继续加深：给读数加上时间戳和传感器 ID；按“每个传感器保留最新一条”定义去重；然后决定是否允许排序、是否需要保留原时间顺序、键不存在时应报错还是初始化。每次先确定数据语义，再选择容器与算法。</p>
+<p>容器选择也取决于数据语义：按数值去重与“每个传感器只保留最新读数”是不同需求。后者还需要传感器 ID 和时间戳，不能直接复用仅按读数排序去重的代码。</p>
 
                 </div>
             </div>

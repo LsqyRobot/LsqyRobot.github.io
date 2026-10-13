@@ -192,9 +192,130 @@ export function coinChangeTrace(coins = [1, 3, 4], amount = 6) {
   return result;
 }
 
+function safeAdd(a, b) {
+  if (b > Number.MAX_SAFE_INTEGER - a) throw new RangeError('sum exceeds safe integer range');
+  return a + b;
+}
+
+export function windowTrace(values = [2, 3, 1, 2, 4, 3], target = 7) {
+  if (!Array.isArray(values)) throw new TypeError('values must be an array');
+  if (values.length > 60) throw new RangeError('window trace supports at most 60 values');
+  if (Array.from(values).some((value) => !Number.isSafeInteger(value) || value < 0)) {
+    throw new RangeError('window values must be nonnegative safe integers');
+  }
+  if (!Number.isSafeInteger(target) || target <= 0) throw new RangeError('target must be a positive safe integer');
+  const result = trace('window', '滑动窗口：总和至少为 ' + target + ' 的最短连续段',
+    '蓝色：当前半开窗口 [left, right)；橙色：本步加入或移出的元素；最终绿色：一个最短窗口。先记录达标窗口，再收缩左端。');
+  const items = [...values];
+  let left = 0, right = 0, sum = 0, best = null, bestWindow = null;
+  const snapshot = (active = [], event = null) => ({ items, left, right, sum, target, best, bestWindow, active, event });
+  record(result, '初始窗口 [0, 0) 为空，sum = 0，还没有达标窗口。', snapshot([], 'init'));
+  while (right < items.length) {
+    const entered = right;
+    sum = safeAdd(sum, items[right]);
+    right++;
+    record(result, '加入下标 ' + entered + ' 的 ' + items[entered] + '，窗口扩展为 [' + left + ', ' + right + ')，sum = ' + sum + '。',
+      snapshot([entered], 'expand'));
+    while (sum >= target) {
+      const length = right - left;
+      const changed = best === null || length < best;
+      if (changed) {
+        best = length;
+        bestWindow = [left, right];
+      }
+      record(result, '当前窗口达标，长度为 ' + length + (changed ? '，更新最短长度为 ' + best + '。' : '，未改善最短长度。'),
+        { ...snapshot([], 'candidate'), changed });
+      const removed = left;
+      sum -= items[left];
+      left++;
+      record(result, '移出下标 ' + removed + ' 的 ' + items[removed] + '，窗口变为 [' + left + ', ' + right + ')，sum = ' + sum + '。',
+        snapshot([removed], 'shrink'));
+    }
+  }
+  record(result, best === null ? '没有总和达到目标的非空窗口，返回 0。' :
+    '最短长度为 ' + best + '，对应窗口 [' + bestWindow[0] + ', ' + bestWindow[1] + ')。',
+    { ...snapshot([], 'done'), answer: best ?? 0, done: true });
+  return result;
+}
+
+export const DEFAULT_WEIGHTED_GRAPH = Object.freeze({
+  A: Object.freeze([Object.freeze({ to: 'B', weight: 6 }), Object.freeze({ to: 'C', weight: 1 })]),
+  B: Object.freeze([Object.freeze({ to: 'D', weight: 1 })]),
+  C: Object.freeze([Object.freeze({ to: 'B', weight: 2 }), Object.freeze({ to: 'D', weight: 5 })]),
+  D: Object.freeze([Object.freeze({ to: 'E', weight: 3 })]),
+  E: Object.freeze([]), F: Object.freeze([])
+});
+
+export function dijkstraTrace(graph = DEFAULT_WEIGHTED_GRAPH, start = 'A') {
+  if (!graph || typeof graph !== 'object' || Array.isArray(graph)) throw new TypeError('graph must be an adjacency object');
+  const names = Object.keys(graph);
+  if (names.length > 12) throw new RangeError('Dijkstra trace supports at most 12 nodes');
+  if (typeof start !== 'string' || !Object.hasOwn(graph, start)) throw new RangeError('start is not a graph node');
+  let edgeCount = 0;
+  for (const node of names) {
+    if (!node.length || node.length > 24 || !Array.isArray(graph[node])) throw new RangeError('invalid graph node or adjacency list');
+    edgeCount += graph[node].length;
+    if (edgeCount > 60) throw new RangeError('Dijkstra trace supports at most 60 edges');
+    for (const edge of graph[node]) {
+      if (!edge || typeof edge !== 'object' || typeof edge.to !== 'string' || !Object.hasOwn(graph, edge.to)) {
+        throw new RangeError('every edge must refer to an existing node');
+      }
+      if (!Number.isSafeInteger(edge.weight) || edge.weight < 0) throw new RangeError('edge weights must be nonnegative safe integers');
+    }
+  }
+  // Retain only the bounded teaching contract, not arbitrary extra input payloads.
+  graph = Object.fromEntries(names.map((node) => [node, graph[node].map(({ to, weight }) => ({ to, weight }))]));
+  const result = trace('dijkstra', 'Dijkstra：按距离确定顶点，跳过过期条目',
+    '箭头表示有向带权边；灰色：不可达或未发现，蓝色：有暂定距离，绿色：已确定。队列按距离排序，平局保持入队顺序。');
+  const distance = Object.fromEntries(names.map((node) => [node, null]));
+  const predecessor = Object.fromEntries(names.map((node) => [node, null]));
+  const settled = [], staleEntries = [];
+  let sequence = 0;
+  const queue = [{ node: start, distance: 0, sequence: sequence++ }];
+  const sortQueue = () => queue.sort((a, b) => a.distance - b.distance || a.sequence - b.sequence);
+  distance[start] = 0;
+  const snapshot = (current = null, edge = null, popped = null, event = null) => ({
+    graph, start, distance, predecessor, settled, queue, staleEntries, current, edge, popped, event
+  });
+  record(result, '起点 ' + start + ' 距离为 0，入优先队列；其他距离为 ∞。', snapshot(null, null, null, 'init'));
+  while (queue.length) {
+    const entry = queue.shift();
+    record(result, '取出最小距离条目 ' + entry.node + '（' + entry.distance + '）。', snapshot(null, null, entry, 'pop'));
+    if (entry.distance !== distance[entry.node]) {
+      staleEntries.push({ node: entry.node, distance: entry.distance, currentDistance: distance[entry.node] });
+      record(result, entry.node + '（' + entry.distance + '）已过期，当前距离为 ' + distance[entry.node] + '，跳过，不重复展开。',
+        { ...snapshot(null, null, entry, 'stale'), skipped: true });
+      continue;
+    }
+    const current = entry.node;
+    settled.push(current);
+    record(result, '确定 ' + current + ' 的最短距离为 ' + distance[current] + '，开始检查出边。',
+      snapshot(current, null, entry, 'settle'));
+    for (const edge of graph[current]) {
+      const candidate = safeAdd(distance[current], edge.weight);
+      const previousDistance = distance[edge.to];
+      const changed = previousDistance === null || candidate < previousDistance;
+      if (changed) {
+        distance[edge.to] = candidate;
+        predecessor[edge.to] = current;
+        queue.push({ node: edge.to, distance: candidate, sequence: sequence++ });
+        sortQueue();
+      }
+      record(result, '检查 ' + current + ' → ' + edge.to + '（权重 ' + edge.weight + '），候选距离 ' + candidate +
+        (changed ? '，更新距离与前驱，并把新条目入队。' : '，不改善当前距离。'),
+        { ...snapshot(current, [current, edge.to], entry, 'relax'), candidate, previousDistance, changed });
+    }
+    record(result, current + ' 的出边检查完毕。', snapshot(null, null, null, 'finish'));
+  }
+  record(result, '优先队列为空，最短距离计算完成；∞ 表示从起点不可达。',
+    { ...snapshot(null, null, null, 'done'), done: true });
+  return result;
+}
+
 const factories = {
   vector: vectorInsertTrace, linked: linkedInsertTrace, binary: lowerBoundTrace,
-  insertion: insertionSortTrace, bfs: bfsTrace, dp: coinChangeTrace
+  insertion: insertionSortTrace, bfs: bfsTrace, dp: coinChangeTrace,
+  window: windowTrace, dijkstra: dijkstraTrace
 };
 export function getDemoTrace(kind) {
   if (!Object.hasOwn(factories, kind)) throw new RangeError('unknown demo kind');

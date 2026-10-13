@@ -1,0 +1,1089 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/32_robotics/logo/coffee-beans-2258839_1280.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">振动00：从机械机理到故障排查与减振</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>机器人停下后末端还在摆、齿轮换向时发出冲击、旋转设备某个转速特别抖、机床切削突然出现啸叫，都属于振动问题，但它们的能量来源和形成机制可能完全不同。这个分类按“机理 → 测量 → 诊断 → 治理”组织，把强迫振动、谐波、齿轮间隙和控制规划放进更完整的工程图景。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/vibration-notes.css">
+<h2 id="1-分类入口与阅读路线">1. 分类入口与阅读路线</h2>
+<p>独立入口：<a href="/knowledge/vibration/">振动与减振</a>。正文分成五条主线：</p>
+<table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>主线</th>
+<th>本篇解决的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>本文：全景与诊断路线</td>
+<td>怎样描述现象，哪些机制容易混淆</td>
+</tr>
+<tr>
+<td>01</td>
+<td><a href="/2026/10/13/vibration_mechanics_forced_response/">自由、强迫振动与共振</a></td>
+<td>质量、刚度、阻尼和频率怎样共同决定响应</td>
+</tr>
+<tr>
+<td>02</td>
+<td><a href="/2026/10/13/vibration_measurement_diagnosis/">测量、频谱与机械诊断</a></td>
+<td>怎样取得有效数据、识别阶次和建立故障证据链</td>
+</tr>
+<tr>
+<td>03</td>
+<td><a href="/2026/10/13/vibration_control_motion_planning/">控制回路与运动规划</a></td>
+<td>为什么增益、延迟、换向和加减速会激发振动</td>
+</tr>
+<tr>
+<td>04</td>
+<td><a href="/2026/10/13/vibration_mitigation_engineering/">减振方案与验证</a></td>
+<td>怎样在源头、路径和响应处选择措施并核对效果</td>
+</tr>
+</tbody>
+</table>
+<p>振动学还包括连续体、非线性、随机振动、转子动力学、流固耦合等更深入的分支。下面先建立它们之间的关系和工程入口；五篇基础文章覆盖通用分析与常见排查，不等同于每个分支已经展开为完整教材。<a target="_blank" rel="noopener" href="https://archive.nptel.ac.in/content/syllabus_pdf/112107088.pdf">NPTEL 振动控制课程范围</a></p>
+<h2 id="2-先分清“谁在振”“怎样激发”">2. 先分清“谁在振”“怎样激发”</h2>
+<p>分类可以有多条轴线，它们不是互斥的。例如齿轮轴既会产生扭转振动，也可能出现齿面撞击形成的非线性强迫响应。</p>
+<table>
+<thead>
+<tr>
+<th>分类轴线</th>
+<th>常见类型</th>
+<th>对应的工程含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运动方向</td>
+<td>横向、轴向、扭转、弯曲、组合运动</td>
+<td>测点方向与模型坐标必须对应</td>
+</tr>
+<tr>
+<td>激励关系</td>
+<td>自由、强迫、自激、参数激励</td>
+<td>判断振动能量怎样进入系统</td>
+</tr>
+<tr>
+<td>时间性质</td>
+<td>稳态周期、瞬态冲击、随机、非平稳</td>
+<td>决定是否用稳态 FFT、时频或阶次分析</td>
+</tr>
+<tr>
+<td>自由度</td>
+<td>单自由度、多自由度、连续结构</td>
+<td>一条共振曲线可能只能描述一个局部模态</td>
+</tr>
+<tr>
+<td>线性程度</td>
+<td>线性小振动、背隙/接触/摩擦非线性</td>
+<td>决定能否直接叠加响应与使用线性传递函数</td>
+</tr>
+<tr>
+<td>观察目标</td>
+<td>跟踪误差、结构位移、加速度、噪声、疲劳载荷</td>
+<td>同一改动对不同指标可能有不同结果</td>
+</tr>
+</tbody>
+</table>
+<p><strong>自由振动</strong>是初始位移、速度或冲击之后的响应；<strong>强迫振动</strong>有持续外部激励；<strong>自激振动</strong>通过运动与力之间的反馈关系从持续能源中获得能量；<strong>参数激励</strong>则由刚度等参数随时间变化产生。机床再生颤振不宜简单说成“外部正弦力太大”，而刚度周期变化也不应一律套入固定参数受迫公式。</p>
+<h2 id="3-原因地图：不只看齿轮与控制器">3. 原因地图：不只看齿轮与控制器</h2>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/vibration_notes/vibration-map.svg" alt="振动知识地图：多种激励经结构动力学产生响应，再通过同步测量、验证和减振建立证据链" loading="lazy" decoding="async"></p>
+<table>
+<thead>
+<tr>
+<th>系统层面</th>
+<th>可能的激励或放大机制</th>
+<th>首先补充的背景信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>转子与旋转件</td>
+<td>不平衡、不对中、临界转速、轴弯曲、擦碰</td>
+<td>转速、相位、负载、启停变化、各方向测点</td>
+</tr>
+<tr>
+<td>滚动轴承</td>
+<td>局部缺陷、润滑、装配和接触问题</td>
+<td>轴承型号与几何、温度、包络、趋势与维修记录</td>
+</tr>
+<tr>
+<td>齿轮与传动</td>
+<td>啮合刚度变化、传递误差、偏心、背隙、磨损</td>
+<td>齿数、传动比、换向时刻、载荷和两侧编码器</td>
+</tr>
+<tr>
+<td>结构与基础</td>
+<td>柔性模态、连接松动、基础运动、长悬臂</td>
+<td>姿态、工具质量、螺栓/支撑状态、测点分布</td>
+</tr>
+<tr>
+<td>接触与摩擦</td>
+<td>粘滑、碰撞、预紧不合适、间隙</td>
+<td>低速行为、反向过零、摩擦/接触状态与冲击波形</td>
+</tr>
+<tr>
+<td>控制与规划</td>
+<td>增益、时延、滤波、饱和、加速度/jerk、路径拐角</td>
+<td>指令、反馈、电流/转矩、采样率与轨迹参数</td>
+</tr>
+<tr>
+<td>电磁与供电</td>
+<td>转矩脉动、换相、供电谐波、磁力变化</td>
+<td>电频率、极对数、电流谱、机械转速与负载</td>
+</tr>
+<tr>
+<td>流体与工艺</td>
+<td>压力脉动、叶片通过、涡激、气蚀、切削颤振</td>
+<td>流量、压力、叶片数、工艺条件、宽带与窄带成分</td>
+</tr>
+<tr>
+<td>环境与传递</td>
+<td>相邻设备、地板、管路、线缆、空气声</td>
+<td>同步参考测点、设备开停、传递路径和安装方式</td>
+</tr>
+</tbody>
+</table>
+<p>这里列的是<strong>候选机制</strong>。一倍转频强不等于已经证明不平衡，多倍频也不等于已经证明松动。多种激励可以叠加，同一种激励也可能经过共振被放大，最终在一个测点上呈现相似频谱。</p>
+<h2 id="4-一个实用关系：源头-×-路径-观察到的响应">4. 一个实用关系：源头 × 路径 = 观察到的响应</h2>
+<p>对一个线性、时不变、固定工况的频域模型，可以写成：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>X</mi><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo><mi>F</mi><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">X(\omega)=H(\omega)F(\omega).
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span></p>
+<p>F 描述激励，H 描述从激励点到观察点的动力学，X 是响应。有多个源头时需要各通道的幅值与相位一起叠加，不能直接把几个幅值绝对值相加。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">源头                     传递与放大                     响应</span><br><span class="line">不平衡、啮合、冲击  →  轴承、支架、基础、柔性模态  →  测点、工具、工件</span><br><span class="line">指令/转矩变化       →  驱动与控制闭环             →  跟踪误差与残余振动</span><br></pre></td></tr></table></figure>
+<p>所以响应变大可能因为源头增强，也可能因为刚度、边界或姿态改变了 H。换工具后振幅变大，不一定是电机产生了更大的谐波；加了橡胶后地板变安静，也不一定是机器内部振动减少。<a target="_blank" rel="noopener" href="https://www.bksv.com/de/analysis-software/nvh-software/source-path-contribution">B&amp;K 源头与传递路径分析</a></p>
+<h2 id="5-先把现象写成可比较的数据">5. 先把现象写成可比较的数据</h2>
+<p>“很抖”难以复现。一次有效记录至少包括：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>推荐写法</th>
+<th>避免的歧义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对象与工况</td>
+<td>关节/轴号、转速、负载、姿态、温度、动作阶段</td>
+<td>冷机/热机、空载/满载被混成一个问题</td>
+</tr>
+<tr>
+<td>测点</td>
+<td>安装位置、方向、固定方式、传感器型号</td>
+<td>不同测点与安装共振造成错误比较</td>
+</tr>
+<tr>
+<td>物理量</td>
+<td>位移 µm、速度 mm/s、加速度 m/s² 或角度 rad</td>
+<td>把几种不同量的数字直接比较</td>
+</tr>
+<tr>
+<td>幅值定义</td>
+<td>峰值、峰峰值、RMS 与频带</td>
+<td>把单频峰值和全频带 RMS 混用</td>
+</tr>
+<tr>
+<td>时间与采集</td>
+<td>采样率、记录长度、同步时钟、抗混叠与窗</td>
+<td>日志漏采、混叠和分辨率不足</td>
+</tr>
+<tr>
+<td>关联信号</td>
+<td>转速脉冲、位置指令/反馈、电流、压力</td>
+<td>只知道“有频率”，不知道与谁相关</td>
+</tr>
+</tbody>
+</table>
+<p>加速度计既需要正确量程和带宽，也需要合适安装方式；测得的峰可能包含安装和传感器的影响。若关注很慢的位移或静态偏差，不能默认任意压电加速度计加两次积分就能可靠替代位移测量。<a target="_blank" rel="noopener" href="https://www.ni.com/en/shop/data-acquisition/sensor-fundamentals/measuring-vibration-with-accelerometers.html">NI 加速度计振动测量</a></p>
+<h2 id="6-从现象走到可验证的原因">6. 从现象走到可验证的原因</h2>
+<ol>
+<li><strong>确认信号有效。</strong> 排除削顶、松动测点、错误单位、混叠和不同步；保留原始数据。</li>
+<li><strong>按阶段拆开。</strong> 匀速、加减速、换向、停止保持、负载变化的振动分开看。</li>
+<li><strong>同时看时域与频域。</strong> 时域识别冲击、衰减与间歇；频域识别频率、谐波、边带；变速时加入阶次或时频分析。</li>
+<li><strong>提出多个解释。</strong> 例如一个强峰可能是转频激励，也可能是结构模态被激发；写出各解释还需要什么证据。</li>
+<li><strong>在已批准工况内做有区分度的比较。</strong> 利用已有不同转速、姿态或载荷记录，一次只改变一个因素，并同步记录相关信号。</li>
+<li><strong>选择针对原因的措施。</strong> 修复故障、减少激励、改变路径或控制响应；随后用相同测点和工况复核。</li>
+</ol>
+<p>被动记录已有正常工况与专门激励试验不同。模态锤击、扫频、开环辨识及设备拆装需要相应设备流程和人员，不宜为找共振自行扩大运动范围或关闭保护。</p>
+<h3 id="三个有区分度的比较">三个有区分度的比较</h3>
+<table>
+<thead>
+<tr>
+<th>比较</th>
+<th>可以提供的线索</th>
+<th>仍不能单独证明什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不同转速下的谱峰</td>
+<td>峰是否随转速按某阶次移动，或在固定频率附近放大</td>
+<td>固定频率一定来自某个特定零件</td>
+</tr>
+<tr>
+<td>同一动作停止后的波形</td>
+<td>残余振动频率、衰减、偏置与持续振荡</td>
+<td>衰减慢一定是控制增益过高</td>
+</tr>
+<tr>
+<td>电机侧与负载侧同步记录</td>
+<td>电机编码器是否漏看柔性负载运动</td>
+<td>单侧安静就代表整个系统没有振动</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-相关旧文也纳入这一分类">7. 相关旧文也纳入这一分类</h2>
+<p>保留原文章分类与链接，在此增加入口，不必搬动旧 URL：</p>
+<ul>
+<li><a href="/2021/02/16/archived_threeLoopControl/">三环控制与柔性两惯量系统</a>：机械共振与反共振为何取决于观察位置。</li>
+<li><a href="/2026/08/27/fourier_laplace_z_transform_engineering_notes/">傅里叶、拉普拉斯与 Z 变换</a>：频域、系统响应与离散实现的联系。</li>
+<li><a href="/2026/10/06/iterative_learning_control_experiments/">迭代学习控制实验</a>：重复动作中的柔性输出与保持段指标。</li>
+</ul>
+<p>下一篇：<a href="/2026/10/13/vibration_mechanics_forced_response/">自由振动、强迫振动与共振</a>。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/vibration/start/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">00 知识地图与排查路线</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%9C%BA%E6%A2%B0%E6%8C%AF%E5%8A%A8/">
+                        <span class="tag-chip-name">机械振动</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E5%87%8F%E6%8C%AF/">
+                        <span class="tag-chip-name">减振</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%8C%AF%E5%8A%A8%E8%AF%8A%E6%96%AD/">
+                        <span class="tag-chip-name">振动诊断</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

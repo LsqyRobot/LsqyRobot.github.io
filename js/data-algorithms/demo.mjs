@@ -26,9 +26,11 @@ function renderArray(stage, frame, kind) {
     if (frame.hole === i) classes.push('is-hole');
     if (frame.active?.includes(i) || frame.mid === i) classes.push('is-active');
     if (kind === 'binary' && i >= frame.lo && i < frame.hi) classes.push('is-range');
+    if (kind === 'window' && !frame.done && i >= frame.left && i < frame.right) classes.push('is-range');
     if (kind === 'insertion' && i < frame.sorted) classes.push('is-sorted');
     if (kind === 'dp' && frame.source === i) classes.push('is-source');
-    if (frame.done && (kind === 'binary' ? i === frame.answer : true)) classes.push('is-final');
+    if (frame.done && (kind === 'binary' ? i === frame.answer : kind === 'window' ?
+      frame.bestWindow !== null && i >= frame.bestWindow[0] && i < frame.bestWindow[1] : true)) classes.push('is-final');
     const cell = make('div', classes.join(' '));
     cell.append(
       make('span', 'algorithm-index', (kind === 'dp' ? '金额 ' : '下标 ') + i),
@@ -49,6 +51,12 @@ function renderArray(stage, frame, kind) {
   } else if (kind === 'dp') {
     meta.append(field('可用硬币', frame.coins.join('、') || '无'), field('本次硬币', frame.coin ?? '—'));
     if (frame.answer !== undefined) meta.append(field('答案', frame.answer === null ? '不可达' : frame.answer));
+  } else if (kind === 'window') {
+    meta.append(field('窗口 [left, right)', '[' + frame.left + ', ' + frame.right + ')'),
+      field('sum', frame.sum), field('target', frame.target),
+      field('当前最短长度', frame.best ?? '尚无达标窗口'));
+    if (frame.bestWindow !== null) meta.append(field('最短窗口', '[' + frame.bestWindow[0] + ', ' + frame.bestWindow[1] + ')'));
+    if (frame.done && frame.answer === 0) meta.append(field('返回值', '0（不存在达标段）'));
   } else {
     meta.append(field('插入位置', frame.index));
   }
@@ -121,6 +129,78 @@ function renderBfs(stage, frame, id) {
   stage.append(meta);
 }
 
+function renderDijkstra(stage, frame, id) {
+  const names = Object.keys(frame.graph);
+  const graph = svg('svg', { viewBox: '0 0 480 330', class: 'algorithm-graph', role: 'img',
+    'aria-label': 'Dijkstra 有向带权图。已确定：' + (frame.settled.join('、') || '无') +
+      '。距离：' + names.map((name) => name + '=' + (frame.distance[name] ?? '∞')).join('，') });
+  // Keep weight, distance and predecessor labels readable on small screens.
+  graph.style.flex = '0 0 480px';
+  graph.style.width = '480px';
+  graph.style.maxWidth = '480px';
+  const defaultPositions = { A: [45, 130], B: [175, 40], C: [175, 225], D: [315, 130], E: [440, 130], F: [440, 255] };
+  const positions = Object.fromEntries(names.map((name, i) => [name, defaultPositions[name] ??
+    [240 + 175 * Math.cos(2 * Math.PI * i / names.length), 150 + 100 * Math.sin(2 * Math.PI * i / names.length)]]));
+  const defs = svg('defs');
+  const marker = svg('marker', { id: id + '-weighted-arrow', viewBox: '0 0 10 10', refX: 9, refY: 5,
+    markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' });
+  marker.append(svg('path', { d: 'M 0 0 L 10 5 L 0 10 z', fill: '#637b9a' }));
+  defs.append(marker);
+  graph.append(defs);
+  for (const [from, neighbors] of Object.entries(frame.graph)) {
+    for (const edge of neighbors) {
+      const a = positions[from], b = positions[edge.to], dx = b[0] - a[0], dy = b[1] - a[1];
+      const length = Math.hypot(dx, dy);
+      const hot = frame.edge?.[0] === from && frame.edge?.[1] === edge.to;
+      if (length === 0) continue;
+      graph.append(svg('line', {
+        x1: a[0] + dx / length * 25, y1: a[1] + dy / length * 25,
+        x2: b[0] - dx / length * 30, y2: b[1] - dy / length * 30,
+        stroke: hot ? '#b35314' : '#637b9a', 'stroke-width': hot ? 4 : 2,
+        'marker-end': 'url(#' + id + '-weighted-arrow)'
+      }));
+      const x = (a[0] + b[0]) / 2 - dy / length * 12;
+      const y = (a[1] + b[1]) / 2 + dx / length * 12;
+      const width = Math.max(22, String(edge.weight).length * 8 + 10);
+      graph.append(svg('rect', { x: x - width / 2, y: y - 10, width, height: 20, rx: 4, fill: '#f6f9fc' }));
+      const weight = svg('text', { x, y: y + 5, 'text-anchor': 'middle', 'font-size': 14,
+        'font-weight': hot ? 700 : 500, fill: hot ? '#a24f12' : '#264661' });
+      weight.textContent = String(edge.weight);
+      graph.append(weight);
+    }
+  }
+  for (const [name, position] of Object.entries(positions)) {
+    const state = frame.current === name ? 'active' : frame.settled.includes(name) ? 'finished' :
+      frame.distance[name] !== null ? 'queued' : 'unseen';
+    const group = svg('g', { class: 'algorithm-graph-node is-' + state });
+    group.append(svg('circle', { cx: position[0], cy: position[1], r: 24 }));
+    const label = svg('text', { x: position[0], y: position[1] + 6, 'text-anchor': 'middle' });
+    label.textContent = name;
+    group.append(label);
+    for (const [text, offset] of [['距离 ' + (frame.distance[name] ?? '∞'), 42],
+      ['前驱 ' + (frame.predecessor[name] ?? '—'), 59]]) {
+      const detail = svg('text', { x: position[0], y: position[1] + offset,
+        'text-anchor': 'middle', class: 'algorithm-distance' });
+      detail.textContent = text;
+      group.append(detail);
+    }
+    graph.append(group);
+  }
+  const scroller = make('div', 'algorithm-cells');
+  scroller.tabIndex = 0;
+  scroller.setAttribute('aria-label', '有向带权图；窄屏可左右滑动查看');
+  scroller.append(graph);
+  stage.append(scroller);
+  const meta = make('div', 'algorithm-meta');
+  const entryLabel = (entry) => entry.node + '（' + entry.distance + '）';
+  meta.append(field('优先队列（左为最小）', frame.queue.map(entryLabel).join(' → ') || '空'),
+    field('已确定顺序', frame.settled.join(' → ') || '无'),
+    field('本次取出', frame.popped === null ? '—' : entryLabel(frame.popped) + (frame.skipped ? '，已过期' : '')),
+    field('已跳过过期条目', frame.staleEntries.map((entry) => entryLabel(entry) + '，现值 ' + entry.currentDistance).join('；') || '无'));
+  stage.append(meta);
+  stage.append(make('p', 'algorithm-path', '箭头表示有向边；窄屏可左右滑动查看图。前驱“—”表示起点或不可达。'));
+}
+
 export function mountAlgorithmDemo(container) {
   if (container.dataset.initialized === 'true') return;
   const kind = container.dataset.demo;
@@ -167,6 +247,7 @@ export function mountAlgorithmDemo(container) {
     stage.replaceChildren();
     if (kind === 'linked') renderLinked(stage, frame);
     else if (kind === 'bfs') renderBfs(stage, frame, id);
+    else if (kind === 'dijkstra') renderDijkstra(stage, frame, id);
     else renderArray(stage, frame, kind);
     progress.textContent = (index + 1) + ' / ' + data.steps.length;
     caption.textContent = '第 ' + (index + 1) + ' 步：' + frame.caption;

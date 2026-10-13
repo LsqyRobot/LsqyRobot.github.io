@@ -1,0 +1,975 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/18_CPP/logo/2024-11-11-11-13-56-1152x768.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">程序设计 00：从职责、组合到所有权</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>程序设计思想首先回答：一段需求变化后，哪些代码应该一起变化，哪些应该保持稳定？本系列把对象创建、可替换行为、资源所有权和现代 C++ 类型工具放在同一条主线上，用小而完整的程序解释选择依据。</p>
+<span id="more"></span>
+<p><a href="/knowledge/software-design/">程序设计专题</a> · 下一篇：<a href="/2026/10/12/software_design_01_factories/">01 工厂的三种含义</a></p>
+<h2 id="1-先识别变化，再选择模式">1. 先识别变化，再选择模式</h2>
+<p>设想一个离线传感器记录分析器：数据可能来自模拟器或历史文件；分析时可能保留原始读数、裁剪异常值，或者输出不同格式。如果一个类同时负责打开文件、解释单位、挑选算法和展示结果，修改输出格式也可能触碰采样逻辑。</p>
+<p>拆分的依据是变化原因，而不是“每个函数都变成一个类”。可以先把纯计算提成函数，把配置信息放进值对象；只有确实存在替换需求时，才引入接口。</p>
+<table>
+<thead>
+<tr>
+<th>变化发生在哪里</th>
+<th>优先考虑的工具</th>
+<th>本系列对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>只是一条稳定的条件判断</td>
+<td>普通函数、<code>if</code> / <code>switch</code></td>
+<td>不必强行引入模式</td>
+</tr>
+<tr>
+<td>创建哪个对象、如何初始化</td>
+<td>简单工厂；有框架扩展点时考虑工厂方法</td>
+<td>01</td>
+</tr>
+<tr>
+<td>同一任务有多种可互换行为</td>
+<td>函数对象、策略接口或模板策略</td>
+<td>02</td>
+</tr>
+<tr>
+<td>“没有值”或多种事件状态</td>
+<td><code>optional</code> / <code>variant</code></td>
+<td>03，C++17</td>
+</tr>
+<tr>
+<td>泛型算法要求什么操作，借用哪段数据</td>
+<td>concepts / <code>span</code> / ranges</td>
+<td>04，C++20</td>
+</tr>
+<tr>
+<td>失败原因也要成为返回类型</td>
+<td><code>expected</code></td>
+<td>05，C++23</td>
+</tr>
+</tbody>
+</table>
+<p>模式是沟通结构的词汇，不是数量指标。“开闭原则”也不是永远不改任何旧文件：例如简单工厂新增一种产品通常就要修改工厂分支。应当保护的是已经选定的稳定边界。</p>
+<h2 id="2-单一职责、依赖方向与替换契约">2. 单一职责、依赖方向与替换契约</h2>
+<p><strong>职责</strong>可以理解为一组共同变化的规则。读数来源负责拿到样本，阈值判断负责解释一个数值是否超限，展示层负责如何告诉用户结果。三者的错误类型、修改频率和测试方法都可能不同。</p>
+<p><strong>依赖倒置</strong>不是“所有东西都抽象”。它意味着核心流程依赖自己需要的最小契约，而不直接绑死某个复杂设备库。调用者在程序入口把具体实现传进来，这就是构造注入；无需引入依赖注入框架或全局服务定位器。</p>
+<p><strong>可替换性</strong>也比函数签名更强。两个来源都叫 <code>read()</code>，还需要约定单位、失败方式、是否阻塞，以及是否改变内部状态。一个返回摄氏温度、另一个返回未经说明的 ADC 计数，不能仅凭共同基类就认为等价。</p>
+<p>在下面的例子中，契约特意缩小为：读取一个有限的模拟数值，单位已由上游统一，失败策略由实际应用另行定义。它不连接设备，不承诺线程安全、硬实时延迟或实机安全。</p>
+<h2 id="3-组合：Monitor-拥有数据来源，而不是一种数据来源">3. 组合：Monitor 拥有数据来源，而不是一种数据来源</h2>
+<p><code>Monitor</code> “有一个” <code>SampleSource</code>，并不“是一个” <code>SampleSource</code>。这类关系用成员组合更自然。继承只用来实现来源的可替换接口，避免把业务流程、共享实现和类型层级混在一起。</p>
+<p>下面是完整程序。基础实现用到 C++11 的 <code>unique_ptr</code>、移动语义和 <code>override</code>，以及 C++14 的 <code>make_unique</code>；统一以 C++17 编译不代表这些特性在 C++17 才出现。</p>
+<p><a href="/downloads/code/software_design/composition.cpp">下载完整源码</a></p>
+<!-- example: composition.cpp -->
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;utility&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">SampleSource</span> &#123;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">SampleSource</span>() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">read</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FixedSource</span> <span class="keyword">final</span> : <span class="keyword">public</span> SampleSource &#123;</span><br><span class="line">    <span class="type">double</span> value_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">FixedSource</span><span class="params">(<span class="type">double</span> value)</span> : value_(value) &#123;</span>&#125;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">read</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> value_; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Monitor</span> &#123;</span><br><span class="line">    std::unique_ptr&lt;SampleSource&gt; source_;</span><br><span class="line">    <span class="type">double</span> threshold_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Monitor</span>(std::unique_ptr&lt;SampleSource&gt; source, <span class="type">double</span> threshold)</span><br><span class="line">        : <span class="built_in">source_</span>(std::<span class="built_in">move</span>(source)), <span class="built_in">threshold_</span>(threshold) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!source_) <span class="keyword">throw</span> std::<span class="built_in">invalid_argument</span>(<span class="string">&quot;source is required&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">above_threshold</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> source_-&gt;<span class="built_in">read</span>() &gt; threshold_; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">Monitor <span class="title">monitor</span><span class="params">(std::make_unique&lt;FixedSource&gt;(<span class="number">12.0</span>), <span class="number">10.0</span>)</span></span>;</span><br><span class="line">    std::cout &lt;&lt; std::boolalpha &lt;&lt; <span class="string">&quot;above=&quot;</span> &lt;&lt; monitor.<span class="built_in">above_threshold</span>() &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="function">Monitor <span class="title">invalid</span><span class="params">(<span class="literal">nullptr</span>, <span class="number">10.0</span>)</span></span>;</span><br><span class="line">    &#125; <span class="built_in">catch</span> (<span class="type">const</span> std::invalid_argument&amp; error) &#123;</span><br><span class="line">        std::cout &lt;&lt; error.<span class="built_in">what</span>() &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在下载文件所在目录运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">g++ -std=c++17 -Wall -Wextra -Werror -pedantic composition.cpp -o composition</span><br><span class="line">./composition</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">above=true</span><br><span class="line">source is required</span><br></pre></td></tr></table></figure>
+<p>按对象寿命读一遍：</p>
+<ol>
+<li><code>make_unique</code> 创建一个 <code>FixedSource</code>，返回独占所有权。</li>
+<li>构造函数按值接收智能指针，再用 <code>std::move</code> 把所有权放进成员。<code>std::move</code> 本身是允许移动的类型转换，不负责分配或复制数据。</li>
+<li>构造阶段拒绝空来源，因此成功构造的 <code>Monitor</code> 有可用来源。</li>
+<li><code>Monitor</code> 离开作用域时，成员智能指针销毁来源；通过基类指针删除派生对象需要这里的虚析构函数。</li>
+</ol>
+<p>这个小例子只演示构造和正常使用，没有把对象移动到另一个变量后再调用原对象。真实接口若允许移动，还需定义 moved-from 状态可做哪些操作，不能把构造时的不变量无条件套到所有后续状态。</p>
+<h2 id="4-所有权：值优先，独占优先，借用要有边界">4. 所有权：值优先，独占优先，借用要有边界</h2>
+<p>资源可以是内存、文件、锁或连接。RAII 把资源的释放绑定到对象析构，所以正常返回和异常展开都能经过清理路径。它解决的是“谁负责释放”，并不自动保证一次操作失败后全部状态回滚，也不自动消除数据竞争。</p>
+<table>
+<thead>
+<tr>
+<th>表达方式</th>
+<th>谁管理生命周期</th>
+<th>适用关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通值成员</td>
+<td>外层对象直接管理</td>
+<td>数据体积和复制/移动成本合适时最直接</td>
+</tr>
+<tr>
+<td><code>unique_ptr&lt;T&gt;</code></td>
+<td>一个明确的拥有者</td>
+<td>需要多态或动态寿命，且没有共享所有权</td>
+</tr>
+<tr>
+<td><code>shared_ptr&lt;T&gt;</code></td>
+<td>多个共享拥有者</td>
+<td>真实存在共同管理寿命的需求；循环引用需单独设计</td>
+</tr>
+<tr>
+<td><code>T&amp;</code>、<code>const T&amp;</code>、裸指针、视图</td>
+<td>通常是借用</td>
+<td>被借用对象必须活得足够久，指针是否可空要明确</td>
+</tr>
+</tbody>
+</table>
+<p>不要为“方便传来传去”默认选择 <code>shared_ptr</code>，也不要把裸指针一概视为错误。短时借用与所有权转移是不同关系，应让类型和接口把意图说清楚。03、04 会进一步解释 <code>string_view</code> 和 <code>span</code> 的借用边界。</p>
+<h2 id="5-什么时候保持简单">5. 什么时候保持简单</h2>
+<p>只有一种数据来源、对象创建没有额外规则时，直接使用一个具体值就足够。出现第二种来源也不必立刻建一个庞大的类树：先看它是否真的需要在运行时切换，是否共享契约，是否在多处使用。</p>
+<p>一个好的抽象应当让某个具体变化局部化。例如加入文件回放来源时，阈值判断无需知道文件格式；但文件读取失败如何传递，仍然需要设计。后续的工厂、策略和 <code>expected</code> 都是为这类具体问题服务。</p>
+<h2 id="6-阅读顺序与历史笔记">6. 阅读顺序与历史笔记</h2>
+<ul>
+<li><a href="/2026/10/12/software_design_01_factories/">01：简单工厂、工厂方法、抽象工厂</a>，分清创建点、继承扩展点和产品族。</li>
+<li><a href="/2026/10/12/software_design_02_strategy/">02：Strategy 的三种实现边界</a>，比较运行时多态、可调用对象和模板策略。</li>
+<li><a href="/2026/10/12/software_design_03_cpp17/">03：C++17 的值、状态与借用</a>。</li>
+<li><a href="/2026/10/12/software_design_04_cpp20/">04：C++20 的约束、范围与视图</a>。</li>
+<li><a href="/2026/10/12/software_design_05_cpp23/">05：C++23 的显式错误与可移动行为</a>。</li>
+</ul>
+<p>原有<a href="/2025/10/14/archived_CPP_factory_pattern/">工厂模式笔记</a>和<a href="/2025/10/14/archived_CPP_design_mode/">策略模式笔记</a>保留为历史补充，不属于本次逐一编译验证的示例集。本系列下载源码、标准版本和输出对应关系见<a href="/downloads/code/software_design/README.md">示例说明</a>。</p>
+<h2 id="参考">参考</h2>
+<p><a target="_blank" rel="noopener" href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">C++ Core Guidelines</a> 的 C.120 / C.129 讨论类层级和接口继承，C.35 讨论基类析构函数，R.1 / R.20 / R.21 讨论 RAII 与智能指针。这里的 Monitor 是为说明职责和所有权编写的独立教学示例。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/software-design/foundations/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">设计思想与所有权</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/composition/">
+                        <span class="tag-chip-name">composition</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/cpp/">
+                        <span class="tag-chip-name">cpp</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/cpp17/">
+                        <span class="tag-chip-name">cpp17</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/design-principles/">
+                        <span class="tag-chip-name">design-principles</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/raii/">
+                        <span class="tag-chip-name">raii</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

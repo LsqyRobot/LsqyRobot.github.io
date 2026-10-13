@@ -1,0 +1,1010 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/3_algorithm/logo/palace-530055_1280.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">算法06：分治、回溯与贪心的选择依据</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>递归是代码的组织方式，分治、回溯与贪心是解决问题的策略。分治把一个问题拆成较小的问题并合并答案；回溯保留多种选择，沿搜索树生成候选；贪心在有证明的条件下只保留一个局部选择。它们需要不同的正确性理由，不能把“用了递归”当成算法设计已经完成。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/data-algorithms.css">
+<h2 id="1-递归先说清三件事">1. 递归先说清三件事</h2>
+<p>一个递归函数需要明确状态、终止条件和进展。例如排序 <code>[lo,hi)</code>：</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>具体含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态</td>
+<td>当前要处理的半开区间 <code>[lo,hi)</code></td>
+</tr>
+<tr>
+<td>终止</td>
+<td>长度 0 或 1 已有序</td>
+</tr>
+<tr>
+<td>进展</td>
+<td>分成更短的 <code>[lo,mid)</code> 与 <code>[mid,hi)</code></td>
+</tr>
+<tr>
+<td>返回后</td>
+<td>合并两个已经有序的子区间</td>
+</tr>
+</tbody>
+</table>
+<p>“区间长度严格变短”保证不会无限递归。调用栈也是存储，不能因为没有显式 <code>new</code> 就写额外空间 O(1)。深度为 n 的递归在大输入上可能耗尽栈；适合的小输入枚举与适合的大数据实现应分开考虑。</p>
+<h2 id="2-分治：归并时一起统计逆序对">2. 分治：归并时一起统计逆序对</h2>
+<p>逆序对定义为下标 <code>i&lt;j</code> 但值 <code>a[i]&gt;a[j]</code>。序列 <code>[3,1,2,1]</code> 有 4 对：第一个 3 与后面三个数，以及 2 与末尾的 1。相等值不属于逆序对。</p>
+<p>直接双重循环为 O(n²)。分治按下标中点拆开后，逆序对只有三种：左半内部、右半内部、跨越左右两半。前两种由递归解决，最后一种在归并时统计。</p>
+<p>当左右两半已有序，若 <code>left[i] &gt; right[j]</code>，左半从 i 起的所有剩余值都大于 <code>right[j]</code>，可以一次增加 <code>mid-i</code> 对，而无需逐项比较：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (i &lt; mid &amp;&amp; j &lt; hi) &#123;</span><br><span class="line">    <span class="keyword">if</span> (a[i] &lt;= a[j]) temp[out++] = a[i++];</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        temp[out++] = a[j++];</span><br><span class="line">        count += <span class="built_in">static_cast</span>&lt;<span class="type">long</span> <span class="type">long</span>&gt;(mid - i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里使用 <code>&lt;=</code> 很重要：值相等时先取左侧，不计逆序，同时保留相等记录原有顺序。这与“排序稳定性”联系起来，而不仅是一个可随意改写的比较符号。</p>
+<h3 id="3-1-2-1-的合并过程"><code>[3,1,2,1]</code> 的合并过程</h3>
+<table>
+<thead>
+<tr>
+<th>子问题</th>
+<th>有序结果</th>
+<th style="text-align:right">新增逆序对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>左半 <code>[3,1]</code></td>
+<td><code>[1,3]</code></td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>右半 <code>[2,1]</code></td>
+<td><code>[1,2]</code></td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>合并 <code>[1,3]</code> 与 <code>[1,2]</code></td>
+<td><code>[1,1,2,3]</code></td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>合计</td>
+<td>排序完成</td>
+<td style="text-align:right">4</td>
+</tr>
+</tbody>
+</table>
+<p>顶层先取左侧 1；右侧 1 小于左侧剩余的 3，增加 1；随后右侧 2 也小于 3，再增加 1。每个跨区间逆序对恰好在其左右元素首次分属两个子区间的那层被计入，不会重复计数。</p>
+<p>每层合并总计 O(n)，递归深度 O(log n)，时间 O(n log n)。复用长度 n 的缓冲区，额外空间 O(n)，调用栈 O(log n)。逆序序列的最大计数 <code>n(n−1)/2</code>，n=100000 时为 4999950000，已经超出有符号 32 位整数。</p>
+<p>分治不只用于排序：几何最近点对、快速幂、树上汇总也会拆问题。不过拆开之后怎样合并、子问题是否真能独立解决，需要根据目标单独说明。</p>
+<h2 id="3-回溯：选择、递归、撤销">3. 回溯：选择、递归、撤销</h2>
+<p>生成全排列需要保留分支。以 <code>[1,2,3]</code> 为例，第一位可以选任一未使用元素，第二位从剩余元素中选择，第三位再填最后一个。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">used[i] = <span class="literal">true</span>;</span><br><span class="line">path.<span class="built_in">push_back</span>(a[i]);</span><br><span class="line"><span class="built_in">permute</span>(a, used, path, result);</span><br><span class="line">path.<span class="built_in">pop_back</span>();</span><br><span class="line">used[i] = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<p>每次递归入口的不变量是：path 恰好包含已选前缀，used 恰好标记这些位置。返回时必须恢复进入分支之前的状态，否则同层的下一条分支会继承上一条的选择。输出也必须保存 path 的一份副本，不能让全部答案引用同一个不断变化的路径。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">[]</span><br><span class="line">├─ [1] ─ [1,2] ─ [1,2,3]</span><br><span class="line">│       └ [1,3] ─ [1,3,2]</span><br><span class="line">├─ [2] ─ [2,1] ─ [2,1,3]</span><br><span class="line">│       └ [2,3] ─ [2,3,1]</span><br><span class="line">└─ [3] ─ [3,1] ─ [3,1,2]</span><br><span class="line">        └ [3,2] ─ [3,2,1]</span><br></pre></td></tr></table></figure>
+<p>如果 n 个值全不同，输出本来就有 n! 个排列，每个排列长度 n，仅写出答案就需要 Ω(n·n!)。配套的逐位置扫描实现整体为 O(n·n!)，路径与标记空间 O(n)，存储全部结果还需要 O(n·n!)。不能把“剪枝”当成自动摆脱输出规模的办法。</p>
+<h2 id="4-重复元素：同层只保留一个等价选择">4. 重复元素：同层只保留一个等价选择</h2>
+<p>对 <code>[1,1,2]</code>，按位置区分两个 1 会生成重复答案。先排序，再加入：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (used[i]) <span class="keyword">continue</span>;</span><br><span class="line"><span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; a[i] == a[i - <span class="number">1</span>] &amp;&amp; !used[i - <span class="number">1</span>]) <span class="keyword">continue</span>;</span><br></pre></td></tr></table></figure>
+<p>第二条限制的含义是：在同一层，前面的相同值尚未选择时，不再从后面的相同值开一个等价分支。<strong>若前一个 1 已在当前路径中，第二个 1 仍能在下一层使用。</strong> 不能直接写成“相等就跳过”，否则会连合法的 <code>[1,1,2]</code> 一起删掉。</p>
+<p>得到的不同排列是 <code>[1,1,2]</code>、<code>[1,2,1]</code>、<code>[2,1,1]</code>。空输入也有一个合法排列：空排列。这与“没有找到答案”应返回空列表不同。</p>
+<h3 id="剪枝必须证明剩余分支不会成功">剪枝必须证明剩余分支不会成功</h3>
+<p>组合求和中，若剩余值都非负且当前和已经大于目标，则继续加入元素不会把和降回目标，可以剪枝。如果有负值，当前 8、目标 5、后面还有 −3，这条剪枝就会错删答案。</p>
+<p>另一个合法剪枝是用剩余元素提供上下界：即使把可用正值都加上也达不到目标，可以停止；但上下界必须包含所有可能完成方式，不能拿一个“看起来典型”的完成方式充当界限。</p>
+<p>回溯适合生成方案、约束满足、小规模搜索。若大量分支进入相同的未来状态，可以用记忆化搜索消除重复；若状态定义和依赖顺序清楚，还可以写成动态规划。缓存键要包含真正影响未来的全部信息，而不仅是递归深度。</p>
+<h2 id="5-贪心：区间调度为什么选最早结束">5. 贪心：区间调度为什么选最早结束</h2>
+<p>给定正长度的半开时间区间 <code>[start,finish)</code>，希望选出最多个互不重叠的区间。相邻区间可以首尾相接，因为结束时刻不属于前一个区间。</p>
+<p>正确策略是按结束时刻升序排列，每次选择与已选部分兼容的第一个区间：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; interval : sorted_by_finish) &#123;</span><br><span class="line">    <span class="keyword">if</span> (selected.<span class="built_in">empty</span>() || interval.start &gt;= selected.<span class="built_in">back</span>().finish)</span><br><span class="line">        selected.<span class="built_in">push_back</span>(interval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对 <code>[0,3)</code>、<code>[2,4)</code>、<code>[3,5)</code>、<code>[5,7)</code>、<code>[0,8)</code>，选择 <code>[0,3)</code>、<code>[3,5)</code>、<code>[5,7)</code>，共 3 个。排序 O(n log n)，扫描 O(n)；若只返回数量，扫描额外空间 O(1)，保存方案则需要 O(n)。</p>
+<h3 id="交换论证">交换论证</h3>
+<p>设 E 是所有候选中结束最早的区间，某个最优方案第一个区间为 O。由于 <code>finish(E) &lt;= finish(O)</code>，用 E 替换 O 后，后面的区间仍与它兼容，方案数量不减少。因此至少存在一个以 E 开始的最优方案。对 E 之后的剩余问题重复同样论证，得到整个贪心方案最优。</p>
+<p>这份证明解释了为何可以永久丢弃其他当前选择，而不回头枚举。排序规则来自问题目标，不来自“贪心一般都快”的经验。</p>
+<h2 id="6-两种直觉策略为什么会失败">6. 两种直觉策略为什么会失败</h2>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>反例</th>
+<th>丢失的结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>先选开始最早的区间</td>
+<td><code>[0,10)</code>、<code>[1,2)</code>、<code>[2,3)</code>、<code>[3,4)</code></td>
+<td>选长区间仅得到 1 个，后三个可得到 3 个</td>
+</tr>
+<tr>
+<td>先选持续时间最短的区间</td>
+<td><code>[0,4)</code>、<code>[4,8)</code>、<code>[3,5)</code></td>
+<td>最短的 <code>[3,5)</code> 与另外两个都冲突，仅得到 1 个；另外两个可共存</td>
+</tr>
+</tbody>
+</table>
+<p>若区间带有收益，目标变成最大总收益，最早结束也不再适用：<code>[0,2)</code> 收益 1 与 <code>[0,3)</code> 收益 100，贪心会错选前者。加权区间调度需要综合“选当前区间”和“不选当前区间”的收益，通常使用动态规划。</p>
+<p>同样，<a href="/2026/10/04/algorithms_search_sort_patterns/">硬币最少数</a>中的“每次选最大面值”并非对任意硬币系统都正确。遇到一个局部策略，先明确需要证明哪条交换或支配关系，再决定是否能称为贪心算法。</p>
+<h2 id="7-三种策略怎样比较">7. 三种策略怎样比较</h2>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>保留什么</th>
+<th>依靠什么保证正确</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分治</td>
+<td>各子问题的答案</td>
+<td>拆分完整，合并覆盖跨子问题的关系</td>
+</tr>
+<tr>
+<td>回溯</td>
+<td>所有仍可能成功的分支</td>
+<td>搜索空间完整，撤销正确，剪枝不漏答案</td>
+</tr>
+<tr>
+<td>贪心</td>
+<td>当前证明最合适的选择</td>
+<td>局部选择能扩展或交换成全局最优</td>
+</tr>
+<tr>
+<td>动态规划</td>
+<td>相同状态的最优值或计数</td>
+<td>状态足够，转移覆盖全部选择，依赖顺序正确</td>
+</tr>
+</tbody>
+</table>
+<p><a href="/downloads/code/data_structure_lab/search_greedy.cpp">search_greedy.cpp</a> 提供归并逆序对、去重全排列、区间调度。1800 组固定随机种子的案例分别与双重循环、标准库排列枚举、所有区间子集枚举对照；另有 100000 个逆序值验证计数范围。</p>
+<p>继续看<a href="/2026/10/13/algorithms_dynamic_programming_states/">动态规划的状态与方案恢复</a>，或返回<a href="/2026/10/04/data_structures_algorithms_learning_path/">专题路线</a>。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/data-algorithms/algorithms/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">04–08 算法设计与应用</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E5%88%86%E6%B2%BB/">
+                        <span class="tag-chip-name">分治</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E5%9B%9E%E6%BA%AF/">
+                        <span class="tag-chip-name">回溯</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="tag-chip-name">算法</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E8%B4%AA%E5%BF%83/">
+                        <span class="tag-chip-name">贪心</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/c/">
+                        <span class="tag-chip-name">c++</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

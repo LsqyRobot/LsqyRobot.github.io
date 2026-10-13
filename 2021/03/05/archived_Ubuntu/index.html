@@ -397,65 +397,276 @@
                 </aside>
 
                 <div class="typo post-article-content">
-                    <!-- vim-markdown-toc GFM -->
-<ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
-<li><a href="#%E5%85%B3%E6%8E%89sudo%E7%9A%84%E5%AF%86%E7%A0%81">关掉sudo的密码</a></li>
-<li><a href="#oh-my-zsh">Oh-My-Zsh</a></li>
-<li><a href="#ros-%E7%9A%84%E5%AE%89%E8%A3%85">ROS 的安装</a></li>
-<li><a href="#%E5%85%B3%E9%97%ADubuntu%E5%BC%80%E6%9C%BA%E6%97%B6%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81">关闭Ubuntu开机时输入密码</a></li>
-<li><a href="#dpkg-frontend-lock">dpkg frontend lock</a></li>
-<li><a href="#%E6%9F%A5%E7%9C%8B%E6%A0%B9%E6%96%87%E4%BB%B6%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5">查看根文件磁盘空间使用情况</a></li>
-<li><a href="#%E5%88%A0%E9%99%A4%E6%A1%8C%E9%9D%A2%E5%9B%BE%E6%A0%87">删除桌面图标</a></li>
-</ul>
-<!-- vim-markdown-toc -->
+                    <link rel="stylesheet" href="/css/ubuntu-ros-setup.css">
 <h1>前言</h1>
-<p>简要的记录配置 <code>Ubuntu</code> 与 <code>ROS</code> 的过程,感觉在Docker 里面运行 ROS 还是不舒服的,因此在自己的windows电脑里安装了 VirtualBox(主要是开源免费), 进而安装了 Ubuntu 2020版本的。几年之前把实验室那台电脑配置的好好的,但是很多东西都忘记了,感觉还是有记录的必要性的。</p>
-<p>下面的内容是参考了 <a target="_blank" rel="noopener" href="https://yangbingdong.com/2017/ubuntu-todo-after-install/">yangbingdong</a>的博客进行配置的。</p>
-<h1>关掉sudo的密码</h1>
-<p>先修改默认编辑器为vim(默认为nano):</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sudo <span class="keyword">update</span><span class="operator">-</span>alternatives <span class="comment">--config editor</span></span><br></pre></td></tr></table></figure>
-<p>输入vim对应的序号回车即可。</p>
-<p>打开 <code>visudo</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> visudo</span><br></pre></td></tr></table></figure>
-<p>找到</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"># Allow members <span class="keyword">of</span> <span class="keyword">group</span> sudo <span class="keyword">to</span> <span class="keyword">execute</span> <span class="keyword">any</span> command</span><br><span class="line">%sudo   <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>:<span class="keyword">ALL</span>) <span class="keyword">ALL</span></span><br></pre></td></tr></table></figure>
-<p>修改为</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">%sudo   <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>:<span class="keyword">ALL</span>) NOPASSWD:<span class="keyword">ALL</span></span><br></pre></td></tr></table></figure>
-<p>这样所有sudo组内的用户使用sudo时就不需要密码了。</p>
-<p>如果不小心输入错了且保存退出了,再用 <code>sudo visudo</code> 可能就进不去了,这时候可通过 <code>pkexec visudo</code> 来修复这一问题。</p>
-<h1>Oh-My-Zsh</h1>
-<p>首先, 安装 <code>Zsh</code></p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install zsh</span><br></pre></td></tr></table></figure>
-<p>接下来需要下载 <code>oh-my-zsh</code> 项目来帮我们配置 <code>zsh</code>, 采用<code>wget</code>安装(需要先安装<code>git</code>)</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install git -y</span><br></pre></td></tr></table></figure>
-<p>然后输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-<p>更换shell,运行以下命令将默认shell更改为Zsh：</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure>
-<h1>ROS 的安装</h1>
-<p>这个维基百科说的太详细了,可参考网址 <code>wiki.ros.org/noetic/installnation/Ubuntu</code>,下面就简要的说一部分。首先先设置好Ubuntu 软件更新那部分,需要将允许 “restricted”,&quot;universe&quot;和“multiverse”,可参考网址 <code>https://help.ubuntu.com/community/Repositories/Ubuntu</code></p>
-<p>然后添加ROS源</p>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">sudo sh -c &#x27;<span class="keyword">echo</span> <span class="string">&quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot;</span> &gt; <span class="string">/etc/apt/sources.list.d/ros-latest.list</span>&#x27;</span><br></pre></td></tr></table></figure>
-<p>和密钥</p>
-<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"><span class="string">sudo</span> <span class="string">apt-key</span> <span class="string">adv</span> <span class="built_in">--keyserver</span> <span class="string">&#x27;hkp://keyserver.ubuntu.com:80&#x27;</span> <span class="built_in">--recv-key</span> <span class="string">C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span></span><br></pre></td></tr></table></figure>
-<p>添加结束后,刷新下 <code>sudo apt-get update</code>, 安装即可(我这里都安装了)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ros-noetic-desktop-full</span><br></pre></td></tr></table></figure>
-<p>如果不想每次打开命令行都 <code>souce /opt/ros/noetic/setup.bash</code>, 可以将此内容加到bash或zsh中,看自己用的shell了,自己的是zsh,所以直接加进去即可</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;souce /opt/ros/noetic/setup.bash&quot;</span> &gt;&gt; ~/.zshrc</span><br></pre></td></tr></table></figure>
-<p>这样每次打开一个命令行的时候,都会运行。</p>
-<h1>关闭Ubuntu开机时输入密码</h1>
-<p>主要是每次登陆虚拟机都要输入开机密码,比较烦, 有个简单的办法可以关闭, 在设置里找到下图所示的位置, 点击自动登陆即可</p>
-<div align="center"> <img src="/img/postImg/38_ubuntu/automaticLogin.png" width="100%" height="40%"> </div>
-<h1>dpkg frontend lock</h1>
-<p>常见报错了。。。。</p>
-<p>Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), is another process using it?</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /var/lib/dpkg/lock-frontend</span><br><span class="line"><span class="built_in">sudo</span> dpkg --configure -a</span><br></pre></td></tr></table></figure>
-<h1>查看根文件磁盘空间使用情况</h1>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">df</span> -h | grep <span class="string">&#x27;/$&#x27;</span></span><br></pre></td></tr></table></figure>
-<h1>删除桌面图标</h1>
-<p>个人问题， 喜欢桌面的清洁，除非非常非常重要的东西，一般不会把任何文件放置在桌面上的，下面主要是针对不容易删除的图标进行的操作</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">gsettings set org<span class="selector-class">.gnome</span><span class="selector-class">.shell</span><span class="selector-class">.extensions</span><span class="selector-class">.desktop-icons</span> show-trash false</span><br><span class="line">gsettings set org<span class="selector-class">.gnome</span><span class="selector-class">.shell</span><span class="selector-class">.extensions</span><span class="selector-class">.desktop-icons</span> show-home false</span><br></pre></td></tr></table></figure>
+<p>配置机器人开发机，需要依次确认四件事：<strong>操作系统与 ROS 能否配对，软件包能否可靠安装，当前终端是否找到正确的工作区，节点能否访问网络与硬件。</strong> 安装命令执行完，只完成了其中一部分。</p>
+<p>这篇笔记最初记录 Ubuntu 20.04、VirtualBox 和 ROS 1 Noetic。现在按截至 <strong>2026-10-13</strong> 的官方资料更新，主流程采用 <strong>Ubuntu 24.04 + ROS 2 Jazzy</strong>；使用本站 Humble Docker 环境的项目，则保持 <strong>Ubuntu 22.04 + Humble</strong>。命令默认在 Ubuntu 的 <strong>Bash</strong> 中运行，Zsh 的差异单独说明。</p>
+<p>配置是一条依赖链：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">版本与架构 → 时间 / 网络 / UTF-8 → APT 软件源 → ROS 安装</span><br><span class="line">          → Shell 环境 → 工作区构建 → 通信与设备 → 保存配置记录</span><br></pre></td></tr></table></figure>
+<p>先检查前一层，再排查后一层。<code>ros2: command not found</code> 应先查安装与环境；节点已经出现但没有消息，才继续查 QoS 和网络。</p>
+<h2 id="Ubuntu-与-ROS-版本配对">Ubuntu 与 ROS 版本配对</h2>
+<p>以下组合适合本篇的 Ubuntu 二进制安装流程。<code>amd64</code> 对应常见 x86-64 PC，<code>arm64</code> 对应 64 位 ARM；Ubuntu 支持某个架构，并不代表所有机器人驱动都已为该架构发布。</p>
+<table>
+<thead>
+<tr>
+<th>Ubuntu</th>
+<th>ROS 版本</th>
+<th>Ubuntu 标准安全维护至</th>
+<th>ROS 支持至</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>26.04 LTS，Resolute</td>
+<td>ROS 2 Lyrical</td>
+<td>2031 年 5 月</td>
+<td>2031 年 5 月</td>
+<td>新平台；先确认设备驱动和 SDK 已适配</td>
+</tr>
+<tr>
+<td>24.04 LTS，Noble</td>
+<td>ROS 2 Jazzy</td>
+<td>2029 年 5 月</td>
+<td>2029 年 5 月</td>
+<td>本文主流程，依赖适配此组合的开发项目</td>
+</tr>
+<tr>
+<td>22.04 LTS，Jammy</td>
+<td>ROS 2 Humble</td>
+<td>2027 年 5 月</td>
+<td>2027 年 5 月</td>
+<td>现有项目、厂商 SDK 与本站 Humble 环境</td>
+</tr>
+<tr>
+<td>20.04 LTS，Focal</td>
+<td>ROS 1 Noetic</td>
+<td>已于 2025 年 5 月结束</td>
+<td>已于 2025-05-31 结束</td>
+<td>历史项目的隔离维护与迁移</td>
+</tr>
+</tbody>
+</table>
+<p>依据 <a target="_blank" rel="noopener" href="https://ubuntu.com/about/release-cycle">Ubuntu 生命周期</a>、<a target="_blank" rel="noopener" href="https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases.rst">ROS 官方发行版列表</a>和 <a target="_blank" rel="noopener" href="https://discourse.ros.org/t/ros-noetic-end-of-life-may-31-2025/43160">Noetic EOL 公告</a>。Ubuntu Pro 的扩展维护与 ROS 发行版的维护是不同承诺，操作系统仍有扩展支持，不等于 Noetic 仍在官方维护期。</p>
+<p>Jazzy 的 Ubuntu deb 包面向 24.04，Humble 面向 22.04；Lyrical 的 Ubuntu 26.04 <code>amd64/arm64</code> 是 Tier 1，而 24.04 是需要源码构建的 Tier 3。不要给 24.04 添加 Jammy 源来装 Humble，也不要把 26.04 的 Lyrical 包装进 24.04。配对见 <a target="_blank" rel="noopener" href="https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html">Jazzy 安装说明</a>、<a target="_blank" rel="noopener" href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html">Humble 安装说明</a>和 <a target="_blank" rel="noopener" href="https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/lyrical/supported-platforms.rst">Lyrical 平台表</a>。</p>
+<p>先列出项目需要的 ROS 包、SDK 和内核驱动，再决定系统版本。Rolling 持续变化，适合测试新功能；长期项目应固定发行版。跨 ROS 发行版通信也不保证兼容，联调时尽量统一版本。</p>
+<h2 id="宿主机、虚拟机与-Docker">宿主机、虚拟机与 Docker</h2>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>适合的工作</th>
+<th>提前确认的边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ubuntu 原生安装</td>
+<td>USB、GPU 可视化、机器人实机联调</td>
+<td>设备驱动、双系统备份、磁盘容量</td>
+</tr>
+<tr>
+<td>Ubuntu 虚拟机</td>
+<td>Windows/macOS 上学习 CLI、编译普通工作区</td>
+<td>CPU 架构、USB 直通、3D 加速、虚拟网卡模式</td>
+</tr>
+<tr>
+<td>Linux Docker 容器</td>
+<td>固定依赖、自动构建、多项目隔离</td>
+<td>网络命名空间、设备映射、用户 ID、持久化目录</td>
+</tr>
+</tbody>
+</table>
+<p>虚拟机用于本机 talker/listener 时，NAT 通常足够；需要与局域网机器人发现彼此时，桥接更容易保持直观的拓扑，但仍取决于宿主策略和多播支持。相机和串口接入后，先在虚拟机中确认设备存在，宿主机能看到设备不代表虚拟机也能访问。</p>
+<p>容器有自己的文件系统与环境。宿主机执行过 <code>source /opt/ros/...</code> 不会自动配置容器；源码、日志和 bag 需要挂载或明确导出。原生 Linux 的 host 网络也不能直接等同于 Docker Desktop 的宿主网络行为，跨容器发现应按运行平台核验。<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/network/drivers/host/">Docker host 网络文档</a>解释了平台边界。</p>
+<p>本站已有 Docker 项目优先遵循对应的 Dockerfile、Compose 和 README。不要在宿主机再安装一套相同依赖去修补容器中的缺包。</p>
+<h2 id="系统身份、架构与时钟">系统身份、架构与时钟</h2>
+<p>先在 Ubuntu 终端读取状态：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/os-release</span><br><span class="line">dpkg --print-architecture</span><br><span class="line"><span class="built_in">uname</span> -m</span><br><span class="line"><span class="built_in">uname</span> -r</span><br><span class="line">timedatectl status</span><br><span class="line">ip -brief address</span><br></pre></td></tr></table></figure>
+<p>成功信号是发行版与前表相符，包架构为 <code>amd64/arm64</code>，网卡拿到预期地址，系统时间正确。<code>uname -m</code> 常显示 <code>x86_64/aarch64</code>，它与包管理器的架构名称不同。</p>
+<p>时间错误可能使 HTTPS 证书校验失败；多机时间不一致则可能使传感器融合和 TF 查询失败。使用 NTP/chrony 等统一校时，并确认同步状态；安装成功不能证明多机时间已同步。TF 时间问题见 <a href="/2026/09/27/ros2_tf2_tools_practical_guide/">TF2 时间窗口排查</a>。</p>
+<h2 id="UTF-8、软件源和基础工具">UTF-8、软件源和基础工具</h2>
+<h3 id="locale-只要求支持-UTF-8">locale 只要求支持 UTF-8</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">locale</span><br><span class="line">locale charmap</span><br></pre></td></tr></table></figure>
+<p>输出字符集应为 <code>UTF-8</code>。中文桌面可以保留 <code>zh_CN.UTF-8</code>；最小容器若还是 <code>POSIX</code>，才需要生成 UTF-8 locale。例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install locales</span><br><span class="line"><span class="built_in">sudo</span> locale-gen en_US.UTF-8</span><br><span class="line"><span class="built_in">sudo</span> update-locale LANG=en_US.UTF-8</span><br><span class="line"><span class="built_in">export</span> LANG=en_US.UTF-8</span><br><span class="line">locale charmap</span><br></pre></td></tr></table></figure>
+<p><code>update-locale</code> 保存系统默认值，<code>export</code> 影响当前终端。若已有 <code>LC_ALL</code> 覆盖 <code>LANG</code>，先检查其来源；只改变 <code>LANG</code> 不一定改变最终字符集。ROS 要求的是 <a target="_blank" rel="noopener" href="https://github.com/ros2/ros2_documentation/blob/jazzy/source/Installation/_Ubuntu-Set-Locale.rst">UTF-8 locale</a>，不是固定语言。</p>
+<h3 id="先读取-APT-软件源">先读取 APT 软件源</h3>
+<p>Ubuntu 源提供基础系统包，ROS 源补充 ROS 的包。读取配置与更新索引：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -RhsE <span class="string">&#x27;^(deb |URIs:|Suites:|Components:|Signed-By:)&#x27;</span> \</span><br><span class="line">  /etc/apt/sources.list /etc/apt/sources.list.d/</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br></pre></td></tr></table></figure>
+<p>24.04 等系统常使用 deb822 格式的 <code>ubuntu.sources</code>，旧系统可能主要使用 <code>sources.list</code>。替换镜像时只改服务器地址，保留发行版代号、updates/security 条目与签名设置。不能复制另一 Ubuntu 版本的源，也不要为解决签名报错关闭校验。参见 <a target="_blank" rel="noopener" href="https://documentation.ubuntu.com/server/how-to/software/package-management/">Ubuntu 软件包管理文档</a>。</p>
+<p><code>apt update</code> 更新索引，不会升级全部软件。成功信号是没有签名、Release 文件、DNS 等错误；<code>Ign</code> 本身不一定失败，要结合最后的警告判断。镜像慢先确认网络与 DNS，再考虑换镜像，避免同时改变多个条件。</p>
+<h3 id="安装基础开发工具">安装基础开发工具</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install software-properties-common</span><br><span class="line"><span class="built_in">sudo</span> add-apt-repository universe</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt upgrade</span><br><span class="line"><span class="built_in">sudo</span> apt install build-essential cmake git curl ca-certificates \</span><br><span class="line">  python3 python3-pip python3-venv vim ripgrep psmisc</span><br></pre></td></tr></table></figure>
+<p><code>universe</code> 提供许多开发依赖；编译器与 CMake 供 C++ 包使用，Git 管理源码，<code>venv</code> 供独立 Python 工具隔离依赖，<code>psmisc</code> 提供后面的锁诊断工具。审阅升级列表并按提示重启。全新 22.04 应先更新 <code>systemd/udev</code> 等基础包，再安装 Humble，详见 <a target="_blank" rel="noopener" href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html">官方安装提示</a>。</p>
+<p>不要用 <code>sudo pip install</code> 覆盖系统 Python 的 ROS 依赖。venv 是否能导入 <code>rclpy</code>，取决于系统包可见性、Python 版本和扩展模块 ABI；ROS 节点先使用发行版自带 Python 验证。</p>
+<p><a id="dpkg-frontend-lock"></a></p>
+<h3 id="dpkg-frontend-lock：先找到持锁进程">dpkg frontend lock：先找到持锁进程</h3>
+<p>APT 用锁防止多个安装操作同时修改数据库。开机自动更新、软件商店或另一个安装终端都可能持锁。<strong>删除锁文件不能停止正在运行的包管理器，还可能破坏并发保护。</strong> 原因见 <a target="_blank" rel="noopener" href="https://wiki.debian.org/Teams/Dpkg/FAQ">Debian dpkg 官方 FAQ</a>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ps -eo pid,etime,cmd | grep -E <span class="string">&#x27;[a]pt|[d]pkg|[u]nattended&#x27;</span></span><br><span class="line"><span class="built_in">sudo</span> fuser -v /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock</span><br><span class="line">systemctl status apt-daily.service apt-daily-upgrade.service</span><br><span class="line">journalctl -u apt-daily-upgrade.service -n 30 --no-pager</span><br></pre></td></tr></table></figure>
+<p>进程正常下载或配置时，等待完成并关闭重复安装界面。若确实卡死，先查日志与磁盘，再有针对性地停止对应服务或进程并确认退出；不要直接 <code>kill -9</code> 全部 apt/dpkg。</p>
+<p>只有确认没有正在运行的包管理操作，且先前安装中断留下未配置状态时，才运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dpkg --configure -a</span><br><span class="line"><span class="built_in">sudo</span> apt --fix-broken install</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br></pre></td></tr></table></figure>
+<p>成功信号是配置完成、依赖恢复，后续 APT 正常。如果修复过程要求删除关键系统包，应保留错误信息，先查依赖冲突。</p>
+<p><a id="ros-的安装"></a></p>
+<h2 id="ROS-的安装">ROS 的安装</h2>
+<h3 id="选择匹配的发行版">选择匹配的发行版</h3>
+<p>下面在 Bash 中自动选择前表的 Ubuntu 二进制安装组合。项目指定 Humble 时使用 22.04 环境，不要绕过检测：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">. /etc/os-release</span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$VERSION_ID</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">  22.04) ROS_TARGET=humble ;;</span><br><span class="line">  24.04) ROS_TARGET=jazzy ;;</span><br><span class="line">  26.04) ROS_TARGET=lyrical ;;</span><br><span class="line">  *) <span class="built_in">echo</span> <span class="string">&quot;此流程未覆盖 Ubuntu <span class="variable">$VERSION_ID</span>&quot;</span>; <span class="built_in">return</span> 1 2&gt;/dev/null || <span class="built_in">exit</span> 1 ;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">&#x27;Ubuntu=%s codename=%s ROS=%s arch=%s\n&#x27;</span> \</span><br><span class="line">  <span class="string">&quot;<span class="variable">$VERSION_ID</span>&quot;</span> <span class="string">&quot;<span class="variable">$VERSION_CODENAME</span>&quot;</span> <span class="string">&quot;<span class="variable">$ROS_TARGET</span>&quot;</span> <span class="string">&quot;<span class="subst">$(dpkg --print-architecture)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p><code>ROS_TARGET</code> 是安装阶段的变量，不等于加载环境后设置的 <code>ROS_DISTRO</code>。输出应与项目一致；接下来的安装代码块在同一个终端运行。</p>
+<h3 id="使用官方包管理源与密钥">使用官方包管理源与密钥</h3>
+<p>当前流程用 <code>ros2-apt-source</code> 管理源与签名配置，替代旧文的 <code>apt-key adv</code>。见 <a target="_blank" rel="noopener" href="https://github.com/ros2/ros2_documentation/blob/jazzy/source/Installation/_Apt-Repositories.rst">ROS 官方源配置</a>与 <a target="_blank" rel="noopener" href="https://github.com/ros-infrastructure/ros-apt-source">ros-apt-source 项目</a>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">configure_ros_source</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> source_version ubuntu_codename</span><br><span class="line">  source_version=$(curl -fsSL \</span><br><span class="line">    https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest \</span><br><span class="line">    | python3 -c <span class="string">&#x27;import json,sys; print(json.load(sys.stdin)[&quot;tag_name&quot;])&#x27;</span>) || <span class="built_in">return</span></span><br><span class="line">  <span class="built_in">test</span> -n <span class="string">&quot;<span class="variable">$source_version</span>&quot;</span> || <span class="built_in">return</span> 1</span><br><span class="line">  ubuntu_codename=$(. /etc/os-release; <span class="built_in">printf</span> <span class="string">&#x27;%s&#x27;</span> <span class="string">&quot;<span class="variable">$&#123;UBUNTU_CODENAME:-<span class="variable">$VERSION_CODENAME</span>&#125;</span>&quot;</span>)</span><br><span class="line">  curl -fL -o /tmp/ros2-apt-source.deb \</span><br><span class="line">    <span class="string">&quot;https://github.com/ros-infrastructure/ros-apt-source/releases/download/<span class="variable">$&#123;source_version&#125;</span>/ros2-apt-source_<span class="variable">$&#123;source_version&#125;</span>.<span class="variable">$&#123;ubuntu_codename&#125;</span>_all.deb&quot;</span> || <span class="built_in">return</span></span><br><span class="line">  <span class="built_in">sudo</span> dpkg -i /tmp/ros2-apt-source.deb || <span class="built_in">return</span></span><br><span class="line">  <span class="built_in">sudo</span> apt update</span><br><span class="line">&#125;</span><br><span class="line">configure_ros_source</span><br></pre></td></tr></table></figure>
+<p>配置记录中保存实际下载版本。下载失败就停在该步骤，不要继续安装旧的临时文件。已有 ROS 源的机器先查重复 URI 或冲突的 <code>Signed-By</code>，按官方迁移说明整理旧条目；不必再手写一份重复的 ROS 源。</p>
+<h3 id="选择-Desktop-或-ROS-Base">选择 Desktop 或 ROS Base</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt-cache policy <span class="string">&quot;ros-<span class="variable">$&#123;ROS_TARGET&#125;</span>-desktop&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> apt install <span class="string">&quot;ros-<span class="variable">$&#123;ROS_TARGET&#125;</span>-desktop&quot;</span> ros-dev-tools</span><br></pre></td></tr></table></figure>
+<p><code>apt-cache policy</code> 应有候选版本；没有候选时先查代号、架构与索引更新结果。Desktop 带 RViz、示例等，适合开发机；无图形设备可换成 <code>ros-${ROS_TARGET}-ros-base</code>，需要示例时另装 <code>ros-${ROS_TARGET}-demo-nodes-cpp</code> 和 <code>ros-${ROS_TARGET}-demo-nodes-py</code>。</p>
+<p>Jazzy 安装 <code>ros-dev-tools</code> 出现依赖版本冲突时，查 <code>ubuntu.sources</code> 是否包含 <code>noble-updates/noble-backports</code> 和单独的 <code>noble-security</code> 条目。不要把全部 Suites 填到安全更新专用服务器。<a target="_blank" rel="noopener" href="https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html">Jazzy 安装页</a>给出了该检查点。</p>
+<h3 id="Noetic-仅用于历史项目维护">Noetic 仅用于历史项目维护</h3>
+<p>旧文的 <code>ros-noetic-desktop-full</code> 属于 ROS 1，主要对应 20.04。保留隔离的旧环境、源码与包版本、bag 数据，并制定迁移计划。Noetic 的 <code>roscore/catkin/rostopic</code> 与 ROS 2 的 <code>ros2/colcon</code> 是不同工具链；不要把两套 setup 同时写入同一个终端启动文件。</p>
+<p><a id="oh-my-zsh"></a></p>
+<h2 id="Bash、Zsh-与-Oh-My-Zsh">Bash、Zsh 与 Oh-My-Zsh</h2>
+<p>Shell 决定命令语法、启动文件与补全；Oh-My-Zsh 是 Zsh 配置框架，并不是 ROS 依赖。先区分登录默认 Shell 与当前 Shell：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span> <span class="string">&#x27;登录默认 Shell: %s\n&#x27;</span> <span class="string">&quot;<span class="variable">$SHELL</span>&quot;</span></span><br><span class="line">ps -p $$ -o <span class="built_in">comm</span>=</span><br></pre></td></tr></table></figure>
+<p>交互 Bash 通常读取 <code>~/.bashrc</code>，交互 Zsh 读取 <code>~/.zshrc</code>。ROS 提供 <code>setup.bash/setup.zsh</code>；旧文的 <code>souce</code> 拼写与把 Bash setup 放进 Zsh 启动文件都应纠正。</p>
+<p>以 Jazzy 为例，按当前 Shell 选择一行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Bash</span></span><br><span class="line"><span class="built_in">source</span> /opt/ros/jazzy/setup.bash</span><br></pre></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Zsh</span></span><br><span class="line"><span class="built_in">source</span> /opt/ros/jazzy/setup.zsh</span><br></pre></td></tr></table></figure>
+<p>Humble/Lyrical 替换路径中的发行版。先在当前终端确认能运行 ROS，再把选定的一行加入对应启动文件；不要反复追加相同命令。多版本项目适合显式加载环境，或用项目独立启动脚本。</p>
+<p>需要 Zsh 时，可以先 <code>sudo apt install zsh</code>，在新终端运行 <code>zsh</code> 试用，再决定是否改变默认 Shell。Oh-My-Zsh 使用 <a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh#basic-installation">项目自身的安装说明</a>，先查看安装脚本与配置变更；完成 ROS 配置不需要执行远程 Shell 美化脚本。</p>
+<h2 id="验证安装：talker-与-listener">验证安装：talker 与 listener</h2>
+<p>这一步验证 C++ 发布节点、Python 订阅节点与本机通信。以下以 Jazzy 为例，每个终端独立加载环境。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 终端 A</span></span><br><span class="line"><span class="built_in">source</span> /opt/ros/jazzy/setup.bash</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$ROS_DISTRO</span>&quot;</span></span><br><span class="line">ros2 run demo_nodes_cpp talker</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 终端 B</span></span><br><span class="line"><span class="built_in">source</span> /opt/ros/jazzy/setup.bash</span><br><span class="line">ros2 run demo_nodes_py listener</span><br></pre></td></tr></table></figure>
+<p>成功信号是 A 持续输出 <code>Publishing</code>，B 输出对应编号的 <code>I heard</code>。<code>Ctrl+C</code> 停止节点。只有发布日志，不能认定通信成功。这是 <a target="_blank" rel="noopener" href="https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html">官方安装验收</a>使用的最小链路。</p>
+<p>节点运行时，用第三个同环境终端检查：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 node list</span><br><span class="line">ros2 topic list -t</span><br><span class="line">ros2 topic info /chatter --verbose</span><br><span class="line">ros2 doctor --report</span><br></pre></td></tr></table></figure>
+<p>应看到 talker/listener、<code>/chatter</code> 与消息类型。<code>doctor</code> 提供检查线索，警告要结合用途解释；没有警告也不能代替相机、TF 或控制回路验收。</p>
+<h2 id="underlay、overlay-与工作区">underlay、overlay 与工作区</h2>
+<h3 id="理解包的搜索顺序">理解包的搜索顺序</h3>
+<p><code>/opt/ros/jazzy</code> 是系统安装的 underlay，<code>~/ros2_ws</code> 是开发 overlay。加载 overlay 后，同名包可能优先从 overlay 找到；系统安装了某个包，不代表当前运行的是系统包。</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/opt/ros/jazzy          基础库与已发布的包</span><br><span class="line">    ↓ source underlay</span><br><span class="line">~/ros2_ws/install       自己构建的包，优先级更高</span><br><span class="line">    ↓ source overlay</span><br><span class="line">ros2 run / ros2 launch  按当前环境搜索包与可执行文件</span><br></pre></td></tr></table></figure>
+<p>构建终端加载所需 underlay；运行终端再加载 overlay。切换发行版、底层依赖或构建布局后，在新终端重建环境，避免旧路径参与解析。见 <a target="_blank" rel="noopener" href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html">官方工作区教程</a>。</p>
+<h3 id="rosdep-解析声明的系统依赖">rosdep 解析声明的系统依赖</h3>
+<p><code>rosdep</code> 读取 <code>package.xml</code>，把依赖 key 映射为当前系统的包；它不负责下载全部项目源码。先检查初始化状态：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">command</span> -v rosdep</span><br><span class="line"><span class="built_in">ls</span> /etc/ros/rosdep/sources.list.d/</span><br><span class="line"><span class="comment"># 尚未初始化时执行一次；已有默认配置则跳过</span></span><br><span class="line"><span class="built_in">sudo</span> rosdep init</span><br><span class="line"><span class="comment"># 普通用户更新缓存</span></span><br><span class="line">rosdep update</span><br></pre></td></tr></table></figure>
+<p>若提示默认配置已存在，保留配置并继续检查 <code>rosdep update</code>。不要直接删除整个配置目录，也不要习惯性地 <code>sudo rosdep update</code>。<a target="_blank" rel="noopener" href="https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Rosdep.html">rosdep 官方教程</a>说明了依赖映射。</p>
+<h3 id="创建、构建并运行最小包">创建、构建并运行最小包</h3>
+<p>在新的 Bash 构建终端，用生成的 C++ 节点检查工具链：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /opt/ros/jazzy/setup.bash</span><br><span class="line"><span class="built_in">mkdir</span> -p ~/ros2_ws/src</span><br><span class="line"><span class="built_in">cd</span> ~/ros2_ws/src</span><br><span class="line">ros2 pkg create --build-type ament_cmake --license Apache-2.0 --node-name hello_node \</span><br><span class="line">  setup_check --dependencies rclcpp</span><br><span class="line"><span class="built_in">cd</span> ~/ros2_ws</span><br><span class="line">rosdep install --from-paths src --ignore-src --rosdistro jazzy -y</span><br><span class="line">colcon list</span><br><span class="line">colcon build --symlink-install --packages-select setup_check</span><br></pre></td></tr></table></figure>
+<p><code>colcon list</code> 应找到 <code>setup_check</code>，总结应报告该包成功完成。工作区生成 <code>src/build/install/log</code>：源码、编译中间文件、可运行产物与 setup、构建日志分别存放其中。参考 <a target="_blank" rel="noopener" href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html">官方建包教程</a>。</p>
+<p>另开运行终端：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /opt/ros/jazzy/setup.bash</span><br><span class="line"><span class="built_in">source</span> ~/ros2_ws/install/local_setup.bash</span><br><span class="line">ros2 pkg prefix setup_check</span><br><span class="line">ros2 run setup_check hello_node</span><br></pre></td></tr></table></figure>
+<p>包路径应位于目标工作区，节点输出模板中的问候信息。<code>local_setup.bash</code> 只叠加本工作区；<code>setup.bash</code> 还加载构建时记录的 underlay 链。Zsh 使用相应的 <code>.zsh</code> 文件。</p>
+<p>实际项目中，<code>--packages-select</code> 只选包本身；需要连同工作区内依赖构建时用 <code>--packages-up-to</code>。<code>--symlink-install</code> 方便部分 Python/资源更新，C++ 仍需重新编译。不要用 sudo 构建，否则普通用户可能无法更新产物。</p>
+<h2 id="通信：环境、发现、数据三层排查">通信：环境、发现、数据三层排查</h2>
+<h3 id="Domain-ID-与当前环境">Domain ID 与当前环境</h3>
+<p>在每个参与通信的终端或容器中检查：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">env</span> | grep -E <span class="string">&#x27;^(ROS_|RMW_|AMENT_PREFIX_PATH|COLCON_PREFIX_PATH)&#x27;</span></span><br><span class="line">ip route</span><br></pre></td></tr></table></figure>
+<p>DDS 的 <code>ROS_DOMAIN_ID</code> 划分逻辑通信域，不同 Domain 的节点通常互相看不到。同一项目统一一个低位值，例如 <code>export ROS_DOMAIN_ID=10</code>，再重启节点。范围与进程数量、UDP 端口有关，不能无限增加；见 <a target="_blank" rel="noopener" href="https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Domain-ID.html">Domain ID 说明</a>。</p>
+<p>多机还要查 <code>ROS_LOCALHOST_ONLY</code>：Humble 中为 <code>1</code> 时限制在本机。Jazzy/Lyrical 可使用 <code>ROS_AUTOMATIC_DISCOVERY_RANGE</code> 等发现设置，按项目选择 <code>SUBNET/LOCALHOST</code>；先检查旧设置，避免遗留矛盾配置。这些发现范围变量不适用于 <code>rmw_zenoh</code>，它需要自己的路由配置。见 <a target="_blank" rel="noopener" href="https://docs.ros.org/en/jazzy/Tutorials/Advanced/Improved-Dynamic-Discovery.html">官方发现范围说明</a>。</p>
+<h3 id="发现节点与传输数据分别检查">发现节点与传输数据分别检查</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 node list</span><br><span class="line">ros2 topic info /目标话题 --verbose</span><br><span class="line"><span class="comment"># 发现环境改变后，检查 CLI 旧缓存</span></span><br><span class="line">ros2 daemon stop</span><br><span class="line">ros2 daemon start</span><br></pre></td></tr></table></figure>
+<p>重启 CLI daemon 不会重启节点或修复 QoS，应用节点需要在新环境中重新启动。先用同 ROS 版本、同 RMW 建立最小链路，避免同时引入跨发行版与跨中间件变量。</p>
+<p>多播可用一台的 <code>ros2 multicast receive</code> 与另一台的 <code>ros2 multicast send</code> 检查。收到报文仅说明这条多播路径可达，不代表全部 DDS 端口已放行。单机正常、多机失败时，查路由、网卡、VPN、NAT 和防火墙；用 <code>sudo ufw status verbose</code> 读取状态，按实际 DDS 配置设置允许范围，不把关闭防火墙作为默认方案。</p>
+<h3 id="有话题但-echo-没消息">有话题但 echo 没消息</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 topic info /camera/image_raw --verbose</span><br><span class="line">ros2 topic <span class="built_in">echo</span> /camera/image_raw --qos-reliability best_effort --once</span><br><span class="line">ros2 topic hz /camera/image_raw</span><br></pre></td></tr></table></figure>
+<p>传感器常用 best-effort，订阅者请求 reliable 时可能不匹配。上面的 echo 用于排查这一假设，前提是已确认类型与端点 QoS。<code>hz</code> 是当前订阅者观察到的接收频率，受网络、CPU 与 QoS 影响，不一定等于硬件采样率。</p>
+<p>reliability、durability、history/depth 要结合用途决定，不能为了看到消息全部改成 best-effort。继续看 <a href="/2025/09/15/archived_ros2_Qos/">ROS2 QoS 配置策略</a>和 <a href="/2026/10/12/ros2_rqt_practical_guide/">rqt 通信图与曲线</a>。</p>
+<h2 id="串口、USB-权限与稳定设备名">串口、USB 权限与稳定设备名</h2>
+<p>先区分内核是否识别设备与当前用户是否允许访问：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -l /dev/ttyUSB* /dev/ttyACM* /dev/serial/by-id/ 2&gt;/dev/null</span><br><span class="line"><span class="built_in">id</span></span><br><span class="line"><span class="built_in">sudo</span> journalctl -k -n 40 --no-pager</span><br><span class="line">udevadm info --query=property --name=/dev/ttyUSB0</span><br></pre></td></tr></table></figure>
+<p>没有节点时先查线缆、供电、驱动与 USB 直通；权限不足时看设备所属组。Ubuntu 串口通常归 <code>dialout</code>，确认后追加用户组：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -aG dialout <span class="string">&quot;<span class="variable">$USER</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注销并重新登录后</strong>用 <code>id</code> 检查新组。<code>-aG</code> 追加组，遗漏 <code>-a</code> 可能覆盖原附加组。不要用 <code>chmod 777</code> 作永久方案，它既放宽权限，又会在重新插入后失效。参见 <a target="_blank" rel="noopener" href="https://help.ubuntu.com/community/SerialConsoleHowto">Ubuntu 串口说明</a>。</p>
+<p>优先使用 <code>/dev/serial/by-id/...</code>。确需自定义别名时，根据实际属性写规则：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line"># /etc/udev/rules.d/99-robot-serial.rules</span><br><span class="line">SUBSYSTEM==&quot;tty&quot;, ATTRS&#123;idVendor&#125;==&quot;实际VID&quot;, ATTRS&#123;idProduct&#125;==&quot;实际PID&quot;, ATTRS&#123;serial&#125;==&quot;实际序列号&quot;, SYMLINK+=&quot;robot_imu&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;</span><br></pre></td></tr></table></figure>
+<p>这只是格式示意，不能原样使用。用 <code>udevadm info --attribute-walk --name=/dev/ttyUSB0</code> 核对属性，再重新加载规则并在安全停机状态重新插拔。成功信号是别名稳定指向目标设备、普通用户可访问、其他相同型号设备不被误匹配。语法见 <a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/latest/udev.html">systemd udev 手册</a>。</p>
+<p>Docker 还需明确映射设备和处理容器用户的数值组 ID；宿主加入 <code>dialout</code> 不会自动赋予容器用户权限。</p>
+<p><a id="查看根文件磁盘空间使用情况"></a></p>
+<h2 id="磁盘、日志与-bag">磁盘、日志与 bag</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">df</span> -h /</span><br><span class="line"><span class="built_in">df</span> -i /</span><br><span class="line"><span class="built_in">du</span> -h -d 1 ~/ros2_ws ~/.ros 2&gt;/dev/null</span><br><span class="line">journalctl --disk-usage</span><br></pre></td></tr></table></figure>
+<p><code>df -h</code> 查容量，<code>df -i</code> 查 inode；大量小文件也会在还有容量时耗尽 inode。<code>du</code> 查具体目录。ROS 运行日志常在 <code>~/.ros/log</code>，colcon 日志在工作区 <code>log</code>，bag 在录制时选择的输出目录。见 <a target="_blank" rel="noopener" href="https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Logging.html">ROS 日志说明</a>。</p>
+<p>空间不足先停止写入任务，保存需复现的日志与 bag，再有选择地归档清理。APT 下载缓存可用 <code>sudo apt clean</code> 清理；journal 按容量策略管理；工作区 <code>src</code> 是源码，不能和可再生成的构建目录一起删。容器空间另用 <code>docker system df</code> 检查，不把清理全部 Docker 数据作为常规操作。</p>
+<p><a id="关掉sudo的密码"></a></p>
+<h2 id="sudo、自动登录与桌面偏好">sudo、自动登录与桌面偏好</h2>
+<h3 id="sudo-保留默认授权方式">sudo 保留默认授权方式</h3>
+<p>旧文把全体 sudo 组改为 <code>NOPASSWD:ALL</code>，会让组内所有用户无密码执行任意管理员命令。日常开发保留默认策略，频繁执行一组管理命令时可先 <code>sudo -v</code> 更新凭据缓存。</p>
+<p>确需免密自动化时，把规则限定到专用用户、固定程序与所需参数，用 <code>sudo visudo -f /etc/sudoers.d/robot-task</code> 编辑，再用 <code>sudo visudo -c</code> 验证。脚本应由管理员拥有、普通用户不可修改；只限制路径却允许用户改脚本内容，并没有限制权限。具体语法见 <a target="_blank" rel="noopener" href="https://manpages.ubuntu.com/manpages/noble/en/man5/sudoers.5.html">Ubuntu sudoers 手册</a>。</p>
+<p><a id="关闭ubuntu开机时输入密码"></a></p>
+<h3 id="自动登录改变登录体验">自动登录改变登录体验</h3>
+<p>单人虚拟机可在“设置 → 用户”中解锁后启用自动登录，位置随桌面版本变化。它省去进入桌面的密码，不会取消 sudo 验证，也不能代替磁盘加密；共享开发机按场景保留登录控制。见 <a target="_blank" rel="noopener" href="https://help.gnome.org/users/gnome-help/stable/user-autologin.html.en">GNOME 自动登录说明</a>。</p>
+<p><a id="删除桌面图标"></a></p>
+<h3 id="桌面图标先检查扩展">桌面图标先检查扩展</h3>
+<p>旧文的 <code>org.gnome.shell.extensions.desktop-icons</code> 仅适用于特定旧扩展。新系统可能用 Desktop Icons NG（<code>ding</code>），先运行 <code>gsettings list-schemas | grep -E 'desktop-icons|ding'</code>，再用 <code>gsettings list-keys 对应schema</code> 查看实际选项，或在扩展设置中关闭家目录与回收站图标。没有 schema 时不要继续套用旧命令。</p>
+<h2 id="按现象排错">按现象排错</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>优先检查</th>
+<th>处理方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROS 包没有候选版本</td>
+<td>代号、架构、索引错误</td>
+<td>先修源，不混另一 Ubuntu 的源</td>
+</tr>
+<tr>
+<td><code>NO_PUBKEY</code> / 签名配置冲突</td>
+<td>重复源、源配置包</td>
+<td>按迁移说明整理旧条目，保留校验</td>
+</tr>
+<tr>
+<td>找不到 <code>ros2</code></td>
+<td>安装目录、Shell、setup</td>
+<td>区分未安装与未加载</td>
+</tr>
+<tr>
+<td>找不到新包</td>
+<td><code>colcon list</code>、构建总结、prefix</td>
+<td>查源码位置、构建与 overlay</td>
+</tr>
+<tr>
+<td>无法导入 <code>rclpy</code></td>
+<td>Python 路径、venv/Conda</td>
+<td>回到系统 Python 与新终端</td>
+</tr>
+<tr>
+<td>单机正常，多机无节点</td>
+<td>Domain、发现范围、网卡与 NAT</td>
+<td>用最小链路逐层排网络</td>
+</tr>
+<tr>
+<td>有话题却无数据</td>
+<td>类型、QoS、发布频率</td>
+<td>查匹配与数据是否真正产生</td>
+</tr>
+<tr>
+<td>串口权限不足</td>
+<td>设备组、用户组、容器映射</td>
+<td>修组权限并重新登录</td>
+</tr>
+<tr>
+<td>TF 超时或外推</td>
+<td>时钟、时间源、消息时间戳</td>
+<td>查 <code>use_sim_time</code>、<code>/clock</code> 与 TF 窗口</td>
+</tr>
+<tr>
+<td>构建或写文件突然失败</td>
+<td>容量、inode、所有者、内存</td>
+<td>区分磁盘、sudo 构建权限与 OOM</td>
+</tr>
+</tbody>
+</table>
+<p>分析崩溃、CPU 抖动与回调时序时看 <a href="/2026/09/27/ros2_debugging_gdb_tracing/">GDB、日志与 Tracing</a>；模型已加载但 RViz 空白时看 <a href="/2026/10/12/ros2_rviz2_practical_guide/">RViz 排查</a>。</p>
+<h2 id="保存可复现配置清单">保存可复现配置清单</h2>
+<p>记录至少包含 Ubuntu 版本与架构、内核、ROS 发行版、源配置包版本、项目 Git 提交、构建命令、加载顺序、RMW/Domain、设备规则与验收结果。“最新版本”要落到实际版本号，才能解释以后两台机器为什么表现不同。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/robot-config-record</span><br><span class="line"><span class="built_in">cat</span> /etc/os-release &gt; ~/robot-config-record/os-release.txt</span><br><span class="line"><span class="built_in">uname</span> -a &gt; ~/robot-config-record/kernel.txt</span><br><span class="line">dpkg-query -W ros2-apt-source &gt; ~/robot-config-record/ros-source-version.txt</span><br><span class="line">dpkg-query -W -f=<span class="string">&#x27;$&#123;Package&#125;\t$&#123;Version&#125;\n&#x27;</span> <span class="string">&#x27;ros-*&#x27;</span> \</span><br><span class="line">  &gt; ~/robot-config-record/ros-packages.tsv</span><br><span class="line">ros2 doctor --report &gt; ~/robot-config-record/ros-doctor.txt</span><br></pre></td></tr></table></figure>
+<p>人工补充：talker/listener 是否互通，项目能否从新终端构建，包 prefix 是否指向目标工作区，设备重新插入后的名字是否稳定，多机时钟与通信是否正常。导出前检查代理凭据、密钥等内容，记录只保留复现所需信息。</p>
+<p>后续升级系统、切换 ROS 或更改驱动时，用这份记录比较差异。配置完成的标准是 <strong>能说明当前加载了哪套环境，并能用最小链路证明编译、通信和设备访问各自正常</strong>。</p>
 
                 </div>
             </div>
@@ -876,6 +1087,10 @@
                     
                     <a class="tag-chip tag-chip--related" href="/tags/ros/">
                         <span class="tag-chip-name">ros</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/ros2/">
+                        <span class="tag-chip-name">ros2</span>
                     </a>
                     
                     <a class="tag-chip tag-chip--related" href="/tags/ubuntu/">

@@ -1,0 +1,1217 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.ico"/>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+		<!-- Modified by lsqyRobot -->
+    <title>
+    Beyond The Memory
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="google-site-verification" content="Mbr82TZaQktpHzJ9Wt0AZ4B9JFdVUi1Xjxs8gf20DDM" />
+    <meta name="keywords" content="mathematica,robotics,manipulator,ros,vim,matlab,C/C++,python,git,control theory,lsqyRobot" />
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/myCover.png') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+	
+	<link rel="stylesheet" href="/css/lsqy_main.css?v=20260907-reading-fast-1" />
+	<link rel="stylesheet" href="/css/dropdownMenu.css" />
+	
+	
+	
+	
+	
+	<link rel="stylesheet" href="/css/reading-progress.css?v=20260830-1" />
+	
+	
+	<link rel="stylesheet" href="/css/tags.css?v=20260921-index-1" />
+	
+	
+	<link rel="stylesheet" href="/css/prism_coy.css" />
+	<link rel="stylesheet" href="/css/typo.css?v=20260829-katex-baseline" />
+	<link rel="stylesheet" href="/css/post-code-blocks.css?v=20260906-1" />
+	<link rel="stylesheet" href="/css/post-toc.css?v=20260907-reading-fast-1" />
+	
+	
+	
+	<!-- Keep KaTeX last: its layout rules must win over theme and typography resets. -->
+	<link rel="stylesheet" href="../../../../../css/katex.min.css?v=0.16.45-layout2" />
+	<!--
+		Critical KaTeX layout fallback. Superscripts, subscripts, fractions and
+		operator limits use this vlist table internally. Keep these official
+		0.16.45 declarations inline so a stale/missing stylesheet or a preview
+		reset cannot flatten every script onto the text baseline.
+	-->
+	<style id="katex-critical-layout">
+		.katex .base {
+			display: inline-block !important;
+			position: relative !important;
+			white-space: nowrap !important;
+			width: -webkit-min-content;
+			width: -moz-min-content;
+			width: min-content;
+		}
+
+		.katex .strut {
+			display: inline-block !important;
+		}
+
+		.katex .vlist-t {
+			border-collapse: collapse !important;
+			display: inline-table !important;
+			table-layout: fixed !important;
+		}
+
+		.katex .vlist-r {
+			display: table-row !important;
+		}
+
+		.katex .vlist {
+			display: table-cell !important;
+			position: relative !important;
+			vertical-align: bottom !important;
+		}
+
+		.katex .vlist > span {
+			display: block !important;
+			height: 0 !important;
+			position: relative !important;
+		}
+
+		.katex .vlist > span > span {
+			display: inline-block !important;
+		}
+
+		.katex .vlist > span > .pstrut {
+			overflow: hidden !important;
+			width: 0 !important;
+		}
+
+		.katex .vlist-t2 {
+			margin-right: -2px !important;
+		}
+
+		.katex .vlist-s {
+			display: table-cell !important;
+			font-size: 1px !important;
+			min-width: 2px !important;
+			vertical-align: bottom !important;
+			width: 2px !important;
+		}
+
+		.katex .msupsub {
+			text-align: left !important;
+		}
+
+		.katex .mfrac > span > span {
+			text-align: center !important;
+		}
+
+		.katex .mfrac .frac-line {
+			border-bottom-style: solid !important;
+			display: inline-block !important;
+			min-height: 1px !important;
+			width: 100% !important;
+		}
+
+		.katex .mspace,
+		.katex .nulldelimiter {
+			display: inline-block !important;
+		}
+
+		.katex .nulldelimiter {
+			width: 0.12em !important;
+		}
+
+		.katex .sizing.reset-size6.size3,
+		.katex .fontsize-ensurer.reset-size6.size3 {
+			font-size: 0.7em !important;
+		}
+
+		.katex .sizing.reset-size3.size1,
+		.katex .fontsize-ensurer.reset-size3.size1 {
+			font-size: 0.7142857143em !important;
+		}
+
+		.katex .op-symbol {
+			position: relative !important;
+		}
+
+		.katex .op-symbol.small-op {
+			font-family: KaTeX_Size1 !important;
+		}
+
+		.katex .op-symbol.large-op {
+			font-family: KaTeX_Size2 !important;
+		}
+
+		.katex .op-limits > .vlist-t {
+			text-align: center !important;
+		}
+	</style>
+	
+	    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    
+    
+    
+    
+    <script src="/js/codeBlockFuction.js"></script>
+    
+
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+		
+
+
+<body class="reading-page">
+	
+	<div
+		id="readingProgress"
+		class="reading-progress"
+		role="progressbar"
+		aria-label="文章阅读进度"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow="0"
+		aria-valuetext="已阅读 0%"
+		data-reading-target=".post-article-content"
+		hidden
+	>
+		<div class="reading-progress-track" aria-hidden="true">
+			<div class="reading-progress-fill"></div>
+		</div>
+		<span class="reading-progress-label" aria-hidden="true">0%</span>
+	</div>
+	
+    <div id="wrapper" class="post-page-wrapper">
+        <header id="header">
+    <a href="/" class="logo">
+        <span id="typewriter-text"></span>
+        <span id="cursor">|</span>
+    </a>
+</header>
+
+<style>
+    #typewriter-text {
+        display: inline;
+    }
+
+    #cursor {
+        animation: blink 1s infinite;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+
+<script>
+(function() {
+    // 打字机文本数组
+    const texts = [
+        
+            
+                "DOTS...",
+            
+                "CODING...",
+            
+                "THINKING...",
+            
+                "CREATING...",
+            
+                "EXPLORING..."
+            
+        
+    ];
+
+    // 打字机设置
+    const settings = {
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        pauseTime: 1500,
+        startDelay: 500
+    };
+
+    const typewriterElement = document.getElementById('typewriter-text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // 打字阶段
+            if (charIndex < currentText.length) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, settings.typeSpeed);
+            } else {
+                // 完成打字，等待一段时间后开始删除
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeWriter();
+                }, settings.pauseTime);
+            }
+        } else {
+            // 删除阶段
+            if (charIndex > 0) {
+                typewriterElement.innerHTML = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeWriter, settings.deleteSpeed);
+            } else {
+                // 完成删除，切换到下一个文本
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 200); // 切换文本的间隔
+            }
+        }
+    }
+
+    // 页面加载完成后开始打字效果
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeWriter, settings.startDelay);
+    });
+})();
+</script>
+
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow"><img src="/img/home.png"></a>
+	        </li>
+
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="/categories/" aria-label="知识分类"><img src="/img/folder.png"></a>
+	        </li>
+	        
+
+
+	        <!-- about 关于我   --> 
+			<li>
+	        
+	            <a href="/about/" ><img src="/img/about.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- about 关于我的朋友   --> 
+			<li>
+	        
+	            <a href="/friend/" ><img src="/img/friend.png"></a>
+	        
+			</li>
+
+
+
+
+	        <!-- about 关于格言   --> 
+			<li>
+	        
+	            <a href="/quote/" ><img src="/img/quote.png"></a>
+	        
+			</li>
+
+
+	        <!-- about 关于搜索栏   --> 
+			<li>
+	        
+	            <a href="/search/" ><img src="/img/search.png"></a>
+	        
+			</li>
+
+
+
+	        <!-- gallery 相册   --> 
+			<li>
+	        
+			</li>
+
+
+
+	        <!-- my lover--> 
+			<li>
+	        
+	            <a href="/dudu/" ><img src="/img/myLoverLogo.png"></a>
+	        
+			</li>
+
+	        <!-- my tags--> 
+			<li>
+	        
+			</li>
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+			</ul>
+</nav>
+
+
+        <div id="main" class="post-page-main">
+            <header class="post_page_title_img" style="--post-cover-image: url(/img/postImg/17_Control/logo/sandcastle-766949_1280.jpg);">
+                <div class="post-page-cover-media" aria-hidden="true">
+                    <div class="post_page_title_blur"></div>
+                    <div class="post_page_title_main"></div>
+                </div>
+                <h1 class="post-page-title">振动 02：频谱、阶次与机械故障排查</h1>
+            </header>
+
+            <div class="post-content-shell">
+                <aside class="post-toc-sidebar" aria-label="文章目录" hidden>
+                    <details class="post-toc-card" open>
+                        <summary class="post-toc-title"><span>文章目录</span><span class="post-toc-toggle-label" aria-hidden="true"></span></summary>
+                        <nav class="post-toc-nav" aria-label="章节" tabindex="0"></nav>
+                        <button type="button" class="post-toc-top-button">回顶部</button>
+                    </details>
+                </aside>
+
+                <div class="typo post-article-content">
+                    <p>电机外壳振得很厉害，频谱里恰好有一个转频峰，就能判断“不平衡”吗？还不够。转子偏心、不对中、结构共振和松动，都可能让同一位置的转频响应升高。我们测到的是激励经过结构传递后的结果，还叠加了测点、方向、传感器安装和工况的影响。</p>
+<p>本篇从“怎样获得可信数据”开始，说明时域、频谱、阶次、相位怎样互相补充，再用一套完整的齿轮箱案例串起诊断。频率告诉我们去哪里找证据，验证后的机械原因才决定怎样处理。</p>
+<span id="more"></span>
+<link rel="stylesheet" href="/css/vibration-notes.css">
+<h2 id="一、先定义比较对象：测到了谁、在什么工况下测">一、先定义比较对象：测到了谁、在什么工况下测</h2>
+<p>同一台机器换了测点、转速或负载，总振动值就可能明显变化。一次测量至少保存以下信息，后续趋势和维修前后对比才有意义。</p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>具体记录</th>
+<th>为什么需要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>设备与测点</td>
+<td>电机驱动端轴承座、减速器输入端、输出端、底座</td>
+<td>测量位置对应不同的激励与传递路径</td>
+</tr>
+<tr>
+<td>方向与坐标</td>
+<td>水平径向 H、垂直径向 V、轴向 A，传感器正方向</td>
+<td>径向与轴向响应不同；方向反转还会改变相位符号</td>
+</tr>
+<tr>
+<td>工况</td>
+<td>转速、负载或扭矩、温度、稳态或升降速</td>
+<td>激励和接触状态都会随工况改变</td>
+</tr>
+<tr>
+<td>安装与量程</td>
+<td>螺柱、胶粘或磁座；传感器型号、灵敏度、量程</td>
+<td>安装刚度与传感器频响决定可信频带</td>
+</tr>
+<tr>
+<td>采集与处理</td>
+<td>采样率、记录时长、滤波、窗、单位与幅值定义</td>
+<td>相同数字可能来自不同频带和标度</td>
+</tr>
+</tbody>
+</table>
+<p>轴承座附近的刚性部位通常更适合观察传递到支承上的振动。薄罩壳可能主要响应自身局部模态；把这里的振幅当作轴承实际运动，会把结构响应误当作故障激励。</p>
+<p>B&amp;K 的<a target="_blank" rel="noopener" href="https://www.bksv.com/de/knowledge/blog/vibration/avoid-errors-using-accelerometers">加速度计测量误差说明</a>强调，接近轴承、经过较直接的刚性传递路径测量，可以减少接合面和其他部件振动的干扰。测点并不是越方便贴传感器越好。</p>
+<h3 id="位移、速度、加速度强调的频段不同">位移、速度、加速度强调的频段不同</h3>
+<p>对单一正弦运动，位移幅值 X、速度幅值 V、加速度幅值 A 满足：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>f</mi><mi>X</mi><mo separator="true">,</mo><mspace width="2em"/><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>f</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mi>X</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">V=2\pi fX,\qquad A=(2\pi f)^2X.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="mord">.</span></span></span></span></span></p>
+<p>相同位移在高频下对应更大的加速度，所以加速度谱更容易突出高频冲击；速度常用于观察机械中频响应，位移更直接反映低频运动和间隙。它们的数值不能直接比较大小。</p>
+<p>例如一条 10 Hz 的正弦位移，峰值 0.1 mm，对应速度峰值约 6.28 mm/s，加速度峰值约 0.395 m/s²。换成 100 Hz、仍保持相同位移，加速度增加 100 倍。</p>
+<p>真实信号含许多频率，不能把“整体加速度 RMS”除以一个任意转频就转换成整体速度 RMS。频域积分要逐频处理，并说明低频截止；时域积分还需要处理偏置和漂移。压电加速度计也不能被当作可测静态位移的传感器。</p>
+<h3 id="单位相同，还要核对频带和幅值定义">单位相同，还要核对频带和幅值定义</h3>
+<p><code>mm/s RMS</code>、<code>mm/s peak</code> 和峰峰值不是同一个量。纯正弦信号才有 <code>peak=√2·RMS</code>、峰峰值为两倍峰值的固定关系；冲击信号不能机械照搬。</p>
+<p>总振动值还取决于积分频带。10–1000 Hz 的 RMS 与 2–5000 Hz 的 RMS 不宜直接比较；只有测点、方向、工况、频带和标度一致，趋势才可解释。<a target="_blank" rel="noopener" href="https://www.skf.com/binaries/pub12/Images/0901d196802179ea-JM02001_Introduction_Guide_to_Vibration_Monitoring_2017_tcm_12-312756.pdf">SKF 振动监测入门指南</a>也将频带和标度作为整体振动比较的必要条件。</p>
+<h2 id="二、从传感器到采样：先排除测量制造的“故障”">二、从传感器到采样：先排除测量制造的“故障”</h2>
+<h3 id="安装方式会改变高频响应">安装方式会改变高频响应</h3>
+<p>同一只加速度计，螺柱连接、胶粘、磁座和手持探针的安装刚度不同，装配共振与有效测量频带也不同。高频啮合谐波或冲击分析时，应核对传感器和安装组合的频响，不能只看传感器裸件的最高频率。</p>
+<p>传感器接触面应符合其安装要求，线缆固定方式应避免摩擦和拉扯造成伪信号。三轴传感器虽然一次获得三个方向，也要保存它在机器坐标中的姿态。</p>
+<p>采集前后检查过载和削顶：如果时域波形的上下端被截成平平台，FFT 可能出现人为的高次谐波。量程过大则降低小信号可辨性；量程应结合冲击峰值选择，而不只是参照 RMS。</p>
+<h3 id="奈奎斯特条件是起点，不是完整测量方案">奈奎斯特条件是起点，不是完整测量方案</h3>
+<p>采样率为 fs 时，奈奎斯特频率为 fs/2。希望分析到 1000 Hz，并不意味着设为刚好 2000 Hz 就已满足实测要求：传感器仍可能收到更高频的信号，模拟滤波器也需要过渡带。</p>
+<p>采样前应有合适的反混叠滤波，采样率与可用通带按采集系统规格配套选取。NI 的<a target="_blank" rel="noopener" href="https://www.ni.com/en/shop/data-acquisition-and-control/sound-and-vibration/dynamic-signal-acquisition-fundamentals.html">动态信号采集说明</a>解释了带外分量折叠到带内，以及随采样率调整的抗混叠滤波和同步采集机制。</p>
+<p>例如以 2000 Hz 采样，未被滤除的 1700 Hz 正弦会表现成 300 Hz。此时只看数据文件，无法判断 300 Hz 来自真实啮合激励，还是带外信号的混叠；采样后再低通也恢复不了原来的身份。</p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/vibration_notes/measurement-chain.svg" alt="传感器、模拟反混叠、ADC 与频谱阶次的测量链；以 2000 Hz 采样时未滤除的 1700 Hz 会混叠为 300 Hz，转速和振动需要同步采集" loading="lazy" decoding="async"></p>
+<p>需要降低采样率时，也应先对高采样率数据低通再抽取。直接每隔几个点取一次，相当于再次制造混叠机会。</p>
+<h2 id="三、FFT：谱线变细，不等于能分清相邻成分">三、FFT：谱线变细，不等于能分清相邻成分</h2>
+<h3 id="记录时长决定基础频率间隔">记录时长决定基础频率间隔</h3>
+<p>采样率 fs、实际记录点数 N、时长 T 满足：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mo>=</mo><mfrac><mi>N</mi><msub><mi>f</mi><mi>s</mi></msub></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi mathvariant="normal">Δ</mi><mi>f</mi><mo>=</mo><mfrac><msub><mi>f</mi><mi>s</mi></msub><mi>N</mi></mfrac><mo>=</mo><mfrac><mn>1</mn><mi>T</mi></mfrac><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">T=\frac{N}{f_s},\qquad \Delta f=\frac{f_s}{N}=\frac{1}{T}.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.2408em;vertical-align:-0.8804em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.109em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">Δ</span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.109em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">T</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord">.</span></span></span></span></span></p>
+<p>Δf 是 FFT 频率格点间隔。两个频率能否真正区分，还取决于窗函数主瓣宽度、两峰幅值差和噪声；不能把 Δf 当作对所有信号都适用的分辨保证。</p>
+<p>以下按 fs=5120 Hz 比较两种<strong>实际采集长度</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>实际点数 N</th>
+<th style="text-align:right">时长 T</th>
+<th style="text-align:right">格点间隔 Δf</th>
+<th>面对相隔 5 Hz 的边带</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1024</td>
+<td style="text-align:right">0.2 s</td>
+<td style="text-align:right">5 Hz</td>
+<td>只有一格间距，Hann 主瓣容易把相邻成分混在一起</td>
+</tr>
+<tr>
+<td>8192</td>
+<td style="text-align:right">1.6 s</td>
+<td style="text-align:right">0.625 Hz</td>
+<td>相隔 8 格，更适合识别窄间距边带</td>
+</tr>
+</tbody>
+</table>
+<p>延长记录可以改善稳态频率区分能力，却也要求这段时间内工况足够稳定。快速升速期间使用很长的固定时间窗，转频会在窗内移动，谱峰仍可能被拉宽。</p>
+<p>给 1024 点数据补零到 8192 点，只增加频谱插值格点，不增加 0.2 秒之外的信息；它可以帮助显示和估计峰的位置，却没有获得真实 1.6 秒记录的分辨能力。</p>
+<h3 id="窗函数解决泄漏，同时带来主瓣宽度代价">窗函数解决泄漏，同时带来主瓣宽度代价</h3>
+<p>FFT 把有限记录看作周期重复。若记录两端接不上，就会出现泄漏：原本集中的单频能量散到邻近格点。加窗减弱端点突变，但同时改变峰的宽度与幅值标度。</p>
+<table>
+<thead>
+<tr>
+<th>窗</th>
+<th>适合的目的</th>
+<th>需要付出的代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>矩形窗</td>
+<td>同步整数周期，或需要较窄主瓣的特定分析</td>
+<td>非整数周期时旁瓣泄漏较强</td>
+</tr>
+<tr>
+<td>Hann 窗</td>
+<td>一般稳态振动频谱</td>
+<td>相邻成分会受到较宽主瓣影响</td>
+</tr>
+<tr>
+<td>Flat-top 窗</td>
+<td>优先关注孤立正弦峰的幅值精度</td>
+<td>主瓣更宽，不适合紧邻谱线的区分</td>
+</tr>
+</tbody>
+</table>
+<p>这些取舍可核对 <a target="_blank" rel="noopener" href="https://www.ni.com/en/shop/data-acquisition/measurement-fundamentals/analog-fundamentals/understanding-ffts-and-windowing.html">NI 的 FFT 与窗函数说明</a>。窗没有一个对所有工况都最好的选项。</p>
+<p>比较维修前后的幅值时，还要使用一致的单边谱标度和窗增益修正。比较宽带能量时宜明确使用 PSD 及其单位，例如 <code>(m/s²)²/Hz</code>；频带均方值由 PSD 对频率积分得到。不能把每格幅值、每格功率与每 Hz 功率密度混在同一张趋势图中。</p>
+<h3 id="平均可以稳定读数，也可能隐藏异常">平均可以稳定读数，也可能隐藏异常</h3>
+<p>稳态多段平均有助于降低谱估计的随机波动；但短暂撞击会在平均后不显眼。因此保存原始时域记录，同时观察 RMS、峰值和峰值因子 <code>peak/RMS</code>。</p>
+<p>峰值因子高提示波形尖锐，却不是“轴承损坏”的专属标签。碰撞、线缆噪声、齿隙换向和偶发外部冲击，也会造成尖峰。先核对时域事件，再讨论来自哪个机械部件。</p>
+<h2 id="四、Hz-与阶次：转速变化时要换一种坐标">四、Hz 与阶次：转速变化时要换一种坐标</h2>
+<p><span id="vibration-orders"></span></p>
+<p>转速 n 的单位为 rpm，转频为 <code>fr=n/60</code> Hz。相对某根参考轴，频率 f 的阶次为：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>o</mi><mo>=</mo><mfrac><mi>f</mi><msub><mi>f</mi><mi>r</mi></msub></mfrac><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">o=\frac{f}{f_r}.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">o</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.2519em;vertical-align:-0.8804em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord">.</span></span></span></span></span></p>
+<p>900 rpm 对应 15 Hz。相对该输入轴，15 Hz 为 1 阶，30 Hz 为 2 阶，300 Hz 为 20 阶。换另一根轴作为参考，同一条 300 Hz 谱线的阶次会改变，因此必须在图上注明参考轴。</p>
+<h3 id="为什么不能把变速-FFT-的横轴简单除以平均转频">为什么不能把变速 FFT 的横轴简单除以平均转频</h3>
+<p>输入轴从 600 升到 1200 rpm，1 阶频率从 10 移到 20 Hz。一次长记录的固定时间 FFT 会把这段移动积累成宽峰；除以平均转频也不能把它重新收拢为精确的 1 阶。</p>
+<p>阶次跟踪通常用同步的转速或编码器信号建立角度，再将振动数据重采样到等角度间隔。这样每转发生固定次数的激励，在阶次域保持固定位置。<a target="_blank" rel="noopener" href="https://www.ni.com/docs/ne-NP/bundle/diadem/page/genmaths/genmaths/calc_oa_resampling.htm">NI 的角度重采样文档</a>说明了固定时间采样与等角度分析之间的转换。</p>
+<p>角度重采样同样需要带宽与抗混叠条件。高转速下每转时间采样点不足、低转速下参考脉冲稀疏、转速脉冲丢失或快速变速时角度插值不准，都可能污染高阶成分。阶次图同样受到采集误差的影响。</p>
+<h3 id="用瀑布图把激励和共振分开观察">用瀑布图把激励和共振分开观察</h3>
+<p>把不同转速下的频谱沿转速方向排列，就得到频率–转速瀑布图或颜色谱图。与转速成正比的成分，在 Hz 坐标中沿斜线移动；相对稳定的结构固有频率则常留在接近固定的 Hz 位置。</p>
+<p>当某条阶次线穿过一个固有频率，响应可能明显放大。这个“随转速走的激励 + 大致固定的模态频率”的交点，是共振候选证据；应结合幅相和模态验证，不应只凭图上一个亮点下结论。</p>
+<p>阶次–转速图让同步阶次成分保持在固定阶次；固定 Hz 的结构频率则随转速改变所对应的阶次。两张图回答不同问题，可以一起保留。<a target="_blank" rel="noopener" href="https://www.ni.com/en/shop/labview/performing-order-analysis-in-labview-with-sound-and-vibration-so.html">NI 阶次分析说明</a>列出了阶次幅相、瀑布图与转速处理之间的联系。</p>
+<h2 id="五、相位与同步测量：幅值相同，也可能是不同运动">五、相位与同步测量：幅值相同，也可能是不同运动</h2>
+<p>单个测点的幅值不能描述机器怎样一起运动。两个测点同频、同幅，可能同向运动，也可能反向运动；差别需要相位或空间振型来表达。</p>
+<p>跨轴承、跨联轴器比较相位时，应使用同步通道，或将各测点相位都关联到稳定的共同转速基准。先后手持测量又没有共同相位参考，不能直接把两次 FFT 的相位相减。</p>
+<p>通道延迟也会伪造相位差。例如延迟 1 ms，在 300 Hz 上对应 <code>360°×300×0.001=108°</code>。分析之前应核对采集同步、滤波延迟和传感器方向。</p>
+<p>复互谱与相干函数可帮助判断某频率上的线性关联和估计可信性，但高相干不能单独证明“哪个测点是根因”。两处都受同一激励驱动时，也可能高度相干。</p>
+<h2 id="六、常见机械现象：建立候选原因，而后验证">六、常见机械现象：建立候选原因，而后验证</h2>
+<p><span id="vibration-diagnosis"></span></p>
+<h3 id="不平衡：1-阶是线索，还要看幅相与工况">不平衡：1 阶是线索，还要看幅相与工况</h3>
+<p>质量中心偏离旋转轴线会产生旋转力，在简化模型中力幅值与转速平方相关。径向 1 阶明显、相位重复性较好，是常见线索；机器的响应还受支承方向刚度和共振影响，振幅不必在全部转速上简单按平方增长。</p>
+<p>核对转子附着物、缺失部件、装配偏心和历史平衡状态。确认支承、对中与结构问题后，再采用适合转子和转速范围的平衡流程；如果实际是共振或松动，单纯加配重可能处理错对象。</p>
+<h3 id="不对中：需要联轴器两侧和轴向证据">不对中：需要联轴器两侧和轴向证据</h3>
+<p>轴线偏置或夹角会让联轴器和支承承受周期载荷，可能出现较高轴向振动、1 阶与 2 阶成分。热态轴线还可能与冷态对中状态不同。</p>
+<p>比较联轴器两侧的方向与同步相位，结合对中测量、软脚检查、温升及负载变化。2 阶峰可作为候选证据，但不是充分条件，也不是每种不对中都必然有高 2 阶。</p>
+<h3 id="松动：周期波形失真可能产生一串谐波">松动：周期波形失真可能产生一串谐波</h3>
+<p>连接或配合存在松动时，接触可能经历压紧、脱离与再撞击，使波形失真，出现多次转频谐波，有时还有分数阶和宽带成分。仪器削顶也会制造谐波，所以先排除量程问题。</p>
+<p>停机核对底脚、连接面、螺栓预紧、轴承座配合和裂纹；不要用“谐波多”替代实物检查。SKF 的<a target="_blank" rel="noopener" href="https://www.skf.com/binaries/pub12/Images/0901d1968024acef-CM5118-EN-Spectrum-Analysis_tcm_12-113997.pdf">谱分析指南</a>同时讨论了不平衡、不对中与松动，并使用频谱和相位协助区分，本文将这些征兆作为验证入口。</p>
+<h3 id="共振：激励未必变大，响应却可能大幅升高">共振：激励未必变大，响应却可能大幅升高</h3>
+<p>当转频、倍频或啮合频率接近结构固有频率，传递函数可能放大响应。振幅集中在一段转速、随转速穿越出现显著变化，比“某个频率很高”更支持共振候选。</p>
+<p>使用受控升降速的幅相曲线，并在合适状态下进行锤击或其他模态测试，确认模态频率、振型与阻尼。运行中的大响应频率不应直接命名为固有频率；需要把激励频率和系统模态分开。</p>
+<p>转子临界转速还与旋转中的陀螺效应、轴承和密封的动力特性有关，模态可能随转速变化。轴振与机壳振动反映的对象也不同；需要结合轴心轨迹、转速–频率图和转子动力学模型，不能用一次停机锤击的频率直接给出全部临界转速。</p>
+<h3 id="滚动轴承：特征频率需要实际几何与运动条件">滚动轴承：特征频率需要实际几何与运动条件</h3>
+<p>内圈、外圈、滚动体与保持架相关频率常记为 BPFI、BPFO、BSF、FTF。预测需要滚动体数、滚动体直径、节圆直径、接触角和内外圈的转动条件；不能把它们统一写成固定几倍转频。实际滑移、载荷和接触角变化还会让测得频率偏离理想值。</p>
+<p>局部缺陷反复接触时可能产生冲击，激起结构的高频响应。包络分析是先选择合适的响应频带，再解调周期变化；包络谱中的候选频率应与转速跟随、原始冲击、负载、润滑和机械检查一起核对。宽带高频并不只来自轴承。<a target="_blank" rel="noopener" href="https://www.skf.com/binaries/pub12/Images/0901d1968024acef-CM5118-EN-Spectrum-Analysis_tcm_12-113997.pdf">SKF 谱分析指南</a>列出了这些几何相关频率及包络诊断方法。</p>
+<h3 id="擦碰与摩擦粘滑：接触过程会改变动力学">擦碰与摩擦粘滑：接触过程会改变动力学</h3>
+<p>转子与静止部件擦碰会引入接触刚度、摩擦和热效应，可能出现轨迹变化、谐波、分数阶或响应突变。频谱形式会随转速、接触位置、预载和材料改变，不能规定“出现半阶就一定擦碰”。<a target="_blank" rel="noopener" href="https://ntrs.nasa.gov/api/citations/19890016092/downloads/19890016092.pdf">NASA 的擦碰试验报告</a>展示了这些参数对转子响应的影响。验证需结合间隙、温升、擦痕、轴心轨迹与热态变化。</p>
+<p>粘滑则表现为接触相对运动在粘住与滑动之间切换，弹性储能反复积累和释放。驱动速度、接触法向力、润滑和摩擦规律会改变是否发生粘滑；需要联测相对速度或位移、驱动力和振动，不能只在加速度谱中搜索一个固定峰。<a target="_blank" rel="noopener" href="https://iris.uniroma1.it/handle/11573/1279850">摩擦振动实验研究</a>也表明不同摩擦条件可触发不同类型的振动失稳。</p>
+<h3 id="强迫振动与自激振动：能量输入机制不同">强迫振动与自激振动：能量输入机制不同</h3>
+<p>不平衡、啮合和周期压力是典型的外部周期激励，主要频率通常与转速或其他外部周期关联。自激振动则通过运动与力之间的反馈，从持续运行的能量来源取得能量，振动可以自行增长；切削再生颤振、某些摩擦失稳和流体诱导转子失稳属于这类候选机制。</p>
+<p>自激峰可能接近某个模态频率，却不必严格随转速保持整数阶次。需要观察稳定边界、增长或衰减过程、负载变化、表面纹理与反馈模型；“不跟转速移动”本身也不能证明自激。Cleveland State University 的<a target="_blank" rel="noopener" href="https://academic.csuohio.edu/romadyc/suppression-of-chatter-in-high-speed-machining/">切削颤振研究说明</a>将颤振明确描述为刀具与工件间的自激振动。</p>
+<h3 id="流体与电磁激励：机械频谱中也会出现其他能量源">流体与电磁激励：机械频谱中也会出现其他能量源</h3>
+<p>泵和风机可能同时受到叶片通过激励、压力脉动、涡流和气蚀影响。叶片数乘转频给出叶片通过频率，但并非所有流体激励都严格同步；应联测压力、流量、进出口条件与振动。<a target="_blank" rel="noopener" href="https://www.ksb.com/en-pl/magazine/optimisation-opportunities/ses-system-efficiency-service-in-a-water-works">KSB 的水泵案例</a>展示了叶片通过激励碰上结构模态后，如何用多通道测量与锤击试验确认原因。</p>
+<p>电动机还可能有电磁力、供电谐波及驱动开关相关激励。供电频率、电机极数、转差和驱动方式共同决定候选成分；某些电磁问题可见两倍供电频率，但不能据此把所有 100 Hz 峰都定义为电气故障。应结合电流、电压与运行状态检查。<a target="_blank" rel="noopener" href="https://cdn.skfmediahub.skf.com/api/public/0901d196802186cb/pdf_preview_medium/0901d196802186cb_pdf_preview_medium.pdf">SKF 的电机谱分析资料</a>给出了电源、转差和转子/定子相关的候选频率。</p>
+<h2 id="七、齿轮箱案例：先算频率，再解释边带">七、齿轮箱案例：先算频率，再解释边带</h2>
+<p><span id="gear-mesh-example"></span></p>
+<p>一对外啮合齿轮，输入小齿轮 20 齿、输出大齿轮 60 齿，输入转速 900 rpm。假定正常啮合、齿数和传动关系已确认：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>=</mo><mfrac><mn>900</mn><mn>60</mn></mfrac><mo>=</mo><mn>15</mn><mtext> </mtext><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">z</mi></mrow><mo separator="true">,</mo><mspace width="2em"/><msub><mi>f</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>=</mo><mn>15</mn><mfrac><mn>20</mn><mn>60</mn></mfrac><mo>=</mo><mn>5</mn><mtext> </mtext><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">z</mi></mrow><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">f_{in}=\frac{900}{60}=15\ \mathrm{Hz},\qquad
+f_{out}=15\frac{20}{60}=5\ \mathrm{Hz}.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">60</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">900</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord">15</span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">Hz</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord">15</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">60</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">20</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">5</span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">Hz</span></span><span class="mord">.</span></span></span></span></span></p>
+<p>每秒通过啮合位置的齿数，就是啮合频率：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>f</mi><mrow><mi>m</mi><mi>e</mi><mi>s</mi><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>z</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><msub><mi>f</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>=</mo><mn>20</mn><mo>×</mo><mn>15</mn><mo>=</mo><msub><mi>z</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><msub><mi>f</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>=</mo><mn>60</mn><mo>×</mo><mn>5</mn><mo>=</mo><mn>300</mn><mtext> </mtext><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">z</mi></mrow><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">f_{mesh}=z_{in}f_{in}=20\times15
+         =z_{out}f_{out}=60\times5=300\ \mathrm{Hz}.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">es</span><span class="mord mathnormal mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">20</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">15</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">60</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">300</span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">Hz</span></span><span class="mord">.</span></span></span></span></span></p>
+<p class="learning-figure" tabindex="0"><img src="/img/postImg/vibration_notes/gear-mesh-sidebands.svg" alt="20 齿输入轮 900 rpm 对应 15 Hz，60 齿输出轮 300 rpm 对应 5 Hz；300 Hz 啮合频率周围的 295、305 与 285、315 Hz 边带仅示意频率关系，线高不是实测值" loading="lazy" decoding="async"></p>
+<table>
+<thead>
+<tr>
+<th>成分</th>
+<th style="text-align:right">频率</th>
+<th style="text-align:right">相对输入轴的阶次</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入轴转频</td>
+<td style="text-align:right">15 Hz</td>
+<td style="text-align:right">1</td>
+<td>输入每转一次的同步成分</td>
+</tr>
+<tr>
+<td>输出轴转频</td>
+<td style="text-align:right">5 Hz</td>
+<td style="text-align:right">1/3</td>
+<td>输出相对输入减速 3 倍</td>
+</tr>
+<tr>
+<td>啮合频率</td>
+<td style="text-align:right">300 Hz</td>
+<td style="text-align:right">20</td>
+<td>每输入转啮合 20 次</td>
+</tr>
+<tr>
+<td>输出转频调制的第一对边带</td>
+<td style="text-align:right">295、305 Hz</td>
+<td style="text-align:right">19⅔、20⅓</td>
+<td>300±5 Hz</td>
+</tr>
+<tr>
+<td>输入转频调制的第一对边带</td>
+<td style="text-align:right">285、315 Hz</td>
+<td style="text-align:right">19、21</td>
+<td>300±15 Hz</td>
+</tr>
+<tr>
+<td>第二次啮合谐波</td>
+<td style="text-align:right">600 Hz</td>
+<td style="text-align:right">40</td>
+<td>可继续检查其附近同间距边带</td>
+</tr>
+</tbody>
+</table>
+<p>300 Hz 有峰本身并不说明坏齿轮，正常齿轮也会产生啮合激励。更有价值的是对照相同负载的基线，看啮合谐波、边带、时域冲击及其转速跟随关系怎样变化。</p>
+<h3 id="边带的间距说明调制周期，不直接说明故障类型">边带的间距说明调制周期，不直接说明故障类型</h3>
+<p>将 300 Hz 的载波看作被 5 Hz 的周期变化调制，最简单的幅度调制模型为：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mi>A</mi><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">[</mo><mn>1</mn><mo>+</mo><mi>m</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><msub><mi>f</mi><mi>m</mi></msub><mi>t</mi><mo stretchy="false">)</mo><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">]</mo><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><msub><mi>f</mi><mrow><mi>m</mi><mi>e</mi><mi>s</mi><mi>h</mi></mrow></msub><mi>t</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">x(t)=A\bigl[1+m\cos(2\pi f_mt)\bigr]
+          \cos(2\pi f_{mesh}t).
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord mathnormal">A</span><span class="mopen"><span class="delimsizing size1">[</span></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mclose"><span class="delimsizing size1">]</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">es</span><span class="mord mathnormal mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span></p>
+<p>展开后出现 <code>fmesh</code> 和 <code>fmesh±fm</code>，所以 fm=5 Hz 就得到 295、305 Hz。偏心、传递误差、局部齿面损伤和周期负载，都可能调制啮合振动；真实系统还可能包含相位调制、多个调制源和更多边带。<a target="_blank" rel="noopener" href="https://www.bksv.com/de/knowledge/blog/vibration/using-vibration-measurements">B&amp;K 的振动测量说明</a>给出了啮合频率及其谐波周围的转频间隔边带关系。</p>
+<p>若 295、305 Hz 在相同工况下增长，且随输出转速保持 ±1 输出阶次间距，可将注意力集中到与输出周期相关的因素。随后检查输出齿轮偏心、齿面、负载变化与同步时域信号；不能仅凭这两条边带宣布“输出齿轮某个齿已经损坏”。</p>
+<h3 id="齿轮间隙为什么可能造成撞击">齿轮间隙为什么可能造成撞击</h3>
+<p>齿侧间隙是装配和运行设计的一部分，不能把“有间隙”直接定义为缺陷。但间隙、时变啮合刚度与扭矩波动共同作用时，齿面可能脱离，再次接触时发生冲击；轻载、扭矩换向或某些共振工况下尤其需要观察接触状态。</p>
+<p>这时系统不再只是线性正弦响应：时域可能出现尖峰，频谱可能包含宽带、谐波或分数阶，升速与降速响应也可能不同。关于齿隙导致接触丢失及分段刚度，可参考 Litak 与 Friswell 的<a target="_blank" rel="noopener" href="https://arxiv.org/abs/nlin/0302050">齿轮非线性振动研究</a>。这些现象构成候选机制，并不从一张频谱反推唯一参数值。</p>
+<p>验证应同时核对齿侧间隙实测、齿面接触印迹、装配中心距、轴承与支承状态、润滑及扭矩变化。措施按设计允差与热态条件决定；简单把间隙调到零，可能造成热胀后的卡滞和额外载荷。</p>
+<h3 id="用分辨率和同步平均补齐证据">用分辨率和同步平均补齐证据</h3>
+<p>为了观察 5 Hz 边带，本例采用 5120 Hz、8192 点的稳态记录时，基础格点间隔为 0.625 Hz。选用 Hann 窗并做一致幅值标度，保存原始波形，检查 300 Hz 与 600 Hz 周围 ±5、±15 Hz 的相对变化。</p>
+<p>用输出轴转角作基准，将多转信号对齐并平均，能够突出与输出每转同步的部分，观察冲击是否反复出现在相同角位置。与参考角度不同步的信号通常会被减弱；平均后的信号也不能直接替代原始波形中的偶发冲击证据。</p>
+<h2 id="八、现象、证据、验证与措施要一起写">八、现象、证据、验证与措施要一起写</h2>
+<p>下面是排查矩阵，列出的都是候选机制。措施建立在验证结果上，不能从“现象”一列直接跳到更换零件。</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>需要补充的证据</th>
+<th>怎样验证</th>
+<th>验证后考虑的措施</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>径向 1 阶升高</td>
+<td>多测点幅相、转速趋势、转子状态</td>
+<td>排除共振和支承变化，核对转子并执行合适平衡验证</td>
+<td>清理附着物、纠正装配、平衡转子</td>
+</tr>
+<tr>
+<td>联轴器附近 1、2 阶与轴向振动升高</td>
+<td>两侧同步相位、冷/热态轴线、温升</td>
+<td>对中测量、软脚与管线载荷检查</td>
+<td>对中、处理软脚、修正外部载荷</td>
+</tr>
+<tr>
+<td>多次谐波与冲击</td>
+<td>原始时域、方向差异、连接状态</td>
+<td>排除采集削顶，停机检查连接和配合</td>
+<td>恢复预紧、修复配合或损伤连接</td>
+</tr>
+<tr>
+<td>某转速段突然放大</td>
+<td>Hz–转速图、阶次幅相、空间振型</td>
+<td>升降速对比与模态测试</td>
+<td>调整激励、质量或刚度，增加合适阻尼</td>
+</tr>
+<tr>
+<td>啮合及其谐波的边带增强</td>
+<td>边带间距、转速跟随、负载与角度同步冲击</td>
+<td>检查齿面、偏心、接触印迹和传递关系</td>
+<td>修正装配与润滑，处理已确认损伤</td>
+</tr>
+<tr>
+<td>轻载或换向时撞击</td>
+<td>扭矩、角位置、齿侧间隙、接触状态</td>
+<td>在可比较工况下测间隙和换向响应</td>
+<td>按允差修正间隙、载荷与控制激励</td>
+</tr>
+<tr>
+<td>轴承附近高频冲击与包络成分升高</td>
+<td>实际轴承几何、滑移可能性、带通与载荷</td>
+<td>对照候选 BPFI/BPFO/BSF/FTF、转速趋势与机械检查</td>
+<td>处理确认的润滑、配合或轴承缺陷</td>
+</tr>
+<tr>
+<td>轴振在特定转速段放大</td>
+<td>轴心轨迹、旋转模态、轴承/密封动力特性</td>
+<td>受控升降速与转子动力学模型对照</td>
+<td>修正转子、支承与稳定性设计，调整运行范围</td>
+</tr>
+<tr>
+<td>谐波、分数阶伴随热态突变</td>
+<td>温升、间隙、轴心轨迹、接触位置</td>
+<td>停机检查擦痕与配合，关联热态记录</td>
+<td>消除已确认擦碰，修正间隙与热变形原因</td>
+</tr>
+<tr>
+<td>低速运动忽停忽动或周期尖峰</td>
+<td>相对位移/速度、驱动力、润滑与法向载荷</td>
+<td>联测粘住–滑动过程并核对摩擦模型</td>
+<td>改善摩擦副、润滑、刚度与驱动策略</td>
+</tr>
+<tr>
+<td>某工况下窄带振动自行增长</td>
+<td>模态、负载、增长率、加工纹理或流体状态</td>
+<td>确认反馈失稳及稳定边界</td>
+<td>调整过程参数、阻尼、反馈或稳定性设计</td>
+</tr>
+<tr>
+<td>振动随流量和入口条件变化</td>
+<td>压力脉动、叶片通过频率、流量与气蚀条件</td>
+<td>多通道压力–振动测量和流路检查</td>
+<td>修正流体工况、流路与结构匹配</td>
+</tr>
+<tr>
+<td>供电或驱动相关谱线增强</td>
+<td>电压、电流、供电频率、转差与驱动设置</td>
+<td>电气量与振动同步比较，核对电机状态</td>
+<td>处理确认的供电、磁路或驱动问题</td>
+</tr>
+<tr>
+<td>换采样率后“故障频率”异常移动</td>
+<td>采集滤波、原始频带、安装共振与削顶</td>
+<td>校核测量链，使用正确抗混叠条件复测</td>
+<td>修正测量配置后重新建立基线</td>
+</tr>
+</tbody>
+</table>
+<h2 id="九、一条可重复的排查流程">九、一条可重复的排查流程</h2>
+<ol>
+<li><strong>把异常定义具体。</strong> 写明测点、方向、频带、工况及变化量，例如“输出轴承座垂直加速度 300 Hz 附近的 ±5 Hz 边带，相同负载下连续增长”。</li>
+<li><strong>确认数据可信。</strong> 检查安装、单位、过载、抗混叠、实际记录时长和转速信号；必要时重复采集。</li>
+<li><strong>先看时域，再标频率。</strong> 区分稳态正弦、调制、冲击和瞬态，算出轴频、啮合频率及可解释的候选阶次。</li>
+<li><strong>加入空间与工况证据。</strong> 对比 H/V/A、输入/输出端、底座，比较负载变化、升降速和同步相位。</li>
+<li><strong>写出多个候选与区分条件。</strong> 例如“输出周期调制”下还保留偏心、齿面问题和负载波动，说明下一项检查怎样区分。</li>
+<li><strong>用独立机械检查确认。</strong> 将对中、紧固、间隙、接触印迹、润滑与模态结果关联到数据，形成可解释的原因链。</li>
+<li><strong>按原因实施措施并复测。</strong> 保持相同测点、方向、安装、处理参数与可比工况，核对目标谱线和整体响应是否一起改善。</li>
+</ol>
+<p>维修记录应保存“原始证据 → 候选原因 → 验证结果 → 采取措施 → 相同条件下的复测”。这样才能判断改善来自激励减少、传递路径变化，还是仅仅换了测量方式。</p>
+<p>振动机理、激励与响应的关系可继续读本分类的基础篇；确认原因后的隔振、阻尼与结构修改，应回到对应模型计算其作用频段，再做实测验证。</p>
+
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function renderMermaidBlocks() {
+                        var blocks = Array.from(document.querySelectorAll(
+                            '.post-article-content pre > code.language-mermaid, .post-article-content pre > code.lang-mermaid'
+                        ));
+
+                        if (!blocks.length) {
+                            return;
+                        }
+
+                        blocks.forEach(function (code, index) {
+                            if (code.dataset.mermaidPrepared === 'true') {
+                                return;
+                            }
+
+                            var pre = code.parentElement;
+                            if (!pre) {
+                                return;
+                            }
+
+                            code.dataset.mermaidPrepared = 'true';
+                            var diagram = document.createElement('div');
+                            diagram.className = 'mermaid post-mermaid-diagram';
+                            diagram.id = 'post-mermaid-diagram-' + index;
+                            diagram.textContent = code.textContent.trim();
+                            pre.replaceWith(diagram);
+                        });
+
+                        function startRender() {
+                            if (!window.mermaid) {
+                                return;
+                            }
+
+                            window.mermaid.initialize({
+                                startOnLoad: false,
+                                theme: 'default',
+                                securityLevel: 'strict',
+                                flowchart: {
+                                    useMaxWidth: true,
+                                    htmlLabels: true
+                                }
+                            });
+
+                            window.mermaid.run({
+                                querySelector: '.post-mermaid-diagram'
+                            }).catch(function (error) {
+                                console.error('Mermaid render failed:', error);
+                            });
+                        }
+
+                        if (window.mermaid) {
+                            startRender();
+                            return;
+                        }
+
+                        var script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                        script.defer = true;
+                        script.onload = startRender;
+                        document.head.appendChild(script);
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+                    } else {
+                        renderMermaidBlocks();
+                    }
+                })();
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var contentRoot = document.querySelector('.post-article-content');
+                    var tocNav = document.querySelector('.post-toc-nav');
+                    var backToTopButton = document.querySelector('.post-toc-top-button');
+                    var slugCounts = {};
+                    var makeHeadingId = function (text) {
+                        var base = (text || '')
+                            .trim()
+                            .replace(/\s+/g, '-')
+                            .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '');
+
+                        if (!base) {
+                            base = 'section';
+                        }
+
+                        if (slugCounts[base] == null) {
+                            slugCounts[base] = 0;
+                        } else {
+                            slugCounts[base] += 1;
+                        }
+
+                        return slugCounts[base] ? base + '-' + slugCounts[base] : base;
+                    };
+
+                    if (contentRoot) {
+                        contentRoot.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(function (heading) {
+                            if (!heading.id) {
+                                heading.id = makeHeadingId(heading.textContent);
+                            }
+                        });
+                    }
+
+                    var headings = Array.from(
+                        document.querySelectorAll('.post-article-content h1[id], .post-article-content h2[id], .post-article-content h3[id], .post-article-content h4[id], .post-article-content h5[id], .post-article-content h6[id]')
+                    );
+                    var images = Array.from(document.querySelectorAll('.typo img'));
+
+                    document.querySelectorAll('.typo a[href^="#"]:not(.headerlink)').forEach(function (link) {
+                        var href = link.getAttribute('href');
+                        if (!href || href === '#') {
+                            return;
+                        }
+
+                        var targetId = decodeURIComponent(href.slice(1));
+                        if (targetId && document.getElementById(targetId)) {
+                            return;
+                        }
+
+                        var linkText = link.textContent.trim();
+                        if (!linkText) {
+                            return;
+                        }
+
+                        var matchedHeading = headings.find(function (heading) {
+                            return heading.textContent.trim() === linkText;
+                        });
+
+                        if (matchedHeading && matchedHeading.id) {
+                            link.setAttribute('href', '#' + matchedHeading.id);
+                        }
+                    });
+
+                    if (tocNav && contentRoot) {
+                        var tocHeadings = headings.filter(function (heading) {
+                            var level = parseInt(heading.tagName.slice(1), 10);
+                            return heading.id && level >= 1 && level <= 3;
+                        });
+
+                        if (!tocHeadings.length) {
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            if (tocSidebar) {
+                                tocSidebar.style.display = 'none';
+                            }
+                        } else {
+                            var tocList = document.createElement('ul');
+                            tocList.className = 'post-toc-list';
+                            var baseTocLevel = Math.min.apply(null, tocHeadings.map(function (heading) {
+                                return parseInt(heading.tagName.slice(1), 10);
+                            }));
+
+                            tocHeadings.forEach(function (heading) {
+                                var item = document.createElement('li');
+                                var level = parseInt(heading.tagName.slice(1), 10);
+                                item.className = 'post-toc-item level-' + level;
+                                item.setAttribute('data-depth', String(level - baseTocLevel));
+
+                                var anchor = document.createElement('a');
+                                anchor.className = 'post-toc-link';
+                                anchor.href = '#' + heading.id;
+                                anchor.textContent = heading.textContent.trim();
+                                anchor.setAttribute('data-target-id', heading.id);
+
+                                item.appendChild(anchor);
+                                tocList.appendChild(item);
+                            });
+
+                            tocNav.appendChild(tocList);
+
+                            var tocSidebar = document.querySelector('.post-toc-sidebar');
+                            var tocPanel = tocSidebar.querySelector('.post-toc-card');
+                            tocSidebar.hidden = false;
+                            document.querySelector('.post-content-shell').classList.add('has-post-toc');
+                            document.getElementById('main').classList.add('has-post-toc');
+                            document.getElementById('wrapper').classList.add('has-post-toc');
+
+                            // TOC responsive disclosure: keep this breakpoint in sync with post-toc.css.
+                            var tocWideQuery = window.matchMedia('(min-width: 1180px)');
+                            var syncTocDisclosure = function () {
+                                tocPanel.open = tocWideQuery.matches;
+                            };
+                            syncTocDisclosure();
+                            if (tocWideQuery.addEventListener) {
+                                tocWideQuery.addEventListener('change', syncTocDisclosure);
+                            } else {
+                                tocWideQuery.addListener(syncTocDisclosure);
+                            }
+
+                            var sidebarTocLinks = Array.from(document.querySelectorAll('.post-toc-link'));
+                            var activeTocLink = null;
+                            var activeHeadingId = '';
+
+                            var getScrollY = function () {
+                                return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                            };
+
+                            var keepActiveLinkInView = function (link) {
+                                if (!link || !tocNav) {
+                                    return;
+                                }
+
+                                if (!tocPanel.open) {
+                                    return;
+                                }
+
+                                var navRect = tocNav.getBoundingClientRect();
+                                var linkRect = link.getBoundingClientRect();
+
+                                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                                    tocNav.scrollTop += linkRect.top - navRect.top - (navRect.height / 2) + (linkRect.height / 2);
+                                }
+                            };
+
+                            var updateActiveLink = function (currentId) {
+                                if (!currentId || currentId === activeHeadingId) {
+                                    return;
+                                }
+
+                                activeHeadingId = currentId;
+                                activeTocLink = null;
+
+                                sidebarTocLinks.forEach(function (link) {
+                                    var isActive = link.getAttribute('data-target-id') === currentId;
+                                    link.classList.toggle('is-active', isActive);
+                                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                                    if (isActive) {
+                                        activeTocLink = link;
+                                    }
+                                });
+
+                                keepActiveLinkInView(activeTocLink);
+                            };
+
+                            var ticking = false;
+                            var syncActiveHeading = function () {
+                                if (!tocHeadings.length) {
+                                    return;
+                                }
+
+                                var scrollTop = getScrollY();
+                                var marker = scrollTop + Math.min(window.innerHeight * 0.28, 220);
+                                var currentId = tocHeadings[0].id;
+                                var pageBottom = scrollTop + window.innerHeight;
+                                var documentBottom = Math.max(
+                                    document.body.scrollHeight,
+                                    document.documentElement.scrollHeight
+                                );
+
+                                if (pageBottom >= documentBottom - 4) {
+                                    updateActiveLink(tocHeadings[tocHeadings.length - 1].id);
+                                    return;
+                                }
+
+                                for (var i = 0; i < tocHeadings.length; i += 1) {
+                                    var headingTop = tocHeadings[i].getBoundingClientRect().top + scrollTop;
+                                    if (headingTop <= marker) {
+                                        currentId = tocHeadings[i].id;
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                updateActiveLink(currentId);
+                            };
+
+                            var handleScroll = function () {
+                                if (ticking) {
+                                    return;
+                                }
+
+                                ticking = true;
+                                window.requestAnimationFrame(function () {
+                                    syncActiveHeading();
+                                    ticking = false;
+                                });
+                            };
+
+                            var scheduleResync = function () {
+                                handleScroll();
+                                window.setTimeout(handleScroll, 80);
+                                window.setTimeout(handleScroll, 240);
+                                window.setTimeout(handleScroll, 600);
+                            };
+
+                            sidebarTocLinks.forEach(function (link) {
+                                link.setAttribute('aria-current', 'false');
+                                link.addEventListener('click', function () {
+                                    var targetId = link.getAttribute('data-target-id');
+                                    updateActiveLink(targetId);
+                                    if (!tocWideQuery.matches) {
+                                        tocPanel.open = false;
+                                    }
+                                    scheduleResync();
+                                });
+                            });
+
+                            tocPanel.addEventListener('toggle', function () {
+                                if (tocPanel.open) {
+                                    keepActiveLinkInView(activeTocLink);
+                                }
+                            });
+
+                            window.addEventListener('scroll', handleScroll, { passive: true });
+                            window.addEventListener('resize', scheduleResync, { passive: true });
+                            window.addEventListener('load', scheduleResync, { passive: true });
+                            window.addEventListener('hashchange', scheduleResync, { passive: true });
+                            document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+
+                            if ('ResizeObserver' in window) {
+                                var articleResizeObserver = new ResizeObserver(scheduleResync);
+                                articleResizeObserver.observe(contentRoot);
+                            }
+
+                            images.forEach(function (img) {
+                                img.addEventListener('load', scheduleResync, { passive: true });
+                            });
+
+                            scheduleResync();
+                        }
+                    }
+
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', function () {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+                            });
+                        });
+                    }
+
+                    // Right floating tag sphere is initialized by the standalone script near its markup.
+                    // Keep it separate from article TOC logic so one feature cannot break the other.
+
+                    if (contentRoot) {
+                        var firstElement = contentRoot.firstElementChild;
+                        if (firstElement && /^(UL|OL)$/.test(firstElement.tagName)) {
+                            var inlineTocLinks = Array.from(firstElement.querySelectorAll('a[href^="#"]'));
+                            var totalLinks = firstElement.querySelectorAll('a').length;
+                            if (inlineTocLinks.length > 0 && inlineTocLinks.length === totalLinks) {
+                                firstElement.classList.add('post-inline-toc');
+                            }
+                        }
+                    }
+
+                    images.forEach(function (img) {
+                        // Preserve picture's source selection and native lazy loading.
+                        // CSS background copies would eagerly load/decode GIFs again.
+                        if (img.closest('.post-image-frame, picture') ||
+                            img.getAttribute('loading') === 'lazy' ||
+                            /\.gif(?:[?#]|$)/i.test(img.currentSrc || img.getAttribute('src') || '')) {
+                            return;
+                        }
+
+                        var src = img.getAttribute('src');
+                        if (!src) {
+                            return;
+                        }
+
+                        var frame = document.createElement('div');
+                        frame.className = 'post-image-frame';
+                        frame.style.setProperty('--post-image-url', 'url("' + src.replace(/"/g, '\\"') + '")');
+
+                        var blur = document.createElement('div');
+                        blur.className = 'post-image-blur';
+
+                        var main = document.createElement('div');
+                        main.className = 'post-image-main';
+
+                        img.parentNode.insertBefore(frame, img);
+                        frame.appendChild(blur);
+                        frame.appendChild(main);
+                        main.appendChild(img);
+                    });
+                });
+            </script>
+
+
+
+    </div>
+
+    
+    
+    <section class="post-tags-panel" aria-labelledby="post-tags-title">
+        <div class="post-tags-heading">
+            <div>
+                <p class="post-tags-eyebrow">继续探索</p>
+                <p id="post-tags-title" class="post-tags-title">本文主题与标签</p>
+            </div>
+            <a class="post-tags-all" href="/tags/">查看全部标签 →</a>
+        </div>
+        <div class="post-tag-groups">
+            <div class="post-tag-group post-tag-group--primary" role="group" aria-labelledby="post-primary-topic-title">
+                <div class="post-tag-group-heading">
+                    <p id="post-primary-topic-title" class="post-tag-group-title">主专题</p>
+                    <p class="post-tag-group-hint">先定位知识脉络，再用相关标签交叉检索</p>
+                </div>
+                
+                <a class="post-primary-link" href="/knowledge/vibration/diagnosis/">
+                    <span class="post-primary-marker">主专题</span>
+                    <span class="post-primary-name">02 测量与机械故障诊断</span>
+                    <span class="post-primary-arrow" aria-hidden="true">→</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-tag-group post-tag-group--related" role="group" aria-labelledby="post-related-tags-title">
+                <p id="post-related-tags-title" class="post-tag-group-title">相关标签</p>
+                <div class="tag-chip-list tag-chip-list--related">
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E9%BD%BF%E8%BD%AE/">
+                        <span class="tag-chip-name">齿轮</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD/">
+                        <span class="tag-chip-name">故障诊断</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E9%98%B6%E6%AC%A1%E5%88%86%E6%9E%90/">
+                        <span class="tag-chip-name">阶次分析</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E9%A2%91%E8%B0%B1%E5%88%86%E6%9E%90/">
+                        <span class="tag-chip-name">频谱分析</span>
+                    </a>
+                    
+                    <a class="tag-chip tag-chip--related" href="/tags/%E6%8C%AF%E5%8A%A8/">
+                        <span class="tag-chip-name">振动</span>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+
+
+
+<div align="center"> 
+    <li id="footer-info-copyright">网站内容采用<a class="external" rel="nofollow noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU自由文档许可证3或更高版本</a>授权</li> <img src="/img/licenses/cc-by-nc-sa-3.0-88x31.png" alt="知识共享许可协议" width="88" height="31" loading="lazy" decoding="async">
+
+
+
+        </div>
+    </div>
+	
+	<script src="/js/reading-progress.js?v=20260830-1"></script>
+	
+</body>
+
+
+</html>

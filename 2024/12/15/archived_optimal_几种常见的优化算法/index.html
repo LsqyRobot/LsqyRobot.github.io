@@ -662,17 +662,6 @@ H=\begin{bmatrix}1&amp;0\\0&amp;4\end{bmatrix}
 <p>凸性有力的结论是：<strong>凸优化问题的局部最优解也是全局最优解</strong>。但凸性本身不保证最优解一定存在。例如 <code>min exp(x)</code> 的下确界是 <code>0</code>，却没有有限的 <code>x</code> 能取到它。问题还可能不可行或无界。</p>
 <p>对于光滑无约束凸问题，梯度为零能证明该点全局最优；对于一般非凸问题，梯度为零只说明驻点。经典例子 <code>f(x) = x³</code> 在 <code>x = 0</code> 的导数也是零，但这里并没有局部最小值。</p>
 <p>约束凸问题在适当条件下可以用 KKT 条件刻画最优性；强对偶与必要性还需要关注相应的正则性条件。实际使用求解器时，应一起查看退出状态、残差、约束违反程度和问题假设，而不是只读取最后一个参数向量。</p>
-<h2 id="9-三个带答案检查的练习">9. 三个带答案检查的练习</h2>
-<ol>
-<li>保持 <code>f(x) = ½(x − 3)²</code>，把步长改成 <code>1.5</code>，手算前三步；为什么虽然跨过谷底，仍然收敛？</li>
-<li>保持步长 <code>0.5</code>，把函数改成 <code>5(x − 3)²</code>。只改函数、不改梯度会有什么问题？把梯度也改正确后会发生什么？</li>
-<li>给原函数增加 <code>0 ≤ x ≤ 2</code> 的约束。最优点梯度不为零，为什么仍不能继续降低目标？</li>
-</ol>
-<details>
-<summary>展开检查结果</summary>
-<p>第一题得到 <code>0 → 4.5 → 2.25 → 3.375</code>，误差每次乘以 <code>−0.5</code>，方向交替而绝对值缩小。第二题正确梯度应为 <code>10(x − 3)</code>；若仍用旧梯度，代码与声明的问题不一致。正确更新的误差因子为 <code>1 − 0.5 × 10 = −4</code>，因此从该起点发散。第三题最优点是边界 <code>2</code>，向右才能继续下降，但向右会违反约束。</p>
-</details>
-<p>继续学习时，可先把下载代码中的固定迭代次数改成“梯度容差加最大步数”，分别记录“收敛”“预算耗尽”“数值异常”。再实现一维回溯线搜索，对比同一初值下每种策略需要的函数求值次数。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://web.stanford.edu/~boyd/cvxbook/">Boyd 与 Vandenberghe 的凸优化教材及配套资料</a>；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1412.6980">Adam 原始论文</a>。</p>
 <p>返回 <a href="/2026/10/04/data_structures_algorithms_learning_path/">数据结构与算法学习路线</a>。</p>
 

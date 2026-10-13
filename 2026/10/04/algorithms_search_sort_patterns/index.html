@@ -397,7 +397,7 @@
                 </aside>
 
                 <div class="typo post-article-content">
-                    <p>算法不只是一个函数名。它首先规定输入满足什么条件，然后定义每一步如何改变状态，最后说明为什么停止时就是答案。本篇用三个问题练习这个思路：找第一个不小于目标的数；把无序记录排好；用最少硬币凑出金额。</p>
+                    <p>算法不只是一个函数名。它首先规定输入满足什么条件，然后定义每一步如何改变状态，最后说明为什么停止时就是答案。本篇用三个案例说明这个思路：找第一个不小于目标的数；把无序记录排好；用最少硬币凑出金额。</p>
 <p>每节先观察数据变化，再穿插不变量、复杂度和边界条件。配套<a href="/downloads/code/data_structure_lab/algorithms.cpp">完整 C++17 程序</a>包含独立对照测试；<a href="/2026/10/04/data_structures_algorithms_learning_path/">学习路线</a>说明运行方式。</p>
 <span id="more"></span>
 <link rel="stylesheet" href="/css/data-algorithms.css">
@@ -421,7 +421,7 @@
 <p>二分的前提不是“拿到一个数组”，而是满足相应比较条件的分区。这里使用升序排列的 vector，既满足前提，又能 O(1) 到达 mid，因此总查找成本 O(log n)，额外空间 O(1)。</p>
 <p>如果只查询一次无序数组，先花 O(n log n) 排序再二分，未必优于一次 O(n) 顺序扫描。若数据保持有序并要反复查询，二分的价值才会逐渐体现。</p>
 <p>通用 <code>std::lower_bound</code> 可以接收前向迭代器，但在链表上移动到中点并非常数成本：比较次数仍是对数级，迭代器递增总数可能线性。使用有序树容器时优先调用它自己的 <code>lower_bound</code> 成员函数。相关前提和复杂度可核对 <a target="_blank" rel="noopener" href="https://eel.is/c++draft/alg.binary.search">C++ 标准草案 binary.search</a>。</p>
-<p><strong>练习</strong>：把目标改为 4，答案是多少？答案是 3：此处的 5 是第一个不小于 4 的值；“返回了一个位置”并不意味着目标存在。</p>
+<p>目标为 4 时返回下标 3：此处的 5 是第一个不小于 4 的值；“返回了一个位置”并不意味着目标存在。</p>
 <h2 id="二、插入排序：让有序区域每次长一格">二、插入排序：让有序区域每次长一格</h2>
 <p>待排序序列 <code>[5,2,4,1]</code>。先把第一个元素看成已经排好，后面逐个取出，插入前面的有序区域。</p>
 <p class="learning-figure" tabindex="0"><img src="/img/postImg/data_algorithms/sorting.svg" alt="插入排序保留 key，把较大的前缀元素向右移动" loading="lazy" decoding="async"></p>
@@ -559,7 +559,7 @@ dp[x]=\min_{\substack{c\in C\\c\le x\\dp[x-c]\ne\infty}}
 <p>当某个候选改进 <code>dp[x]</code> 时，另存 <code>last[x]=c</code>。从目标开始，反复输出 last[x]，再令 x-=last[x]，直到 x=0，就得到一个最优方案。相同最少枚数可能有不同组合，此实现返回其中之一。</p>
 <p>完整代码用 <code>std::optional</code> 区分“不可达”和“合法的 0 枚”。<code>C=[4,6], amount=5</code> 返回不可达；空面值集合和金额 0 返回空方案。拒绝负目标、非正面值；金额过大时直接给出输入限制错误，避免示例无限分配内存。不可达的标记不参与 <code>INF+1</code> 运算，防止溢出。</p>
 <p>面值种类数为 m，金额为 A，时间 O(mA)，空间 O(A)。这相对于 A 的数值线性；如果按输入金额的二进制位数衡量，它属于伪多项式时间。金额非常大时不能只看到“线性”就认为一定高效。</p>
-<p><strong>练习</strong>：用 <code>[2,5]</code> 凑 6。答案 3 枚 2；凑 3 则不可达。改成“每枚只用一次”后，原先的递推实现不能直接照搬。</p>
+<p>使用 <code>[2,5]</code> 时，金额 6 的答案是 3 枚 2，金额 3 则不可达。若改成“每枚只用一次”，状态与更新顺序也需要改变，见<a href="/2026/10/13/algorithms_dynamic_programming_states/">动态规划的状态与恢复</a>。</p>
 <h2 id="四、把三个算法放到同一个框架里">四、把三个算法放到同一个框架里</h2>
 <table>
 <thead>
@@ -594,6 +594,7 @@ dp[x]=\min_{\substack{c\in C\\c\le x\\dp[x-c]\ne\infty}}
 <p>再回看<a href="/2026/08/11/cpp_common_data_structures_visual_guide/">结构篇中的 BFS</a>，也可以从同样角度理解：状态是已发现集合、队列和距离；每轮处理一个顶点，发现未访问的邻居。无权图按层展开，第一次到达就是最短边数；有不同边权时不能直接沿用这个结论。</p>
 <p>本篇程序用标准库校验 lower_bound，用带身份的记录校验稳定性，用“金额图上的 BFS”独立校验小规模硬币结果。测试不是把同一份递推再抄一遍，而是用另一种方法寻找反例。</p>
 <script type="module" src="/js/data-algorithms/demo.mjs"></script>
+<p>继续阅读：<a href="/2026/10/13/algorithms_sequence_patterns/">序列处理</a>、<a href="/2026/10/13/algorithms_search_backtracking_greedy/">分治、回溯与贪心</a>、<a href="/2026/10/13/algorithms_dynamic_programming_states/">动态规划</a>、<a href="/2026/10/13/algorithms_graph_paths/">图算法</a>。</p>
 
                 </div>
             </div>
@@ -998,7 +999,7 @@ dp[x]=\min_{\substack{c\in C\\c\le x\\dp[x-c]\ne\infty}}
                 
                 <a class="post-primary-link" href="/knowledge/data-algorithms/algorithms/">
                     <span class="post-primary-marker">主专题</span>
-                    <span class="post-primary-name">04 查找、排序与动态规划</span>
+                    <span class="post-primary-name">04–08 算法设计与应用</span>
                     <span class="post-primary-arrow" aria-hidden="true">→</span>
                 </a>
                 

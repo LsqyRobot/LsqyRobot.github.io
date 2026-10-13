@@ -433,7 +433,7 @@
 </tbody>
 </table>
 <p>本文的实现<strong>不设置哨兵</strong>，用“指向拥有者的指针”统一处理头部和中间的操作。理解算法时，仍可以先按普通箭头来推演；所有权的细节在第 6 节解释。</p>
-<p>下面的交互演示逐步展示插入过程；后面的静态图继续展示删除和反转。每一步先观察链接变化，再对照代码；即使不运行脚本，也能按图完成练习。</p>
+<p>下面的交互演示逐步展示插入过程；后面的静态图继续展示删除和反转。每一步先观察链接变化，再对照代码；静态图也保留了完整的链接变化过程。</p>
 <div class="algorithm-demo" data-demo="linked"></div>
 <script type="module" src="/js/data-algorithms/demo.mjs"></script>
 <h2 id="2-插入-15：先接住后半段，再改前驱">2. 插入 15：先接住后半段，再改前驱</h2>
@@ -659,17 +659,6 @@
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">访问前： [C] ⇄ [B] ⇄ [A]</span><br><span class="line">访问 B： [B] ⇄ [C] ⇄ [A]   // 哈希表找到 B，移到头部</span><br><span class="line">加入 D： [D] ⇄ [B] ⇄ [C]   // 超容量，淘汰尾部 A</span><br></pre></td></tr></table></figure>
 <p>仅有双向链表时，按 key 找 <code>B</code> 仍要扫描。常见组合是 <code>std::unordered_map&lt;Key, std::list&lt;Entry&gt;::iterator&gt;</code> 加 <code>std::list&lt;Entry&gt;</code>：哈希表查位置，链表保存使用顺序，命中后用同一链表内的单节点 <code>splice</code> 移到头部。这个 <code>splice</code> 是常数时间，并保持被移动节点的迭代器有效。<a target="_blank" rel="noopener" href="https://eel.is/c++draft/list.ops">C++ 草案：list 操作</a></p>
 <p>这样可以获得<strong>平均 <code>O(1)</code></strong> 的查询及更新；哈希表的最坏情况仍可能是线性，不能写成无条件最坏 <code>O(1)</code>。淘汰节点时要同步删除哈希表中的记录；容量为 <code>0</code>、已有 key 的更新、删除后悬空迭代器和并发访问也需要单独处理。哈希容器本身的复杂度边界可查 <a target="_blank" rel="noopener" href="https://eel.is/c++draft/unord.req">C++ 草案：无序关联容器要求</a>。</p>
-<h2 id="9-不看答案，手动完成三次改链">9. 不看答案，手动完成三次改链</h2>
-<ol>
-<li>在 <code>10 → 15 → 30</code> 前插入 <code>5</code>：先画出新节点的 <code>next</code>，再画新的 <code>head</code>。</li>
-<li>删除 <code>10 → 15 → 30</code> 的尾部：找到需要修改的拥有者，确认它最后变成空。</li>
-<li>反转 <code>1 → 2 → 3 → 4</code>：每一轮分别写出已反转前缀和未处理后缀，确认四个节点始终全部出现。</li>
-</ol>
-<details>
-<summary>展开检查思路</summary>
-<p>前插时 <code>5.next</code> 先接住 <code>10</code>，再让 <code>head</code> 指向 <code>5</code>。尾删时修改的是节点 <code>15</code> 的 <code>next</code>；被删除的 <code>30</code> 已经没有后继。反转四轮后的前缀依次为 <code>1</code>、<code>2 → 1</code>、<code>3 → 2 → 1</code>、<code>4 → 3 → 2 → 1</code>，未处理后缀每轮缩短一个节点。</p>
-</details>
-<p>继续练习时，先实现 <code>find(value)</code> 并明确“没找到”的返回方式，再尝试增加尾指针优化 <code>append</code>。为新增尾指针写下至少三个不变量：空表时它为空；非空表时它指向最后一个节点；最后一个节点的 <code>next</code> 为空。随后补上删除最后一个节点、反转、清空后的测试。</p>
 <p>返回 <a href="/2026/10/04/data_structures_algorithms_learning_path/">学习路线</a>，或继续看 <a href="/2026/10/04/algorithms_search_sort_patterns/">查找、排序与算法模式</a>。</p>
 
                 </div>
